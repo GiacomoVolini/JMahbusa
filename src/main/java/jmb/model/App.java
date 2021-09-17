@@ -1,4 +1,4 @@
-package org.example;
+package jmb.model;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

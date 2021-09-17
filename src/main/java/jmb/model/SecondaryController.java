@@ -1,4 +1,4 @@
-package org.example;
+package jmb.model;
 
 import java.io.IOException;
 import javafx.fxml.FXML;

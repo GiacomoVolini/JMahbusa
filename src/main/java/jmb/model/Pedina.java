@@ -3,10 +3,12 @@ package jmb.model;
 public class Pedina {
 
     private boolean isWhite;
-    private boolean isBlocked;
+    private boolean isBlockedW;
+    private boolean isBlockedB;
 
-public Pedina (boolean isBlocked, boolean isWhite) {
-    this.isBlocked = isBlocked;
+public Pedina (boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
+    this.isBlockedW = isBlockedW;
+    this.isBlockedB = isBlockedB;
     this.isWhite = isWhite;
 
 }
@@ -14,11 +16,20 @@ public Pedina (boolean isBlocked, boolean isWhite) {
     public boolean getisWhite() {
         return isWhite;
     }
-    public boolean getisBlocked(){
-        return isBlocked;
+    public boolean getisBlockedW() {
+        return isBlockedW;
     }
 
-    public void setisBlocked(boolean isBlocked) {
-        this.isBlocked = isBlocked;
+    public boolean getisBlockedB() {
+        return isBlockedB;
     }
+
+    public void setisBlockedW(boolean isBlockedW) {
+        this.isBlockedW = isBlockedW;
+    }
+
+    public void setisBlockedB(boolean isBlockedB) {
+        this.isBlockedB = isBlockedB;
+    }
+
 }

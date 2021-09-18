@@ -2,7 +2,7 @@ package jmb.model;
 
 public class Tabllone {
 
-    Pedina caselle[][]= new Pedina[16][25];
+    Pedina [][] caselle= new Pedina[16][25];
     private boolean WhiteExit;
     private boolean BlackExit;
     private boolean WhiteTurn;
@@ -20,5 +20,12 @@ public class Tabllone {
               possibile = false;
         }
         return possibile;
+    }
+
+    public void spostaPedina(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
+        if(mossaPossibile(puntaInizC, puntaInizR, puntaFinR, puntaFinC)){
+            caselle [puntaFinR][puntaFinC]= caselle[puntaInizR][puntaInizC];
+            caselle[puntaInizR][puntaInizC]= null;
+        }
     }
 }

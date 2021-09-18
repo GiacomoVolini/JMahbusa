@@ -8,8 +8,8 @@ public class Pedina {
 
     public Pedina (boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
         this.isBlockedW = isBlockedW;
-      this.isBlockedB = isBlockedB;
-      this.isWhite = isWhite;
+        this.isBlockedB = isBlockedB;
+        this.isWhite = isWhite;
 
     }
 

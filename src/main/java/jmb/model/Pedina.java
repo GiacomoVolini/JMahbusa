@@ -6,12 +6,12 @@ public class Pedina {
     private boolean isBlockedW;
     private boolean isBlockedB;
 
-public Pedina (boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
-    this.isBlockedW = isBlockedW;
-    this.isBlockedB = isBlockedB;
-    this.isWhite = isWhite;
+    public Pedina (boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
+        this.isBlockedW = isBlockedW;
+        this.isBlockedB = isBlockedB;
+        this.isWhite = isWhite;
 
-}
+    }
 
     public boolean getisWhite() {
         return isWhite;

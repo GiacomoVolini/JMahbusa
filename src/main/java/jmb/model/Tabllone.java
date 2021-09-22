@@ -1,4 +1,5 @@
 package jmb.model;
+import static jmb.ConstantsClass.*;
 
 public class Tabllone {
 
@@ -7,9 +8,17 @@ public class Tabllone {
     private boolean BlackExit;
     private boolean WhiteTurn;
 
-public Tabllone (){
+
+
+    public Tabllone (){
+
     this.BlackExit = false;
     this.WhiteExit = false;
+
+
+  /* TODO for (int i=0; i<=14;i++){
+        caselle [i][COL_WHITE]= new Pedina()
+    }} */
 }
 
     public boolean mossaPossibile(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){

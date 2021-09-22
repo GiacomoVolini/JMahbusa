@@ -16,10 +16,12 @@ public class Tabllone {
     this.WhiteExit = false;
 
 
-  /* TODO for (int i=0; i<=14;i++){
-        caselle [i][COL_WHITE]= new Pedina()
-    }} */
-}
+   for (int i=0; i<=14;i++){
+        caselle [i][COL_WHITE]= new Pedina(false, true, true);
+        caselle [i][COL_BLACK]= new Pedina(true, false, false);
+       }
+    }
+
 
     public boolean mossaPossibile(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
 

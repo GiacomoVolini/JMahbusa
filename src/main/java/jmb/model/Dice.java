@@ -45,7 +45,6 @@ public class Dice {
             this.dice[3]=this.dice[2]=0;
             this.used[3]=this.used[2]=true;
         }
-        //TODO for int
     }
 
     //METODI GETTER E SETTER

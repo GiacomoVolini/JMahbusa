@@ -75,9 +75,9 @@ public class Dice {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;
         } while (this.dice[0] == this.dice[1]);
-        boolean WhiteBegins = this.dice[0] > this.dice[1];
+        boolean whiteBegins = this.dice[0] > this.dice[1];
 
-        return WhiteBegins;
+        return whiteBegins;
 
     }
 

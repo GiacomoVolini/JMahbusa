@@ -3,8 +3,8 @@ package jmb.model;
 public class Pedina {
 
     private boolean isWhite;
-    private boolean isBlockedW;
-    private boolean isBlockedB;
+    private boolean isBlockedW;     //Se true il bianco non può piazzare pedine sopra di questa
+    private boolean isBlockedB;     //Se true il nero non può piazzare pedine sopra di questa
 
     public Pedina (boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
         this.isBlockedW = isBlockedW;

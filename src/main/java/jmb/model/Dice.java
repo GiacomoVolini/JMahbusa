@@ -26,7 +26,7 @@ public class Dice {
 
     //---------------------------------------------
 
-    public void TossDice() {
+    public void tossDice() {
 
         // Assegna un valore da 1 a 6 ai dadi 0 e 1, controlla se i risultati sono uguali e assegna
         // di conseguenza lo stato di tiro doppio e i valori corretti ai dadi 2 e 3
@@ -45,7 +45,7 @@ public class Dice {
             this.dice[3]=this.dice[2]=0;
             this.used[3]=this.used[2]=true;
         }
-
+        //TODO for int
     }
 
     //METODI GETTER E SETTER
@@ -58,6 +58,10 @@ public class Dice {
         return this.used[i];
     }
 
+    public int getSum() {
+        return this.sum;
+    }
+
     public void setUsed(int i, boolean used) {
         this.used[i] = used;
     }
@@ -68,12 +72,11 @@ public class Dice {
 
         //Determina quale dei due giocatori effettuerà il primo turno
 
-        boolean WhiteBegins;
         do {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;
         } while (this.dice[0] == this.dice[1]);
-        WhiteBegins = this.dice[0] > this.dice[1];
+        boolean WhiteBegins = this.dice[0] > this.dice[1];
 
         return WhiteBegins;
 

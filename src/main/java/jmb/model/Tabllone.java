@@ -3,7 +3,7 @@ import static jmb.ConstantsClass.*;
 
 public class Tabllone {
 
-    Pedina [][] caselle= new Pedina[16][25];
+    Pedina[][] caselle= new Pedina[16][25];
     private boolean whiteExit;
     private boolean blackExit;
     private boolean whiteTurn;
@@ -11,7 +11,7 @@ public class Tabllone {
 
 
 
-    public Tabllone (){
+    public Tabllone(){
 
     this.blackExit = false;
     this.whiteExit = false;

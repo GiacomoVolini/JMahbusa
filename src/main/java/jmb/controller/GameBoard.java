@@ -219,7 +219,7 @@ public class GameBoard {
                 polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/12)));
                 polArrayTop[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/12), 0d,
-                        (i*(boardRect.getWidth()/12)+(boardRect.getWidth()/24)), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+                        (boardRect.getWidth()/24), boardRect.getY()+regArrayTop[i].getPrefHeight() );
                 /*point_1.setLayoutX(boardRect.getLayoutX());
                 point_1.getPoints().setAll(0d, 0d,
                         boardRect.getWidth(), 0d,

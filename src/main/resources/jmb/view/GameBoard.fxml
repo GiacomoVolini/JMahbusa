@@ -24,18 +24,18 @@
       <Polygon fx:id="point_15" fill="DODGERBLUE" layoutX="791.0" layoutY="684.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="point_14" fill="DODGERBLUE" layoutX="841.0" layoutY="684.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" stroke="BLACK" strokeType="INSIDE" />
       <Polygon fx:id="point_13" fill="DODGERBLUE" layoutX="891.0" layoutY="684.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_1" fill="DODGERBLUE" layoutX="342.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_2" fill="DODGERBLUE" layoutX="391.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_3" fill="DODGERBLUE" layoutX="441.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_4" fill="DODGERBLUE" layoutX="491.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_5" fill="DODGERBLUE" layoutX="541.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_6" fill="DODGERBLUE" layoutX="591.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_7" fill="DODGERBLUE" layoutX="641.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_8" fill="DODGERBLUE" layoutX="691.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_9" fill="DODGERBLUE" layoutX="741.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_10" fill="DODGERBLUE" layoutX="791.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_11" fill="DODGERBLUE" layoutX="841.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-      <Polygon fx:id="point_12" fill="DODGERBLUE" layoutX="891.0" layoutY="361.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_1" fill="DODGERBLUE" layoutX="342.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_2" fill="DODGERBLUE" layoutX="391.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_3" fill="DODGERBLUE" layoutX="441.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_4" fill="DODGERBLUE" layoutX="491.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_5" fill="DODGERBLUE" layoutX="541.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_6" fill="DODGERBLUE" layoutX="591.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_7" fill="DODGERBLUE" layoutX="641.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_8" fill="DODGERBLUE" layoutX="691.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_9" fill="DODGERBLUE" layoutX="741.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_10" fill="DODGERBLUE" layoutX="791.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_11" fill="DODGERBLUE" layoutX="841.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
+      <Polygon fx:id="point_12" fill="DODGERBLUE" layoutX="891.0" layoutY="361.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" />
       <Region fx:id="point_1_R" layoutX="292.0" layoutY="124.0" prefHeight="277.0" prefWidth="50.0" />
       <Region fx:id="point_2_R" layoutX="342.0" layoutY="124.0" prefHeight="277.0" prefWidth="50.0" />
       <Region fx:id="point_3_R" layoutX="392.0" layoutY="124.0" prefHeight="277.0" prefWidth="50.0" />

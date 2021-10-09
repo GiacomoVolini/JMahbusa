@@ -2,6 +2,10 @@ package jmb.model;
 
 import java.util.Random;
 
+/**
+ * Classe che gestisce la logica dei dadi
+ */
+
 public class Dice {
 
     private int[] dice = new int[4];            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio

@@ -212,16 +212,18 @@ public class GameBoard {
             //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
             outerRect.setLayoutX(window.getWidth()/3);
             outerRect.setWidth(window.getWidth()/3);
+          
+           // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
 
-            boardRect.setLayoutX;
-            boardRect.setWidth;
+            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
+            boardRect.setWidth((outerRect.getWidth()*0.8));
 
             //Ridimensiona il separatore tra le due metà dell'area di gioco
             //in funzione della sua effettiva dimensione
             separator.setWidth(boardRect.getWidth()/13);
             separator.setLayoutX(boardRect.getLayoutX() + ((boardRect.getWidth() - separator.getWidth())/2));
 
-            /*for (int i=0; i<12; i++) {
+           /*for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth())));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/12);
@@ -251,11 +253,16 @@ public class GameBoard {
             outerRect.setLayoutY((window.getHeight())/3);
             outerRect.setHeight((window.getHeight())/3);
 
+
+            // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+
+            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
+            boardRect.setHeight((outerRect.getHeight()*0.8));
+
             //Ridimensiona il separatore tra le due metà dell'area di gioco
             //in funzione della sua effettiva dimensione
             separator.setHeight(boardRect.getHeight());
             separator.setLayoutY(boardRect.getLayoutY());
-
 
 
             /*for (int i=0; i<12; i++) {

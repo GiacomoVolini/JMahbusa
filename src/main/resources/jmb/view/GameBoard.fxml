@@ -12,7 +12,7 @@
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.controller.GameBoard">
    <children>
       <Rectangle fx:id="outerRect" fill="DODGERBLUE" height="733.0" layoutX="221.0" layoutY="81.0" stroke="BLACK" strokeType="INSIDE" width="733.0" />
-      <Rectangle fx:id="boardRect" fill="#fbfdff" height="600.0" layoutX="263.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="649.0" />
+      <Rectangle fx:id="boardRect" fill="#141414" height="600.0" layoutX="263.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="649.0" />
       <Rectangle fx:id="separator" fill="DODGERBLUE" height="664.0" layoutX="563.0" layoutY="117.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="49.0" />
       <Polygon fx:id="point_24" fill="#1fd7ff" layoutX="313.0" layoutY="708.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Polygon fx:id="point_23" fill="#1fd7ff" layoutX="363.0" layoutY="708.0" points="-50.0, 40.0, 0.0, 40.0, -25.0, -237.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />

@@ -207,6 +207,11 @@ public class GameBoard {
             outerRect.setLayoutX((window.getWidth())/3);
             outerRect.setWidth((window.getWidth())/3);
 
+            // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+
+            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
+            boardRect.setWidth((outerRect.getWidth()*0.8));
+
             /*for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth())));
@@ -233,6 +238,13 @@ public class GameBoard {
         window.heightProperty().addListener((obs, oldVal, newVal) -> {
             outerRect.setLayoutY((window.getHeight())/3);
             outerRect.setHeight((window.getHeight())/3);
+
+            // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+
+            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
+            boardRect.setHeight((outerRect.getHeight()*0.8));
+
+
             /*for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutY(boardRect.getLayoutY());

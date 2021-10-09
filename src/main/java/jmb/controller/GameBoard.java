@@ -189,6 +189,9 @@ public class GameBoard {
     @FXML
     private Text timerLBL;
 
+    // Si creano degli array di Polygon e Region per gestire in maniera più agevole il
+    //   ridimensionamento dinamico delle componenti
+
     protected Polygon[] polArrayTop;
     protected Polygon[] polArrayBot;
 
@@ -201,18 +204,26 @@ public class GameBoard {
                       this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12};
         this.regArrayTop = new Region[] {this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
                      this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R};
+
+
+        //LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> {
 
-
-            outerRect.setLayoutX((window.getWidth())/3);
-            outerRect.setWidth((window.getWidth())/3);
-
-            // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+            //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
+            outerRect.setLayoutX(window.getWidth()/3);
+            outerRect.setWidth(window.getWidth()/3);
+          
+           // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
 
             boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
             boardRect.setWidth((outerRect.getWidth()*0.8));
 
-            /*for (int i=0; i<12; i++) {
+            //Ridimensiona il separatore tra le due metà dell'area di gioco
+            //in funzione della sua effettiva dimensione
+            separator.setWidth(boardRect.getWidth()/13);
+            separator.setLayoutX(boardRect.getLayoutX() + ((boardRect.getWidth() - separator.getWidth())/2));
+
+           /*for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth())));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/12);
@@ -235,14 +246,23 @@ public class GameBoard {
 
         });
 
+        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> {
+
+            //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
             outerRect.setLayoutY((window.getHeight())/3);
             outerRect.setHeight((window.getHeight())/3);
+
 
             // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
 
             boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
             boardRect.setHeight((outerRect.getHeight()*0.8));
+
+            //Ridimensiona il separatore tra le due metà dell'area di gioco
+            //in funzione della sua effettiva dimensione
+            separator.setHeight(boardRect.getHeight());
+            separator.setLayoutY(boardRect.getLayoutY());
 
 
             /*for (int i=0; i<12; i++) {

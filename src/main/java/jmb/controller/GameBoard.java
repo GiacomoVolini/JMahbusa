@@ -212,8 +212,8 @@ public class GameBoard {
             //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
             outerRect.setLayoutX(window.getWidth()/3);
             outerRect.setWidth(window.getWidth()/3);
-          
-           // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+
+            //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
             boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
             boardRect.setWidth((outerRect.getWidth()*0.8));
@@ -223,7 +223,7 @@ public class GameBoard {
             separator.setWidth(boardRect.getWidth()/13);
             separator.setLayoutX(boardRect.getLayoutX() + ((boardRect.getWidth() - separator.getWidth())/2));
 
-           /*for (int i=0; i<12; i++) {
+           for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth())));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/12);
@@ -242,7 +242,7 @@ public class GameBoard {
                         (boardRect.getWidth()/24), boardRect.getY()+regArrayTop[i].getPrefHeight() );
             }
 
-             */
+
 
         });
 
@@ -254,18 +254,18 @@ public class GameBoard {
             outerRect.setHeight((window.getHeight())/3);
 
 
-            // Ridimensione il rettangolo interno in base alle diminsione di quello esterno
+            //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
             boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
             boardRect.setHeight((outerRect.getHeight()*0.8));
 
             //Ridimensiona il separatore tra le due metà dell'area di gioco
             //in funzione della sua effettiva dimensione
-            separator.setHeight(boardRect.getHeight());
-            separator.setLayoutY(boardRect.getLayoutY());
+            separator.setHeight(boardRect.getHeight()+2);
+            separator.setLayoutY(boardRect.getLayoutY()-1);
 
 
-            /*for (int i=0; i<12; i++) {
+            for (int i=0; i<12; i++) {
 
                 regArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
@@ -285,7 +285,7 @@ public class GameBoard {
 
             }
 
-             */
+
         });
 
     }

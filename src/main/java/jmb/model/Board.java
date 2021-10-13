@@ -1,5 +1,5 @@
 package jmb.model;
-import static jmb.ConstantsClass.*;
+import static jmb.model.ConstantsModel.*;
 
 /** La classe Board gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco

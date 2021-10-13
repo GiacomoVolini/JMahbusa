@@ -226,7 +226,7 @@ public class GameBoard {
             //  Ridimensiona il separatore tra le due metà dell'area di gioco
             //  in funzione della sua effettiva dimensione
             separator.setWidth(boardRect.getWidth()/13);
-            separator.setLayoutX(boardRect.getLayoutX() + ((boardRect.getWidth() - separator.getWidth())/2));
+            separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
 
             for (int i=0; i<6; i++) {
 
@@ -299,20 +299,20 @@ public class GameBoard {
 
                 polArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 polArrayTop[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/12), 0d,
-                        (boardRect.getWidth()/24), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+                        (boardRect.getWidth()/13), 0d,
+                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
 
-                /*regArrayBot[i].setLayoutY(boardRect.getLayoutY());
+                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
                 regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
 
-                polArrayBot[i].setLayoutY(boardRect.getLayoutY());
+                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
                 polArrayBot[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/12), 0d,
-                        (boardRect.getWidth()/24), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-                 */
+                        (boardRect.getWidth()/13), 0d,
+                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
             }
+
+
 
 
         });

@@ -3,20 +3,22 @@ package jmb.model;
 import java.util.Random;
 
 /**
- * Classe che gestisce la logica dei dadi
+ * La classe Dice modella e gestisce la logica dei dadi
  */
 
 public class Dice {
 
     private int[] dice = new int[4];            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
     private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossa
-    private int sum;
-    private boolean doubleNum;
+    private int sum;                            //Variabile intera per la somma dei dadi
+    private boolean doubleNum;                  //Variabile booleana per indicare lo stato di "tiro doppio"
     Random rnd = new Random();
 
-    //COSTRUTTORE -- inizializza i valori di array e variabili di istanza
+
 
     public Dice () {
+
+        //  COSTRUTTORE -- inizializza i valori di array e variabili di istanza
 
         for (int i =0; i<4; i++) {
             this.dice[i]=0;
@@ -32,8 +34,10 @@ public class Dice {
 
     public void tossDice() {
 
-        // Assegna un valore da 1 a 6 ai dadi 0 e 1, controlla se i risultati sono uguali e assegna
-        // di conseguenza lo stato di tiro doppio e i valori corretti ai dadi 2 e 3
+        /* Assegna un valore da 1 a 6 ai dadi 0 e 1, controlla se i risultati sono uguali e assegna
+          di conseguenza lo stato di tiro doppio e i valori corretti ai dadi 2 e 3
+         */
+
 
         this.dice[0] = rnd.nextInt(6) + 1;
         this.dice[1] = rnd.nextInt(6) + 1;
@@ -71,10 +75,10 @@ public class Dice {
 
     //--------------------------------
 
-    public boolean InitialToss() {
+    public boolean initialToss() {
 
-        //Determina quale dei due giocatori effettuerà il primo turno
-
+        //  Metodo che determina quale dei due giocatori effettuerà il primo turno
+        
         do {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;

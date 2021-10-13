@@ -5,6 +5,8 @@ import static jmb.ConstantsClass.*;
 
 public class Player {
 
+    /** La classe Player modella e gestisce la logica di un giocatore
+     */
     //VARIABILI DI ISTANZA
     private String name;
     private boolean isWhite;
@@ -22,7 +24,7 @@ public class Player {
 
     }
 
-    //COSTRUTTORE CON IMMAGINI DI DEFAULT
+    //COSTRUTTORE CON IMMAGINE DI DEFAULT
     public Player ( String name, boolean isWhite){
 
         this.name = name;
@@ -36,7 +38,9 @@ public class Player {
 
     }
 
-    //METODI PER ACCEDERE A VARIABILI D'ISTANZA DALL'ESTERNO
+    //----------------------
+    //METODI GETTER E SETTER
+    //----------------------
 
     public boolean getIsWhite() {
         return this.isWhite;
@@ -53,8 +57,6 @@ public class Player {
     public String getImgName() {
         return this.imgName;
     }
-
-    //METODI PER MODIFICARE LE VARIABILI D'ISTANZA DALL'ESTERNO
 
     public void setLevel( int level) {
         if (level<0) {

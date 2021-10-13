@@ -78,7 +78,7 @@ public class Dice {
     public boolean initialToss() {
 
         //  Metodo che determina quale dei due giocatori effettuerà il primo turno
-        
+
         do {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;

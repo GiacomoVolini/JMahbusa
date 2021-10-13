@@ -250,18 +250,18 @@ public class GameBoard {
             }
             for (int i=6; i<12; i++) {
 
-                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)+(boardRect.getWidth()/13)));
+                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
 
-                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)+(boardRect.getWidth()/13)));
+                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 polArrayTop[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
                         (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
 
-                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
 
-                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 polArrayBot[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
                         (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );

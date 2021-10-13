@@ -1,6 +1,6 @@
-package jmb;
+package jmb.model;
 
-public final class ConstantsClass {
+public final class ConstantsModel {
 
     public static final int LVL_ONE = 1;
     public static final int COL_WHITE = 1;
@@ -12,7 +12,7 @@ public final class ConstantsClass {
     public static final String IMG_DEF_BLACK = "img-def-black";
 
 
-    private ConstantsClass() {
+    private ConstantsModel() {
         throw new AssertionError() ;
     }
 }

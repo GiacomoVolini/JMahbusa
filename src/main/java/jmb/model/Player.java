@@ -1,6 +1,6 @@
 package jmb.model;
 
-import static jmb.ConstantsClass.*;
+import static jmb.model.ConstantsModel.*;
 
 
 public class Player {

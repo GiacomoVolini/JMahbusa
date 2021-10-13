@@ -8,6 +8,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import static jmb.controller.ConstantsController.*;
 
 public class GameBoard {
 
@@ -215,36 +216,48 @@ public class GameBoard {
         window.widthProperty().addListener((obs, oldVal, newVal) -> {
 
             //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setLayoutX(window.getWidth()/3);
-            outerRect.setWidth(window.getWidth()/3);
+            outerRect.setLayoutX(window.getWidth()*BOARD_POSITION_FACTOR);
+            outerRect.setWidth(getBoardSize());
+            outerRect.setLayoutY(window.getHeight()*BOARD_POSITION_FACTOR);
+            outerRect.setHeight(getBoardSize());
 
             //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
             boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
             boardRect.setWidth((outerRect.getWidth()*0.8));
+            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
+            boardRect.setHeight((outerRect.getHeight()*0.8));
 
             //  Ridimensiona il separatore tra le due metà dell'area di gioco
             //  in funzione della sua effettiva dimensione
             separator.setWidth(boardRect.getWidth()/13);
             separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
+            separator.setHeight(boardRect.getHeight()+2);
+            separator.setLayoutY(boardRect.getLayoutY()-1);
 
             for (int i=0; i<6; i++) {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
+                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
 
                 polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 polArrayTop[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
                         (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
 
                 regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
                 regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
+                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
 
                 polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
                 polArrayBot[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
 
             }
@@ -252,19 +265,25 @@ public class GameBoard {
 
                 regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
+                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
 
                 polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 polArrayTop[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
                         (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
 
                 regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
+                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
 
                 polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
                 polArrayBot[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
 
             }
@@ -277,34 +296,75 @@ public class GameBoard {
         window.heightProperty().addListener((obs, oldVal, newVal) -> {
 
             //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setLayoutY((window.getHeight())/3);
-            outerRect.setHeight((window.getHeight())/3);
+            outerRect.setLayoutX(window.getWidth()*BOARD_POSITION_FACTOR);
+            outerRect.setWidth(getBoardSize());
+            outerRect.setLayoutY(window.getHeight()*BOARD_POSITION_FACTOR);
+            outerRect.setHeight(getBoardSize());
 
 
             //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
+            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
+            boardRect.setWidth((outerRect.getWidth()*0.8));
             boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
             boardRect.setHeight((outerRect.getHeight()*0.8));
 
             //Ridimensiona il separatore tra le due metà dell'area di gioco
             //in funzione della sua effettiva dimensione
+            separator.setWidth(boardRect.getWidth()/13);
+            separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
             separator.setHeight(boardRect.getHeight()+2);
             separator.setLayoutY(boardRect.getLayoutY()-1);
 
 
-            for (int i=0; i<12; i++) {
+            for (int i=0; i<6; i++) {
 
+                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
                 regArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
 
+                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
                 polArrayTop[i].setLayoutY(boardRect.getLayoutY());
                 polArrayTop[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
                         (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
 
+                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
                 regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
                 regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
 
+
+                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
+                polArrayBot[i].getPoints().setAll(0d, 0d,
+                        (boardRect.getWidth()/13), 0d,
+                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
+
+            }
+
+
+            for (int i=6; i<12; i++) {
+
+                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
+                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
+                polArrayTop[i].getPoints().setAll(0d, 0d,
+                        (boardRect.getWidth()/13), 0d,
+                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+
+                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
+                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
+                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+
+                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
                 polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
                 polArrayBot[i].getPoints().setAll(0d, 0d,
                         (boardRect.getWidth()/13), 0d,
@@ -319,5 +379,13 @@ public class GameBoard {
 
     }
 
+    private double getBoardSize () {
+        double width = window.getWidth();
+        double height = window.getHeight();
+        if (height<width)
+            return (height*BOARD_RESIZE_FACTOR);
+        else
+            return (width*BOARD_RESIZE_FACTOR);
+    }
 }
 

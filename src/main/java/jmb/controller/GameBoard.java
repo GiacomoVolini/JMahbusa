@@ -216,10 +216,10 @@ public class GameBoard {
         window.widthProperty().addListener((obs, oldVal, newVal) -> {
 
             //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setLayoutX(window.getWidth()*BOARD_POSITION_FACTOR);
             outerRect.setWidth(getBoardSize());
-            outerRect.setLayoutY(window.getHeight()*BOARD_POSITION_FACTOR);
+            outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
             outerRect.setHeight(getBoardSize());
+            outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
 
             //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
@@ -296,10 +296,10 @@ public class GameBoard {
         window.heightProperty().addListener((obs, oldVal, newVal) -> {
 
             //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setLayoutX(window.getWidth()*BOARD_POSITION_FACTOR);
             outerRect.setWidth(getBoardSize());
-            outerRect.setLayoutY(window.getHeight()*BOARD_POSITION_FACTOR);
+            outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
             outerRect.setHeight(getBoardSize());
+            outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
 
 
             //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
@@ -380,12 +380,12 @@ public class GameBoard {
     }
 
     private double getBoardSize () {
-        double width = window.getWidth();
-        double height = window.getHeight();
-        if (height<width)
-            return (height*BOARD_RESIZE_FACTOR);
+        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
+        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
+        if (usableHeight<usableWidth)
+            return usableHeight;
         else
-            return (width*BOARD_RESIZE_FACTOR);
+            return usableWidth;
     }
 }
 

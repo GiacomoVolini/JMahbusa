@@ -179,9 +179,6 @@ public class GameBoard {
     private Rectangle diceTray;
 
     @FXML
-    private ProgressBar timerBar;
-
-    @FXML
     private Button backBTN;
 
     @FXML
@@ -223,10 +220,16 @@ public class GameBoard {
 
             //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
-            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
+            /*boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
             boardRect.setWidth((outerRect.getWidth()*0.8));
             boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
             boardRect.setHeight((outerRect.getHeight()*0.8));
+
+             */
+            boardRect.setWidth((outerRect.getWidth()*0.9));
+            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
+            boardRect.setHeight((outerRect.getHeight()*0.9));
+            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
 
             //  Ridimensiona il separatore tra le due metà dell'area di gioco
             //  in funzione della sua effettiva dimensione
@@ -304,10 +307,16 @@ public class GameBoard {
 
             //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
-            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
+            /*boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
             boardRect.setWidth((outerRect.getWidth()*0.8));
             boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
             boardRect.setHeight((outerRect.getHeight()*0.8));
+
+             */
+            boardRect.setWidth((outerRect.getWidth()*0.9));
+            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
+            boardRect.setHeight((outerRect.getHeight()*0.9));
+            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
 
             //Ridimensiona il separatore tra le due metà dell'area di gioco
             //in funzione della sua effettiva dimensione
@@ -382,10 +391,7 @@ public class GameBoard {
     private double getBoardSize () {
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
         double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
-        if (usableHeight<usableWidth)
-            return usableHeight;
-        else
-            return usableWidth;
+        return Math.min(usableHeight, usableWidth);
     }
 }
 

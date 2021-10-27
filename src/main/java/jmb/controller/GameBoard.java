@@ -1,5 +1,6 @@
 package jmb.controller;
 
+import com.sun.javafx.stage.StagePeerListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -182,10 +183,11 @@ public class GameBoard {
     private Button backBTN;
 
     @FXML
-    private Button menuBTN;
+    private Button finishBTN;
 
     @FXML
-    private Text timerLBL;
+    private Button menuBTN;
+
 
     //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
@@ -208,7 +210,6 @@ public class GameBoard {
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
 
 
-
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> {
 
@@ -220,12 +221,6 @@ public class GameBoard {
 
             //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
-            /*boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
-            boardRect.setWidth((outerRect.getWidth()*0.8));
-            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
-            boardRect.setHeight((outerRect.getHeight()*0.8));
-
-             */
             boardRect.setWidth((outerRect.getWidth()*0.9));
             boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
             boardRect.setHeight((outerRect.getHeight()*0.9));
@@ -291,7 +286,16 @@ public class GameBoard {
 
             }
 
-
+            //  Ridimensiona i Buttoni rispetto alla finestra principale
+                backBTN.setMaxWidth(71);
+                finishBTN.setMaxWidth(111);
+                menuBTN.setMaxWidth(71);
+                backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+                backBTN.setPrefWidth(window.getWidth()*0.1);
+                finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
+                finishBTN.setPrefWidth(window.getWidth()*0.15);
+                menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+                menuBTN.setPrefWidth(window.getWidth()*0.1);
 
         });
 
@@ -307,12 +311,6 @@ public class GameBoard {
 
             //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
-            /*boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/10));
-            boardRect.setWidth((outerRect.getWidth()*0.8));
-            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/10));
-            boardRect.setHeight((outerRect.getHeight()*0.8));
-
-             */
             boardRect.setWidth((outerRect.getWidth()*0.9));
             boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
             boardRect.setHeight((outerRect.getHeight()*0.9));
@@ -381,8 +379,16 @@ public class GameBoard {
 
             }
 
-
-
+            //  Ridimensiona i Buttoni rispetto alla finestra principale
+                backBTN.setMaxHeight(38);
+                finishBTN.setMaxHeight(80);
+                menuBTN.setMaxHeight(38);
+                backBTN.setLayoutY(window.getHeight()/3.5);
+                backBTN.setPrefHeight(window.getHeight()*0.1);
+                finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
+                finishBTN.setPrefHeight(window.getHeight()*0.1);
+                menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
+                menuBTN.setPrefHeight(window.getHeight()*0.1);
 
         });
 

@@ -287,9 +287,9 @@ public class GameBoard {
             }
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
-                backBTN.setMaxWidth(71);
-                finishBTN.setMaxWidth(111);
-                menuBTN.setMaxWidth(71);
+                backBTN.setMaxWidth(SMAL_BTN_WIDTH);
+                finishBTN.setMaxWidth(FIN_BTN_WIDTH);
+                menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
                 backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
                 backBTN.setPrefWidth(window.getWidth()*0.1);
                 finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
@@ -380,9 +380,9 @@ public class GameBoard {
             }
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
-                backBTN.setMaxHeight(38);
-                finishBTN.setMaxHeight(80);
-                menuBTN.setMaxHeight(38);
+                backBTN.setMaxHeight(SMAL_BTN_HIGHT);
+                finishBTN.setMaxHeight(FIN_BTN_HIGHT);
+                menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
                 backBTN.setLayoutY(window.getHeight()/3.5);
                 backBTN.setPrefHeight(window.getHeight()*0.1);
                 finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);

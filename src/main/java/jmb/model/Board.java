@@ -66,10 +66,10 @@ public class Board {
                 //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
                 //  non sia bloccata per il giocatore di turno
                 if (whiteTurn) {
-                    if (squares[puntaFinR][puntaFinC].getisBlockedW()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+                    if (squares[puntaFinR][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
                         possible = false;
                     }
-                } else if (squares[puntaFinR][puntaFinC].getisBlockedB()) { //controlla che la posizione di arrivo non sia preclusa al nero
+                } else if (squares[puntaFinR][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
                     possible = false;
                 }
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
@@ -102,14 +102,14 @@ public class Board {
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
             if (puntaFinR==0) {
-                squares[puntaFinR][puntaFinC].setisBlockedB(false);
-                squares[puntaFinR][puntaFinC].setisBlockedW(false);
+                squares[puntaFinR][puntaFinC].setLocksBlack(false);
+                squares[puntaFinR][puntaFinC].setLocksWhite(false);
             } else if (squares[puntaFinR][puntaFinC].getisWhite()) {
-                squares[puntaFinR][puntaFinC].setisBlockedB(true);
-                squares[puntaFinR][puntaFinC].setisBlockedW(false);
+                squares[puntaFinR][puntaFinC].setLocksBlack(true);
+                squares[puntaFinR][puntaFinC].setLocksWhite(false);
             } else {
-                squares[puntaFinR][puntaFinC].setisBlockedB(false);
-                squares[puntaFinR][puntaFinC].setisBlockedW(true);
+                squares[puntaFinR][puntaFinC].setLocksBlack(false);
+                squares[puntaFinR][puntaFinC].setLocksWhite(true);
             }
 
             //  Controlla se il giocatore di turno può far uscire le proprie

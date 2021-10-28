@@ -25,23 +25,19 @@ public class Pawn {
     //----------------------
     //METODI GETTER E SETTER
     //----------------------
+
     public boolean getisWhite() {
         return isWhite;
     }
-    public boolean getisBlockedW() {
-        return locksWhite;
-    }
-
-    public boolean getisBlockedB() {
+    public boolean getLocksWhite() { return locksWhite;  }
+    public boolean getLocksBlack() {
         return locksBlack;
     }
-
-    public void setisBlockedW(boolean isBlockedW) {
-        this.locksWhite = isBlockedW;
+    public void setLocksWhite(boolean locksWhite) {
+        this.locksWhite = locksWhite;
     }
-
-    public void setisBlockedB(boolean isBlockedB) {
-        this.locksBlack = isBlockedB;
+    public void setLocksBlack(boolean locksBlack) {
+        this.locksBlack = locksBlack;
     }
 
     //-------------------------------------

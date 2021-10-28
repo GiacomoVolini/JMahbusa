@@ -1,14 +1,18 @@
 package jmb.controller;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import static jmb.controller.ConstantsController.*;
 
 public class GameBoard {
@@ -192,11 +196,15 @@ public class GameBoard {
     private Rectangle timerIn;
 
     @FXML
-    private Button testTimer;
-
-    @FXML
     void runTimer(ActionEvent event) {
-
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                    // TODO gestione cambio turno
+                }, new KeyValue(timerIn.scaleYProperty(), 0))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
     }
 
     //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
@@ -327,5 +335,6 @@ public class GameBoard {
         }
 
     }
+
 }
 

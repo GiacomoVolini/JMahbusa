@@ -9,16 +9,16 @@ public class Pawn {
 
     //VARIABILI D'ISTANZA
     private boolean isWhite;        //Se true la pedina appartiene al bianco
-    private boolean isBlockedW;     //Se true il bianco non può piazzare pedine sopra di questa
-    private boolean isBlockedB;     //Se true il nero non può piazzare pedine sopra di questa
+    private boolean locksWhite;     //Se true il bianco non può piazzare pedine sopra di questa
+    private boolean locksBlack;     //Se true il nero non può piazzare pedine sopra di questa
     //----------------------------------------------------
 
-    public Pawn(boolean isBlockedW, boolean isBlockedB, boolean isWhite) {
+    public Pawn(boolean locksWhite, boolean locksBlack, boolean isWhite) {
         /* Metodo costruttore, che prende le informazioni sullo stato iniziale della pedina dalla classe che lo invoca
            e le assegna alle rispettive variabili d'istanza
          */
-        this.isBlockedW = isBlockedW;
-        this.isBlockedB = isBlockedB;
+        this.locksWhite = locksWhite;
+        this.locksBlack = locksBlack;
         this.isWhite = isWhite;
 
     }
@@ -29,19 +29,19 @@ public class Pawn {
         return isWhite;
     }
     public boolean getisBlockedW() {
-        return isBlockedW;
+        return locksWhite;
     }
 
     public boolean getisBlockedB() {
-        return isBlockedB;
+        return locksBlack;
     }
 
     public void setisBlockedW(boolean isBlockedW) {
-        this.isBlockedW = isBlockedW;
+        this.locksWhite = isBlockedW;
     }
 
     public void setisBlockedB(boolean isBlockedB) {
-        this.isBlockedB = isBlockedB;
+        this.locksBlack = isBlockedB;
     }
 
     //-------------------------------------

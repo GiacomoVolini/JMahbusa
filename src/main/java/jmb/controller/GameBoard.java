@@ -339,15 +339,24 @@ public class GameBoard {
                     (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
-                backBTN.setMaxHeight(SMAL_BTN_HIGHT);
-                finishBTN.setMaxHeight(FIN_BTN_HIGHT);
-                menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
-                backBTN.setLayoutY(window.getHeight()/3.5);
-                backBTN.setPrefHeight(window.getHeight()*0.1);
-                finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
-                finishBTN.setPrefHeight(window.getHeight()*0.1);
-                menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
-                menuBTN.setPrefHeight(window.getHeight()*0.1);
+            backBTN.setMaxWidth(SMAL_BTN_WIDTH);
+            finishBTN.setMaxWidth(FIN_BTN_WIDTH);
+            menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
+            backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+            backBTN.setPrefWidth(window.getWidth()*0.1);
+            finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
+            finishBTN.setPrefWidth(window.getWidth()*0.15);
+            menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+            menuBTN.setPrefWidth(window.getWidth()*0.1);
+            backBTN.setMaxHeight(SMAL_BTN_HIGHT);
+            finishBTN.setMaxHeight(FIN_BTN_HIGHT);
+            menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
+            backBTN.setLayoutY(window.getHeight()/3.5);
+            backBTN.setPrefHeight(window.getHeight()*0.1);
+            finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
+            finishBTN.setPrefHeight(window.getHeight()*0.1);
+            menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
+            menuBTN.setPrefHeight(window.getHeight()*0.1);
 
 
         }

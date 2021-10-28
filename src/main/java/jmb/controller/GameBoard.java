@@ -339,6 +339,7 @@ public class GameBoard {
                     (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
+            // Largezza
             backBTN.setMaxWidth(SMAL_BTN_WIDTH);
             finishBTN.setMaxWidth(FIN_BTN_WIDTH);
             menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
@@ -348,6 +349,7 @@ public class GameBoard {
             finishBTN.setPrefWidth(window.getWidth()*0.15);
             menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
             menuBTN.setPrefWidth(window.getWidth()*0.1);
+            // Altezza
             backBTN.setMaxHeight(SMAL_BTN_HIGHT);
             finishBTN.setMaxHeight(FIN_BTN_HIGHT);
             menuBTN.setMaxHeight(SMAL_BTN_HIGHT);

@@ -1,14 +1,19 @@
 package jmb.controller;
 
-import com.sun.javafx.stage.StagePeerListener;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import static jmb.controller.ConstantsController.*;
 
 public class GameBoard {
@@ -186,7 +191,26 @@ public class GameBoard {
     private Button finishBTN;
 
     @FXML
+    private Rectangle timerOut;
+
+    @FXML
+    private Rectangle timerIn;
+
+    @FXML
+    void runTimer(ActionEvent event) {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                    // TODO gestione cambio turno
+                }, new KeyValue(timerIn.scaleYProperty(), 0))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+    
+    @FXML
     private Button menuBTN;
+
 
 
     //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
@@ -211,173 +235,108 @@ public class GameBoard {
 
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        window.widthProperty().addListener((obs, oldVal, newVal) -> {
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-            //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setWidth(getBoardSize());
-            outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
-            outerRect.setHeight(getBoardSize());
-            outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
-
-            //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
-
-            boardRect.setWidth((outerRect.getWidth()*0.9));
-            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
-            boardRect.setHeight((outerRect.getHeight()*0.9));
-            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
-
-            //  Ridimensiona il separatore tra le due metà dell'area di gioco
-            //  in funzione della sua effettiva dimensione
-            separator.setWidth(boardRect.getWidth()/13);
-            separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
-            separator.setHeight(boardRect.getHeight()+2);
-            separator.setLayoutY(boardRect.getLayoutY()-1);
-
-            for (int i=0; i<6; i++) {
-
-                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                polArrayTop[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-                polArrayBot[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
-
-
-            }
-            for (int i=6; i<12; i++) {
-
-                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                polArrayTop[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-                polArrayBot[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
-
-
-            }
-
-            //  Ridimensiona i Buttoni rispetto alla finestra principale
-                backBTN.setMaxWidth(SMAL_BTN_WIDTH);
-                finishBTN.setMaxWidth(FIN_BTN_WIDTH);
-                menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
-                backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-                backBTN.setPrefWidth(window.getWidth()*0.1);
-                finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
-                finishBTN.setPrefWidth(window.getWidth()*0.15);
-                menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-                menuBTN.setPrefWidth(window.getWidth()*0.1);
-
-        });
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        window.heightProperty().addListener((obs, oldVal, newVal) -> {
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-            //Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-            outerRect.setWidth(getBoardSize());
-            outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
-            outerRect.setHeight(getBoardSize());
-            outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
+    }
 
-
-            //Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
-
-            boardRect.setWidth((outerRect.getWidth()*0.9));
-            boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
-            boardRect.setHeight((outerRect.getHeight()*0.9));
-            boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
-
-            //Ridimensiona il separatore tra le due metà dell'area di gioco
-            //in funzione della sua effettiva dimensione
-            separator.setWidth(boardRect.getWidth()/13);
-            separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
-            separator.setHeight(boardRect.getHeight()+2);
-            separator.setLayoutY(boardRect.getLayoutY()-1);
+    private double getBoardSize () {
+        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
+        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
+        return Math.min(usableHeight, usableWidth);
+    }
 
 
-            for (int i=0; i<6; i++) {
+    private void changeDimensions() {
+        //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
+        outerRect.setWidth(getBoardSize());
+        outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
+        outerRect.setHeight(getBoardSize());
+        outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
 
-                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+        //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
-                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                polArrayTop[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+        boardRect.setWidth((outerRect.getWidth()*0.9));
+        boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
+        boardRect.setHeight((outerRect.getHeight()*0.9));
+        boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
 
-                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+        //  Ridimensiona il separatore tra le due metà dell'area di gioco
+        //  in funzione della sua effettiva dimensione
+        separator.setWidth(boardRect.getWidth()/13);
+        separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
+        separator.setHeight(boardRect.getHeight()+2);
+        separator.setLayoutY(boardRect.getLayoutY()-1);
 
+        //  Ridimensiona le barre per il timer
+        timerOut.setWidth(separator.getWidth()/2);
+        timerOut.setLayoutX(separator.getLayoutX() + (separator.getWidth()/2) -(timerOut.getWidth()/2));
+        timerOut.setHeight(separator.getHeight()-4);
+        timerOut.setLayoutY(separator.getLayoutY() + (separator.getHeight()/2) -(timerOut.getHeight()/2));
 
-                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-                polArrayBot[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
-
-            }
-
-
-            for (int i=6; i<12; i++) {
-
-                regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-                polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-                polArrayTop[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-                regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-                regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-                regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+        timerIn.setWidth(timerOut.getWidth()-4);
+        timerIn.setLayoutX(timerOut.getLayoutX()+2);
+        timerIn.setHeight(timerOut.getHeight()-4);
+        timerIn.setLayoutY(timerOut.getLayoutY()+2);
 
 
-                polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-                polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-                polArrayBot[i].getPoints().setAll(0d, 0d,
-                        (boardRect.getWidth()/13), 0d,
-                        (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
-            }
+        //  Ridimensiona le punte a sinistra del tabellone e relative regioni
+        for (int i=0; i<6; i++) {
+
+            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
+            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
+            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
+            polArrayTop[i].getPoints().setAll(0d, 0d,
+                    (boardRect.getWidth()/13), 0d,
+                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+
+            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
+            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
+            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+
+            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
+            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
+            polArrayBot[i].getPoints().setAll(0d, 0d,
+                    (boardRect.getWidth()/13), 0d,
+                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
+
+        }
+
+        //  Ridimensiona le punte a destra del tabellone e relative regioni
+        for (int i=6; i<12; i++) {
+
+            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
+            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
+            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
+            polArrayTop[i].getPoints().setAll(0d, 0d,
+                    (boardRect.getWidth()/13), 0d,
+                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+
+            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
+            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
+            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+
+
+            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
+            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
+            polArrayBot[i].getPoints().setAll(0d, 0d,
+                    (boardRect.getWidth()/13), 0d,
+                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
                 backBTN.setMaxHeight(SMAL_BTN_HIGHT);
@@ -390,14 +349,10 @@ public class GameBoard {
                 menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
                 menuBTN.setPrefHeight(window.getHeight()*0.1);
 
-        });
+
+        }
 
     }
 
-    private double getBoardSize () {
-        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
-        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
-        return Math.min(usableHeight, usableWidth);
-    }
 }
 

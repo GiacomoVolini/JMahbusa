@@ -1,5 +1,6 @@
 package jmb.controller;
 
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -187,7 +188,7 @@ public class GameBoard {
     private Button backBTN;
 
     @FXML
-    private Button menuBTN;
+    private Button finishBTN;
 
     @FXML
     private Rectangle timerOut;
@@ -206,6 +207,11 @@ public class GameBoard {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
+    
+    @FXML
+    private Button menuBTN;
+
+
 
     //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
@@ -228,9 +234,9 @@ public class GameBoard {
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
 
 
-
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -243,13 +249,13 @@ public class GameBoard {
         return Math.min(usableHeight, usableWidth);
     }
 
+
     private void changeDimensions() {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         outerRect.setWidth(getBoardSize());
         outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
         outerRect.setHeight(getBoardSize());
         outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
-
 
         //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
 
@@ -331,6 +337,18 @@ public class GameBoard {
             polArrayBot[i].getPoints().setAll(0d, 0d,
                     (boardRect.getWidth()/13), 0d,
                     (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
+
+            //  Ridimensiona i Buttoni rispetto alla finestra principale
+                backBTN.setMaxHeight(SMAL_BTN_HIGHT);
+                finishBTN.setMaxHeight(FIN_BTN_HIGHT);
+                menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
+                backBTN.setLayoutY(window.getHeight()/3.5);
+                backBTN.setPrefHeight(window.getHeight()*0.1);
+                finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
+                finishBTN.setPrefHeight(window.getHeight()*0.1);
+                menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
+                menuBTN.setPrefHeight(window.getHeight()*0.1);
+
 
         }
 

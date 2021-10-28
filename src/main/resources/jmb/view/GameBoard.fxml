@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.controller.GameBoard">
    <children>
@@ -63,11 +65,22 @@
       <Rectangle fx:id="whiteExitRegion" arcHeight="5.0" arcWidth="5.0" fill="#d5dbe0b2" height="300.0" layoutX="191.0" layoutY="124.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="101.0" AnchorPane.bottomAnchor="423.0" AnchorPane.topAnchor="124.0" />
       <Rectangle fx:id="blackExitRegion" arcHeight="5.0" arcWidth="5.0" fill="#01182eaf" height="300.0" layoutX="191.0" layoutY="424.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="101.0" AnchorPane.bottomAnchor="123.0" AnchorPane.topAnchor="424.0" />
       <Rectangle fx:id="diceTray" arcHeight="5.0" arcWidth="5.0" fill="#1f93ff66" height="600.0" layoutX="916.0" layoutY="124.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="118.0" AnchorPane.bottomAnchor="123.0" AnchorPane.topAnchor="124.0" />
-      <Button fx:id="backBTN" layoutX="1115.0" layoutY="262.0" mnemonicParsing="false" text="Indietro" visible="false" AnchorPane.rightAnchor="51.0" />
-      <Button fx:id="menuBTN" layoutX="1115.0" layoutY="549.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="58.0" text="Menu" visible="false" AnchorPane.rightAnchor="51.0" />
+
       <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
       <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-      <Button fx:id="testTimer" layoutX="1119.0" layoutY="262.0" mnemonicParsing="false" onAction="#runTimer" text="TEST TIMER" />
+      <Button fx:id="backBTN" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="71.0" text="Indietro">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Button>
+      <Button fx:id="finishBTN" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="111.0" text="Termina Turno" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="71.0" text="Menu">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font></Button>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

@@ -197,7 +197,7 @@ public class GameBoard {
     private Rectangle timerIn;
 
     @FXML
-    void runTimer(ActionEvent event) {
+    protected void runTimer(ActionEvent event) {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
@@ -207,11 +207,70 @@ public class GameBoard {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-    
+
+    @FXML
+    private void testBlackExit() {
+        jmb.App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
+                                new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    this.bExit = true; //TEST
+                    jmb.App.getStage().setResizable(true);
+                }, new KeyValue(blackExitRegion.widthProperty() , this.maxExitWidth ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - this.maxExitWidth))
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    @FXML
+    private void testWhiteExit() {
+        jmb.App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    this.wExit = true; //TEST
+                    jmb.App.getStage().setResizable(true);
+                }, new KeyValue(whiteExitRegion.widthProperty() , this.maxExitWidth ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - this.maxExitWidth))
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    private void diceTrayAnim() {
+        jmb.App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    this.dtAnimDone = true;
+                    jmb.App.getStage().setResizable(true);
+                }, new KeyValue(diceTray.widthProperty() , this.maxDTWidth )
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
     @FXML
     private Button menuBTN;
 
+    //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
+    private double maxExitWidth;
+    private double maxDTWidth;
 
+
+    //TEST
+    protected boolean bExit = false;
+    protected boolean wExit = false;
+    //TEST
+
+    //  Booleano che indica se l'animazione di diceTray è stata completata
+    private boolean dtAnimDone = false;
 
     //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
@@ -241,6 +300,13 @@ public class GameBoard {
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
+        diceTrayAnim();
+
+    }
+
+    private void calcTrayWidth() {
+        this.maxExitWidth = outerRect.getWidth()*EXIT_REGION_FACTOR;
+        this.maxDTWidth = outerRect.getWidth()*DICE_TRAY_FACTOR;
     }
 
     private double getBoardSize () {
@@ -249,28 +315,32 @@ public class GameBoard {
         return Math.min(usableHeight, usableWidth);
     }
 
-
-    private void changeDimensions() {
+    private void resizeOuterRect() {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         outerRect.setWidth(getBoardSize());
         outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
         outerRect.setHeight(getBoardSize());
         outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
+    }
 
+    private void resizeBoardRect() {
         //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
-
         boardRect.setWidth((outerRect.getWidth()*0.9));
         boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
         boardRect.setHeight((outerRect.getHeight()*0.9));
         boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
+    }
 
+    private void resizeSeparator() {
         //  Ridimensiona il separatore tra le due metà dell'area di gioco
         //  in funzione della sua effettiva dimensione
         separator.setWidth(boardRect.getWidth()/13);
         separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
         separator.setHeight(boardRect.getHeight()+2);
         separator.setLayoutY(boardRect.getLayoutY()-1);
+    }
 
+    private void resizeTimer() {
         //  Ridimensiona le barre per il timer
         timerOut.setWidth(separator.getWidth()/2);
         timerOut.setLayoutX(separator.getLayoutX() + (separator.getWidth()/2) -(timerOut.getWidth()/2));
@@ -281,9 +351,9 @@ public class GameBoard {
         timerIn.setLayoutX(timerOut.getLayoutX()+2);
         timerIn.setHeight(timerOut.getHeight()-4);
         timerIn.setLayoutY(timerOut.getLayoutY()+2);
+    }
 
-
-
+    private void resizeLeftPoints() {
         //  Ridimensiona le punte a sinistra del tabellone e relative regioni
         for (int i=0; i<6; i++) {
 
@@ -311,7 +381,9 @@ public class GameBoard {
                     (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
         }
+    }
 
+    private void resizeRightPoints() {
         //  Ridimensiona le punte a destra del tabellone e relative regioni
         for (int i=6; i<12; i++) {
 
@@ -338,31 +410,72 @@ public class GameBoard {
                     (boardRect.getWidth()/13), 0d,
                     (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
 
-            //  Ridimensiona i Buttoni rispetto alla finestra principale
-            // Largezza
-            backBTN.setMaxWidth(SMAL_BTN_WIDTH);
-            finishBTN.setMaxWidth(FIN_BTN_WIDTH);
-            menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
-            backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-            backBTN.setPrefWidth(window.getWidth()*0.1);
-            finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
-            finishBTN.setPrefWidth(window.getWidth()*0.15);
-            menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-            menuBTN.setPrefWidth(window.getWidth()*0.1);
-            // Altezza
-            backBTN.setMaxHeight(SMAL_BTN_HIGHT);
-            finishBTN.setMaxHeight(FIN_BTN_HIGHT);
-            menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
-            backBTN.setLayoutY(window.getHeight()/3.5);
-            backBTN.setPrefHeight(window.getHeight()*0.1);
-            finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
-            finishBTN.setPrefHeight(window.getHeight()*0.1);
-            menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
-            menuBTN.setPrefHeight(window.getHeight()*0.1);
-
-
         }
+    }
 
+    private void resizeButtons() {
+
+        //  Ridimensiona i Buttoni rispetto alla finestra principale
+        //  Larghezza
+        backBTN.setMaxWidth(SMAL_BTN_WIDTH);
+        finishBTN.setMaxWidth(FIN_BTN_WIDTH);
+        menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
+        backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+        backBTN.setPrefWidth(window.getWidth()*0.1);
+        finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
+        finishBTN.setPrefWidth(window.getWidth()*0.15);
+        menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
+        menuBTN.setPrefWidth(window.getWidth()*0.1);
+        // Altezza
+        backBTN.setMaxHeight(SMAL_BTN_HIGHT);
+        finishBTN.setMaxHeight(FIN_BTN_HIGHT);
+        menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
+        backBTN.setLayoutY(window.getHeight()/3.5);
+        backBTN.setPrefHeight(window.getHeight()*0.1);
+        finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
+        finishBTN.setPrefHeight(window.getHeight()*0.1);
+        menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
+        menuBTN.setPrefHeight(window.getHeight()*0.1);
+    }
+
+    private void resizeExitRegions() {
+        whiteExitRegion.setHeight(outerRect.getHeight()/2);
+        whiteExitRegion.setLayoutY(outerRect.getLayoutY());
+        blackExitRegion.setHeight(outerRect.getHeight()/2);
+        blackExitRegion.setLayoutY(outerRect.getLayoutY() + (outerRect.getHeight()/2));
+
+        if (bExit) {
+            blackExitRegion.setWidth(this.maxExitWidth);
+            blackExitRegion.setLayoutX(outerRect.getLayoutX() - this.maxExitWidth);
+        }
+        if (wExit) {
+            whiteExitRegion.setWidth(this.maxExitWidth);
+            whiteExitRegion.setLayoutX(outerRect.getLayoutX() - this.maxExitWidth);
+        }
+    }
+
+    private void resizeDiceTray() {
+        diceTray.setLayoutX(outerRect.getLayoutX() + outerRect.getWidth());
+        diceTray.setLayoutY(outerRect.getLayoutY());
+        if (dtAnimDone) {
+            diceTray.setWidth(maxDTWidth);
+        }
+        diceTray.setHeight(outerRect.getHeight());
+
+    }
+
+
+    private void changeDimensions() {
+        resizeOuterRect();
+        resizeBoardRect();
+        resizeSeparator();
+        resizeTimer();
+        resizeLeftPoints();
+        resizeRightPoints();
+        resizeButtons();
+        calcTrayWidth();
+        resizeExitRegions();
+        resizeDiceTray();
     }
 
 }

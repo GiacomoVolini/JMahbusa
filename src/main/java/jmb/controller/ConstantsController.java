@@ -9,6 +9,8 @@ public class ConstantsController {
     public static final double SMAL_BTN_WIDTH = 71;                 //  La larghezza massima dei buttoni piccoli
     public static final double FIN_BTN_HIGHT = 80;                  //  L'altezza massima del buttone "finish turn"
     public static final double SMAL_BTN_HIGHT = 38;                 //  L'altezza massima dei buttoni piccoli
+    public static final double EXIT_REGION_FACTOR = 0.2;            //  La larghezza delle regioni di uscita rispetto al tabellone
+    public static final double DICE_TRAY_FACTOR = 0.15;             //  La larghezza della regione dei dadi rispetto al tabellone
 
     private ConstantsController() {
         throw new AssertionError() ;

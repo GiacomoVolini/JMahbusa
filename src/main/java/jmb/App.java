@@ -13,10 +13,16 @@ import java.io.IOException;
  */
 public class App extends Application {
 
+    private static Stage stage;
     private static Scene scene;
+
+    public static Stage getStage() {
+        return stage;
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
+        this.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         scene = new Scene(loadFXML("view/GameBoard"), 640, 480);

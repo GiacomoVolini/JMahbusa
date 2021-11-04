@@ -292,7 +292,6 @@ public class GameBoard {
         this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
 
-
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -300,19 +299,23 @@ public class GameBoard {
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-        diceTrayAnim();
-
     }
 
     private void calcTrayWidth() {
-        this.maxExitWidth = outerRect.getWidth()*EXIT_REGION_FACTOR;
-        this.maxDTWidth = outerRect.getWidth()*DICE_TRAY_FACTOR;
+        this.maxExitWidth = outerRect.getWidth()* EXTRA_REGION_FACTOR;
+        this.maxDTWidth = outerRect.getWidth()*EXTRA_REGION_FACTOR;
     }
 
     private double getBoardSize () {
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
         double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
         return Math.min(usableHeight, usableWidth);
+    }
+
+    private double getMaxBtnWidth() {
+        double maxBtnWidth = window.getWidth() - (diceTray.getLayoutX()+maxDTWidth+(BUTTON_ANCHOR*2));
+        return Math.min(MAX_BTN_WIDTH, maxBtnWidth);
+
     }
 
     private void resizeOuterRect() {
@@ -417,25 +420,23 @@ public class GameBoard {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
-        backBTN.setMaxWidth(SMAL_BTN_WIDTH);
-        finishBTN.setMaxWidth(FIN_BTN_WIDTH);
-        menuBTN.setMaxWidth(SMAL_BTN_WIDTH);
-        backBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-        backBTN.setPrefWidth(window.getWidth()*0.1);
-        finishBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3.12));
-        finishBTN.setPrefWidth(window.getWidth()*0.15);
-        menuBTN.setLayoutX((window.getWidth()/2) + (window.getWidth()/3));
-        menuBTN.setPrefWidth(window.getWidth()*0.1);
+        backBTN.setMaxWidth(getMaxBtnWidth());
+        finishBTN.setMaxWidth(getMaxBtnWidth());
+        menuBTN.setMaxWidth(getMaxBtnWidth());
+        backBTN.setPrefWidth(window.getWidth()*0.15);
+        finishBTN.setPrefWidth(backBTN.getPrefWidth());
+        menuBTN.setPrefWidth(backBTN.getPrefWidth());
         // Altezza
-        backBTN.setMaxHeight(SMAL_BTN_HIGHT);
-        finishBTN.setMaxHeight(FIN_BTN_HIGHT);
-        menuBTN.setMaxHeight(SMAL_BTN_HIGHT);
-        backBTN.setLayoutY(window.getHeight()/3.5);
-        backBTN.setPrefHeight(window.getHeight()*0.1);
-        finishBTN.setLayoutY(backBTN.getHeight() + window.getHeight()/2.6);
-        finishBTN.setPrefHeight(window.getHeight()*0.1);
-        menuBTN.setLayoutY(finishBTN.getHeight() + 30 + window.getHeight()/2);
-        menuBTN.setPrefHeight(window.getHeight()*0.1);
+        backBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        menuBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        backBTN.setPrefHeight(window.getHeight()*0.2);
+        finishBTN.setPrefHeight(backBTN.getPrefHeight());
+        menuBTN.setPrefHeight(backBTN.getPrefHeight());
+        backBTN.setLayoutY(window.getHeight()*.25 - backBTN.getPrefHeight()/2);
+        finishBTN.setLayoutY((window.getHeight() - finishBTN.getPrefHeight())/2);
+        menuBTN.setLayoutY(window.getHeight()*.75 - menuBTN.getPrefHeight()/2);
+
     }
 
     private void resizeExitRegions() {
@@ -472,10 +473,16 @@ public class GameBoard {
         resizeTimer();
         resizeLeftPoints();
         resizeRightPoints();
-        resizeButtons();
         calcTrayWidth();
+
         resizeExitRegions();
         resizeDiceTray();
+        if(!dtAnimDone) {
+            diceTrayAnim();
+            testBlackExit();
+            testWhiteExit();
+        }
+        resizeButtons();
     }
 
 }

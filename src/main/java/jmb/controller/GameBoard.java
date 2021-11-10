@@ -7,12 +7,17 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.geometry.Point2D;
 
 import static jmb.controller.ConstantsController.*;
 
@@ -197,6 +202,37 @@ public class GameBoard {
     private Rectangle timerIn;
 
     @FXML
+    private Circle examplePawn;
+
+    @FXML
+    private Button menuBTN;
+
+    //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
+    private double maxExitWidth;
+    private double maxDTWidth;
+
+
+    //TEST
+    protected boolean bExit = false;
+    protected boolean wExit = false;
+
+    protected int pawnRegion;
+    //TEST
+
+    //  Booleano che indica se l'animazione di diceTray è stata completata
+    private boolean dtAnimDone = false;
+
+    //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
+    //  ridimensionamento dinamico delle componenti
+
+    protected Polygon[] polArrayTop;
+    protected Polygon[] polArrayBot;
+
+    protected Region[] regArrayTop;
+    protected Region[] regArrayBot;
+
+
+    @FXML
     protected void runTimer(ActionEvent event) {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
@@ -242,6 +278,30 @@ public class GameBoard {
         timeline.play();
     }
 
+    @FXML
+    private void drag(MouseEvent event) {
+        Node n = (Node)event.getSource();
+        n.setTranslateX(n.getTranslateX() + event.getX());
+        n.setTranslateY(n.getTranslateY() + event.getY());
+    }
+
+    @FXML
+    private void assignPawn(MouseDragEvent event) {
+        boolean found = false;
+        Point2D center = new Point2D(examplePawn.getCenterX(), examplePawn.getCenterY());
+        for (int i=0; (i<12 && !found); i++){
+            if(regArrayBot[i].contains(center)) {
+                found = true;
+                pawnRegion = 1 + i;     //TEST
+            } else if (regArrayTop[i].contains(center)) {
+                found = true;
+                pawnRegion =24 - i;     //TEST
+            }
+        }
+        //TEST
+            System.out.println("Regione " + pawnRegion);
+    }
+
     private void diceTrayAnim() {
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
@@ -256,50 +316,6 @@ public class GameBoard {
         timeline.play();
     }
 
-    @FXML
-    private Button menuBTN;
-
-    //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
-    private double maxExitWidth;
-    private double maxDTWidth;
-
-
-    //TEST
-    protected boolean bExit = false;
-    protected boolean wExit = false;
-    //TEST
-
-    //  Booleano che indica se l'animazione di diceTray è stata completata
-    private boolean dtAnimDone = false;
-
-    //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
-    //  ridimensionamento dinamico delle componenti
-
-    protected Polygon[] polArrayTop;
-    protected Polygon[] polArrayBot;
-
-    protected Region[] regArrayTop;
-    protected Region[] regArrayBot;
-
-    public void initialize() {
-
-        this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
-                this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
-        this.regArrayTop = new Region[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
-                this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R   };
-        this.polArrayBot = new Polygon[]    {   this.point_13, this.point_14, this.point_15, this.point_16, this.point_17, this.point_18,
-                this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
-        this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
-                this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-
-        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-
-        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-    }
 
     private void calcTrayWidth() {
         this.maxExitWidth = outerRect.getWidth()* EXTRA_REGION_FACTOR;
@@ -465,6 +481,12 @@ public class GameBoard {
 
     }
 
+    private void resizePawns() {
+        examplePawn.setRadius(regArrayBot[0].getPrefWidth()/2);
+        //examplePawn.setLayoutX();
+        //examplePawn.setLayoutY();
+    }
+
 
     private void changeDimensions() {
         resizeOuterRect();
@@ -476,6 +498,7 @@ public class GameBoard {
         calcTrayWidth();
 
         resizeExitRegions();
+        resizePawns();
         resizeDiceTray();
         if(!dtAnimDone) {
             diceTrayAnim();
@@ -483,6 +506,26 @@ public class GameBoard {
             testWhiteExit();
         }
         resizeButtons();
+    }
+
+    public void initialize() {
+
+        this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
+                this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
+        this.regArrayTop = new Region[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
+                this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R   };
+        this.polArrayBot = new Polygon[]    {   this.point_13, this.point_14, this.point_15, this.point_16, this.point_17, this.point_18,
+                this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
+        this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
+                this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
+
+        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+
+        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
     }
 
 }

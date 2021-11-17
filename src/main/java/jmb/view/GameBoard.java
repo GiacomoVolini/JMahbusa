@@ -1,4 +1,4 @@
-package jmb.controller;
+package jmb.view;
 
 
 import javafx.animation.Animation;
@@ -8,7 +8,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -19,7 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.geometry.Point2D;
 
-import static jmb.controller.ConstantsController.*;
+import static jmb.view.ConstantsView.*;
 
 public class GameBoard {
 
@@ -202,7 +201,7 @@ public class GameBoard {
     private Rectangle timerIn;
 
     @FXML
-    private Circle examplePawn;
+    private PawnV examplePawn;
 
     @FXML
     private Button menuBTN;
@@ -278,28 +277,75 @@ public class GameBoard {
         timeline.play();
     }
 
+    private Point2D prevPosition;
+
     @FXML
-    private void drag(MouseEvent event) {
+    private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
-        n.setTranslateX(n.getTranslateX() + event.getX());
-        n.setTranslateY(n.getTranslateY() + event.getY());
+        this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
     }
 
     @FXML
-    private void assignPawn(MouseDragEvent event) {
-        boolean found = false;
-        Point2D center = new Point2D(examplePawn.getCenterX(), examplePawn.getCenterY());
-        for (int i=0; (i<12 && !found); i++){
-            if(regArrayBot[i].contains(center)) {
-                found = true;
-                pawnRegion = 1 + i;     //TEST
-            } else if (regArrayTop[i].contains(center)) {
-                found = true;
-                pawnRegion =24 - i;     //TEST
+    private void drag(MouseEvent event) {
+        Node n = (Node)event.getSource();
+        n.setLayoutX(n.getLayoutX() + event.getX());
+        n.setLayoutY(n.getLayoutY() + event.getY());
+    }
+
+    @FXML
+    private void releaseTest(MouseEvent event) {
+        Node node = (Node)event.getSource();
+        boolean done = false;
+        for (int i=0; i<regArrayTop.length && !done; i++) {
+            if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(getPawnCenter((PawnV)node)))) {
+                done = true;
+                node.setLayoutX(regArrayTop[i].getLayoutX() + ((PawnV) node).getRadius());
+                node.setLayoutY(regArrayTop[i].getLayoutY() + ((PawnV) node).getRadius());
+                ((PawnV)node).setPlace(TOP_POINTS);
+                ((PawnV)node).setWhichPoint(i);
             }
         }
-        //TEST
-            System.out.println("Regione " + pawnRegion);
+        for (int i=0; i<regArrayBot.length && !done; i++) {
+            if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(getPawnCenter((PawnV) node)))) {
+                done = true;
+                node.setLayoutX(regArrayBot[i].getLayoutX() + ((PawnV) node).getRadius());
+                node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getHeight() - ((PawnV) node).getRadius());
+                ((PawnV)node).setPlace(BOT_POINTS);
+                ((PawnV)node).setWhichPoint(i);
+            }
+        }
+
+        if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(getPawnCenter((PawnV) node))) && !done) {
+            done = true;
+            node.setLayoutX(whiteExitRegion.getLayoutX() + ((PawnV) node).getRadius());
+            node.setLayoutY(whiteExitRegion.getLayoutY() + ((PawnV) node).getRadius());
+            ((PawnV)node).setPlace(WHITE_EXIT_REGION);
+        }
+
+        if (blackExitRegion.contains(blackExitRegion.sceneToLocal(getPawnCenter((PawnV) node))) && !done) {
+            done = true;
+            node.setLayoutX(blackExitRegion.getLayoutX() + ((PawnV) node).getRadius());
+            node.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - ((PawnV) node).getRadius());
+            ((PawnV)node).setPlace(BLACK_EXIT_REGION);
+        }
+
+        if (!done) {
+            node.setLayoutX(prevPosition.getX());
+            node.setLayoutY(prevPosition.getY());
+        }
+    }
+
+    //  Metodi per trovare il centro di una pedina
+    private double getPawnCenterX (PawnV pawn) {
+        return pawn.getLayoutX() + (pawn.getRadius()/2);
+    }
+
+    private double getPawnCenterY (PawnV pawn) {
+        return pawn.getLayoutY() + (pawn.getRadius()/2);
+    }
+
+    private Point2D getPawnCenter (PawnV pawn) {
+        return new Point2D(getPawnCenterX(pawn), getPawnCenterY(pawn));
     }
 
     private void diceTrayAnim() {
@@ -483,12 +529,20 @@ public class GameBoard {
 
     private void resizePawns() {
         examplePawn.setRadius(regArrayBot[0].getPrefWidth()/2);
-        //examplePawn.setLayoutX();
-        //examplePawn.setLayoutY();
+        switch (examplePawn.getPlace()) {
+            //TODO gestire casi riposizionamento pedine al variare delle dimensioni della finestra
+            case TOP_POINTS :
+                //mvPawnOnTop();
+                break;
+            case BOT_POINTS :
+                //mvPawnOnBot();
+                break;
+        }
     }
 
 
     private void changeDimensions() {
+
         resizeOuterRect();
         resizeBoardRect();
         resizeSeparator();
@@ -496,7 +550,6 @@ public class GameBoard {
         resizeLeftPoints();
         resizeRightPoints();
         calcTrayWidth();
-
         resizeExitRegions();
         resizePawns();
         resizeDiceTray();
@@ -506,6 +559,7 @@ public class GameBoard {
             testWhiteExit();
         }
         resizeButtons();
+
     }
 
     public void initialize() {

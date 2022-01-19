@@ -249,7 +249,7 @@ public class GameBoard {
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                                 new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
-                new KeyFrame(Duration.seconds(1), e-> {
+                new KeyFrame(Duration.seconds(1),  e-> {
                     this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() , this.maxExitWidth ),

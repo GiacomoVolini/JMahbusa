@@ -26,7 +26,7 @@ public class App extends Application {
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         scene = new Scene(loadFXML("view/MainMenu"), 640, 480);
-        //  scene = new Scene(loadFXML("view/GameBoard"), 640, 480);
+        //scene = new Scene(loadFXML("view/GameBoard"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="Window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MainMenu">
+   <children>
+      <ImageView fx:id="BackGround1" fitHeight="504.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background3.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="background2" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@background1.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="BGText" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="98.0" layoutX="140.0" layoutY="31.0" stroke="BLACK" strokeType="INSIDE" width="360.0" />
+      <Text id="Titolo" fx:id="Text" fill="#bc8c44" layoutX="105.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JMahbusa" textAlignment="CENTER" wrappingWidth="436.998046875">
+         <font>
+            <Font size="76.0" />
+         </font>
+      </Text>
+      <Button fx:id="NewGame" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" text="Nuova Partita" />
+      <Button fx:id="Continue" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" text="Continua" />
+      <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" text="Carica" />
+      <Button fx:id="LDB" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" text="Classifica" />
+      <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" text="Impostazioni" />
+      <Button fx:id="Exit" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Esci dal gioco" />
+   </children>
+</AnchorPane>

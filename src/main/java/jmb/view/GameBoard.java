@@ -215,8 +215,7 @@ public class GameBoard {
     protected boolean bExit = false;
     protected boolean wExit = false;
 
-    protected int pawnRegion;
-    //TEST
+    //END TEST
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
@@ -231,6 +230,7 @@ public class GameBoard {
     protected Region[] regArrayBot;
 
 
+    //Timer del turno e animazione Timer
     @FXML
     protected void runTimer(ActionEvent event) {
         Timeline timeline = new Timeline(
@@ -277,20 +277,24 @@ public class GameBoard {
         timeline.play();
     }
 
+    //  Variabile che memorizza la posizione di una pedina prima del movimento
     private Point2D prevPosition;
 
+    //  Metodo che salva la posizione della pedina prima che essa venga mossa
     @FXML
     private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
         this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
     }
 
+    //  Metodo per il trascinamento della pedina
     @FXML
     private void drag(MouseEvent event) {
         Node n = (Node)event.getSource();
         n.setLayoutX(n.getLayoutX() + event.getX());
         n.setLayoutY(n.getLayoutY() + event.getY());
     }
+
 
     @FXML
     private void releaseTest(MouseEvent event) {
@@ -367,6 +371,7 @@ public class GameBoard {
         this.maxExitWidth = outerRect.getWidth()* EXTRA_REGION_FACTOR;
         this.maxDTWidth = outerRect.getWidth()*EXTRA_REGION_FACTOR;
     }
+
 
     private double getBoardSize () {
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
@@ -527,19 +532,57 @@ public class GameBoard {
 
     }
 
+    //  Metodo per ridimensionamento e riposizionamento Pedine
+    //TODO cambiare metodo da singola pedina a tutte le pedine
     private void resizePawns() {
         examplePawn.setRadius(regArrayBot[0].getPrefWidth()/2);
         switch (examplePawn.getPlace()) {
             //TODO gestire casi riposizionamento pedine al variare delle dimensioni della finestra
             case TOP_POINTS :
-                //mvPawnOnTop();
+                mvPawnOnTop();
                 break;
             case BOT_POINTS :
-                //mvPawnOnBot();
+                mvPawnOnBot();
+                break;
+            case WHITE_EXIT_REGION :
+                mvPawnOnWHTExit();
+                break;
+            case BLACK_EXIT_REGION :
+                mvPawnOnBLKExit();
                 break;
         }
     }
 
+    //  Metodo per riposizionamento dinamico delle pedine nelle Punte superiori
+    //TODO cambiare metodo da singola pedina a tutte le pedine
+    private void mvPawnOnTop() {
+        int pointNmb = examplePawn.getWhichPoint();
+        examplePawn.setLayoutX(regArrayTop[pointNmb].getLayoutX() + examplePawn.getRadius());
+        examplePawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + examplePawn.getRadius());
+    }
+
+    //  Metodo per riposizionamento dinamico delle pedine nelle Punte inferiori
+    //TODO cambiare metodo da singola pedina a tutte le pedine
+    private void mvPawnOnBot() {
+        int pointNmb = examplePawn.getWhichPoint();
+        examplePawn.setLayoutX(regArrayBot[pointNmb].getLayoutX() + examplePawn.getRadius());
+        examplePawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getHeight() - examplePawn.getRadius());
+    }
+
+
+    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Bianco
+    //TODO cambiare metodo da singola pedina a tutte le pedine
+    private void mvPawnOnWHTExit() {
+        examplePawn.setLayoutX(whiteExitRegion.getLayoutX() + examplePawn.getRadius());
+        examplePawn.setLayoutY(whiteExitRegion.getLayoutY() + examplePawn.getRadius());
+    }
+
+    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Nero
+    //TODO cambiare metodo da singola pedina a tutte le pedine
+    private void mvPawnOnBLKExit() {
+        examplePawn.setLayoutX(blackExitRegion.getLayoutX() + examplePawn.getRadius());
+        examplePawn.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - examplePawn.getRadius());
+    }
 
     private void changeDimensions() {
 

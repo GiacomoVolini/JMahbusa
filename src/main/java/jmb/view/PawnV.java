@@ -8,12 +8,12 @@ public class PawnV extends Circle {
     public PawnV() {
         super();
         place = UNDEFINED;
-        whichPoint=UNDEFINED;
+        whichPoint = UNDEFINED;
     }
 
     private int place;                  //  Variabile che indica in che tipo di regione si trova la pedina
     private int whichPoint;             //  Variabile che indica in quale punta si trova la pedina, specificando
-                                                    //      la posizione che essa occupa nell'array corrispondente
+                                        //      la posizione che essa occupa nell'array corrispondente
 
     public int getPlace() {
         return this.place;

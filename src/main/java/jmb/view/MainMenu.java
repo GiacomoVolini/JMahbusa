@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainMenu {
@@ -44,6 +45,12 @@ public class MainMenu {
 
     @FXML
     private Button Exit;
+
+    @FXML
+    void closeButtonAction() {
+        Exit.getScene().getWindow();
+        jmb.App.getStage().close();
+    }
 
     public void initialize() {
 

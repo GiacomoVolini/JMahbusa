@@ -26,11 +26,11 @@
             <Font size="76.0" />
          </font>
       </Text>
-      <Button fx:id="NewGame" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" text="Nuova Partita" />
+      <Button fx:id="NewGame" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" onAction="#openGameBoard" text="Nuova Partita" />
       <Button fx:id="Continue" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" text="Continua" />
       <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" text="Carica" />
       <Button fx:id="LDB" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" text="Classifica" />
-      <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" text="Impostazioni" />
+      <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" text="Impostazioni" />
       <Button fx:id="Exit" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Esci dal gioco" />
    </children>
 </AnchorPane>

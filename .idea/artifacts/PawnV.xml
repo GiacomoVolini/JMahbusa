@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PawnV">
+    <output-path>$PROJECT_DIR$/out/artifacts/PawnV</output-path>
+    <root id="archive" name="PawnV.jar">
+      <element id="directory" name="jmb">
+        <element id="directory" name="view">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/jmb/view/PawnV.java" />
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/jmb/view/PawnV.class" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

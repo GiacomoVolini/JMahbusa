@@ -11,8 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -108,76 +106,76 @@ public class GameBoard {
     private Polygon point_12;
 
     @FXML
-    private Region point_1_R;
+    private LogicPoints point_1_R;
 
     @FXML
-    private Region point_2_R;
+    private LogicPoints point_2_R;
 
     @FXML
-    private Region point_3_R;
+    private LogicPoints point_3_R;
 
     @FXML
-    private Region point_4_R;
+    private LogicPoints point_4_R;
 
     @FXML
-    private Region point_5_R;
+    private LogicPoints point_5_R;
 
     @FXML
-    private Region point_6_R;
+    private LogicPoints point_6_R;
 
     @FXML
-    private Region point_7_R;
+    private LogicPoints point_7_R;
 
     @FXML
-    private Region point_8_R;
+    private LogicPoints point_8_R;
 
     @FXML
-    private Region point_9_R;
+    private LogicPoints point_9_R;
 
     @FXML
-    private Region point_10_R;
+    private LogicPoints point_10_R;
 
     @FXML
-    private Region point_11_R;
+    private LogicPoints point_11_R;
 
     @FXML
-    private Region point_12_R;
+    private LogicPoints point_12_R;
 
     @FXML
-    private Region point_24_R;
+    private LogicPoints point_24_R;
 
     @FXML
-    private Region point_23_R;
+    private LogicPoints point_23_R;
 
     @FXML
-    private Region point_22_R;
+    private LogicPoints point_22_R;
 
     @FXML
-    private Region point_21_R;
+    private LogicPoints point_21_R;
 
     @FXML
-    private Region point_20_R;
+    private LogicPoints point_20_R;
 
     @FXML
-    private Region point_19_R;
+    private LogicPoints point_19_R;
 
     @FXML
-    private Region point_18_R;
+    private LogicPoints point_18_R;
 
     @FXML
-    private Region point_17_R;
+    private LogicPoints point_17_R;
 
     @FXML
-    private Region point_16_R;
+    private LogicPoints point_16_R;
 
     @FXML
-    private Region point_15_R;
+    private LogicPoints point_15_R;
 
     @FXML
-    private Region point_14_R;
+    private LogicPoints point_14_R;
 
     @FXML
-    private Region point_13_R;
+    private LogicPoints point_13_R;
 
     @FXML
     private Rectangle whiteExitRegion;
@@ -201,14 +199,98 @@ public class GameBoard {
     private Rectangle timerIn;
 
     @FXML
-    private PawnV examplePawn;
-
-    @FXML
     private Button menuBTN;
 
-    //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
-    private double maxExitWidth;
-    private double maxDTWidth;
+    @FXML
+    private PawnV pawnBLK01;
+
+    @FXML
+    private PawnV pawnBLK02;
+
+    @FXML
+    private PawnV pawnBLK03;
+
+    @FXML
+    private PawnV pawnBLK04;
+
+    @FXML
+    private PawnV pawnBLK05;
+
+    @FXML
+    private PawnV pawnBLK06;
+
+    @FXML
+    private PawnV pawnBLK07;
+
+    @FXML
+    private PawnV pawnBLK08;
+
+    @FXML
+    private PawnV pawnBLK09;
+
+    @FXML
+    private PawnV pawnBLK10;
+
+    @FXML
+    private PawnV pawnBLK11;
+
+    @FXML
+    private PawnV pawnBLK12;
+
+    @FXML
+    private PawnV pawnBLK13;
+
+    @FXML
+    private PawnV pawnBLK14;
+
+    @FXML
+    private PawnV pawnBLK15;
+
+    @FXML
+    private PawnV pawnWHT01;
+
+    @FXML
+    private PawnV pawnWHT02;
+
+    @FXML
+    private PawnV pawnWHT03;
+
+    @FXML
+    private PawnV pawnWHT04;
+
+    @FXML
+    private PawnV pawnWHT05;
+
+    @FXML
+    private PawnV pawnWHT06;
+
+    @FXML
+    private PawnV pawnWHT07;
+
+    @FXML
+    private PawnV pawnWHT08;
+
+    @FXML
+    private PawnV pawnWHT09;
+
+    @FXML
+    private PawnV pawnWHT10;
+
+    @FXML
+    private PawnV pawnWHT11;
+
+    @FXML
+    private PawnV pawnWHT12;
+
+    @FXML
+    private PawnV pawnWHT13;
+
+    @FXML
+    private PawnV pawnWHT14;
+
+    @FXML
+    private PawnV pawnWHT15;
+
 
 
     //TEST
@@ -220,14 +302,17 @@ public class GameBoard {
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
 
-    //  Si creano degli array di Polygon e Region per gestire in maniera più agevole il
+    //  Si creano degli array di Polygon, LogicPoints e PawnV per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
 
     protected Polygon[] polArrayTop;
     protected Polygon[] polArrayBot;
 
-    protected Region[] regArrayTop;
-    protected Region[] regArrayBot;
+    protected LogicPoints[] regArrayTop;
+    protected LogicPoints[] regArrayBot;
+
+    protected PawnV[] pawnArrayWHT;
+    protected PawnV[] pawnArrayBLK;
 
 
     //Timer del turno e animazione Timer
@@ -252,8 +337,8 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1),  e-> {
                     this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , this.maxExitWidth ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - this.maxExitWidth))
+                }, new KeyValue(blackExitRegion.widthProperty() , GameBoardResize.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameBoardResize.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -269,22 +354,26 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.wExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , this.maxExitWidth ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - this.maxExitWidth))
+                }, new KeyValue(whiteExitRegion.widthProperty() , GameBoardResize.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameBoardResize.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
         timeline.play();
     }
 
-    //  Variabile che memorizza la posizione di una pedina prima del movimento
+    //  Variabili che memorizzano posizione e regioni di una pedina prima del movimento
     private Point2D prevPosition;
+    private int prevRegion;
+    private int prevPoint;
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
     @FXML
     private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
         this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
+        this.prevRegion = ((PawnV) n).getPlace();
+        this.prevPoint = ((PawnV) n).getWhichPoint();
     }
 
     //  Metodo per il trascinamento della pedina
@@ -297,60 +386,95 @@ public class GameBoard {
 
 
     @FXML
-    private void releaseTest(MouseEvent event) {
-        Node node = (Node)event.getSource();
+    private void releasePawn(MouseEvent event) {
+        //Node node = (Node)event.getSource();
+        PawnV node = (PawnV)event.getSource();
         boolean done = false;
         for (int i=0; i<regArrayTop.length && !done; i++) {
-            if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(getPawnCenter((PawnV)node)))) {
+            if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
                 done = true;
-                node.setLayoutX(regArrayTop[i].getLayoutX() + ((PawnV) node).getRadius());
-                node.setLayoutY(regArrayTop[i].getLayoutY() + ((PawnV) node).getRadius());
-                ((PawnV)node).setPlace(TOP_POINTS);
-                ((PawnV)node).setWhichPoint(i);
+                if (this.prevPoint > 0) {
+                    if (this.prevRegion == TOP_POINTS) {
+                        regArrayTop[this.prevPoint].decPawn();
+                    } else {
+                        regArrayBot[this.prevPoint].decPawn();
+                    }
+                }
+                node.setLayoutX(regArrayTop[i].getLayoutX() + node.getRadius());
+                node.setHowManyBelow(regArrayTop[i].getHowManyPawns());
+                if (node.getHowManyBelow() < 5) {
+                    node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius() * (1 + node.getHowManyBelow() * 2));}
+                else {
+                    node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius() * 9);
+                }
+                //node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius());
+                node.setPlace(TOP_POINTS);
+                node.setWhichPoint(i);
+                regArrayTop[i].incPawn();
             }
         }
         for (int i=0; i<regArrayBot.length && !done; i++) {
-            if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(getPawnCenter((PawnV) node)))) {
+            if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(node.getPawnCenter()))) {
                 done = true;
-                node.setLayoutX(regArrayBot[i].getLayoutX() + ((PawnV) node).getRadius());
-                node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getHeight() - ((PawnV) node).getRadius());
-                ((PawnV)node).setPlace(BOT_POINTS);
-                ((PawnV)node).setWhichPoint(i);
+                if (this.prevPoint > 0) {
+                    if (this.prevRegion == TOP_POINTS) {
+                        regArrayTop[this.prevPoint].decPawn();
+                    } else {
+                        regArrayBot[this.prevPoint].decPawn();
+                    }
+                }
+                node.setLayoutX(regArrayBot[i].getLayoutX() + node.getRadius());
+                node.setHowManyBelow(regArrayBot[i].getHowManyPawns());
+                if (node.getHowManyBelow() < 5) {
+                    node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getPrefHeight() - node.getRadius() * (1 + node.getHowManyBelow() * 2));
+                } else {
+                    node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getPrefHeight() - node.getRadius() * 9);
+                }
+                node.setPlace(BOT_POINTS);
+                node.setWhichPoint(i);
+                regArrayBot[i].incPawn();
             }
         }
 
-        if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(getPawnCenter((PawnV) node))) && !done) {
+        // FIXME
+        //  - Inserire controllo su possibilità uscita del giocatore
+        if ((node.getIsWhite()) && whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter())) && !done) {
             done = true;
-            node.setLayoutX(whiteExitRegion.getLayoutX() + ((PawnV) node).getRadius());
-            node.setLayoutY(whiteExitRegion.getLayoutY() + ((PawnV) node).getRadius());
-            ((PawnV)node).setPlace(WHITE_EXIT_REGION);
+            if (this.prevPoint > 0) {
+                if (this.prevRegion == TOP_POINTS) {
+                    regArrayTop[this.prevPoint].decPawn();
+                } else {
+                    regArrayBot[this.prevPoint].decPawn();
+                }
+            }
+            node.setLayoutX(whiteExitRegion.getLayoutX() + node.getRadius());
+            node.setLayoutY(whiteExitRegion.getLayoutY() + node.getRadius());
+            node.setPlace(WHITE_EXIT_REGION);
         }
 
-        if (blackExitRegion.contains(blackExitRegion.sceneToLocal(getPawnCenter((PawnV) node))) && !done) {
+        // FIXME
+        //  - Inserire controllo su possibilità uscita del giocatore
+        if (!(node.getIsWhite()) && blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter())) && !done) {
             done = true;
-            node.setLayoutX(blackExitRegion.getLayoutX() + ((PawnV) node).getRadius());
-            node.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - ((PawnV) node).getRadius());
-            ((PawnV)node).setPlace(BLACK_EXIT_REGION);
+            if (this.prevPoint > 0) {
+                if (this.prevRegion == TOP_POINTS) {
+                    regArrayTop[this.prevPoint].decPawn();
+                } else {
+                    regArrayBot[this.prevPoint].decPawn();
+                }
+            }
+            node.setLayoutX(blackExitRegion.getLayoutX() + node.getRadius());
+            node.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - node.getRadius());
+            node.setPlace(BLACK_EXIT_REGION);
         }
 
         if (!done) {
             node.setLayoutX(prevPosition.getX());
             node.setLayoutY(prevPosition.getY());
         }
+
     }
 
-    //  Metodi per trovare il centro di una pedina
-    private double getPawnCenterX (PawnV pawn) {
-        return pawn.getLayoutX() + (pawn.getRadius()/2);
-    }
-
-    private double getPawnCenterY (PawnV pawn) {
-        return pawn.getLayoutY() + (pawn.getRadius()/2);
-    }
-
-    private Point2D getPawnCenter (PawnV pawn) {
-        return new Point2D(getPawnCenterX(pawn), getPawnCenterY(pawn));
-    }
 
     private void diceTrayAnim() {
         jmb.App.getStage().setResizable(false);
@@ -359,7 +483,7 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(diceTray.widthProperty() , this.maxDTWidth )
+                }, new KeyValue(diceTray.widthProperty() , GameBoardResize.getMaxDTWidth() )
                 )
         );
         timeline.setCycleCount(1);
@@ -367,254 +491,54 @@ public class GameBoard {
     }
 
 
-    private void calcTrayWidth() {
-        this.maxExitWidth = outerRect.getWidth()* EXTRA_REGION_FACTOR;
-        this.maxDTWidth = outerRect.getWidth()*EXTRA_REGION_FACTOR;
-    }
-
-
-    private double getBoardSize () {
-        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
-        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
-        return Math.min(usableHeight, usableWidth);
-    }
-
-    private double getMaxBtnWidth() {
-        double maxBtnWidth = window.getWidth() - (diceTray.getLayoutX()+maxDTWidth+(BUTTON_ANCHOR*2));
-        return Math.min(MAX_BTN_WIDTH, maxBtnWidth);
-
-    }
-
-    private void resizeOuterRect() {
-        //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-        outerRect.setWidth(getBoardSize());
-        outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
-        outerRect.setHeight(getBoardSize());
-        outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
-    }
-
-    private void resizeBoardRect() {
-        //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
-        boardRect.setWidth((outerRect.getWidth()*0.9));
-        boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
-        boardRect.setHeight((outerRect.getHeight()*0.9));
-        boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
-    }
-
-    private void resizeSeparator() {
-        //  Ridimensiona il separatore tra le due metà dell'area di gioco
-        //  in funzione della sua effettiva dimensione
-        separator.setWidth(boardRect.getWidth()/13);
-        separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
-        separator.setHeight(boardRect.getHeight()+2);
-        separator.setLayoutY(boardRect.getLayoutY()-1);
-    }
-
-    private void resizeTimer() {
-        //  Ridimensiona le barre per il timer
-        timerOut.setWidth(separator.getWidth()/2);
-        timerOut.setLayoutX(separator.getLayoutX() + (separator.getWidth()/2) -(timerOut.getWidth()/2));
-        timerOut.setHeight(separator.getHeight()-4);
-        timerOut.setLayoutY(separator.getLayoutY() + (separator.getHeight()/2) -(timerOut.getHeight()/2));
-
-        timerIn.setWidth(timerOut.getWidth()-4);
-        timerIn.setLayoutX(timerOut.getLayoutX()+2);
-        timerIn.setHeight(timerOut.getHeight()-4);
-        timerIn.setLayoutY(timerOut.getLayoutY()+2);
-    }
-
-    private void resizeLeftPoints() {
-        //  Ridimensiona le punte a sinistra del tabellone e relative regioni
-        for (int i=0; i<6; i++) {
-
-            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            polArrayTop[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-
-            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-            polArrayBot[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
-
-        }
-    }
-
-    private void resizeRightPoints() {
-        //  Ridimensiona le punte a destra del tabellone e relative regioni
-        for (int i=6; i<12; i++) {
-
-            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            polArrayTop[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
-
-            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
-
-
-            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-            polArrayBot[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
-
-        }
-    }
-
-    private void resizeButtons() {
-
-        //  Ridimensiona i Buttoni rispetto alla finestra principale
-        //  Larghezza
-        backBTN.setMaxWidth(getMaxBtnWidth());
-        finishBTN.setMaxWidth(getMaxBtnWidth());
-        menuBTN.setMaxWidth(getMaxBtnWidth());
-        backBTN.setPrefWidth(window.getWidth()*0.15);
-        finishBTN.setPrefWidth(backBTN.getPrefWidth());
-        menuBTN.setPrefWidth(backBTN.getPrefWidth());
-        // Altezza
-        backBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        menuBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        backBTN.setPrefHeight(window.getHeight()*0.2);
-        finishBTN.setPrefHeight(backBTN.getPrefHeight());
-        menuBTN.setPrefHeight(backBTN.getPrefHeight());
-        backBTN.setLayoutY(window.getHeight()*.25 - backBTN.getPrefHeight()/2);
-        finishBTN.setLayoutY((window.getHeight() - finishBTN.getPrefHeight())/2);
-        menuBTN.setLayoutY(window.getHeight()*.75 - menuBTN.getPrefHeight()/2);
-
-    }
-
-    private void resizeExitRegions() {
-        whiteExitRegion.setHeight(outerRect.getHeight()/2);
-        whiteExitRegion.setLayoutY(outerRect.getLayoutY());
-        blackExitRegion.setHeight(outerRect.getHeight()/2);
-        blackExitRegion.setLayoutY(outerRect.getLayoutY() + (outerRect.getHeight()/2));
-
-        if (bExit) {
-            blackExitRegion.setWidth(this.maxExitWidth);
-            blackExitRegion.setLayoutX(outerRect.getLayoutX() - this.maxExitWidth);
-        }
-        if (wExit) {
-            whiteExitRegion.setWidth(this.maxExitWidth);
-            whiteExitRegion.setLayoutX(outerRect.getLayoutX() - this.maxExitWidth);
-        }
-    }
-
-    private void resizeDiceTray() {
-        diceTray.setLayoutX(outerRect.getLayoutX() + outerRect.getWidth());
-        diceTray.setLayoutY(outerRect.getLayoutY());
-        if (dtAnimDone) {
-            diceTray.setWidth(maxDTWidth);
-        }
-        diceTray.setHeight(outerRect.getHeight());
-
-    }
-
-    //  Metodo per ridimensionamento e riposizionamento Pedine
-    //TODO cambiare metodo da singola pedina a tutte le pedine
-    private void resizePawns() {
-        examplePawn.setRadius(regArrayBot[0].getPrefWidth()/2);
-        switch (examplePawn.getPlace()) {
-            //TODO gestire casi riposizionamento pedine al variare delle dimensioni della finestra
-            case TOP_POINTS :
-                mvPawnOnTop();
-                break;
-            case BOT_POINTS :
-                mvPawnOnBot();
-                break;
-            case WHITE_EXIT_REGION :
-                mvPawnOnWHTExit();
-                break;
-            case BLACK_EXIT_REGION :
-                mvPawnOnBLKExit();
-                break;
-        }
-    }
-
-    //  Metodo per riposizionamento dinamico delle pedine nelle Punte superiori
-    //TODO cambiare metodo da singola pedina a tutte le pedine
-    private void mvPawnOnTop() {
-        int pointNmb = examplePawn.getWhichPoint();
-        examplePawn.setLayoutX(regArrayTop[pointNmb].getLayoutX() + examplePawn.getRadius());
-        examplePawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + examplePawn.getRadius());
-    }
-
-    //  Metodo per riposizionamento dinamico delle pedine nelle Punte inferiori
-    //TODO cambiare metodo da singola pedina a tutte le pedine
-    private void mvPawnOnBot() {
-        int pointNmb = examplePawn.getWhichPoint();
-        examplePawn.setLayoutX(regArrayBot[pointNmb].getLayoutX() + examplePawn.getRadius());
-        examplePawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getHeight() - examplePawn.getRadius());
-    }
-
-
-    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Bianco
-    //TODO cambiare metodo da singola pedina a tutte le pedine
-    private void mvPawnOnWHTExit() {
-        examplePawn.setLayoutX(whiteExitRegion.getLayoutX() + examplePawn.getRadius());
-        examplePawn.setLayoutY(whiteExitRegion.getLayoutY() + examplePawn.getRadius());
-    }
-
-    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Nero
-    //TODO cambiare metodo da singola pedina a tutte le pedine
-    private void mvPawnOnBLKExit() {
-        examplePawn.setLayoutX(blackExitRegion.getLayoutX() + examplePawn.getRadius());
-        examplePawn.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - examplePawn.getRadius());
-    }
-
     private void changeDimensions() {
 
-        resizeOuterRect();
-        resizeBoardRect();
-        resizeSeparator();
-        resizeTimer();
-        resizeLeftPoints();
-        resizeRightPoints();
-        calcTrayWidth();
-        resizeExitRegions();
-        resizePawns();
-        resizeDiceTray();
+        GameBoardResize.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
+                                    polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
+                                    blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
+                                    pawnArrayWHT, pawnArrayBLK);
         if(!dtAnimDone) {
             diceTrayAnim();
             testBlackExit();
             testWhiteExit();
         }
-        resizeButtons();
 
     }
 
     public void initialize() {
 
+        //  INIZIALIZZAZIONE ARRAY
         this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
                 this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
-        this.regArrayTop = new Region[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
+        this.regArrayTop = new LogicPoints[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
                 this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R   };
         this.polArrayBot = new Polygon[]    {   this.point_13, this.point_14, this.point_15, this.point_16, this.point_17, this.point_18,
                 this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
-        this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
+        this.regArrayBot = new LogicPoints[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
+        this.pawnArrayWHT = new PawnV[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
+                this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};
+        this.pawnArrayBLK = new PawnV[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
+                this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
+
+        for (int i = 0; i < pawnArrayWHT.length; i++){
+            this.pawnArrayWHT[i].setPlace(BOT_POINTS);
+            this.pawnArrayWHT[i].setHowManyBelow(i);
+            this.pawnArrayWHT[i].setIsWhite(true);
+            this.pawnArrayBLK[i].setPlace(TOP_POINTS);
+            this.pawnArrayBLK[i].setHowManyBelow(i);
+            this.pawnArrayBLK[i].setIsWhite(false);
+            this.pawnArrayWHT[i].setWhichPoint(0);
+            this.pawnArrayBLK[i].setWhichPoint(0);
+        }
+
+        this.regArrayBot[0].setHowManyPawns(15);
+        this.regArrayTop[0].setHowManyPawns(15);
+        for (int i = 1; i < regArrayTop.length; i++){
+            this.regArrayTop[i].setHowManyPawns(0);
+            this.regArrayBot[i].setHowManyPawns(0);
+        }
+
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

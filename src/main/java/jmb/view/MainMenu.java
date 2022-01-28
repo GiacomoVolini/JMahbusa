@@ -2,16 +2,22 @@ package jmb.view;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.fxml.FXMLLoader;
+import jmb.App;
+
+import java.io.IOException;
 
 public class MainMenu {
+
+    GameBoard C = new GameBoard();
 
     @FXML
     private AnchorPane Window;
@@ -50,6 +56,20 @@ public class MainMenu {
     void closeButtonAction() {
         Exit.getScene().getWindow();
         jmb.App.getStage().close();
+    }
+
+    @FXML
+    void openGameBoard()  throws IOException {
+        NewGame.getScene().getWindow();
+        jmb.App.board();
+
+    }
+
+    @FXML
+    void openMenuImpostazioni()  throws IOException {
+        Settings.getScene().getWindow();
+        jmb.App.edit();
+
     }
 
     public void initialize() {

@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="LogicPoints">
+    <output-path>$PROJECT_DIR$/out/artifacts/LogicPoints</output-path>
+    <root id="archive" name="LogicPoints.jar">
+      <element id="directory" name="jmb">
+        <element id="directory" name="view">
+          <element id="file-copy" path="$PROJECT_DIR$/target/classes/jmb/view/LogicPoints.class" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/jmb/view/LogicPoints.java" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -7,12 +7,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+
+import static jmb.view.View.logic;
 
 public class MenuImpostazioni {
 
@@ -150,6 +151,7 @@ public class MenuImpostazioni {
 
 
 
+
         }
 
         public void initialize() {
@@ -162,7 +164,5 @@ public class MenuImpostazioni {
                 GBG.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
         }
-
-
 
 }

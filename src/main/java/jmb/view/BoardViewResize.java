@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class GameBoardResize {
+public class BoardViewResize {
 
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
@@ -191,10 +191,13 @@ public class GameBoardResize {
     }
 
     //  Metodo per ridimensionamento e riposizionamento Pedine
-    public static void resizePawns(PawnV[] pawnArrayWHT, PawnV[] pawnArrayBLK, LogicPoints[] regArrayBot , LogicPoints[] regArrayTop,
+    public static void resizePawns(PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, LogicPoints[] regArrayBot , LogicPoints[] regArrayTop,
                                    Rectangle whiteExitRegion, Rectangle blackExitRegion) {
 
-        for (PawnV pawn : pawnArrayWHT) {
+        //FIXME
+        //  - Riflettere i cambiamenti a whichPawn (ed eventuali riferimenti a Logic) nel resize delle pedine
+
+        for (PawnView pawn : pawnArrayWHT) {
             pawn.setRadius(regArrayBot[0].getPrefWidth() / 2);
             switch (pawn.getPlace()) {
                 case TOP_POINTS:
@@ -209,7 +212,7 @@ public class GameBoardResize {
             }
         }
 
-        for (PawnV pawn : pawnArrayBLK) {
+        for (PawnView pawn : pawnArrayBLK) {
             pawn.setRadius(regArrayBot[0].getPrefWidth() / 2);
             switch (pawn.getPlace()) {
                 case TOP_POINTS:
@@ -227,23 +230,23 @@ public class GameBoardResize {
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nelle Punte superiori
-    private static void mvPawnOnTop( PawnV pawn, LogicPoints[] regArrayTop) {
+    private static void mvPawnOnTop(PawnView pawn, LogicPoints[] regArrayTop) {
         int pointNmb = pawn.getWhichPoint();
         pawn.setLayoutX(regArrayTop[pointNmb].getLayoutX() + pawn.getRadius());
-        if (pawn.getHowManyBelow() < 5) {
-            pawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + pawn.getRadius() * (1 + pawn.getHowManyBelow() * 2));}
+        if (pawn.getWhichRow() < 5) {
+            pawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + pawn.getRadius() * (1 + pawn.getWhichRow() * 2));}
         else {
             pawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + pawn.getRadius() * 9);
         }
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nelle Punte inferiori
-    private static void mvPawnOnBot(PawnV pawn, LogicPoints[] regArrayBot) {
+    private static void mvPawnOnBot(PawnView pawn, LogicPoints[] regArrayBot) {
         int pointNmb = pawn.getWhichPoint();
         pawn.setLayoutX(regArrayBot[pointNmb].getLayoutX() + pawn.getRadius());
 
-        if (pawn.getHowManyBelow() < 5) {
-            pawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getPrefHeight() - pawn.getRadius() * (1 + pawn.getHowManyBelow() * 2));}
+        if (pawn.getWhichRow() < 5) {
+            pawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getPrefHeight() - pawn.getRadius() * (1 + pawn.getWhichRow() * 2));}
         else {
             pawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getPrefHeight() - pawn.getRadius() * 9);
         }
@@ -251,13 +254,13 @@ public class GameBoardResize {
 
 
     //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Bianco
-    private static void mvPawnOnWHTExit(PawnV pawn, Rectangle whiteExitRegion) {
+    private static void mvPawnOnWHTExit(PawnView pawn, Rectangle whiteExitRegion) {
         pawn.setLayoutX(whiteExitRegion.getLayoutX() + pawn.getRadius());
         pawn.setLayoutY(whiteExitRegion.getLayoutY() + pawn.getRadius());
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Nero
-    private static void mvPawnOnBLKExit(PawnV pawn, Rectangle blackExitRegion) {
+    private static void mvPawnOnBLKExit(PawnView pawn, Rectangle blackExitRegion) {
         pawn.setLayoutX(blackExitRegion.getLayoutX() + pawn.getRadius());
         pawn.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - pawn.getRadius());
     }
@@ -268,7 +271,7 @@ public class GameBoardResize {
                                     LogicPoints[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
-                                    Button menuBTN, PawnV[] pawnArrayWHT, PawnV[] pawnArrayBLK) {
+                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK) {
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);

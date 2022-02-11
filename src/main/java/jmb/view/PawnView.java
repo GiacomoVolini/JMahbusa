@@ -4,22 +4,24 @@ import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
 import static jmb.view.ConstantsView.*;
 
-public class PawnV extends Circle {
+public class PawnView extends Circle {
 
-    public PawnV() {
+    public PawnView() {
         super();
         place = UNDEFINED;
         whichPoint = UNDEFINED;
         isWhite = true;
-        howManyBelow = 0;
+        whichRow = 0;
     }
+
+    //FIXME
 
     private int place;                  //  Variabile che indica in che tipo di regione si trova la pedina
     private int whichPoint;             //  Variabile che indica in quale punta si trova la pedina, specificando
                                         //      la posizione che essa occupa nell'array corrispondente
     private boolean isWhite;            //  Variabile che indica a quale giocatore appartiene la pedina
 
-    private int howManyBelow;           //  Variabile che indica quante pedine sono già presenti nella stessa zona del tabellone
+    private int whichRow;           //  Variabile che indica la "riga" in cui la pedina è posizionata
 
     public int getPlace() {
         return this.place;
@@ -53,12 +55,12 @@ public class PawnV extends Circle {
         return new Point2D(getPawnCenterX(), getPawnCenterY());
     }
 
-    public int getHowManyBelow() {
-        return this.howManyBelow;
+    public int getWhichRow() {
+        return this.whichRow;
     }
 
-    public void setHowManyBelow (int newNmb) {
-        this.howManyBelow = newNmb;
+    public void setWhichRow(int newNmb) {
+        this.whichRow = newNmb;
     }
 
 }

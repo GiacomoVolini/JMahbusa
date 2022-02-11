@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import jmb.view.LogicPoints?>
-<?import jmb.view.PawnV?>
+<?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameBoard">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -181,34 +181,34 @@
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
    </LogicPoints>
-   <PawnV fx:id="pawnWHT01" fill="WHITE" layoutX="1049.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT02" fill="WHITE" layoutX="1099.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT03" fill="WHITE" layoutX="1149.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT04" fill="WHITE" layoutX="1199.0" layoutY="107.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT05" fill="WHITE" layoutX="1249.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT06" fill="WHITE" layoutX="1049.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT07" fill="WHITE" layoutX="1099.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT08" fill="WHITE" layoutX="1149.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT09" fill="WHITE" layoutX="1199.0" layoutY="178.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT10" fill="WHITE" layoutX="1249.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT11" fill="WHITE" layoutX="1049.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT12" fill="WHITE" layoutX="1099.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT13" fill="WHITE" layoutX="1149.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT14" fill="WHITE" layoutX="1199.0" layoutY="262.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnWHT15" fill="WHITE" layoutX="1249.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK01" fill="#403a3a" layoutX="1054.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK02" fill="#403a3a" layoutX="1104.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK03" fill="#403a3a" layoutX="1154.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK04" fill="#403a3a" layoutX="1204.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK05" fill="#403a3a" layoutX="1254.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK06" fill="#403a3a" layoutX="1054.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK07" fill="#403a3a" layoutX="1104.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK08" fill="#403a3a" layoutX="1154.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK09" fill="#403a3a" layoutX="1204.0" layoutY="645.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK10" fill="#403a3a" layoutX="1254.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK11" fill="#403a3a" layoutX="1054.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK12" fill="#403a3a" layoutX="1104.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK13" fill="#403a3a" layoutX="1154.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK14" fill="#403a3a" layoutX="1204.0" layoutY="729.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnV fx:id="pawnBLK15" fill="#403a3a" layoutX="1254.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT01" fill="WHITE" layoutX="1049.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT02" fill="WHITE" layoutX="1099.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT03" fill="WHITE" layoutX="1149.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT04" fill="WHITE" layoutX="1199.0" layoutY="107.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT05" fill="WHITE" layoutX="1249.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT06" fill="WHITE" layoutX="1049.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT07" fill="WHITE" layoutX="1099.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT08" fill="WHITE" layoutX="1149.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT09" fill="WHITE" layoutX="1199.0" layoutY="178.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT10" fill="WHITE" layoutX="1249.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT11" fill="WHITE" layoutX="1049.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT12" fill="WHITE" layoutX="1099.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT13" fill="WHITE" layoutX="1149.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT14" fill="WHITE" layoutX="1199.0" layoutY="262.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT15" fill="WHITE" layoutX="1249.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK01" fill="#403a3a" layoutX="1054.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK02" fill="#403a3a" layoutX="1104.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK03" fill="#403a3a" layoutX="1154.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK04" fill="#403a3a" layoutX="1204.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK05" fill="#403a3a" layoutX="1254.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK06" fill="#403a3a" layoutX="1054.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK07" fill="#403a3a" layoutX="1104.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK08" fill="#403a3a" layoutX="1154.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK09" fill="#403a3a" layoutX="1204.0" layoutY="645.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK10" fill="#403a3a" layoutX="1254.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK11" fill="#403a3a" layoutX="1054.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK12" fill="#403a3a" layoutX="1104.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK13" fill="#403a3a" layoutX="1154.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK14" fill="#403a3a" layoutX="1204.0" layoutY="729.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK15" fill="#403a3a" layoutX="1254.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
 </AnchorPane>

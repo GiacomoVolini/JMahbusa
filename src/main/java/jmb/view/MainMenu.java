@@ -14,10 +14,9 @@ import javafx.fxml.FXMLLoader;
 import jmb.App;
 
 import java.io.IOException;
+import static jmb.view.View.logic;
 
 public class MainMenu {
-
-    GameBoard C = new GameBoard();
 
     @FXML
     private AnchorPane Window;

@@ -1,40 +1,43 @@
 package jmb.model;
-import static jmb.model.ConstantsModel.*;
+import static jmb.model.ConstantsLogic.*;
 
-/** La classe Board gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
+/** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
  */
 
 
-public class Board {
+public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
-    Pawn[][] squares = new Pawn[16][25];    //una matrice di Pawn, per gestire posizione e spostamento delle pedine
+    PawnLogic[][] squares = new PawnLogic[16][25];    //una matrice di PawnLogic, per gestire posizione e spostamento delle pedine
+                                            //  le colonne 0 e 25 rappresentano le due zone di uscita per le pedine,
+                                            //  mentre le restanti 24 colonne rappresentano le punte
+
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    private Dice dice;                      //oggetto di tipo Dice per la gestione del tiro dei dadi
+    private DiceLogic dice;                      //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
 
     //  ----------------------------
 
     //  COSTRUTTORE
 
-    public Board(){
+    public BoardLogic(){
 
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
         //  può portare fuori le proprie pedine
         this.blackExit = false;
         this.whiteExit = false;
 
-        //  Creiamo un oggetto di tipo Dice, che gestirà il tiro dei dadi durante la partita
-        dice = new Dice();
+        //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
+        dice = new DiceLogic();
 
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
         for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= new Pawn(false, true, true);
-            squares[i][COL_BLACK]= new Pawn(true, false, false);
+            squares[i][COL_WHITE]= new PawnLogic(false, true, true, COL_WHITE, i);
+            squares[i][COL_BLACK]= new PawnLogic(true, false, false, COL_BLACK, i);
         }
 
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
@@ -46,6 +49,13 @@ public class Board {
 
 
     //  METODI
+
+    public boolean isWhiteTurn() {
+        return whiteTurn;
+    }
+
+
+
 
 
     /*  Il metodo possibleMove riceve informazioni sulla mossa (posizioni iniziale e finale della pedina mossa),
@@ -89,15 +99,32 @@ public class Board {
         di far uscire dal gioco le proprie pedine.
      */
 
-    public void movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
+    public int searchRow(int whichPoint) {
+        int whichRow = UNDEFINED;
+        if (squares[15][whichPoint]==null) {
+            boolean found = false;
+            for (int i=14; i>0 && !found; i--) {
+                if (squares[i][whichPoint] !=null) {
+                    found = true;
+                    whichRow = i + 1;
+                }
+            }
+            if (!found) {
+                whichRow = 0;
+            }
+        }
 
-
+        return whichRow;
+    }
+    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         if(possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC)){
 
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
+            squares[puntaFinR][puntaFinC].setWhichPoint(puntaFinC);
+            squares[puntaFinR][puntaFinC].setWhichRow(puntaFinR);
             squares[puntaInizR][puntaInizC]= null;
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
@@ -121,6 +148,7 @@ public class Board {
             }
 
         }
+        return possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
     }
 
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto

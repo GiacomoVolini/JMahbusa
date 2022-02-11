@@ -10,7 +10,7 @@ public class ConstantsView {
     public static final double EXTRA_REGION_FACTOR = 0.2;               //  La larghezza delle regioni di uscita e dei dadi rispetto al tabellone
     public static final double BUTTON_ANCHOR = 10;                      //  Il valore dell'anchor per i tre pulsanti
 
-    //  Costanti per la variabile place di PawnV
+    //  Costanti per la variabile place di PawnView
     public static final int UNDEFINED = -1;
     public static final int TOP_POINTS = 1;
     public static final int BOT_POINTS = 2;

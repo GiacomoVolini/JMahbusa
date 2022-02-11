@@ -3,10 +3,10 @@ package jmb.model;
 import java.util.Random;
 
 /**
- * La classe Dice modella e gestisce la logica dei dadi
+ * La classe DiceLogic modella e gestisce la logica dei dadi
  */
 
-public class Dice {
+public class DiceLogic {
 
     private int[] dice = new int[4];            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
     private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossa
@@ -16,7 +16,7 @@ public class Dice {
 
 
 
-    public Dice () {
+    public DiceLogic() {
 
         //  COSTRUTTORE -- inizializza i valori di array e variabili di istanza
 

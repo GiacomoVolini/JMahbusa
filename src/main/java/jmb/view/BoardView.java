@@ -17,8 +17,9 @@ import javafx.util.Duration;
 import javafx.geometry.Point2D;
 
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.logic;
 
-public class GameBoard {
+public class BoardView {
 
 
     @FXML
@@ -202,94 +203,94 @@ public class GameBoard {
     private Button menuBTN;
 
     @FXML
-    private PawnV pawnBLK01;
+    private PawnView pawnBLK01;
 
     @FXML
-    private PawnV pawnBLK02;
+    private PawnView pawnBLK02;
 
     @FXML
-    private PawnV pawnBLK03;
+    private PawnView pawnBLK03;
 
     @FXML
-    private PawnV pawnBLK04;
+    private PawnView pawnBLK04;
 
     @FXML
-    private PawnV pawnBLK05;
+    private PawnView pawnBLK05;
 
     @FXML
-    private PawnV pawnBLK06;
+    private PawnView pawnBLK06;
 
     @FXML
-    private PawnV pawnBLK07;
+    private PawnView pawnBLK07;
 
     @FXML
-    private PawnV pawnBLK08;
+    private PawnView pawnBLK08;
 
     @FXML
-    private PawnV pawnBLK09;
+    private PawnView pawnBLK09;
 
     @FXML
-    private PawnV pawnBLK10;
+    private PawnView pawnBLK10;
 
     @FXML
-    private PawnV pawnBLK11;
+    private PawnView pawnBLK11;
 
     @FXML
-    private PawnV pawnBLK12;
+    private PawnView pawnBLK12;
 
     @FXML
-    private PawnV pawnBLK13;
+    private PawnView pawnBLK13;
 
     @FXML
-    private PawnV pawnBLK14;
+    private PawnView pawnBLK14;
 
     @FXML
-    private PawnV pawnBLK15;
+    private PawnView pawnBLK15;
 
     @FXML
-    private PawnV pawnWHT01;
+    private PawnView pawnWHT01;
 
     @FXML
-    private PawnV pawnWHT02;
+    private PawnView pawnWHT02;
 
     @FXML
-    private PawnV pawnWHT03;
+    private PawnView pawnWHT03;
 
     @FXML
-    private PawnV pawnWHT04;
+    private PawnView pawnWHT04;
 
     @FXML
-    private PawnV pawnWHT05;
+    private PawnView pawnWHT05;
 
     @FXML
-    private PawnV pawnWHT06;
+    private PawnView pawnWHT06;
 
     @FXML
-    private PawnV pawnWHT07;
+    private PawnView pawnWHT07;
 
     @FXML
-    private PawnV pawnWHT08;
+    private PawnView pawnWHT08;
 
     @FXML
-    private PawnV pawnWHT09;
+    private PawnView pawnWHT09;
 
     @FXML
-    private PawnV pawnWHT10;
+    private PawnView pawnWHT10;
 
     @FXML
-    private PawnV pawnWHT11;
+    private PawnView pawnWHT11;
 
     @FXML
-    private PawnV pawnWHT12;
+    private PawnView pawnWHT12;
 
     @FXML
-    private PawnV pawnWHT13;
+    private PawnView pawnWHT13;
 
     @FXML
-    private PawnV pawnWHT14;
+    private PawnView pawnWHT14;
 
     @FXML
-    private PawnV pawnWHT15;
+    private PawnView pawnWHT15;
 
 
 
@@ -302,7 +303,7 @@ public class GameBoard {
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
 
-    //  Si creano degli array di Polygon, LogicPoints e PawnV per gestire in maniera più agevole il
+    //  Si creano degli array di Polygon, LogicPoints e PawnView per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
 
     protected Polygon[] polArrayTop;
@@ -311,21 +312,28 @@ public class GameBoard {
     protected LogicPoints[] regArrayTop;
     protected LogicPoints[] regArrayBot;
 
-    protected PawnV[] pawnArrayWHT;
-    protected PawnV[] pawnArrayBLK;
+    protected PawnView[] pawnArrayWHT;
+    protected PawnView[] pawnArrayBLK;
 
 
+
+    //FIXME
+    //  - Verificare funzionamento del timer una volta messo fuori da runTimer
     //Timer del turno e animazione Timer
+
+    protected Timeline turnTimer = new Timeline(
+            new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+            new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                // TODO Verificare che turno venga effettivamente cambiato
+                logic.nextTurn();
+            }, new KeyValue(timerIn.scaleYProperty(), 0))
+    );
+
+
     @FXML
     protected void runTimer(ActionEvent event) {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                    // TODO gestione cambio turno
-                }, new KeyValue(timerIn.scaleYProperty(), 0))
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        turnTimer.setCycleCount(Animation.INDEFINITE);
+        turnTimer.play();
     }
 
     @FXML
@@ -337,8 +345,8 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1),  e-> {
                     this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , GameBoardResize.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameBoardResize.getMaxExitWidth()))
+                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewResize.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewResize.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -354,8 +362,8 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.wExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , GameBoardResize.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameBoardResize.getMaxExitWidth()))
+                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewResize.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewResize.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -366,73 +374,51 @@ public class GameBoard {
     private Point2D prevPosition;
     private int prevRegion;
     private int prevPoint;
+    private int prevRow;
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
     @FXML
     private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
         this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
-        this.prevRegion = ((PawnV) n).getPlace();
-        this.prevPoint = ((PawnV) n).getWhichPoint();
+        this.prevRegion = ((PawnView) n).getPlace();
+        this.prevPoint = ((PawnView) n).getWhichPoint();
+        this.prevRow = ((PawnView) n).getWhichRow();
     }
 
     //  Metodo per il trascinamento della pedina
     @FXML
     private void drag(MouseEvent event) {
-        Node n = (Node)event.getSource();
-        n.setLayoutX(n.getLayoutX() + event.getX());
-        n.setLayoutY(n.getLayoutY() + event.getY());
+
+        PawnView n = (PawnView) event.getSource();
+
+        if (logic.checkIfMovable(n.getWhichPoint(), n.getWhichRow())) {
+            n.setLayoutX(n.getLayoutX() + event.getX());
+            n.setLayoutY(n.getLayoutY() + event.getY());
+        }
     }
 
 
+    //FIXME
+    //  - Forse i due for si possono unire lasciando due if separati e basta
+
     @FXML
     private void releasePawn(MouseEvent event) {
-        //Node node = (Node)event.getSource();
-        PawnV node = (PawnV)event.getSource();
+        PawnView node = (PawnView)event.getSource();
         boolean done = false;
         for (int i=0; i<regArrayTop.length && !done; i++) {
             if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
-                done = true;
-                if (this.prevPoint > 0) {
-                    if (this.prevRegion == TOP_POINTS) {
-                        regArrayTop[this.prevPoint].decPawn();
-                    } else {
-                        regArrayBot[this.prevPoint].decPawn();
-                    }
-                }
-                node.setLayoutX(regArrayTop[i].getLayoutX() + node.getRadius());
-                node.setHowManyBelow(regArrayTop[i].getHowManyPawns());
-                if (node.getHowManyBelow() < 5) {
-                    node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius() * (1 + node.getHowManyBelow() * 2));}
-                else {
-                    node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius() * 9);
-                }
-                //node.setLayoutY(regArrayTop[i].getLayoutY() + node.getRadius());
-                node.setPlace(TOP_POINTS);
-                node.setWhichPoint(i);
-                regArrayTop[i].incPawn();
+                //FIXME
+                //  - Continuare implementazione spostamento pedina
+                done = logic.placePawnOnPoint(prevPoint, prevRow, i+1);
+
             }
         }
         for (int i=0; i<regArrayBot.length && !done; i++) {
-            if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(node.getPawnCenter()))) {
-                done = true;
-                if (this.prevPoint > 0) {
-                    if (this.prevRegion == TOP_POINTS) {
-                        regArrayTop[this.prevPoint].decPawn();
-                    } else {
-                        regArrayBot[this.prevPoint].decPawn();
-                    }
-                }
-                node.setLayoutX(regArrayBot[i].getLayoutX() + node.getRadius());
-                node.setHowManyBelow(regArrayBot[i].getHowManyPawns());
-                if (node.getHowManyBelow() < 5) {
-                    node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getPrefHeight() - node.getRadius() * (1 + node.getHowManyBelow() * 2));
-                } else {
-                    node.setLayoutY(regArrayBot[i].getLayoutY() + regArrayBot[i].getPrefHeight() - node.getRadius() * 9);
-                }
-                node.setPlace(BOT_POINTS);
-                node.setWhichPoint(i);
-                regArrayBot[i].incPawn();
+            if (regArrayBot[regArrayBot.length - 1 - i].contains(regArrayBot[regArrayBot.length - 1 - i].sceneToLocal(node.getPawnCenter()))) {
+                //FIXME
+                //  - Muovi pedina su punta bassa
+                done = logic.placePawnOnPoint(prevPoint,  prevRow, 13 + i);
             }
         }
 
@@ -483,7 +469,7 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(diceTray.widthProperty() , GameBoardResize.getMaxDTWidth() )
+                }, new KeyValue(diceTray.widthProperty() , BoardViewResize.getMaxDTWidth() )
                 )
         );
         timeline.setCycleCount(1);
@@ -493,7 +479,7 @@ public class GameBoard {
 
     private void changeDimensions() {
 
-        GameBoardResize.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
+        BoardViewResize.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK);
@@ -507,6 +493,8 @@ public class GameBoard {
 
     public void initialize() {
 
+        logic.initializeBoardLogic();
+
         //  INIZIALIZZAZIONE ARRAY
         this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
                 this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
@@ -516,20 +504,22 @@ public class GameBoard {
                 this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
         this.regArrayBot = new LogicPoints[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-        this.pawnArrayWHT = new PawnV[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
+        //this.regArrayBot = new LogicPoints[]     {   this.point_24_R, this.point_23_R, this.point_22_R, this.point_21_R, this.point_20_R, this.point_19_R,
+          //      this.point_18_R, this.point_17_R, this.point_16_R, this.point_15_R, this.point_14_R, this.point_13_R};
+        this.pawnArrayWHT = new PawnView[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
                 this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};
-        this.pawnArrayBLK = new PawnV[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
+        this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
 
         for (int i = 0; i < pawnArrayWHT.length; i++){
             this.pawnArrayWHT[i].setPlace(BOT_POINTS);
-            this.pawnArrayWHT[i].setHowManyBelow(i);
+            this.pawnArrayWHT[i].setWhichRow(i);
             this.pawnArrayWHT[i].setIsWhite(true);
             this.pawnArrayBLK[i].setPlace(TOP_POINTS);
-            this.pawnArrayBLK[i].setHowManyBelow(i);
+            this.pawnArrayBLK[i].setWhichRow(i);
             this.pawnArrayBLK[i].setIsWhite(false);
-            this.pawnArrayWHT[i].setWhichPoint(0);
-            this.pawnArrayBLK[i].setWhichPoint(0);
+            this.pawnArrayWHT[i].setWhichPoint(1);      //TODO era 0
+            this.pawnArrayBLK[i].setWhichPoint(24);     //TODO era 0
         }
 
         this.regArrayBot[0].setHowManyPawns(15);

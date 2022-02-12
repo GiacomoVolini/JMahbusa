@@ -1,5 +1,6 @@
 package jmb.model;
 import static jmb.model.ConstantsLogic.*;
+import static jmb.ConstantsShared.*;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
@@ -10,7 +11,7 @@ public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
-    PawnLogic[][] squares = new PawnLogic[16][25];    //una matrice di PawnLogic, per gestire posizione e spostamento delle pedine
+    PawnLogic[][] squares = new PawnLogic[16][26];    //una matrice di PawnLogic, per gestire posizione e spostamento delle pedine
                                             //  le colonne 0 e 25 rappresentano le due zone di uscita per le pedine,
                                             //  mentre le restanti 24 colonne rappresentano le punte
 
@@ -54,6 +55,10 @@ public class BoardLogic {
         return whiteTurn;
     }
 
+    public void changeTurn() {
+        this.whiteTurn= !this.whiteTurn;
+    }
+
 
 
 
@@ -76,10 +81,10 @@ public class BoardLogic {
                 //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
                 //  non sia bloccata per il giocatore di turno
                 if (whiteTurn) {
-                    if (squares[puntaFinR][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+                    if (squares[puntaFinR][puntaFinC]!=null && squares[puntaFinR][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
                         possible = false;
                     }
-                } else if (squares[puntaFinR][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
+                } else if (squares[puntaFinR][puntaFinC]!=null && squares[puntaFinR][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
                     possible = false;
                 }
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
@@ -99,23 +104,6 @@ public class BoardLogic {
         di far uscire dal gioco le proprie pedine.
      */
 
-    public int searchRow(int whichPoint) {
-        int whichRow = UNDEFINED;
-        if (squares[15][whichPoint]==null) {
-            boolean found = false;
-            for (int i=14; i>0 && !found; i--) {
-                if (squares[i][whichPoint] !=null) {
-                    found = true;
-                    whichRow = i + 1;
-                }
-            }
-            if (!found) {
-                whichRow = 0;
-            }
-        }
-
-        return whichRow;
-    }
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
@@ -150,6 +138,26 @@ public class BoardLogic {
         }
         return possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
     }
+
+    public int searchRow(int whichPoint) {
+        // Data una colonna della matrice cerca la prima riga libera e la restituisce
+        int whichRow = UNDEFINED;
+        if (squares[15][whichPoint]==null) {
+            boolean found = false;
+            for (int i=14; i>0 && !found; i--) {
+                if (squares[i][whichPoint] !=null) {
+                    found = true;
+                    whichRow = i + 1;
+                }
+            }
+            if (!found) {
+                whichRow = 0;
+            }
+        }
+
+        return whichRow;
+    }
+
 
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
      */

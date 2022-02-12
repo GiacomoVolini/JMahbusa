@@ -11,7 +11,6 @@ public class ConstantsView {
     public static final double BUTTON_ANCHOR = 10;                      //  Il valore dell'anchor per i tre pulsanti
 
     //  Costanti per la variabile place di PawnView
-    public static final int UNDEFINED = -1;
     public static final int TOP_POINTS = 1;
     public static final int BOT_POINTS = 2;
     public static final int WHITE_EXIT_REGION = 3;

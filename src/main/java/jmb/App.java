@@ -36,6 +36,7 @@ public class App extends Application {
         scene = new Scene(loadFXML("view/MainMenu"), 640, 480);
         stage.setScene(scene);
         stage.show();
+        interfaceInstantiation();
     }
 
     public static void MainMenu() throws IOException {

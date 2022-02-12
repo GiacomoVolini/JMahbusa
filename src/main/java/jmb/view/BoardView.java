@@ -320,7 +320,7 @@ public class BoardView {
     //FIXME
     //  - Verificare funzionamento del timer una volta messo fuori da runTimer
     //Timer del turno e animazione Timer
-
+    /*
     protected Timeline turnTimer = new Timeline(
             new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
             new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
@@ -329,11 +329,11 @@ public class BoardView {
             }, new KeyValue(timerIn.scaleYProperty(), 0))
     );
 
+     */
 
     @FXML
-    protected void runTimer(ActionEvent event) {
-        turnTimer.setCycleCount(Animation.INDEFINITE);
-        turnTimer.play();
+    protected void nextTurn (ActionEvent event) {
+        //TODO
     }
 
     @FXML
@@ -374,16 +374,19 @@ public class BoardView {
     private Point2D prevPosition;
     private int prevRegion;
     private int prevPoint;
-    private int prevRow;
+    //private int prevRow; TODO forse cancellare
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
+    //  FIXME
+    //      Cambiare metodo per smettere di utilizzare gli attributi di PawnView e LogicPoints
+    //          ed utilizzare solo metodi interni al logic
     @FXML
     private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
-        this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
-        this.prevRegion = ((PawnView) n).getPlace();
+        this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY()); //TODO forse non serve più
+        this.prevRegion = ((PawnView) n).getPlace(); //TODO forse non serve più
         this.prevPoint = ((PawnView) n).getWhichPoint();
-        this.prevRow = ((PawnView) n).getWhichRow();
+        //this.prevRow = ((PawnView) n).getWhichRow(); TODO forse cancellare
     }
 
     //  Metodo per il trascinamento della pedina
@@ -410,7 +413,7 @@ public class BoardView {
             if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
                 //FIXME
                 //  - Continuare implementazione spostamento pedina
-                done = logic.placePawnOnPoint(prevPoint, prevRow, i+1);
+                //done = logic.placePawnOnPoint(prevPoint, prevRow, i+1);
 
             }
         }
@@ -418,7 +421,7 @@ public class BoardView {
             if (regArrayBot[regArrayBot.length - 1 - i].contains(regArrayBot[regArrayBot.length - 1 - i].sceneToLocal(node.getPawnCenter()))) {
                 //FIXME
                 //  - Muovi pedina su punta bassa
-                done = logic.placePawnOnPoint(prevPoint,  prevRow, 13 + i);
+                //done = logic.placePawnOnPoint(prevPoint,  prevRow, 13 + i);
             }
         }
 
@@ -528,6 +531,18 @@ public class BoardView {
             this.regArrayTop[i].setHowManyPawns(0);
             this.regArrayBot[i].setHowManyPawns(0);
         }
+
+        Timeline turnTimer = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                    // TODO Verificare che turno venga effettivamente cambiato
+                    logic.nextTurn();
+                }, new KeyValue(timerIn.scaleYProperty(), 0))
+        );
+
+        turnTimer.setCycleCount(Animation.INDEFINITE);
+        turnTimer.play();
+
 
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA

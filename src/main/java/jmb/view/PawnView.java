@@ -4,9 +4,9 @@ import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
 import static jmb.view.ConstantsView.*;
 
-public class PawnV extends Circle {
+public class PawnView extends Circle {
 
-    public PawnV() {
+    public PawnView() {
         super();
         place = UNDEFINED;
         whichPoint = UNDEFINED;

@@ -4,7 +4,7 @@
     <root id="archive" name="PawnV.jar">
       <element id="directory" name="jmb">
         <element id="directory" name="view">
-          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/jmb/view/PawnV.java" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/java/jmb/view/PawnView.java" />
           <element id="file-copy" path="$PROJECT_DIR$/target/classes/jmb/view/PawnV.class" />
         </element>
       </element>

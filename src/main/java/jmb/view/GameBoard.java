@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -15,6 +16,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.geometry.Point2D;
+
+import java.io.IOException;
 
 import static jmb.view.ConstantsView.*;
 
@@ -202,94 +205,109 @@ public class GameBoard {
     private Button menuBTN;
 
     @FXML
-    private PawnV pawnBLK01;
+    private PawnView pawnBLK01;
 
     @FXML
-    private PawnV pawnBLK02;
+    private PawnView pawnBLK02;
 
     @FXML
-    private PawnV pawnBLK03;
+    private PawnView pawnBLK03;
 
     @FXML
-    private PawnV pawnBLK04;
+    private PawnView pawnBLK04;
 
     @FXML
-    private PawnV pawnBLK05;
+    private PawnView pawnBLK05;
 
     @FXML
-    private PawnV pawnBLK06;
+    private PawnView pawnBLK06;
 
     @FXML
-    private PawnV pawnBLK07;
+    private PawnView pawnBLK07;
 
     @FXML
-    private PawnV pawnBLK08;
+    private PawnView pawnBLK08;
 
     @FXML
-    private PawnV pawnBLK09;
+    private PawnView pawnBLK09;
 
     @FXML
-    private PawnV pawnBLK10;
+    private PawnView pawnBLK10;
 
     @FXML
-    private PawnV pawnBLK11;
+    private PawnView pawnBLK11;
 
     @FXML
-    private PawnV pawnBLK12;
+    private PawnView pawnBLK12;
 
     @FXML
-    private PawnV pawnBLK13;
+    private PawnView pawnBLK13;
 
     @FXML
-    private PawnV pawnBLK14;
+    private PawnView pawnBLK14;
 
     @FXML
-    private PawnV pawnBLK15;
+    private PawnView pawnBLK15;
 
     @FXML
-    private PawnV pawnWHT01;
+    private PawnView pawnWHT01;
 
     @FXML
-    private PawnV pawnWHT02;
+    private PawnView pawnWHT02;
 
     @FXML
-    private PawnV pawnWHT03;
+    private PawnView pawnWHT03;
 
     @FXML
-    private PawnV pawnWHT04;
+    private PawnView pawnWHT04;
 
     @FXML
-    private PawnV pawnWHT05;
+    private PawnView pawnWHT05;
 
     @FXML
-    private PawnV pawnWHT06;
+    private PawnView pawnWHT06;
 
     @FXML
-    private PawnV pawnWHT07;
+    private PawnView pawnWHT07;
 
     @FXML
-    private PawnV pawnWHT08;
+    private PawnView pawnWHT08;
 
     @FXML
-    private PawnV pawnWHT09;
+    private PawnView pawnWHT09;
 
     @FXML
-    private PawnV pawnWHT10;
+    private PawnView pawnWHT10;
 
     @FXML
-    private PawnV pawnWHT11;
+    private PawnView pawnWHT11;
 
     @FXML
-    private PawnV pawnWHT12;
+    private PawnView pawnWHT12;
 
     @FXML
-    private PawnV pawnWHT13;
+    private PawnView pawnWHT13;
 
     @FXML
-    private PawnV pawnWHT14;
+    private PawnView pawnWHT14;
 
     @FXML
-    private PawnV pawnWHT15;
+    private PawnView pawnWHT15;
+
+    @FXML
+    private TitledPane Iniziamo;
+
+    @FXML
+    private Button iniziaTempo;
+
+    @FXML
+    private TitledPane Pause;
+
+    @FXML
+    private Button senzaSalvare;
+
+    @FXML
+    private Button annulla;
 
 
 
@@ -311,13 +329,14 @@ public class GameBoard {
     protected LogicPoints[] regArrayTop;
     protected LogicPoints[] regArrayBot;
 
-    protected PawnV[] pawnArrayWHT;
-    protected PawnV[] pawnArrayBLK;
+    protected PawnView[] pawnArrayWHT;
+    protected PawnView[] pawnArrayBLK;
 
 
     //Timer del turno e animazione Timer
     @FXML
     protected void runTimer(ActionEvent event) {
+        Iniziamo.setVisible(false);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
@@ -346,6 +365,24 @@ public class GameBoard {
     }
 
     @FXML
+    void openExitoption(ActionEvent event) {
+            Pause.setVisible(true);
+    }
+
+    @FXML
+    void closeExitoption(ActionEvent event) {
+            Pause.setVisible(false);
+    }
+
+    @FXML
+    void vaialMainMenu()  throws IOException {
+        senzaSalvare.getScene().getWindow();
+        jmb.App.MainMenu();
+
+    }
+
+    //TODO da cancellare
+    /*@FXML
     private void testWhiteExit() {
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
@@ -360,7 +397,7 @@ public class GameBoard {
         );
         timeline.setCycleCount(1);
         timeline.play();
-    }
+    }anche devi attivare changeDimensions*/
 
     //  Variabili che memorizzano posizione e regioni di una pedina prima del movimento
     private Point2D prevPosition;
@@ -372,8 +409,8 @@ public class GameBoard {
     private void savePosition (MouseEvent event) {
         Node n = (Node)event.getSource();
         this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY());
-        this.prevRegion = ((PawnV) n).getPlace();
-        this.prevPoint = ((PawnV) n).getWhichPoint();
+        this.prevRegion = ((PawnView) n).getPlace();
+        this.prevPoint = ((PawnView) n).getWhichPoint();
     }
 
     //  Metodo per il trascinamento della pedina
@@ -388,7 +425,7 @@ public class GameBoard {
     @FXML
     private void releasePawn(MouseEvent event) {
         //Node node = (Node)event.getSource();
-        PawnV node = (PawnV)event.getSource();
+        PawnView node = (PawnView)event.getSource();
         boolean done = false;
         for (int i=0; i<regArrayTop.length && !done; i++) {
             if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
@@ -496,11 +533,11 @@ public class GameBoard {
         GameBoardResize.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK);
+                                    pawnArrayWHT, pawnArrayBLK, Pause, Iniziamo);
         if(!dtAnimDone) {
             diceTrayAnim();
             testBlackExit();
-            testWhiteExit();
+            //testWhiteExit();
         }
 
     }
@@ -516,9 +553,9 @@ public class GameBoard {
                 this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
         this.regArrayBot = new LogicPoints[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-        this.pawnArrayWHT = new PawnV[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
+        this.pawnArrayWHT = new PawnView[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
                 this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};
-        this.pawnArrayBLK = new PawnV[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
+        this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
 
         for (int i = 0; i < pawnArrayWHT.length; i++){
@@ -538,6 +575,43 @@ public class GameBoard {
             this.regArrayTop[i].setHowManyPawns(0);
             this.regArrayBot[i].setHowManyPawns(0);
         }
+        //colori tavolo
+            outerRect.setFill(frame);
+            outerRect.setStroke(frame);
+            separator.setFill(frame);
+            separator.setStroke(frame);
+            boardRect.setFill(table);
+            boardRect.setStroke(table);
+
+        //colori pedine
+        for (int i= 0; i<pawnArrayWHT.length; i++){
+            this.pawnArrayWHT[i].setFill(pedIn1);
+            this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayBLK[i].setFill(pedIn2);
+            this.pawnArrayBLK[i].setStroke(pedOut2);
+        }
+
+        //colori punte
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayTop[i].setFill(point);
+                this.polArrayTop[i].setStroke(point);
+            }else{
+                this.polArrayTop[i].setFill(point2);
+                this.polArrayTop[i].setStroke(point2);
+            }
+        }
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayBot[i].setFill(point2);
+                this.polArrayBot[i].setStroke(point2);
+            }else{
+                this.polArrayBot[i].setFill(point);
+                this.polArrayBot[i].setStroke(point);
+            }
+        }
+
+
 
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA

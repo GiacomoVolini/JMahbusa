@@ -320,12 +320,20 @@ public class MenuImpostazioni<string> {
                         Cpunte.setDisable(true);
                         Cpunte2.setDisable(true);
                         Ccornice.setDisable(true);
+                        table = Color.web("#ad1111");
+                        frame = Color.web("#000000");
+                        point = Color.web("#ffde3a");
+                        point2 = Color.web("#c0c0c0");
                 } else if (Imdestra.isSelected()) {
                         rd = right;
                         Ctavolo.setDisable(true);
                         Cpunte.setDisable(true);
                         Cpunte2.setDisable(true);
                         Ccornice.setDisable(true);
+                        table = Color.web("#53960f");
+                        frame = Color.web("#090957");
+                        point = Color.web("#c21123");
+                        point2 = Color.web("#daa505");
                 } else {
                         rd = middle;
                         Ctavolo.setDisable(false);
@@ -358,6 +366,10 @@ public class MenuImpostazioni<string> {
                                 Cpunte.setDisable(true);
                                 Cpunte2.setDisable(true);
                                 Ccornice.setDisable(true);
+                                table = Color.web("#ad1111");
+                                frame = Color.web("#000000");
+                                point = Color.web("#ffde3a");
+                                point2 = Color.web("#c0c0c0");
                                 break;
                         case middle:
                                 TM.setSelected(true);
@@ -372,6 +384,10 @@ public class MenuImpostazioni<string> {
                                 Cpunte.setDisable(true);
                                 Cpunte2.setDisable(true);
                                 Ccornice.setDisable(true);
+                                table = Color.web("#53960f");
+                                frame = Color.web("#090957");
+                                point = Color.web("#c21123");
+                                point2 = Color.web("#daa505");
                                 break;
                 }
 

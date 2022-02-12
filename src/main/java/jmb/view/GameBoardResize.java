@@ -3,6 +3,7 @@ package jmb.view;
 import static jmb.view.ConstantsView.*;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -191,10 +192,10 @@ public class GameBoardResize {
     }
 
     //  Metodo per ridimensionamento e riposizionamento Pedine
-    public static void resizePawns(PawnV[] pawnArrayWHT, PawnV[] pawnArrayBLK, LogicPoints[] regArrayBot , LogicPoints[] regArrayTop,
+    public static void resizePawns(PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, LogicPoints[] regArrayBot , LogicPoints[] regArrayTop,
                                    Rectangle whiteExitRegion, Rectangle blackExitRegion) {
 
-        for (PawnV pawn : pawnArrayWHT) {
+        for (PawnView pawn : pawnArrayWHT) {
             pawn.setRadius(regArrayBot[0].getPrefWidth() / 2);
             switch (pawn.getPlace()) {
                 case TOP_POINTS:
@@ -209,7 +210,7 @@ public class GameBoardResize {
             }
         }
 
-        for (PawnV pawn : pawnArrayBLK) {
+        for (PawnView pawn : pawnArrayBLK) {
             pawn.setRadius(regArrayBot[0].getPrefWidth() / 2);
             switch (pawn.getPlace()) {
                 case TOP_POINTS:
@@ -227,7 +228,7 @@ public class GameBoardResize {
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nelle Punte superiori
-    private static void mvPawnOnTop( PawnV pawn, LogicPoints[] regArrayTop) {
+    private static void mvPawnOnTop(PawnView pawn, LogicPoints[] regArrayTop) {
         int pointNmb = pawn.getWhichPoint();
         pawn.setLayoutX(regArrayTop[pointNmb].getLayoutX() + pawn.getRadius());
         if (pawn.getHowManyBelow() < 5) {
@@ -238,7 +239,7 @@ public class GameBoardResize {
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nelle Punte inferiori
-    private static void mvPawnOnBot(PawnV pawn, LogicPoints[] regArrayBot) {
+    private static void mvPawnOnBot(PawnView pawn, LogicPoints[] regArrayBot) {
         int pointNmb = pawn.getWhichPoint();
         pawn.setLayoutX(regArrayBot[pointNmb].getLayoutX() + pawn.getRadius());
 
@@ -251,15 +252,24 @@ public class GameBoardResize {
 
 
     //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Bianco
-    private static void mvPawnOnWHTExit(PawnV pawn, Rectangle whiteExitRegion) {
+    private static void mvPawnOnWHTExit(PawnView pawn, Rectangle whiteExitRegion) {
         pawn.setLayoutX(whiteExitRegion.getLayoutX() + pawn.getRadius());
         pawn.setLayoutY(whiteExitRegion.getLayoutY() + pawn.getRadius());
     }
 
     //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Nero
-    private static void mvPawnOnBLKExit(PawnV pawn, Rectangle blackExitRegion) {
+    private static void mvPawnOnBLKExit(PawnView pawn, Rectangle blackExitRegion) {
         pawn.setLayoutX(blackExitRegion.getLayoutX() + pawn.getRadius());
         pawn.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - pawn.getRadius());
+    }
+
+    // Metodo per rimposizionamento dinamico della pagina Pausa
+    private static void resizePaginaPauseIniziamo(AnchorPane window, TitledPane Pause, TitledPane Iniziamo){
+        Pause.setLayoutX(window.getWidth()/2-Pause.getWidth()/2);
+        Pause.setLayoutY(window.getHeight()/2-Pause.getHeight()/2);
+        Iniziamo.setLayoutX(window.getWidth()/2-Iniziamo.getWidth()/2);
+        Iniziamo.setLayoutY(window.getHeight()/2-Iniziamo.getHeight()/2);
+
     }
 
     protected static void resizeAll(AnchorPane window, Rectangle outerRect, Rectangle boardRect,
@@ -268,7 +278,7 @@ public class GameBoardResize {
                                     LogicPoints[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
-                                    Button menuBTN, PawnV[] pawnArrayWHT, PawnV[] pawnArrayBLK) {
+                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, TitledPane Pause, TitledPane Iniziamo) {
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);
@@ -281,7 +291,10 @@ public class GameBoardResize {
         resizeDiceTray(dtAnimDone, diceTray, outerRect);
         resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
         resizePawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
+        resizePaginaPauseIniziamo(window, Pause, Iniziamo);
+
     }
+
 
 
 }

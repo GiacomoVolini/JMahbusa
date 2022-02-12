@@ -109,14 +109,14 @@
                   <Menu mnemonicParsing="false" text="                                         Personalizzazione" />
                </menus>
             </MenuBar>
-            <ColorPicker fx:id="Inpedina1" editable="true" layoutX="85.0" layoutY="96.0" onAction="#coloreINpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css" />
+            <ColorPicker fx:id="Inpedina1" editable="true" layoutX="85.0" layoutY="96.0" onAction="#coloreINpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
             <Text layoutX="84.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pedine giocatore 1" wrappingWidth="125.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
             <Circle fx:id="pedina1" fill="WHITE" layoutX="182.0" layoutY="128.0" radius="19.0" stroke="WHITE" strokeType="INSIDE" />
-            <ColorPicker fx:id="Inpedina2" editable="true" layoutX="266.0" layoutY="96.0" onAction="#coloreINpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Inpedina2" editable="true" layoutX="266.0" layoutY="96.0" onAction="#coloreINpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color />
                </value>
@@ -127,8 +127,8 @@
                </font>
             </Text>
             <Circle fx:id="pedina2" layoutX="375.0" layoutY="128.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
-            <ColorPicker fx:id="Conpedina1" editable="true" layoutX="85.0" layoutY="138.0" onAction="#coloreOUTpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css" />
-            <ColorPicker fx:id="Conpedina2" editable="true" layoutX="266.0" layoutY="138.0" onAction="#coloreOUTpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Conpedina1" editable="true" layoutX="85.0" layoutY="138.0" onAction="#coloreOUTpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
+            <ColorPicker fx:id="Conpedina2" editable="true" layoutX="266.0" layoutY="138.0" onAction="#coloreOUTpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color />
                </value>
@@ -143,7 +143,7 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <ColorPicker fx:id="Ctavolo" depthTest="ENABLE" editable="true" layoutX="40.0" layoutY="243.0" onAction="#coloreTavolo" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Ctavolo" depthTest="ENABLE" editable="true" layoutX="40.0" layoutY="243.0" onAction="#coloreTavolo" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color red="0.8823529481887817" green="0.7764706015586853" blue="0.6000000238418579" />
                </value>
@@ -153,7 +153,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <ColorPicker fx:id="Cpunte" editable="true" layoutX="177.0" layoutY="243.0" onAction="#colorePunte" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Cpunte" editable="true" layoutX="177.0" layoutY="243.0" onAction="#colorePunte" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color red="0.6980392336845398" green="0.4941176474094391" blue="0.1921568661928177" />
                </value>
@@ -163,7 +163,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <ColorPicker fx:id="Ccornice" editable="true" layoutX="380.0" layoutY="243.0" onAction="#coloreCornice" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Ccornice" editable="true" layoutX="380.0" layoutY="243.0" onAction="#coloreCornice" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color red="0.26274511218070984" green="0.1764705926179886" blue="0.019607843831181526" />
                </value>
@@ -183,7 +183,7 @@
             <RadioButton fx:id="TM" layoutX="203.0" layoutY="372.0" mnemonicParsing="false" onAction="#inMezzo" text="custom" />
             <Button fx:id="Apply" layoutX="347.0" layoutY="369.0" mnemonicParsing="false" onAction="#SaveData" prefHeight="25.0" prefWidth="58.0" text="Apply" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             <Button fx:id="Reset" layoutX="-8.0" layoutY="374.0" mnemonicParsing="false" onAction="#ResetData" prefHeight="25.0" prefWidth="58.0" text="Reset" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-8.0" />
-            <ColorPicker fx:id="Cpunte2" editable="true" layoutX="235.0" layoutY="243.0" onAction="#colorePunte2" prefHeight="25.0" prefWidth="54.0" stylesheets="@colorpicker.css">
+            <ColorPicker fx:id="Cpunte2" editable="true" layoutX="235.0" layoutY="243.0" onAction="#colorePunte2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color red="0.16470588743686676" green="0.7372549176216125" blue="0.5843137502670288" />
                </value>

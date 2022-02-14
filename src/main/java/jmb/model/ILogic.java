@@ -6,7 +6,7 @@ public interface ILogic {
 
     //void placePawnOnBotPoints (int whichPoint);
 
-    boolean placePawnOnPoint (int prevPoint, int prevRow, int whichPoint);
+    void placePawnOnPoint (int whichPoint);
 
     boolean getWhichTurn();
 

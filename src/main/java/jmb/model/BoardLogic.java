@@ -110,7 +110,8 @@ public class BoardLogic {
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
-        if(possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC)){
+        boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+        if(possible){
 
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
@@ -137,9 +138,10 @@ public class BoardLogic {
             } else {
                 this.isBlackExit();
             }
-
+            //DEBUG - 1 row
+            System.out.println("Ho spostato da " + puntaInizC + " " + puntaInizR + " a " + puntaFinC + " " + puntaFinR);
         }
-        return possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+        return possible;
     }
 
     public int searchFirstFreeRow(int whichPoint) {
@@ -147,7 +149,7 @@ public class BoardLogic {
         int whichRow = UNDEFINED;
         if (squares[15][whichPoint]==null) {
             boolean found = false;
-            for (int i=14; i>0 && !found; i--) {
+            for (int i=14; i>=0 && !found; i--) {
                 if (squares[i][whichPoint] !=null) {
                     found = true;
                     whichRow = i + 1;
@@ -176,6 +178,7 @@ public class BoardLogic {
 
 
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
+            Il bianco può andare "avanti", il nero "indietro", per quanto concerne il numero di punta
      */
 
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {

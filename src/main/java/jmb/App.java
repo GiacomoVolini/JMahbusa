@@ -40,13 +40,13 @@ public class App extends Application {
     }
 
     public static void MainMenu() throws IOException {
-        scene4 = new Scene(loadFXML("view/MainMenu"));
+        scene4 = new Scene(loadFXML("view/MainMenu"), 640, 480);
         stage.setScene(scene4);
         stage.show();
     }
 
     public static void board() throws IOException{
-        scene1 = new Scene(loadFXML("view/GameBoard"));
+        scene1 = new Scene(loadFXML("view/GameBoard"), 640, 480);
         stage.setScene(scene1);
         stage.show();
     }

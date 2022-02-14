@@ -22,17 +22,9 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public boolean placePawnOnPoint(int prevPoint, int prevRow, int whichPoint) {
-
-        int whichRow = board.searchFirstFreeRow(whichPoint);
-        boolean moved;
-        if (whichRow == UNDEFINED) {
-            moved = false;
-        } else {
-            moved = board.movePawn(prevPoint, prevRow, whichRow, whichPoint);
-        }
-        return moved;
-
+    public void placePawnOnPoint(int whichPoint) {
+        board.movePawn(board.getMoveBufferColumn(), board.getMoveBufferRow(),
+                board.searchFirstFreeRow(whichPoint), whichPoint);
     }
 
     @Override
@@ -64,15 +56,6 @@ public class Logic implements ILogic{
 
     @Override
     public void createMoveBuffer (int whichPoint) {
-        //  FIXME
-        //      DA CREARE
-        //      - Il metodo vuole salvare delle informazioni relative alla posizione iniziale di un movimento
-        //      - Queste informazioni verranno poi utilizzate dai metodi relativi al movimento per sapere
-        //              quale pedina andare a pescare e quindi muovere
-        //      - L'informazione sulla colonna è passata al metodo direttamente, sarà il view a determinarla
-        //              in base alla posizione della pedina nel tabellone di gioco (quale Regione la contiene)
-        //      - L'informazione sulla riga è determinata automaticamente dal logic, cercando la prima posizione
-        //              occupata "dall'alto" (scandendo da 16 a scendere)
         board.setMoveBuffer(whichPoint, board.searchTopOccupiedRow(whichPoint));
     }
 }

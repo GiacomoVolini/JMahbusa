@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.geometry.Point2D;
 
 import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.ConstantsView.*;
@@ -362,7 +361,7 @@ public class BoardView {
     @FXML
     private void savePosition (MouseEvent event) {
         PawnView node = (PawnView)event.getSource();
-        logic.createMoveBuffer(this.searchPawnPoint(node));
+        logic.createMoveBuffer(this.searchPawnPlace(node));
     }
 
     //  Metodo per il trascinamento della pedina
@@ -381,65 +380,14 @@ public class BoardView {
     */
     @FXML
     private void releasePawn(MouseEvent event) {
-        /*
         PawnView node = (PawnView)event.getSource();
-        boolean done = false;
-        //FIXME
-        //  - Spostamento della pedina nelle punte può essere gestito usando searchPawnPoint e poi invocando il
-        //        metodo di movimento
-        for (int i=0; i<regArrayTop.length && !done; i++) {
-            if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
-                //FIXME
-                //  - Continuare implementazione spostamento pedina
-                //done = logic.placePawnOnPoint(prevPoint, prevRow, i+1);
+        int col = this.searchPawnPlace(node);
+        if (col != UNDEFINED) {
+            logic.placePawnOnPoint(col);
+        }
+        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,
+                regArrayTop, whiteExitRegion, blackExitRegion);
 
-            }
-        }
-        for (int i=0; i<regArrayBot.length && !done; i++) {
-            if (regArrayBot[regArrayBot.length - 1 - i].contains(regArrayBot[regArrayBot.length - 1 - i].sceneToLocal(node.getPawnCenter()))) {
-                //FIXME
-                //  - Muovi pedina su punta bassa
-                //done = logic.placePawnOnPoint(prevPoint,  prevRow, 13 + i);
-            }
-        }
-
-        // FIXME
-        //  - Inserire controllo su possibilità uscita del giocatore
-        if ((node.getIsWhite()) && whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter())) && !done) {
-            done = true;
-            if (this.prevPoint > 0) {
-                if (this.prevRegion == TOP_POINTS) {
-                    regArrayTop[this.prevPoint].decPawn();
-                } else {
-                    regArrayBot[this.prevPoint].decPawn();
-                }
-            }
-            node.setLayoutX(whiteExitRegion.getLayoutX() + node.getRadius());
-            node.setLayoutY(whiteExitRegion.getLayoutY() + node.getRadius());
-            node.setPlace(WHITE_EXIT_REGION);
-        }
-
-        // FIXME
-        //  - Inserire controllo su possibilità uscita del giocatore
-        if (!(node.getIsWhite()) && blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter())) && !done) {
-            done = true;
-            if (this.prevPoint > 0) {
-                if (this.prevRegion == TOP_POINTS) {
-                    regArrayTop[this.prevPoint].decPawn();
-                } else {
-                    regArrayBot[this.prevPoint].decPawn();
-                }
-            }
-            node.setLayoutX(blackExitRegion.getLayoutX() + node.getRadius());
-            node.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - node.getRadius());
-            node.setPlace(BLACK_EXIT_REGION);
-        }
-
-        if (!done) {
-            node.setLayoutX(prevPosition.getX());
-            node.setLayoutY(prevPosition.getY());
-        }
-        */
     }
 
 
@@ -474,15 +422,15 @@ public class BoardView {
 
     }
 
-    private int searchPawnPoint(PawnView node) {
-        //Il metodo cerca a quale punta appartiene la pedina
+    private int searchPawnPlace(PawnView node) {
+        //Il metodo cerca a quale zona del tabellone appartiene la pedina
 
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
         LogicPoints[] array;
-        boolean top, found;
+        boolean top, found, left;
         int begin, end;
         int out = UNDEFINED;
-        if (node.getCenterY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
+        if (node.getPawnCenterY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
             array = regArrayBot;
             top = false;
         } else {
@@ -490,22 +438,38 @@ public class BoardView {
             top = true;
         }
 
-        if (node.getCenterX() > separator.getLayoutX()) {
+        if (node.getPawnCenterX() > separator.getLayoutX()) {
             begin = 6;
             end = 11;
+            left = false;
         } else {
             begin = 0;
             end = 5;
+            left = true;
         }
 
-        found = false;
-        for (int i = begin; i <= end && !found; i++) {
-            if (array[i].contains(array[i].sceneToLocal(new Point2D(node.getCenterX(), node.getCenterY())))) {
-                found = true;
-                if(top) {
-                    out = i+1;
-                } else {
-                    out = 24 - i;
+
+        if (left && top) {
+            if (blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter()))) {
+                out = 0;
+            }
+        } else if (left && !top) {
+            if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter()))) {
+                out = 25;
+            }
+        }
+
+        //  Ciclo for per controllare se la pedina si trova su una delle sei punte possibili
+        if (out == UNDEFINED) {
+            found = false;
+            for (int i = begin; i <= end && !found; i++) {
+                if (array[i].contains(array[i].sceneToLocal(node.getPawnCenter()))) {
+                    found = true;
+                    if (top) {
+                        out = i + 1;
+                    } else {
+                        out = 24 - i;
+                    }
                 }
             }
         }

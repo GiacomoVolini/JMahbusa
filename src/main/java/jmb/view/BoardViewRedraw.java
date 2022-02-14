@@ -168,10 +168,10 @@ public class BoardViewRedraw {
 
     public static void resizeExitRegions(boolean bExit, boolean wExit, Rectangle whiteExitRegion,
                                    Rectangle blackExitRegion, Rectangle outerRect) {
-        whiteExitRegion.setHeight(outerRect.getHeight()/2);
-        whiteExitRegion.setLayoutY(outerRect.getLayoutY());
         blackExitRegion.setHeight(outerRect.getHeight()/2);
-        blackExitRegion.setLayoutY(outerRect.getLayoutY() + (outerRect.getHeight()/2));
+        blackExitRegion.setLayoutY(outerRect.getLayoutY());
+        whiteExitRegion.setHeight(outerRect.getHeight()/2);
+        whiteExitRegion.setLayoutY(outerRect.getLayoutY() + (outerRect.getHeight()/2));
 
         if (bExit) {
             blackExitRegion.setWidth(maxExitWidth);
@@ -227,6 +227,8 @@ public class BoardViewRedraw {
 
     public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, LogicPoints[] regArray, int col, boolean top, int color) {
 
+        //DEBUG - 1 row
+        System.out.println("Redraw attempt" + System.nanoTime());
         for (int rows = 0; logic.getBoardPlaceState(col, rows) != EMPTY && pawnsPlaced < PAWN_NUMBER_PER_PLAYER && rows <= 16; rows++) {
             if (logic.getBoardPlaceState(col, rows) == color) {
 
@@ -249,6 +251,8 @@ public class BoardViewRedraw {
                     pawnArray[pawnsPlaced].setDisable(true);
                 }
                 pawnsPlaced++;
+                //DEBUG - 1 row
+                System.out.println(col + " " + rows);
             }
 
         }
@@ -271,47 +275,6 @@ public class BoardViewRedraw {
         return pawnsPlaced;
     }
 
-    //  FIXME
-    //      -------------------------------------
-    //      FORSE SONO METODI NON PIU' UTILIZZATI
-    //      -------------------------------------
-    //      CANCELLARE NEL CASO
-    //      -------------------------------------
-    //  Metodo per riposizionamento dinamico delle pedine nelle Punte superiori
-    private static void mvPawnOnTop(PawnView pawn, LogicPoints[] regArrayTop) {
-        int pointNmb = pawn.getWhichPoint();
-        pawn.setLayoutX(regArrayTop[pointNmb].getLayoutX() + pawn.getRadius());
-        if (pawn.getWhichRow() < 5) {
-            pawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + pawn.getRadius() * (1 + pawn.getWhichRow() * 2));}
-        else {
-            pawn.setLayoutY(regArrayTop[pointNmb].getLayoutY() + pawn.getRadius() * 9);
-        }
-    }
-
-    //  Metodo per riposizionamento dinamico delle pedine nelle Punte inferiori
-    private static void mvPawnOnBot(PawnView pawn, LogicPoints[] regArrayBot) {
-        int pointNmb = pawn.getWhichPoint();
-        pawn.setLayoutX(regArrayBot[pointNmb].getLayoutX() + pawn.getRadius());
-
-        if (pawn.getWhichRow() < 5) {
-            pawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getPrefHeight() - pawn.getRadius() * (1 + pawn.getWhichRow() * 2));}
-        else {
-            pawn.setLayoutY(regArrayBot[pointNmb].getLayoutY() + regArrayBot[pointNmb].getPrefHeight() - pawn.getRadius() * 9);
-        }
-    }
-
-
-    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Bianco
-    private static void mvPawnOnWHTExit(PawnView pawn, Rectangle whiteExitRegion) {
-        pawn.setLayoutX(whiteExitRegion.getLayoutX() + pawn.getRadius());
-        pawn.setLayoutY(whiteExitRegion.getLayoutY() + pawn.getRadius());
-    }
-
-    //  Metodo per riposizionamento dinamico delle pedine nella Regione di Uscita del Nero
-    private static void mvPawnOnBLKExit(PawnView pawn, Rectangle blackExitRegion) {
-        pawn.setLayoutX(blackExitRegion.getLayoutX() + pawn.getRadius());
-        pawn.setLayoutY(blackExitRegion.getLayoutY() + blackExitRegion.getHeight() - pawn.getRadius());
-    }
 
     private static void resizePawns (PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, LogicPoints[] regArraySample) {
         for (int i =0; i<pawnArrayWHT.length; i++){

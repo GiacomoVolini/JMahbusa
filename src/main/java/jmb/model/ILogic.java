@@ -14,8 +14,6 @@ public interface ILogic {
 
     void initializeBoardLogic ();
 
-    boolean checkIfMovable (int whichPoint, int whichRow);
-
     int getBoardPlaceState (int whichPoint, int whichRow);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
     //      Restituisce EMPTY (0) se la casella non contiene alcuna pedina

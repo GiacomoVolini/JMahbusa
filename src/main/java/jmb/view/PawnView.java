@@ -16,6 +16,9 @@ public class PawnView extends Circle {
     }
 
     //FIXME
+    //  Idealmente la classe dovrebbe diventare inutile,
+    //      per ora rimangono riferimenti a getWhichPoint() e getWhichRow(), da rimuovere
+    //      e riferimenti a getPawnCenter e simili, forse rimovibili usando metodi di Circle
 
     private int place;                  //  Variabile che indica in che tipo di regione si trova la pedina
     private int whichPoint;             //  Variabile che indica in quale punta si trova la pedina, specificando
@@ -44,11 +47,11 @@ public class PawnView extends Circle {
 
     public void setIsWhite(boolean isWhite) {this.isWhite = isWhite; }
 
-    private double getPawnCenterX () {
+    protected double getPawnCenterX () {
         return this.getLayoutX() + (this.getRadius()/2);
     }
 
-    private double getPawnCenterY () {
+    protected double getPawnCenterY () {
         return this.getLayoutY() + (this.getRadius()/2);
     }
 

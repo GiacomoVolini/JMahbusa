@@ -1,5 +1,5 @@
 package jmb.model;
-import static jmb.model.ConstantsLogic.*;
+
 import static jmb.ConstantsShared.*;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
@@ -18,7 +18,10 @@ public class BoardLogic {
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    private DiceLogic dice;                      //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
+    private DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
+    private int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
+                                                //mentre si sta per effettuare una mossa
+                                                //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
 
     //  ----------------------------
 
@@ -139,7 +142,7 @@ public class BoardLogic {
         return possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
     }
 
-    public int searchRow(int whichPoint) {
+    public int searchFirstFreeRow(int whichPoint) {
         // Data una colonna della matrice cerca la prima riga libera e la restituisce
         int whichRow = UNDEFINED;
         if (squares[15][whichPoint]==null) {
@@ -157,6 +160,19 @@ public class BoardLogic {
 
         return whichRow;
     }
+
+    public int searchTopOccupiedRow(int whichPoint) {
+        // Data una colonna della matrice cerca l'ultima riga occupata
+        // Il metodo restituisce UNDEFINED se la colonna è completamente vuota
+        int whichRow;
+        if (squares[15][whichPoint]!= null) {
+            whichRow = 15;
+        } else {
+            whichRow = searchFirstFreeRow(whichPoint) - 1;
+        }
+        return whichRow;
+    }
+
 
 
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
@@ -221,5 +237,23 @@ public class BoardLogic {
                 whiteExit = true;
             }
         }
+    }
+
+    // Metodo setter per l'array moveBuffer
+    public void setMoveBuffer (int col, int row) {
+        this.moveBuffer[0] = col;
+        this.moveBuffer[1] = row;
+    }
+
+    public int getMoveBufferColumn () {
+        return this.moveBuffer[0];
+    }
+
+    public int getMoveBufferRow () {
+        return this.moveBuffer[1];
+    }
+
+    public void resetMoveBuffer() {
+        this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
     }
 }

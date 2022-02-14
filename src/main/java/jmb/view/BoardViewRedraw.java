@@ -216,9 +216,11 @@ public class BoardViewRedraw {
     public static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, LogicPoints[] regArrayBot, LogicPoints[] regArrayTop, int color) {
         for (int cols = COL_WHITE; cols <= LAST_COL_TOP && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
             pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayTop, cols, true, color);
+            //Il ciclo for chiama un redraw delle pedine di ogni singola punta in alto
         }
         for (int cols = FIRST_COL_BOT; cols <= COL_BLACK && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
             pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayBot, cols, false, color);
+            //Il ciclo for chiama un redraw delle pedine di ogni singola punta in basso
         }
         return pawnsPlaced;
     }

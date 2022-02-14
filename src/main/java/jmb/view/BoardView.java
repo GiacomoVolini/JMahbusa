@@ -7,7 +7,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -16,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.geometry.Point2D;
 
+import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -316,21 +316,6 @@ public class BoardView {
     protected PawnView[] pawnArrayBLK;
 
 
-
-    //FIXME
-    //  - Verificare funzionamento del timer una volta messo fuori da runTimer
-    //Timer del turno e animazione Timer
-    /*
-    protected Timeline turnTimer = new Timeline(
-            new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-            new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                // TODO Verificare che turno venga effettivamente cambiato
-                logic.nextTurn();
-            }, new KeyValue(timerIn.scaleYProperty(), 0))
-    );
-
-     */
-
     @FXML
     protected void nextTurn (ActionEvent event) {
         //TODO
@@ -370,23 +355,14 @@ public class BoardView {
         timeline.play();
     }
 
-    //  Variabili che memorizzano posizione e regioni di una pedina prima del movimento
-    private Point2D prevPosition;
-    private int prevRegion;
-    private int prevPoint;
-    //private int prevRow; TODO forse cancellare
+
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
-    //  FIXME
-    //      Cambiare metodo per smettere di utilizzare gli attributi di PawnView e LogicPoints
-    //          ed utilizzare solo metodi interni al logic
+
     @FXML
     private void savePosition (MouseEvent event) {
-        Node n = (Node)event.getSource();
-        this.prevPosition = new Point2D(n.getLayoutX(), n.getLayoutY()); //TODO forse non serve più
-        this.prevRegion = ((PawnView) n).getPlace(); //TODO forse non serve più
-        this.prevPoint = ((PawnView) n).getWhichPoint();
-        //this.prevRow = ((PawnView) n).getWhichRow(); TODO forse cancellare
+        PawnView node = (PawnView)event.getSource();
+        logic.createMoveBuffer(this.searchPawnPoint(node));
     }
 
     //  Metodo per il trascinamento della pedina
@@ -395,20 +371,22 @@ public class BoardView {
 
         PawnView n = (PawnView) event.getSource();
 
-        if (logic.checkIfMovable(n.getWhichPoint(), n.getWhichRow())) {
             n.setLayoutX(n.getLayoutX() + event.getX());
             n.setLayoutY(n.getLayoutY() + event.getY());
-        }
     }
 
 
-    //FIXME
-    //  - Forse i due for si possono unire lasciando due if separati e basta
-
+    /* FIXME
+               IL METODO VA RISCRITTO
+    */
     @FXML
     private void releasePawn(MouseEvent event) {
+        /*
         PawnView node = (PawnView)event.getSource();
         boolean done = false;
+        //FIXME
+        //  - Spostamento della pedina nelle punte può essere gestito usando searchPawnPoint e poi invocando il
+        //        metodo di movimento
         for (int i=0; i<regArrayTop.length && !done; i++) {
             if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(node.getPawnCenter()))) {
                 //FIXME
@@ -461,8 +439,10 @@ public class BoardView {
             node.setLayoutX(prevPosition.getX());
             node.setLayoutY(prevPosition.getY());
         }
-
+        */
     }
+
+
 
 
     private void diceTrayAnim() {
@@ -494,6 +474,50 @@ public class BoardView {
 
     }
 
+    private int searchPawnPoint(PawnView node) {
+        //Il metodo cerca a quale punta appartiene la pedina
+
+        //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
+        LogicPoints[] array;
+        boolean top, found;
+        int begin, end;
+        int out = UNDEFINED;
+        if (node.getCenterY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
+            array = regArrayBot;
+            top = false;
+        } else {
+            array = regArrayTop;
+            top = true;
+        }
+
+        if (node.getCenterX() > separator.getLayoutX()) {
+            begin = 6;
+            end = 11;
+        } else {
+            begin = 0;
+            end = 5;
+        }
+
+        found = false;
+        for (int i = begin; i <= end && !found; i++) {
+            if (array[i].contains(array[i].sceneToLocal(new Point2D(node.getCenterX(), node.getCenterY())))) {
+                found = true;
+                if(top) {
+                    out = i+1;
+                } else {
+                    out = 24 - i;
+                }
+            }
+        }
+        return out;
+    }
+
+
+
+    //--------------------------------------------
+    //METODO INITIALIZE
+    //--------------------------------------------
+
     public void initialize() {
 
         logic.initializeBoardLogic();
@@ -514,23 +538,6 @@ public class BoardView {
         this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
 
-        for (int i = 0; i < pawnArrayWHT.length; i++){
-            this.pawnArrayWHT[i].setPlace(BOT_POINTS);
-            this.pawnArrayWHT[i].setWhichRow(i);
-            this.pawnArrayWHT[i].setIsWhite(true);
-            this.pawnArrayBLK[i].setPlace(TOP_POINTS);
-            this.pawnArrayBLK[i].setWhichRow(i);
-            this.pawnArrayBLK[i].setIsWhite(false);
-            this.pawnArrayWHT[i].setWhichPoint(1);      //TODO era 0
-            this.pawnArrayBLK[i].setWhichPoint(24);     //TODO era 0
-        }
-
-        this.regArrayBot[0].setHowManyPawns(15);
-        this.regArrayTop[0].setHowManyPawns(15);
-        for (int i = 1; i < regArrayTop.length; i++){
-            this.regArrayTop[i].setHowManyPawns(0);
-            this.regArrayBot[i].setHowManyPawns(0);
-        }
 
         Timeline turnTimer = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),

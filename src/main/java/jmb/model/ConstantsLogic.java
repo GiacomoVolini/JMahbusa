@@ -12,6 +12,13 @@ public final class ConstantsLogic {
     public static final boolean BLACK_TURN = false;
 
 
+    //FIXME
+    //  public static final int TURN_START = 0;
+    //  public static final int COMBINED_MOVE = 1;
+    //  public static final int ORDINARY_MOVES = 2;
+    //  DA RIVEDERE
+
+
     private ConstantsLogic() {
         throw new AssertionError() ;
     }

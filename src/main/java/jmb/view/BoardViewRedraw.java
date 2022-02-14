@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class BoardViewResize {
+public class BoardViewRedraw {
 
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
@@ -204,6 +204,11 @@ public class BoardViewResize {
         whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
         blacksPlaced = redrawExitRegionPawns (blacksPlaced, pawnArrayBLK, blackExitRegion, COL_BLACK_EXIT, BLACK);
         whitesPlaced = redrawExitRegionPawns (whitesPlaced, pawnArrayWHT, whiteExitRegion, COL_WHITE_EXIT, WHITE);
+
+        //DEBUG
+        if (blacksPlaced < PAWN_NUMBER_PER_PLAYER || whitesPlaced < PAWN_NUMBER_PER_PLAYER) {
+            System.out.println("C'è qualcosa che non va nel ridisegnare le pedine.");
+        }
 
 
     }

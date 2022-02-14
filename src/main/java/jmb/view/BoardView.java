@@ -345,8 +345,8 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1),  e-> {
                     this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewResize.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewResize.getMaxExitWidth()))
+                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -362,8 +362,8 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.wExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewResize.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewResize.getMaxExitWidth()))
+                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -472,7 +472,7 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                }, new KeyValue(diceTray.widthProperty() , BoardViewResize.getMaxDTWidth() )
+                }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
         );
         timeline.setCycleCount(1);
@@ -482,7 +482,7 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewResize.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
+        BoardViewRedraw.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK);

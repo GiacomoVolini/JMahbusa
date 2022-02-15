@@ -321,7 +321,7 @@ public class BoardView {
     }
 
     @FXML
-    private void testBlackExit() {
+    private void openBlackExit() {
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
@@ -338,7 +338,7 @@ public class BoardView {
     }
 
     @FXML
-    private void testWhiteExit() {
+    private void openWhiteExit() {
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
@@ -416,8 +416,8 @@ public class BoardView {
                                     pawnArrayWHT, pawnArrayBLK);
         if(!dtAnimDone) {
             diceTrayAnim();
-            testBlackExit();
-            testWhiteExit();
+            //openBlackExit();
+            //openWhiteExit();
         }
 
     }

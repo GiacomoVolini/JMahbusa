@@ -73,25 +73,60 @@ public class BoardLogic {
 
     public boolean possibleMove(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
 
-        boolean possible = true;
+        boolean possible;
+
+        //DEBUG - 1 row
+        System.out.println("Controllo che la pedina mossa sia del giocatore di turno");
+
+        // Si controlla che la mossa sia del giocatore di turno
+        if (squares[puntaInizR][puntaInizC].getisWhite() == isWhiteTurn()) {
+            possible = true;
+            //DEBUG - 1 row
+            System.out.println("La pedina mossa è del giocatore di turno");
+        } else possible = false;
+
+        // DEBUG - 2 row
+        if (possible)
+            System.out.println("Controllo che la mossa avvenga nel verso giusto");
 
         //  Si controlla che la mossa sia effettuata nel verso giusto
-        if (rightWay(puntaInizC, puntaInizR, puntaFinC)) {
+        if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
+            //DEBUG - 2 row
+            System.out.println("La mossa avviene nel verso giusto");
+            System.out.println("Controllo se la mossa è per portare fuori la pedina");
 
             //  Se true, controlla se la mossa è volta a portare fuori la pedina
             if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
+                // DEBUG - 2 row
+                System.out.println("La mossa non porta fuori la pedina");
+                System.out.println("Controllo che la posizione di arrivo non sia bloccata");
 
                 //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
                 //  non sia bloccata per il giocatore di turno
                 if (whiteTurn) {
-                    if (squares[puntaFinR][puntaFinC]!=null && squares[puntaFinR][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+                    //DEBUG - 1 row
+                    System.out.println("Tocca al bianco");
+                    if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+                        // DEBUG - 2 row
+                        System.out.println("La mossa è ritenuta impossibile");
+                        System.out.println("Lo spazio sotto a quello di arrivo blocca il posizionamento dei bianchi");
+
+
                         possible = false;
                     }
-                } else if (squares[puntaFinR][puntaFinC]!=null && squares[puntaFinR][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
+                } else if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
+                    //DEBUG - 3 row
+                    System.out.println("Tocca al nero");
+                    System.out.println("La mossa è ritenuta impossibile");
+                    System.out.println("Lo spazio sotto quello di arrivo blocca il posizionamento dei neri");
+
                     possible = false;
                 }
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
             else if (((!this.blackExit) && !whiteTurn) || ((!this.whiteExit) && whiteTurn)) {
+                //DEBUG -
+                System.out.println("La mossa vorrebbe portar fuori una pedina, ma questo non è concesso");
+                System.out.println("Il giocatore di turno non può ancora portar fuori le proprie pedine");
                 possible = false;
             }
         } else possible = false;
@@ -109,9 +144,13 @@ public class BoardLogic {
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
+        //DEBUG - 1 row
+        System.out.println("Controllo che la mossa sia possibile");
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
+            //DEBUG - 1 row
+            System.out.println("La mossa è possibile");
 
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
@@ -140,7 +179,10 @@ public class BoardLogic {
             }
             //DEBUG - 1 row
             System.out.println("Ho spostato da " + puntaInizC + " " + puntaInizR + " a " + puntaFinC + " " + puntaFinR);
-        }
+        } //DEBUG
+            else {
+                System.out.println("La mossa è ritenuta impossibile");
+        } //END DEBUG
         return possible;
     }
 
@@ -205,16 +247,23 @@ public class BoardLogic {
         // i=colonne  j=righe
 
             if (!this.blackExit){
-                boolean trovato = false;
+                boolean found = false;
+                //DEBUG -1 row
+                System.out.println("Controllo se il nero può portare fuori le pedine");
 
-                for (int i=1; i<=18 && !trovato; i++){
-                    for (int j=0; j<=1 && !trovato; j++){
+                for (int i = 7; i<=24 && !found; i++){
+                    for (int j = 0; j<=1 && !found; j++){
                         if (squares[j][i] != null && !squares[j][i].getisWhite()){
-                            trovato = true;
+                            //DEBUG -1 row
+                            System.out.println("Ho trovato una pedina nera dove non dovrebbe stare\n Il nero non può portar fuori le pedine");
+
+                            found = true;
                         }
                     }
                 }
-                if (!trovato){
+                if (!found){
+                    //DEBUG    - 1 row
+                    System.out.println("Non ho trovato pedine fuori posto\n Il nero può portar fuori le pedine");
                     blackExit = true;
                 }
             }
@@ -227,17 +276,27 @@ public class BoardLogic {
 
 
         if (!this.whiteExit){
-            boolean trovato = false;
+            boolean found = false;
 
-            for (int i=7; i<=24 && !trovato; i++){
-                for (int j=0; j<=1 && !trovato; j++){
+            //DEBUG -1 row
+            System.out.println("Controllo se il bianco può portare fuori le pedine");
+
+            for (int i = 1; i<=18 && !found; i++){
+                for (int j = 0; j<=1 && !found; j++){
+                    //DEBUG -1 row
+                    System.out.println("Ho found una pedina bianca dove non dovrebbe stare\n Il bianco non può portar fuori le pedine");
+
                     if (squares[j][i] != null && squares[j][i].getisWhite()){
-                        trovato = true;
+                        found = true;
                     }
                 }
             }
-            if (!trovato){
+            if (!found){
+                //DEBUG    - 1 row
+                System.out.println("Non ho found pedine fuori posto\n Il bianco può portar fuori le pedine");
+
                 whiteExit = true;
+                //view.openWhiteExit();
             }
         }
     }

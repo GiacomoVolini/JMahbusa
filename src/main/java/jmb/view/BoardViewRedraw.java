@@ -23,9 +23,11 @@ public class BoardViewRedraw {
     public static double getMaxDTWidth() { return maxDTWidth; }
 
 
-    public static void calcTrayWidth(Rectangle outerRect) {
-        maxExitWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;
-        maxDTWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;
+    //public static void calcTrayWidth(Rectangle outerRect) {               VECCHIO
+        //maxExitWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;        VECCHIO
+        //maxDTWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;          VECCHIO
+    public static void calcTrayWidth (PawnView pawn) {
+        maxExitWidth = pawn.getRadius() * 6 ;
     }
 
 
@@ -200,10 +202,11 @@ public class BoardViewRedraw {
         int whitesPlaced = 0;
         int blacksPlaced = 0;
 
-        blacksPlaced = redrawAllPointsPawns (blacksPlaced, pawnArrayBLK, regArrayBot, regArrayTop, BLACK);
-        whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
         blacksPlaced = redrawExitRegionPawns (blacksPlaced, pawnArrayBLK, blackExitRegion, COL_BLACK_EXIT, BLACK);
         whitesPlaced = redrawExitRegionPawns (whitesPlaced, pawnArrayWHT, whiteExitRegion, COL_WHITE_EXIT, WHITE);
+        blacksPlaced = redrawAllPointsPawns (blacksPlaced, pawnArrayBLK, regArrayBot, regArrayTop, BLACK);
+        whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
+
 
         //DEBUG
         if (blacksPlaced < PAWN_NUMBER_PER_PLAYER || whitesPlaced < PAWN_NUMBER_PER_PLAYER) {
@@ -227,8 +230,6 @@ public class BoardViewRedraw {
 
     public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, LogicPoints[] regArray, int col, boolean top, int color) {
 
-        //DEBUG - 1 row
-        System.out.println("Redraw attempt" + System.nanoTime());
         for (int rows = 0; logic.getBoardPlaceState(col, rows) != EMPTY && pawnsPlaced < PAWN_NUMBER_PER_PLAYER && rows <= 16; rows++) {
             if (logic.getBoardPlaceState(col, rows) == color) {
 
@@ -242,7 +243,7 @@ public class BoardViewRedraw {
                 }
                 //  L'if controlla se la pedina appena posizionata è l'ultima della punta o meno
                 //      In caso positivo la pedina viene visualizzata in cima a tutte le altre
-                //      In caso negativo si riporta la priorità di rendering
+                //      In caso negativo si riporta la priorità di rendering di default
                 if (logic.isLastOnPoint(col, rows)) {
                     pawnArray[pawnsPlaced].setViewOrder(-1.0);
                     pawnArray[pawnsPlaced].setDisable(false);
@@ -251,8 +252,6 @@ public class BoardViewRedraw {
                     pawnArray[pawnsPlaced].setDisable(true);
                 }
                 pawnsPlaced++;
-                //DEBUG - 1 row
-                System.out.println(col + " " + rows);
             }
 
         }
@@ -263,7 +262,7 @@ public class BoardViewRedraw {
         for ( int row = 0; logic.getBoardPlaceState(exitID, row)!=EMPTY && pawnsPlaced< PAWN_NUMBER_PER_PLAYER && row<= 16; row++) {
             if (logic.getBoardPlaceState(exitID, row) == color) {
                 pawnArray[pawnsPlaced].setLayoutX(exitRegion.getLayoutX() + ((pawnsPlaced % 3) * 2 + 1) * pawnArray[pawnsPlaced].getRadius());
-                if (color == BLACK) {
+                if (color == WHITE) {
                     pawnArray[pawnsPlaced].setLayoutY(exitRegion.getLayoutY() + exitRegion.getHeight() - ( (pawnsPlaced/3) * 2  + 1) * pawnArray[pawnsPlaced].getRadius());
                 } else {
                     pawnArray[pawnsPlaced].setLayoutY(exitRegion.getLayoutY() + ( (pawnsPlaced/3) * 2  + 1) * pawnArray[pawnsPlaced].getRadius());
@@ -297,11 +296,11 @@ public class BoardViewRedraw {
         resizeTimer(timerOut, timerIn, separator);
         resizeLeftPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
         resizeRightPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
-        calcTrayWidth(outerRect);
-        resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         resizeDiceTray(dtAnimDone, diceTray, outerRect);
         resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
         resizePawns(pawnArrayWHT, pawnArrayBLK, regArrayBot);
+        calcTrayWidth(pawnArrayBLK[0]);
+        resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
     }
 

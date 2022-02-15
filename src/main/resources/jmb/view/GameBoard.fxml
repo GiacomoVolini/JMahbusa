@@ -56,7 +56,7 @@
          <Font name="Calibri Bold" size="14.5" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#testWhiteExit" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openWhiteExit" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="14.5" />
       </font>

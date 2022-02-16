@@ -1,12 +1,11 @@
 package jmb.view;
 
-public interface IView {
+import java.io.IOException;
 
-    void startUpBoard();
+public interface IView {
 
     void openWhiteExit();
 
     void openBlackExit();
-
 
 }

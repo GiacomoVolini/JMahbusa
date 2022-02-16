@@ -5,12 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jmb.model.ILogic;
 import jmb.model.Logic;
-import jmb.view.IView;
+import jmb.view.BoardView;
 import jmb.view.View;
 
 import java.io.IOException;
+
+import static jmb.view.View.logic;
+import static jmb.model.Logic.view;
 
 /**
  * JavaFX App
@@ -18,10 +20,9 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Stage stage;
-    private static Scene scene;
-    private static Scene scene1;
-    private static Scene scene2;
-    private static Scene scene4;
+    private static Scene sceneMainMenu;
+    private static Scene sceneBoard;
+    private static Scene sceneSettings;
 
 
     public static Stage getStage() {
@@ -33,38 +34,47 @@ public class App extends Application {
         this.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
-        scene = new Scene(loadFXML("view/MainMenu"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+        sceneMainMenu = new Scene(loadFXML("view/MainMenu"), 640, 480);
         interfaceInstantiation();
+        stage.setScene(sceneMainMenu);
+        stage.show();
+
     }
 
     public static void MainMenu() throws IOException {
-        scene4 = new Scene(loadFXML("view/MainMenu"), 640, 480);
-        stage.setScene(scene4);
+        stage.setScene(sceneMainMenu);
         stage.show();
     }
 
     public static void board() throws IOException{
-        scene1 = new Scene(loadFXML("view/GameBoard"), 640, 480);
-        stage.setScene(scene1);
+        if (sceneBoard==null) {
+            sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
+        }
+        stage.setScene(sceneBoard);
         stage.show();
     }
 
     public static void edit() throws IOException{
-        scene2 = new Scene(loadFXML("view/MenuImpostazioni"));
-        stage.setScene(scene2);
+        if (sceneSettings == null) {
+            sceneSettings = new Scene(loadFXML("view/MenuImpostazioni"));
+        }
+        stage.setScene(sceneSettings);
         stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+        sceneMainMenu.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        Parent out = fxmlLoader.load();
+        if(fxml == "view/GameBoard"){
+            View.sceneBoard = fxmlLoader.getController();
+        }
+        return out;
     }
+
 
     public static void main(String[] args) {
         launch();
@@ -72,9 +82,18 @@ public class App extends Application {
 
 
     //La seguente classe è utilizzata per l'implementazione delle interfacce tra i vari package
-    private static void interfaceInstantiation() {
+    private static void interfaceInstantiation() throws IOException{
         View.logic = new Logic();
         Logic.view = new View();
+        logic.initializeBoardLogic();
+
     }
+
+    private static <T> T getNodeController(String fxml) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        loader.load();
+        return loader.getController();
+    }
+
 
 }

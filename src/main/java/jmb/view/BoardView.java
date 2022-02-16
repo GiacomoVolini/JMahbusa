@@ -321,7 +321,7 @@ public class BoardView {
     }
 
     @FXML
-    private void openBlackExit() {
+    protected void openBlackExit() {
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
@@ -338,7 +338,8 @@ public class BoardView {
     }
 
     @FXML
-    private void openWhiteExit() {
+    protected void openWhiteExit() {
+
         jmb.App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
@@ -375,9 +376,6 @@ public class BoardView {
     }
 
 
-    /* FIXME
-               IL METODO VA RISCRITTO
-    */
     @FXML
     private void releasePawn(MouseEvent event) {
         PawnView node = (PawnView)event.getSource();
@@ -483,8 +481,6 @@ public class BoardView {
     //--------------------------------------------
 
     public void initialize() {
-
-        logic.initializeBoardLogic();
 
         //  INIZIALIZZAZIONE ARRAY
         this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,

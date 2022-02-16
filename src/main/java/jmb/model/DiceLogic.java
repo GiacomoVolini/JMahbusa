@@ -85,6 +85,7 @@ public class DiceLogic {
         } while (this.dice[0] == this.dice[1]);
         boolean whiteBegins = this.dice[0] > this.dice[1];
 
+
         return whiteBegins;
 
     }

@@ -1,25 +1,28 @@
 package jmb.view;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import jmb.App;
 import jmb.model.ILogic;
+
+import java.io.IOException;
 
 public class View implements IView {
 
     public static ILogic logic;
 
-    public static BoardView board;
+    public static BoardView sceneBoard;
+
 
     @Override
-    public void startUpBoard() {
-        //TODO
-    }
-
-    @Override
-    public void openBlackExit() {
-
+    public void openBlackExit(){
+        sceneBoard.openBlackExit();
     }
 
     @Override
     public void openWhiteExit() {
-
+        sceneBoard.openWhiteExit();
     }
+
+
 }

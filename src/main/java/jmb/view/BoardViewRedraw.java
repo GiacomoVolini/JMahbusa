@@ -208,10 +208,7 @@ public class BoardViewRedraw {
         whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
 
 
-        //DEBUG
-        if (blacksPlaced < PAWN_NUMBER_PER_PLAYER || whitesPlaced < PAWN_NUMBER_PER_PLAYER) {
-            System.out.println("C'è qualcosa che non va nel ridisegnare le pedine.");
-        }
+
 
 
     }

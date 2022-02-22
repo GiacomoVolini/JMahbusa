@@ -7,6 +7,7 @@ import static jmb.view.View.logic;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
@@ -26,8 +27,12 @@ public class BoardViewRedraw {
     //public static void calcTrayWidth(Rectangle outerRect) {               VECCHIO
         //maxExitWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;        VECCHIO
         //maxDTWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;          VECCHIO
-    public static void calcTrayWidth (PawnView pawn) {
+    private static void calcTrayWidth (PawnView pawn) {
         maxExitWidth = pawn.getRadius() * 6 ;
+    }
+
+    private static void calcDTWidth (PawnView pawn) {
+        maxDTWidth = pawn.getRadius() * 6;
     }
 
 
@@ -46,7 +51,7 @@ public class BoardViewRedraw {
     public static void resizeOuterRect(AnchorPane window, Rectangle outerRect) {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         outerRect.setWidth(getBoardSize(window));
-        outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()/2));
+        outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()*0.6));
         outerRect.setHeight(getBoardSize(window));
         outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
     }
@@ -82,8 +87,8 @@ public class BoardViewRedraw {
     }
 
     public static void resizeLeftPoints(Polygon[] polArrayTop, Polygon[] polArrayBot,
-                                  LogicPoints[] regArrayTop, LogicPoints[] regArrayBot,
-                                  Rectangle boardRect) {
+                                        Region[] regArrayTop, Region[] regArrayBot,
+                                        Rectangle boardRect) {
         //  Ridimensiona le punte a sinistra del tabellone e relative regioni
         for (int i=0; i<6; i++) {
 
@@ -114,7 +119,7 @@ public class BoardViewRedraw {
     }
 
     public static void resizeRightPoints(Polygon[] polArrayTop, Polygon[] polArrayBot,
-                                   LogicPoints[] regArrayTop, LogicPoints[] regArrayBot,
+                                   Region[] regArrayTop, Region[] regArrayBot,
                                    Rectangle boardRect) {
         //  Ridimensiona le punte a destra del tabellone e relative regioni
         for (int i=6; i<12; i++) {
@@ -196,7 +201,7 @@ public class BoardViewRedraw {
     }
 
     //  Metodo per ridimensionamento e riposizionamento Pedine
-    public static void redrawPawns(PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, LogicPoints[] regArrayBot , LogicPoints[] regArrayTop,
+    public static void redrawPawns(PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Region[] regArrayBot , Region[] regArrayTop,
                                    Rectangle whiteExitRegion, Rectangle blackExitRegion) {
 
         int whitesPlaced = 0;
@@ -213,7 +218,7 @@ public class BoardViewRedraw {
 
     }
 
-    public static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, LogicPoints[] regArrayBot, LogicPoints[] regArrayTop, int color) {
+    public static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArrayBot, Region[] regArrayTop, int color) {
         for (int cols = COL_WHITE; cols <= LAST_COL_TOP && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
             pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayTop, cols, true, color);
             //Il ciclo for chiama un redraw delle pedine di ogni singola punta in alto
@@ -225,7 +230,7 @@ public class BoardViewRedraw {
         return pawnsPlaced;
     }
 
-    public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, LogicPoints[] regArray, int col, boolean top, int color) {
+    public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArray, int col, boolean top, int color) {
 
         for (int rows = 0; logic.getBoardPlaceState(col, rows) != EMPTY && pawnsPlaced < PAWN_NUMBER_PER_PLAYER && rows <= 16; rows++) {
             if (logic.getBoardPlaceState(col, rows) == color) {
@@ -272,7 +277,7 @@ public class BoardViewRedraw {
     }
 
 
-    private static void resizePawns (PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, LogicPoints[] regArraySample) {
+    private static void resizePawns (PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Region[] regArraySample) {
         for (int i =0; i<pawnArrayWHT.length; i++){
             pawnArrayBLK[i].setRadius(regArraySample[0].getPrefWidth() / 2);
             pawnArrayWHT[i].setRadius(regArraySample[0].getPrefWidth() / 2);
@@ -281,8 +286,8 @@ public class BoardViewRedraw {
 
     protected static void resizeAll(AnchorPane window, Rectangle outerRect, Rectangle boardRect,
                                     Rectangle separator, Rectangle timerOut, Rectangle timerIn,
-                                    Polygon[] polArrayTop, Polygon[] polArrayBot, LogicPoints[] regArrayTop,
-                                    LogicPoints[] regArrayBot, boolean bExit, boolean wExit,
+                                    Polygon[] polArrayTop, Polygon[] polArrayBot, Region[] regArrayTop,
+                                    Region[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
                                     Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK) {
@@ -293,10 +298,11 @@ public class BoardViewRedraw {
         resizeTimer(timerOut, timerIn, separator);
         resizeLeftPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
         resizeRightPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
-        resizeDiceTray(dtAnimDone, diceTray, outerRect);
-        resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
         resizePawns(pawnArrayWHT, pawnArrayBLK, regArrayBot);
         calcTrayWidth(pawnArrayBLK[0]);
+        calcDTWidth(pawnArrayBLK[0]);
+        resizeDiceTray(dtAnimDone, diceTray, outerRect);
+        resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
     }

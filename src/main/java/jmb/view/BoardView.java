@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -106,76 +107,76 @@ public class BoardView {
     private Polygon point_12;
 
     @FXML
-    private LogicPoints point_1_R;
+    private Region point_1_R;
 
     @FXML
-    private LogicPoints point_2_R;
+    private Region point_2_R;
 
     @FXML
-    private LogicPoints point_3_R;
+    private Region point_3_R;
 
     @FXML
-    private LogicPoints point_4_R;
+    private Region point_4_R;
 
     @FXML
-    private LogicPoints point_5_R;
+    private Region point_5_R;
 
     @FXML
-    private LogicPoints point_6_R;
+    private Region point_6_R;
 
     @FXML
-    private LogicPoints point_7_R;
+    private Region point_7_R;
 
     @FXML
-    private LogicPoints point_8_R;
+    private Region point_8_R;
 
     @FXML
-    private LogicPoints point_9_R;
+    private Region point_9_R;
 
     @FXML
-    private LogicPoints point_10_R;
+    private Region point_10_R;
 
     @FXML
-    private LogicPoints point_11_R;
+    private Region point_11_R;
 
     @FXML
-    private LogicPoints point_12_R;
+    private Region point_12_R;
 
     @FXML
-    private LogicPoints point_24_R;
+    private Region point_24_R;
 
     @FXML
-    private LogicPoints point_23_R;
+    private Region point_23_R;
 
     @FXML
-    private LogicPoints point_22_R;
+    private Region point_22_R;
 
     @FXML
-    private LogicPoints point_21_R;
+    private Region point_21_R;
 
     @FXML
-    private LogicPoints point_20_R;
+    private Region point_20_R;
 
     @FXML
-    private LogicPoints point_19_R;
+    private Region point_19_R;
 
     @FXML
-    private LogicPoints point_18_R;
+    private Region point_18_R;
 
     @FXML
-    private LogicPoints point_17_R;
+    private Region point_17_R;
 
     @FXML
-    private LogicPoints point_16_R;
+    private Region point_16_R;
 
     @FXML
-    private LogicPoints point_15_R;
+    private Region point_15_R;
 
     @FXML
-    private LogicPoints point_14_R;
+    private Region point_14_R;
 
     @FXML
-    private LogicPoints point_13_R;
+    private Region point_13_R;
 
     @FXML
     private Rectangle whiteExitRegion;
@@ -184,7 +185,19 @@ public class BoardView {
     private Rectangle blackExitRegion;
 
     @FXML
+    private Rectangle diceD;
+
+    @FXML
     private Rectangle diceTray;
+
+    @FXML
+    private Rectangle diceU;
+
+    @FXML
+    private Rectangle doubleDiceD;
+
+    @FXML
+    private Rectangle doubleDiceU;
 
     @FXML
     private Button backBTN;
@@ -302,14 +315,14 @@ public class BoardView {
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
 
-    //  Si creano degli array di Polygon, LogicPoints e PawnView per gestire in maniera più agevole il
+    //  Si creano degli array di Polygon, Region e PawnView per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
 
     protected Polygon[] polArrayTop;
     protected Polygon[] polArrayBot;
 
-    protected LogicPoints[] regArrayTop;
-    protected LogicPoints[] regArrayBot;
+    protected Region[] regArrayTop;
+    protected Region[] regArrayBot;
 
     protected PawnView[] pawnArrayWHT;
     protected PawnView[] pawnArrayBLK;
@@ -424,7 +437,7 @@ public class BoardView {
         //Il metodo cerca a quale zona del tabellone appartiene la pedina
 
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
-        LogicPoints[] array;
+        Region[] array;
         boolean top, found, left;
         int begin, end;
         int out = UNDEFINED;
@@ -485,13 +498,13 @@ public class BoardView {
         //  INIZIALIZZAZIONE ARRAY
         this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
                 this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
-        this.regArrayTop = new LogicPoints[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
+        this.regArrayTop = new Region[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
                 this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R   };
         this.polArrayBot = new Polygon[]    {   this.point_13, this.point_14, this.point_15, this.point_16, this.point_17, this.point_18,
                 this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
-        this.regArrayBot = new LogicPoints[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
+        this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-        //this.regArrayBot = new LogicPoints[]     {   this.point_24_R, this.point_23_R, this.point_22_R, this.point_21_R, this.point_20_R, this.point_19_R,
+        //this.regArrayBot = new Region[]     {   this.point_24_R, this.point_23_R, this.point_22_R, this.point_21_R, this.point_20_R, this.point_19_R,
           //      this.point_18_R, this.point_17_R, this.point_16_R, this.point_15_R, this.point_14_R, this.point_13_R};
         this.pawnArrayWHT = new PawnView[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
                 this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};

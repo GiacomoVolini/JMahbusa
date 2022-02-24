@@ -567,6 +567,11 @@ public class BoardView {
         this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
 
+        //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
+        //  del tabellone
+        Iniziamo.setViewOrder(-2);
+        Pause.setViewOrder(-2);
+
         //colori tavolo
         outerRect.setFill(frame);
         outerRect.setStroke(frame);

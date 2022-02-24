@@ -1,40 +1,47 @@
 package jmb.model;
-import static jmb.model.ConstantsModel.*;
 
-/** La classe Board gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
+import static jmb.ConstantsShared.*;
+
+/** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
  */
 
 
-public class Board {
+public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
-    Pawn[][] squares = new Pawn[16][25];    //una matrice di Pawn, per gestire posizione e spostamento delle pedine
+    PawnLogic[][] squares = new PawnLogic[16][26];    //una matrice di PawnLogic, per gestire posizione e spostamento delle pedine
+                                            //  le colonne 0 e 25 rappresentano le due zone di uscita per le pedine,
+                                            //  mentre le restanti 24 colonne rappresentano le punte
+
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    private Dice dice;                      //oggetto di tipo Dice per la gestione del tiro dei dadi
+    private DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
+    private int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
+                                                //mentre si sta per effettuare una mossa
+                                                //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
 
     //  ----------------------------
 
     //  COSTRUTTORE
 
-    public Board(){
+    public BoardLogic(){
 
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
         //  può portare fuori le proprie pedine
         this.blackExit = false;
         this.whiteExit = false;
 
-        //  Creiamo un oggetto di tipo Dice, che gestirà il tiro dei dadi durante la partita
-        dice = new Dice();
+        //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
+        dice = new DiceLogic();
 
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
         for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= new Pawn(false, true, true);
-            squares[i][COL_BLACK]= new Pawn(true, false, false);
+            squares[i][COL_WHITE]= new PawnLogic(false, true, true, COL_WHITE, i);
+            squares[i][COL_BLACK]= new PawnLogic(true, false, false, COL_BLACK, i);
         }
 
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
@@ -47,6 +54,17 @@ public class Board {
 
     //  METODI
 
+    public boolean isWhiteTurn() {
+        return whiteTurn;
+    }
+
+    public void changeTurn() {
+        this.whiteTurn= !this.whiteTurn;
+    }
+
+
+
+
 
     /*  Il metodo possibleMove riceve informazioni sulla mossa (posizioni iniziale e finale della pedina mossa),
         poi verifica le condizioni per cui la mossa non potrebbe essere effettuata.
@@ -55,10 +73,17 @@ public class Board {
 
     public boolean possibleMove(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
 
-        boolean possible = true;
+        boolean possible;
+
+
+        // Si controlla che la mossa sia del giocatore di turno
+        if (squares[puntaInizR][puntaInizC].getisWhite() == isWhiteTurn()) {
+            possible = true;
+        } else possible = false;
+
 
         //  Si controlla che la mossa sia effettuata nel verso giusto
-        if (rightWay(puntaInizC, puntaInizR, puntaFinC)) {
+        if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
 
             //  Se true, controlla se la mossa è volta a portare fuori la pedina
             if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
@@ -66,10 +91,13 @@ public class Board {
                 //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
                 //  non sia bloccata per il giocatore di turno
                 if (whiteTurn) {
-                    if (squares[puntaFinR][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+                    if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
+
+
                         possible = false;
                     }
-                } else if (squares[puntaFinR][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
+                } else if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
+
                     possible = false;
                 }
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
@@ -89,15 +117,16 @@ public class Board {
         di far uscire dal gioco le proprie pedine.
      */
 
-    public void movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
-
-
+    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
-        if(possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC)){
+        boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+        if(possible){
 
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
+            squares[puntaFinR][puntaFinC].setWhichPoint(puntaFinC);
+            squares[puntaFinR][puntaFinC].setWhichRow(puntaFinR);
             squares[puntaInizR][puntaInizC]= null;
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
@@ -119,11 +148,45 @@ public class Board {
             } else {
                 this.isBlackExit();
             }
-
         }
+        return possible;
     }
 
+    public int searchFirstFreeRow(int whichPoint) {
+        // Data una colonna della matrice cerca la prima riga libera e la restituisce
+        int whichRow = UNDEFINED;
+        if (squares[15][whichPoint]==null) {
+            boolean found = false;
+            for (int i=14; i>=0 && !found; i--) {
+                if (squares[i][whichPoint] !=null) {
+                    found = true;
+                    whichRow = i + 1;
+                }
+            }
+            if (!found) {
+                whichRow = 0;
+            }
+        }
+
+        return whichRow;
+    }
+
+    public int searchTopOccupiedRow(int whichPoint) {
+        // Data una colonna della matrice cerca l'ultima riga occupata
+        // Il metodo restituisce UNDEFINED se la colonna è completamente vuota
+        int whichRow;
+        if (squares[15][whichPoint]!= null) {
+            whichRow = 15;
+        } else {
+            whichRow = searchFirstFreeRow(whichPoint) - 1;
+        }
+        return whichRow;
+    }
+
+
+
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
+            Il bianco può andare "avanti", il nero "indietro", per quanto concerne il numero di punta
      */
 
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
@@ -150,17 +213,19 @@ public class Board {
         // i=colonne  j=righe
 
             if (!this.blackExit){
-                boolean trovato = false;
+                boolean found = false;
 
-                for (int i=1; i<=18 && !trovato; i++){
-                    for (int j=0; j<=1 && !trovato; j++){
+                for (int i = 7; i<=24 && !found; i++){
+                    for (int j = 0; j<=1 && !found; j++){
                         if (squares[j][i] != null && !squares[j][i].getisWhite()){
-                            trovato = true;
+
+                            found = true;
                         }
                     }
                 }
-                if (!trovato){
+                if (!found){
                     blackExit = true;
+                    Logic.view.openBlackExit();
                 }
             }
     }
@@ -172,18 +237,40 @@ public class Board {
 
 
         if (!this.whiteExit){
-            boolean trovato = false;
+            boolean found = false;
 
-            for (int i=7; i<=24 && !trovato; i++){
-                for (int j=0; j<=1 && !trovato; j++){
+
+            for (int i = 1; i<=18 && !found; i++){
+                for (int j = 0; j<=1 && !found; j++){
+
                     if (squares[j][i] != null && squares[j][i].getisWhite()){
-                        trovato = true;
+                        found = true;
                     }
                 }
             }
-            if (!trovato){
+            if (!found){
+
                 whiteExit = true;
+                Logic.view.openWhiteExit();
             }
         }
+    }
+
+    // Metodo setter per l'array moveBuffer
+    public void setMoveBuffer (int col, int row) {
+        this.moveBuffer[0] = col;
+        this.moveBuffer[1] = row;
+    }
+
+    public int getMoveBufferColumn () {
+        return this.moveBuffer[0];
+    }
+
+    public int getMoveBufferRow () {
+        return this.moveBuffer[1];
+    }
+
+    public void resetMoveBuffer() {
+        this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
     }
 }

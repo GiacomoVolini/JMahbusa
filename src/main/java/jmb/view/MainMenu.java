@@ -15,12 +15,11 @@ import jmb.App;
 import static jmb.view.ConstantsView.*;
 
 import java.io.IOException;
+import static jmb.view.View.logic;
 
 import static jmb.App.getStage;
 
 public class MainMenu {
-
-    GameBoard C = new GameBoard();
 
     @FXML
     private AnchorPane Window;

@@ -3,15 +3,17 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import jmb.view.LogicPoints?>
 <?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameBoard">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -42,9 +44,9 @@
    <Polygon fx:id="point_10" fill="#1fd7ff" layoutX="812.0" layoutY="385.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
    <Polygon fx:id="point_11" fill="#1fd7ff" layoutX="862.0" layoutY="385.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
    <Polygon fx:id="point_12" fill="#1fd7ff" layoutX="912.0" layoutY="385.0" points="-50.0, -237.0, 0.0, -237.0, -25.0, 40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-   <Rectangle fx:id="whiteExitRegion" fill="#d5dbe0b2" smooth="false" stroke="BLACK" strokeType="INSIDE" />
-   <Rectangle fx:id="blackExitRegion" fill="#01182eaf" layoutX="221.0" layoutY="448.0" smooth="false" stroke="BLACK" strokeType="INSIDE" />
-   <Rectangle fx:id="diceTray" fill="#1f93ff66" layoutX="954.0" layoutY="81.0" smooth="false" stroke="BLACK" strokeType="INSIDE" />
+   <Rectangle fx:id="whiteExitRegion" fill="#eeeeee" smooth="false" stroke="BLACK" strokeType="INSIDE" />
+   <Rectangle fx:id="blackExitRegion" fill="#404040" smooth="false" stroke="BLACK" strokeType="INSIDE" />
+   <Rectangle fx:id="diceTray" fill="#1f93ff66" height="733.0" layoutX="954.0" layoutY="81.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="200.0" />
 
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
@@ -53,7 +55,7 @@
          <Font name="Calibri Bold" size="14.5" />
       </font>
    </Button>
-   <Button fx:id="finishBTN" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="finishBTN" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="14.5" />
       </font>
@@ -63,159 +65,199 @@
          <Font name="Calibri Bold" size="14.5" />
       </font>
    </Button>
-   <LogicPoints fx:id="point_1_R" layoutX="264.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   <Region fx:id="point_1_R" layoutX="264.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_2_R" layoutX="313.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_2_R" layoutX="313.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_3_R" layoutX="363.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_3_R" layoutX="363.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_4_R" layoutX="413.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_4_R" layoutX="413.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_5_R" layoutX="463.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_5_R" layoutX="463.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_6_R" layoutX="513.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_6_R" layoutX="513.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_7_R" layoutX="613.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_7_R" layoutX="613.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_8_R" layoutX="663.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_8_R" layoutX="663.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_9_R" layoutX="713.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_9_R" layoutX="713.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_10_R" layoutX="763.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_10_R" layoutX="763.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_11_R" layoutX="813.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_11_R" layoutX="813.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_12_R" layoutX="863.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_12_R" layoutX="863.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_24_R" layoutX="263.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_24_R" layoutX="263.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_23_R" layoutX="313.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_23_R" layoutX="313.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_22_R" layoutX="363.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_22_R" layoutX="363.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_21_R" layoutX="413.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_21_R" layoutX="413.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_20_R" layoutX="463.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_20_R" layoutX="463.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_19_R" layoutX="513.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_19_R" layoutX="513.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_18_R" layoutX="1104.0" layoutY="512.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_18_R" layoutX="1104.0" layoutY="512.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_17_R" layoutX="663.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_17_R" layoutX="663.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_16_R" layoutX="714.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_16_R" layoutX="714.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_15_R" layoutX="764.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_15_R" layoutX="764.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_14_R" layoutX="814.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_14_R" layoutX="814.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <LogicPoints fx:id="point_13_R" layoutX="864.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
+   </Region>
+   <Region fx:id="point_13_R" layoutX="864.0" layoutY="471.0" prefHeight="277.0" prefWidth="50.0">
       <cursor>
          <Cursor fx:constant="CROSSHAIR" />
       </cursor>
-   </LogicPoints>
-   <PawnView fx:id="pawnWHT01" fill="WHITE" layoutX="1049.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT02" fill="WHITE" layoutX="1099.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT03" fill="WHITE" layoutX="1149.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT04" fill="WHITE" layoutX="1199.0" layoutY="107.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT05" fill="WHITE" layoutX="1249.0" layoutY="106.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT06" fill="WHITE" layoutX="1049.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT07" fill="WHITE" layoutX="1099.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT08" fill="WHITE" layoutX="1149.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT09" fill="WHITE" layoutX="1199.0" layoutY="178.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT10" fill="WHITE" layoutX="1249.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT11" fill="WHITE" layoutX="1049.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT12" fill="WHITE" layoutX="1099.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT13" fill="WHITE" layoutX="1149.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT14" fill="WHITE" layoutX="1199.0" layoutY="262.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnWHT15" fill="WHITE" layoutX="1249.0" layoutY="261.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK01" fill="#403a3a" layoutX="1054.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK02" fill="#403a3a" layoutX="1104.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK03" fill="#403a3a" layoutX="1154.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK04" fill="#403a3a" layoutX="1204.0" layoutY="574.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK05" fill="#403a3a" layoutX="1254.0" layoutY="573.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK06" fill="#403a3a" layoutX="1054.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK07" fill="#403a3a" layoutX="1104.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK08" fill="#403a3a" layoutX="1154.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK09" fill="#403a3a" layoutX="1204.0" layoutY="645.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK10" fill="#403a3a" layoutX="1254.0" layoutY="644.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK11" fill="#403a3a" layoutX="1054.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK12" fill="#403a3a" layoutX="1104.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK13" fill="#403a3a" layoutX="1154.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK14" fill="#403a3a" layoutX="1204.0" layoutY="729.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <PawnView fx:id="pawnBLK15" fill="#403a3a" layoutX="1254.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   </Region>
+   <PawnView fx:id="pawnWHT01" fill="WHITE" layoutX="288.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT02" fill="WHITE" layoutX="338.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT03" fill="WHITE" layoutX="388.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT04" fill="WHITE" layoutX="438.0" layoutY="178.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT05" fill="WHITE" layoutX="488.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT06" fill="WHITE" layoutX="288.0" layoutY="248.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT07" fill="WHITE" layoutX="338.0" layoutY="248.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT08" fill="WHITE" layoutX="388.0" layoutY="248.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT09" fill="WHITE" layoutX="438.0" layoutY="249.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT10" fill="WHITE" layoutX="488.0" layoutY="248.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT11" fill="WHITE" layoutX="289.0" layoutY="177.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT12" fill="WHITE" layoutX="338.0" layoutY="332.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT13" fill="WHITE" layoutX="388.0" layoutY="332.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT14" fill="WHITE" layoutX="438.0" layoutY="333.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnWHT15" fill="WHITE" layoutX="488.0" layoutY="332.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK01" fill="#403a3a" layoutX="288.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK02" fill="#403a3a" layoutX="286.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK03" fill="#403a3a" layoutX="288.0" layoutY="568.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK04" fill="#403a3a" layoutX="338.0" layoutY="569.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK05" fill="#403a3a" layoutX="388.0" layoutY="568.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK06" fill="#403a3a" layoutX="286.0" layoutY="722.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK07" fill="#403a3a" layoutX="278.0" layoutY="728.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK08" fill="#403a3a" layoutX="288.0" layoutY="639.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK09" fill="#403a3a" layoutX="338.0" layoutY="640.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK10" fill="#403a3a" layoutX="388.0" layoutY="639.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK11" fill="#403a3a" layoutX="286.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK12" fill="#403a3a" layoutX="287.0" layoutY="722.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK13" fill="#403a3a" layoutX="288.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK14" fill="#403a3a" layoutX="338.0" layoutY="724.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <PawnView fx:id="pawnBLK15" fill="#403a3a" layoutX="388.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
+   <Pane fx:id="doubleDiceUPane" layoutX="1024.0" layoutY="233.0">
+      <children>
+         <Rectangle fx:id="doubleDiceU" arcHeight="5.0" arcWidth="5.0" height="60.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="60.0" />
+         <Label fx:id="doubleDiceULabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="39.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Pane fx:id="diceUPane" layoutX="1024.0" layoutY="173.0">
+      <children>
+         <Rectangle fx:id="diceU" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="60.0" />
+         <Label fx:id="diceULabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="39.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Pane fx:id="doubleDiceDPane" layoutX="1024.0" layoutY="574.0">
+      <children>
+         <Rectangle fx:id="doubleDiceD" arcHeight="5.0" arcWidth="5.0" height="60.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="60.0" />
+         <Label fx:id="doubleDiceDLabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="39.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
+   <Pane fx:id="diceDPane" layoutX="1024.0" layoutY="634.0">
+      <children>
+         <Rectangle fx:id="diceD" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="60.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="60.0" />
+         <Label fx:id="diceDLabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER">
+            <font>
+               <Font name="System Bold" size="39.0" />
+            </font>
+         </Label>
+      </children>
+   </Pane>
    <TitledPane fx:id="Iniziamo" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="                                                  Iniziamo" textAlignment="CENTER">
-     <content>
-       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <content>
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
                <Button fx:id="iniziaTempo" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#runTimer" prefHeight="90.0" prefWidth="192.0" text="CERTO">
                   <font>
@@ -229,11 +271,11 @@
                </Text>
             </children>
          </AnchorPane>
-     </content>
+      </content>
    </TitledPane>
    <TitledPane fx:id="Pause" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="                                                  Pause" visible="false">
-     <content>
-       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
+      <content>
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
             <children>
                <Button fx:id="senzaSalvare" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
                   <font>
@@ -257,6 +299,8 @@
                </Text>
             </children>
          </AnchorPane>
-     </content>
+      </content>
    </TitledPane>
 </AnchorPane>
+
+

@@ -10,6 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import static jmb.view.ConstantsView.*;
+import static jmb.App.getStage;
 
 import java.io.IOException;
 
@@ -145,32 +146,45 @@ public class MenuImpostazioni<string> {
         void Tmainmenu()  throws IOException {
                 tornaMM.getScene().getWindow();
                 jmb.App.MainMenu();
-
+                if (checkSI.isSelected()) {
+                        cb = fullscreen;
+                        getStage().setFullScreen(true);
+                }else {
+                        cb = nofullscreen;
+                        getStage().setFullScreen(false);
+                }
         }
 
         @FXML
         void openEditVideo() {
                 video.setVisible(true);
+                video.setMouseTransparent(false);
                 audio.setVisible(false);
+                audio.setMouseTransparent(true);
                 personalizzazione.setVisible(false);
+                personalizzazione.setMouseTransparent(true);
 
         }
 
         @FXML
         void openEditAudio() {
                 video.setVisible(false);
+                video.setMouseTransparent(true);
                 audio.setVisible(true);
+                audio.setMouseTransparent(false);
                 personalizzazione.setVisible(false);
+                personalizzazione.setMouseTransparent(true);
         }
 
         @FXML
         void openEditPersonalizzazione() {
                 video.setVisible(false);
+                video.setMouseTransparent(true);
                 audio.setVisible(false);
+                audio.setMouseTransparent(true);
                 personalizzazione.setVisible(true);
-
+                personalizzazione.setMouseTransparent(false);
         }
-
 
         @FXML
         void coloreINpedina1(ActionEvent event) {
@@ -250,6 +264,18 @@ public class MenuImpostazioni<string> {
                 Ccornice.setDisable(true);
         }
 
+        //schermo intero
+        @FXML
+        void fullscreen(ActionEvent event) {
+                if (checkSI.isSelected()){
+                        cb = fullscreen;
+                        //getStage().setFullScreen(true);
+                }else{
+                        cb = nofullscreen;
+                        //getStage().setFullScreen(false);
+                }
+        }
+
         @FXML
         void ResetData(ActionEvent event) {
                 pedIn1 = Color.web("#ffffff");
@@ -302,6 +328,15 @@ public class MenuImpostazioni<string> {
         }
 
         @FXML
+        void resetVideo(ActionEvent event){
+
+                        cb = nofullscreen;
+                        getStage().setFullScreen(false);
+                        checkSI.setSelected(false);
+        }
+
+        //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
+        @FXML
         void SaveData(ActionEvent event) {
                 //colori
                 pedIn1 = Inpedina1.getValue();
@@ -340,6 +375,17 @@ public class MenuImpostazioni<string> {
                         Cpunte.setDisable(false);
                         Cpunte2.setDisable(false);
                         Ccornice.setDisable(false);
+                }
+
+                //video
+                if (checkSI.isSelected()){
+                        checkSI.setSelected(true);
+                        cb = fullscreen;
+                        getStage().setFullScreen(true);
+                }else{
+                        checkSI.setSelected(false);
+                        cb = nofullscreen;
+                        getStage().setFullScreen(false);
                 }
 
         }
@@ -421,6 +467,12 @@ public class MenuImpostazioni<string> {
                 punta3.setFill(Cpunte.getValue());
                 punta3.setStroke(Cpunte.getValue());
 
+                //schermo intero
+
+                        checkSI.setSelected(cb);
+                        getStage().setFullScreen(true);
+
+
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -428,6 +480,8 @@ public class MenuImpostazioni<string> {
 
                 //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
                 GBG.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+                openEditVideo();
 
         }
 

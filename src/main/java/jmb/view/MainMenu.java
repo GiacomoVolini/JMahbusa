@@ -12,8 +12,11 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.fxml.FXMLLoader;
 import jmb.App;
+import static jmb.view.ConstantsView.*;
 
 import java.io.IOException;
+
+import static jmb.App.getStage;
 
 public class MainMenu {
 
@@ -62,6 +65,11 @@ public class MainMenu {
     void openGameBoard()  throws IOException {
         NewGame.getScene().getWindow();
         jmb.App.board();
+        if (cb == fullscreen) {
+            getStage().setFullScreen(true);
+        }else {
+            getStage().setFullScreen(false);
+        }
 
     }
 
@@ -69,6 +77,11 @@ public class MainMenu {
     void openMenuImpostazioni()  throws IOException {
         Settings.getScene().getWindow();
         jmb.App.edit();
+        if (cb == fullscreen) {
+            getStage().setFullScreen(true);
+        }else {
+            getStage().setFullScreen(false);
+        }
 
     }
 

@@ -36,6 +36,11 @@ public class ConstantsView {
     public static final int right = 2;
     public static final int left = 3;
 
+    //variabili di check box
+    public static boolean cb;
+    public static final boolean nofullscreen = false;
+    public static final boolean fullscreen = true;
+
     private ConstantsView() {
         throw new AssertionError() ;
     }

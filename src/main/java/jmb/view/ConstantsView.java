@@ -40,6 +40,9 @@ public class ConstantsView {
     public static boolean cb;
     public static final boolean nofullscreen = false;
     public static final boolean fullscreen = true;
+    public static boolean sr;
+    public static final boolean fermo = true;
+    public static final boolean nonfermo = false;
 
     private ConstantsView() {
         throw new AssertionError() ;

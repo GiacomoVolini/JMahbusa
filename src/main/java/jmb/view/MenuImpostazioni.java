@@ -277,6 +277,15 @@ public class MenuImpostazioni<string> {
         }
 
         @FXML
+        void blockresolution(ActionEvent event) {
+                if(checkBR.isSelected()) {
+                        sr = fermo;
+                }else{
+                        sr = nonfermo;
+                }
+        }
+
+        @FXML
         void ResetData(ActionEvent event) {
                 pedIn1 = Color.web("#ffffff");
                 pedIn2 = Color.web("#000000");
@@ -333,6 +342,9 @@ public class MenuImpostazioni<string> {
                         cb = nofullscreen;
                         getStage().setFullScreen(false);
                         checkSI.setSelected(false);
+                        sr = nonfermo;
+                        getStage().setResizable(true);
+                        checkBR.setSelected(false);
         }
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
@@ -386,6 +398,14 @@ public class MenuImpostazioni<string> {
                         checkSI.setSelected(false);
                         cb = nofullscreen;
                         getStage().setFullScreen(false);
+                }
+
+                if(checkBR.isSelected()) {
+                        sr = fermo;
+                        getStage().setResizable(false);
+                }else{
+                        sr = nonfermo;
+                        getStage().setResizable(true);
                 }
 
         }
@@ -471,6 +491,8 @@ public class MenuImpostazioni<string> {
 
                         checkSI.setSelected(cb);
                         getStage().setFullScreen(true);
+                        checkBR.setSelected(sr);
+                        getStage().setResizable(true);
 
 
 

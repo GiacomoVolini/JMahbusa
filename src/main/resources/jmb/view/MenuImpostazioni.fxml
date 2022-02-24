@@ -57,7 +57,7 @@
                </font>
             </CheckBox>
             <Slider fx:id="SliderGT" layoutX="211.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
-            <CheckBox fx:id="checkBR" layoutX="28.0" layoutY="194.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
+            <CheckBox fx:id="checkBR" layoutX="28.0" layoutY="194.0" mnemonicParsing="false" onAction="#blockresolution" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
                <font>
                   <Font size="20.0" />
                </font>

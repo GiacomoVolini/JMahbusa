@@ -2,7 +2,6 @@ package jmb.view;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,12 +9,10 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import javafx.fxml.FXMLLoader;
-import jmb.App;
+
 import static jmb.view.ConstantsView.*;
 
 import java.io.IOException;
-import static jmb.view.View.logic;
 
 import static jmb.App.getStage;
 
@@ -61,7 +58,7 @@ public class MainMenu {
     }
 
     @FXML
-    void openGameBoard()  throws IOException {
+    void newGameAction()  throws IOException {
         NewGame.getScene().getWindow();
         jmb.App.board();
         if (cb == fullscreen) {

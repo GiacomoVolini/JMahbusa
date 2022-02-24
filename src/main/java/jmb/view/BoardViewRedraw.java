@@ -290,7 +290,8 @@ public class BoardViewRedraw {
                                     Region[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
-                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK) {
+                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Rectangle diceU,
+                                    Rectangle diceD, Rectangle doubleDiceU, Rectangle doubleDiceD) {
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);

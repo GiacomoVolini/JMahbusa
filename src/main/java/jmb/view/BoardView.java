@@ -424,7 +424,7 @@ public class BoardView {
         BoardViewRedraw.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK);
+                                    pawnArrayWHT, pawnArrayBLK, diceU, diceD, doubleDiceU, doubleDiceD);
         if(!dtAnimDone) {
             diceTrayAnim();
             //openBlackExit();

@@ -47,9 +47,7 @@ public class App extends Application {
     }
 
     public static void board() throws IOException{
-        if (sceneBoard==null) {
-            sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
-        }
+        sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
         stage.setScene(sceneBoard);
         stage.show();
     }
@@ -89,6 +87,8 @@ public class App extends Application {
 
     }
 
+
+    //TODO forse cancellare
     private static <T> T getNodeController(String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         loader.load();

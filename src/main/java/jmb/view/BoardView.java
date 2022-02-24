@@ -7,6 +7,8 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -14,7 +16,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.geometry.Point2D;
 
+import java.io.IOException;
+
+import static jmb.App.getStage;
 import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -304,6 +310,21 @@ public class BoardView {
     @FXML
     private PawnView pawnWHT15;
 
+    @FXML
+    private TitledPane Iniziamo;
+
+    @FXML
+    private Button iniziaTempo;
+
+    @FXML
+    private TitledPane Pause;
+
+    @FXML
+    private Button senzaSalvare;
+
+    @FXML
+    private Button annulla;
+
 
 
     //TEST
@@ -368,7 +389,27 @@ public class BoardView {
         timeline.play();
     }
 
+    @FXML
+    void openExitoption(ActionEvent event) {
+        Pause.setVisible(true);
+    }
 
+    @FXML
+    void closeExitoption(ActionEvent event) {
+        Pause.setVisible(false);
+    }
+
+    @FXML
+    void vaialMainMenu()  throws IOException {
+        senzaSalvare.getScene().getWindow();
+        jmb.App.MainMenu();
+        if (cb == fullscreen) {
+            getStage().setFullScreen(true);
+        }else {
+            getStage().setFullScreen(false);
+        }
+
+    }
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
 
@@ -424,7 +465,8 @@ public class BoardView {
         BoardViewRedraw.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK, diceU, diceD, doubleDiceU, doubleDiceD);
+                                    pawnArrayWHT, pawnArrayBLK, diceU, diceD, doubleDiceU, doubleDiceD,
+                                    Pause, Iniziamo);
         if(!dtAnimDone) {
             diceTrayAnim();
             //openBlackExit();
@@ -487,6 +529,20 @@ public class BoardView {
         return out;
     }
 
+    //Timer del turno e animazione Timer
+    @FXML
+    protected void runTimer(ActionEvent event) {
+        Iniziamo.setVisible(false);
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                    // TODO Verificare che turno venga effettivamente cambiato
+                    logic.nextTurn();
+                }, new KeyValue(timerIn.scaleYProperty(), 0))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
 
 
     //--------------------------------------------
@@ -511,7 +567,43 @@ public class BoardView {
         this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
 
+        //colori tavolo
+        outerRect.setFill(frame);
+        outerRect.setStroke(frame);
+        separator.setFill(frame);
+        separator.setStroke(frame);
+        boardRect.setFill(table);
+        boardRect.setStroke(table);
 
+        //colori pedine
+        for (int i= 0; i<pawnArrayWHT.length; i++){
+            this.pawnArrayWHT[i].setFill(pedIn1);
+            this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayBLK[i].setFill(pedIn2);
+            this.pawnArrayBLK[i].setStroke(pedOut2);
+        }
+
+        //colori punte
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayTop[i].setFill(point);
+                this.polArrayTop[i].setStroke(point);
+            }else{
+                this.polArrayTop[i].setFill(point2);
+                this.polArrayTop[i].setStroke(point2);
+            }
+        }
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayBot[i].setFill(point2);
+                this.polArrayBot[i].setStroke(point2);
+            }else{
+                this.polArrayBot[i].setFill(point);
+                this.polArrayBot[i].setStroke(point);
+            }
+        }
+
+        /*
         Timeline turnTimer = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
@@ -522,6 +614,8 @@ public class BoardView {
 
         turnTimer.setCycleCount(Animation.INDEFINITE);
         turnTimer.play();
+
+         */
 
 
 

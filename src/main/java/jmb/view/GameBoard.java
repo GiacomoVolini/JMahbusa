@@ -19,6 +19,7 @@ import javafx.geometry.Point2D;
 
 import java.io.IOException;
 
+import static jmb.App.getStage;
 import static jmb.view.ConstantsView.*;
 
 public class GameBoard {
@@ -378,6 +379,11 @@ public class GameBoard {
     void vaialMainMenu()  throws IOException {
         senzaSalvare.getScene().getWindow();
         jmb.App.MainMenu();
+        if (cb == fullscreen) {
+            getStage().setFullScreen(true);
+        }else {
+            getStage().setFullScreen(false);
+        }
 
     }
 

@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="GBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MenuImpostazioni">
    <children>
-      <AnchorPane fx:id="Sbackgraound" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="178.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="409.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="Sbackgraound" layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="204.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="465.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="bgsinistra" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="Bvideo" layoutX="19.0" layoutY="58.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" text="Video" />
@@ -35,9 +35,10 @@
                </menus>
             </MenuBar>
             <Separator layoutX="165.0" layoutY="-6.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="Apply" layoutX="57.0" layoutY="388.0" mnemonicParsing="false" onAction="#SaveData" prefHeight="25.0" prefWidth="58.0" text="Apply" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="video" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="425.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="video" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="400.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true" />
             <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="417.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -50,13 +51,13 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <CheckBox fx:id="checkSI" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="204.0" text="Schermo intero">
+            <CheckBox fx:id="checkSI" layoutX="28.0" layoutY="152.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Schermo intero">
                <font>
                   <Font size="20.0" />
                </font>
             </CheckBox>
-            <Slider fx:id="SliderGT" layoutX="209.0" layoutY="66.0" />
-            <CheckBox fx:id="checkBR" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
+            <Slider fx:id="SliderGT" layoutX="211.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
+            <CheckBox fx:id="checkBR" layoutX="28.0" layoutY="194.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
                <font>
                   <Font size="20.0" />
                </font>
@@ -66,10 +67,11 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <Slider fx:id="SliderL" layoutX="209.0" layoutY="111.0" />
+            <Slider fx:id="SliderL" layoutX="211.0" layoutY="111.0" showTickLabels="true" showTickMarks="true" />
+            <Button fx:id="RV" layoutX="409.0" layoutY="401.0" mnemonicParsing="false" onAction="#resetVideo" prefHeight="25.0" prefWidth="58.0" text="Reset" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="audio" layoutX="173.0" prefHeight="400.0" prefWidth="425.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="audio" layoutX="173.0" mouseTransparent="true" prefHeight="400.0" prefWidth="425.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="Abg" pickOnBounds="true" preserveRatio="true" />
             <MenuBar layoutX="-5.0" layoutY="1.0" prefHeight="25.0" prefWidth="417.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -101,7 +103,7 @@
             <Slider fx:id="SliderES" layoutX="209.0" layoutY="111.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="personalizzazione" layoutX="175.0" layoutY="8.0" prefHeight="400.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="personalizzazione" layoutX="175.0" layoutY="8.0" mouseTransparent="true" prefHeight="400.0" prefWidth="425.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="Ibg" pickOnBounds="true" preserveRatio="true" />
             <MenuBar layoutX="-15.0" prefHeight="25.0" prefWidth="427.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -181,8 +183,7 @@
             <Polygon fx:id="punta2" fill="#2abc95" layoutX="244.0" layoutY="232.0" points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#2abc95" strokeType="INSIDE" />
             <Polygon fx:id="punta3" fill="#b27e31" layoutX="218.0" layoutY="232.0" points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#b27e31" strokeType="INSIDE" />
             <RadioButton fx:id="TM" layoutX="203.0" layoutY="372.0" mnemonicParsing="false" onAction="#inMezzo" text="custom" />
-            <Button fx:id="Apply" layoutX="347.0" layoutY="369.0" mnemonicParsing="false" onAction="#SaveData" prefHeight="25.0" prefWidth="58.0" text="Apply" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-            <Button fx:id="Reset" layoutX="-8.0" layoutY="374.0" mnemonicParsing="false" onAction="#ResetData" prefHeight="25.0" prefWidth="58.0" text="Reset" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-8.0" />
+            <Button fx:id="Reset" layoutX="200.0" layoutY="401.0" mnemonicParsing="false" onAction="#ResetData" prefHeight="25.0" prefWidth="58.0" text="Reset" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="200.0" />
             <ColorPicker fx:id="Cpunte2" editable="true" layoutX="235.0" layoutY="243.0" onAction="#colorePunte2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color red="0.16470588743686676" green="0.7372549176216125" blue="0.5843137502670288" />

@@ -9,9 +9,11 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+//import javafx.scene.media.AudioClip;
 
 import static jmb.view.ConstantsView.*;
 
+import java.applet.AudioClip;
 import java.io.IOException;
 
 import static jmb.App.getStage;
@@ -94,6 +96,9 @@ public class MainMenu {
             BackGround1.setPreserveRatio(false);
             background2.setPreserveRatio(false);
 
+          /* musica
+        AudioClip plonkSound = new AudioClip("http://somehost/path/plonk.aiff");
+        plonkSound.play();*/
 
            Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,

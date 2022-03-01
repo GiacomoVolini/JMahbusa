@@ -6,6 +6,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
@@ -289,10 +290,12 @@ public class BoardViewRedraw {
     private static void resizePaginaPauseIniziamo(AnchorPane window, TitledPane Pause, TitledPane Iniziamo){
         Pause.setLayoutX(window.getWidth()/2-Pause.getWidth()/2);
         Pause.setLayoutY(window.getHeight()/2-Pause.getHeight()/2);
-        Iniziamo.setLayoutX(window.getWidth()/2-Iniziamo.getWidth()/2);
-        Iniziamo.setLayoutY(window.getHeight()/2-Iniziamo.getHeight()/2);
+        Iniziamo.setLayoutX(window.getWidth()/2-Iniziamo.getPrefWidth()/2);
+        Iniziamo.setLayoutY(window.getHeight()/2-Iniziamo.getPrefHeight()/2);
 
     }
+
+    //TODO Metodo che gestisca il riposizionamento dei dadi (ImageView)
 
     protected static void resizeAll(AnchorPane window, Rectangle outerRect, Rectangle boardRect,
                                     Rectangle separator, Rectangle timerOut, Rectangle timerIn,
@@ -300,9 +303,8 @@ public class BoardViewRedraw {
                                     Region[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
-                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Rectangle diceU,
-                                    Rectangle diceD, Rectangle doubleDiceU, Rectangle doubleDiceD, TitledPane Pause,
-                                    TitledPane Iniziamo) {
+                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK,
+                                    TitledPane Pause, TitledPane Iniziamo) {
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);
@@ -318,6 +320,7 @@ public class BoardViewRedraw {
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
         resizePaginaPauseIniziamo(window, Pause, Iniziamo);
+        //TODO metodo resize Dadi
     }
 
 }

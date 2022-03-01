@@ -8,7 +8,9 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -191,19 +193,7 @@ public class BoardView {
     private Rectangle blackExitRegion;
 
     @FXML
-    private Rectangle diceD;
-
-    @FXML
     private Rectangle diceTray;
-
-    @FXML
-    private Rectangle diceU;
-
-    @FXML
-    private Rectangle doubleDiceD;
-
-    @FXML
-    private Rectangle doubleDiceU;
 
     @FXML
     private Button backBTN;
@@ -325,6 +315,17 @@ public class BoardView {
     @FXML
     private Button annulla;
 
+    @FXML
+    private ImageView diceD;
+
+    @FXML
+    private ImageView diceU;
+
+    @FXML
+    private ImageView doubleDiceD;
+
+    @FXML
+    private ImageView doubleDiceU;
 
 
     //TEST
@@ -465,7 +466,7 @@ public class BoardView {
         BoardViewRedraw.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK, diceU, diceD, doubleDiceU, doubleDiceD,
+                                    pawnArrayWHT, pawnArrayBLK,
                                     Pause, Iniziamo);
         if(!dtAnimDone) {
             diceTrayAnim();

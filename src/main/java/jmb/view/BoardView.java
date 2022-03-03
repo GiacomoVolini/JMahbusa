@@ -7,8 +7,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,7 +16,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.geometry.Point2D;
 
 import java.io.IOException;
 
@@ -337,7 +334,7 @@ public class BoardView {
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
 
-    //  Si creano degli array di Polygon, Region e PawnView per gestire in maniera più agevole il
+    //  Si creano degli array di Polygon, Region, PawnView ed ImageView per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
 
     protected Polygon[] polArrayTop;
@@ -349,10 +346,16 @@ public class BoardView {
     protected PawnView[] pawnArrayWHT;
     protected PawnView[] pawnArrayBLK;
 
+    protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
+                                            //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
+
 
     @FXML
     protected void nextTurn (ActionEvent event) {
-        //TODO
+        logic.nextTurn();                   // La parte logica esegue il cambio di turno
+        runTimer();                         // Si resetta il timer del turno
+        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
+                                        regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
     }
 
     @FXML
@@ -467,7 +470,7 @@ public class BoardView {
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK,
-                                    Pause, Iniziamo);
+                                    Pause, Iniziamo, diceArray);
         if(!dtAnimDone) {
             diceTrayAnim();
             //openBlackExit();
@@ -530,21 +533,24 @@ public class BoardView {
         return out;
     }
 
-    //Timer del turno e animazione Timer
+    //Metodo per inizio partita
     @FXML
-    protected void runTimer(ActionEvent event) {
+    protected void startGame(ActionEvent event) {
         Iniziamo.setVisible(false);
+        runTimer();
+
+    }
+
+    private void runTimer(){
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                    // TODO Verificare che turno venga effettivamente cambiato
                     logic.nextTurn();
                 }, new KeyValue(timerIn.scaleYProperty(), 0))
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-
 
     //--------------------------------------------
     //METODO INITIALIZE
@@ -561,12 +567,11 @@ public class BoardView {
                 this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
         this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
                 this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-        //this.regArrayBot = new Region[]     {   this.point_24_R, this.point_23_R, this.point_22_R, this.point_21_R, this.point_20_R, this.point_19_R,
-          //      this.point_18_R, this.point_17_R, this.point_16_R, this.point_15_R, this.point_14_R, this.point_13_R};
         this.pawnArrayWHT = new PawnView[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
                 this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};
         this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
                 this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
+        this.diceArray = new ImageView[]        { this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
 
         //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
         //  del tabellone

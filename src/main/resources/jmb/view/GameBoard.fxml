@@ -2,8 +2,9 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Polygon?>
@@ -218,7 +219,7 @@
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <Button fx:id="iniziaTempo" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#runTimer" prefHeight="90.0" prefWidth="192.0" text="CERTO">
+               <Button fx:id="iniziaTempo" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
                   <font>
                      <Font size="42.0" />
                   </font>
@@ -260,24 +261,24 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <Label fx:id="diceULabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER">
-      <font>
-         <Font name="System Bold" size="39.0" />
-      </font>
-   </Label>
-   <Label fx:id="diceDLabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER">
-      <font>
-         <Font name="System Bold" size="39.0" />
-      </font>
-   </Label>
-   <Label fx:id="doubleDiceDLabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="39.0" />
-      </font>
-   </Label>
-   <Label fx:id="doubleDiceULabTEST" alignment="CENTER" prefHeight="60.0" prefWidth="60.0" text="6" textAlignment="CENTER" textFill="WHITE">
-      <font>
-         <Font name="System Bold" size="39.0" />
-      </font>
-   </Label>
+   <ImageView fx:id="doubleDiceU" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@diceImg/Dado6INV.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="doubleDiceD" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="674.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@diceImg/Dado4INV.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="diceU" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@diceImg/Dado6.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="diceD" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="635.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@diceImg/Dado6.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

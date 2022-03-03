@@ -1,5 +1,6 @@
 package jmb.model;
 
+import static java.lang.Math.abs;
 import static jmb.ConstantsShared.*;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
@@ -45,7 +46,9 @@ public class BoardLogic {
         }
 
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
+        //  e tiriamo i dadi per il primo giocatore
         whiteTurn = dice.initialToss();
+        dice.tossDice();
 
     }
 
@@ -60,6 +63,7 @@ public class BoardLogic {
 
     public void changeTurn() {
         this.whiteTurn= !this.whiteTurn;
+        dice.tossDice();
     }
 
 
@@ -77,9 +81,15 @@ public class BoardLogic {
 
 
         // Si controlla che la mossa sia del giocatore di turno
+        //TODO Forse non è necessario, il controllo viene implicitamente effettuato
+        // disabilitando il controllo delle pedine non di turno
         if (squares[puntaInizR][puntaInizC].getisWhite() == isWhiteTurn()) {
             possible = true;
         } else possible = false;
+
+
+        //  Si effettuano dei controlli sui dadi
+        possible = dice.checkDice( abs(puntaFinC - puntaInizC));
 
 
         //  Si controlla che la mossa sia effettuata nel verso giusto
@@ -91,13 +101,12 @@ public class BoardLogic {
                 //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
                 //  non sia bloccata per il giocatore di turno
                 if (whiteTurn) {
-                    if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksWhite()) {    //controlla che la posizione di arrivo non sia preclusa al bianco
-
-
+                    if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksWhite()) {
+                        //controlla che la posizione di arrivo non sia preclusa al bianco
                         possible = false;
                     }
-                } else if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksBlack()) { //controlla che la posizione di arrivo non sia preclusa al nero
-
+                } else if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksBlack()) {
+                    //controlla che la posizione di arrivo non sia preclusa al nero
                     possible = false;
                 }
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
@@ -128,6 +137,8 @@ public class BoardLogic {
             squares[puntaFinR][puntaFinC].setWhichPoint(puntaFinC);
             squares[puntaFinR][puntaFinC].setWhichRow(puntaFinR);
             squares[puntaInizR][puntaInizC]= null;
+            dice.setUsed();
+            dice.resetToBeUsed();
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
             if (puntaFinR==0) {
@@ -148,6 +159,8 @@ public class BoardLogic {
             } else {
                 this.isBlackExit();
             }
+        } else {
+            dice.resetToBeUsed();
         }
         return possible;
     }

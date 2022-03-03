@@ -6,8 +6,8 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Polygon;
@@ -152,6 +152,10 @@ public class BoardViewRedraw {
         }
     }
 
+    private static void resizeDice (Rectangle diceTray, ImageView[] diceArray) {
+
+    }
+
     public static void resizeButtons(Button backBTN, Button finishBTN, Button menuBTN, AnchorPane window, Rectangle diceTray) {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
@@ -213,11 +217,6 @@ public class BoardViewRedraw {
         whitesPlaced = redrawExitRegionPawns (whitesPlaced, pawnArrayWHT, whiteExitRegion, COL_WHITE_EXIT, WHITE);
         blacksPlaced = redrawAllPointsPawns (blacksPlaced, pawnArrayBLK, regArrayBot, regArrayTop, BLACK);
         whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
-
-
-
-
-
     }
 
     public static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArrayBot, Region[] regArrayTop, int color) {
@@ -234,6 +233,12 @@ public class BoardViewRedraw {
 
     public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArray, int col, boolean top, int color) {
 
+        boolean white;
+        if (color==WHITE) {
+            white = true;
+        } else {
+            white = false;
+        }
         for (int rows = 0; logic.getBoardPlaceState(col, rows) != EMPTY && pawnsPlaced < PAWN_NUMBER_PER_PLAYER && rows <= 16; rows++) {
             if (logic.getBoardPlaceState(col, rows) == color) {
 
@@ -248,7 +253,7 @@ public class BoardViewRedraw {
                 //  L'if controlla se la pedina appena posizionata è l'ultima della punta o meno
                 //      In caso positivo la pedina viene visualizzata in cima a tutte le altre
                 //      In caso negativo si riporta la priorità di rendering di default
-                if (logic.isLastOnPoint(col, rows)) {
+                if (logic.isLastOnPoint(col, rows) && white == logic.getWhichTurn()) {
                     pawnArray[pawnsPlaced].setViewOrder(-1.0);
                     pawnArray[pawnsPlaced].setDisable(false);
                 } else {
@@ -304,7 +309,7 @@ public class BoardViewRedraw {
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
                                     Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK,
-                                    TitledPane Pause, TitledPane Iniziamo) {
+                                    TitledPane Pause, TitledPane Iniziamo, ImageView[] diceArray) {
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);
@@ -316,11 +321,13 @@ public class BoardViewRedraw {
         calcTrayWidth(pawnArrayBLK[0]);
         calcDTWidth(pawnArrayBLK[0]);
         resizeDiceTray(dtAnimDone, diceTray, outerRect);
+        if (dtAnimDone)
+            resizeDice (diceTray, diceArray);
         resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
         resizePaginaPauseIniziamo(window, Pause, Iniziamo);
-        //TODO metodo resize Dadi
+
     }
 
 }

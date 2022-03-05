@@ -36,6 +36,11 @@ public class ConstantsView {
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
 
+    //salvare i nomi
+    public static String n1;
+    public static String n2;
+
+
     private ConstantsView() {
         throw new AssertionError() ;
     }

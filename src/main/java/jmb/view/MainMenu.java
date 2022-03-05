@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 //import javafx.scene.media.AudioClip;
 
+import static jmb.App.leaderBoard;
 import static jmb.view.ConstantsView.*;
 
 import java.applet.AudioClip;
@@ -62,12 +63,19 @@ public class MainMenu {
     @FXML
     void newGameAction()  throws IOException {
         NewGame.getScene().getWindow();
-        jmb.App.board();
+        jmb.App.login();
         if (cb == fullscreen) {
             getStage().setFullScreen(true);
         }else {
             getStage().setFullScreen(false);
         }
+
+    }
+
+    @FXML
+    void openLeaderBoard()  throws IOException {
+        LDB.getScene().getWindow();
+        jmb.App.leaderBoard();
 
     }
 

@@ -23,6 +23,8 @@ public class App extends Application {
     private static Scene sceneMainMenu;
     private static Scene sceneBoard;
     private static Scene sceneSettings;
+    private static Scene sceneLeaderBoard;
+    private static Scene sceneLogIn;
 
 
     public static Stage getStage() {
@@ -46,6 +48,12 @@ public class App extends Application {
         stage.show();
     }
 
+    public static void login() throws IOException{
+        sceneLogIn = new Scene(loadFXML("view/LogIn"), 640, 480);
+        stage.setScene(sceneLogIn);
+        stage.show();
+    }
+
     public static void board() throws IOException{
         sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
         stage.setScene(sceneBoard);
@@ -57,6 +65,14 @@ public class App extends Application {
             sceneSettings = new Scene(loadFXML("view/MenuImpostazioni"));
         }
         stage.setScene(sceneSettings);
+        stage.show();
+    }
+
+    public static void leaderBoard() throws IOException{
+        if (sceneLeaderBoard == null){
+            sceneLeaderBoard = new Scene(loadFXML("view/Leaderboard"));
+        }
+        stage.setScene(sceneLeaderBoard);
         stage.show();
     }
 

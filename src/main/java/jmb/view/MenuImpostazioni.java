@@ -3,12 +3,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import static jmb.view.ConstantsView.*;
 import static jmb.App.getStage;
 
@@ -143,6 +145,39 @@ public class MenuImpostazioni<string> {
         private Button Reset;
 
         @FXML
+        private AnchorPane comandi;
+
+        @FXML
+        private Text moDestra;
+
+        @FXML
+        private Text moSinistra;
+
+        @FXML
+        private Text moSopra;
+
+        @FXML
+        private Text moSotto;
+
+        @FXML
+        private Text Selezionare;
+
+        @FXML
+        private Text confermare;
+
+        @FXML
+        private Text finitoT;
+
+        @FXML
+        private Text cacellareMo;
+
+        @FXML
+        private Text opUscita;
+
+        @FXML
+        private Button reComandi;
+
+        @FXML
         void Tmainmenu()  throws IOException {
                 tornaMM.getScene().getWindow();
                 jmb.App.MainMenu();
@@ -163,6 +198,8 @@ public class MenuImpostazioni<string> {
                 audio.setMouseTransparent(true);
                 personalizzazione.setVisible(false);
                 personalizzazione.setMouseTransparent(true);
+                comandi.setVisible(false);
+                comandi.setMouseTransparent(true);
 
         }
 
@@ -174,6 +211,8 @@ public class MenuImpostazioni<string> {
                 audio.setMouseTransparent(false);
                 personalizzazione.setVisible(false);
                 personalizzazione.setMouseTransparent(true);
+                comandi.setVisible(false);
+                comandi.setMouseTransparent(true);
         }
 
         @FXML
@@ -184,6 +223,20 @@ public class MenuImpostazioni<string> {
                 audio.setMouseTransparent(true);
                 personalizzazione.setVisible(true);
                 personalizzazione.setMouseTransparent(false);
+                comandi.setVisible(false);
+                comandi.setMouseTransparent(true);
+        }
+
+        @FXML
+        void openEditComandi(ActionEvent event) {
+                video.setVisible(false);
+                video.setMouseTransparent(true);
+                audio.setVisible(false);
+                audio.setMouseTransparent(true);
+                personalizzazione.setVisible(false);
+                personalizzazione.setMouseTransparent(true);
+                comandi.setVisible(true);
+                comandi.setMouseTransparent(false);
         }
 
         @FXML
@@ -284,6 +337,54 @@ public class MenuImpostazioni<string> {
                         sr = nonfermo;
                 }
         }
+        //TODO riampi l'applicazioni
+
+        //Comandi Action
+
+        @FXML
+        void cambiaDestra(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaCancellazione(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaConferma(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaDeSelez(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaFinish(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaSinistra(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaSopra(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaSotto(MouseEvent event) {
+
+        }
+
+        @FXML
+        void cambiaUscita(MouseEvent event) {
+
+        }
 
         @FXML
         void ResetData(ActionEvent event) {
@@ -345,6 +446,11 @@ public class MenuImpostazioni<string> {
                         sr = nonfermo;
                         getStage().setResizable(true);
                         checkBR.setSelected(false);
+        }
+        //TODO trovare il metodo per i pulsanti della tastieria
+        @FXML
+        void resetComandi(ActionEvent event) {
+
         }
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco

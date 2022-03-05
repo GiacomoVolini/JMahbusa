@@ -25,7 +25,7 @@
             <Button fx:id="Bvideo" layoutX="19.0" layoutY="58.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" text="Video" />
             <Button fx:id="Baudio" layoutX="19.0" layoutY="100.0" mnemonicParsing="false" onAction="#openEditAudio" prefHeight="26.0" prefWidth="133.0" text="Audio" />
             <Button fx:id="Bpersonalizzazione" layoutX="19.0" layoutY="142.0" mnemonicParsing="false" onAction="#openEditPersonalizzazione" prefHeight="26.0" prefWidth="133.0" text="Personalizzazione" />
-            <Button fx:id="Bcomandi" layoutX="19.0" layoutY="184.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Comandi" />
+            <Button fx:id="Bcomandi" layoutX="19.0" layoutY="184.0" mnemonicParsing="false" onAction="#openEditComandi" prefHeight="26.0" prefWidth="133.0" text="Comandi" />
             <Button layoutX="19.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Button" />
             <Button layoutX="19.0" layoutY="268.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Button" />
             <Button fx:id="tornaMM" layoutX="40.0" layoutY="334.0" mnemonicParsing="false" onAction="#Tmainmenu" prefHeight="26.0" prefWidth="89.0" text="Main Menu" />
@@ -38,7 +38,7 @@
             <Button fx:id="Apply" layoutX="57.0" layoutY="388.0" mnemonicParsing="false" onAction="#SaveData" prefHeight="25.0" prefWidth="58.0" text="Apply" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="video" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="400.0" prefWidth="425.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="video" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="400.0" prefWidth="425.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true" />
             <MenuBar layoutY="1.0" prefHeight="25.0" prefWidth="417.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -199,6 +199,116 @@
             <Polygon fx:id="punta111" fill="#c21123" layoutX="430.0" layoutY="232.0" points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#c21123" strokeType="INSIDE" />
             <Polygon fx:id="punta211" fill="#daa505" layoutX="411.0" layoutY="232.0" points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#daa505" strokeType="INSIDE" />
             <Polygon fx:id="punta311" fill="#c21123" layoutX="385.0" layoutY="232.0" points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#c21123" strokeType="INSIDE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="comandi" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="188.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar prefHeight="25.0" prefWidth="427.0" AnchorPane.leftAnchor="-15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="                                                      Comandi" />
+               </menus>
+            </MenuBar>
+            <Text layoutX="36.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard:" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="176.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="58.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="moDestra" layoutX="251.0" layoutY="100.0" onMouseClicked="#cambiaDestra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Destra" wrappingWidth="111.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="176.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="moSinistra" layoutX="250.0" layoutY="128.0" onMouseClicked="#cambiaSinistra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Sinistra" wrappingWidth="118.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="176.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="moSopra" layoutX="250.0" layoutY="156.0" onMouseClicked="#cambiaSopra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Su" wrappingWidth="110.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="176.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="moSotto" layoutX="250.0" layoutY="184.0" onMouseClicked="#cambiaSotto" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Gu" wrappingWidth="110.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="85.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muovere:" wrappingWidth="75.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="36.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="Selezionare" layoutX="176.0" layoutY="220.0" onMouseClicked="#cambiaDeSelez" strokeType="OUTSIDE" strokeWidth="0.0" text="Spazio" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="78.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="confermare" layoutX="176.0" layoutY="248.0" onMouseClicked="#cambiaConferma" strokeType="OUTSIDE" strokeWidth="0.0" text="Invio" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="73.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="finitoT" layoutX="176.0" layoutY="302.0" onMouseClicked="#cambiaFinish" strokeType="OUTSIDE" strokeWidth="0.0" text="F" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="19.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="cacellareMo" layoutX="176.0" layoutY="275.0" onMouseClicked="#cambiaCancellazione" strokeType="OUTSIDE" strokeWidth="0.0" text="Backspace" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="66.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="opUscita" layoutX="176.0" layoutY="326.0" onMouseClicked="#cambiaUscita" strokeType="OUTSIDE" strokeWidth="0.0" text="Esc" wrappingWidth="95.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button fx:id="reComandi" layoutX="195.0" layoutY="367.0" mnemonicParsing="false" onAction="#resetComandi" prefHeight="25.0" prefWidth="58.0" text="Reset" />
          </children>
       </AnchorPane>
    </children>

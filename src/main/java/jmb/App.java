@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jmb.model.LeaderboardLogic;
 import jmb.model.Logic;
 import jmb.view.BoardView;
 import jmb.view.View;
@@ -18,6 +19,7 @@ import static jmb.model.Logic.view;
  * JavaFX App
  */
 public class App extends Application {
+
 
     private static Stage stage;
     private static Scene sceneMainMenu;
@@ -89,10 +91,10 @@ public class App extends Application {
         return out;
     }
 
-
     public static void main(String[] args) {
         launch();
     }
+
 
 
     //La seguente classe è utilizzata per l'implementazione delle interfacce tra i vari package
@@ -110,6 +112,8 @@ public class App extends Application {
         loader.load();
         return loader.getController();
     }
+
+
 
 
 }

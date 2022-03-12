@@ -1,8 +1,6 @@
 package jmb.model;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 import static jmb.model.ConstantsLogic.*;
 
@@ -53,16 +51,30 @@ public class Player {
         return this.name.get();
     }
 
+    public SimpleStringProperty nameProperty() { return this.name; }
+
     public int getWins() {
         return this.wins.get();
+    }
+
+    public SimpleIntegerProperty winsProperty() {
+        return this.wins;
     }
 
     public int getLosses() {
         return this.losses.get();
     }
 
+    public SimpleIntegerProperty lossesProperty() {
+        return this.losses;
+    }
+
     public double getWinRate() {
         return this.winRate.get();
+    }
+
+    public SimpleDoubleProperty winRateProperty() {
+        return this.winRate;
     }
 
     //TODO forse metodi set?

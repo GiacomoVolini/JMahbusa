@@ -22,7 +22,7 @@ public class LeaderboardLogic {
     String line;
 
     // Il costruttore crea il BufferedReader per il file csv della classifica,
-    //      la LinkedList per le singole entry e un oggetto String per la gestione di una singola riga del
+    //      l'ObservableList per le singole entry e un oggetto String per la gestione di una singola riga del
     //      file csv
     public LeaderboardLogic () throws IOException {
         try {
@@ -51,15 +51,19 @@ public class LeaderboardLogic {
             }
     }
 
-    //TODO forse cancellare, è test
+    /*TODO forse cancellare, è test
     public void testList () {
         System.out.println("Nome\t Vittorie\t Sconfitte\t V\\S");
-        for (String[] strArr: leadList) {
+        for (String[] strArr: obsList) {
             for (String str : strArr) {
                 System.out.print(str + "\t");
             }
             System.out.println(Double.parseDouble(strArr[1])/Double.parseDouble(strArr[2]));
         }
+    }*/
+
+    public ObservableList<Player> getList() {
+        return obsList;
     }
 
 }

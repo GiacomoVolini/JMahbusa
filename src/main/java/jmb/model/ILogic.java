@@ -1,5 +1,7 @@
 package jmb.model;
 
+import javafx.collections.ObservableList;
+
 public interface ILogic {
 
     //void placePawnOnTopPoints (int prevRegion, int prevPoint, int whichPoint);
@@ -14,6 +16,8 @@ public interface ILogic {
 
     void initializeBoardLogic ();
 
+    void initializeLeaderboardLogic();
+
     int getBoardPlaceState (int whichPoint, int whichRow);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
     //      Restituisce EMPTY (0) se la casella non contiene alcuna pedina
@@ -24,6 +28,8 @@ public interface ILogic {
     //  Metodo che restituisce true se non ci sono altre pedine al di sopra di essa in quella punta
 
     void createMoveBuffer (int whichPoint);
+
+    ObservableList<Player> getPlayerList ();
 
 
 

@@ -1,5 +1,7 @@
 package jmb.model;
 
+import javafx.beans.property.*;
+
 import static jmb.model.ConstantsLogic.*;
 
 
@@ -8,60 +10,73 @@ public class Player {
     /** La classe Player modella e gestisce la logica di un giocatore
      */
     //VARIABILI DI ISTANZA
-    private String name;
-    private boolean isWhite;
-    private int level;
-    private String imgName;
+    private SimpleStringProperty name;
+    //private String name;
+    private SimpleIntegerProperty wins;
+    //private int wins;
+    private SimpleIntegerProperty losses;
+    //private int losses;
+    private SimpleDoubleProperty winRate;
+    //private double winRate;
 
-    //COSTRUTTORE CON NOME IMMAGINE SPECIFICATO
-    public Player( String name, String imgName, boolean isWhite)  {
 
-        this.name = name;
-        //TODO implementare logica presenza file o meno
-        this.imgName = imgName;
-        this.level = 1;
-        this.isWhite = isWhite;
 
+    //COSTRUTTORE
+    public Player (String name)  {
+        this.name = new SimpleStringProperty(name);
+        this.wins = new SimpleIntegerProperty(0);
+        this.losses = new SimpleIntegerProperty(0);
+        this.winRate = new SimpleDoubleProperty(0);
     }
 
-    //COSTRUTTORE CON IMMAGINE DI DEFAULT
-    public Player ( String name, boolean isWhite){
-
-        this.name = name;
-        this.level = 1;
-        this.isWhite = isWhite;
-        if (this.isWhite) {
-            this.imgName = IMG_DEF_WHITE;
-        } else {
-            this.imgName = IMG_DEF_BLACK;
-        }
-
+    public Player (String name, String wins, String losses) {
+        this.name = new SimpleStringProperty(name);
+        this.wins = new SimpleIntegerProperty(Integer.parseInt(wins));
+        this.losses = new SimpleIntegerProperty(Integer.parseInt(losses));
+        double winRate = (double)this.wins.getValue() / (double)this.losses.getValue();
+        this.winRate = new SimpleDoubleProperty(winRate);
+        //this.name = name;
+        //this.wins = Integer.parseInt(wins);
+        //this.losses = Integer.parseInt(losses);
+        //this.winRate = (double)this.wins/(double)this.losses ;
     }
+
+
 
     //----------------------
     //METODI GETTER E SETTER
     //----------------------
 
-    public boolean getIsWhite() {
-        return this.isWhite;
+    public String getName () {
+        return this.name.get();
     }
 
-    public String getName() {
-        return this.name;
+    public SimpleStringProperty nameProperty() { return this.name; }
+
+    public int getWins() {
+        return this.wins.get();
     }
 
-    public int getLevel() {
-        return this.level;
+    public SimpleIntegerProperty winsProperty() {
+        return this.wins;
     }
 
-    public String getImgName() {
-        return this.imgName;
+    public int getLosses() {
+        return this.losses.get();
     }
 
-    public void setLevel( int level) {
-        if (level<0) {
-            level = level*-1;
-        }
-        this.level=level;
+    public SimpleIntegerProperty lossesProperty() {
+        return this.losses;
     }
+
+    public double getWinRate() {
+        return this.winRate.get();
+    }
+
+    public SimpleDoubleProperty winRateProperty() {
+        return this.winRate;
+    }
+
+    //TODO forse metodi set?
+
 }

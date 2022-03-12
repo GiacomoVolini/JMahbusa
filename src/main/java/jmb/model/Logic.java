@@ -1,6 +1,9 @@
 package jmb.model;
 
+import javafx.collections.ObservableList;
 import jmb.view.IView;
+
+import java.io.IOException;
 
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -11,9 +14,21 @@ public class Logic implements ILogic{
 
     public static BoardLogic board;
 
+    public static LeaderboardLogic ldb;
+
     @Override
     public void initializeBoardLogic() {
         board = new BoardLogic();
+    }
+
+    @Override
+    public void initializeLeaderboardLogic() {
+        try {
+            ldb = new LeaderboardLogic();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     @Override
@@ -57,5 +72,10 @@ public class Logic implements ILogic{
     @Override
     public void createMoveBuffer (int whichPoint) {
         board.setMoveBuffer(whichPoint, board.searchTopOccupiedRow(whichPoint));
+    }
+
+    @Override
+    public ObservableList<Player> getPlayerList() {
+        return ldb.getList();
     }
 }

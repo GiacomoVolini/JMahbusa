@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -215,7 +215,7 @@
    <PawnView fx:id="pawnBLK13" fill="#403a3a" layoutX="288.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
    <PawnView fx:id="pawnBLK14" fill="#403a3a" layoutX="338.0" layoutY="724.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
    <PawnView fx:id="pawnBLK15" fill="#403a3a" layoutX="388.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <TitledPane fx:id="Iniziamo" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="                                                  Iniziamo" textAlignment="CENTER">
+   <TitledPane fx:id="Iniziamo" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
@@ -233,7 +233,7 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <TitledPane fx:id="Pause" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="                                                  Pause" visible="false">
+   <TitledPane fx:id="Pause" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
             <children>

@@ -31,6 +31,14 @@ public interface ILogic {
 
     ObservableList<Player> getPlayerList ();
 
+    boolean isRollDouble();
+
+    int[] getDiceValues();
+
+    void firstTurn();
+
+
+
 
 
 

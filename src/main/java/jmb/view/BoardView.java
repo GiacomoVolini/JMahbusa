@@ -18,6 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Time;
 
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.UNDEFINED;
@@ -446,8 +447,67 @@ public class BoardView {
 
     }
 
+    protected void openDoubleDice() {
+        //TODO
+        //      Controllare che non siano già visibili (due tiri doppi di fila o più)
+        //      Bloccare resizing
+        //      Rendere visibili dadi doppi
+        //      Iniziare animazione
+        //      Sbloccare resizing
+        if (!diceArray[2].isVisible()) {
+            jmb.App.getStage().setResizable(false);
+            Timeline timeline = new Timeline (
+                    new KeyFrame(Duration.ZERO,
+                            e -> {
+                                diceArray[2].setVisible(true);
+                                diceArray[3].setVisible(true);
+                            },
+                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
+                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
+                            ),
+                    new KeyFrame(Duration.seconds(0.5),
+                            e -> jmb.App.getStage().setResizable(true),
+                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
+                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
+                    )
+            );
+            timeline.setCycleCount(1);
+            timeline.setOnFinished( e ->
+                    rollDoubleDice());
+            timeline.play();
+        } else {
+            rollDoubleDice();
+        }
+    }
 
-
+    protected void closeDoubleDice() {
+        //TODO
+        //      Controllare che non siano già invisibili
+        //      Bloccare resizing
+        //      Iniziare animazione "chiusura"
+        //      Rendere invisibili dadi doppi
+        //      Sbloccare resizing
+        if (diceArray[2].isVisible()) {
+            jmb.App.getStage().setResizable(false);
+            Timeline timeline = new Timeline (
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
+                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
+                    ),
+                    new KeyFrame(Duration.seconds(0.5),
+                            e -> {
+                                jmb.App.getStage().setResizable(true);
+                                diceArray[2].setVisible(false);
+                                diceArray[3].setVisible(false);
+                            },
+                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
+                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
+                    )
+            );
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
+    }
 
     private void diceTrayAnim() {
         jmb.App.getStage().setResizable(false);
@@ -456,10 +516,41 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
+                    BoardViewRedraw.resizeDice(diceTray, diceArray);
+                    rollDice();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
         );
         timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    //TODO Metodo per animazione dadi
+    //      Per ora metto tutti e quattro i dadi senza controlli, poi va gestito separatamente
+    protected void rollDice() {
+        if(!logic.isRollDouble())
+            closeDoubleDice();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
+        );
+        timeline.setCycleCount(10);
+        timeline.setOnFinished( e -> {
+            DiceView.setDiceValues(diceArray);
+            if (logic.isRollDouble()) {
+                openDoubleDice();
+            }
+        });
+        timeline.play();
+    }
+
+    protected void rollDoubleDice() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndDoubleRolls(diceArray))
+        );
+        timeline.setCycleCount(10);
+        timeline.setOnFinished( e -> {
+            DiceView.setDiceValues(diceArray);
+        });
         timeline.play();
     }
 
@@ -537,6 +628,7 @@ public class BoardView {
     @FXML
     protected void startGame(ActionEvent event) {
         Iniziamo.setVisible(false);
+        logic.firstTurn();
         runTimer();
 
     }
@@ -613,20 +705,6 @@ public class BoardView {
                 this.polArrayBot[i].setStroke(point);
             }
         }
-
-        /*
-        Timeline turnTimer = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                    // TODO Verificare che turno venga effettivamente cambiato
-                    logic.nextTurn();
-                }, new KeyValue(timerIn.scaleYProperty(), 0))
-        );
-
-        turnTimer.setCycleCount(Animation.INDEFINITE);
-        turnTimer.play();
-
-         */
 
 
 

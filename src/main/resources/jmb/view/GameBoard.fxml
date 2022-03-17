@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Text?>
 <?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -261,12 +261,12 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <ImageView fx:id="doubleDiceU" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="doubleDiceU" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
          <Image url="@diceImg/Dado6INV.png" />
       </image>
    </ImageView>
-   <ImageView fx:id="doubleDiceD" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="674.0" pickOnBounds="true" preserveRatio="true">
+   <ImageView fx:id="doubleDiceD" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="674.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
          <Image url="@diceImg/Dado4INV.png" />
       </image>

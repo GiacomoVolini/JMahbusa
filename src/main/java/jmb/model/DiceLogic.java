@@ -2,6 +2,8 @@ package jmb.model;
 
 import java.util.Random;
 
+import static jmb.model.Logic.view;
+
 /**
  * La classe DiceLogic modella e gestisce la logica dei dadi
  */
@@ -47,6 +49,8 @@ public class DiceLogic {
             this.toBeUsed[i] = false;
         }
 
+
+
         if (this.dice[0] == this.dice[1]) {
             this.doubleNum = true;
             this.dice[3]=this.dice[2]=this.dice[1];
@@ -55,6 +59,14 @@ public class DiceLogic {
             this.dice[3]=this.dice[2]=0;
             this.used[3]=this.used[2]=true;
         }
+
+        //TODO Forse cancellare
+        if (doubleNum) {
+           //view.openDoubleDice();
+        } else {
+           //view.closeDoubleDice();
+        }
+
     }
 
     //METODI GETTER E SETTER
@@ -69,6 +81,14 @@ public class DiceLogic {
 
     public int getSum() {
         return this.sum;
+    }
+
+    public int[] getDiceValues () {
+        return this.dice;
+    }
+
+    public boolean getDoubleNum() {
+        return this.doubleNum;
     }
 
     //--------------------------------
@@ -107,6 +127,8 @@ public class DiceLogic {
                 availableDice++;
         }
 
+
+
         //  Se c'è almeno un dado disponibile si procede con i controlli, altrimenti la mossa non è possibile
         if (availableDice!=0) {
             maxDeltaPossible = availableDice * 6;
@@ -123,7 +145,7 @@ public class DiceLogic {
         // Prima di tutto si controlla se esiste un dado non usato dal valore uguale a delta
         boolean possible = false;
         for (int i = 0; i < dice.length && !possible ; i++) {
-            if (dice[i] == delta) {
+            if (dice[i] == delta && !used[i]) {
                 possible = true;
                 toBeUsed[i] = true;
             }
@@ -166,6 +188,7 @@ public class DiceLogic {
         //      indicati nell'array toBeUsed
         // Il metodo agisce "alla cieca" poichè si assume che i controlli necessari siano già stati
         //      effettuati in precedenza
+
         for (int i = 0; i < used.length; i++) {
             if (toBeUsed[i]) {
                 used[i]=true;

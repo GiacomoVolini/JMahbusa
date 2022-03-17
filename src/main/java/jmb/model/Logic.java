@@ -16,9 +16,12 @@ public class Logic implements ILogic{
 
     public static LeaderboardLogic ldb;
 
+    public static DiceLogic dice;
+
     @Override
     public void initializeBoardLogic() {
         board = new BoardLogic();
+        dice = board.getDiceLogic();
     }
 
     @Override
@@ -77,5 +80,20 @@ public class Logic implements ILogic{
     @Override
     public ObservableList<Player> getPlayerList() {
         return ldb.getList();
+    }
+
+    @Override
+    public boolean isRollDouble() {
+        return dice.getDoubleNum();
+    }
+
+    @Override
+    public int[] getDiceValues() {
+        return dice.getDiceValues();
+    }
+
+    @Override
+    public void firstTurn() {
+        board.runTurn();
     }
 }

@@ -448,12 +448,6 @@ public class BoardView {
     }
 
     protected void openDoubleDice() {
-        //TODO
-        //      Controllare che non siano già visibili (due tiri doppi di fila o più)
-        //      Bloccare resizing
-        //      Rendere visibili dadi doppi
-        //      Iniziare animazione
-        //      Sbloccare resizing
         if (!diceArray[2].isVisible()) {
             jmb.App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -472,21 +466,11 @@ public class BoardView {
                     )
             );
             timeline.setCycleCount(1);
-            timeline.setOnFinished( e ->
-                    rollDoubleDice());
             timeline.play();
-        } else {
-            rollDoubleDice();
         }
     }
 
     protected void closeDoubleDice() {
-        //TODO
-        //      Controllare che non siano già invisibili
-        //      Bloccare resizing
-        //      Iniziare animazione "chiusura"
-        //      Rendere invisibili dadi doppi
-        //      Sbloccare resizing
         if (diceArray[2].isVisible()) {
             jmb.App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -525,8 +509,6 @@ public class BoardView {
         timeline.play();
     }
 
-    //TODO Metodo per animazione dadi
-    //      Per ora metto tutti e quattro i dadi senza controlli, poi va gestito separatamente
     protected void rollDice() {
         if(!logic.isRollDouble())
             closeDoubleDice();
@@ -539,17 +521,6 @@ public class BoardView {
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
-        });
-        timeline.play();
-    }
-
-    protected void rollDoubleDice() {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndDoubleRolls(diceArray))
-        );
-        timeline.setCycleCount(10);
-        timeline.setOnFinished( e -> {
-            DiceView.setDiceValues(diceArray);
         });
         timeline.play();
     }

@@ -1,5 +1,7 @@
 package jmb.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -31,7 +33,7 @@ public class LeaderboardView {
     );*/
 
     public void initialize() {
-        table.setItems(logic.getPlayerList());
+        table.setItems(FXCollections.observableList(logic.getPlayerList()));
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         victories.setCellValueFactory(new PropertyValueFactory<Player,Integer>("wins"));
         defeats.setCellValueFactory(new PropertyValueFactory<Player, Integer>("losses"));

@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import jmb.view.IView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -78,7 +80,7 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public ObservableList<Player> getPlayerList() {
+    public List<Player> getPlayerList() {
         return ldb.getList();
     }
 
@@ -95,5 +97,10 @@ public class Logic implements ILogic{
     @Override
     public void firstTurn() {
         board.runTurn();
+    }
+
+    @Override
+    public List<String> getPlayerNameList() {
+        return ldb.getNameList();
     }
 }

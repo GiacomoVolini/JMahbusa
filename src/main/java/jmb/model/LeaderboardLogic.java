@@ -1,23 +1,21 @@
 package jmb.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class LeaderboardLogic {
 
     Path path;
     BufferedReader reader;
-    ObservableList<Player> obsList = FXCollections.observableArrayList();
+    ArrayList<Player> arrList = new ArrayList<>();
     //LinkedList<String[]> leadList; TODO forse cancellare
     String line;
 
@@ -47,14 +45,14 @@ public class LeaderboardLogic {
             if (!line.isEmpty() && line.contains(";")) {
                 //leadList.add(line.trim().split(";")); TODO forse cancellare
                 String[] lineValues = line.trim().split(";");
-                obsList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
+                arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
             }
     }
 
     /*TODO forse cancellare, è test
     public void testList () {
         System.out.println("Nome\t Vittorie\t Sconfitte\t V\\S");
-        for (String[] strArr: obsList) {
+        for (String[] strArr: arrList) {
             for (String str : strArr) {
                 System.out.print(str + "\t");
             }
@@ -62,8 +60,17 @@ public class LeaderboardLogic {
         }
     }*/
 
-    public ObservableList<Player> getList() {
-        return obsList;
+    public ArrayList<Player> getList() {
+        return arrList;
+    }
+
+    public List<String> getNameList() {
+        List<String> list = new ArrayList<>();
+        Iterator<Player> it = arrList.iterator();
+        while(it.hasNext()) {
+            list.add(it.next().getName());
+        }
+        return list;
     }
 
 }

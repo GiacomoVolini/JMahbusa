@@ -8,4 +8,10 @@ public interface IView {
 
     void openBlackExit();
 
+    void rollDice();
+
+    void openDoubleDice();
+
+    void closeDoubleDice();
+
 }

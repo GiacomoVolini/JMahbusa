@@ -63,7 +63,8 @@ public class MainMenu {
     @FXML
     void newGameAction()  throws IOException {
         NewGame.getScene().getWindow();
-        jmb.App.login();
+        //jmb.App.login(); TODO ripristinare questo e cancellare sotto
+        jmb.App.board();
         if (cb == fullscreen) {
             getStage().setFullScreen(true);
         }else {

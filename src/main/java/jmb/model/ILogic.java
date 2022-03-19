@@ -2,6 +2,9 @@ package jmb.model;
 
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface ILogic {
 
     //void placePawnOnTopPoints (int prevRegion, int prevPoint, int whichPoint);
@@ -29,7 +32,17 @@ public interface ILogic {
 
     void createMoveBuffer (int whichPoint);
 
-    ObservableList<Player> getPlayerList ();
+    List<Player> getPlayerList ();
+
+    boolean isRollDouble();
+
+    int[] getDiceValues();
+
+    void firstTurn();
+
+    List<String> getPlayerNameList();
+
+
 
 
 

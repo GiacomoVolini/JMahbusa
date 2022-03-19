@@ -152,7 +152,27 @@ public class BoardViewRedraw {
         }
     }
 
-    private static void resizeDice (Rectangle diceTray, ImageView[] diceArray) {
+
+    //TODO Metodo che gestisca il riposizionamento dei dadi (ImageView)
+    //      Bisogna fare le animazioni per quando il tiro è doppio e non mostrare i doppi quando non lo è
+    public static void resizeDice (Rectangle diceTray, ImageView[] diceArray) {
+        if (!diceArray[0].isVisible()) {
+            for (ImageView dice : diceArray) {
+                dice.setVisible(true);
+            }
+        }
+        for (ImageView dice : diceArray) {
+            dice.setFitHeight(diceTray.getWidth()*0.425);
+            dice.setFitWidth(diceTray.getWidth()*0.425);
+        }
+        double diceX = diceTray.getLayoutX() + diceTray.getWidth()/2 - diceArray[0].getFitWidth()/2;
+        for (ImageView dice : diceArray){
+            dice.setLayoutX(diceX);
+        }
+        diceArray[0].setLayoutY(diceTray.getLayoutY() + diceTray.getHeight()*0.15);
+        diceArray[2].setLayoutY(diceArray[0].getLayoutY() + diceArray[0].getFitHeight());
+        diceArray[1].setLayoutY(diceTray.getLayoutY() + diceTray.getHeight()*0.85 - diceArray[3].getFitHeight());
+        diceArray[3].setLayoutY(diceArray[1].getLayoutY() - diceArray[1].getFitHeight());
 
     }
 
@@ -300,7 +320,7 @@ public class BoardViewRedraw {
 
     }
 
-    //TODO Metodo che gestisca il riposizionamento dei dadi (ImageView)
+
 
     protected static void resizeAll(AnchorPane window, Rectangle outerRect, Rectangle boardRect,
                                     Rectangle separator, Rectangle timerOut, Rectangle timerIn,
@@ -329,5 +349,7 @@ public class BoardViewRedraw {
         resizePaginaPauseIniziamo(window, Pause, Iniziamo);
 
     }
+
+
 
 }

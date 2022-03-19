@@ -48,7 +48,6 @@ public class BoardLogic {
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
         //  e tiriamo i dadi per il primo giocatore
         whiteTurn = dice.initialToss();
-        dice.tossDice();
 
     }
 
@@ -63,7 +62,12 @@ public class BoardLogic {
 
     public void changeTurn() {
         this.whiteTurn= !this.whiteTurn;
+        runTurn();
+    }
+
+    protected void runTurn() {
         dice.tossDice();
+        Logic.view.rollDice();
     }
 
 
@@ -78,15 +82,6 @@ public class BoardLogic {
     public boolean possibleMove(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
 
         boolean possible;
-
-
-        // Si controlla che la mossa sia del giocatore di turno
-        //TODO Forse non è necessario, il controllo viene implicitamente effettuato
-        // disabilitando il controllo delle pedine non di turno
-        if (squares[puntaInizR][puntaInizC].getisWhite() == isWhiteTurn()) {
-            possible = true;
-        } else possible = false;
-
 
         //  Si effettuano dei controlli sui dadi
         possible = dice.checkDice( abs(puntaFinC - puntaInizC));
@@ -282,6 +277,8 @@ public class BoardLogic {
     public int getMoveBufferRow () {
         return this.moveBuffer[1];
     }
+
+    public DiceLogic getDiceLogic () { return this.dice; }
 
     public void resetMoveBuffer() {
         this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;

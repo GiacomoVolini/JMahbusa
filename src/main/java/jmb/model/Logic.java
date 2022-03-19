@@ -4,6 +4,8 @@ import javafx.collections.ObservableList;
 import jmb.view.IView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -16,9 +18,12 @@ public class Logic implements ILogic{
 
     public static LeaderboardLogic ldb;
 
+    public static DiceLogic dice;
+
     @Override
     public void initializeBoardLogic() {
         board = new BoardLogic();
+        dice = board.getDiceLogic();
     }
 
     @Override
@@ -75,7 +80,27 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public ObservableList<Player> getPlayerList() {
+    public List<Player> getPlayerList() {
         return ldb.getList();
+    }
+
+    @Override
+    public boolean isRollDouble() {
+        return dice.getDoubleNum();
+    }
+
+    @Override
+    public int[] getDiceValues() {
+        return dice.getDiceValues();
+    }
+
+    @Override
+    public void firstTurn() {
+        board.runTurn();
+    }
+
+    @Override
+    public List<String> getPlayerNameList() {
+        return ldb.getNameList();
     }
 }

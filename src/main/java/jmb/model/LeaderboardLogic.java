@@ -50,6 +50,10 @@ public class LeaderboardLogic {
             }
     }
 
+    protected void addNewPlayer (String name) {
+        arrList.add (new Player (name));
+    }
+
     /*TODO forse cancellare, è test
     public void testList () {
         System.out.println("Nome\t Vittorie\t Sconfitte\t V\\S");

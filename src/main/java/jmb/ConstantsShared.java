@@ -19,4 +19,12 @@ public class ConstantsShared {
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
+
+    //  Costanti per i metodi di confronto nomi giocatori
+    public static final int DECIDING = 0;
+    public static final int SAME_NAME_ERROR = 1;
+    public static final int EMPTY_NAMES_ERROR = 2;
+    public static final int NAME1_ALREADY_PRESENT = 3;
+    public static final int NAME2_ALREADY_PRESENT = 4;
+    public static final int SUCCESS = 5;
 }

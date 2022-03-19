@@ -42,9 +42,8 @@ public interface ILogic {
 
     List<String> getPlayerNameList();
 
+    //TODO forse conviene boolean?
+    int compareNameLists(String newName1, String newName2);
 
-
-
-
-
+    void addNewPlayersToList (String newName1, String newName2);
 }

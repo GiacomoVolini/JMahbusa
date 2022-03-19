@@ -5,6 +5,7 @@ import jmb.view.IView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static jmb.view.View.logic;
@@ -102,5 +103,44 @@ public class Logic implements ILogic{
     @Override
     public List<String> getPlayerNameList() {
         return ldb.getNameList();
+    }
+
+    //TODO forse spostare corpo da un'altra parte e richiamare quella funzione da qui
+    @Override
+    public int compareNameLists(String newName1, String newName2) {
+        List<String> nameList = this.getPlayerNameList();
+        int output = DECIDING;
+        if (newName1 == "" || newName2 == "") {
+            output = EMPTY_NAMES_ERROR;
+        } else if (newName1 == newName2) {
+            output = SAME_NAME_ERROR;
+        }
+        // I nomi della lista hanno in coda il carattere di escape "\t"
+        // Questo consente di distinguere tra un nome preso dalla lista e lo stesso nome inserito manualmente,
+        //      e permette di effettuare un controllo su eventuali duplicati
+        if (output == DECIDING) {
+            Iterator<String> it = nameList.iterator();
+            while (it.hasNext() && output == DECIDING) {
+                if (newName1.equals(it.next().substring(0, it.next().length()-2))) {
+                    output = NAME1_ALREADY_PRESENT;
+                } else if (newName2.equals(it.next().substring(0, it.next().length()-2))) {
+                    output = NAME2_ALREADY_PRESENT;
+                }
+            }
+        }
+        if (output == DECIDING) {
+            output = SUCCESS;
+        }
+        return output;
+    }
+
+    @Override
+    public void addNewPlayersToList (String newName1, String newName2) {
+        //  Se i due nomi non contengono il carattere di escape "\t" in coda essi sono nuovi.
+        //  Si crea quindi un nuovo oggetto Player contenente quel nome e lo si aggiunge alla PlayerList
+        if (!newName1.contains("\t"))
+            ldb.addNewPlayer(newName1.substring(0, newName1.length() - 2));
+        if (!newName2.contains("\t"))
+            ldb.addNewPlayer(newName2.substring(0, newName2.length() - 2));
     }
 }

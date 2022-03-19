@@ -1,16 +1,18 @@
 package jmb.view;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
+import jmb.model.Player;
+
 import static jmb.view.ConstantsView.*;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LogIn {
 
@@ -24,55 +26,55 @@ public class LogIn {
     private Button salvag;
 
     @FXML
-    private Button vaialcalssifica;
-
-    @FXML
     private Button uscita;
 
     @FXML
-    private TextField scrivinomi1;
+    private ComboBox<Player> scrivinomi1;
 
     @FXML
-    private TextField scrivinomi2;
+    private ComboBox<Player> scrivinomi2;
+
+
+    //todo da forse cancellare
+     @FXML
+    void scegliNomi(ActionEvent event) {
+        //scrivinomi1.setItems(View.logic.getPlayerList());
+        //scrivinomi1.setItems(View.logic.getPlayerList().filtered(Objects::nonNull));
+    }
 
     @FXML
-    private Label failed;
+    void slavagiocatore(ActionEvent event){
+        if (scrivinomi1.getValue() == null || scrivinomi2.getValue() == null) {
 
-    @FXML
-    void apricalssifica()  throws IOException {
-        if (scrivinomi1.getText().equals("")){
-            scrivinomi1.setVisible(false);
-            scrivinomi1.setMouseTransparent(true);
-            scrivinomi2.setVisible(true);
-            scrivinomi2.setMouseTransparent(false);
-        }else if (scrivinomi1.getText().equals("") && scrivinomi2.getText().equals(scrivinomi2.getText())){
-        vaialcalssifica.getScene().getWindow();
-        jmb.App.leaderBoard();
-    }}
+            //  TODO manda un messaggio
 
-    @FXML
-    void slavagiocatore()  throws IOException {
-        if (scrivinomi1.getText().equals(scrivinomi1.getText())) {
-            scrivinomi1.setVisible(false);
-            scrivinomi1.setMouseTransparent(true);
-            scrivinomi2.setVisible(true);
-            scrivinomi2.setMouseTransparent(false);
-            //  TODO controllare se va bene "salvare in calssifica"
-          //  n1 = scrivinomi1.getText();
-        }else if(scrivinomi2.getText().equals(scrivinomi2.getText())){
+        }else{
+            /* TODO aggiugi il nome sulla lista
+            ObjectProperty<StringConverter<Player>>
+            scrivinomi1.converterProperty();
+            View.logic.getPlayerList().add(scrivinomi1.getValue());
+            View.logic.getPlayerList().add(scrivinomi2.getValue());*/
+        }
+            /*if(scrivinomi2.getText().equals(scrivinomi2.getText())){
           //  n2 = scrivinomi2.getText();
             salvag.getScene().getWindow();
             jmb.App.board();
         }else if (scrivinomi2.getText().equals(scrivinomi2.getText()) && scrivinomi1.getText().equals("")){
             vaialcalssifica.getScene().getWindow();
             jmb.App.leaderBoard();
-        }
+        }*/
     }
 
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         jmb.App.MainMenu();
+    }
+
+    public void initialize(){
+        scrivinomi1.setItems(View.logic.getPlayerNameList());
+        scrivinomi2.setItems(View.logic.getPlayerNameList());
+
     }
 
 }

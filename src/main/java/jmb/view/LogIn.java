@@ -1,6 +1,8 @@
 package jmb.view;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +12,7 @@ import javafx.util.StringConverter;
 import jmb.model.Player;
 
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.logic;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -29,10 +32,10 @@ public class LogIn {
     private Button uscita;
 
     @FXML
-    private ComboBox<Player> scrivinomi1;
+    private ComboBox<String> scrivinomi1;
 
     @FXML
-    private ComboBox<Player> scrivinomi2;
+    private ComboBox<String> scrivinomi2;
 
 
     //todo da forse cancellare
@@ -72,8 +75,9 @@ public class LogIn {
     }
 
     public void initialize(){
-        scrivinomi1.setItems(View.logic.getPlayerNameList());
-        scrivinomi2.setItems(View.logic.getPlayerNameList());
+        ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
+        scrivinomi1.setItems(nameList);
+        scrivinomi2.setItems(nameList);
 
     }
 

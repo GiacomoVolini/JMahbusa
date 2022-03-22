@@ -14,4 +14,6 @@ public interface IView {
 
     void closeDoubleDice();
 
+    void setDiceContrast();
+
 }

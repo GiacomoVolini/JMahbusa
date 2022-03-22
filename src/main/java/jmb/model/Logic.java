@@ -144,4 +144,9 @@ public class Logic implements ILogic{
         if (!newName2.contains("\u2001"))
             ldb.addNewPlayer(newName2);
     }
+
+    @Override
+    public boolean isDiceUsed (int i) {
+        return dice.getUsed(i);
+    }
 }

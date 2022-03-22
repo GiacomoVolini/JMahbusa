@@ -153,8 +153,6 @@ public class BoardViewRedraw {
     }
 
 
-    //TODO Metodo che gestisca il riposizionamento dei dadi (ImageView)
-    //      Bisogna fare le animazioni per quando il tiro è doppio e non mostrare i doppi quando non lo è
     public static void resizeDice (Rectangle diceTray, ImageView[] diceArray) {
         if (!diceArray[0].isVisible()) {
             for (ImageView dice : diceArray) {

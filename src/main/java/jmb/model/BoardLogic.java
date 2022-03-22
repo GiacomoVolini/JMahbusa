@@ -2,6 +2,7 @@ package jmb.model;
 
 import static java.lang.Math.abs;
 import static jmb.ConstantsShared.*;
+import static jmb.model.Logic.view;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
@@ -134,6 +135,8 @@ public class BoardLogic {
             squares[puntaInizR][puntaInizC]= null;
             dice.setUsed();
             dice.resetToBeUsed();
+            view.setDiceContrast();
+
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
             if (puntaFinR==0) {

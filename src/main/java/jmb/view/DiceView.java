@@ -1,5 +1,6 @@
 package jmb.view;
 
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import static jmb.view.View.logic;
@@ -15,27 +16,17 @@ public class DiceView {
     private static Image[] invDiceImgs = {new Image("/jmb/view/diceImg/Dado1INV.png"), new Image("/jmb/view/diceImg/Dado2INV.png"),
                            new Image("/jmb/view/diceImg/Dado3INV.png"), new Image("/jmb/view/diceImg/Dado4INV.png"),
                            new Image("/jmb/view/diceImg/Dado5INV.png"), new Image("/jmb/view/diceImg/Dado6INV.png")};
+    private static ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
+    private static ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
 
-
-    //TODO Modificare funzione per "tirare" solo i dadi normali
     protected static void rndRolls(ImageView[] diceArr) {
         rndRoll(diceArr[0]);
         rndRoll(diceArr[1]);
     }
 
-    protected static void rndDoubleRolls (ImageView[] diceArr) {
-        rndDoubleRoll(diceArr[2]);
-        rndDoubleRoll(diceArr[3]);
-    }
-
     protected static void rndRoll(ImageView dice) {
         int i = rnd.nextInt(6);
         dice.setImage(diceImgs[i]);
-    }
-
-    protected static void rndDoubleRoll (ImageView dice) {
-        int i = rnd.nextInt(6);
-        dice.setImage(invDiceImgs[i]);
     }
 
     public static void setDiceValues (ImageView[] diceArr) {
@@ -47,6 +38,16 @@ public class DiceView {
             diceArr[3].setImage(invDiceImgs[values[3]-1]);
         }
     }
+
+    public static void setDiceContrast (ImageView[] diceArr) {
+        for (int i = 0; i<4; i++) {
+            if (logic.isDiceUsed(i))
+                diceArr[i].setEffect(lowContrast);
+            else
+                diceArr[i].setEffect(normalContrast);
+        }
+    }
+
 
 
 }

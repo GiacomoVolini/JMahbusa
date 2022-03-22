@@ -510,6 +510,7 @@ public class BoardView {
     }
 
     protected void rollDice() {
+        DiceView.setDiceContrast(diceArray);
         if(!logic.isRollDouble())
             closeDoubleDice();
         Timeline timeline = new Timeline(
@@ -533,12 +534,6 @@ public class BoardView {
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK,
                                     Pause, Iniziamo, diceArray);
-        if(!dtAnimDone) {
-            diceTrayAnim();
-            //openBlackExit();
-            //openWhiteExit();
-        }
-
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -600,6 +595,7 @@ public class BoardView {
     protected void startGame(ActionEvent event) {
         Iniziamo.setVisible(false);
         logic.firstTurn();
+        diceTrayAnim();
         runTimer();
 
     }

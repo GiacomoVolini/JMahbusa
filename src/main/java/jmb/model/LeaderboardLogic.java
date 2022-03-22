@@ -45,7 +45,8 @@ public class LeaderboardLogic {
             if (!line.isEmpty() && line.contains(";")) {
                 //leadList.add(line.trim().split(";")); TODO forse cancellare
                 String[] lineValues = line.trim().split(";");
-                lineValues[0].concat("\t");
+                lineValues[0] = lineValues[0].concat("\u2001");
+                System.out.println(lineValues[0]+"vediamo se è attaccato");
                 arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
             }
     }

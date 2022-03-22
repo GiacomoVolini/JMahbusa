@@ -18,6 +18,7 @@ import static jmb.view.View.logic;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 public class LogIn {
@@ -48,11 +49,14 @@ public class LogIn {
     private ComboBox<String> scrivinomi2;
 
     @FXML
-    void slavagiocatore(ActionEvent event){
+    void savePlayer(ActionEvent event) throws IOException{
+
+        System.out.println("Hai pigiato il pulsante");
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
                     logic.addNewPlayersToList(scrivinomi1.getValue(), scrivinomi2.getValue());
+                    jmb.App.board();
                     break;
                 case SAME_NAME_ERROR:
                     System.out.println("i nomi sono uguali");

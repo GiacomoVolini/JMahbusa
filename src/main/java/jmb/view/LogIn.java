@@ -13,6 +13,7 @@ import javafx.util.StringConverter;
 import jmb.model.Player;
 
 import static jmb.view.ConstantsView.*;
+import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import java.io.IOException;

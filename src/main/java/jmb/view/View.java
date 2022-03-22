@@ -31,24 +31,17 @@ public class View implements IView {
 
     @Override
     public void openDoubleDice() {
-        //TODO
-        //      Controllare che non siano già visibili (due tiri doppi di fila o più)
-        //      Bloccare resizing
-        //      Rendere visibili dadi doppi
-        //      Iniziare animazione
-        //      Sbloccare resizing
         sceneBoard.openDoubleDice();
     }
 
     @Override
     public void closeDoubleDice() {
-        //TODO
-        //      Controllare che non siano già invisibili
-        //      Bloccare resizing
-        //      Iniziare animazione "chiusura"
-        //      Rendere invisibili dadi doppi
-        //      Sbloccare resizing
         sceneBoard.closeDoubleDice();
+    }
+
+    @Override
+    public void setDiceContrast() {
+        DiceView.setDiceContrast(sceneBoard.diceArray);
     }
 
 }

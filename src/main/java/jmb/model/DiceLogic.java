@@ -60,13 +60,6 @@ public class DiceLogic {
             this.used[3]=this.used[2]=true;
         }
 
-        //TODO Forse cancellare
-        if (doubleNum) {
-           //view.openDoubleDice();
-        } else {
-           //view.closeDoubleDice();
-        }
-
     }
 
     //METODI GETTER E SETTER
@@ -142,6 +135,7 @@ public class DiceLogic {
     }
 
     private boolean checkMove(int delta, int availableDice) {
+
         // Prima di tutto si controlla se esiste un dado non usato dal valore uguale a delta
         boolean possible = false;
         for (int i = 0; i < dice.length && !possible ; i++) {
@@ -150,14 +144,15 @@ public class DiceLogic {
                 toBeUsed[i] = true;
             }
         }
+
         // Nel caso in cui non sia possibile effettuare la mossa con un solo dado e ci siano almeno due dadi
         //  disponibili si procede con dei controlli sulle somme di dadi
         if (!possible && availableDice > 1) {
             // Nel caso di un tiro doppio si controlla se il delta è ottenibile tramite somme dei dadi disponibili
             if (doubleNum) {
-                for (int i = 2; i <= availableDice; i++) {
-                    if (delta % availableDice == 0 && delta / availableDice == dice[0]) {
-                        setDoublesToBeUsed(i);     // Sceglie i primi i dadi disponibili da usare per il movimento
+                for (int i = 2; i <= availableDice && !possible; i++) {
+                    if ((dice[0]*i) % delta == 0 && !possible) {
+                        setDoublesToBeUsed(i);     // Sceglie i primi "i" dadi disponibili da usare per il movimento
                         possible = true;
                     }
                 }
@@ -176,9 +171,10 @@ public class DiceLogic {
 
     private void setDoublesToBeUsed (int howManyDice) {
         int set = 0;
-        for (int i: dice) {
+        for (int i = 0; i<4 && set< howManyDice; i++) {
             if (set < howManyDice && !used[i]) {
                 toBeUsed[i]=true;
+                set++;
             }
         }
     }

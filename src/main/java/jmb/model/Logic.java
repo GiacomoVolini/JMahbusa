@@ -44,8 +44,9 @@ public class Logic implements ILogic{
 
     @Override
     public void placePawnOnPoint(int whichPoint) {
-        board.movePawn(board.getMoveBufferColumn(), board.getMoveBufferRow(),
-                board.searchFirstFreeRow(whichPoint), whichPoint);
+        if (board.movePawn(board.getMoveBufferColumn(), board.getMoveBufferRow(),
+                board.searchFirstFreeRow(whichPoint), whichPoint))
+            board.victoryCheck();
     }
 
     @Override

@@ -44,4 +44,10 @@ public class View implements IView {
         DiceView.setDiceContrast(sceneBoard.diceArray);
     }
 
+    @Override
+    public void setPawnsForTurn() {
+        BoardViewRedraw.redrawPawns(sceneBoard.pawnArrayWHT, sceneBoard.pawnArrayBLK, sceneBoard.regArrayBot,
+                sceneBoard.regArrayTop, sceneBoard.whiteExitRegion, sceneBoard.blackExitRegion);
+    }
+
 }

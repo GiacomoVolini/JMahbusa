@@ -13,9 +13,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
+import jmb.model.Player;
 
 import java.io.IOException;
 import java.sql.Time;
@@ -30,6 +33,12 @@ public class BoardView {
 
     @FXML
     private AnchorPane window;
+
+    @FXML
+    private Rectangle retgioc2;
+
+    @FXML
+    private Rectangle retgioc1;
 
     @FXML
     private Rectangle outerRect;
@@ -325,6 +334,18 @@ public class BoardView {
     @FXML
     private ImageView doubleDiceU;
 
+    @FXML
+    private Circle pedgioc1;
+
+    @FXML
+    private Text gioc1;
+
+    @FXML
+    private Circle pedgioc2;
+
+    @FXML
+    private Text gioc2;
+
 
     //TEST
     protected boolean bExit = false;
@@ -348,7 +369,8 @@ public class BoardView {
     protected PawnView[] pawnArrayBLK;
 
     protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-                                            //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
+    private String name1;
+    //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
 
     @FXML
@@ -357,6 +379,13 @@ public class BoardView {
         runTimer();                         // Si resetta il timer del turno
         BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
                                         regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
+        if (logic.getWhichTurn()){
+            retgioc1.setFill(green);
+            retgioc2.setFill(red);
+        }else {
+            retgioc2.setFill(green);
+            retgioc1.setFill(red);
+        }
     }
 
     @FXML
@@ -605,17 +634,41 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
                     logic.nextTurn();
+                    if (logic.getWhichTurn()){
+                        retgioc1.setFill(green);
+                        retgioc2.setFill(red);
+                    }else {
+                        retgioc2.setFill(green);
+                        retgioc1.setFill(red);
+                    }
                 }, new KeyValue(timerIn.scaleYProperty(), 0))
         );
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
-
     //--------------------------------------------
     //METODO INITIALIZE
     //--------------------------------------------
 
     public void initialize() {
+
+        //informazione del giocatore
+        //nomi
+        gioc1.setText(n1);
+        gioc2.setText(n2);
+        //colori
+        pedgioc1.setFill(pedIn1);
+        pedgioc1.setStroke(pedOut1);
+        pedgioc2.setFill(pedIn2);
+        pedgioc2.setStroke(pedOut2);
+        //turni
+        if (logic.getWhichTurn()){
+            retgioc1.setFill(green);
+            retgioc2.setFill(red);
+        }else {
+            retgioc2.setFill(green);
+            retgioc1.setFill(red);
+        }
 
         //  INIZIALIZZAZIONE ARRAY
         this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
@@ -683,6 +736,5 @@ public class BoardView {
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
     }
-
 }
 

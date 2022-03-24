@@ -100,7 +100,7 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Circle fx:id="pedina1" fill="WHITE" layoutX="182.0" layoutY="128.0" radius="19.0" stroke="WHITE" strokeType="INSIDE" />
+            <Circle fx:id="pedina1" fill="WHITE" layoutX="182.0" layoutY="128.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
             <ColorPicker fx:id="Inpedina2" editable="true" layoutX="266.0" layoutY="96.0" onAction="#coloreINpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color />
@@ -111,13 +111,12 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Circle fx:id="pedina2" layoutX="375.0" layoutY="128.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
-            <ColorPicker fx:id="Conpedina1" editable="true" layoutX="85.0" layoutY="138.0" onAction="#coloreOUTpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
-            <ColorPicker fx:id="Conpedina2" editable="true" layoutX="266.0" layoutY="138.0" onAction="#coloreOUTpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
+            <Circle fx:id="pedina2" layoutX="375.0" layoutY="128.0" radius="19.0" stroke="WHITE" strokeType="INSIDE" />
+            <ColorPicker fx:id="Conpedina1" editable="true" layoutX="85.0" layoutY="138.0" onAction="#coloreOUTpedina1" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                <value>
                   <Color />
-               </value>
-            </ColorPicker>
+               </value></ColorPicker>
+            <ColorPicker fx:id="Conpedina2" editable="true" layoutX="266.0" layoutY="138.0" onAction="#coloreOUTpedina2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
             <Text layoutX="12.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Interno:" wrappingWidth="73.0">
                <font>
                   <Font size="14.0" />

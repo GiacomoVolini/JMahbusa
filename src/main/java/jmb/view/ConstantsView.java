@@ -15,12 +15,16 @@ public class ConstantsView {
     // variabili per le impostazioni (opzioni)
     public static Color pedIn1 = Color.web("#ffffff");
     public static Color pedIn2 = Color.web("#000000");
-    public static Color pedOut1 = Color.web("#ffffff");
-    public static Color pedOut2 = Color.web("#000000");
+    public static Color pedOut1 = Color.web("#000000");
+    public static Color pedOut2 = Color.web("#ffffff");
     public static Color table = Color.web("#e1c699");
     public static Color frame = Color.web("#432d05");
     public static Color point2 = Color.web("#2abc95");
     public static Color point = Color.web("#b27e31");
+
+    // Colori per boardView
+    public static Color red = Color.web("#ff0000");
+    public static Color green = Color.web("#008000");
 
     //variabili per il radio botton
     public static int rd;

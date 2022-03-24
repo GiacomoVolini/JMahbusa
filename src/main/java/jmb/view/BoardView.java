@@ -185,10 +185,10 @@ public class BoardView {
     private Region point_13_R;
 
     @FXML
-    private Rectangle whiteExitRegion;
+    protected Rectangle whiteExitRegion;
 
     @FXML
-    private Rectangle blackExitRegion;
+    protected Rectangle blackExitRegion;
 
     @FXML
     private Rectangle diceTray;

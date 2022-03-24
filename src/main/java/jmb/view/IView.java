@@ -16,4 +16,6 @@ public interface IView {
 
     void setDiceContrast();
 
+    void setPawnsForTurn();
+
 }

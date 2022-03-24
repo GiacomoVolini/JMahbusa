@@ -64,11 +64,12 @@ public class BoardLogic {
     public void changeTurn() {
         this.whiteTurn= !this.whiteTurn;
         runTurn();
+        view.setPawnsForTurn();
     }
 
     protected void runTurn() {
         dice.tossDice();
-        Logic.view.rollDice();
+        view.rollDice();
     }
 
 
@@ -285,5 +286,13 @@ public class BoardLogic {
 
     public void resetMoveBuffer() {
         this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
+    }
+
+    protected void victoryCheck() {
+        if (squares[15][COL_BLACK_EXIT]!=null) {
+            //TODO
+        } else if (squares[15][COL_WHITE_EXIT]!=null) {
+            //TODO
+        }
     }
 }

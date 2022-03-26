@@ -42,7 +42,7 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <TitledPane layoutX="438.0" layoutY="517.0" prefHeight="97.0" prefWidth="383.0" text="Game Timer">
+   <TitledPane expanded="false" layoutX="438.0" layoutY="517.0" prefHeight="97.0" prefWidth="383.0" text="Game Timer">
      <content>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
@@ -50,7 +50,7 @@
                <RadioButton fx:id="media" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#medioChance" text="2 minute" />
                <RadioButton fx:id="defficile" layoutX="180.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardChance" text="30 seconds" />
                <RadioButton fx:id="scelta" layoutX="274.0" layoutY="39.0" mnemonicParsing="false" onAction="#chanCe" />
-               <TextField fx:id="oPt" disable="true" layoutX="296.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" />
+               <TextField fx:id="oPt" disable="true" layoutX="296.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" />
                <Text layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
                <Text layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
                <Text layoutX="183.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />

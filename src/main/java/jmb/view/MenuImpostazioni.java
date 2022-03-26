@@ -430,7 +430,7 @@ public class MenuImpostazioni<string> {
                 TM.setSelected(true);
                 Imdestra.setToggleGroup(group);
 
-                rd = middle;
+             //   rd = middle;
                 Ctavolo.setDisable(false);
                 Cpunte.setDisable(false);
                 Cpunte2.setDisable(false);
@@ -468,7 +468,7 @@ public class MenuImpostazioni<string> {
                 //scelte di opzioni fisse
 
                 if (Imsinistra.isSelected()) {
-                        rd = left;
+                     //   rd = left;
                         Ctavolo.setDisable(true);
                         Cpunte.setDisable(true);
                         Cpunte2.setDisable(true);
@@ -478,7 +478,7 @@ public class MenuImpostazioni<string> {
                         point = Color.web("#ffde3a");
                         point2 = Color.web("#c0c0c0");
                 } else if (Imdestra.isSelected()) {
-                        rd = right;
+                     //   rd = right;
                         Ctavolo.setDisable(true);
                         Cpunte.setDisable(true);
                         Cpunte2.setDisable(true);
@@ -488,7 +488,7 @@ public class MenuImpostazioni<string> {
                         point = Color.web("#c21123");
                         point2 = Color.web("#daa505");
                 } else {
-                        rd = middle;
+                      //  rd = middle;
                         Ctavolo.setDisable(false);
                         Cpunte.setDisable(false);
                         Cpunte2.setDisable(false);
@@ -530,8 +530,8 @@ public class MenuImpostazioni<string> {
                 TM.setSelected(true);
                 Imdestra.setToggleGroup(group);
 
-
-                        switch (rd) {
+                //TODO da cancellare
+                     /*   switch (rd) {
                         case left:
                                 Imsinistra.setSelected(true);
                                 Ctavolo.setDisable(true);
@@ -561,7 +561,7 @@ public class MenuImpostazioni<string> {
                                 point = Color.web("#c21123");
                                 point2 = Color.web("#daa505");
                                 break;
-                }
+                }*/
 
                 //color picker
                 Inpedina1.setValue(pedIn1);

@@ -89,6 +89,7 @@ public class BoardLogic {
         possible = dice.checkDice( abs(puntaFinC - puntaInizC));
 
 
+
         //  Si controlla che la mossa sia effettuata nel verso giusto
         if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
 
@@ -289,10 +290,10 @@ public class BoardLogic {
     }
 
     protected void victoryCheck() {
-        if (squares[15][COL_BLACK_EXIT]!=null) {
-            //TODO
-        } else if (squares[15][COL_WHITE_EXIT]!=null) {
-            //TODO
+        if (squares[14][COL_BLACK_EXIT]!=null) {
+            view.blackWins();
+        } else if (squares[14][COL_WHITE_EXIT]!=null) {
+            view.whiteWins();
         }
     }
 }

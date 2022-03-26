@@ -372,11 +372,16 @@ public class BoardView {
     private String name1;
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
+    protected Timeline turnTimer;
+
+    private boolean gameStart = false;
+
 
     @FXML
     protected void nextTurn (ActionEvent event) {
+        turnTimer.stop();
+        turnTimer.play();
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        runTimer();                         // Si resetta il timer del turno
         BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
                                         regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
@@ -558,7 +563,7 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.resizeAll(window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
+        BoardViewRedraw.resizeAll(gameStart, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK,
@@ -624,27 +629,19 @@ public class BoardView {
     protected void startGame(ActionEvent event) {
         Iniziamo.setVisible(false);
         logic.firstTurn();
+        gameStart = true;
+        changeDimensions();
         diceTrayAnim();
         runTimer();
-
     }
 
     private void runTimer(){
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                    logic.nextTurn();
-                    if (logic.getWhichTurn()){
-                        retgioc1.setFill(green);
-                        retgioc2.setFill(red);
-                    }else {
-                        retgioc2.setFill(green);
-                        retgioc1.setFill(red);
-                    }
-                }, new KeyValue(timerIn.scaleYProperty(), 0))
-        );
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        turnTimer.setCycleCount(Animation.INDEFINITE);
+        turnTimer.play();
+    }
+
+    protected void gameWon (boolean whiteWon) {
+        
     }
     //--------------------------------------------
     //METODO INITIALIZE
@@ -725,6 +722,14 @@ public class BoardView {
                 this.polArrayBot[i].setStroke(point);
             }
         }
+
+        //Inizializzo il timer del turno
+        turnTimer = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                        new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
+                            nextTurn(null);
+                        }, new KeyValue(timerIn.scaleYProperty(), 0))
+        );
 
 
 

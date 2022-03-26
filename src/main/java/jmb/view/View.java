@@ -50,4 +50,20 @@ public class View implements IView {
                 sceneBoard.regArrayTop, sceneBoard.whiteExitRegion, sceneBoard.blackExitRegion);
     }
 
+    @Override
+    public void blackWins() {
+        //TODO METTERE LE ISTRUZIONI GIUSTE
+        //  PLACEHOLDER
+        System.out.println("IL NERO VINCE");
+        sceneBoard.gameWon(false);
+    }
+
+    @Override
+    public void whiteWins() {
+        //TODO METTERE LE ISTRUZIONI GIUSTE
+        //  PLACEHOLDER
+        System.out.println("IL BIANCO VINCE");
+        sceneBoard.gameWon(true);
+    }
+
 }

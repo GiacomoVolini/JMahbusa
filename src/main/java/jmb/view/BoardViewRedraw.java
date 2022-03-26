@@ -44,8 +44,8 @@ public class BoardViewRedraw {
         return min(usableHeight, usableWidth);
     }
 
-    public static double getMaxBtnWidth(AnchorPane window, Rectangle diceTray) {
-        double maxBtnWidth = window.getWidth() - (diceTray.getLayoutX()+maxDTWidth+(BUTTON_ANCHOR*2));
+    public static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
+        double maxBtnWidth = window.getWidth() - (outerRect.getLayoutX() + outerRect.getWidth() +maxDTWidth+(BUTTON_ANCHOR*2));
         return min(MAX_BTN_WIDTH, maxBtnWidth);
 
     }
@@ -174,13 +174,13 @@ public class BoardViewRedraw {
 
     }
 
-    public static void resizeButtons(Button backBTN, Button finishBTN, Button menuBTN, AnchorPane window, Rectangle diceTray) {
+    public static void resizeButtons(Button backBTN, Button finishBTN, Button menuBTN, AnchorPane window, Rectangle outerRect) {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
-        backBTN.setMaxWidth(getMaxBtnWidth(window, diceTray));
-        finishBTN.setMaxWidth(getMaxBtnWidth(window, diceTray));
-        menuBTN.setMaxWidth(getMaxBtnWidth(window, diceTray));
+        backBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
+        finishBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
+        menuBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
         backBTN.setPrefWidth(window.getWidth()*0.15);
         finishBTN.setPrefWidth(backBTN.getPrefWidth());
         menuBTN.setPrefWidth(backBTN.getPrefWidth());
@@ -320,7 +320,7 @@ public class BoardViewRedraw {
 
 
 
-    protected static void resizeAll(AnchorPane window, Rectangle outerRect, Rectangle boardRect,
+    protected static void resizeAll(boolean gameStart, AnchorPane window, Rectangle outerRect, Rectangle boardRect,
                                     Rectangle separator, Rectangle timerOut, Rectangle timerIn,
                                     Polygon[] polArrayTop, Polygon[] polArrayBot, Region[] regArrayTop,
                                     Region[] regArrayBot, boolean bExit, boolean wExit,
@@ -338,10 +338,11 @@ public class BoardViewRedraw {
         resizePawns(pawnArrayWHT, pawnArrayBLK, regArrayBot);
         calcTrayWidth(pawnArrayBLK[0]);
         calcDTWidth(pawnArrayBLK[0]);
-        resizeDiceTray(dtAnimDone, diceTray, outerRect);
-        if (dtAnimDone)
-            resizeDice (diceTray, diceArray);
-        resizeButtons(backBTN, finishBTN, menuBTN, window, diceTray);
+        if (gameStart) {
+            resizeDiceTray(dtAnimDone, diceTray, outerRect);
+            if (dtAnimDone)
+                resizeDice (diceTray, diceArray); }
+        resizeButtons(backBTN, finishBTN, menuBTN, window, outerRect);
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
         resizePaginaPauseIniziamo(window, Pause, Iniziamo);

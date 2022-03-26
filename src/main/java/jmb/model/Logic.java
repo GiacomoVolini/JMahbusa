@@ -45,8 +45,9 @@ public class Logic implements ILogic{
     @Override
     public void placePawnOnPoint(int whichPoint) {
         if (board.movePawn(board.getMoveBufferColumn(), board.getMoveBufferRow(),
-                board.searchFirstFreeRow(whichPoint), whichPoint))
+                board.searchFirstFreeRow(whichPoint), whichPoint)) {
             board.victoryCheck();
+        }
     }
 
     @Override
@@ -61,6 +62,7 @@ public class Logic implements ILogic{
     @Override
     public void nextTurn() {
         board.changeTurn();
+
     }
 
     @Override

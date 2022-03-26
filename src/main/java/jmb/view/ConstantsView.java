@@ -32,6 +32,14 @@ public class ConstantsView {
     public static final int right = 2;
     public static final int left = 3;
 
+    //variabii per ilradio botton
+    public static double ti;
+    public static int rb;
+    public static final int easy = 1;
+    public static final int medio = 2;
+    public static final int hard = 3;
+    public static final int optional = 4;
+
     //variabili di check box
     public static boolean cb;
     public static final boolean nofullscreen = false;

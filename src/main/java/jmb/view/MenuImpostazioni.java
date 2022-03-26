@@ -337,7 +337,7 @@ public class MenuImpostazioni<string> {
                         sr = nonfermo;
                 }
         }
-        //TODO riampi l'applicazioni
+        //TODO riempi l'applicazioni
 
         //Comandi Action
 

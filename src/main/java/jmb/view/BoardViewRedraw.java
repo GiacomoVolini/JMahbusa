@@ -6,12 +6,15 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.css.Rect;
 
 public class BoardViewRedraw {
 
@@ -318,16 +321,73 @@ public class BoardViewRedraw {
 
     }
 
+    private static void resizeVictoryRect (AnchorPane window, Rectangle victoryPanel) {
+        victoryPanel.setWidth(window.getWidth() / 2.5);
+        victoryPanel.setHeight(window.getHeight()/2.5);
+        victoryPanel.setLayoutX((window.getWidth() - victoryPanel.getWidth()) / 2);
+        victoryPanel.setLayoutY((window.getHeight() - victoryPanel.getHeight()) / 2);
+    }
+
+    private static void resizeVictoryPawn (Rectangle victoryPanel, Circle victoryPawn) {
+        victoryPawn.setRadius(victoryPanel.getHeight() / 10);
+        victoryPawn.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.05 + victoryPawn.getRadius());
+        victoryPawn.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() / 2);
+    }
+
+    public static double calcVExitX(Rectangle victoryPanel, Button victoryExit) {
+        return victoryPanel.getLayoutX() + (victoryPanel.getWidth() - victoryExit.getWidth()) / 2;
+    }
+
+    public static double calcVExitY(Rectangle victoryPanel) {
+        return victoryPanel.getLayoutY() + (0.66 * victoryPanel.getHeight());
+    }
+
+    private static void resizeVictoryExit (Rectangle victoryPanel, Button victoryExit) {
+        victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
+        victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
+        victoryExit.setLayoutY(calcVExitY(victoryPanel));
+        victoryExit.setLayoutX(calcVExitX(victoryPanel, victoryExit));
+        //TODO BUG: All'inizio viene posizionato male, poi fa scatto in fase resize
+    }
+
+    private static void resizeVictoryCrown (Circle victoryPawn, ImageView victoryCrown) {
+        victoryCrown.setFitWidth(victoryPawn.getRadius()*2);
+        victoryCrown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
+        victoryCrown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
+    }
+
+    private static void resizeVictoryLabel (Rectangle victoryPanel, Label victoryLabel) {
+        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
+        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.35);
+        // TODO     Inserire controlli font size
+
+    }
+
+    //  Metodo per ridimensionare gli elementi del pannello vittoria
+    private static void resizeVictoryPanel (AnchorPane window, Rectangle victoryPanel,
+                                            Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel)
+    {
+        resizeVictoryRect(window, victoryPanel);
+        resizeVictoryPawn(victoryPanel, victoryPawn);
+        resizeVictoryLabel(victoryPanel, victoryLabel);
+        resizeVictoryExit(victoryPanel, victoryExit);
+        resizeVictoryCrown(victoryPawn, victoryCrown);
+
+    }
 
 
-    protected static void resizeAll(boolean gameStart, AnchorPane window, Rectangle outerRect, Rectangle boardRect,
+
+    protected static void resizeAll(boolean gameStart, boolean gameEndState, AnchorPane window, Rectangle outerRect, Rectangle boardRect,
                                     Rectangle separator, Rectangle timerOut, Rectangle timerIn,
                                     Polygon[] polArrayTop, Polygon[] polArrayBot, Region[] regArrayTop,
                                     Region[] regArrayBot, boolean bExit, boolean wExit,
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
                                     Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK,
-                                    TitledPane Pause, TitledPane Iniziamo, ImageView[] diceArray) {
+                                    TitledPane Pause, TitledPane Iniziamo, ImageView[] diceArray, Rectangle victoryPanel,
+                                    Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel) {
+
+        //TODO Inserire dove necessario controlli su font size
 
         resizeOuterRect(window, outerRect);
         resizeBoardRect(outerRect, boardRect);
@@ -346,6 +406,9 @@ public class BoardViewRedraw {
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
         resizePaginaPauseIniziamo(window, Pause, Iniziamo);
+        if (gameEndState) {
+            resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
+        }
 
     }
 

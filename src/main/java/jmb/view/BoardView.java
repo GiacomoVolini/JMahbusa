@@ -7,21 +7,22 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import jmb.model.Player;
 
 import java.io.IOException;
-import java.sql.Time;
 
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.UNDEFINED;
@@ -372,9 +373,18 @@ public class BoardView {
     private String name1;
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
+    //Nodes della schermata di vittoria
+    private Rectangle victoryPanel;
+    private Circle victoryPawn;
+    private ImageView crown;
+    private Button victoryExit;
+    private Label victoryLabel;
+
     protected Timeline turnTimer;
 
     private boolean gameStart = false;
+
+    private boolean gameEndState = false;
 
 
     @FXML
@@ -441,13 +451,17 @@ public class BoardView {
     }
 
     @FXML
-    void vaialMainMenu()  throws IOException {
-        senzaSalvare.getScene().getWindow();
-        jmb.App.MainMenu();
-        if (cb == fullscreen) {
-            getStage().setFullScreen(true);
-        }else {
-            getStage().setFullScreen(false);
+    void vaialMainMenu(){
+        try {
+            senzaSalvare.getScene().getWindow();
+            jmb.App.MainMenu();
+            if (cb == fullscreen) {
+                getStage().setFullScreen(true);
+            } else {
+                getStage().setFullScreen(false);
+            }
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
         }
 
     }
@@ -565,11 +579,11 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.resizeAll(gameStart, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
+        BoardViewRedraw.resizeAll(gameStart, gameEndState, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
                                     polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
                                     blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
                                     pawnArrayWHT, pawnArrayBLK,
-                                    Pause, Iniziamo, diceArray);
+                                    Pause, Iniziamo, diceArray, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -644,14 +658,147 @@ public class BoardView {
         turnTimer.play();
     }
 
+    private void gameEndDisable() {
+        backBTN.setDisable(true);
+        finishBTN.setDisable(true);
+        menuBTN.setDisable(true);
+        for (PawnView pawn : pawnArrayBLK)
+            pawn.setDisable(true);
+        for (PawnView pawn : pawnArrayWHT)
+            pawn.setDisable(true);
+    }
+
+    private Rectangle createVictoryPanel() {
+        Rectangle victoryPanel = new Rectangle();
+        window.getChildren().add(victoryPanel);
+        victoryPanel.setHeight(window.getHeight() / 2.5);
+        victoryPanel.setWidth(window.getWidth() / 2.5);
+        victoryPanel.setFill(Color.WHITESMOKE);
+        victoryPanel.setLayoutX((window.getWidth() - victoryPanel.getWidth()) / 2);
+        victoryPanel.setLayoutY((window.getHeight() - victoryPanel.getHeight()) / 2);
+        victoryPanel.setStroke(Color.LIGHTGRAY);
+        victoryPanel.setArcHeight(10);
+        victoryPanel.setArcWidth(10);
+        victoryPanel.setViewOrder(-10);
+        return victoryPanel;
+
+        //TODO CAPIRE PERCHE' POSIZIONE INIZIALE PULSANTE VIENE CALCOLATA MALE
+    }
+
+    private Circle createVictoryPawn(boolean whiteWon) {
+        Circle pawn = new Circle();
+        window.getChildren().add(pawn);
+        pawn.setRadius(victoryPanel.getHeight() / 10);
+        pawn.setViewOrder(-15);
+        pawn.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.05 + pawn.getRadius());
+        pawn.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() / 2);
+        if (whiteWon) {
+            pawn.setFill(pedIn1);
+            pawn.setStroke(pedOut1);
+        } else {
+            pawn.setFill(pedIn2);
+            pawn.setStroke(pedOut2);
+        }
+        pawn.setStrokeWidth(2);
+
+        return pawn;
+
+    }
+
+    private Button createVictoryButton() {
+        Button victoryExit = new Button("Torna al menu");
+        window.getChildren().add(victoryExit);
+        victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
+        victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
+        victoryExit.setLayoutY(BoardViewRedraw.calcVExitX(victoryPanel, victoryExit));
+        victoryExit.setLayoutX(BoardViewRedraw.calcVExitY(victoryPanel));
+        victoryExit.setOnAction(event -> vaialMainMenu());
+        victoryExit.setViewOrder(-16);
+
+        return victoryExit;
+        //TODO CAPIRE PERCHE' POSIZIONE INIZIALE PULSANTE VIENE CALCOLATA MALE
+    }
+
+    private ImageView createCrownImage() {
+        ImageView crown = new ImageView(new Image("/jmb/view/victory/crown.png"));
+        window.getChildren().add(crown);
+        crown.setFitWidth(victoryPawn.getRadius()*2);
+        crown.setPreserveRatio(true);
+        crown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
+        crown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
+        crown.setViewOrder(-14);
+
+        return crown;
+    }
+
+    private Label createVictoryLabel(boolean whiteWon) {
+        String winner;
+        if (whiteWon)
+            winner = n1;
+        else
+            winner = n2;
+        Label victoryLabel = new Label();
+        window.getChildren().add(victoryLabel);
+        String victoryString = "Congratulazioni ";
+        victoryString = victoryString.concat(winner);
+        victoryString = victoryString.concat("!\nHai vinto la partita!");
+        victoryLabel.setText(victoryString);
+        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
+        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.35);
+        victoryLabel.getStyleClass().add("victory-label");
+        victoryLabel.setViewOrder(-15);
+
+        return victoryLabel;
+
+    }
+
     protected void gameWon (boolean whiteWon) {
-        
+
+        gameEndDisable();                       //  Disabilita i Nodes sottostanti (pulsanti e pedine)
+
+        victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
+
+        victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
+
+        victoryLabel = createVictoryLabel(whiteWon);    //  Crea la Label del pannello vittoria con il nome del vincitore
+
+        victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
+
+        crown = createCrownImage();             //  Crea l'ImageView per la corona del vincitore
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
+                        new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
+                        new KeyValue(crown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
+                        new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
+                        new KeyValue(crown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+
+        gameEndState = true;
+
+        //TODO logic.addVictoryToPlayer(winner);
+
+
+    }
+
+    //TODO TEST
+    @FXML
+    private void testBtn (ActionEvent event) {
+        gameWon (false);
     }
     //--------------------------------------------
     //METODO INITIALIZE
     //--------------------------------------------
 
     public void initialize() {
+
+        //TODO PROVA
+        window.getStylesheets().add("/jmb/view/style.css");
 
         //informazione del giocatore
         //nomi

@@ -43,7 +43,6 @@ public class LeaderboardLogic {
     private void populateList() throws IOException {
         while ((line = reader.readLine()) != null)
             if (!line.isEmpty() && line.contains(";")) {
-                //leadList.add(line.trim().split(";")); TODO forse cancellare
                 String[] lineValues = line.trim().split(";");
                 lineValues[0] = lineValues[0].concat("\u2001");
                 arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));

@@ -9,6 +9,9 @@ fx-border-radius: 0;
 fx-background-radius: 0;
 fx-border-radius: 0;
 }
+
+.victory-label {
+    -fx-font-weight: bold;
+  
 .menu-button:openvertically .label{
 visibility: false;
-}

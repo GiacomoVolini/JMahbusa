@@ -1,6 +1,5 @@
 package jmb.view;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,21 +7,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.StringConverter;
-import jmb.model.Player;
 
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
 
 public class LogIn {
 
@@ -81,6 +73,16 @@ public class LogIn {
     @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
+        if(scelta.isSelected()){
+            System.out.println(Integer.parseInt(oPt.getText()));
+            defficile.setSelected(false);
+            media.setSelected(false);
+            noT.setSelected(false);
+            oPt.setDisable(false);
+            turn_duration = Integer.parseInt(oPt.getText());
+
+        }
+
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
                     logic.addNewPlayersToList(scrivinomi1.getValue(), scrivinomi2.getValue());
@@ -112,42 +114,7 @@ public class LogIn {
                     erName1Present.setVisible(false);
                     erName2Present.setVisible(true);
                     break;
-
             }
-
-        if (noT.isSelected()) {
-        rb = easy;
-            defficile.setSelected(false);
-            media.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            // todo ti = no timer
-
-        } else if (media.isSelected()) {
-        rb = medio;
-            defficile.setSelected(false);
-            noT.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            ti = 2;
-
-        } else if (defficile.isSelected()) {
-        rb = hard;
-            noT.setSelected(false);
-            media.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            ti = 0.30;
-
-        } else{
-            rb = optional;
-            defficile.setSelected(false);
-            media.setSelected(false);
-            noT.setSelected(false);
-            oPt.setDisable(false);
-            ti = Integer.parseInt(oPt.getText());
-
-        }
     }
 
     @FXML
@@ -163,6 +130,7 @@ public class LogIn {
         media.setSelected(false);
         scelta.setSelected(false);
         oPt.setDisable(true);
+        turn_duration = 0;
     }
 
     @FXML
@@ -172,6 +140,7 @@ public class LogIn {
         media.setSelected(true);
         scelta.setSelected(false);
         oPt.setDisable(true);
+        turn_duration = 120;
     }
 
     @FXML
@@ -181,7 +150,7 @@ public class LogIn {
         media.setSelected(false);
         scelta.setSelected(false);
         oPt.setDisable(true);
-
+        turn_duration = 30;
     }
 
     @FXML
@@ -191,7 +160,6 @@ public class LogIn {
         noT.setSelected(false);
         scelta.setSelected(true);
         oPt.setDisable(false);
-
     }
 
     ToggleGroup group = new ToggleGroup();
@@ -205,7 +173,19 @@ public class LogIn {
         media.setToggleGroup(group);
         scelta.setToggleGroup(group);
 
-        switch (rb) {
+        nome1.setFill(pedIn1);
+        nome1.setStroke(pedOut1);
+        nome2.setFill(pedIn2);
+        nome2.setStroke(pedIn2);
+
+        ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
+        scrivinomi1.setItems(nameList);
+        scrivinomi2.setItems(nameList);
+
+    }
+
+}
+/* switch (rb) {
             case easy:
                 noT.setSelected(true);
                 defficile.setSelected(false);
@@ -236,15 +216,29 @@ public class LogIn {
                 break;
         }
 
-        nome1.setFill(pedIn1);
-        nome1.setStroke(pedOut1);
-        nome2.setFill(pedIn2);
-        nome2.setStroke(pedIn2);
 
-        ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
-        scrivinomi1.setItems(nameList);
-        scrivinomi2.setItems(nameList);
+             (noT.isSelected()) {
+        rb = easy;
+            defficile.setSelected(false);
+            media.setSelected(false);
+            scelta.setSelected(false);
+            oPt.setDisable(true);
+            turn_duration = 0;
 
-    }
+        } else if (media.isSelected()) {
+        rb = medio;
+            defficile.setSelected(false);
+            noT.setSelected(false);
+            scelta.setSelected(false);
+            oPt.setDisable(true);
+            turn_duration = 120;
 
-}
+        } else if (defficile.isSelected()) {
+        rb = hard;
+            noT.setSelected(false);
+            media.setSelected(false);
+            scelta.setSelected(false);
+            oPt.setDisable(true);
+            turn_duration = 30;
+
+        } else*/

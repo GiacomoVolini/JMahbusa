@@ -389,8 +389,10 @@ public class BoardView {
 
     @FXML
     protected void nextTurn (ActionEvent event) {
-        turnTimer.stop();
-        turnTimer.play();
+        if(turn_duration != 0) {
+            turnTimer.stop();
+            turnTimer.play();
+        }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
                                         regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
@@ -646,7 +648,9 @@ public class BoardView {
         gameStart = true;
         changeDimensions();
         diceTrayAnim();
-        runTimer();
+        if(turn_duration != 0) {
+            runTimer();
+        }
     }
 
     private void runTimer(){
@@ -869,15 +873,15 @@ public class BoardView {
                 this.polArrayBot[i].setStroke(point);
             }
         }
-
-        //Inizializzo il timer del turno
-        turnTimer = new Timeline(
-                        new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                        new KeyFrame(Duration.minutes(TURN_DURATION), e-> {
-                            nextTurn(null);
-                        }, new KeyValue(timerIn.scaleYProperty(), 0))
-        );
-
+        if(turn_duration != 0) {
+            //Inizializzo il timer del turno
+            turnTimer = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                    new KeyFrame(Duration.seconds(turn_duration), e -> {
+                        nextTurn(null);
+                    }, new KeyValue(timerIn.scaleYProperty(), 0))
+            );
+        }
 
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA

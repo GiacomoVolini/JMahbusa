@@ -33,11 +33,6 @@ public class ConstantsView {
 
     //variabii per ilradio botton
     public static double turn_duration = 120;
-    public static int rb;
-    public static final int easy = 1;
-    public static final int medio = 2;
-    public static final int hard = 3;
-    public static final int optional = 4;
 
     //variabili di check box
     public static boolean cb;

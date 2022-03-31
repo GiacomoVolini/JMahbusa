@@ -9,3 +9,6 @@ fx-border-radius: 0;
 fx-background-radius: 0;
 fx-border-radius: 0;
 }
+.menu-button:openvertically .label{
+visibility: false;
+}

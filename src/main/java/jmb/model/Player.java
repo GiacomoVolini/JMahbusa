@@ -77,6 +77,20 @@ public class Player {
         return this.winRate;
     }
 
+    public void addWin() {
+        this.wins = new SimpleIntegerProperty(this.getWins() + 1);
+    }
+
+    public void addLoss() {
+        this.losses = new SimpleIntegerProperty(this.getLosses() + 1);
+    }
+
+    @Override
+    public String toString() {
+        String out = this.getName()+";"+this.getWins()+";"+this.getLosses();
+        return out;
+    }
+
     //TODO forse metodi set?
 
 }

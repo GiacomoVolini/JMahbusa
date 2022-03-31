@@ -47,4 +47,7 @@ public interface ILogic {
     void addNewPlayersToList (String newName1, String newName2);
 
     boolean isDiceUsed (int i);
+
+    //TODO TEST
+    void testWriteList();
 }

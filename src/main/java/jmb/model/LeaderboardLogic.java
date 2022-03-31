@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.nio.file.Files.deleteIfExists;
+
 public class LeaderboardLogic {
 
     Path path;
@@ -75,6 +77,22 @@ public class LeaderboardLogic {
             list.add(it.next().getName());
         }
         return list;
+    }
+
+        public void ldbWriter (Path path) {
+            //try {
+                //Files.write(path, arrList);
+                //TODO trovare un modo per stampare la lista
+            //} catch (IOException ioe) {
+            //    ioe.printStackTrace();
+            //}
+        }
+
+    protected void testWriteList() {
+        Iterator<Player> it = arrList.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next().toString());
+        }
     }
 
 }

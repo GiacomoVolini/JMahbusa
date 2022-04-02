@@ -74,8 +74,7 @@ public class LeaderboardLogic {
 
                 Iterator<Player> it = arrList.iterator();
                 while(it.hasNext()) {
-                    Player next = it.next();
-                    Files.writeString(path, next + System.lineSeparator(), CREATE, WRITE, APPEND);
+                    Files.writeString(path, it.next() + System.lineSeparator(), CREATE, WRITE, APPEND);
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();

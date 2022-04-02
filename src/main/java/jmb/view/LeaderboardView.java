@@ -66,7 +66,6 @@ public class LeaderboardView {
     }
 
     private List<Player> searchList() {
-        //todo controlare toLowerCase, se la lettera grande non la vede ma solo se piccola
         return logic.getPlayerList().stream().filter(input ->
         {return input.getName().toLowerCase().contains(cerca.getText().toLowerCase());}).collect(Collectors.toList());
     }

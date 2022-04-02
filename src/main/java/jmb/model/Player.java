@@ -91,6 +91,4 @@ public class Player {
         return out;
     }
 
-    //TODO forse metodi set?
-
 }

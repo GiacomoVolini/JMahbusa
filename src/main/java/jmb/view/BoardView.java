@@ -785,11 +785,9 @@ public class BoardView {
 
         gameEndState = true;
 
-        logic.testWriteList();
+        logic.addStatsToPlayers(winner, loser);
 
-        //TODO logic.addVictoryToPlayer(winner);
-        //TODO AGGIUNGI VITTORIA E SCONFITTA AI GIOCATORI
-
+        logic.writeLdbList();
 
     }
 
@@ -804,7 +802,6 @@ public class BoardView {
 
     public void initialize() {
 
-        //TODO PROVA
         window.getStylesheets().add("/jmb/view/style.css");
 
         //informazione del giocatore

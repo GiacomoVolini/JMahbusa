@@ -154,8 +154,12 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void testWriteList() {
-        //ldb.testWriteList();
+    public void writeLdbList() {
         ldb.ldbWriter(ldb.path);
+    }
+
+    @Override
+    public void addStatsToPlayers (String winner, String loser) {
+        ldb.addStatsToList(winner, loser);
     }
 }

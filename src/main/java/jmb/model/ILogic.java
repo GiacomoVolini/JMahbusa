@@ -48,6 +48,8 @@ public interface ILogic {
 
     boolean isDiceUsed (int i);
 
-    //TODO TEST
-    void testWriteList();
+    void writeLdbList();
+
+    void addStatsToPlayers ( String winner, String loser );
+
 }

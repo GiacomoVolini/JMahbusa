@@ -125,9 +125,9 @@ public class Logic implements ILogic{
             Iterator<String> it = nameList.iterator();
             while (it.hasNext() && output == DECIDING) {
                 String temp = it.next();
-                if (newName1.equals(temp.substring(0, temp.length()-1))) {
+                if (newName1.equals(temp.stripTrailing())) {
                     output = NAME1_ALREADY_PRESENT;
-                } else if (newName2.equals(temp.substring(0, temp.length()-1))) {
+                } else if (newName2.equals(temp.stripTrailing())) {
                     output = NAME2_ALREADY_PRESENT;
                 }
             }

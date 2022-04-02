@@ -644,10 +644,10 @@ public class BoardView {
     @FXML
     protected void startGame(ActionEvent event) {
         Iniziamo.setVisible(false);
-        logic.firstTurn();
         gameStart = true;
         changeDimensions();
         diceTrayAnim();
+        logic.firstTurn();
         if(turn_duration != 0) {
             runTimer();
         }
@@ -708,10 +708,6 @@ public class BoardView {
     private Button createVictoryButton() {
         Button victoryExit = new Button("Torna al menu");
         window.getChildren().add(victoryExit);
-        victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
-        victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
-        victoryExit.setLayoutY(BoardViewRedraw.calcVExitX(victoryPanel, victoryExit));
-        victoryExit.setLayoutX(BoardViewRedraw.calcVExitY(victoryPanel));
         victoryExit.setOnAction(event -> vaialMainMenu());
         victoryExit.setViewOrder(-16);
 
@@ -735,7 +731,7 @@ public class BoardView {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         String victoryString = "Congratulazioni ";
-        victoryString = victoryString.concat(winner);
+        victoryString = victoryString.concat(winner.stripTrailing());
         victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
         victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
@@ -770,6 +766,9 @@ public class BoardView {
 
         crown = createCrownImage();             //  Crea l'ImageView per la corona del vincitore
 
+        gameEndState = true;
+
+        changeDimensions();
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
@@ -782,8 +781,6 @@ public class BoardView {
         );
         timeline.setCycleCount(1);
         timeline.play();
-
-        gameEndState = true;
 
         logic.addStatsToPlayers(winner, loser);
 

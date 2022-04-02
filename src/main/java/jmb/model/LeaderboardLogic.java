@@ -10,13 +10,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.nio.file.Files.deleteIfExists;
+import static java.nio.file.StandardOpenOption.*;
 
 public class LeaderboardLogic {
 
     Path path;
     BufferedReader reader;
     ArrayList<Player> arrList = new ArrayList<>();
-    //LinkedList<String[]> leadList; TODO forse cancellare
     String line;
 
     // Il costruttore crea il BufferedReader per il file csv della classifica,
@@ -27,7 +30,6 @@ public class LeaderboardLogic {
             URL resource = this.getClass().getResource("LeaderBoards.csv");
             path = Paths.get(resource.toURI());
             reader = Files.newBufferedReader(path);
-            //leadList = new LinkedList<String[]>(); TODO forse cancellare
             this.populateList();
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -53,17 +55,6 @@ public class LeaderboardLogic {
         arrList.add (new Player (name));
     }
 
-    /*TODO forse cancellare, è test
-    public void testList () {
-        System.out.println("Nome\t Vittorie\t Sconfitte\t V\\S");
-        for (String[] strArr: arrList) {
-            for (String str : strArr) {
-                System.out.print(str + "\t");
-            }
-            System.out.println(Double.parseDouble(strArr[1])/Double.parseDouble(strArr[2]));
-        }
-    }*/
-
     public ArrayList<Player> getList() {
         return arrList;
     }
@@ -75,6 +66,30 @@ public class LeaderboardLogic {
             list.add(it.next().getName());
         }
         return list;
+    }
+
+        public void ldbWriter (Path path) {
+            try {
+                Files.delete(path);
+
+                Iterator<Player> it = arrList.iterator();
+                while(it.hasNext()) {
+                    Player next = it.next();
+                    System.out.println("Sto stampando l'elemento " + next.toString());
+                    Files.writeString(path, next + System.lineSeparator(), CREATE, WRITE, APPEND);
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+        }
+
+
+    protected void addStatsToList( String winner, String loser) {
+
+        Player winPlayer = arrList.stream().filter(input -> input.getName().contains(winner)).findFirst().get();
+        winPlayer.addWin();
+        Player lossPlayer = arrList.stream().filter(input -> input.getName().contains(loser)).findFirst().get();
+        lossPlayer.addLoss();
     }
 
 }

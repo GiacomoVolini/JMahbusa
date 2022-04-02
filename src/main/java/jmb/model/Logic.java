@@ -143,13 +143,23 @@ public class Logic implements ILogic{
         //  Se i due nomi non contengono il carattere di escape "\u2001" in coda essi sono nuovi.
         //  Si crea quindi un nuovo oggetto Player contenente quel nome e lo si aggiunge alla PlayerList
         if (!newName1.contains("\u2001"))
-            ldb.addNewPlayer(newName1);
+            ldb.addNewPlayer(newName1.concat("\u2001"));
         if (!newName2.contains("\u2001"))
-            ldb.addNewPlayer(newName2);
+            ldb.addNewPlayer(newName2.concat("\u2001"));
     }
 
     @Override
     public boolean isDiceUsed (int i) {
         return dice.getUsed(i);
+    }
+
+    @Override
+    public void writeLdbList() {
+        ldb.ldbWriter(ldb.path);
+    }
+
+    @Override
+    public void addStatsToPlayers (String winner, String loser) {
+        ldb.addStatsToList(winner, loser);
     }
 }

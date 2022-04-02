@@ -731,12 +731,7 @@ public class BoardView {
         return crown;
     }
 
-    private Label createVictoryLabel(boolean whiteWon) {
-        String winner;
-        if (whiteWon)
-            winner = n1;
-        else
-            winner = n2;
+    private Label createVictoryLabel(String winner) {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         String victoryString = "Congratulazioni ";
@@ -756,11 +751,20 @@ public class BoardView {
 
         gameEndDisable();                       //  Disabilita i Nodes sottostanti (pulsanti e pedine)
 
+        String winner, loser;
+        if (whiteWon) {
+            winner = n1;
+            loser = n2;
+        } else {
+            winner = n2;
+            loser = n1;
+        }
+
         victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
 
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
 
-        victoryLabel = createVictoryLabel(whiteWon);    //  Crea la Label del pannello vittoria con il nome del vincitore
+        victoryLabel = createVictoryLabel(winner);    //  Crea la Label del pannello vittoria con il nome del vincitore
 
         victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
 
@@ -781,8 +785,9 @@ public class BoardView {
 
         gameEndState = true;
 
-        //TODO logic.addVictoryToPlayer(winner);
+        logic.addStatsToPlayers(winner, loser);
 
+        logic.writeLdbList();
 
     }
 
@@ -797,7 +802,6 @@ public class BoardView {
 
     public void initialize() {
 
-        //TODO PROVA
         window.getStylesheets().add("/jmb/view/style.css");
 
         //informazione del giocatore

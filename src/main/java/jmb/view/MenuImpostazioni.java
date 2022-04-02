@@ -530,39 +530,6 @@ public class MenuImpostazioni<string> {
                 TM.setSelected(true);
                 Imdestra.setToggleGroup(group);
 
-                //TODO da cancellare
-                     /*   switch (rd) {
-                        case left:
-                                Imsinistra.setSelected(true);
-                                Ctavolo.setDisable(true);
-                                Cpunte.setDisable(true);
-                                Cpunte2.setDisable(true);
-                                Ccornice.setDisable(true);
-                                table = Color.web("#ad1111");
-                                frame = Color.web("#000000");
-                                point = Color.web("#ffde3a");
-                                point2 = Color.web("#c0c0c0");
-                                break;
-                        case middle:
-                                TM.setSelected(true);
-                                Ctavolo.setDisable(false);
-                                Cpunte.setDisable(false);
-                                Cpunte2.setDisable(false);
-                                Ccornice.setDisable(false);
-                                break;
-                        case right:
-                                Imdestra.setSelected(true);
-                                Ctavolo.setDisable(true);
-                                Cpunte.setDisable(true);
-                                Cpunte2.setDisable(true);
-                                Ccornice.setDisable(true);
-                                table = Color.web("#53960f");
-                                frame = Color.web("#090957");
-                                point = Color.web("#c21123");
-                                point2 = Color.web("#daa505");
-                                break;
-                }*/
-
                 //color picker
                 Inpedina1.setValue(pedIn1);
                 Conpedina1.setValue(pedOut1);

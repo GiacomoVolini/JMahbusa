@@ -87,6 +87,8 @@ public class App extends Application {
         Parent out = fxmlLoader.load();
         if(fxml == "view/GameBoard"){
             View.sceneBoard = fxmlLoader.getController();
+        } else if(fxml == "view/Leaderboard"){
+            View.sceneLeaderboard = fxmlLoader.getController();
         }
         return out;
     }

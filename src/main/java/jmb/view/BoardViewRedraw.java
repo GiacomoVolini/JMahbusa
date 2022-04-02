@@ -338,7 +338,7 @@ public class BoardViewRedraw {
         victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
         victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
         victoryExit.setLayoutY(victoryPanel.getLayoutY() + (0.66 * victoryPanel.getHeight()));
-        victoryExit.setLayoutX(victoryPanel.getLayoutX() + (victoryPanel.getWidth() - victoryExit.getWidth()) / 2);
+        victoryExit.setLayoutX(victoryPanel.getLayoutX() + (victoryPanel.getWidth() - (victoryPanel.getWidth() * 0.3)) / 2);
     }
 
     private static void resizeVictoryCrown (Circle victoryPawn, ImageView victoryCrown) {

@@ -669,29 +669,22 @@ public class BoardView {
     }
 
     private Rectangle createVictoryPanel() {
+
         Rectangle victoryPanel = new Rectangle();
         window.getChildren().add(victoryPanel);
-        victoryPanel.setHeight(window.getHeight() / 2.5);
-        victoryPanel.setWidth(window.getWidth() / 2.5);
         victoryPanel.setFill(Color.WHITESMOKE);
-        victoryPanel.setLayoutX((window.getWidth() - victoryPanel.getWidth()) / 2);
-        victoryPanel.setLayoutY((window.getHeight() - victoryPanel.getHeight()) / 2);
         victoryPanel.setStroke(Color.LIGHTGRAY);
         victoryPanel.setArcHeight(10);
         victoryPanel.setArcWidth(10);
         victoryPanel.setViewOrder(-10);
-        return victoryPanel;
 
-        //TODO CAPIRE PERCHE' POSIZIONE INIZIALE PULSANTE VIENE CALCOLATA MALE
+        return victoryPanel;
     }
 
     private Circle createVictoryPawn(boolean whiteWon) {
         Circle pawn = new Circle();
         window.getChildren().add(pawn);
-        pawn.setRadius(victoryPanel.getHeight() / 10);
         pawn.setViewOrder(-15);
-        pawn.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.05 + pawn.getRadius());
-        pawn.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() / 2);
         if (whiteWon) {
             pawn.setFill(pedIn1);
             pawn.setStroke(pedOut1);
@@ -712,16 +705,12 @@ public class BoardView {
         victoryExit.setViewOrder(-16);
 
         return victoryExit;
-        //TODO CAPIRE PERCHE' POSIZIONE INIZIALE PULSANTE VIENE CALCOLATA MALE
     }
 
     private ImageView createCrownImage() {
         ImageView crown = new ImageView(new Image("/jmb/view/victory/crown.png"));
         window.getChildren().add(crown);
-        crown.setFitWidth(victoryPawn.getRadius()*2);
         crown.setPreserveRatio(true);
-        crown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
-        crown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
         crown.setViewOrder(-14);
 
         return crown;
@@ -734,8 +723,6 @@ public class BoardView {
         victoryString = victoryString.concat(winner.stripTrailing());
         victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
-        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
-        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.35);
         victoryLabel.getStyleClass().add("victory-label");
         victoryLabel.setViewOrder(-15);
 
@@ -768,7 +755,7 @@ public class BoardView {
 
         gameEndState = true;
 
-        changeDimensions();
+        BoardViewRedraw.resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
@@ -781,6 +768,8 @@ public class BoardView {
         );
         timeline.setCycleCount(1);
         timeline.play();
+
+
 
         logic.addStatsToPlayers(winner, loser);
 

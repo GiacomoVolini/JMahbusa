@@ -27,7 +27,7 @@ public class LeaderboardView {
 
 
     @FXML
-    private TableView<Player> table;
+    protected TableView<Player> table;
 
     @FXML
     private TableColumn<Player, String> name;

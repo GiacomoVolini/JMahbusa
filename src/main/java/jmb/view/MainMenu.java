@@ -76,6 +76,7 @@ public class MainMenu {
     void openLeaderBoard()  throws IOException {
         LDB.getScene().getWindow();
         jmb.App.leaderBoard();
+        View.sceneLeaderboard.table.refresh();
 
     }
 

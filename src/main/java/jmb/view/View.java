@@ -13,6 +13,7 @@ public class View implements IView {
 
     public static BoardView sceneBoard;
 
+    public static LeaderboardView sceneLeaderboard;
 
     @Override
     public void openBlackExit(){

@@ -110,15 +110,4 @@ public class App extends Application {
 
     }
 
-
-    //TODO forse cancellare
-    private static <T> T getNodeController(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        loader.load();
-        return loader.getController();
-    }
-
-
-
-
 }

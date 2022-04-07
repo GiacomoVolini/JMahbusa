@@ -41,16 +41,12 @@ public class DiceLogic {
           di conseguenza lo stato di tiro doppio e i valori corretti ai dadi 2 e 3
          */
 
-
         this.dice[0] = rnd.nextInt(6) + 1;
         this.dice[1] = rnd.nextInt(6) + 1;
         for (int i =0; i<4; i++) {
             this.used[i] = false;
             this.toBeUsed[i] = false;
         }
-
-
-
         if (this.dice[0] == this.dice[1]) {
             this.doubleNum = true;
             this.dice[3]=this.dice[2]=this.dice[1];
@@ -59,6 +55,16 @@ public class DiceLogic {
             this.dice[3]=this.dice[2]=0;
             this.used[3]=this.used[2]=true;
         }
+
+    /*TODO TEST TIRI DOPPI A OLTRANZA
+        this.doubleNum = true;
+        this.dice[0]=this.dice[1]=this.dice[2]=this.dice[3]= rnd.nextInt(6) + 1;
+        for (int i=0; i<4; i++) {
+            this.used[i] = false;
+            this.toBeUsed[i] = false;
+        }
+
+         */
 
     }
 
@@ -109,7 +115,7 @@ public class DiceLogic {
         //  Se ciò non fosse controlla se il tiro è doppio e se il movimento è possibile con i quattro dadi
         //      risultanti.
 
-        int maxDeltaPossible = 0;
+        int maxDeltaPossible;
         int availableDice = 0;
         boolean possible = false;
 
@@ -151,7 +157,7 @@ public class DiceLogic {
             // Nel caso di un tiro doppio si controlla se il delta è ottenibile tramite somme dei dadi disponibili
             if (doubleNum) {
                 for (int i = 2; i <= availableDice && !possible; i++) {
-                    if ((dice[0]*i) % delta == 0 && !possible) {
+                    if ((dice[0]*i) == delta && !possible) {
                         setDoublesToBeUsed(i);     // Sceglie i primi "i" dadi disponibili da usare per il movimento
                         possible = true;
                     }
@@ -195,6 +201,30 @@ public class DiceLogic {
     public void resetToBeUsed() {
         for (int i = 0; i < toBeUsed.length; i++)
             toBeUsed[i] = false;
+    }
+
+    // checkExitDiceSimple controlla che ci sia un dado che permetta di muovere la pedina esattamente nella zona di uscita
+    protected boolean checkExitDiceSimple (int delta) {
+        boolean possible = false;
+        for (int i = 0; i < 4 && !possible; i++) {
+            if (dice[i] == delta && !used[i]) {
+                System.out.println("Ho trovato il dado " + i + "per portare fuori la pedina");
+                possible = true;
+                toBeUsed[i] = true;
+            }
+        }
+        return possible;
+    }
+
+    protected boolean checkExitDiceGreaterThan (int delta) {
+        boolean possible = false;
+        for (int i = 0; i<4 && !possible; i++)  {
+            if (dice[i] >= delta && !used[i]) {
+                possible = true;
+                toBeUsed[i] = true;
+            }
+        }
+        return possible;
     }
 
 

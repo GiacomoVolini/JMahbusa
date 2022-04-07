@@ -86,9 +86,7 @@ public class BoardLogic {
         boolean possible;
 
         //  Si effettuano dei controlli sui dadi
-        possible = dice.checkDice( abs(puntaFinC - puntaInizC));
-
-
+        possible = (puntaInizC!=puntaFinC);
 
         //  Si controlla che la mossa sia effettuata nel verso giusto
         if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
@@ -96,25 +94,62 @@ public class BoardLogic {
             //  Se true, controlla se la mossa è volta a portare fuori la pedina
             if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
 
-                //  Se la mossa non fa uscire dal gioco una pedina controlla che la posizione di arrivo
-                //  non sia bloccata per il giocatore di turno
-                if (whiteTurn) {
-                    if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksWhite()) {
-                        //controlla che la posizione di arrivo non sia preclusa al bianco
+                //  Se la mossa non fa uscire dal gioco una pedina controlla che i dadi la permettano, poi che
+                //  la posizione di arrivo non sia bloccata per il giocatore di turno
+                if (dice.checkDice( abs(puntaFinC - puntaInizC))) {
+                    if (whiteTurn) {
+                        if (puntaFinR > 0 && squares[puntaFinR - 1][puntaFinC].getLocksWhite()) {
+                            //controlla che la posizione di arrivo non sia preclusa al bianco
+                            possible = false;
+                        }
+                    } else if (puntaFinR > 0 && squares[puntaFinR - 1][puntaFinC].getLocksBlack()) {
+                        //controlla che la posizione di arrivo non sia preclusa al nero
                         possible = false;
                     }
-                } else if (puntaFinR> 0 && squares[puntaFinR-1][puntaFinC].getLocksBlack()) {
-                    //controlla che la posizione di arrivo non sia preclusa al nero
-                    possible = false;
-                }
+                } else possible = false;
             }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
-            else if (((!this.blackExit) && !whiteTurn) || ((!this.whiteExit) && whiteTurn)) {
-                possible = false;
+            else {
+                int delta = abs(puntaFinC - puntaInizC);
+                possible = delta <= 6 && checkExitMove(delta, puntaInizC);
             }
         } else possible = false;
 
         return possible;
 
+    }
+
+    private boolean checkExitMove(int delta, int puntaIniz) {
+
+        boolean possible = dice.checkExitDiceSimple(delta);
+        if (!possible) {
+            if (checkIfFarthestPawn(puntaIniz)) {
+                possible = dice.checkExitDiceGreaterThan(delta);
+            } else {
+                //TODO EVIDENZIARE PEDINE DA MUOVERE PRIMA
+            }
+        }
+
+        return possible;
+    }
+
+    private boolean checkIfFarthestPawn( int puntaIniz) {
+
+        boolean farthest = true;
+        if (isWhiteTurn()) {
+
+            for (int i = puntaIniz - 1; i>18 && farthest; i--) {
+                if ((squares[0][i]!= null && squares[0][i].getisWhite()) || (squares[1][i]!= null && squares[1][i].getisWhite())) {
+                    farthest = false;
+                }
+            }
+        } else {
+            for (int i = puntaIniz + 1; i <=6 && farthest; i++) {
+                if ((squares[0][i]!= null && !squares[0][i].getisWhite()) || (squares[1][i]!= null && !squares[1][i].getisWhite())) {
+                    farthest = false;
+                }
+            }
+        }
+        return farthest;
     }
 
     /*  Il metodo movePawn si occupa dello spostamento delle pedine.

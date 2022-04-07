@@ -25,6 +25,15 @@ public class LogIn {
     private TitledPane registrati;
 
     @FXML
+    private AnchorPane registrati2;
+
+    @FXML
+    private TitledPane GT;
+
+    @FXML
+    private AnchorPane GT2;
+
+    @FXML
     private Button salvag;
 
     @FXML
@@ -164,7 +173,7 @@ public class LogIn {
 
     ToggleGroup group = new ToggleGroup();
 
-    public void initialize(){
+    public void initialize() {
 
         group = new ToggleGroup();
         noT.setToggleGroup(group);
@@ -182,63 +191,26 @@ public class LogIn {
         scrivinomi1.setItems(nameList);
         scrivinomi2.setItems(nameList);
 
+        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+
+        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+    }
+
+    protected void changeDimensions() {
+
+        registrati.setLayoutX(window.getWidth()/2 - registrati.getWidth()/2);
+        GT.setLayoutX(registrati.getLayoutX());
+
+        registrati.setLayoutY(window.getHeight()/2 - registrati.getHeight()/2);
+        GT.setLayoutY(window.getHeight()/2 - registrati.getHeight()/2 + registrati.getHeight());
+
+
     }
 
 }
-/* switch (rb) {
-            case easy:
-                noT.setSelected(true);
-                defficile.setSelected(false);
-                media.setSelected(false);
-                scelta.setSelected(false);
-                oPt.setDisable(true);
-                break;
-            case medio:
-                noT.setSelected(false);
-                defficile.setSelected(false);
-                media.setSelected(true);
-                scelta.setSelected(false);
-                oPt.setDisable(true);
-                break;
-            case hard:
-                noT.setSelected(false);
-                defficile.setSelected(true);
-                media.setSelected(false);
-                scelta.setSelected(false);
-                oPt.setDisable(true);
-                break;
-            case optional:
-                defficile.setSelected(false);
-                media.setSelected(false);
-                noT.setSelected(false);
-                scelta.setSelected(true);
-                oPt.setDisable(false);
-                break;
-        }
 
 
-             (noT.isSelected()) {
-        rb = easy;
-            defficile.setSelected(false);
-            media.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            turn_duration = 0;
-
-        } else if (media.isSelected()) {
-        rb = medio;
-            defficile.setSelected(false);
-            noT.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            turn_duration = 120;
-
-        } else if (defficile.isSelected()) {
-        rb = hard;
-            noT.setSelected(false);
-            media.setSelected(false);
-            scelta.setSelected(false);
-            oPt.setDisable(true);
-            turn_duration = 30;
-
-        } else*/

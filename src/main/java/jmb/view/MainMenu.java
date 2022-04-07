@@ -69,7 +69,7 @@ public class MainMenu {
         }else {
             getStage().setFullScreen(false);
         }
-
+        View.sceneLogIn.changeDimensions();
     }
 
     @FXML

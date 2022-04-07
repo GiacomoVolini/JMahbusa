@@ -15,6 +15,8 @@ public class View implements IView {
 
     public static LeaderboardView sceneLeaderboard;
 
+    public static LogIn sceneLogIn;
+
     @Override
     public void openBlackExit(){
         sceneBoard.openBlackExit();

@@ -322,7 +322,7 @@ public class BoardViewRedraw {
     }
 
     private static void resizeVictoryRect (AnchorPane window, Rectangle victoryPanel) {
-        victoryPanel.setWidth(window.getWidth() / 2.5);
+        victoryPanel.setWidth(window.getWidth() / 2);
         victoryPanel.setHeight(window.getHeight()/2.5);
         victoryPanel.setLayoutX((window.getWidth() - victoryPanel.getWidth()) / 2);
         victoryPanel.setLayoutY((window.getHeight() - victoryPanel.getHeight()) / 2);
@@ -334,20 +334,11 @@ public class BoardViewRedraw {
         victoryPawn.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() / 2);
     }
 
-    public static double calcVExitX(Rectangle victoryPanel, Button victoryExit) {
-        return victoryPanel.getLayoutX() + (victoryPanel.getWidth() - victoryExit.getWidth()) / 2;
-    }
-
-    public static double calcVExitY(Rectangle victoryPanel) {
-        return victoryPanel.getLayoutY() + (0.66 * victoryPanel.getHeight());
-    }
-
     private static void resizeVictoryExit (Rectangle victoryPanel, Button victoryExit) {
         victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
         victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
-        victoryExit.setLayoutY(calcVExitY(victoryPanel));
-        victoryExit.setLayoutX(calcVExitX(victoryPanel, victoryExit));
-        //TODO BUG: All'inizio viene posizionato male, poi fa scatto in fase resize
+        victoryExit.setLayoutY(victoryPanel.getLayoutY() + (0.66 * victoryPanel.getHeight()));
+        victoryExit.setLayoutX(victoryPanel.getLayoutX() + (victoryPanel.getWidth() - victoryExit.getWidth()) / 2);
     }
 
     private static void resizeVictoryCrown (Circle victoryPawn, ImageView victoryCrown) {
@@ -358,13 +349,13 @@ public class BoardViewRedraw {
 
     private static void resizeVictoryLabel (Rectangle victoryPanel, Label victoryLabel) {
         victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
-        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.35);
+        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.25);
         // TODO     Inserire controlli font size
 
     }
 
     //  Metodo per ridimensionare gli elementi del pannello vittoria
-    private static void resizeVictoryPanel (AnchorPane window, Rectangle victoryPanel,
+    protected static void resizeVictoryPanel (AnchorPane window, Rectangle victoryPanel,
                                             Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel)
     {
         resizeVictoryRect(window, victoryPanel);

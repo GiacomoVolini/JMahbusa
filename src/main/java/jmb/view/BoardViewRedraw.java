@@ -14,6 +14,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import org.w3c.dom.css.Rect;
 
 public class BoardViewRedraw {
@@ -21,6 +23,11 @@ public class BoardViewRedraw {
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
     private static double maxDTWidth;
+
+    //Variabile per la dimensione del font di victoryLabel
+    private static double victoryLabelFontSize = 16;
+    //TODO TEST
+    private static boolean labelTest8 = false;
 
     // Metodo getter per maxExitWidth
     public static double getMaxExitWidth() { return maxExitWidth; }
@@ -347,10 +354,44 @@ public class BoardViewRedraw {
         victoryCrown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
     }
 
+    // TODO forse scorporare elemento font su metodo separato in modo da poter commentare e descrivere separatamente quello
+
     private static void resizeVictoryLabel (Rectangle victoryPanel, Label victoryLabel) {
-        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.2);
+        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.15);
         victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.25);
-        // TODO     Inserire controlli font size
+    /* TODO     Inserire controlli font size
+        if (victoryLabel.getWidth()!=0 && (victoryPanel.getWidth()*0.75) - victoryLabel.getWidth() > victoryPanel.getWidth()*.08) {
+            victoryLabelFontSize+=0.1;
+            victoryLabel.setFont(Font.font("calibri-bold", FontWeight.BOLD, victoryLabelFontSize));
+        }
+        else if (victoryLabel.getWidth()!=0 && (victoryPanel.getWidth()*0.75) - victoryLabel.getWidth() < victoryPanel.getWidth()*.03) {
+            victoryLabelFontSize-=0.1;
+            victoryLabel.setFont(Font.font("calibri-bold", FontWeight.BOLD, victoryLabelFontSize));
+        }
+
+     */
+        resizeVictoryFont(victoryPanel, victoryLabel);
+
+        System.out.println(victoryLabel.getWidth());
+        System.out.println(victoryLabelFontSize);
+
+    }
+
+    //  Il metodo resizeVictoryFont si occupa di stimare una grandezza del font di victoryLabel tale da non fuoriuscire
+    //      da victoryPanel e mantenere dei margini simili
+    //  Da un controllo empirico con SceneBuilder, preso un rettangolo di larghezza 400, una label con Font size 20
+    //      ed il testo "Hai ottenuto una vittoria doppia!" rimane entro margini accettabili
+    //  Il metodo quindi calcola la proporzione tra la larghezza di victoryPanel e 400, e trova il nuovo valore di grandezza
+    //      del Font da assegnare a victoryLabel
+    private static void resizeVictoryFont(Rectangle victoryPanel, Label victoryLabel) {
+        double widthFactor = victoryPanel.getWidth()/400;
+        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
+    }
+
+    // resizeButtonFont opera analogamente a resizeVictoryFont, con differenti valori empirici
+    private static void resizeButtonFont (Button button) {
+        double widthFactor = button.getWidth()/71;
+        button.setFont(Font.font("calibri", FontWeight.BOLD, 14 * widthFactor));
 
     }
 

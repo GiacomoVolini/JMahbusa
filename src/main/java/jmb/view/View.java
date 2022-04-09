@@ -5,6 +5,8 @@ import javafx.scene.Scene;
 import jmb.App;
 import jmb.model.ILogic;
 
+import static jmb.ConstantsShared.*;
+
 import java.io.IOException;
 
 public class View implements IView {
@@ -52,19 +54,19 @@ public class View implements IView {
     }
 
     @Override
-    public void blackWins() {
+    public void blackWins (boolean doubleWin) {
         //TODO METTERE LE ISTRUZIONI GIUSTE
         //  PLACEHOLDER
         System.out.println("IL NERO VINCE");
-        sceneBoard.gameWon(false);
+        sceneBoard.gameWon(BLACK_WINS, doubleWin);
     }
 
     @Override
-    public void whiteWins() {
+    public void whiteWins (boolean doubleWin) {
         //TODO METTERE LE ISTRUZIONI GIUSTE
         //  PLACEHOLDER
         System.out.println("IL BIANCO VINCE");
-        sceneBoard.gameWon(true);
+        sceneBoard.gameWon(WHITE_WINS, doubleWin);
     }
 
 }

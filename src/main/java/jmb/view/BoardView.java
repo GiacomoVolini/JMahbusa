@@ -19,13 +19,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
 
 import static jmb.App.getStage;
-import static jmb.ConstantsShared.UNDEFINED;
+import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -377,6 +379,7 @@ public class BoardView {
     private Rectangle victoryPanel;
     private Circle victoryPawn;
     private ImageView crown;
+    private ImageView crown2;
     private Button victoryExit;
     private Label victoryLabel;
 
@@ -707,30 +710,41 @@ public class BoardView {
         return victoryExit;
     }
 
-    private ImageView createCrownImage() {
-        ImageView crown = new ImageView(new Image("/jmb/view/victory/crown.png"));
-        window.getChildren().add(crown);
+    private ImageView createCrownImage( boolean doubleWin) {
+        ImageView crown;
+        if (doubleWin) {
+            crown = new ImageView(new Image("/jmb/view/victory/crownDouble.png"));
+        } else {
+            crown = new ImageView(new Image("jmb/view/victory/crown.png"));
+        }
         crown.setPreserveRatio(true);
         crown.setViewOrder(-14);
+        window.getChildren().add(crown);
 
         return crown;
     }
 
-    private Label createVictoryLabel(String winner) {
+    private Label createVictoryLabel(String winner, boolean doubleWin) {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         String victoryString = "Congratulazioni ";
         victoryString = victoryString.concat(winner.stripTrailing());
-        victoryString = victoryString.concat("!\nHai vinto la partita!");
+        if (doubleWin)
+            victoryString = victoryString.concat("!\nHai ottenuto una vittoria doppia!");
+        else
+            victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
-        victoryLabel.getStyleClass().add("victory-label");
+        //victoryLabel.getStyleClass().add("victory-label");
         victoryLabel.setViewOrder(-15);
+        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+
+
 
         return victoryLabel;
 
     }
 
-    protected void gameWon (boolean whiteWon) {
+    protected void gameWon (boolean whiteWon, boolean doubleWin) {
 
         gameEndDisable();                       //  Disabilita i Nodes sottostanti (pulsanti e pedine)
 
@@ -747,11 +761,11 @@ public class BoardView {
 
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
 
-        victoryLabel = createVictoryLabel(winner);    //  Crea la Label del pannello vittoria con il nome del vincitore
+        victoryLabel = createVictoryLabel(winner, doubleWin);    //  Crea la Label del pannello vittoria con il nome del vincitore
 
         victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
 
-        crown = createCrownImage();             //  Crea l'ImageView per la corona del vincitore
+        crown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
 
         gameEndState = true;
 
@@ -780,7 +794,7 @@ public class BoardView {
     //TODO TEST
     @FXML
     private void testBtn (ActionEvent event) {
-        gameWon (false);
+        gameWon (WHITE_WINS, DOUBLE_WIN);
     }
     //--------------------------------------------
     //METODO INITIALIZE

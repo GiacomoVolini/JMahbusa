@@ -2,6 +2,7 @@ package jmb.model;
 
 import static java.lang.Math.abs;
 import static jmb.ConstantsShared.*;
+import static jmb.model.ConstantsLogic.*;
 import static jmb.model.Logic.view;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
@@ -324,11 +325,31 @@ public class BoardLogic {
         this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
     }
 
+    /*TODO
+        Un giocatore vince se:
+                1. Rimuove tutte le sue pedine. Nel caso l’avversario non sia riuscito a rimuovere
+                    nemmeno una delle sue pedine si parla di vittoria doppia.
+                2. Riesce a bloccare una pedina nella punta di partenza dell’avversario. In
+                    questo caso il giocatore ottiene una vittoria doppia
+     */
+
     protected void victoryCheck() {
-        if (squares[14][COL_BLACK_EXIT]!=null) {
-            view.blackWins();
+        if (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
+                squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) {
+            view.blackWins(DOUBLE_WIN);
+        } else if (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
+                squares[1][COL_BLACK]!=null && squares[1][COL_WHITE].getisWhite()) {
+            view.whiteWins(DOUBLE_WIN);
+        } else if (squares[14][COL_BLACK_EXIT]!=null) {
+            if (squares[0][COL_WHITE_EXIT]==null)
+                view.blackWins(DOUBLE_WIN);
+            else
+                view.blackWins(SINGLE_WIN);
         } else if (squares[14][COL_WHITE_EXIT]!=null) {
-            view.whiteWins();
+            if (squares[0][COL_BLACK_EXIT]==null)
+                view.whiteWins(DOUBLE_WIN);
+            else
+                view.whiteWins(SINGLE_WIN);
         }
     }
 }

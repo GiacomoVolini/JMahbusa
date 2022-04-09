@@ -18,8 +18,8 @@ public interface IView {
 
     void setPawnsForTurn();
 
-    void blackWins();
+    void blackWins (boolean doubleWin);
 
-    void whiteWins();
+    void whiteWins (boolean doubleWin);
 
 }

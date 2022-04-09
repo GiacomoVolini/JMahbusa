@@ -54,17 +54,17 @@
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
    <Button fx:id="backBTN" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="14.5" />
+         <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
-   <Button fx:id="finishBTN" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="finishBTN" alignment="CENTER" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="14.5" />
+         <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" alignment="CENTER" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="14.5" />
+         <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
    <Region fx:id="point_1_R" layoutX="264.0" layoutY="148.0" prefHeight="277.0" prefWidth="50.0">

@@ -27,4 +27,10 @@ public class ConstantsShared {
     public static final int NAME1_ALREADY_PRESENT = 3;
     public static final int NAME2_ALREADY_PRESENT = 4;
     public static final int SUCCESS = 5;
+
+    public static final boolean WHITE_WINS = true;
+    public static final boolean BLACK_WINS = false;
+
+    public static final boolean SINGLE_WIN = false;
+    public static final boolean DOUBLE_WIN = true;
 }

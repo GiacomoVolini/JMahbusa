@@ -25,6 +25,9 @@ public class MenuImpostazioni<string> {
         private AnchorPane Sbackgraound;
 
         @FXML
+        private TitledPane Timpostazioni;
+
+        @FXML
         private ImageView bgsinistra;
 
         @FXML
@@ -46,6 +49,9 @@ public class MenuImpostazioni<string> {
         private AnchorPane video;
 
         @FXML
+        private TitledPane Tvideo;
+
+        @FXML
         private ImageView Vbg;
 
         @FXML
@@ -64,6 +70,9 @@ public class MenuImpostazioni<string> {
         private AnchorPane audio;
 
         @FXML
+        private TitledPane Taudio;
+
+        @FXML
         private ImageView Abg;
 
         @FXML
@@ -80,6 +89,9 @@ public class MenuImpostazioni<string> {
 
         @FXML
         private AnchorPane personalizzazione;
+
+        @FXML
+        private TitledPane Tpersonalizzazione;
 
         @FXML
         private ImageView Ibg;
@@ -148,6 +160,9 @@ public class MenuImpostazioni<string> {
         private AnchorPane comandi;
 
         @FXML
+        private TitledPane Tcomandi;
+
+        @FXML
         private Text moDestra;
 
         @FXML
@@ -192,50 +207,50 @@ public class MenuImpostazioni<string> {
 
         @FXML
         void openEditVideo() {
-                video.setVisible(true);
+                Tvideo.setVisible(true);
                 video.setMouseTransparent(false);
-                audio.setVisible(false);
+                Taudio.setVisible(false);
                 audio.setMouseTransparent(true);
-                personalizzazione.setVisible(false);
+                Tpersonalizzazione.setVisible(false);
                 personalizzazione.setMouseTransparent(true);
-                comandi.setVisible(false);
+                Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
 
         }
 
         @FXML
         void openEditAudio() {
-                video.setVisible(false);
+                Tvideo.setVisible(false);
                 video.setMouseTransparent(true);
-                audio.setVisible(true);
+                Taudio.setVisible(true);
                 audio.setMouseTransparent(false);
-                personalizzazione.setVisible(false);
+                Tpersonalizzazione.setVisible(false);
                 personalizzazione.setMouseTransparent(true);
-                comandi.setVisible(false);
+                Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
         }
 
         @FXML
         void openEditPersonalizzazione() {
-                video.setVisible(false);
+                Tvideo.setVisible(false);
                 video.setMouseTransparent(true);
-                audio.setVisible(false);
+                Taudio.setVisible(false);
                 audio.setMouseTransparent(true);
-                personalizzazione.setVisible(true);
+                Tpersonalizzazione.setVisible(true);
                 personalizzazione.setMouseTransparent(false);
-                comandi.setVisible(false);
+                Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
         }
 
         @FXML
         void openEditComandi(ActionEvent event) {
-                video.setVisible(false);
+                Tvideo.setVisible(false);
                 video.setMouseTransparent(true);
-                audio.setVisible(false);
+                Taudio.setVisible(false);
                 audio.setMouseTransparent(true);
-                personalizzazione.setVisible(false);
+                Tpersonalizzazione.setVisible(false);
                 personalizzazione.setMouseTransparent(true);
-                comandi.setVisible(true);
+                Tcomandi.setVisible(true);
                 comandi.setMouseTransparent(false);
         }
 
@@ -518,6 +533,37 @@ public class MenuImpostazioni<string> {
 
         private void changeDimensions() {
 
+                Sbackgraound.setPrefWidth(GBG.getWidth()/4);
+                Timpostazioni.setPrefWidth(GBG.getWidth()/4);
+
+                video.setLayoutX(GBG.getWidth()/4);
+                Tvideo.setLayoutX(GBG.getWidth()/4);
+                audio.setLayoutX(GBG.getWidth()/4);
+                Taudio.setLayoutX(GBG.getWidth()/4);
+                personalizzazione.setLayoutX(GBG.getWidth()/4);
+                Tpersonalizzazione.setLayoutX(GBG.getWidth()/4);
+                comandi.setLayoutX(GBG.getWidth()/4);
+                Tcomandi.setLayoutX(GBG.getWidth()/4);
+
+                video.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                Tvideo.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                audio.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                Taudio.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                personalizzazione.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                Tpersonalizzazione.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                comandi.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                Tcomandi.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+
+                Sbackgraound.setPrefHeight(GBG.getWidth());
+                Timpostazioni.setPrefHeight(GBG.getWidth());
+                video.setPrefHeight(GBG.getHeight());
+                Tvideo.setPrefHeight(GBG.getHeight());
+                audio.setPrefHeight(GBG.getHeight());
+                Taudio.setPrefHeight(GBG.getHeight());
+                personalizzazione.setPrefHeight(GBG.getHeight());
+                Tpersonalizzazione.setPrefHeight(GBG.getHeight());
+                comandi.setPrefHeight(GBG.getHeight());
+                Tcomandi.setPrefHeight(GBG.getHeight());
         }
 
         ToggleGroup group = new ToggleGroup();

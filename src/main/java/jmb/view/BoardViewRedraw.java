@@ -320,12 +320,9 @@ public class BoardViewRedraw {
     }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
-    private static void resizePaginaPauseIniziamo(AnchorPane window, TitledPane Pause, TitledPane Iniziamo){
-        Pause.setLayoutX(window.getWidth()/2-Pause.getWidth()/2);
-        Pause.setLayoutY(window.getHeight()/2-Pause.getHeight()/2);
-        Iniziamo.setLayoutX(window.getWidth()/2-Iniziamo.getPrefWidth()/2);
-        Iniziamo.setLayoutY(window.getHeight()/2-Iniziamo.getPrefHeight()/2);
-
+    private static void resizePauseMenu(AnchorPane window, TitledPane pauseMenu){
+        pauseMenu.setLayoutX(window.getWidth()/2-pauseMenu.getWidth()/2);
+        pauseMenu.setLayoutY(window.getHeight()/2-pauseMenu.getHeight()/2);
     }
 
     private static void resizeVictoryRect (AnchorPane window, Rectangle victoryPanel) {
@@ -388,6 +385,8 @@ public class BoardViewRedraw {
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
     }
 
+
+    //TODO FORSE CANCELLARE
     // resizeButtonFont opera analogamente a resizeVictoryFont, con differenti valori empirici
     private static void resizeButtonFont (Button button) {
         double widthFactor = button.getWidth()/71;
@@ -407,6 +406,11 @@ public class BoardViewRedraw {
 
     }
 
+    private static void resizeStartDialogue (AnchorPane window, TitledPane startDialogue) {
+        startDialogue.setLayoutX(window.getWidth()/2-startDialogue.getPrefWidth()/2);
+        startDialogue.setLayoutY(window.getHeight()/2-startDialogue.getPrefHeight()/2);
+    }
+
 
 
     protected static void resizeAll(boolean gameStart, boolean gameEndState, AnchorPane window, Rectangle outerRect, Rectangle boardRect,
@@ -416,7 +420,7 @@ public class BoardViewRedraw {
                                     Rectangle whiteExitRegion, Rectangle blackExitRegion,
                                     boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
                                     Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK,
-                                    TitledPane Pause, TitledPane Iniziamo, ImageView[] diceArray, Rectangle victoryPanel,
+                                    TitledPane pauseMenu, TitledPane startDialogue, ImageView[] diceArray, Rectangle victoryPanel,
                                     Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel) {
 
         //TODO Inserire dove necessario controlli su font size
@@ -434,10 +438,12 @@ public class BoardViewRedraw {
             resizeDiceTray(dtAnimDone, diceTray, outerRect);
             if (dtAnimDone)
                 resizeDice (diceTray, diceArray); }
+        else
+            resizeStartDialogue(window, startDialogue);
         resizeButtons(backBTN, finishBTN, menuBTN, window, outerRect);
         resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
         redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
-        resizePaginaPauseIniziamo(window, Pause, Iniziamo);
+        resizePauseMenu(window, pauseMenu);
         if (gameEndState) {
             resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
         }

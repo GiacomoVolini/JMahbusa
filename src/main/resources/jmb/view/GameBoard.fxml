@@ -52,7 +52,7 @@
 
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-   <Button fx:id="backBTN" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="backBTN" disable="true" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="17.0" />
       </font>
@@ -62,7 +62,7 @@
          <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" alignment="CENTER" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="17.0" />
       </font>
@@ -217,11 +217,11 @@
    <PawnView fx:id="pawnBLK13" fill="#403a3a" layoutX="288.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
    <PawnView fx:id="pawnBLK14" fill="#403a3a" layoutX="338.0" layoutY="724.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
    <PawnView fx:id="pawnBLK15" fill="#403a3a" layoutX="388.0" layoutY="723.0" onMouseDragged="#drag" onMousePressed="#savePosition" onMouseReleased="#releasePawn" radius="25.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" />
-   <TitledPane fx:id="Iniziamo" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
+   <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <Button fx:id="iniziaTempo" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
+               <Button fx:id="startBTN" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
                   <font>
                      <Font size="42.0" />
                   </font>
@@ -235,7 +235,7 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <TitledPane fx:id="Pause" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
+   <TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
             <children>

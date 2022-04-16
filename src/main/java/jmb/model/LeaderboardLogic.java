@@ -82,12 +82,19 @@ public class LeaderboardLogic {
         }
 
 
-    protected void addStatsToList( String winner, String loser) {
+    protected void addStatsToList( String winner, String loser, boolean doubleWin) {
 
         Player winPlayer = arrList.stream().filter(input -> input.getName().contains(winner)).findFirst().get();
-        winPlayer.addWin();
         Player lossPlayer = arrList.stream().filter(input -> input.getName().contains(loser)).findFirst().get();
-        lossPlayer.addLoss();
+        if (doubleWin) {
+            winPlayer.addDoubleWin();
+            lossPlayer.addDoubleLoss();
+        } else {
+            winPlayer.addSingleWin();
+            lossPlayer.addSingleLoss();
+        }
+        winPlayer.setWinRate();
+        lossPlayer.setWinRate();
     }
 
 }

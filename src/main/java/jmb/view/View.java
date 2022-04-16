@@ -71,4 +71,19 @@ public class View implements IView {
         sceneBoard.gameWon(WHITE_WINS, doubleWin);
     }
 
+    @Override
+    public void backBTNSetDisable (boolean disable) {
+        sceneBoard.backBTN.setDisable(disable);
+    }
+
+    @Override
+    public void closeBlackExit () {
+        sceneBoard.closeBlackExit();
+    }
+
+    @Override
+    public void closeWhiteExit() {
+        sceneBoard.closeWhiteExit();
+    }
+
 }

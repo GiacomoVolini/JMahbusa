@@ -90,6 +90,10 @@ public class DiceLogic {
         return this.doubleNum;
     }
 
+    public boolean[] getToBeUsedArray() {
+        return this.toBeUsed;
+    }
+
     //--------------------------------
 
     public boolean initialToss() {
@@ -135,6 +139,9 @@ public class DiceLogic {
                 possible = checkMove(delta, availableDice);
             }
         }
+
+        //TODO TEST - BYPASSA CONTROLLO DADI
+        possible = true;
 
         return possible;
 
@@ -225,6 +232,10 @@ public class DiceLogic {
             }
         }
         return possible;
+    }
+
+    protected void revertUsed (int i) {
+        this.used[i]= false;
     }
 
 

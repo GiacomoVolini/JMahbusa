@@ -56,4 +56,8 @@ public interface ILogic {
 
     void revertMove();
 
+    boolean getBlackExit();
+
+    boolean getWhiteExit();
+
 }

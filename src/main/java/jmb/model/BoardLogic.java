@@ -412,4 +412,12 @@ public class BoardLogic {
     protected void setBlackExit (boolean value) {
         this.blackExit = value;
     }
+
+    protected boolean getWhiteExit() {
+        return whiteExit;
+    }
+
+    protected boolean getBlackExit() {
+        return blackExit;
+    }
 }

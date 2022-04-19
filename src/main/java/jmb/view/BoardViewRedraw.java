@@ -26,8 +26,6 @@ public class BoardViewRedraw {
 
     //Variabile per la dimensione del font di victoryLabel
     private static double victoryLabelFontSize = 16;
-    //TODO TEST
-    private static boolean labelTest8 = false;
 
     // Metodo getter per maxExitWidth
     public static double getMaxExitWidth() { return maxExitWidth; }
@@ -351,22 +349,10 @@ public class BoardViewRedraw {
         victoryCrown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
     }
 
-    // TODO forse scorporare elemento font su metodo separato in modo da poter commentare e descrivere separatamente quello
 
     private static void resizeVictoryLabel (Rectangle victoryPanel, Label victoryLabel) {
         victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.15);
         victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.25);
-    /* TODO     Inserire controlli font size
-        if (victoryLabel.getWidth()!=0 && (victoryPanel.getWidth()*0.75) - victoryLabel.getWidth() > victoryPanel.getWidth()*.08) {
-            victoryLabelFontSize+=0.1;
-            victoryLabel.setFont(Font.font("calibri-bold", FontWeight.BOLD, victoryLabelFontSize));
-        }
-        else if (victoryLabel.getWidth()!=0 && (victoryPanel.getWidth()*0.75) - victoryLabel.getWidth() < victoryPanel.getWidth()*.03) {
-            victoryLabelFontSize-=0.1;
-            victoryLabel.setFont(Font.font("calibri-bold", FontWeight.BOLD, victoryLabelFontSize));
-        }
-
-     */
         resizeVictoryFont(victoryPanel, victoryLabel);
 
         System.out.println(victoryLabel.getWidth());
@@ -386,13 +372,7 @@ public class BoardViewRedraw {
     }
 
 
-    //TODO FORSE CANCELLARE
-    // resizeButtonFont opera analogamente a resizeVictoryFont, con differenti valori empirici
-    private static void resizeButtonFont (Button button) {
-        double widthFactor = button.getWidth()/71;
-        button.setFont(Font.font("calibri", FontWeight.BOLD, 14 * widthFactor));
 
-    }
 
     //  Metodo per ridimensionare gli elementi del pannello vittoria
     protected static void resizeVictoryPanel (AnchorPane window, Rectangle victoryPanel,

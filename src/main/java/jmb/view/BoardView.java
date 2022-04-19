@@ -350,11 +350,6 @@ public class BoardView {
     private Text gioc2;
 
 
-    //TEST
-    protected boolean bExit = false;
-    protected boolean wExit = false;
-
-    //END TEST
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
     private boolean dtAnimDone = false;
@@ -414,7 +409,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                                 new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
@@ -432,7 +426,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    this.wExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
@@ -589,10 +582,10 @@ public class BoardView {
     private void changeDimensions() {
 
         BoardViewRedraw.resizeAll(gameStart, gameEndState, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
-                                    polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
-                                    blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK,
-                pauseMenu, startDialogue, diceArray, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+                                    polArrayBot, regArrayTop, regArrayBot, logic.getBlackExit(), logic.getWhiteExit(), whiteExitRegion,
+                                    blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN, pawnArrayWHT, pawnArrayBLK,
+                                    pauseMenu, startDialogue, diceArray, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -804,7 +797,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    this.bExit = false;
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
@@ -821,7 +813,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    this.wExit = false;
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
@@ -831,12 +822,6 @@ public class BoardView {
         timeline.play();
     }
 
-
-    //TODO TEST
-    @FXML
-    private void testBtn (ActionEvent event) {
-        gameWon (WHITE_WINS, DOUBLE_WIN);
-    }
     //--------------------------------------------
     //METODO INITIALIZE
     //--------------------------------------------

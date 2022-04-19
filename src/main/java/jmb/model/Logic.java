@@ -172,4 +172,14 @@ public class Logic implements ILogic{
     public void revertMove() {
         board.revertMove();
     }
+
+    @Override
+    public boolean getWhiteExit() {
+        return board.getWhiteExit();
+    }
+
+    @Override
+    public boolean getBlackExit() {
+        return board.getBlackExit();
+    }
 }

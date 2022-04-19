@@ -51,8 +51,8 @@ public class BoardLogic {
 
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
         //  può portare fuori le proprie pedine
-        this.blackExit = false;
-        this.whiteExit = false;
+        setBlackExit(false);
+        setWhiteExit(false);
 
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
@@ -292,7 +292,7 @@ public class BoardLogic {
                     }
                 }
                 if (!found){
-                    blackExit = true;
+                    setBlackExit(true);
                     Logic.view.openBlackExit();
                     turnMoves.peek().moveOpensBlackExit();
                 }
@@ -318,7 +318,7 @@ public class BoardLogic {
                 }
             }
             if (!found){
-                whiteExit = true;
+                setWhiteExit(true);
                 Logic.view.openWhiteExit();
                 turnMoves.peek().moveOpensWhiteExit();
             }
@@ -374,10 +374,13 @@ public class BoardLogic {
             if (dice.getUsed(i) && move.getDiceUsed()[i])
                 dice.revertUsed(i);
         }
-        if (move.getOpensBlackExit())
+        if (move.getOpensBlackExit()) {
             view.closeBlackExit();
-        else if (move.getOpensWhiteExit())
+            setBlackExit(false);
+        } else if (move.getOpensWhiteExit()) {
             view.closeWhiteExit();
+            setWhiteExit(false);
+        }
         dice.resetToBeUsed();
         view.setDiceContrast();
         if (turnMoves.isEmpty())
@@ -400,5 +403,13 @@ public class BoardLogic {
             squares[toRow][to].setLocksBlack(false);
             squares[toRow][to].setLocksWhite(true);
         }
+    }
+
+    protected void setWhiteExit (boolean value) {
+        this.whiteExit = value;
+    }
+
+    protected void setBlackExit (boolean value) {
+        this.blackExit = value;
     }
 }

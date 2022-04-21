@@ -338,16 +338,28 @@ public class BoardView {
     private ImageView doubleDiceU;
 
     @FXML
-    private Circle pedgioc1;
+    private Rectangle plBLKInRect;
 
     @FXML
-    private Text gioc1;
+    private Rectangle plBLKOutRect;
 
     @FXML
-    private Circle pedgioc2;
+    private Text plBLKText;
 
     @FXML
-    private Text gioc2;
+    private Rectangle plWHTInRect;
+
+    @FXML
+    private Rectangle plWHTOutRect;
+
+    @FXML
+    private Text plWHTText;
+
+    @FXML
+    private Circle plWHTPawn;
+
+    @FXML
+    private Circle plBLKPawn;
 
 
 
@@ -394,11 +406,11 @@ public class BoardView {
         BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
                                         regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
-            retgioc1.setFill(green);
-            retgioc2.setFill(red);
+            plWHTOutRect.setFill(green);
+            plBLKOutRect.setFill(red);
         }else {
-            retgioc2.setFill(green);
-            retgioc1.setFill(red);
+            plBLKOutRect.setFill(green);
+            plWHTOutRect.setFill(red);
         }
     }
 
@@ -563,6 +575,7 @@ public class BoardView {
 
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
+        finishBTN.setDisable(true);
         if(!logic.isRollDouble())
             closeDoubleDice();
         Timeline timeline = new Timeline(
@@ -571,6 +584,7 @@ public class BoardView {
         timeline.setCycleCount(10);
         timeline.setOnFinished( e -> {
             DiceView.setDiceValues(diceArray);
+            finishBTN.setDisable(false);
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
@@ -832,20 +846,20 @@ public class BoardView {
 
         //informazione del giocatore
         //nomi
-        gioc1.setText(n1);
-        gioc2.setText(n2);
+        plWHTText.setText(n1);
+        plBLKText.setText(n2);
         //colori
-        pedgioc1.setFill(pedIn1);
-        pedgioc1.setStroke(pedOut1);
-        pedgioc2.setFill(pedIn2);
-        pedgioc2.setStroke(pedOut2);
+        plWHTPawn.setFill(pedIn1);
+        plWHTPawn.setStroke(pedOut1);
+        plBLKPawn.setFill(pedIn2);
+        plBLKPawn.setStroke(pedOut2);
         //turni
         if (logic.getWhichTurn()){
-            retgioc1.setFill(green);
-            retgioc2.setFill(red);
+            plWHTOutRect.setFill(green);
+            plBLKOutRect.setFill(red);
         }else {
-            retgioc2.setFill(green);
-            retgioc1.setFill(red);
+            plBLKOutRect.setFill(green);
+            plWHTOutRect.setFill(red);
         }
 
         //  INIZIALIZZAZIONE ARRAY

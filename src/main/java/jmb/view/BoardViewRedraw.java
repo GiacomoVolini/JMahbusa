@@ -4,6 +4,7 @@ import static java.lang.Math.min;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
+import static jmb.view.BoardView.*;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +17,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import org.w3c.dom.css.Rect;
 
 public class BoardViewRedraw {
 
@@ -427,6 +427,8 @@ public class BoardViewRedraw {
         if (gameEndState) {
             resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
         }
+        //TODO resizePlsPawns (plWHTPawn, plBLKPawn);
+        //TODO resizePlsRects (plWHTOutRect, plWHTInRect, plWHTText, plBLKOutRect, plBLKInRect, plBLKText);
 
     }
 

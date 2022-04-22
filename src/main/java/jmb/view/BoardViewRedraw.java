@@ -4,7 +4,6 @@ import static java.lang.Math.min;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
-import static jmb.view.BoardView.*;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw {
+
+    private static BoardView board;
 
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
@@ -46,206 +47,200 @@ public class BoardViewRedraw {
     }
 
 
-    public static double getBoardSize (AnchorPane window) {
+    private static double getBoardSize (AnchorPane window) {
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
         double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
         return min(usableHeight, usableWidth);
     }
 
-    public static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
+    private static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
         double maxBtnWidth = window.getWidth() - (outerRect.getLayoutX() + outerRect.getWidth() +maxDTWidth+(BUTTON_ANCHOR*2));
         return min(MAX_BTN_WIDTH, maxBtnWidth);
 
     }
 
-    public static void resizeOuterRect(AnchorPane window, Rectangle outerRect) {
+    public static void resizeOuterRect() {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-        outerRect.setWidth(getBoardSize(window));
-        outerRect.setLayoutX((window.getWidth()/2)-(outerRect.getWidth()*0.6));
-        outerRect.setHeight(getBoardSize(window));
-        outerRect.setLayoutY((window.getHeight()/2)-(outerRect.getHeight()/2));
+        board.outerRect.setWidth(getBoardSize(board.window));
+        board.outerRect.setLayoutX((board.window.getWidth()/2)-(board.outerRect.getWidth()*0.6));
+        board.outerRect.setHeight(getBoardSize(board.window));
+        board.outerRect.setLayoutY((board.window.getHeight()/2)-(board.outerRect.getHeight()/2));
     }
 
-    public static void resizeBoardRect(Rectangle outerRect, Rectangle boardRect) {
+    public static void resizeBoardRect() {
         //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
-        boardRect.setWidth((outerRect.getWidth()*0.9));
-        boardRect.setLayoutX(outerRect.getLayoutX()+(outerRect.getWidth()/2)-(boardRect.getWidth()/2));
-        boardRect.setHeight((outerRect.getHeight()*0.9));
-        boardRect.setLayoutY(outerRect.getLayoutY()+(outerRect.getHeight()/2)-(boardRect.getHeight()/2));
+        board.boardRect.setWidth((board.outerRect.getWidth()*0.9));
+        board.boardRect.setLayoutX(board.outerRect.getLayoutX()+(board.outerRect.getWidth()/2)-(board.boardRect.getWidth()/2));
+        board.boardRect.setHeight((board.outerRect.getHeight()*0.9));
+        board.boardRect.setLayoutY(board.outerRect.getLayoutY()+(board.outerRect.getHeight()/2)-(board.boardRect.getHeight()/2));
     }
 
-    public static void resizeSeparator(Rectangle separator, Rectangle boardRect) {
+    public static void resizeSeparator() {
         //  Ridimensiona il separatore tra le due metà dell'area di gioco
         //  in funzione della sua effettiva dimensione
-        separator.setWidth(boardRect.getWidth()/13);
-        separator.setLayoutX(boardRect.getLayoutX() + ((6*(boardRect.getWidth()/13))));
-        separator.setHeight(boardRect.getHeight()+2);
-        separator.setLayoutY(boardRect.getLayoutY()-1);
+        board.separator.setWidth(board.boardRect.getWidth()/13);
+        board.separator.setLayoutX(board.boardRect.getLayoutX() + ((6*(board.boardRect.getWidth()/13))));
+        board.separator.setHeight(board.boardRect.getHeight()+2);
+        board.separator.setLayoutY(board.boardRect.getLayoutY()-1);
     }
 
-    public static void resizeTimer(Rectangle timerOut, Rectangle timerIn, Rectangle separator) {
+    public static void resizeTimer() {
         //  Ridimensiona le barre per il timer
-        timerOut.setWidth(separator.getWidth()/2);
-        timerOut.setLayoutX(separator.getLayoutX() + (separator.getWidth()/2) -(timerOut.getWidth()/2));
-        timerOut.setHeight(separator.getHeight()-4);
-        timerOut.setLayoutY(separator.getLayoutY() + (separator.getHeight()/2) -(timerOut.getHeight()/2));
+        board.timerOut.setWidth(board.separator.getWidth()/2);
+        board.timerOut.setLayoutX(board.separator.getLayoutX() + (board.separator.getWidth()/2) -(board.timerOut.getWidth()/2));
+        board.timerOut.setHeight(board.separator.getHeight()-4);
+        board.timerOut.setLayoutY(board.separator.getLayoutY() + (board.separator.getHeight()/2) -(board.timerOut.getHeight()/2));
 
-        timerIn.setWidth(timerOut.getWidth()-4);
-        timerIn.setLayoutX(timerOut.getLayoutX()+2);
-        timerIn.setHeight(timerOut.getHeight()-4);
-        timerIn.setLayoutY(timerOut.getLayoutY()+2);
+        board.timerIn.setWidth(board.timerOut.getWidth()-4);
+        board.timerIn.setLayoutX(board.timerOut.getLayoutX()+2);
+        board.timerIn.setHeight(board.timerOut.getHeight()-4);
+        board.timerIn.setLayoutY(board.timerOut.getLayoutY()+2);
     }
 
-    public static void resizeLeftPoints(Polygon[] polArrayTop, Polygon[] polArrayBot,
-                                        Region[] regArrayTop, Region[] regArrayBot,
-                                        Rectangle boardRect) {
+    public static void resizeLeftPoints() {
         //  Ridimensiona le punte a sinistra del tabellone e relative regioni
         for (int i=0; i<6; i++) {
 
-            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+            board.regArrayTop[i].setLayoutX(board.boardRect.getLayoutX()+(i*(board.boardRect.getWidth()/13)));
+            board.regArrayTop[i].setPrefWidth((board.boardRect.getWidth())/13);
+            board.regArrayTop[i].setLayoutY(board.boardRect.getLayoutY());
+            board.regArrayTop[i].setPrefHeight((board.boardRect.getHeight())*0.46);
 
-            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            polArrayTop[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+            board.polArrayTop[i].setLayoutX(board.boardRect.getLayoutX()+(i*(board.boardRect.getWidth()/13)));
+            board.polArrayTop[i].setLayoutY(board.boardRect.getLayoutY());
+            board.polArrayTop[i].getPoints().setAll(0d, 0d,
+                    (board.boardRect.getWidth()/13), 0d,
+                    (board.boardRect.getWidth()/26), board.boardRect.getY() + board.regArrayTop[i].getPrefHeight() );
 
-            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+            board.regArrayBot[i].setLayoutX(board.boardRect.getLayoutX()+(i*(board.boardRect.getWidth()/13)));
+            board.regArrayBot[i].setPrefWidth((board.boardRect.getWidth())/13);
+            board.regArrayBot[i].setLayoutY(board.boardRect.getLayoutY() + board.boardRect.getHeight()*(1-0.46));
+            board.regArrayBot[i].setPrefHeight((board.boardRect.getHeight())*0.46);
 
 
-            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+(i*(boardRect.getWidth()/13)));
-            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-            polArrayBot[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
+            board.polArrayBot[i].setLayoutX(board.boardRect.getLayoutX()+(i*(board.boardRect.getWidth()/13)));
+            board.polArrayBot[i].setLayoutY(board.boardRect.getLayoutY() + board.boardRect.getHeight());
+            board.polArrayBot[i].getPoints().setAll(0d, 0d,
+                    (board.boardRect.getWidth()/13), 0d,
+                    (board.boardRect.getWidth()/26), board.boardRect.getY()-board.regArrayTop[i].getPrefHeight() );
 
         }
     }
 
-    public static void resizeRightPoints(Polygon[] polArrayTop, Polygon[] polArrayBot,
-                                   Region[] regArrayTop, Region[] regArrayBot,
-                                   Rectangle boardRect) {
+    public static void resizeRightPoints() {
         //  Ridimensiona le punte a destra del tabellone e relative regioni
         for (int i=6; i<12; i++) {
 
-            regArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            regArrayTop[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            regArrayTop[i].setPrefHeight((boardRect.getHeight())*0.46);
+            board.regArrayTop[i].setLayoutX(board.boardRect.getLayoutX()+((i+1)*(board.boardRect.getWidth()/13)));
+            board.regArrayTop[i].setPrefWidth((board.boardRect.getWidth())/13);
+            board.regArrayTop[i].setLayoutY(board.boardRect.getLayoutY());
+            board.regArrayTop[i].setPrefHeight((board.boardRect.getHeight())*0.46);
 
-            polArrayTop[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            polArrayTop[i].setLayoutY(boardRect.getLayoutY());
-            polArrayTop[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()+regArrayTop[i].getPrefHeight() );
+            board.polArrayTop[i].setLayoutX(board.boardRect.getLayoutX()+((i+1)*(board.boardRect.getWidth()/13)));
+            board.polArrayTop[i].setLayoutY(board.boardRect.getLayoutY());
+            board.polArrayTop[i].getPoints().setAll(0d, 0d,
+                    (board.boardRect.getWidth()/13), 0d,
+                    (board.boardRect.getWidth()/26), board.boardRect.getY()+board.regArrayTop[i].getPrefHeight() );
 
-            regArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            regArrayBot[i].setPrefWidth((boardRect.getWidth())/13);
-            regArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight()*(1-0.46));
-            regArrayBot[i].setPrefHeight((boardRect.getHeight())*0.46);
+            board.regArrayBot[i].setLayoutX(board.boardRect.getLayoutX()+((i+1)*(board.boardRect.getWidth()/13)));
+            board.regArrayBot[i].setPrefWidth((board.boardRect.getWidth())/13);
+            board.regArrayBot[i].setLayoutY(board.boardRect.getLayoutY() + board.boardRect.getHeight()*(1-0.46));
+            board.regArrayBot[i].setPrefHeight((board.boardRect.getHeight())*0.46);
 
 
-            polArrayBot[i].setLayoutX(boardRect.getLayoutX()+((i+1)*(boardRect.getWidth()/13)));
-            polArrayBot[i].setLayoutY(boardRect.getLayoutY() + boardRect.getHeight());
-            polArrayBot[i].getPoints().setAll(0d, 0d,
-                    (boardRect.getWidth()/13), 0d,
-                    (boardRect.getWidth()/26), boardRect.getY()-regArrayTop[i].getPrefHeight() );
+            board.polArrayBot[i].setLayoutX(board.boardRect.getLayoutX()+((i+1)*(board.boardRect.getWidth()/13)));
+            board.polArrayBot[i].setLayoutY(board.boardRect.getLayoutY() + board.boardRect.getHeight());
+            board.polArrayBot[i].getPoints().setAll(0d, 0d,
+                    (board.boardRect.getWidth()/13), 0d,
+                    (board.boardRect.getWidth()/26), board.boardRect.getY()-board.regArrayTop[i].getPrefHeight() );
 
         }
     }
 
 
-    public static void resizeDice (Rectangle diceTray, ImageView[] diceArray) {
-        if (!diceArray[0].isVisible()) {
-            for (ImageView dice : diceArray) {
+    public static void resizeDice () {
+        if (!board.diceArray[0].isVisible()) {
+            for (ImageView dice : board.diceArray) {
                 dice.setVisible(true);
             }
         }
-        for (ImageView dice : diceArray) {
-            dice.setFitHeight(diceTray.getWidth()*0.425);
-            dice.setFitWidth(diceTray.getWidth()*0.425);
+        for (ImageView dice : board.diceArray) {
+            dice.setFitHeight(board.diceTray.getWidth()*0.425);
+            dice.setFitWidth(board.diceTray.getWidth()*0.425);
         }
-        double diceX = diceTray.getLayoutX() + diceTray.getWidth()/2 - diceArray[0].getFitWidth()/2;
-        for (ImageView dice : diceArray){
+        double diceX = board.diceTray.getLayoutX() + board.diceTray.getWidth()/2 - board.diceArray[0].getFitWidth()/2;
+        for (ImageView dice : board.diceArray){
             dice.setLayoutX(diceX);
         }
-        diceArray[0].setLayoutY(diceTray.getLayoutY() + diceTray.getHeight()*0.15);
-        diceArray[2].setLayoutY(diceArray[0].getLayoutY() + diceArray[0].getFitHeight());
-        diceArray[1].setLayoutY(diceTray.getLayoutY() + diceTray.getHeight()*0.85 - diceArray[3].getFitHeight());
-        diceArray[3].setLayoutY(diceArray[1].getLayoutY() - diceArray[1].getFitHeight());
+        board.diceArray[0].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight()*0.15);
+        board.diceArray[2].setLayoutY(board.diceArray[0].getLayoutY() + board.diceArray[0].getFitHeight());
+        board.diceArray[1].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight()*0.85 - board.diceArray[3].getFitHeight());
+        board.diceArray[3].setLayoutY(board.diceArray[1].getLayoutY() - board.diceArray[1].getFitHeight());
 
     }
 
-    public static void resizeButtons(Button backBTN, Button finishBTN, Button menuBTN, AnchorPane window, Rectangle outerRect) {
+    public static void resizeButtons() {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
-        backBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
-        finishBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
-        menuBTN.setMaxWidth(getMaxBtnWidth(window, outerRect));
-        backBTN.setPrefWidth(window.getWidth()*0.15);
-        finishBTN.setPrefWidth(backBTN.getPrefWidth());
-        menuBTN.setPrefWidth(backBTN.getPrefWidth());
+        board.backBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
+        board.finishBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
+        board.menuBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
+        board.backBTN.setPrefWidth(board.window.getWidth()*0.15);
+        board.finishBTN.setPrefWidth(board.backBTN.getPrefWidth());
+        board.menuBTN.setPrefWidth(board.backBTN.getPrefWidth());
         // Altezza
-        backBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        menuBTN.setMaxHeight(MAX_BTN_HEIGHT);
-        backBTN.setPrefHeight(window.getHeight()*0.2);
-        finishBTN.setPrefHeight(backBTN.getPrefHeight());
-        menuBTN.setPrefHeight(backBTN.getPrefHeight());
-        backBTN.setLayoutY(window.getHeight()*.25 - backBTN.getPrefHeight()/2);
-        finishBTN.setLayoutY((window.getHeight() - finishBTN.getPrefHeight())/2);
-        menuBTN.setLayoutY(window.getHeight()*.75 - menuBTN.getPrefHeight()/2);
+        board.backBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        board.finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        board.menuBTN.setMaxHeight(MAX_BTN_HEIGHT);
+        board.backBTN.setPrefHeight(board.window.getHeight()*0.2);
+        board.finishBTN.setPrefHeight(board.backBTN.getPrefHeight());
+        board.menuBTN.setPrefHeight(board.backBTN.getPrefHeight());
+        board.backBTN.setLayoutY(board.window.getHeight()*.25 - board.backBTN.getPrefHeight()/2);
+        board.finishBTN.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight())/2);
+        board.menuBTN.setLayoutY(board.window.getHeight()*.75 - board.menuBTN.getPrefHeight()/2);
 
     }
 
-    public static void resizeExitRegions(boolean bExit, boolean wExit, Rectangle whiteExitRegion,
-                                   Rectangle blackExitRegion, Rectangle outerRect) {
-        blackExitRegion.setHeight(outerRect.getHeight()/2);
-        blackExitRegion.setLayoutY(outerRect.getLayoutY());
-        whiteExitRegion.setHeight(outerRect.getHeight()/2);
-        whiteExitRegion.setLayoutY(outerRect.getLayoutY() + (outerRect.getHeight()/2));
+    public static void resizeExitRegions() {
+        board.blackExitRegion.setHeight(board.outerRect.getHeight()/2);
+        board.blackExitRegion.setLayoutY(board.outerRect.getLayoutY());
+        board.whiteExitRegion.setHeight(board.outerRect.getHeight()/2);
+        board.whiteExitRegion.setLayoutY(board.outerRect.getLayoutY() + (board.outerRect.getHeight()/2));
 
-        if (bExit) {
-            blackExitRegion.setWidth(maxExitWidth);
-            blackExitRegion.setLayoutX(outerRect.getLayoutX() - maxExitWidth);
+        if (logic.getBlackExit()) {
+            board.blackExitRegion.setWidth(maxExitWidth);
+            board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
-        if (wExit) {
-            whiteExitRegion.setWidth(maxExitWidth);
-            whiteExitRegion.setLayoutX(outerRect.getLayoutX() - maxExitWidth);
+        if (logic.getWhiteExit()) {
+            board.whiteExitRegion.setWidth(maxExitWidth);
+            board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
     }
 
-    public static void resizeDiceTray(boolean dtAnimDone, Rectangle diceTray, Rectangle outerRect) {
-        diceTray.setLayoutX(outerRect.getLayoutX() + outerRect.getWidth());
-        diceTray.setLayoutY(outerRect.getLayoutY());
-        if (dtAnimDone) {
-            diceTray.setWidth(maxDTWidth);
+    public static void resizeDiceTray() {
+        board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
+        board.diceTray.setLayoutY(board.outerRect.getLayoutY());
+        if (board.dtAnimDone) {
+            board.diceTray.setWidth(maxDTWidth);
         }
-        diceTray.setHeight(outerRect.getHeight());
+        board.diceTray.setHeight(board.outerRect.getHeight());
 
     }
 
     //  Metodo per ridimensionamento e riposizionamento Pedine
-    public static void redrawPawns(PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Region[] regArrayBot , Region[] regArrayTop,
-                                   Rectangle whiteExitRegion, Rectangle blackExitRegion) {
+    public static void redrawPawns() {
 
         int whitesPlaced = 0;
         int blacksPlaced = 0;
 
-        blacksPlaced = redrawExitRegionPawns (blacksPlaced, pawnArrayBLK, blackExitRegion, COL_BLACK_EXIT, BLACK);
-        whitesPlaced = redrawExitRegionPawns (whitesPlaced, pawnArrayWHT, whiteExitRegion, COL_WHITE_EXIT, WHITE);
-        blacksPlaced = redrawAllPointsPawns (blacksPlaced, pawnArrayBLK, regArrayBot, regArrayTop, BLACK);
-        whitesPlaced = redrawAllPointsPawns (whitesPlaced, pawnArrayWHT, regArrayBot, regArrayTop, WHITE);
+        blacksPlaced = redrawExitRegionPawns (blacksPlaced, board.pawnArrayBLK, board.blackExitRegion, COL_BLACK_EXIT, BLACK);
+        whitesPlaced = redrawExitRegionPawns (whitesPlaced, board.pawnArrayWHT, board.whiteExitRegion, COL_WHITE_EXIT, WHITE);
+        blacksPlaced = redrawAllPointsPawns (blacksPlaced, board.pawnArrayBLK, board.regArrayBot, board.regArrayTop, BLACK);
+        whitesPlaced = redrawAllPointsPawns (whitesPlaced, board.pawnArrayWHT, board.regArrayBot, board.regArrayTop, WHITE);
     }
 
-    public static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArrayBot, Region[] regArrayTop, int color) {
+    private static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArrayBot, Region[] regArrayTop, int color) {
         for (int cols = COL_WHITE; cols <= LAST_COL_TOP && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
             pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayTop, cols, true, color);
             //Il ciclo for chiama un redraw delle pedine di ogni singola punta in alto
@@ -257,7 +252,7 @@ public class BoardViewRedraw {
         return pawnsPlaced;
     }
 
-    public static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArray, int col, boolean top, int color) {
+    private static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArray, int col, boolean top, int color) {
 
         boolean white;
         if (color==WHITE) {
@@ -293,7 +288,7 @@ public class BoardViewRedraw {
         return pawnsPlaced;
     }
 
-    public static int redrawExitRegionPawns (int pawnsPlaced, PawnView[] pawnArray, Rectangle exitRegion, int exitID, int color) {
+    private static int redrawExitRegionPawns (int pawnsPlaced, PawnView[] pawnArray, Rectangle exitRegion, int exitID, int color) {
         for ( int row = 0; logic.getBoardPlaceState(exitID, row)!=EMPTY && pawnsPlaced< PAWN_NUMBER_PER_PLAYER && row<= 16; row++) {
             if (logic.getBoardPlaceState(exitID, row) == color) {
                 pawnArray[pawnsPlaced].setLayoutX(exitRegion.getLayoutX() + ((pawnsPlaced % 3) * 2 + 1) * pawnArray[pawnsPlaced].getRadius());
@@ -310,42 +305,42 @@ public class BoardViewRedraw {
     }
 
 
-    private static void resizePawns (PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK, Region[] regArraySample) {
-        for (int i =0; i<pawnArrayWHT.length; i++){
-            pawnArrayBLK[i].setRadius(regArraySample[0].getPrefWidth() / 2);
-            pawnArrayWHT[i].setRadius(regArraySample[0].getPrefWidth() / 2);
+    private static void resizePawns () {
+        for (int i =0; i<board.pawnArrayWHT.length; i++){
+            board.pawnArrayBLK[i].setRadius(board.regArraySample[0].getPrefWidth() / 2);
+            board.pawnArrayWHT[i].setRadius(board.regArraySample[0].getPrefWidth() / 2);
         }
     }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
-    private static void resizePauseMenu(AnchorPane window, TitledPane pauseMenu){
-        pauseMenu.setLayoutX(window.getWidth()/2-pauseMenu.getWidth()/2);
-        pauseMenu.setLayoutY(window.getHeight()/2-pauseMenu.getHeight()/2);
+    private static void resizePauseMenu(){
+        board.pauseMenu.setLayoutX(board.window.getWidth()/2-board.pauseMenu.getWidth()/2);
+        board.pauseMenu.setLayoutY(board.window.getHeight()/2-board.pauseMenu.getHeight()/2);
     }
 
-    private static void resizeVictoryRect (AnchorPane window, Rectangle victoryPanel) {
-        victoryPanel.setWidth(window.getWidth() / 2);
-        victoryPanel.setHeight(window.getHeight()/2.5);
-        victoryPanel.setLayoutX((window.getWidth() - victoryPanel.getWidth()) / 2);
-        victoryPanel.setLayoutY((window.getHeight() - victoryPanel.getHeight()) / 2);
+    private static void resizeVictoryRect () {
+        board.victoryPanel.setWidth(board.window.getWidth() / 2);
+        board.victoryPanel.setHeight(board.window.getHeight()/2.5);
+        board.victoryPanel.setLayoutX((board.window.getWidth() - board.victoryPanel.getWidth()) / 2);
+        board.victoryPanel.setLayoutY((board.window.getHeight() - board.victoryPanel.getHeight()) / 2);
     }
 
-    private static void resizeVictoryPawn (Rectangle victoryPanel, Circle victoryPawn) {
-        victoryPawn.setRadius(victoryPanel.getHeight() / 10);
-        victoryPawn.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.05 + victoryPawn.getRadius());
-        victoryPawn.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() / 2);
+    private static void resizeVictoryPawn () {
+        board.victoryPawn.setRadius(board.victoryPanel.getHeight() / 10);
+        board.victoryPawn.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.05 + board.victoryPawn.getRadius());
+        board.victoryPawn.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() / 2);
     }
 
-    private static void resizeVictoryExit (Rectangle victoryPanel, Button victoryExit) {
-        victoryExit.setPrefWidth(victoryPanel.getWidth() * 0.3);
-        victoryExit.setPrefHeight(victoryPanel.getHeight() * 0.15);
-        victoryExit.setLayoutY(victoryPanel.getLayoutY() + (0.66 * victoryPanel.getHeight()));
-        victoryExit.setLayoutX(victoryPanel.getLayoutX() + (victoryPanel.getWidth() - (victoryPanel.getWidth() * 0.3)) / 2);
+    private static void resizeVictoryExit () {
+        board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.3);
+        board.victoryExit.setPrefHeight(board.victoryPanel.getHeight() * 0.15);
+        board.victoryExit.setLayoutY(board.victoryPanel.getLayoutY() + (0.66 * board.victoryPanel.getHeight()));
+        board.victoryExit.setLayoutX(board.victoryPanel.getLayoutX() + (board.victoryPanel.getWidth() - (board.victoryPanel.getWidth() * 0.3)) / 2);
     }
 
-    private static void resizeVictoryCrown (Circle victoryPawn, ImageView victoryCrown) {
-        victoryCrown.setFitWidth(victoryPawn.getRadius()*2);
-        victoryCrown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
+    private static void resizeVictoryCrown () {
+        board.victoryCrown.setFitWidth(board.victoryPawn.getRadius()*2);
+        board.victoryCrown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
         victoryCrown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
     }
 
@@ -393,42 +388,40 @@ public class BoardViewRedraw {
 
 
 
-    protected static void resizeAll(boolean gameStart, boolean gameEndState, AnchorPane window, Rectangle outerRect, Rectangle boardRect,
-                                    Rectangle separator, Rectangle timerOut, Rectangle timerIn,
-                                    Polygon[] polArrayTop, Polygon[] polArrayBot, Region[] regArrayTop,
-                                    Region[] regArrayBot, boolean bExit, boolean wExit,
-                                    Rectangle whiteExitRegion, Rectangle blackExitRegion,
-                                    boolean dtAnimDone, Rectangle diceTray, Button backBTN, Button finishBTN,
-                                    Button menuBTN, PawnView[] pawnArrayWHT, PawnView[] pawnArrayBLK,
-                                    TitledPane pauseMenu, TitledPane startDialogue, ImageView[] diceArray, Rectangle victoryPanel,
-                                    Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel) {
+    protected static void callResizeAll(BoardView board) {
+
+        this.board = board;
+        resizeAll();
+
+    }
+
+    private static void resizeAll() {
 
         //TODO Inserire dove necessario controlli su font size
-
-        resizeOuterRect(window, outerRect);
-        resizeBoardRect(outerRect, boardRect);
-        resizeSeparator(separator, boardRect);
-        resizeTimer(timerOut, timerIn, separator);
-        resizeLeftPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
-        resizeRightPoints(polArrayTop, polArrayBot, regArrayTop, regArrayBot, boardRect);
-        resizePawns(pawnArrayWHT, pawnArrayBLK, regArrayBot);
-        calcTrayWidth(pawnArrayBLK[0]);
-        calcDTWidth(pawnArrayBLK[0]);
-        if (gameStart) {
-            resizeDiceTray(dtAnimDone, diceTray, outerRect);
-            if (dtAnimDone)
-                resizeDice (diceTray, diceArray); }
+        resizeOuterRect();
+        resizeBoardRect();
+        resizeSeparator();
+        resizeTimer();
+        resizeLeftPoints();
+        resizeRightPoints();
+        resizePawns();
+        calcTrayWidth();
+        calcDTWidth();
+        if (board.gameStart) {
+            resizeDiceTray();
+            if (board.dtAnimDone)
+                resizeDice(); }
         else
-            resizeStartDialogue(window, startDialogue);
-        resizeButtons(backBTN, finishBTN, menuBTN, window, outerRect);
-        resizeExitRegions(bExit, wExit, whiteExitRegion, blackExitRegion, outerRect);
-        redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot, regArrayTop, whiteExitRegion, blackExitRegion);
-        resizePauseMenu(window, pauseMenu);
-        if (gameEndState) {
-            resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
+            resizeStartDialogue();
+        resizeButtons();
+        resizeExitRegions();
+        redrawPawns();
+        resizePauseMenu();
+        if (board.gameEndState) {
+            resizeVictoryPanel();
         }
-        //TODO resizePlsPawns (plWHTPawn, plBLKPawn);
-        //TODO resizePlsRects (plWHTOutRect, plWHTInRect, plWHTText, plBLKOutRect, plBLKInRect, plBLKText);
+        //TODO resizePlsPawns ();
+        //TODO resizePlsRects ();
 
     }
 

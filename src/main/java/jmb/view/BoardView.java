@@ -35,22 +35,22 @@ public class BoardView {
 
 
     @FXML
-    private AnchorPane window;
+    AnchorPane window;
 
     @FXML
-    private Rectangle retgioc2;
+    Rectangle retgioc2;
 
     @FXML
-    private Rectangle retgioc1;
+    Rectangle retgioc1;
 
     @FXML
-    private Rectangle outerRect;
+    Rectangle outerRect;
 
     @FXML
-    private Rectangle boardRect;
+    Rectangle boardRect;
 
     @FXML
-    private Rectangle separator;
+    Rectangle separator;
 
     @FXML
     private Polygon point_24;
@@ -203,22 +203,22 @@ public class BoardView {
     protected Rectangle blackExitRegion;
 
     @FXML
-    private Rectangle diceTray;
+    Rectangle diceTray;
 
     @FXML
     protected Button backBTN;
 
     @FXML
-    private Button finishBTN;
+    Button finishBTN;
 
     @FXML
-    private Rectangle timerOut;
+    Rectangle timerOut;
 
     @FXML
-    private Rectangle timerIn;
+    Rectangle timerIn;
 
     @FXML
-    private Button menuBTN;
+    Button menuBTN;
 
     @FXML
     private PawnView pawnBLK01;
@@ -311,60 +311,60 @@ public class BoardView {
     private PawnView pawnWHT15;
 
     @FXML
-    private TitledPane startDialogue;
+    TitledPane startDialogue;
 
     @FXML
-    private Button startBTN;
+    Button startBTN;
 
     @FXML
-    private TitledPane pauseMenu;
+    TitledPane pauseMenu;
 
     @FXML
-    private Button senzaSalvare;
+    Button senzaSalvare;
 
     @FXML
-    private Button annulla;
+    Button annulla;
 
     @FXML
-    private ImageView diceD;
+    ImageView diceD;
 
     @FXML
-    private ImageView diceU;
+    ImageView diceU;
 
     @FXML
-    private ImageView doubleDiceD;
+    ImageView doubleDiceD;
 
     @FXML
-    private ImageView doubleDiceU;
+    ImageView doubleDiceU;
 
     @FXML
-    private Rectangle plBLKInRect;
+    Rectangle plBLKInRect;
 
     @FXML
-    private Rectangle plBLKOutRect;
+    Rectangle plBLKOutRect;
 
     @FXML
-    private Text plBLKText;
+    Text plBLKText;
 
     @FXML
-    private Rectangle plWHTInRect;
+    Rectangle plWHTInRect;
 
     @FXML
-    private Rectangle plWHTOutRect;
+    Rectangle plWHTOutRect;
 
     @FXML
-    private Text plWHTText;
+    Text plWHTText;
 
     @FXML
-    private Circle plWHTPawn;
+    Circle plWHTPawn;
 
     @FXML
-    private Circle plBLKPawn;
+    Circle plBLKPawn;
 
 
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
-    private boolean dtAnimDone = false;
+    boolean dtAnimDone = false;
 
     //  Si creano degli array di Polygon, Region, PawnView ed ImageView per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
@@ -379,21 +379,21 @@ public class BoardView {
     protected PawnView[] pawnArrayBLK;
 
     protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-    private String name1;
+    String name1;
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
     //Nodes della schermata di vittoria
-    private Rectangle victoryPanel;
-    private Circle victoryPawn;
-    private ImageView crown;
-    private Button victoryExit;
-    private Label victoryLabel;
+    Rectangle victoryPanel;
+    Circle victoryPawn;
+    ImageView victoryCrown;
+    Button victoryExit;
+    Label victoryLabel;
 
     protected Timeline turnTimer;
 
-    private boolean gameStart = false;
+    boolean gameStart = false;
 
-    private boolean gameEndState = false;
+    boolean gameEndState = false;
 
 
     @FXML
@@ -595,10 +595,7 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.resizeAll(gameStart, gameEndState, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
-                                    polArrayBot, regArrayTop, regArrayBot, logic.getBlackExit(), logic.getWhiteExit(), whiteExitRegion,
-                                    blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN, pawnArrayWHT, pawnArrayBLK,
-                                    pauseMenu, startDialogue, diceArray, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+        BoardViewRedraw.callResizeAll(this);
 
     }
 
@@ -779,19 +776,19 @@ public class BoardView {
 
         victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
 
-        crown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
+        victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
 
         gameEndState = true;
 
-        BoardViewRedraw.resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+        BoardViewRedraw.resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
                         new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
-                        new KeyValue(crown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
+                        new KeyValue(victoryCrown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
                         new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
-                        new KeyValue(crown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
+                        new KeyValue(victoryCrown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
                 )
         );
         timeline.setCycleCount(1);

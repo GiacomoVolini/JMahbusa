@@ -46,6 +46,8 @@ public class ConstantsView {
     public static String n1;
     public static String n2;
 
+    public static double MIN_PAWN_SIZE = 11.741538461538463;
+
 
     private ConstantsView() {
         throw new AssertionError() ;

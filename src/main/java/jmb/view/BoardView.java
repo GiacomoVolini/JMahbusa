@@ -38,12 +38,6 @@ public class BoardView {
     AnchorPane window;
 
     @FXML
-    Rectangle retgioc2;
-
-    @FXML
-    Rectangle retgioc1;
-
-    @FXML
     Rectangle outerRect;
 
     @FXML
@@ -344,7 +338,7 @@ public class BoardView {
     Rectangle plBLKOutRect;
 
     @FXML
-    Text plBLKText;
+    Label plBLKText;
 
     @FXML
     Rectangle plWHTInRect;
@@ -353,7 +347,7 @@ public class BoardView {
     Rectangle plWHTOutRect;
 
     @FXML
-    Text plWHTText;
+    Label plWHTText;
 
     @FXML
     Circle plWHTPawn;
@@ -379,7 +373,6 @@ public class BoardView {
     protected PawnView[] pawnArrayBLK;
 
     protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-    String name1;
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
     //Nodes della schermata di vittoria
@@ -403,8 +396,8 @@ public class BoardView {
             turnTimer.play();
         }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
-                                        regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
+        BoardViewRedraw.redrawPawns();      // Si chiama il ridisegno delle pedine
+                                            //   per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
             plWHTOutRect.setFill(green);
             plBLKOutRect.setFill(red);
@@ -412,6 +405,9 @@ public class BoardView {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
+        //TODO TEST
+        System.out.println(pawnArrayWHT[0].getRadius());
+
     }
 
     @FXML
@@ -499,16 +495,14 @@ public class BoardView {
         if (col != UNDEFINED) {
             logic.placePawnOnPoint(col);
         }
-        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,
-                regArrayTop, whiteExitRegion, blackExitRegion);
+        BoardViewRedraw.redrawPawns();
 
     }
 
     @FXML
     protected void revertMove() {
         logic.revertMove();
-        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,
-                regArrayTop, whiteExitRegion, blackExitRegion);
+        BoardViewRedraw.redrawPawns();
     }
 
     protected void openDoubleDice() {
@@ -564,7 +558,7 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                    BoardViewRedraw.resizeDice(diceTray, diceArray);
+                    BoardViewRedraw.resizeDice();
                     rollDice();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
@@ -780,7 +774,7 @@ public class BoardView {
 
         gameEndState = true;
 
-        BoardViewRedraw.resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, victoryCrown, victoryLabel);
+        BoardViewRedraw.resizeVictoryPanel();
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
@@ -843,8 +837,9 @@ public class BoardView {
 
         //informazione del giocatore
         //nomi
-        plWHTText.setText(n1);
-        plBLKText.setText(n2);
+        plWHTText.setText(n1.stripTrailing());
+        plBLKText.setText(n2.stripTrailing());
+        //TODO VALUTARE SE STRIPTRAILING VA QUI O IN LOGIN
         //colori
         plWHTPawn.setFill(pedIn1);
         plWHTPawn.setStroke(pedOut1);

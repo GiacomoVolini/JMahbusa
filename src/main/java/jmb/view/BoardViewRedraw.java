@@ -38,12 +38,8 @@ public class BoardViewRedraw {
     //public static void calcTrayWidth(Rectangle outerRect) {               VECCHIO
         //maxExitWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;        VECCHIO
         //maxDTWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;          VECCHIO
-    private static void calcTrayWidth (PawnView pawn) {
-        maxExitWidth = pawn.getRadius() * 6 ;
-    }
-
-    private static void calcDTWidth (PawnView pawn) {
-        maxDTWidth = pawn.getRadius() * 6;
+    private static void calcTrayWidths () {
+        maxExitWidth = maxDTWidth = board.pawnArrayWHT[0].getRadius() * 6 ;
     }
 
 
@@ -307,8 +303,8 @@ public class BoardViewRedraw {
 
     private static void resizePawns () {
         for (int i =0; i<board.pawnArrayWHT.length; i++){
-            board.pawnArrayBLK[i].setRadius(board.regArraySample[0].getPrefWidth() / 2);
-            board.pawnArrayWHT[i].setRadius(board.regArraySample[0].getPrefWidth() / 2);
+            board.pawnArrayBLK[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
+            board.pawnArrayWHT[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
         }
     }
 
@@ -340,19 +336,15 @@ public class BoardViewRedraw {
 
     private static void resizeVictoryCrown () {
         board.victoryCrown.setFitWidth(board.victoryPawn.getRadius()*2);
-        board.victoryCrown.setLayoutY(victoryPawn.getLayoutY() - victoryPawn.getRadius()*2.2);
-        victoryCrown.setLayoutX(victoryPawn.getLayoutX() - victoryPawn.getRadius());
+        board.victoryCrown.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius()*2.2);
+        board.victoryCrown.setLayoutX(board.victoryPawn.getLayoutX() - board.victoryPawn.getRadius());
     }
 
 
-    private static void resizeVictoryLabel (Rectangle victoryPanel, Label victoryLabel) {
-        victoryLabel.setLayoutY(victoryPanel.getLayoutY() + victoryPanel.getHeight() * 0.15);
-        victoryLabel.setLayoutX(victoryPanel.getLayoutX() + victoryPanel.getWidth() * 0.25);
-        resizeVictoryFont(victoryPanel, victoryLabel);
-
-        System.out.println(victoryLabel.getWidth());
-        System.out.println(victoryLabelFontSize);
-
+    private static void resizeVictoryLabel () {
+        board.victoryLabel.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() * 0.15);
+        board.victoryLabel.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.25);
+        resizeVictoryFont(board.victoryPanel, board.victoryLabel);
     }
 
     //  Il metodo resizeVictoryFont si occupa di stimare una grandezza del font di victoryLabel tale da non fuoriuscire
@@ -370,30 +362,88 @@ public class BoardViewRedraw {
 
 
     //  Metodo per ridimensionare gli elementi del pannello vittoria
-    protected static void resizeVictoryPanel (AnchorPane window, Rectangle victoryPanel,
-                                            Circle victoryPawn, Button victoryExit, ImageView victoryCrown, Label victoryLabel)
+    protected static void resizeVictoryPanel ()
     {
-        resizeVictoryRect(window, victoryPanel);
-        resizeVictoryPawn(victoryPanel, victoryPawn);
-        resizeVictoryLabel(victoryPanel, victoryLabel);
-        resizeVictoryExit(victoryPanel, victoryExit);
-        resizeVictoryCrown(victoryPawn, victoryCrown);
+        resizeVictoryRect();
+        resizeVictoryPawn();
+        resizeVictoryLabel();
+        resizeVictoryExit();
+        resizeVictoryCrown();
 
     }
 
-    private static void resizeStartDialogue (AnchorPane window, TitledPane startDialogue) {
-        startDialogue.setLayoutX(window.getWidth()/2-startDialogue.getPrefWidth()/2);
-        startDialogue.setLayoutY(window.getHeight()/2-startDialogue.getPrefHeight()/2);
+    private static void resizeStartDialogue () {
+        board.startDialogue.setLayoutX(board.window.getWidth()/2-board.startDialogue.getPrefWidth()/2);
+        board.startDialogue.setLayoutY(board.window.getHeight()/2-board.startDialogue.getPrefHeight()/2);
     }
-
 
 
     protected static void callResizeAll(BoardView board) {
 
-        this.board = board;
+        BoardViewRedraw.board = board;
         resizeAll();
 
     }
+
+    private static void resizePlsPawns() {
+
+        //La variabile resizeDampener serve come "freno" alla crescita del raggio di plWHTPawn e plBLKPawn
+        double resizeDampener = Math.pow(MIN_PAWN_SIZE, 0.25) / Math.pow(board.pawnArrayWHT[0].getRadius(), 0.25);
+
+        board.plWHTPawn.setRadius(board.pawnArrayWHT[0].getRadius() * 1.5 * resizeDampener);
+        board.plBLKPawn.setRadius(board.pawnArrayWHT[0].getRadius() * 1.5 * resizeDampener);
+        AnchorPane.setLeftAnchor(board.plWHTPawn, board.window.getWidth() * 0.0125);
+        AnchorPane.setRightAnchor(board.plBLKPawn, board.window.getWidth() * 0.0125);
+        AnchorPane.setTopAnchor(board.plWHTPawn, board.window.getHeight() * 0.0275);
+        AnchorPane.setTopAnchor(board.plBLKPawn, board.window.getHeight() * 0.0275);
+
+    }
+
+    private static void resizePlsRects() {
+/* TODO
+        board.plWHTOutRect;
+        board.plWHTInRect;
+        board.plWHTText;
+        board.plBLKOutRect;
+        board.plBLKInRect;
+        board.plBLKText;
+
+ */
+
+        //TODO resizePlsOutRects();
+        AnchorPane.setTopAnchor(board.plWHTOutRect, board.window.getHeight() * 0.0275);
+        AnchorPane.setTopAnchor(board.plBLKOutRect, board.window.getHeight() * 0.0275);
+        AnchorPane.setLeftAnchor(board.plWHTOutRect, board.window.getWidth() * 0.025 + board.plWHTPawn.getRadius()*2);
+        AnchorPane.setRightAnchor(board.plBLKOutRect, board.window.getWidth() * 0.025 + board.plBLKPawn.getRadius()*2);
+        board.plWHTOutRect.setHeight(board.plWHTPawn.getRadius()*2);
+        board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
+        //TODO larghezza
+
+        //TODO resizePlsInRects();
+        AnchorPane.setTopAnchor(board.plBLKInRect, AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
+        AnchorPane.setTopAnchor(board.plWHTInRect, AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
+        AnchorPane.setLeftAnchor(board.plWHTInRect, AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
+        AnchorPane.setRightAnchor(board.plBLKInRect, AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+        //TODO altezza e larghezza
+
+        //TODO resizePlsNames();
+        AnchorPane.setTopAnchor(board.plWHTText, AnchorPane.getTopAnchor(board.plWHTInRect));
+        AnchorPane.setTopAnchor(board.plBLKText, AnchorPane.getTopAnchor(board.plBLKInRect));
+        AnchorPane.setLeftAnchor(board.plWHTText, AnchorPane.getLeftAnchor(board.plWHTInRect));
+        AnchorPane.setRightAnchor(board.plBLKText, AnchorPane.getRightAnchor(board.plBLKInRect));
+        board.plWHTText.setPrefWidth(board.plWHTInRect.getWidth());
+        board.plBLKText.setPrefWidth(board.plBLKInRect.getWidth());
+        board.plWHTText.setPrefHeight(board.plWHTInRect.getHeight());
+        board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
+
+        //TODO Necessario fare in modo che non ci sia sovrapposizione tra i rettangoli dei giocatori e il tabellone
+
+
+
+
+    }
+
+
 
     private static void resizeAll() {
 
@@ -405,8 +455,7 @@ public class BoardViewRedraw {
         resizeLeftPoints();
         resizeRightPoints();
         resizePawns();
-        calcTrayWidth();
-        calcDTWidth();
+        calcTrayWidths();
         if (board.gameStart) {
             resizeDiceTray();
             if (board.dtAnimDone)
@@ -420,8 +469,8 @@ public class BoardViewRedraw {
         if (board.gameEndState) {
             resizeVictoryPanel();
         }
-        //TODO resizePlsPawns ();
-        //TODO resizePlsRects ();
+        resizePlsPawns();
+        resizePlsRects();
 
     }
 

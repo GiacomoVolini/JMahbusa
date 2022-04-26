@@ -1,18 +1,15 @@
 package jmb.view;
 
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -24,9 +21,6 @@ public class BoardViewRedraw {
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
     private static double maxDTWidth;
-
-    //Variabile per la dimensione del font di victoryLabel
-    private static double victoryLabelFontSize = 16;
 
     // Metodo getter per maxExitWidth
     public static double getMaxExitWidth() { return maxExitWidth; }
@@ -44,8 +38,18 @@ public class BoardViewRedraw {
 
 
     private static double getBoardSize (AnchorPane window) {
+
+        double dist = board.outerRect.getLayoutX() - (board.plWHTOutRect.getLayoutX() + board.plWHTOutRect.getWidth()) ;
+        double calc = board.plWHTOutRect.getHeight() * 1.8 - dist;
+        double plRectFactor = max( 0, min(board.plWHTOutRect.getHeight() * 1.8, calc));
+        System.out.println(" dist = " + dist);
+        System.out.println("calc = " + calc);
+        System.out.println("plRectFactor = " + plRectFactor);
+
+
+
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
-        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
+        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR - plRectFactor;
         return min(usableHeight, usableWidth);
     }
 
@@ -378,20 +382,11 @@ public class BoardViewRedraw {
     }
 
 
-    protected static void callResizeAll(BoardView board) {
-
-        BoardViewRedraw.board = board;
-        resizeAll();
-
-    }
 
     private static void resizePlsPawns() {
 
-        //La variabile resizeDampener serve come "freno" alla crescita del raggio di plWHTPawn e plBLKPawn
-        double resizeDampener = Math.pow(MIN_PAWN_SIZE, 0.25) / Math.pow(board.pawnArrayWHT[0].getRadius(), 0.25);
-
-        board.plWHTPawn.setRadius(board.pawnArrayWHT[0].getRadius() * 1.5 * resizeDampener);
-        board.plBLKPawn.setRadius(board.pawnArrayWHT[0].getRadius() * 1.5 * resizeDampener);
+        board.plWHTPawn.setRadius(board.window.getHeight() * 0.038);
+        board.plBLKPawn.setRadius(board.window.getHeight() * 0.038);
         AnchorPane.setLeftAnchor(board.plWHTPawn, board.window.getWidth() * 0.0125);
         AnchorPane.setRightAnchor(board.plBLKPawn, board.window.getWidth() * 0.0125);
         AnchorPane.setTopAnchor(board.plWHTPawn, board.window.getHeight() * 0.0275);
@@ -417,6 +412,8 @@ public class BoardViewRedraw {
         AnchorPane.setRightAnchor(board.plBLKOutRect, board.window.getWidth() * 0.025 + board.plBLKPawn.getRadius()*2);
         board.plWHTOutRect.setHeight(board.plWHTPawn.getRadius()*2);
         board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
+        board.plWHTOutRect.setWidth(board.window.getWidth()*0.2);
+        board.plBLKOutRect.setWidth(board.window.getWidth()*0.15);
         //TODO larghezza
 
         //TODO resizePlsInRects();
@@ -448,6 +445,8 @@ public class BoardViewRedraw {
     private static void resizeAll() {
 
         //TODO Inserire dove necessario controlli su font size
+        resizePlsPawns();
+        resizePlsRects();
         resizeOuterRect();
         resizeBoardRect();
         resizeSeparator();
@@ -469,11 +468,20 @@ public class BoardViewRedraw {
         if (board.gameEndState) {
             resizeVictoryPanel();
         }
-        resizePlsPawns();
-        resizePlsRects();
+
+
+
 
     }
 
+
+    protected static void callResizeAll(BoardView board) {
+
+        if (BoardViewRedraw.board == null)
+            BoardViewRedraw.board = board;
+        resizeAll();
+
+    }
 
 
 }

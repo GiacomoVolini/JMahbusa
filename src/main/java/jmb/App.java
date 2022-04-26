@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import jmb.model.LeaderboardLogic;
 import jmb.model.Logic;
 import jmb.view.BoardView;
@@ -38,10 +39,12 @@ public class App extends Application {
         this.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
+        //stage.initStyle(StageStyle.UNDECORATED);
         sceneMainMenu = new Scene(loadFXML("view/MainMenu"), 640, 480);
         interfaceInstantiation();
         stage.setScene(sceneMainMenu);
         stage.show();
+
 
     }
 

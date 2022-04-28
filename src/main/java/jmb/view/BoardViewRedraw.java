@@ -53,11 +53,6 @@ public class BoardViewRedraw {
 
     private static double getBoardSize (AnchorPane window) {
 
-        //TODO RIFARE I CALCOLI PER NON UTILIZZARE POSIZIONE DI OUTERRECT
-
-        //TODO VECCHIO
-
-
         double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
         double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
 
@@ -413,17 +408,8 @@ public class BoardViewRedraw {
     }
 
     private static void resizePlsRects() {
-/* TODO
-        board.plWHTOutRect;
-        board.plWHTInRect;
-        board.plWHTText;
-        board.plBLKOutRect;
-        board.plBLKInRect;
-        board.plBLKText;
 
- */
-
-        //TODO resizePlsOutRects();
+        //TODO mettere in metodo resizePlsOutRects();
         AnchorPane.setTopAnchor(board.plWHTOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setTopAnchor(board.plBLKOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setLeftAnchor(board.plWHTOutRect, board.window.getWidth() * 0.025 + board.plWHTPawn.getRadius()*2);
@@ -434,14 +420,14 @@ public class BoardViewRedraw {
         board.plBLKOutRect.setWidth(board.window.getWidth()*0.18);
         //TODO larghezza
 
-        //TODO resizePlsInRects();
+        //TODO mettere in metodo resizePlsInRects();
         AnchorPane.setTopAnchor(board.plBLKInRect, AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
         AnchorPane.setTopAnchor(board.plWHTInRect, AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
         AnchorPane.setLeftAnchor(board.plWHTInRect, AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
         AnchorPane.setRightAnchor(board.plBLKInRect, AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
         //TODO altezza e larghezza
 
-        //TODO resizePlsNames();
+        //TODO mettere in metodo resizePlsNames();
         AnchorPane.setTopAnchor(board.plWHTText, AnchorPane.getTopAnchor(board.plWHTInRect));
         AnchorPane.setTopAnchor(board.plBLKText, AnchorPane.getTopAnchor(board.plBLKInRect));
         AnchorPane.setLeftAnchor(board.plWHTText, AnchorPane.getLeftAnchor(board.plWHTInRect));
@@ -451,12 +437,7 @@ public class BoardViewRedraw {
         board.plWHTText.setPrefHeight(board.plWHTInRect.getHeight());
         board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
 
-        //TODO Necessario fare in modo che non ci sia sovrapposizione tra i rettangoli dei giocatori e il tabellone
-
-
-
-
-    }
+        }
 
 
 

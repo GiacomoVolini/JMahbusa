@@ -405,8 +405,6 @@ public class BoardView {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
-        //TODO TEST
-        System.out.println(pawnArrayWHT[0].getRadius());
 
     }
 
@@ -839,7 +837,6 @@ public class BoardView {
         //nomi
         plWHTText.setText(n1.stripTrailing());
         plBLKText.setText(n2.stripTrailing());
-        //TODO VALUTARE SE STRIPTRAILING VA QUI O IN LOGIN
         //colori
         plWHTPawn.setFill(pedIn1);
         plWHTPawn.setStroke(pedOut1);

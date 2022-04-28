@@ -13,11 +13,13 @@ import javafx.util.Duration;
 
 import static jmb.App.leaderBoard;
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.logic;
 
 import java.applet.AudioClip;
 import java.io.IOException;
 
 import static jmb.App.getStage;
+
 
 public class MainMenu {
 
@@ -69,6 +71,7 @@ public class MainMenu {
         }else {
             getStage().setFullScreen(false);
         }
+        logic.setUpNewGame();
         View.sceneLogIn.changeDimensions();
     }
 

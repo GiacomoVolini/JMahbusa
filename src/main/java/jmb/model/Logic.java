@@ -159,7 +159,27 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void addStatsToPlayers (String winner, String loser) {
-        ldb.addStatsToList(winner, loser);
+    public void addStatsToPlayers (String winner, String loser, boolean doubleWin) {
+        ldb.addStatsToList(winner, loser, doubleWin);
+    }
+
+    @Override
+    public void setUpNewGame () {
+        board.setUpGame();
+    }
+
+    @Override
+    public void revertMove() {
+        board.revertMove();
+    }
+
+    @Override
+    public boolean getWhiteExit() {
+        return board.getWhiteExit();
+    }
+
+    @Override
+    public boolean getBlackExit() {
+        return board.getBlackExit();
     }
 }

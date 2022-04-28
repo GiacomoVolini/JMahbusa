@@ -22,4 +22,10 @@ public interface IView {
 
     void whiteWins (boolean doubleWin);
 
+    void backBTNSetDisable (boolean disable);
+
+    void closeBlackExit();
+
+    void closeWhiteExit();
+
 }

@@ -97,6 +97,7 @@ public class LogIn {
                     logic.addNewPlayersToList(scrivinomi1.getValue(), scrivinomi2.getValue());
                     n1 = scrivinomi1.getValue();
                     n2 = scrivinomi2.getValue();
+                    //TODO VALUTARE SE AGGIUNGERE QUI STRIPTRAILING E TOGLIERLO IN BOARDVIEW O LASCIARLO IN BOARDVIEW
                     jmb.App.board();
                     break;
                 case SAME_NAME_ERROR:

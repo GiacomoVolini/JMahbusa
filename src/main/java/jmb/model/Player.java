@@ -33,8 +33,7 @@ public class Player {
         this.name = new SimpleStringProperty(name);
         this.wins = new SimpleIntegerProperty(Integer.parseInt(wins));
         this.losses = new SimpleIntegerProperty(Integer.parseInt(losses));
-        double winRate = (double)this.wins.getValue() / (double)this.losses.getValue();
-        this.winRate = new SimpleDoubleProperty(winRate);
+        this.setWinRate();
         //this.name = name;
         //this.wins = Integer.parseInt(wins);
         //this.losses = Integer.parseInt(losses);
@@ -77,12 +76,29 @@ public class Player {
         return this.winRate;
     }
 
-    public void addWin() {
+    public void addSingleWin() {
         this.wins = new SimpleIntegerProperty(this.getWins() + 1);
     }
 
-    public void addLoss() {
+    public void addSingleLoss() {
         this.losses = new SimpleIntegerProperty(this.getLosses() + 1);
+    }
+
+    public void addDoubleWin() {
+        this.wins = new SimpleIntegerProperty( this.getWins() + 2);
+    }
+
+    public void addDoubleLoss() {
+        this.losses = new SimpleIntegerProperty( this.getLosses() + 2);
+    }
+
+    public void setWinRate() {
+        double winRate;
+        if (this.losses.get()!=0)
+            winRate = (double)this.wins.getValue() / (double)this.losses.getValue();
+        else
+            winRate = this.wins.getValue();
+        this.winRate = new SimpleDoubleProperty(winRate);
     }
 
     @Override

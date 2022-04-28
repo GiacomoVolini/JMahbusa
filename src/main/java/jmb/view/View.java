@@ -53,8 +53,7 @@ public class View implements IView {
 
     @Override
     public void setPawnsForTurn() {
-        BoardViewRedraw.redrawPawns(sceneBoard.pawnArrayWHT, sceneBoard.pawnArrayBLK, sceneBoard.regArrayBot,
-                sceneBoard.regArrayTop, sceneBoard.whiteExitRegion, sceneBoard.blackExitRegion);
+        BoardViewRedraw.redrawPawns();
     }
 
     @Override
@@ -71,6 +70,21 @@ public class View implements IView {
         //  PLACEHOLDER
         System.out.println("IL BIANCO VINCE");
         sceneBoard.gameWon(WHITE_WINS, doubleWin);
+    }
+
+    @Override
+    public void backBTNSetDisable (boolean disable) {
+        sceneBoard.backBTN.setDisable(disable);
+    }
+
+    @Override
+    public void closeBlackExit () {
+        sceneBoard.closeBlackExit();
+    }
+
+    @Override
+    public void closeWhiteExit() {
+        sceneBoard.closeWhiteExit();
     }
 
 }

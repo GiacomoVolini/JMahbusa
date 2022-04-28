@@ -50,6 +50,14 @@ public interface ILogic {
 
     void writeLdbList();
 
-    void addStatsToPlayers ( String winner, String loser );
+    void addStatsToPlayers ( String winner, String loser , boolean doubleWin);
+
+    void setUpNewGame ();
+
+    void revertMove();
+
+    boolean getBlackExit();
+
+    boolean getWhiteExit();
 
 }

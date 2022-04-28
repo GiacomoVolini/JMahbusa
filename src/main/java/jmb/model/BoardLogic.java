@@ -1,5 +1,8 @@
 package jmb.model;
 
+import java.util.ArrayDeque;
+import java.util.Iterator;
+
 import static java.lang.Math.abs;
 import static jmb.ConstantsShared.*;
 import static jmb.model.ConstantsLogic.*;
@@ -25,6 +28,8 @@ public class BoardLogic {
     private int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
                                                 //mentre si sta per effettuare una mossa
                                                 //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
+    private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
+                                                //  in un turno
 
     //  ----------------------------
 
@@ -32,24 +37,8 @@ public class BoardLogic {
 
     public BoardLogic(){
 
-        //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
-        //  può portare fuori le proprie pedine
-        this.blackExit = false;
-        this.whiteExit = false;
-
         //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
         dice = new DiceLogic();
-
-        //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
-        //  e lasciando null negli spazi vuoti
-        for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= new PawnLogic(false, true, true, COL_WHITE, i);
-            squares[i][COL_BLACK]= new PawnLogic(true, false, false, COL_BLACK, i);
-        }
-
-        //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
-        //  e tiriamo i dadi per il primo giocatore
-        whiteTurn = dice.initialToss();
 
     }
 
@@ -58,14 +47,44 @@ public class BoardLogic {
 
     //  METODI
 
+    protected void setUpGame() {
+
+        //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
+        //  può portare fuori le proprie pedine
+        setBlackExit(false);
+        setWhiteExit(false);
+
+        //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
+        //  e lasciando null negli spazi vuoti
+        for (int i=0; i<=14;i++){
+            squares[i][COL_WHITE]= new PawnLogic(false, true, true);
+            squares[i][COL_BLACK]= new PawnLogic(true, false, false);
+        }
+        squares[0][COL_WHITE].setLocksBlack(false);
+        squares[0][COL_BLACK].setLocksWhite(false);
+
+        //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
+        //  e tiriamo i dadi per il primo giocatore
+        whiteTurn = dice.initialToss();
+    }
+
     public boolean isWhiteTurn() {
         return whiteTurn;
     }
 
     public void changeTurn() {
+    /*TODO TEST
+        Iterator it = turnMoves.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next().toString());
+        }
+    //TODO END TEST*/
+
         this.whiteTurn= !this.whiteTurn;
         runTurn();
         view.setPawnsForTurn();
+        turnMoves.clear();
+        view.backBTNSetDisable(true);
     }
 
     protected void runTurn() {
@@ -168,12 +187,12 @@ public class BoardLogic {
 
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
-            squares[puntaFinR][puntaFinC].setWhichPoint(puntaFinC);
-            squares[puntaFinR][puntaFinC].setWhichRow(puntaFinR);
             squares[puntaInizR][puntaInizC]= null;
             dice.setUsed();
+            turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
             dice.resetToBeUsed();
             view.setDiceContrast();
+            view.backBTNSetDisable(false);
 
 
             //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
@@ -273,8 +292,9 @@ public class BoardLogic {
                     }
                 }
                 if (!found){
-                    blackExit = true;
+                    setBlackExit(true);
                     Logic.view.openBlackExit();
+                    turnMoves.peek().moveOpensBlackExit();
                 }
             }
     }
@@ -298,9 +318,9 @@ public class BoardLogic {
                 }
             }
             if (!found){
-
-                whiteExit = true;
+                setWhiteExit(true);
                 Logic.view.openWhiteExit();
+                turnMoves.peek().moveOpensWhiteExit();
             }
         }
     }
@@ -325,20 +345,12 @@ public class BoardLogic {
         this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
     }
 
-    /*TODO
-        Un giocatore vince se:
-                1. Rimuove tutte le sue pedine. Nel caso l’avversario non sia riuscito a rimuovere
-                    nemmeno una delle sue pedine si parla di vittoria doppia.
-                2. Riesce a bloccare una pedina nella punta di partenza dell’avversario. In
-                    questo caso il giocatore ottiene una vittoria doppia
-     */
-
     protected void victoryCheck() {
         if (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
                 squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) {
             view.blackWins(DOUBLE_WIN);
         } else if (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
-                squares[1][COL_BLACK]!=null && squares[1][COL_WHITE].getisWhite()) {
+                squares[1][COL_BLACK]!=null && squares[1][COL_BLACK].getisWhite()) {
             view.whiteWins(DOUBLE_WIN);
         } else if (squares[14][COL_BLACK_EXIT]!=null) {
             if (squares[0][COL_WHITE_EXIT]==null)
@@ -351,5 +363,61 @@ public class BoardLogic {
             else
                 view.whiteWins(SINGLE_WIN);
         }
+    }
+
+    protected void revertMove() {
+        MoveRecord move = turnMoves.pop();
+        int from = move.getPointFin();
+        int to = move.getPointInit();
+        this.forceMovePawn(from, to);
+        for (int i = 0; i<4; i++) {
+            if (dice.getUsed(i) && move.getDiceUsed()[i])
+                dice.revertUsed(i);
+        }
+        if (move.getOpensBlackExit()) {
+            view.closeBlackExit();
+            setBlackExit(false);
+        } else if (move.getOpensWhiteExit()) {
+            view.closeWhiteExit();
+            setWhiteExit(false);
+        }
+        dice.resetToBeUsed();
+        view.setDiceContrast();
+        if (turnMoves.isEmpty())
+            view.backBTNSetDisable(true);
+    }
+
+    private void forceMovePawn(int from, int to) {
+        int toRow = searchFirstFreeRow(to);
+        int fromRow = searchTopOccupiedRow(from);
+        squares[toRow][to] = squares[fromRow][from];
+        squares[fromRow][from] = null;
+
+        if (toRow==0) {
+            squares[toRow][to].setLocksBlack(false);
+            squares[toRow][to].setLocksWhite(false);
+        } else if (squares[toRow][to].getisWhite()) {
+            squares[toRow][to].setLocksBlack(true);
+            squares[toRow][to].setLocksWhite(false);
+        } else {
+            squares[toRow][to].setLocksBlack(false);
+            squares[toRow][to].setLocksWhite(true);
+        }
+    }
+
+    protected void setWhiteExit (boolean value) {
+        this.whiteExit = value;
+    }
+
+    protected void setBlackExit (boolean value) {
+        this.blackExit = value;
+    }
+
+    protected boolean getWhiteExit() {
+        return whiteExit;
+    }
+
+    protected boolean getBlackExit() {
+        return blackExit;
     }
 }

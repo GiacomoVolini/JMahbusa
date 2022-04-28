@@ -50,7 +50,7 @@ public class LeaderboardView {
     @FXML
     private Button uscita;
 
-    //todo le dimenzioni del bottone (searchBTN)
+    //todo le dimensioni del bottone (searchBTN)
     @FXML
     private Button searchBTN;
 

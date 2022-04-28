@@ -35,22 +35,16 @@ public class BoardView {
 
 
     @FXML
-    private AnchorPane window;
+    AnchorPane window;
 
     @FXML
-    private Rectangle retgioc2;
+    Rectangle outerRect;
 
     @FXML
-    private Rectangle retgioc1;
+    Rectangle boardRect;
 
     @FXML
-    private Rectangle outerRect;
-
-    @FXML
-    private Rectangle boardRect;
-
-    @FXML
-    private Rectangle separator;
+    Rectangle separator;
 
     @FXML
     private Polygon point_24;
@@ -203,22 +197,22 @@ public class BoardView {
     protected Rectangle blackExitRegion;
 
     @FXML
-    private Rectangle diceTray;
+    Rectangle diceTray;
 
     @FXML
-    private Button backBTN;
+    protected Button backBTN;
 
     @FXML
-    private Button finishBTN;
+    Button finishBTN;
 
     @FXML
-    private Rectangle timerOut;
+    Rectangle timerOut;
 
     @FXML
-    private Rectangle timerIn;
+    Rectangle timerIn;
 
     @FXML
-    private Button menuBTN;
+    Button menuBTN;
 
     @FXML
     private PawnView pawnBLK01;
@@ -311,53 +305,60 @@ public class BoardView {
     private PawnView pawnWHT15;
 
     @FXML
-    private TitledPane Iniziamo;
+    TitledPane startDialogue;
 
     @FXML
-    private Button iniziaTempo;
+    Button startBTN;
 
     @FXML
-    private TitledPane Pause;
+    TitledPane pauseMenu;
 
     @FXML
-    private Button senzaSalvare;
+    Button senzaSalvare;
 
     @FXML
-    private Button annulla;
+    Button annulla;
 
     @FXML
-    private ImageView diceD;
+    ImageView diceD;
 
     @FXML
-    private ImageView diceU;
+    ImageView diceU;
 
     @FXML
-    private ImageView doubleDiceD;
+    ImageView doubleDiceD;
 
     @FXML
-    private ImageView doubleDiceU;
+    ImageView doubleDiceU;
 
     @FXML
-    private Circle pedgioc1;
+    Rectangle plBLKInRect;
 
     @FXML
-    private Text gioc1;
+    Rectangle plBLKOutRect;
 
     @FXML
-    private Circle pedgioc2;
+    Label plBLKText;
 
     @FXML
-    private Text gioc2;
+    Rectangle plWHTInRect;
+
+    @FXML
+    Rectangle plWHTOutRect;
+
+    @FXML
+    Label plWHTText;
+
+    @FXML
+    Circle plWHTPawn;
+
+    @FXML
+    Circle plBLKPawn;
 
 
-    //TEST
-    protected boolean bExit = false;
-    protected boolean wExit = false;
-
-    //END TEST
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
-    private boolean dtAnimDone = false;
+    boolean dtAnimDone = false;
 
     //  Si creano degli array di Polygon, Region, PawnView ed ImageView per gestire in maniera più agevole il
     //  ridimensionamento dinamico delle componenti
@@ -372,22 +373,20 @@ public class BoardView {
     protected PawnView[] pawnArrayBLK;
 
     protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-    private String name1;
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
     //Nodes della schermata di vittoria
-    private Rectangle victoryPanel;
-    private Circle victoryPawn;
-    private ImageView crown;
-    private ImageView crown2;
-    private Button victoryExit;
-    private Label victoryLabel;
+    Rectangle victoryPanel;
+    Circle victoryPawn;
+    ImageView victoryCrown;
+    Button victoryExit;
+    Label victoryLabel;
 
     protected Timeline turnTimer;
 
-    private boolean gameStart = false;
+    boolean gameStart = false;
 
-    private boolean gameEndState = false;
+    boolean gameEndState = false;
 
 
     @FXML
@@ -397,15 +396,16 @@ public class BoardView {
             turnTimer.play();
         }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,                   // Si chiama il ridisegno delle pedine
-                                        regArrayTop, whiteExitRegion, blackExitRegion);        // per disabilitare quelle non di turno
+        BoardViewRedraw.redrawPawns();      // Si chiama il ridisegno delle pedine
+                                            //   per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
-            retgioc1.setFill(green);
-            retgioc2.setFill(red);
+            plWHTOutRect.setFill(green);
+            plBLKOutRect.setFill(red);
         }else {
-            retgioc2.setFill(green);
-            retgioc1.setFill(red);
+            plBLKOutRect.setFill(green);
+            plWHTOutRect.setFill(red);
         }
+
     }
 
     @FXML
@@ -415,7 +415,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                                 new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    this.bExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
@@ -433,7 +432,6 @@ public class BoardView {
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    this.wExit = true; //TEST
                     jmb.App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
@@ -445,12 +443,12 @@ public class BoardView {
 
     @FXML
     void openExitoption(ActionEvent event) {
-        Pause.setVisible(true);
+        pauseMenu.setVisible(true);
     }
 
     @FXML
     void closeExitoption(ActionEvent event) {
-        Pause.setVisible(false);
+        pauseMenu.setVisible(false);
     }
 
     @FXML
@@ -495,9 +493,14 @@ public class BoardView {
         if (col != UNDEFINED) {
             logic.placePawnOnPoint(col);
         }
-        BoardViewRedraw.redrawPawns(pawnArrayWHT, pawnArrayBLK, regArrayBot,
-                regArrayTop, whiteExitRegion, blackExitRegion);
+        BoardViewRedraw.redrawPawns();
 
+    }
+
+    @FXML
+    protected void revertMove() {
+        logic.revertMove();
+        BoardViewRedraw.redrawPawns();
     }
 
     protected void openDoubleDice() {
@@ -553,7 +556,7 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                    BoardViewRedraw.resizeDice(diceTray, diceArray);
+                    BoardViewRedraw.resizeDice();
                     rollDice();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
@@ -564,6 +567,7 @@ public class BoardView {
 
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
+        finishBTN.setDisable(true);
         if(!logic.isRollDouble())
             closeDoubleDice();
         Timeline timeline = new Timeline(
@@ -572,6 +576,7 @@ public class BoardView {
         timeline.setCycleCount(10);
         timeline.setOnFinished( e -> {
             DiceView.setDiceValues(diceArray);
+            finishBTN.setDisable(false);
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
@@ -582,11 +587,8 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.resizeAll(gameStart, gameEndState, window, outerRect, boardRect, separator, timerOut, timerIn, polArrayTop,
-                                    polArrayBot, regArrayTop, regArrayBot, bExit, wExit, whiteExitRegion,
-                                    blackExitRegion, dtAnimDone, diceTray, backBTN, finishBTN, menuBTN,
-                                    pawnArrayWHT, pawnArrayBLK,
-                                    Pause, Iniziamo, diceArray, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+        BoardViewRedraw.resizeAll();
+
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -646,7 +648,7 @@ public class BoardView {
     //Metodo per inizio partita
     @FXML
     protected void startGame(ActionEvent event) {
-        Iniziamo.setVisible(false);
+        startDialogue.setVisible(false);
         gameStart = true;
         changeDimensions();
         diceTrayAnim();
@@ -654,6 +656,7 @@ public class BoardView {
         if(turn_duration != 0) {
             runTimer();
         }
+        window.getChildren().remove(startDialogue);
     }
 
     private void runTimer(){
@@ -765,19 +768,19 @@ public class BoardView {
 
         victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
 
-        crown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
+        victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
 
         gameEndState = true;
 
-        BoardViewRedraw.resizeVictoryPanel(window, victoryPanel, victoryPawn, victoryExit, crown, victoryLabel);
+        BoardViewRedraw.resizeVictoryPanel();
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
                         new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
-                        new KeyValue(crown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
+                        new KeyValue(victoryCrown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
                         new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
-                        new KeyValue(crown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
+                        new KeyValue(victoryCrown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
                 )
         );
         timeline.setCycleCount(1);
@@ -785,17 +788,43 @@ public class BoardView {
 
 
 
-        logic.addStatsToPlayers(winner, loser);
+        logic.addStatsToPlayers(winner, loser, doubleWin);
 
         logic.writeLdbList();
 
     }
 
-    //TODO TEST
-    @FXML
-    private void testBtn (ActionEvent event) {
-        gameWon (WHITE_WINS, DOUBLE_WIN);
+    protected void closeBlackExit() {
+        jmb.App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1),  e-> {
+                    jmb.App.getStage().setResizable(true);
+                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
     }
+
+    protected void closeWhiteExit() {
+
+        jmb.App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    jmb.App.getStage().setResizable(true);
+                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
     //--------------------------------------------
     //METODO INITIALIZE
     //--------------------------------------------
@@ -806,20 +835,20 @@ public class BoardView {
 
         //informazione del giocatore
         //nomi
-        gioc1.setText(n1);
-        gioc2.setText(n2);
+        plWHTText.setText(n1.stripTrailing());
+        plBLKText.setText(n2.stripTrailing());
         //colori
-        pedgioc1.setFill(pedIn1);
-        pedgioc1.setStroke(pedOut1);
-        pedgioc2.setFill(pedIn2);
-        pedgioc2.setStroke(pedOut2);
+        plWHTPawn.setFill(pedIn1);
+        plWHTPawn.setStroke(pedOut1);
+        plBLKPawn.setFill(pedIn2);
+        plBLKPawn.setStroke(pedOut2);
         //turni
         if (logic.getWhichTurn()){
-            retgioc1.setFill(green);
-            retgioc2.setFill(red);
+            plWHTOutRect.setFill(green);
+            plBLKOutRect.setFill(red);
         }else {
-            retgioc2.setFill(green);
-            retgioc1.setFill(red);
+            plBLKOutRect.setFill(green);
+            plWHTOutRect.setFill(red);
         }
 
         //  INIZIALIZZAZIONE ARRAY
@@ -839,8 +868,8 @@ public class BoardView {
 
         //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
         //  del tabellone
-        Iniziamo.setViewOrder(-2);
-        Pause.setViewOrder(-2);
+        startDialogue.setViewOrder(-2);
+        pauseMenu.setViewOrder(-2);
 
         //colori tavolo
         outerRect.setFill(frame);

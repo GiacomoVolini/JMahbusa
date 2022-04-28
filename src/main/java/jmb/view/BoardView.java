@@ -589,7 +589,7 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.callResizeAll(this);
+        BoardViewRedraw.resizeAll();
 
     }
 

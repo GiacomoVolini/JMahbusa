@@ -9,6 +9,7 @@ import javafx.stage.StageStyle;
 import jmb.model.LeaderboardLogic;
 import jmb.model.Logic;
 import jmb.view.BoardView;
+import jmb.view.BoardViewRedraw;
 import jmb.view.View;
 
 import java.io.IOException;
@@ -90,6 +91,7 @@ public class App extends Application {
         Parent out = fxmlLoader.load();
         if(fxml == "view/GameBoard"){
             View.sceneBoard = fxmlLoader.getController();
+            BoardViewRedraw.initializeRedraw(View.sceneBoard);
         } else if(fxml == "view/Leaderboard"){
             View.sceneLeaderboard = fxmlLoader.getController();
         } else if(fxml == "view/Login"){

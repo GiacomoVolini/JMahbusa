@@ -1,7 +1,6 @@
 package jmb.view;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -37,34 +36,53 @@ public class BoardViewRedraw {
     }
 
 
-    private static double getBoardSize (AnchorPane window) {
-
-        double dist = board.outerRect.getLayoutX() - (board.plWHTOutRect.getLayoutX() + board.plWHTOutRect.getWidth()) ;
-        double calc = board.plWHTOutRect.getHeight() * 1.8 - dist;
-        double plRectFactor = max( 0, min(board.plWHTOutRect.getHeight() * 1.8, calc));
-        System.out.println(" dist = " + dist);
-        System.out.println("calc = " + calc);
-        System.out.println("plRectFactor = " + plRectFactor);
-
-
-
-        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
-        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR - plRectFactor;
-        return min(usableHeight, usableWidth);
-    }
-
     private static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
         double maxBtnWidth = window.getWidth() - (outerRect.getLayoutX() + outerRect.getWidth() +maxDTWidth+(BUTTON_ANCHOR*2));
         return min(MAX_BTN_WIDTH, maxBtnWidth);
 
     }
 
+
+
+    /*System.out.println(" dist = " + dist);
+        System.out.println("calc = " + calc);
+        System.out.println("plRectFactor = " + plRectFactor);
+
+                VA IN GETBOARDSIZE         */
+
+
+    private static double getBoardSize (AnchorPane window) {
+
+        //TODO RIFARE I CALCOLI PER NON UTILIZZARE POSIZIONE DI OUTERRECT
+
+        //TODO VECCHIO
+
+
+        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
+        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
+
+
+        double proposedSize = min (usableWidth, usableHeight);
+
+        double proposedX = board.window.getWidth()/2 - proposedSize * 0.6;
+
+        double dist = proposedX - (board.plWHTOutRect.getLayoutX() + board.plWHTOutRect.getWidth() - 10) ;
+        double calc = board.plWHTOutRect.getHeight() * 1.8 - dist;
+        double sizeCorrection = max( 0, min(board.plWHTOutRect.getHeight() * 1.8, calc));
+
+
+
+        return min(usableHeight - sizeCorrection, usableWidth);
+
+    }
     public static void resizeOuterRect() {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-        board.outerRect.setWidth(getBoardSize(board.window));
-        board.outerRect.setLayoutX((board.window.getWidth()/2)-(board.outerRect.getWidth()*0.6));
-        board.outerRect.setHeight(getBoardSize(board.window));
-        board.outerRect.setLayoutY((board.window.getHeight()/2)-(board.outerRect.getHeight()/2));
+        double size = getBoardSize(board.window);
+        board.outerRect.setLayoutX((board.window.getWidth()/2)-(size*0.6));
+        board.outerRect.setLayoutY((board.window.getHeight()/2)-(size/2));
+        board.outerRect.setWidth(size);
+        board.outerRect.setHeight(size);
+
     }
 
     public static void resizeBoardRect() {
@@ -412,8 +430,8 @@ public class BoardViewRedraw {
         AnchorPane.setRightAnchor(board.plBLKOutRect, board.window.getWidth() * 0.025 + board.plBLKPawn.getRadius()*2);
         board.plWHTOutRect.setHeight(board.plWHTPawn.getRadius()*2);
         board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
-        board.plWHTOutRect.setWidth(board.window.getWidth()*0.2);
-        board.plBLKOutRect.setWidth(board.window.getWidth()*0.15);
+        board.plWHTOutRect.setWidth(board.window.getWidth()*0.18);
+        board.plBLKOutRect.setWidth(board.window.getWidth()*0.18);
         //TODO larghezza
 
         //TODO resizePlsInRects();
@@ -442,7 +460,7 @@ public class BoardViewRedraw {
 
 
 
-    private static void resizeAll() {
+    protected static void resizeAll() {
 
         //TODO Inserire dove necessario controlli su font size
         resizePlsPawns();
@@ -475,12 +493,8 @@ public class BoardViewRedraw {
     }
 
 
-    protected static void callResizeAll(BoardView board) {
-
-        if (BoardViewRedraw.board == null)
-            BoardViewRedraw.board = board;
-        resizeAll();
-
+    public static void initializeRedraw(BoardView board) {
+        BoardViewRedraw.board = board;
     }
 
 

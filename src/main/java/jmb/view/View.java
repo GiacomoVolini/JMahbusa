@@ -19,6 +19,8 @@ public class View implements IView {
 
     public static LogIn sceneLogIn;
 
+    public  static MenuImpostazioni sceneImpostazioni;
+
     @Override
     public void openBlackExit(){
         sceneBoard.openBlackExit();

@@ -89,7 +89,7 @@ public class MainMenu {
         }else {
             getStage().setFullScreen(false);
         }
-
+        View.sceneImpostazioni.changeDimensions();
     }
 
     public void initialize() {

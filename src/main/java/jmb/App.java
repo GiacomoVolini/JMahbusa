@@ -89,8 +89,10 @@ public class App extends Application {
             View.sceneBoard = fxmlLoader.getController();
         } else if(fxml == "view/Leaderboard"){
             View.sceneLeaderboard = fxmlLoader.getController();
-        } else if(fxml == "view/Login"){
+        } else if(fxml == "view/Login") {
             View.sceneLogIn = fxmlLoader.getController();
+        } else if(fxml == "view/MenuImpostazioni") {
+            View.sceneImpostazioni = fxmlLoader.getController();
         }
         return out;
     }

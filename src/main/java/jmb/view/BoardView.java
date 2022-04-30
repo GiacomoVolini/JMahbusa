@@ -396,7 +396,7 @@ public class BoardView {
             turnTimer.play();
         }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        BoardViewRedraw.redrawPawns();      // Si chiama il ridisegno delle pedine
+        BoardViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
             plWHTOutRect.setFill(green);
@@ -493,14 +493,14 @@ public class BoardView {
         if (col != UNDEFINED) {
             logic.placePawnOnPoint(col);
         }
-        BoardViewRedraw.redrawPawns();
+        BoardViewRedraw.redrawPawns(this);
 
     }
 
     @FXML
     protected void revertMove() {
         logic.revertMove();
-        BoardViewRedraw.redrawPawns();
+        BoardViewRedraw.redrawPawns(this);
     }
 
     protected void openDoubleDice() {
@@ -556,7 +556,7 @@ public class BoardView {
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
-                    BoardViewRedraw.resizeDice();
+                    BoardViewRedraw.resizeDice(this);
                     rollDice();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
@@ -587,7 +587,7 @@ public class BoardView {
 
     private void changeDimensions() {
 
-        BoardViewRedraw.resizeAll();
+        BoardViewRedraw.resizeAll(this);
 
     }
 
@@ -772,7 +772,7 @@ public class BoardView {
 
         gameEndState = true;
 
-        BoardViewRedraw.resizeVictoryPanel();
+        BoardViewRedraw.resizeVictoryPanel(this);
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),

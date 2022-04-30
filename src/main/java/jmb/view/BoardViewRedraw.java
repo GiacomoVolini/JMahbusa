@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw {
 
-    private static BoardView board;
+    //TODO TOGLIERE private static BoardView board;
 
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
@@ -31,7 +31,7 @@ public class BoardViewRedraw {
     //public static void calcTrayWidth(Rectangle outerRect) {               VECCHIO
         //maxExitWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;        VECCHIO
         //maxDTWidth = outerRect.getWidth() * EXTRA_REGION_FACTOR;          VECCHIO
-    private static void calcTrayWidths () {
+    private static void calcTrayWidths (BoardView board) {
         maxExitWidth = maxDTWidth = board.pawnArrayWHT[0].getRadius() * 6 ;
     }
 
@@ -51,10 +51,10 @@ public class BoardViewRedraw {
                 VA IN GETBOARDSIZE         */
 
 
-    private static double getBoardSize (AnchorPane window) {
+    private static double getBoardSize (BoardView board) {
 
-        double usableWidth = window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
-        double usableHeight = window.getHeight()*VERTICAL_RESIZE_FACTOR;
+        double usableWidth = board.window.getWidth()*HORIZONTAL_RESIZE_FACTOR;
+        double usableHeight = board.window.getHeight()*VERTICAL_RESIZE_FACTOR;
 
 
         double proposedSize = min (usableWidth, usableHeight);
@@ -70,9 +70,9 @@ public class BoardViewRedraw {
         return min(usableHeight - sizeCorrection, usableWidth);
 
     }
-    public static void resizeOuterRect() {
+    public static void resizeOuterRect(BoardView board) {
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
-        double size = getBoardSize(board.window);
+        double size = getBoardSize(board);
         board.outerRect.setLayoutX((board.window.getWidth()/2)-(size*0.6));
         board.outerRect.setLayoutY((board.window.getHeight()/2)-(size/2));
         board.outerRect.setWidth(size);
@@ -80,7 +80,7 @@ public class BoardViewRedraw {
 
     }
 
-    public static void resizeBoardRect() {
+    public static void resizeBoardRect(BoardView board) {
         //  Ridimensiona il rettangolo interno in base alla dimensione di quello esterno
         board.boardRect.setWidth((board.outerRect.getWidth()*0.9));
         board.boardRect.setLayoutX(board.outerRect.getLayoutX()+(board.outerRect.getWidth()/2)-(board.boardRect.getWidth()/2));
@@ -88,7 +88,7 @@ public class BoardViewRedraw {
         board.boardRect.setLayoutY(board.outerRect.getLayoutY()+(board.outerRect.getHeight()/2)-(board.boardRect.getHeight()/2));
     }
 
-    public static void resizeSeparator() {
+    public static void resizeSeparator(BoardView board) {
         //  Ridimensiona il separatore tra le due metà dell'area di gioco
         //  in funzione della sua effettiva dimensione
         board.separator.setWidth(board.boardRect.getWidth()/13);
@@ -97,7 +97,7 @@ public class BoardViewRedraw {
         board.separator.setLayoutY(board.boardRect.getLayoutY()-1);
     }
 
-    public static void resizeTimer() {
+    public static void resizeTimer(BoardView board) {
         //  Ridimensiona le barre per il timer
         board.timerOut.setWidth(board.separator.getWidth()/2);
         board.timerOut.setLayoutX(board.separator.getLayoutX() + (board.separator.getWidth()/2) -(board.timerOut.getWidth()/2));
@@ -110,7 +110,7 @@ public class BoardViewRedraw {
         board.timerIn.setLayoutY(board.timerOut.getLayoutY()+2);
     }
 
-    public static void resizeLeftPoints() {
+    public static void resizeLeftPoints(BoardView board) {
         //  Ridimensiona le punte a sinistra del tabellone e relative regioni
         for (int i=0; i<6; i++) {
 
@@ -140,7 +140,7 @@ public class BoardViewRedraw {
         }
     }
 
-    public static void resizeRightPoints() {
+    public static void resizeRightPoints(BoardView board) {
         //  Ridimensiona le punte a destra del tabellone e relative regioni
         for (int i=6; i<12; i++) {
 
@@ -171,7 +171,7 @@ public class BoardViewRedraw {
     }
 
 
-    public static void resizeDice () {
+    public static void resizeDice (BoardView board) {
         if (!board.diceArray[0].isVisible()) {
             for (ImageView dice : board.diceArray) {
                 dice.setVisible(true);
@@ -192,7 +192,7 @@ public class BoardViewRedraw {
 
     }
 
-    public static void resizeButtons() {
+    public static void resizeButtons(BoardView board) {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
@@ -215,7 +215,7 @@ public class BoardViewRedraw {
 
     }
 
-    public static void resizeExitRegions() {
+    public static void resizeExitRegions(BoardView board) {
         board.blackExitRegion.setHeight(board.outerRect.getHeight()/2);
         board.blackExitRegion.setLayoutY(board.outerRect.getLayoutY());
         board.whiteExitRegion.setHeight(board.outerRect.getHeight()/2);
@@ -231,7 +231,7 @@ public class BoardViewRedraw {
         }
     }
 
-    public static void resizeDiceTray() {
+    public static void resizeDiceTray(BoardView board) {
         board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
         board.diceTray.setLayoutY(board.outerRect.getLayoutY());
         if (board.dtAnimDone) {
@@ -242,7 +242,7 @@ public class BoardViewRedraw {
     }
 
     //  Metodo per ridimensionamento e riposizionamento Pedine
-    public static void redrawPawns() {
+    public static void redrawPawns(BoardView board) {
 
         int whitesPlaced = 0;
         int blacksPlaced = 0;
@@ -318,7 +318,7 @@ public class BoardViewRedraw {
     }
 
 
-    private static void resizePawns () {
+    private static void resizePawns (BoardView board) {
         for (int i =0; i<board.pawnArrayWHT.length; i++){
             board.pawnArrayBLK[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
             board.pawnArrayWHT[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
@@ -326,39 +326,39 @@ public class BoardViewRedraw {
     }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
-    private static void resizePauseMenu(){
+    private static void resizePauseMenu(BoardView board){
         board.pauseMenu.setLayoutX(board.window.getWidth()/2-board.pauseMenu.getWidth()/2);
         board.pauseMenu.setLayoutY(board.window.getHeight()/2-board.pauseMenu.getHeight()/2);
     }
 
-    private static void resizeVictoryRect () {
+    private static void resizeVictoryRect (BoardView board) {
         board.victoryPanel.setWidth(board.window.getWidth() / 2);
         board.victoryPanel.setHeight(board.window.getHeight()/2.5);
         board.victoryPanel.setLayoutX((board.window.getWidth() - board.victoryPanel.getWidth()) / 2);
         board.victoryPanel.setLayoutY((board.window.getHeight() - board.victoryPanel.getHeight()) / 2);
     }
 
-    private static void resizeVictoryPawn () {
+    private static void resizeVictoryPawn (BoardView board) {
         board.victoryPawn.setRadius(board.victoryPanel.getHeight() / 10);
         board.victoryPawn.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.05 + board.victoryPawn.getRadius());
         board.victoryPawn.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() / 2);
     }
 
-    private static void resizeVictoryExit () {
+    private static void resizeVictoryExit (BoardView board) {
         board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.3);
         board.victoryExit.setPrefHeight(board.victoryPanel.getHeight() * 0.15);
         board.victoryExit.setLayoutY(board.victoryPanel.getLayoutY() + (0.66 * board.victoryPanel.getHeight()));
         board.victoryExit.setLayoutX(board.victoryPanel.getLayoutX() + (board.victoryPanel.getWidth() - (board.victoryPanel.getWidth() * 0.3)) / 2);
     }
 
-    private static void resizeVictoryCrown () {
+    private static void resizeVictoryCrown (BoardView board) {
         board.victoryCrown.setFitWidth(board.victoryPawn.getRadius()*2);
         board.victoryCrown.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius()*2.2);
         board.victoryCrown.setLayoutX(board.victoryPawn.getLayoutX() - board.victoryPawn.getRadius());
     }
 
 
-    private static void resizeVictoryLabel () {
+    private static void resizeVictoryLabel (BoardView board) {
         board.victoryLabel.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() * 0.15);
         board.victoryLabel.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.25);
         resizeVictoryFont(board.victoryPanel, board.victoryLabel);
@@ -379,24 +379,24 @@ public class BoardViewRedraw {
 
 
     //  Metodo per ridimensionare gli elementi del pannello vittoria
-    protected static void resizeVictoryPanel ()
+    protected static void resizeVictoryPanel (BoardView board)
     {
-        resizeVictoryRect();
-        resizeVictoryPawn();
-        resizeVictoryLabel();
-        resizeVictoryExit();
-        resizeVictoryCrown();
+        resizeVictoryRect(board);
+        resizeVictoryPawn(board);
+        resizeVictoryLabel(board);
+        resizeVictoryExit(board);
+        resizeVictoryCrown(board);
 
     }
 
-    private static void resizeStartDialogue () {
+    private static void resizeStartDialogue (BoardView board) {
         board.startDialogue.setLayoutX(board.window.getWidth()/2-board.startDialogue.getPrefWidth()/2);
         board.startDialogue.setLayoutY(board.window.getHeight()/2-board.startDialogue.getPrefHeight()/2);
     }
 
 
 
-    private static void resizePlsPawns() {
+    private static void resizePlsPawns(BoardView board) {
 
         board.plWHTPawn.setRadius(board.window.getHeight() * 0.038);
         board.plBLKPawn.setRadius(board.window.getHeight() * 0.038);
@@ -407,7 +407,7 @@ public class BoardViewRedraw {
 
     }
 
-    private static void resizePlsRects() {
+    private static void resizePlsRects(BoardView board) {
 
         //TODO mettere in metodo resizePlsOutRects();
         AnchorPane.setTopAnchor(board.plWHTOutRect, board.window.getHeight() * 0.0275);
@@ -418,13 +418,21 @@ public class BoardViewRedraw {
         board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
         board.plWHTOutRect.setWidth(board.window.getWidth()*0.18);
         board.plBLKOutRect.setWidth(board.window.getWidth()*0.18);
-        //TODO larghezza
 
         //TODO mettere in metodo resizePlsInRects();
-        AnchorPane.setTopAnchor(board.plBLKInRect, AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
-        AnchorPane.setTopAnchor(board.plWHTInRect, AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
-        AnchorPane.setLeftAnchor(board.plWHTInRect, AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
-        AnchorPane.setRightAnchor(board.plBLKInRect, AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+        board.plWHTInRect.setWidth(board.window.getWidth()*0.15);
+        board.plWHTInRect.setHeight(board.plWHTPawn.getRadius()*1.5);
+        board.plBLKInRect.setWidth(board.window.getWidth()*0.15);
+        board.plBLKInRect.setHeight(board.plBLKPawn.getRadius()*1.5);
+        AnchorPane.setTopAnchor(board.plBLKInRect,
+                AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
+        AnchorPane.setTopAnchor(board.plWHTInRect,
+                AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
+        AnchorPane.setLeftAnchor(board.plWHTInRect,
+                AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
+        AnchorPane.setRightAnchor(board.plBLKInRect,
+                AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+
         //TODO altezza e larghezza
 
         //TODO mettere in metodo resizePlsNames();
@@ -437,35 +445,42 @@ public class BoardViewRedraw {
         board.plWHTText.setPrefHeight(board.plWHTInRect.getHeight());
         board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
 
+        //TODO FONT SIZE
+        /*
+        double widthFactor = board.plWHTInRect.getWidth()/400;
+        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
+
+         */
+
         }
 
 
 
-    protected static void resizeAll() {
+    protected static void resizeAll(BoardView board) {
 
         //TODO Inserire dove necessario controlli su font size
-        resizePlsPawns();
-        resizePlsRects();
-        resizeOuterRect();
-        resizeBoardRect();
-        resizeSeparator();
-        resizeTimer();
-        resizeLeftPoints();
-        resizeRightPoints();
-        resizePawns();
-        calcTrayWidths();
+        resizePlsPawns(board);
+        resizePlsRects(board);
+        resizeOuterRect(board);
+        resizeBoardRect(board);
+        resizeSeparator(board);
+        resizeTimer(board);
+        resizeLeftPoints(board);
+        resizeRightPoints(board);
+        resizePawns(board);
+        calcTrayWidths(board);
         if (board.gameStart) {
-            resizeDiceTray();
+            resizeDiceTray(board);
             if (board.dtAnimDone)
-                resizeDice(); }
+                resizeDice(board); }
         else
-            resizeStartDialogue();
-        resizeButtons();
-        resizeExitRegions();
-        redrawPawns();
-        resizePauseMenu();
+            resizeStartDialogue(board);
+        resizeButtons(board);
+        resizeExitRegions(board);
+        redrawPawns(board);
+        resizePauseMenu(board);
         if (board.gameEndState) {
-            resizeVictoryPanel();
+            resizeVictoryPanel(board);
         }
 
 
@@ -473,10 +488,12 @@ public class BoardViewRedraw {
 
     }
 
-
+/*TODO TOGLIERE
     public static void initializeRedraw(BoardView board) {
         BoardViewRedraw.board = board;
     }
+
+ */
 
 
 }

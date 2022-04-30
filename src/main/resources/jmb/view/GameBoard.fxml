@@ -287,8 +287,8 @@
    <Circle fx:id="plBLKPawn" fill="DODGERBLUE" layoutX="49.0" layoutY="49.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plWHTOutRect" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="50.0" layoutX="74.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="124.0" />
    <Rectangle fx:id="plWHTInRect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" stroke="LIGHTGRAY" strokeType="INSIDE" width="107.0" />
-   <Label fx:id="plWHTText" alignment="CENTER" prefWidth="106.4794921875" text="Giocatore 1" textAlignment="CENTER" />
+   <Label fx:id="plWHTText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 1" textAlignment="CENTER" />
    <Rectangle fx:id="plBLKOutRect" arcHeight="5.0" arcWidth="5.0" fill="RED" height="50.0" layoutX="84.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="124.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plBLKInRect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" stroke="LIGHTGRAY" strokeType="INSIDE" width="107.0" />
-   <Label fx:id="plBLKText" alignment="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" />
+   <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" />
 </AnchorPane>

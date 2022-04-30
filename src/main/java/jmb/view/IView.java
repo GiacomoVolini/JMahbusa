@@ -18,14 +18,12 @@ public interface IView {
 
     void setPawnsForTurn();
 
-    void blackWins (boolean doubleWin);
-
-    void whiteWins (boolean doubleWin);
-
     void backBTNSetDisable (boolean disable);
 
     void closeBlackExit();
 
     void closeWhiteExit();
+
+    void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin);
 
 }

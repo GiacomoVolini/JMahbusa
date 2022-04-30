@@ -15,8 +15,6 @@ import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw {
 
-    //TODO TOGLIERE private static BoardView board;
-
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
     private static double maxDTWidth;
@@ -409,7 +407,14 @@ public class BoardViewRedraw {
 
     private static void resizePlsRects(BoardView board) {
 
-        //TODO mettere in metodo resizePlsOutRects();
+        resizePlsOutRects(board);
+        resizePlsInRects(board);
+        resizePlsNames(board);
+        resizePlsFont(board);
+
+    }
+
+    private static void resizePlsOutRects (BoardView board) {
         AnchorPane.setTopAnchor(board.plWHTOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setTopAnchor(board.plBLKOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setLeftAnchor(board.plWHTOutRect, board.window.getWidth() * 0.025 + board.plWHTPawn.getRadius()*2);
@@ -418,8 +423,9 @@ public class BoardViewRedraw {
         board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
         board.plWHTOutRect.setWidth(board.window.getWidth()*0.18);
         board.plBLKOutRect.setWidth(board.window.getWidth()*0.18);
+    }
 
-        //TODO mettere in metodo resizePlsInRects();
+    private static void resizePlsInRects(BoardView board) {
         board.plWHTInRect.setWidth(board.window.getWidth()*0.15);
         board.plWHTInRect.setHeight(board.plWHTPawn.getRadius()*1.5);
         board.plBLKInRect.setWidth(board.window.getWidth()*0.15);
@@ -432,10 +438,9 @@ public class BoardViewRedraw {
                 AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
         AnchorPane.setRightAnchor(board.plBLKInRect,
                 AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+    }
 
-        //TODO altezza e larghezza
-
-        //TODO mettere in metodo resizePlsNames();
+    private static void resizePlsNames(BoardView board) {
         AnchorPane.setTopAnchor(board.plWHTText, AnchorPane.getTopAnchor(board.plWHTInRect));
         AnchorPane.setTopAnchor(board.plBLKText, AnchorPane.getTopAnchor(board.plBLKInRect));
         AnchorPane.setLeftAnchor(board.plWHTText, AnchorPane.getLeftAnchor(board.plWHTInRect));
@@ -444,15 +449,14 @@ public class BoardViewRedraw {
         board.plBLKText.setPrefWidth(board.plBLKInRect.getWidth());
         board.plWHTText.setPrefHeight(board.plWHTInRect.getHeight());
         board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
+    }
 
-        //TODO FONT SIZE
-        /*
-        double widthFactor = board.plWHTInRect.getWidth()/400;
-        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
-
-         */
-
-        }
+    private static void resizePlsFont(BoardView board) {
+        double widthFactor = board.plWHTInRect.getWidth()/110;
+        double fontSize = max(13.5, min(25,(12 * widthFactor)));
+        board.plWHTText.setFont(Font.font("calibri", FontWeight.NORMAL, fontSize));
+        board.plBLKText.setFont(Font.font("calibri", FontWeight.NORMAL, fontSize));
+    }
 
 
 

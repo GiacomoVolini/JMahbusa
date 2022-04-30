@@ -746,11 +746,9 @@ public class BoardView {
         return victoryLabel;
 
     }
-
+/*TODO VECCHIO
     protected void gameWon (boolean whiteWon, boolean doubleWin) {
-
         gameEndDisable();                       //  Disabilita i Nodes sottostanti (pulsanti e pedine)
-
         String winner, loser;
         if (whiteWon) {
             winner = n1;
@@ -759,21 +757,13 @@ public class BoardView {
             winner = n2;
             loser = n1;
         }
-
         victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
-
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
-
         victoryLabel = createVictoryLabel(winner, doubleWin);    //  Crea la Label del pannello vittoria con il nome del vincitore
-
         victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
-
         victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
-
         gameEndState = true;
-
         BoardViewRedraw.resizeVictoryPanel(this);
-
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
                         new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
@@ -785,13 +775,30 @@ public class BoardView {
         );
         timeline.setCycleCount(1);
         timeline.play();
-
-
-
         logic.addStatsToPlayers(winner, loser, doubleWin);
-
         logic.writeLdbList();
-
+    }
+ */
+    protected void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
+        gameEndDisable();
+        victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
+        victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
+        victoryLabel = createVictoryLabel(winner, doubleWin);    //  Crea la Label del pannello vittoria con il nome del vincitore
+        victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
+        victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
+        gameEndState = true;
+        BoardViewRedraw.resizeVictoryPanel(this);
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
+                        new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
+                        new KeyValue(victoryCrown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
+                        new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
+                        new KeyValue(victoryCrown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
     }
 
     protected void closeBlackExit() {
@@ -835,8 +842,8 @@ public class BoardView {
 
         //informazione del giocatore
         //nomi
-        plWHTText.setText(n1.stripTrailing());
-        plBLKText.setText(n2.stripTrailing());
+        plWHTText.setText(logic.getWhitePlayer().stripTrailing());
+        plBLKText.setText(logic.getBlackPlayer().stripTrailing());
         //colori
         plWHTPawn.setFill(pedIn1);
         plWHTPawn.setStroke(pedOut1);

@@ -51,7 +51,7 @@ public class View implements IView {
 
     @Override
     public void setPawnsForTurn() {
-        BoardViewRedraw.redrawPawns();
+        BoardViewRedraw.redrawPawns(sceneBoard);
     }
 
     @Override

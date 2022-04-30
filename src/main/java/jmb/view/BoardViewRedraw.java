@@ -418,13 +418,21 @@ public class BoardViewRedraw {
         board.plBLKOutRect.setHeight(board.plBLKPawn.getRadius()*2);
         board.plWHTOutRect.setWidth(board.window.getWidth()*0.18);
         board.plBLKOutRect.setWidth(board.window.getWidth()*0.18);
-        //TODO larghezza
 
         //TODO mettere in metodo resizePlsInRects();
-        AnchorPane.setTopAnchor(board.plBLKInRect, AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
-        AnchorPane.setTopAnchor(board.plWHTInRect, AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
-        AnchorPane.setLeftAnchor(board.plWHTInRect, AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
-        AnchorPane.setRightAnchor(board.plBLKInRect, AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+        board.plWHTInRect.setWidth(board.window.getWidth()*0.15);
+        board.plWHTInRect.setHeight(board.plWHTPawn.getRadius()*1.5);
+        board.plBLKInRect.setWidth(board.window.getWidth()*0.15);
+        board.plBLKInRect.setHeight(board.plBLKPawn.getRadius()*1.5);
+        AnchorPane.setTopAnchor(board.plBLKInRect,
+                AnchorPane.getTopAnchor(board.plBLKOutRect) + board.plBLKOutRect.getHeight()/2 - board.plBLKInRect.getHeight()/2);
+        AnchorPane.setTopAnchor(board.plWHTInRect,
+                AnchorPane.getTopAnchor(board.plWHTOutRect) + board.plWHTOutRect.getHeight()/2 - board.plWHTInRect.getHeight()/2);
+        AnchorPane.setLeftAnchor(board.plWHTInRect,
+                AnchorPane.getLeftAnchor(board.plWHTOutRect) + board.plWHTOutRect.getWidth()/2 - board.plWHTInRect.getWidth()/2);
+        AnchorPane.setRightAnchor(board.plBLKInRect,
+                AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth()/2 - board.plBLKInRect.getWidth()/2);
+
         //TODO altezza e larghezza
 
         //TODO mettere in metodo resizePlsNames();
@@ -436,6 +444,13 @@ public class BoardViewRedraw {
         board.plBLKText.setPrefWidth(board.plBLKInRect.getWidth());
         board.plWHTText.setPrefHeight(board.plWHTInRect.getHeight());
         board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
+
+        //TODO FONT SIZE
+        /*
+        double widthFactor = board.plWHTInRect.getWidth()/400;
+        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
+
+         */
 
         }
 

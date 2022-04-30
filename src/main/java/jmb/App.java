@@ -91,7 +91,7 @@ public class App extends Application {
         Parent out = fxmlLoader.load();
         if(fxml == "view/GameBoard"){
             View.sceneBoard = fxmlLoader.getController();
-            BoardViewRedraw.initializeRedraw(View.sceneBoard);
+            //TODO TOGLIERE BoardViewRedraw.initializeRedraw(View.sceneBoard);
         } else if(fxml == "view/Leaderboard"){
             View.sceneLeaderboard = fxmlLoader.getController();
         } else if(fxml == "view/Login"){

@@ -82,7 +82,7 @@ public class LeaderboardView {
         table.setLayoutY(Window.getHeight()/2 - table.getHeight()/2);
         uscita.setLayoutX(table.getLayoutX());
         uscita.setLayoutY(table.getLayoutY() - 25);
-        smallAncor.setLayoutX(table.getLayoutX() + 348);
+        smallAncor.setLayoutX(table.getLayoutX() + 376);
         smallAncor.setLayoutY(table.getLayoutY() - 25);
 
 

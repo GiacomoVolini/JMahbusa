@@ -8,9 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
    <children>
-      <TableView fx:id="table" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="456.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="128.0" text="NOME" />
           <TableColumn fx:id="victories" minWidth="0.0" prefWidth="109.0" sortType="DESCENDING" text="Vittorie" />
@@ -18,16 +18,20 @@
             <TableColumn fx:id="rate" minWidth="0.0" prefWidth="109.0" sortType="DESCENDING" text="Tasso vittorie" />
         </columns>
       </TableView>
-      <TextField fx:id="cerca" layoutX="455.0" prefHeight="25.0" prefWidth="73.0" promptText="Search" />
-      <Button fx:id="uscita" layoutX="96.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="25.0" prefWidth="36.0" text="Exit" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Button fx:id="searchBTN" layoutX="528.0" maxHeight="25.0" maxWidth="36.0" mnemonicParsing="false" onAction="#cercaNomi" prefHeight="25.0" prefWidth="36.0" AnchorPane.bottomAnchor="375.0" AnchorPane.leftAnchor="528.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="0.0">
-         <graphic>
-            <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@search_iconp.jpg" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <AnchorPane fx:id="smallAncor" layoutX="476.0" layoutY="119.0" prefHeight="25.0" prefWidth="107.0">
+         <children>
+            <TextField fx:id="cerca" prefHeight="25.0" prefWidth="73.0" promptText="Search" />
+            <Button fx:id="searchBTN" layoutX="73.0" maxHeight="25.0" maxWidth="36.0" mnemonicParsing="false" onAction="#cercaNomi" prefHeight="25.0" prefWidth="36.0">
+               <graphic>
+                  <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@search_iconp.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Button fx:id="uscita" layoutX="513.0" layoutY="220.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="25.0" prefWidth="36.0" text="Exit" />
    </children>
 </AnchorPane>

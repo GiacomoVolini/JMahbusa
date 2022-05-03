@@ -610,9 +610,6 @@ public class MenuImpostazioni<string> {
 
 
         protected void changeDimensions() {
-                //save dimensioni
-                double b = Gtext.getLayoutX();
-                double f = SliderGT.getLayoutX();
 
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);

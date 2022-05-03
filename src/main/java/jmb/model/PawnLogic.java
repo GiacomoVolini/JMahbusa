@@ -1,9 +1,5 @@
 package jmb.model;
 
-//TODO
-//  Forse i metodi setWhichRow e setWhichColumn non servono più, dato che i getWhichRow e getWhichColumn non vengono
-//  mai richiamati. Forse cancellarli tutti e quattro, con relative variabili
-
 public class PawnLogic {
 
     /** La classe PawnLogic modella la logica di una singola Pedina,

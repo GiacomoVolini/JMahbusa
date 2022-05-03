@@ -57,22 +57,6 @@ public class View implements IView {
     }
 
     @Override
-    public void blackWins (boolean doubleWin) {
-        //TODO METTERE LE ISTRUZIONI GIUSTE
-        //  PLACEHOLDER
-        System.out.println("IL NERO VINCE");
-        sceneBoard.gameWon(BLACK_WINS, doubleWin);
-    }
-
-    @Override
-    public void whiteWins (boolean doubleWin) {
-        //TODO METTERE LE ISTRUZIONI GIUSTE
-        //  PLACEHOLDER
-        System.out.println("IL BIANCO VINCE");
-        sceneBoard.gameWon(WHITE_WINS, doubleWin);
-    }
-
-    @Override
     public void backBTNSetDisable (boolean disable) {
         sceneBoard.backBTN.setDisable(disable);
     }
@@ -85,6 +69,11 @@ public class View implements IView {
     @Override
     public void closeWhiteExit() {
         sceneBoard.closeWhiteExit();
+    }
+
+    @Override
+    public void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
+        sceneBoard.gameWon(winner, loser, whiteWon, doubleWin);
     }
 
 }

@@ -52,7 +52,8 @@ public class LeaderboardLogic {
     }
 
     protected void addNewPlayer (String name) {
-        arrList.add (new Player (name));
+        if (!name.contains("\u2001"))
+            arrList.add (new Player (name.concat("\u2001")));
     }
 
     public ArrayList<Player> getList() {

@@ -80,6 +80,18 @@ public class LogIn {
     private TextField oPt;
 
     @FXML
+    private CheckBox tournamentCheckBox;
+
+    @FXML
+    private Label tournamentLabel;
+
+    @FXML
+    private TitledPane tournamentPanel;
+
+    @FXML
+    private Spinner<Integer> tournamentSpinner;
+
+    @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
         if(scelta.isSelected()){
@@ -94,10 +106,13 @@ public class LogIn {
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
+                    logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
+                /* TODO TOGLIERE
                     logic.addNewPlayersToList(scrivinomi1.getValue(), scrivinomi2.getValue());
                     n1 = scrivinomi1.getValue();
                     n2 = scrivinomi2.getValue();
-                    //TODO VALUTARE SE AGGIUNGERE QUI STRIPTRAILING E TOGLIERLO IN BOARDVIEW O LASCIARLO IN BOARDVIEW
+
+                 */
                     jmb.App.board();
                     break;
                 case SAME_NAME_ERROR:
@@ -172,6 +187,12 @@ public class LogIn {
         oPt.setDisable(false);
     }
 
+    @FXML
+    void toggleSpinner(ActionEvent event) {
+        tournamentLabel.setDisable(!tournamentLabel.isDisable());
+        tournamentSpinner.setDisable(!tournamentSpinner.isDisable());
+    }
+
     ToggleGroup group = new ToggleGroup();
 
     public void initialize() {
@@ -192,6 +213,8 @@ public class LogIn {
         scrivinomi1.setItems(nameList);
         scrivinomi2.setItems(nameList);
 
+        tournamentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 10));
+
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -203,11 +226,15 @@ public class LogIn {
 
     protected void changeDimensions() {
 
-        registrati.setLayoutX(window.getWidth()/2 - registrati.getWidth()/2);
-        GT.setLayoutX(registrati.getLayoutX());
+        double panelX = window.getWidth()/2 - registrati.getWidth()/2;
 
-        registrati.setLayoutY(window.getHeight()/2 - registrati.getHeight()/2);
-        GT.setLayoutY(window.getHeight()/2 - registrati.getHeight()/2 + registrati.getHeight());
+        registrati.setLayoutX(panelX);
+        GT.setLayoutX(panelX);
+        tournamentPanel.setLayoutX(panelX);
+
+        registrati.setLayoutY((window.getHeight() - registrati.getHeight() - GT.getHeight() - tournamentPanel.getHeight())/2);
+        GT.setLayoutY(registrati.getLayoutY() + registrati.getHeight());
+        tournamentPanel.setLayoutY(GT.getLayoutY()+GT.getHeight());
 
 
     }

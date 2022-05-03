@@ -182,4 +182,20 @@ public class Logic implements ILogic{
     public boolean getBlackExit() {
         return board.getBlackExit();
     }
+
+    @Override
+    public void setPlayersForGame(String whitePlayer, String blackPlayer) {
+        board.setWhitePlayer(whitePlayer);
+        board.setBlackPlayer(blackPlayer);
+    }
+
+    @Override
+    public String getWhitePlayer() {
+        return board.getWhitePlayer();
+    }
+
+    @Override
+    public String getBlackPlayer() {
+        return board.getBlackPlayer();
+    }
 }

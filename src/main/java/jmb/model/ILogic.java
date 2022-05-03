@@ -60,4 +60,11 @@ public interface ILogic {
 
     boolean getWhiteExit();
 
+    void setPlayersForGame(String whitePlayer, String blackPlayer);
+
+    String getWhitePlayer();
+
+    String getBlackPlayer();
+
+
 }

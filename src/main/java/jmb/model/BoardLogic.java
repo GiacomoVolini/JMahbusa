@@ -6,7 +6,9 @@ import java.util.Iterator;
 import static java.lang.Math.abs;
 import static jmb.ConstantsShared.*;
 import static jmb.model.ConstantsLogic.*;
+import static jmb.model.Logic.ldb;
 import static jmb.model.Logic.view;
+import static jmb.view.View.logic;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
@@ -17,10 +19,7 @@ public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
-    PawnLogic[][] squares = new PawnLogic[16][26];    //una matrice di PawnLogic, per gestire posizione e spostamento delle pedine
-                                            //  le colonne 0 e 25 rappresentano le due zone di uscita per le pedine,
-                                            //  mentre le restanti 24 colonne rappresentano le punte
-
+    PawnLogic[][] squares;
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
@@ -30,6 +29,9 @@ public class BoardLogic {
                                                 //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
                                                 //  in un turno
+
+    private String whitePlayer;
+    private String blackPlayer;
 
     //  ----------------------------
 
@@ -53,6 +55,8 @@ public class BoardLogic {
         //  può portare fuori le proprie pedine
         setBlackExit(false);
         setWhiteExit(false);
+
+        squares = new PawnLogic[16][26];
 
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
@@ -346,6 +350,7 @@ public class BoardLogic {
     }
 
     protected void victoryCheck() {
+    /*TODO VECCHIO
         if (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
                 squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) {
             view.blackWins(DOUBLE_WIN);
@@ -363,6 +368,32 @@ public class BoardLogic {
             else
                 view.whiteWins(SINGLE_WIN);
         }
+
+     */
+        if (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
+                squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) {
+            gameWon(blackPlayer, whitePlayer, BLACK_WINS, DOUBLE_WIN);
+        } else if (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
+                squares[1][COL_BLACK]!=null && squares[1][COL_BLACK].getisWhite()) {
+            gameWon(whitePlayer, blackPlayer, WHITE_WINS,DOUBLE_WIN);
+        } else if (squares[14][COL_BLACK_EXIT]!=null) {
+            if (squares[0][COL_WHITE_EXIT]==null)
+                gameWon(blackPlayer, whitePlayer, BLACK_WINS, DOUBLE_WIN);
+            else
+                gameWon(blackPlayer, whitePlayer, BLACK_WINS, SINGLE_WIN);
+        } else if (squares[14][COL_WHITE_EXIT]!=null) {
+            if (squares[0][COL_BLACK_EXIT]==null)
+                gameWon(whitePlayer,blackPlayer, WHITE_WINS, DOUBLE_WIN);
+            else
+                gameWon(whitePlayer,blackPlayer, WHITE_WINS, SINGLE_WIN);
+        }
+    }
+
+    private void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
+        ldb.addNewPlayer(winner);
+        ldb.addNewPlayer(loser);
+        ldb.addStatsToList(winner, loser, doubleWin);
+        view.gameWon(winner, loser, whiteWon, doubleWin);
     }
 
     protected void revertMove() {
@@ -419,5 +450,21 @@ public class BoardLogic {
 
     protected boolean getBlackExit() {
         return blackExit;
+    }
+
+    protected void setWhitePlayer(String playerName) {
+        this.whitePlayer = playerName;
+    }
+
+    protected void setBlackPlayer(String playerName) {
+        this.blackPlayer = playerName;
+    }
+
+    protected String getWhitePlayer() {
+        return this.whitePlayer;
+    }
+
+    protected String getBlackPlayer() {
+        return this.blackPlayer;
     }
 }

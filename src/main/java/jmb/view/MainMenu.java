@@ -77,6 +77,7 @@ public class MainMenu {
         LDB.getScene().getWindow();
         jmb.App.leaderBoard();
         View.sceneLeaderboard.table.refresh();
+        View.sceneLeaderboard.changeDimensions();
 
     }
 

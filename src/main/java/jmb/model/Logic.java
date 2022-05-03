@@ -190,6 +190,12 @@ public class Logic implements ILogic{
     }
 
     @Override
+    public void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints) {
+        setPlayersForGame(whitePlayer, blackPlayer);
+        board.setTournamentPoints(tournamentPoints);
+    }
+
+    @Override
     public String getWhitePlayer() {
         return board.getWhitePlayer();
     }

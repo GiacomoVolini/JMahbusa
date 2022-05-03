@@ -96,6 +96,7 @@ public class LeaderboardLogic {
         }
         winPlayer.setWinRate();
         lossPlayer.setWinRate();
+        ldbWriter(path);
     }
 
 }

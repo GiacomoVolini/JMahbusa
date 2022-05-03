@@ -106,13 +106,10 @@ public class LogIn {
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
-                    logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
-                /* TODO TOGLIERE
-                    logic.addNewPlayersToList(scrivinomi1.getValue(), scrivinomi2.getValue());
-                    n1 = scrivinomi1.getValue();
-                    n2 = scrivinomi2.getValue();
-
-                 */
+                    if (tournamentCheckBox.isSelected())
+                        logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue(), tournamentSpinner.getValue().intValue());
+                    else
+                        logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
                     jmb.App.board();
                     break;
                 case SAME_NAME_ERROR:

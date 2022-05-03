@@ -76,4 +76,9 @@ public class View implements IView {
         sceneBoard.gameWon(winner, loser, whiteWon, doubleWin);
     }
 
+    @Override
+    public void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin, boolean tournamentWon) {
+        //TODO
+    }
+
 }

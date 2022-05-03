@@ -62,6 +62,8 @@ public interface ILogic {
 
     void setPlayersForGame(String whitePlayer, String blackPlayer);
 
+    void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints);
+
     String getWhitePlayer();
 
     String getBlackPlayer();

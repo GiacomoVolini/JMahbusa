@@ -324,7 +324,7 @@ public class BoardViewRedraw {
     }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
-    private static void resizePauseMenu(BoardView board){
+    protected static void resizePauseMenu(BoardView board){
         board.pauseMenu.setLayoutX(board.window.getWidth()/2-board.pauseMenu.getWidth()/2);
         board.pauseMenu.setLayoutY(board.window.getHeight()/2-board.pauseMenu.getHeight()/2);
     }
@@ -343,7 +343,7 @@ public class BoardViewRedraw {
     }
 
     private static void resizeVictoryExit (BoardView board) {
-        board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.3);
+        board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.4);
         board.victoryExit.setPrefHeight(board.victoryPanel.getHeight() * 0.15);
         board.victoryExit.setLayoutY(board.victoryPanel.getLayoutY() + (0.66 * board.victoryPanel.getHeight()));
         board.victoryExit.setLayoutX(board.victoryPanel.getLayoutX() + (board.victoryPanel.getWidth() - (board.victoryPanel.getWidth() * 0.3)) / 2);
@@ -373,6 +373,12 @@ public class BoardViewRedraw {
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
     }
 
+    private static void resizeTournamentRibbon(BoardView board) {
+        board.tourmanentRibbon.setLayoutX(board.victoryPawn.getLayoutX() + board.victoryPawn.getRadius()*0.10);
+        board.tourmanentRibbon.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius()*0.20);
+        board.tourmanentRibbon.setFitWidth(board.victoryPawn.getRadius());
+    }
+
 
 
 
@@ -384,6 +390,8 @@ public class BoardViewRedraw {
         resizeVictoryLabel(board);
         resizeVictoryExit(board);
         resizeVictoryCrown(board);
+        if (board.tourmanentRibbon!=null)
+            resizeTournamentRibbon(board);
 
     }
 
@@ -456,6 +464,23 @@ public class BoardViewRedraw {
         double fontSize = max(13.5, min(25,(12 * widthFactor)));
         board.plWHTText.setFont(Font.font("calibri", FontWeight.NORMAL, fontSize));
         board.plBLKText.setFont(Font.font("calibri", FontWeight.NORMAL, fontSize));
+
+    }
+
+    protected static void resizeTournamentLabel(BoardView board) {
+        AnchorPane.setTopAnchor(board.tournamentWhitePoints, board.window.getHeight() * 0.0275);
+        AnchorPane.setTopAnchor(board.tournamentBlackPoints, board.window.getHeight() * 0.0275);
+        AnchorPane.setLeftAnchor(board.tournamentWhitePoints, board.window.getWidth() * 0.0125);
+        AnchorPane.setRightAnchor(board.tournamentBlackPoints, board.window.getWidth() * 0.0125);
+        board.tournamentWhitePoints.setPrefWidth(board.plWHTPawn.getRadius()*2);
+        board.tournamentWhitePoints.setPrefHeight(board.plWHTPawn.getRadius()*2);
+        board.tournamentBlackPoints.setPrefWidth(board.plBLKPawn.getRadius()*2);
+        board.tournamentBlackPoints.setPrefHeight(board.plBLKPawn.getRadius()*2);
+        double fontFactor = board.plWHTPawn.getRadius()/25;
+        board.tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 20*fontFactor));
+        board.tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 20*fontFactor));
+
+
     }
 
 
@@ -483,6 +508,8 @@ public class BoardViewRedraw {
         resizeExitRegions(board);
         redrawPawns(board);
         resizePauseMenu(board);
+        if (logic.isTournamentOngoing())
+            resizeTournamentLabel(board);
         if (board.gameEndState) {
             resizeVictoryPanel(board);
         }

@@ -357,31 +357,82 @@ public class BoardLogic {
 
     protected void victoryCheck() {
 
-        if (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
-                squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) {
-            gameWon(blackPlayer, whitePlayer, BLACK_WINS, DOUBLE_WIN);
-        } else if (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
-                squares[1][COL_BLACK]!=null && squares[1][COL_BLACK].getisWhite()) {
-            gameWon(whitePlayer, blackPlayer, WHITE_WINS,DOUBLE_WIN);
-        } else if (squares[14][COL_BLACK_EXIT]!=null) {
-            if (squares[0][COL_WHITE_EXIT]==null)
-                gameWon(blackPlayer, whitePlayer, BLACK_WINS, DOUBLE_WIN);
-            else
-                gameWon(blackPlayer, whitePlayer, BLACK_WINS, SINGLE_WIN);
-        } else if (squares[14][COL_WHITE_EXIT]!=null) {
-            if (squares[0][COL_BLACK_EXIT]==null)
-                gameWon(whitePlayer,blackPlayer, WHITE_WINS, DOUBLE_WIN);
-            else
-                gameWon(whitePlayer,blackPlayer, WHITE_WINS, SINGLE_WIN);
-        }
+        if (blackDoubleWinCondition())
+            gameWon(BLACK_WINS, DOUBLE_WIN);
+        else if (whiteDoubleWinCondition())
+            gameWon(WHITE_WINS, DOUBLE_WIN);
+        else if (blackSingleWinCondition())
+            gameWon(BLACK_WINS, SINGLE_WIN);
+        else if (whiteSingleWinCondition())
+            gameWon(WHITE_WINS, SINGLE_WIN);
+
     }
 
+    private boolean blackDoubleWinCondition() {
+        return (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
+                squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) ||
+                (squares[14][COL_BLACK_EXIT]!=null && squares[0][COL_WHITE_EXIT]==null);
+    }
+
+    private boolean whiteDoubleWinCondition() {
+        return (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
+                squares[1][COL_BLACK]!=null && squares[1][COL_BLACK].getisWhite()) ||
+                (squares[14][COL_WHITE_EXIT]!=null && squares[0][COL_BLACK_EXIT]==null);
+
+    }
+
+    private boolean blackSingleWinCondition() {
+        return (squares[14][COL_BLACK_EXIT]!=null && squares[0][COL_WHITE_EXIT]!=null);
+    }
+
+    private boolean whiteSingleWinCondition() {
+        return (squares[14][COL_WHITE_EXIT]!=null && squares[0][COL_BLACK_EXIT]!=null);
+    }
+
+    private void gameWon(boolean whiteWon, boolean doubleWin) {
+        //TODO
+        if (whiteWon) {
+            if (doubleWin)
+                whitesWonPoints += 2;
+            else whitesWonPoints += 1;
+        } else {
+            if (doubleWin)
+                blacksWonPoints +=2;
+            else blacksWonPoints +=1;
+        }
+        //TODO RISCRIVERE - QUI CHIAMARE SOLO view.gameWon
+        //      Sarà l'onAction della fine partita/fine torneo a chiamare la parte di logic che aggiunge vittorie e sconfitte ai due gg
+
+        if (tournamentPoints == 0)
+            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, NO_TOURNAMENT);
+        else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)
+            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_WON);
+        else
+            view.gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin,TOURNAMENT_CONTINUES);
+
+    /* TODO VECCHIO
+        if (tournamentPoints == 0 || tournamentPoints<=whitesWonPoints || tournamentPoints<= blacksWonPoints){
+            ldb.addNewPlayer(whitePlayer);
+            ldb.addNewPlayer(blackPlayer);
+            ldb.addStatsToList(whitePlayer, blackPlayer, whitesWonPoints);
+            ldb.addStatsToList(blackPlayer, whitePlayer, blacksWonPoints);
+            if (tournamentPoints == 0)
+                view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, NO_TOURNAMENT);
+            else view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_WON);
+        } else {
+            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_CONTINUES);
+        }
+
+     */
+
+    }
+/*TODO VECCHIO
     private void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
         if (tournamentPoints == 0) {
             ldb.addNewPlayer(winner);
             ldb.addNewPlayer(loser);
             ldb.addStatsToList(winner, loser, doubleWin);
-            view.gameWon(winner, loser, whiteWon, doubleWin);
+            view.gameWon(winner, loser, whiteWon, doubleWin, NO_TOURNAMENT);
         } else {
             int pointsToAdd;
             if(doubleWin)
@@ -397,9 +448,9 @@ public class BoardLogic {
             } else {
                 view.gameWon(winner, loser, whiteWon, doubleWin, false);
             }
-
-        }
     }
+
+ */
 
     protected void revertMove() {
         MoveRecord move = turnMoves.pop();
@@ -479,5 +530,21 @@ public class BoardLogic {
 
     protected int getTournamentPoints() {
         return tournamentPoints;
+    }
+
+    protected void setBlacksWonPoints(int value) {
+        blacksWonPoints = value;
+    }
+
+    protected int getBlacksWonPoints() {
+        return blacksWonPoints;
+    }
+
+    protected void setWhitesWonPoints(int value) {
+        whitesWonPoints = value;
+    }
+
+    protected int getWhitesWonPoints() {
+        return whitesWonPoints;
     }
 }

@@ -24,8 +24,6 @@ public interface IView {
 
     void closeWhiteExit();
 
-    void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin);
-
-    void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin, boolean tournamentWon);
+    void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus);
 
 }

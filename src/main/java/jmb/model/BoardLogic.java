@@ -390,7 +390,7 @@ public class BoardLogic {
     }
 
     private void gameWon(boolean whiteWon, boolean doubleWin) {
-        //TODO
+
         if (whiteWon) {
             if (doubleWin)
                 whitesWonPoints += 2;
@@ -400,8 +400,6 @@ public class BoardLogic {
                 blacksWonPoints +=2;
             else blacksWonPoints +=1;
         }
-        //TODO RISCRIVERE - QUI CHIAMARE SOLO view.gameWon
-        //      Sarà l'onAction della fine partita/fine torneo a chiamare la parte di logic che aggiunge vittorie e sconfitte ai due gg
 
         if (tournamentPoints == 0)
             view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, NO_TOURNAMENT);
@@ -410,47 +408,7 @@ public class BoardLogic {
         else
             view.gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin,TOURNAMENT_CONTINUES);
 
-    /* TODO VECCHIO
-        if (tournamentPoints == 0 || tournamentPoints<=whitesWonPoints || tournamentPoints<= blacksWonPoints){
-            ldb.addNewPlayer(whitePlayer);
-            ldb.addNewPlayer(blackPlayer);
-            ldb.addStatsToList(whitePlayer, blackPlayer, whitesWonPoints);
-            ldb.addStatsToList(blackPlayer, whitePlayer, blacksWonPoints);
-            if (tournamentPoints == 0)
-                view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, NO_TOURNAMENT);
-            else view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_WON);
-        } else {
-            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_CONTINUES);
-        }
-
-     */
-
     }
-/*TODO VECCHIO
-    private void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
-        if (tournamentPoints == 0) {
-            ldb.addNewPlayer(winner);
-            ldb.addNewPlayer(loser);
-            ldb.addStatsToList(winner, loser, doubleWin);
-            view.gameWon(winner, loser, whiteWon, doubleWin, NO_TOURNAMENT);
-        } else {
-            int pointsToAdd;
-            if(doubleWin)
-                pointsToAdd = 2;
-            else
-                pointsToAdd = 1;
-            if (whiteWon)
-                whitesWonPoints += pointsToAdd;
-            else
-                blacksWonPoints += pointsToAdd;
-            if (tournamentPoints<=blacksWonPoints||tournamentPoints<=whitesWonPoints) {
-                view.gameWon(winner, loser, whiteWon, doubleWin, true);
-            } else {
-                view.gameWon(winner, loser, whiteWon, doubleWin, false);
-            }
-    }
-
- */
 
     protected void revertMove() {
         MoveRecord move = turnMoves.pop();

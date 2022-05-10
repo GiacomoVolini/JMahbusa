@@ -519,12 +519,4 @@ public class BoardViewRedraw {
 
     }
 
-/*TODO TOGLIERE
-    public static void initializeRedraw(BoardView board) {
-        BoardViewRedraw.board = board;
-    }
-
- */
-
-
 }

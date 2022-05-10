@@ -66,7 +66,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <TitledPane fx:id="Taudio" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" text="Audio" visible="false">
+      <TitledPane fx:id="Taudio" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" text="Audio">
          <content>
             <AnchorPane fx:id="audio" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                <children>
@@ -76,13 +76,13 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <CheckBox fx:id="checkMusi" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="204.0" text="Muta la musica">
+                  <CheckBox fx:id="checkMusi" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" onAction="#mutaLAmusica" prefHeight="14.0" prefWidth="204.0" text="Muta la musica">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </CheckBox>
-                  <Slider fx:id="SliderMusi" layoutX="209.0" layoutY="66.0" />
-                  <CheckBox fx:id="checkMES" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="235.0" text="Muta gli effetti sonori">
+                  <Slider fx:id="SliderMusi" layoutX="209.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
+                  <CheckBox fx:id="checkMES" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#mutaGLIeffetto" prefHeight="30.0" prefWidth="235.0" text="Muta gli effetti sonori">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -92,12 +92,12 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <Slider fx:id="SliderES" layoutX="209.0" layoutY="111.0" />
+                  <Slider fx:id="SliderES" layoutX="209.0" layoutY="111.0" onMouseReleased="#soundProva" showTickLabels="true" showTickMarks="true" />
                </children>
             </AnchorPane>
          </content>
       </TitledPane>
-      <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione">
+      <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione" visible="false">
          <content>
             <AnchorPane fx:id="personalizzazione" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                <children>

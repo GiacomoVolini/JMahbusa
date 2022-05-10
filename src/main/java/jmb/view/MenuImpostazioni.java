@@ -1,8 +1,15 @@
 package jmb.view;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -10,6 +17,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
+
 import static jmb.view.ConstantsView.*;
 import static jmb.App.getStage;
 
@@ -269,17 +278,13 @@ public class MenuImpostazioni<string> {
         @FXML
         private Button Bvuoto2;
 
+        double Sv, Sve;
+
         @FXML
         void Tmainmenu()  throws IOException {
                 tornaMM.getScene().getWindow();
                 jmb.App.MainMenu();
-                if (checkSI.isSelected()) {
-                        cb = fullscreen;
-                        getStage().setFullScreen(true);
-                }else {
-                        cb = nofullscreen;
-                        getStage().setFullScreen(false);
-                }
+                getStage().setFullScreen(cb);
         }
 
         @FXML
@@ -331,6 +336,66 @@ public class MenuImpostazioni<string> {
                 comandi.setMouseTransparent(false);
         }
 
+        //Video
+        //schermo intero
+        @FXML
+        void fullscreen(ActionEvent event) {
+              /*  if (checkSI.isSelected()){
+                        cb = fullscreen;
+                        //getStage().setFullScreen(true);
+                }else{
+                        cb = nofullscreen;
+                        //getStage().setFullScreen(false);
+                }*/
+        }
+
+        @FXML
+        void blockresolution(ActionEvent event) {
+                if(checkBR.isSelected()) {
+                        sr = fermo;
+                }else{
+                        sr = nonfermo;
+                }
+        }
+
+        //Audio
+
+        @FXML
+        void mutaLAmusica(ActionEvent event) {
+
+                if (checkMusi.isSelected()){
+                        Sv = SliderMusi.getValue();
+                        mu = muta;
+                        SliderMusi.setValue(0);
+                        SliderMusi.setDisable(true);
+                }else{
+                        mu = nonmuta;
+                        SliderMusi.setValue(Sv);
+                        SliderMusi.setDisable(false);
+                }
+        }
+
+        @FXML
+        void mutaGLIeffetto(ActionEvent event) {
+
+                if (checkMES.isSelected()) {
+                        Sve = SliderES.getValue();
+                        mue = mutae;
+                        SliderES.setValue(0);
+                        SliderES.setDisable(true);
+                } else {
+                        mue = nonmutae;
+                        SliderES.setValue(Sve);
+                        SliderES.setDisable(false);
+                }
+        }
+
+        @FXML
+        void soundProva(MouseEvent event) {
+                View.sceneMusica.Pawn.play();
+        }
+
+        //Personalizzazione
         @FXML
         void coloreINpedina1(ActionEvent event) {
               pedina1.setFill(Inpedina1.getValue());
@@ -409,26 +474,6 @@ public class MenuImpostazioni<string> {
                 Ccornice.setDisable(true);
         }
 
-        //schermo intero
-        @FXML
-        void fullscreen(ActionEvent event) {
-                if (checkSI.isSelected()){
-                        cb = fullscreen;
-                        //getStage().setFullScreen(true);
-                }else{
-                        cb = nofullscreen;
-                        //getStage().setFullScreen(false);
-                }
-        }
-
-        @FXML
-        void blockresolution(ActionEvent event) {
-                if(checkBR.isSelected()) {
-                        sr = fermo;
-                }else{
-                        sr = nonfermo;
-                }
-        }
         //TODO riempi l'applicazioni
 
         //Comandi Action
@@ -589,11 +634,9 @@ public class MenuImpostazioni<string> {
 
                 //video
                 if (checkSI.isSelected()){
-                        checkSI.setSelected(true);
                         cb = fullscreen;
                         getStage().setFullScreen(true);
                 }else{
-                        checkSI.setSelected(false);
                         cb = nofullscreen;
                         getStage().setFullScreen(false);
                 }
@@ -604,6 +647,24 @@ public class MenuImpostazioni<string> {
                 }else{
                         sr = nonfermo;
                         getStage().setResizable(true);
+                }
+
+                //Audio
+                if(checkMusi.isSelected()) {
+                        mu = muta;
+                        View.sceneMusica.player.pause();
+                        View.sceneMusica.playerp.stop();
+                }else{
+                        mu = nonmuta;
+                        View.sceneMusica.player.play();
+                }
+
+                if(checkMES.isSelected()) {
+                        mue = mutae;
+                        View.sceneMusica.Pawn.stop();
+                }else{
+                        mue = nonmutae;
+                        View.sceneMusica.Pawn.play();
                 }
 
         }
@@ -747,12 +808,32 @@ public class MenuImpostazioni<string> {
                 punta3.setFill(Cpunte.getValue());
                 punta3.setStroke(Cpunte.getValue());
 
+                //musica
+                        checkMusi.setSelected(mu);
+                        checkMES.setSelected(mue);
+                        SliderMusi.setValue(View.sceneMusica.player.getVolume() * 100);
+                        SliderMusi.setValue(View.sceneMusica.playerp.getVolume() * 100);
+                        SliderES.setValue(View.sceneMusica.Pawn.getVolume() * 100);
+                        SliderMusi.valueProperty().addListener(new InvalidationListener() {
+                                @Override
+                                public void invalidated(Observable observable) {
+                                        View.sceneMusica.player.setVolume(SliderMusi.getValue()/100);
+                                        View.sceneMusica.playerp.setVolume(SliderMusi.getValue()/100);
+                                }
+                        });
+                        SliderES.valueProperty().addListener(new InvalidationListener() {
+                                @Override
+                                public void invalidated(Observable observable) {
+                                        View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100);
+                                }
+                        });
+
                 //schermo intero
 
                         checkSI.setSelected(cb);
-                        getStage().setFullScreen(true);
+                        getStage().setFullScreen(cb);
                         checkBR.setSelected(sr);
-                        getStage().setResizable(true);
+                        getStage().setResizable(sr);
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

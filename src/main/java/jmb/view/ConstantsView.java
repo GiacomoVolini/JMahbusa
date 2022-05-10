@@ -43,6 +43,13 @@ public class ConstantsView {
     public static boolean sr;
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
+    public static boolean mu;
+    public static final boolean muta = true;
+    public static final boolean nonmuta = false;
+    public static boolean mue;
+    public static final boolean mutae = true;
+    public static final boolean nonmutae = false;
+
 
     public static double MIN_PAWN_SIZE = 11.741538461538463;
 

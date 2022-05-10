@@ -6,11 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 import jmb.model.LeaderboardLogic;
 import jmb.model.Logic;
 import jmb.view.BoardView;
 import jmb.view.BoardViewRedraw;
 import jmb.view.View;
+import static jmb.view.ConstantsView.*;
 
 import java.io.IOException;
 
@@ -98,6 +100,8 @@ public class App extends Application {
             View.sceneLogIn = fxmlLoader.getController();
         } else if(fxml == "view/MenuImpostazioni") {
             View.sceneImpostazioni = fxmlLoader.getController();
+        } else if(fxml == "view/MainMenu"){
+            View.sceneMainMenu = fxmlLoader.getController();
         }
         return out;
     }

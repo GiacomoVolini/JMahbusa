@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
+import static jmb.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -84,6 +85,13 @@ public class LogIn {
     @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
+        View.sceneMusica.player.stop();
+            if (!mu) {
+            View.sceneMusica.playerp.play();
+        }else{
+            View.sceneMusica.playerp.stop();
+        }
+
         if(scelta.isSelected()){
             System.out.println(Integer.parseInt(oPt.getText()));
             defficile.setSelected(false);
@@ -101,6 +109,7 @@ public class LogIn {
                     else
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
                     jmb.App.board();
+                    getStage().setFullScreen(cb);
                     break;
                 case SAME_NAME_ERROR:
                     errorLabel.setText("ERRORE: I due giocatori hanno lo stesso nome");
@@ -125,6 +134,7 @@ public class LogIn {
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         jmb.App.MainMenu();
+        getStage().setFullScreen(cb);
     }
 
     @FXML

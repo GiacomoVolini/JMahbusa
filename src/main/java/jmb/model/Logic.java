@@ -142,10 +142,16 @@ public class Logic implements ILogic{
     public void addNewPlayersToList (String newName1, String newName2) {
         //  Se i due nomi non contengono il carattere di escape "\u2001" in coda essi sono nuovi.
         //  Si crea quindi un nuovo oggetto Player contenente quel nome e lo si aggiunge alla PlayerList
-        if (!newName1.contains("\u2001"))
-            ldb.addNewPlayer(newName1.concat("\u2001"));
-        if (!newName2.contains("\u2001"))
-            ldb.addNewPlayer(newName2.concat("\u2001"));
+        System.out.println("Provo ad aggiungere nomi");
+        if (!newName1.contains("\u2001")) {
+            ldb.addNewPlayer(newName1);
+            System.out.println("Aggiungo nome 1");
+        }
+        if (!newName2.contains("\u2001")) {
+            ldb.addNewPlayer(newName2);
+            System.out.println("Aggiungo nome 2");
+        }
+        System.out.println("Ho fatto di aggiungere");
     }
 
     @Override
@@ -156,11 +162,6 @@ public class Logic implements ILogic{
     @Override
     public void writeLdbList() {
         ldb.ldbWriter(ldb.path);
-    }
-
-    @Override
-    public void addStatsToPlayers (String winner, String loser, boolean doubleWin) {
-        ldb.addStatsToList(winner, loser, doubleWin);
     }
 
     @Override
@@ -187,6 +188,15 @@ public class Logic implements ILogic{
     public void setPlayersForGame(String whitePlayer, String blackPlayer) {
         board.setWhitePlayer(whitePlayer);
         board.setBlackPlayer(blackPlayer);
+        board.setBlacksWonPoints(0);
+        board.setWhitesWonPoints(0);
+
+    }
+
+    @Override
+    public void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints) {
+        setPlayersForGame(whitePlayer, blackPlayer);
+        board.setTournamentPoints(tournamentPoints);
     }
 
     @Override
@@ -198,4 +208,32 @@ public class Logic implements ILogic{
     public String getBlackPlayer() {
         return board.getBlackPlayer();
     }
+
+    @Override
+    public void addStatsToLeaderboard() {
+        ldb.addStatsToList(board.getWhitePlayer(), board.getBlackPlayer(), board.getWhitesWonPoints());
+        ldb.addStatsToList(board.getBlackPlayer(), board.getWhitePlayer(), board.getBlacksWonPoints());
+    }
+
+    @Override
+    public boolean isTournamentOngoing() {
+        System.out.println(board.getTournamentPoints());
+        return (board.getTournamentPoints()!=0);
+    }
+
+    @Override
+    public int getWhiteTournamentPoints() {
+        return board.getWhitesWonPoints();
+    }
+
+    @Override
+    public int getBlackTournamentPoints() {
+        return board.getBlacksWonPoints();
+    }
+
+    @Override
+    public void saveData (double turnDuration, double percentRemaining) {
+        //TODO
+    }
+
 }

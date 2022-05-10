@@ -7,6 +7,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
@@ -386,8 +387,14 @@ public class BoardView {
     Rectangle victoryPanel;
     Circle victoryPawn;
     ImageView victoryCrown;
+
+    ImageView tourmanentRibbon;
     Button victoryExit;
     Label victoryLabel;
+
+    Label tournamentWhitePoints;
+
+    Label tournamentBlackPoints;
 
     protected Timeline turnTimer;
 
@@ -413,7 +420,17 @@ public class BoardView {
             plWHTOutRect.setFill(red);
         }
 
+        /* TODO EVIDENZIARE QUALI PEDINE POSSONO ESSERE MOSSE
+            AGGIUNGERE QUESTO METODO
+            this.highlightMovablePawns();
+         */
     }
+
+    /* TODO
+        protected highlightMovablePawns() {
+
+        }
+     */
 
     @FXML
     protected void openBlackExit() {
@@ -451,16 +468,22 @@ public class BoardView {
     @FXML
     void openExitoption(ActionEvent event) {
         pauseMenu.setVisible(true);
+        if (turn_duration!=0)
+            turnTimer.pause();
+        BoardViewRedraw.resizePauseMenu(this);
     }
 
     @FXML
     void closeExitoption(ActionEvent event) {
         pauseMenu.setVisible(false);
+        if (turn_duration!=0)
+            turnTimer.play();
     }
 
     @FXML
     void vaialMainMenu(){
         try {
+            //TODO forse la riga sotto non serve?
             senzaSalvare.getScene().getWindow();
             jmb.App.MainMenu();
             getStage().setFullScreen(cb);
@@ -477,11 +500,13 @@ public class BoardView {
         }
     }
 
-    @FXML
-    void salvaEMainMenu() {
+    @FXML 
+    void exitAndSave(ActionEvent event) {
         getStage().setFullScreen(cb);
+        logic.saveData(turn_duration, timerIn.getScaleY());
         View.sceneMusica.playerp.stop();
-        }
+        vaialMainMenu();
+    }
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
 
@@ -667,12 +692,21 @@ public class BoardView {
         startDialogue.setVisible(false);
         gameStart = true;
         changeDimensions();
-        diceTrayAnim();
+        if (diceTray.getWidth()==0)
+            diceTrayAnim();
         logic.firstTurn();
         if(turn_duration != 0) {
             runTimer();
         }
-        window.getChildren().remove(startDialogue);
+        if (logic.getWhichTurn()){
+            plWHTOutRect.setFill(green);
+            plBLKOutRect.setFill(red);
+        }else {
+            plBLKOutRect.setFill(green);
+            plWHTOutRect.setFill(red);
+        }
+
+        //window.getChildren().remove(startDialogue);
     }
 
     private void runTimer(){
@@ -688,6 +722,39 @@ public class BoardView {
             pawn.setDisable(true);
         for (PawnView pawn : pawnArrayWHT)
             pawn.setDisable(true);
+    }
+
+    private void continueTournament() {
+        removeVictoryPanel();
+        window.getChildren().remove(victoryCrown);
+        window.getChildren().remove(victoryExit);
+        window.getChildren().remove(victoryLabel);
+        window.getChildren().remove(victoryPanel);
+        window.getChildren().remove(victoryPawn);
+        window.getChildren().remove(tourmanentRibbon);
+        startDialogue.setVisible(true);
+        menuBTN.setDisable(false);
+        tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
+        tournamentBlackPoints.setText(String.valueOf(logic.getBlackTournamentPoints()));
+        logic.setUpNewGame();
+
+        this.changeDimensions();
+    }
+
+    private void gameOver() {
+        try {
+            logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
+            logic.addStatsToLeaderboard();
+            jmb.App.MainMenu();
+            if (cb == fullscreen) {
+                getStage().setFullScreen(true);
+            } else {
+                getStage().setFullScreen(false);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     private Rectangle createVictoryPanel() {
@@ -720,14 +787,23 @@ public class BoardView {
 
     }
 
-    private Button createVictoryButton() {
-        Button victoryExit = new Button("Torna al menu");
+    private Button createVictoryButton(int tournamentStatus) {
+        String label;
+        boolean tournamentContinues = tournamentStatus == TOURNAMENT_CONTINUES;
+        if (tournamentContinues)
+            label = "Continua torneo";
+        else label = "Torna al menu";
+        Button victoryExit = new Button(label);
         window.getChildren().add(victoryExit);
-        victoryExit.setOnAction(event -> vaialMainMenu());
+        if (tournamentContinues)
+            victoryExit.setOnAction(event -> continueTournament());
+        else
+            victoryExit.setOnAction(event -> gameOver());
         victoryExit.setViewOrder(-16);
 
         return victoryExit;
     }
+
 
     private ImageView createCrownImage( boolean doubleWin) {
         ImageView crown;
@@ -743,15 +819,17 @@ public class BoardView {
         return crown;
     }
 
-    private Label createVictoryLabel(String winner, boolean doubleWin) {
+    private Label createVictoryLabel(String winner, boolean doubleWin, int tournamentStatus) {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         String victoryString = "Congratulazioni ";
         victoryString = victoryString.concat(winner.stripTrailing());
-        if (doubleWin)
-            victoryString = victoryString.concat("!\nHai ottenuto una vittoria doppia!");
-        else
-            victoryString = victoryString.concat("!\nHai vinto la partita!");
+        if (tournamentStatus == TOURNAMENT_WON)
+            victoryString = victoryString.concat("!\nHai vinto il torneo!");
+        else if (doubleWin)
+                victoryString = victoryString.concat("!\nHai ottenuto una vittoria doppia!");
+            else
+                victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
         //victoryLabel.getStyleClass().add("victory-label");
         victoryLabel.setViewOrder(-15);
@@ -762,46 +840,37 @@ public class BoardView {
         return victoryLabel;
 
     }
-/*TODO VECCHIO
-    protected void gameWon (boolean whiteWon, boolean doubleWin) {
-        gameEndDisable();                       //  Disabilita i Nodes sottostanti (pulsanti e pedine)
-        String winner, loser;
-        if (whiteWon) {
-            winner = n1;
-            loser = n2;
-        } else {
-            winner = n2;
-            loser = n1;
-        }
-        victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
-        victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
-        victoryLabel = createVictoryLabel(winner, doubleWin);    //  Crea la Label del pannello vittoria con il nome del vincitore
-        victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
-        victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
-        gameEndState = true;
-        BoardViewRedraw.resizeVictoryPanel(this);
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
-                        new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
-                        new KeyValue(victoryCrown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
-                        new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
-                        new KeyValue(victoryCrown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-        logic.addStatsToPlayers(winner, loser, doubleWin);
-        logic.writeLdbList();
+
+    private ImageView createTournamentRibbon() {
+        ImageView tournamentRibbon = new ImageView(new Image("/jmb/view/victory/tournamentRibbon.png"));
+        tournamentRibbon.setPreserveRatio(true);
+        tournamentRibbon.setViewOrder(-15);
+        window.getChildren().add(tournamentRibbon);
+        return tournamentRibbon;
     }
- */
-    protected void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin) {
+
+    private void removeVictoryPanel() {
+        gameEndState = false;
+
+    }
+    protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
+        //TODO MODIFICARE
         gameEndDisable();
+        if (turn_duration!=0)
+            turnTimer.stop();
+        plWHTOutRect.setFill(Color.GRAY);
+        plBLKOutRect.setFill(Color.GRAY);
+        String winner;
+        if (whiteWon)
+            winner = whitePlayer;
+        else winner = blackPlayer;
         victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
-        victoryLabel = createVictoryLabel(winner, doubleWin);    //  Crea la Label del pannello vittoria con il nome del vincitore
-        victoryExit = createVictoryButton();    //  Crea il pulsante per il ritorno al menu principale
+        victoryLabel = createVictoryLabel(winner, doubleWin, tournamentStatus);    //  Crea la Label del pannello vittoria con il nome del vincitore
+        victoryExit = createVictoryButton(tournamentStatus);    //  Crea il pulsante per il ritorno al menu principale
         victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
+        if (tournamentStatus == TOURNAMENT_WON)
+            tourmanentRibbon = createTournamentRibbon();
         gameEndState = true;
         BoardViewRedraw.resizeVictoryPanel(this);
         Timeline timeline = new Timeline(
@@ -848,6 +917,8 @@ public class BoardView {
         timeline.play();
     }
 
+
+
     //--------------------------------------------
     //METODO INITIALIZE
     //--------------------------------------------
@@ -873,12 +944,21 @@ public class BoardView {
         plBLKPawn.setFill(pedIn2);
         plBLKPawn.setStroke(pedOut2);
         //turni
-        if (logic.getWhichTurn()){
+        plBLKOutRect.setFill(Color.GRAY);
+        plWHTOutRect.setFill(Color.GRAY);
+        /*if (logic.getWhichTurn()){
             plWHTOutRect.setFill(green);
             plBLKOutRect.setFill(red);
         }else {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
+        }
+
+         */
+
+        if (turn_duration==0) {
+            timerIn.setVisible(false);
+            timerOut.setVisible(false);
         }
 
         //  INIZIALIZZAZIONE ARRAY
@@ -944,6 +1024,19 @@ public class BoardView {
                         nextTurn(null);
                     }, new KeyValue(timerIn.scaleYProperty(), 0))
             );
+        }
+
+        if (logic.isTournamentOngoing()){
+            System.out.println("Sto creando le label per il torneo");
+            tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
+            tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
+            tournamentWhitePoints.setAlignment(Pos.CENTER);
+            tournamentBlackPoints.setAlignment(Pos.CENTER);
+            tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+            tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+            window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints);
+            tournamentWhitePoints.setTextFill(pedOut1);
+            tournamentBlackPoints.setTextFill(pedOut2);
         }
 
 

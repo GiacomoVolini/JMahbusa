@@ -244,7 +244,7 @@
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button fx:id="conSalvare" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#salvaEMainMenu" prefWidth="186.0" text="Conferma e salva">
+               <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave" prefWidth="186.0" text="Conferma e salva">
                   <font>
                      <Font size="14.0" />
                   </font>

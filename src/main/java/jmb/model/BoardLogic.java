@@ -450,6 +450,13 @@ public class BoardLogic {
         }
     }
 
+    /*TODO
+        protected void checkMovablePawns() {
+
+        }
+     */
+
+
     protected void setWhiteExit (boolean value) {
         this.whiteExit = value;
     }

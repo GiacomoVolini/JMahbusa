@@ -46,17 +46,7 @@ public class LogIn {
     private Circle nome2;
 
     @FXML
-    private Label erSameName;
-
-    @FXML
-    private Label erEmptyNames;
-
-    @FXML
-    private Label erName1Present;
-
-    @FXML
-    private Label erName2Present;
-
+    private Label errorLabel;
 
     @FXML
     private ComboBox<String> scrivinomi1;
@@ -113,28 +103,20 @@ public class LogIn {
                     jmb.App.board();
                     break;
                 case SAME_NAME_ERROR:
-                    erSameName.setVisible(true);
-                    erEmptyNames.setVisible(false);
-                    erName1Present.setVisible(false);
-                    erName2Present.setVisible(false);
+                    errorLabel.setText("ERRORE: I due giocatori hanno lo stesso nome");
+                    errorLabel.setVisible(true);
                     break;
                 case EMPTY_NAMES_ERROR:
-                    erSameName.setVisible(false);
-                    erEmptyNames.setVisible(true);
-                    erName1Present.setVisible(false);
-                    erName2Present.setVisible(false);
+                    errorLabel.setText("ERRORE: Almeno uno dei due nomi è vuoto");
+                    errorLabel.setVisible(true);
                     break;
                 case NAME1_ALREADY_PRESENT:
-                    erSameName.setVisible(false);
-                    erEmptyNames.setVisible(false);
-                    erName1Present.setVisible(true);
-                    erName2Present.setVisible(false);
+                    errorLabel.setText("ERRORE: " + scrivinomi1.getValue().stripTrailing() + "  è già presente nella lista");
+                    errorLabel.setVisible(true);
                     break;
                 case NAME2_ALREADY_PRESENT:
-                    erSameName.setVisible(false);
-                    erEmptyNames.setVisible(false);
-                    erName1Present.setVisible(false);
-                    erName2Present.setVisible(true);
+                    errorLabel.setText("ERRORE: " + scrivinomi2.getValue().stripTrailing() + " è già presente nella lista");
+                    errorLabel.setVisible(true);
                     break;
             }
     }

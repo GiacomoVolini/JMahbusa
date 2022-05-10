@@ -36,10 +36,7 @@
                <ComboBox fx:id="scrivinomi2" editable="true" layoutX="130.0" layoutY="52.0" prefWidth="150.0" promptText="Giocatore 2" />
                <Circle fx:id="nome1" fill="WHITE" layoutX="105.0" layoutY="30.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
                <Circle fx:id="nome2" layoutX="105.0" layoutY="65.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
-               <Label fx:id="erSameName" layoutX="115.0" layoutY="8.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false" />
-               <Label fx:id="erEmptyNames" alignment="CENTER" layoutX="100.0" layoutY="8.0" text="ERROR: Almeno un nome vuoto" textFill="RED" visible="false" />
-               <Label fx:id="erName1Present" alignment="CENTER" layoutX="110.0" layoutY="8.0" text="ERROR: Nome 1 già presente" textFill="RED" visible="false" />
-               <Label fx:id="erName2Present" alignment="CENTER" layoutX="110.0" layoutY="8.0" text="ERROR: Nome 2 già presente" textFill="RED" visible="false" />
+               <Label fx:id="errorLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false" />
             </children>
          </AnchorPane>
       </content>

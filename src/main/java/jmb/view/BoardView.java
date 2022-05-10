@@ -412,7 +412,18 @@ public class BoardView {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
+
+        /* TODO EVIDENZIARE QUALI PEDINE POSSONO ESSERE MOSSE
+            AGGIUNGERE QUESTO METODO
+            this.highlightMovablePawns();
+         */
     }
+
+    /* TODO
+        protected highlightMovablePawns() {
+
+        }
+     */
 
     @FXML
     protected void openBlackExit() {

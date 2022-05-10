@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import static jmb.App.getStage;
+import static jmb.view.ConstantsView.cb;
 import static jmb.view.View.logic;
 
 public class LeaderboardView {
@@ -64,6 +66,7 @@ public class LeaderboardView {
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         jmb.App.MainMenu();
+        getStage().setFullScreen(cb);
     }
 
     @FXML

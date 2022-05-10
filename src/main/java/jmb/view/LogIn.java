@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
+import static jmb.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -94,6 +95,13 @@ public class LogIn {
     @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
+        View.sceneMusica.player.stop();
+            if (!mu) {
+            View.sceneMusica.playerp.play();
+        }else{
+            View.sceneMusica.playerp.stop();
+        }
+
         if(scelta.isSelected()){
             System.out.println(Integer.parseInt(oPt.getText()));
             defficile.setSelected(false);
@@ -114,6 +122,7 @@ public class LogIn {
 
                  */
                     jmb.App.board();
+                    getStage().setFullScreen(cb);
                     break;
                 case SAME_NAME_ERROR:
                     erSameName.setVisible(true);
@@ -146,6 +155,7 @@ public class LogIn {
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         jmb.App.MainMenu();
+        getStage().setFullScreen(cb);
     }
 
     @FXML

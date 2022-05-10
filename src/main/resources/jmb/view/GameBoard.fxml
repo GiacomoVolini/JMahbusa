@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Text?>
 <?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -244,7 +244,7 @@
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button layoutX="94.0" layoutY="113.0" mnemonicParsing="false" prefWidth="186.0" text="Conferma e salva">
+               <Button fx:id="conSalvare" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#salvaEMainMenu" prefWidth="186.0" text="Conferma e salva">
                   <font>
                      <Font size="14.0" />
                   </font>

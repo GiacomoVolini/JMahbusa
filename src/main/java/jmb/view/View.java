@@ -21,6 +21,10 @@ public class View implements IView {
 
     public  static MenuImpostazioni sceneImpostazioni;
 
+    public  static MainMenu sceneMainMenu;
+
+    public static Musica sceneMusica = new Musica();
+
     @Override
     public void openBlackExit(){
         sceneBoard.openBlackExit();
@@ -76,4 +80,6 @@ public class View implements IView {
         sceneBoard.gameWon(winner, loser, whiteWon, doubleWin);
     }
 
+    @Override
+    public void playmusica() {sceneMusica.Pawn.play();}
 }

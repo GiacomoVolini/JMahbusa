@@ -45,6 +45,7 @@ public class DiceView {
                 diceArr[i].setEffect(lowContrast);
             else
                 diceArr[i].setEffect(normalContrast);
+
         }
     }
 

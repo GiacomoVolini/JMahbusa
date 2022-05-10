@@ -1,5 +1,7 @@
 package jmb.model;
 
+import jmb.view.IView;
+
 import java.util.ArrayDeque;
 import java.util.Iterator;
 
@@ -188,7 +190,7 @@ public class BoardLogic {
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
-
+            view.playmusica();
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= null;

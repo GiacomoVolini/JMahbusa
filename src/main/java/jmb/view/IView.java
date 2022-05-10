@@ -26,4 +26,6 @@ public interface IView {
 
     void gameWon(String winner, String loser, boolean whiteWon, boolean doubleWin);
 
+    void playmusica();
+
 }

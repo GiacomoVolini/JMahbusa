@@ -56,6 +56,12 @@ public class MainMenu {
     @FXML
     private Button Exit;
 
+    /*muscia
+    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\musicaMenu.mp3").toURI().toString();
+    MediaPlayer player = new MediaPlayer( new Media(uriString));
+*/
+
+
     @FXML
     void closeButtonAction() {
         Exit.getScene().getWindow();
@@ -66,11 +72,8 @@ public class MainMenu {
     void newGameAction()  throws IOException {
         NewGame.getScene().getWindow();
         jmb.App.login();
-        if (cb == fullscreen) {
-            getStage().setFullScreen(true);
-        }else {
-            getStage().setFullScreen(false);
-        }
+        View.sceneMusica.playerp.pause();
+        getStage().setFullScreen(cb);
         logic.setUpNewGame();
         View.sceneLogIn.changeDimensions();
     }
@@ -79,6 +82,7 @@ public class MainMenu {
     void openLeaderBoard()  throws IOException {
         LDB.getScene().getWindow();
         jmb.App.leaderBoard();
+        getStage().setFullScreen(cb);
         View.sceneLeaderboard.table.refresh();
         View.sceneLeaderboard.changeDimensions();
 
@@ -88,11 +92,7 @@ public class MainMenu {
     void openMenuImpostazioni()  throws IOException {
         Settings.getScene().getWindow();
         jmb.App.edit();
-        if (cb == fullscreen) {
-            getStage().setFullScreen(true);
-        }else {
-            getStage().setFullScreen(false);
-        }
+        getStage().setFullScreen(cb);
         View.sceneImpostazioni.changeDimensions();
     }
 
@@ -109,9 +109,10 @@ public class MainMenu {
             BackGround1.setPreserveRatio(false);
             background2.setPreserveRatio(false);
 
-          /* musica
-        AudioClip plonkSound = new AudioClip("http://somehost/path/plonk.aiff");
-        plonkSound.play();*/
+          // musica
+                if(!mu) {
+                    View.sceneMusica.player.play();
+                }
 
            Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,

@@ -15,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -24,6 +26,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 
 import static jmb.App.getStage;
@@ -355,6 +358,10 @@ public class BoardView {
     @FXML
     Circle plBLKPawn;
 
+    /*muscia
+    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\partita.mp3").toURI().toString();
+    MediaPlayer playerp = new MediaPlayer( new Media(uriString));
+*/
 
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
@@ -456,16 +463,25 @@ public class BoardView {
         try {
             senzaSalvare.getScene().getWindow();
             jmb.App.MainMenu();
-            if (cb == fullscreen) {
-                getStage().setFullScreen(true);
-            } else {
-                getStage().setFullScreen(false);
-            }
+            getStage().setFullScreen(cb);
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-
+        
+        View.sceneMusica.playerp.stop();
+        
+        if (!mu) {
+            View.sceneMusica.player.play();
+        }else{
+            View.sceneMusica.player.pause();
+        }
     }
+
+    @FXML
+    void salvaEMainMenu() {
+        getStage().setFullScreen(cb);
+        View.sceneMusica.playerp.stop();
+        }
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa
 
@@ -837,6 +853,13 @@ public class BoardView {
     //--------------------------------------------
 
     public void initialize() {
+
+        //musica
+        if(mu) {
+            View.sceneMusica.playerp.pause();
+        } else {
+            View.sceneMusica.playerp.play();
+        }
 
         window.getStylesheets().add("/jmb/view/style.css");
 

@@ -52,8 +52,11 @@ public class LeaderboardLogic {
     }
 
     protected void addNewPlayer (String name) {
-        if (!name.contains("\u2001"))
-            arrList.add (new Player (name.concat("\u2001")));
+        System.out.println("Provo ad aggiungere " + name + " alla lista");
+        if (!name.contains("\u2001")) {
+            arrList.add(new Player(name.concat("\u2001")));
+            System.out.println(name + " aggiunto");
+        }
     }
 
     public ArrayList<Player> getList() {
@@ -83,17 +86,12 @@ public class LeaderboardLogic {
         }
 
 
-    protected void addStatsToList( String winner, String loser, boolean doubleWin) {
+    protected void addStatsToList( String winner, String loser, int points) {
 
         Player winPlayer = arrList.stream().filter(input -> input.getName().contains(winner)).findFirst().get();
         Player lossPlayer = arrList.stream().filter(input -> input.getName().contains(loser)).findFirst().get();
-        if (doubleWin) {
-            winPlayer.addDoubleWin();
-            lossPlayer.addDoubleLoss();
-        } else {
-            winPlayer.addSingleWin();
-            lossPlayer.addSingleLoss();
-        }
+        winPlayer.addWins(points);
+        lossPlayer.addLosses(points);
         winPlayer.setWinRate();
         lossPlayer.setWinRate();
         ldbWriter(path);

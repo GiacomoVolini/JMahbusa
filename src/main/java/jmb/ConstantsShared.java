@@ -33,4 +33,8 @@ public class ConstantsShared {
 
     public static final boolean SINGLE_WIN = false;
     public static final boolean DOUBLE_WIN = true;
+
+    public static final int NO_TOURNAMENT = 0;
+    public static final int TOURNAMENT_CONTINUES = 1;
+    public static final int TOURNAMENT_WON = 2;
 }

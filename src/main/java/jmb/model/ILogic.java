@@ -50,7 +50,7 @@ public interface ILogic {
 
     void writeLdbList();
 
-    void addStatsToPlayers ( String winner, String loser , boolean doubleWin);
+    void addStatsToLeaderboard();
 
     void setUpNewGame ();
 
@@ -67,6 +67,14 @@ public interface ILogic {
     String getWhitePlayer();
 
     String getBlackPlayer();
+
+    boolean isTournamentOngoing();
+
+    int getWhiteTournamentPoints();
+
+    int getBlackTournamentPoints();
+
+    void saveData (double turnDuration, double percentRemaining);
 
 
 }

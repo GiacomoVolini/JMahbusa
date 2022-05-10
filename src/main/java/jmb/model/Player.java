@@ -76,20 +76,12 @@ public class Player {
         return this.winRate;
     }
 
-    public void addSingleWin() {
-        this.wins = new SimpleIntegerProperty(this.getWins() + 1);
+    public void addWins (int points) {
+        this.wins = new SimpleIntegerProperty( this.getWins() + points);
     }
 
-    public void addSingleLoss() {
-        this.losses = new SimpleIntegerProperty(this.getLosses() + 1);
-    }
-
-    public void addDoubleWin() {
-        this.wins = new SimpleIntegerProperty( this.getWins() + 2);
-    }
-
-    public void addDoubleLoss() {
-        this.losses = new SimpleIntegerProperty( this.getLosses() + 2);
+    public void addLosses (int points) {
+        this.losses = new SimpleIntegerProperty( this.getLosses() + points);
     }
 
     public void setWinRate() {

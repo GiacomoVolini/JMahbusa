@@ -76,5 +76,13 @@ public interface ILogic {
 
     void saveData (double turnDuration, double percentRemaining);
 
+    void setTurnDuration(double value);
+
+    double getTurnDuration();
+
+    void setTimeRemaining (double value);
+
+    void saveGame();
+
 
 }

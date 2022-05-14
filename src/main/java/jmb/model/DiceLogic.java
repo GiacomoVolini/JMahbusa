@@ -94,6 +94,9 @@ public class DiceLogic {
         return this.toBeUsed;
     }
 
+    public boolean[] getUsedArray() {
+        return this.used;
+    }
     //--------------------------------
 
     public boolean initialToss() {

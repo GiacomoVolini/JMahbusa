@@ -84,4 +84,14 @@ public class View implements IView {
 
     @Override
     public void playmusica() {sceneMusica.Pawn.play();}
+
+    @Override
+    public double getTurnDuration() {
+        return ConstantsView.turn_duration;
+    }
+
+    @Override
+    public double getTimeRemaining() {
+        return sceneBoard.timerIn.getScaleY() * logic.getTurnDuration();
+    }
 }

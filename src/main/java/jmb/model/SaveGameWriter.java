@@ -13,31 +13,9 @@ public class SaveGameWriter {
 
     //TODO AGGIUNGERE LOGICA TORNEO
 
-    //TODO GETRESOURCE NON VA BENE. BISOGNA FAR CREARE LA CARTELLA SAVE SE NON ESISTE E POI
-    //  PUNTARE A QUELLA E SALVARE IL FILE
-
-/* TODO
-    Nomi Giocatori – BoardLogic – stringhe whitePlayer e blackPlayer
-    Dove stanno le pedine – BoardLogic – matrice di PawnLogic squares -> forse convertibile in matrice interi
-    Di chi è il turno – BoardLogic – booleano whiteTurn
-    Quali dadi hanno usato (e i valori dei dadi) - DIceLogic – vari array interni
-    Quanto dura un turno – View – turn_duration
-    Quanto tempo manca alla fine del turno – BoardView – stato dell’animazione e durata del tempo - calcolare
-    Le mosse che hanno già effettuato nel turno – BoardLogic – Stack turnMoves
-     */
 
 
     protected static void writeSaveFile(BoardLogic board, String fileName) {
-    /*TODO
-        board.getBlackPlayer();
-        board.squares;
-        board.isWhiteTurn();
-        board.getDiceLogic().getDiceValues();   // int [4]
-        board.getDiceLogic().getUsedArray();    // boolean[4]
-        board.getTurnDuration();
-        board.getTimeRemaining();
-        generateMoveRecord();
-     */
         try {
             JSONObject saveContent = new JSONObject();
 
@@ -45,8 +23,7 @@ public class SaveGameWriter {
             saveContent.put("blackPlayer", board.getBlackPlayer());
             saveContent.put("squareMatrix", generateSquareMatrixString(board));
             saveContent.put("isWhiteTurn", board.isWhiteTurn()); //TODO O METTERE NEGAZIONE O FAR FARE NEXT TURN QUANDO SI PIGIA SU SALVA
-            //saveContent.put("diceValues", generateDiceValuesString(board)); TODO NON SERVE PIU
-            //saveContent.put("usedDice", generateUsedDiceString(board)); TODO NON SERVE PIU
+
             System.out.println(board.getTurnDuration());
             saveContent.put("turnDuration", board.getTurnDuration());
             // saveContent.put("timeRemaining", view.getTimeRemaining()); TODO TOGLIERE, NON SERVE

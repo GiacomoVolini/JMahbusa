@@ -483,6 +483,11 @@ public class BoardViewRedraw {
 
     }
 
+    private static void resizeSaveDialogue(BoardView board) {
+        board.saveDialogue.setLayoutX(board.window.getWidth()/2-board.saveDialogue.getPrefWidth()/2);
+        board.saveDialogue.setLayoutY(board.window.getHeight()/2-board.saveDialogue.getPrefHeight()/2);
+    }
+
 
 
     protected static void resizeAll(BoardView board) {
@@ -508,6 +513,7 @@ public class BoardViewRedraw {
         resizeExitRegions(board);
         redrawPawns(board);
         resizePauseMenu(board);
+        resizeSaveDialogue(board);
         if (logic.isTournamentOngoing())
             resizeTournamentLabel(board);
         if (board.gameEndState) {

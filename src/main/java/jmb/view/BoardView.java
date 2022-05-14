@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -362,6 +363,19 @@ public class BoardView {
     @FXML
     Circle plBLKPawn;
 
+    @FXML
+    Button saveButton;
+
+    @FXML
+    TitledPane saveDialogue;
+
+    @FXML
+    Text saveLabel;
+
+    @FXML
+    TextField saveTextField;
+
+
     /*muscia
     String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\partita.mp3").toURI().toString();
     MediaPlayer playerp = new MediaPlayer( new Media(uriString));
@@ -450,6 +464,13 @@ public class BoardView {
         timeline.setCycleCount(1);
         timeline.play();
     }
+    @FXML
+    void saveGame(ActionEvent event) {
+        logic.saveGame(saveTextField.getText());
+        getStage().setFullScreen(cb);
+        View.sceneMusica.playerp.stop();
+        vaialMainMenu();
+    }
 
     @FXML
     protected void openWhiteExit() {
@@ -506,11 +527,9 @@ public class BoardView {
     @FXML 
     void exitAndSave(ActionEvent event) {
         //TODO GESTIRE NOME DEL SALVATAGGIO
-        getStage().setFullScreen(cb);
-        logic.saveGame();
-        logic.saveData(turn_duration, timerIn.getScaleY()); //TODO FORSE TOGLIERE
-        View.sceneMusica.playerp.stop();
-        vaialMainMenu();
+        logic.saveData(turn_duration, timerIn.getScaleY());//TODO FORSE TOGLIERE
+        saveDialogue.setVisible(true);
+        saveDialogue.setViewOrder(-50);
     }
 
     //  Metodo che salva la posizione della pedina prima che essa venga mossa

@@ -28,4 +28,7 @@ public interface IView {
 
     void playmusica();
 
+    double getTurnDuration();
+
+    double getTimeRemaining();
 }

@@ -236,4 +236,24 @@ public class Logic implements ILogic{
         //TODO
     }
 
+    @Override
+    public void setTurnDuration (double value) {
+        board.setTurnDuration(value);
+    }
+
+    @Override
+    public double getTurnDuration () {
+        return board.getTurnDuration();
+    }
+
+    @Override
+    public void setTimeRemaining (double value) {
+        board.setTimeRemaining(value);
+    }
+
+    @Override
+    public void saveGame() {
+        SaveGameWriter.writeSaveFile(board, "TEST"); //TODO TOGLIERE TEST E METTERE VARIABILE NOME
+    }
+
 }

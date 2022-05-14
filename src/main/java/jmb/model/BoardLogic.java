@@ -21,6 +21,8 @@ public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
+    //TODO Aggiungere delle variabili per la durata del turno e per il tempo rimanente nel turno
+
     PawnLogic[][] squares;
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
@@ -41,6 +43,10 @@ public class BoardLogic {
 
     private int whitesWonPoints;
 
+    private double turnDuration = 120;
+
+    private double timeRemaining;
+
     //  ----------------------------
 
     //  COSTRUTTORE
@@ -58,6 +64,7 @@ public class BoardLogic {
     //  METODI
 
     protected void setUpGame() {
+        //TODO Modificare una volta richiamato da LogIn
 
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
         //  può portare fuori le proprie pedine
@@ -513,5 +520,21 @@ public class BoardLogic {
 
     protected int getWhitesWonPoints() {
         return whitesWonPoints;
+    }
+
+    protected void setTurnDuration(double value) {
+        this.turnDuration = value;
+    }
+
+    protected double getTurnDuration() {
+        return this.turnDuration;
+    }
+
+    protected void setTimeRemaining(double value) {
+        this.timeRemaining = value;
+    }
+
+    protected double getTimeRemaining() {
+        return this.timeRemaining;
     }
 }

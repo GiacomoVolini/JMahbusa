@@ -37,6 +37,9 @@ import static jmb.view.View.logic;
 
 public class BoardView {
 
+    //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
+    //  roba nel view
+
 
     @FXML
     AnchorPane window;
@@ -502,8 +505,10 @@ public class BoardView {
 
     @FXML 
     void exitAndSave(ActionEvent event) {
+        //TODO GESTIRE NOME DEL SALVATAGGIO
         getStage().setFullScreen(cb);
-        logic.saveData(turn_duration, timerIn.getScaleY());
+        logic.saveGame();
+        logic.saveData(turn_duration, timerIn.getScaleY()); //TODO FORSE TOGLIERE
         View.sceneMusica.playerp.stop();
         vaialMainMenu();
     }

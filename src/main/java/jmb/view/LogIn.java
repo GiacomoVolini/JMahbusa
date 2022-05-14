@@ -104,6 +104,7 @@ public class LogIn {
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
+                    //TODO Richiamare qui setUpNewGame e modificarlo
                     if (tournamentCheckBox.isSelected())
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue(), tournamentSpinner.getValue().intValue());
                     else
@@ -145,6 +146,8 @@ public class LogIn {
         scelta.setSelected(false);
         oPt.setDisable(true);
         turn_duration = 0;
+        //TODO placeholder
+        logic.setTurnDuration(0);
     }
 
     @FXML
@@ -155,6 +158,8 @@ public class LogIn {
         scelta.setSelected(false);
         oPt.setDisable(true);
         turn_duration = 120;
+        //TODO placeholder
+        logic.setTurnDuration(120);
     }
 
     @FXML
@@ -165,6 +170,8 @@ public class LogIn {
         scelta.setSelected(false);
         oPt.setDisable(true);
         turn_duration = 30;
+        //TODO PH
+        logic.setTurnDuration(30);
     }
 
     @FXML

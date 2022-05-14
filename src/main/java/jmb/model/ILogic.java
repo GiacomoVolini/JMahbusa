@@ -82,7 +82,7 @@ public interface ILogic {
 
     void setTimeRemaining (double value);
 
-    void saveGame();
+    void saveGame(String saveName);
 
 
 }

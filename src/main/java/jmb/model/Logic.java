@@ -252,8 +252,8 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void saveGame() {
-        SaveGameWriter.writeSaveFile(board, "TEST"); //TODO TOGLIERE TEST E METTERE VARIABILE NOME
+    public void saveGame(String saveName) {
+        SaveGameWriter.writeSaveFile(board, saveName);
     }
 
 }

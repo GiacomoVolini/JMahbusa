@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import jmb.model.SaveGameReader;
 //import javafx.scene.media.AudioClip;
 
 import static jmb.App.leaderBoard;
@@ -146,6 +147,7 @@ public class MainMenu {
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         Window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
 
     }
 

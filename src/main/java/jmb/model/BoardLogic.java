@@ -85,6 +85,9 @@ public class BoardLogic {
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
         //  e tiriamo i dadi per il primo giocatore
         whiteTurn = dice.initialToss();
+
+        //TODO TEST
+        SaveGameReader.readSaveGame("BUONGIORNO");
     }
 
     public boolean isWhiteTurn() {

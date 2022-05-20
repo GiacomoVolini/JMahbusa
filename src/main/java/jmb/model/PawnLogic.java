@@ -42,4 +42,12 @@ public class PawnLogic {
     //-------------------------------------
     //-------------------------------------
 
+    protected static PawnLogic newWhitePawn() {
+        return new PawnLogic(false, true, true);
+    }
+
+    protected static PawnLogic newBlackPawn() {
+        return new PawnLogic(true, false, false);
+    }
+
 }

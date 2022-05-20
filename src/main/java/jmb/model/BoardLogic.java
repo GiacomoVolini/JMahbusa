@@ -76,8 +76,8 @@ public class BoardLogic {
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
         for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= new PawnLogic(false, true, true);
-            squares[i][COL_BLACK]= new PawnLogic(true, false, false);
+            squares[i][COL_WHITE]= PawnLogic.newWhitePawn();
+            squares[i][COL_BLACK]= PawnLogic.newBlackPawn();
         }
         squares[0][COL_WHITE].setLocksBlack(false);
         squares[0][COL_BLACK].setLocksWhite(false);
@@ -461,6 +461,33 @@ public class BoardLogic {
             squares[toRow][to].setLocksWhite(true);
         }
     }
+
+    protected void setUpSavedGame(SaveGameReader save) {
+        this.blackPlayer = save.blackPlayer;
+        this.whitePlayer = save.whitePlayer;
+        this.whiteTurn = save.isWhiteTurn;
+        this.turnDuration = save.turnDuration;
+        setUpSavedBoard(save.squareMatrix);
+    }
+
+    private void setUpSavedBoard(int[][] squareMatrix) {
+        for (int row =0; row<16; row++) {
+            for (int col = 0; col < 26; col++) {
+                switch(squareMatrix[row][col]) {
+                    case 0:
+                        squares[row][col] = null;
+                        break;
+                    case 1:
+                        squares[row][col] = PawnLogic.newWhitePawn();
+                        break;
+                    case 2:
+                        squares[row][col] = PawnLogic.newBlackPawn();
+                        break;
+                }
+            }
+        }
+    }
+
 
     /*TODO
         protected void checkMovablePawns() {

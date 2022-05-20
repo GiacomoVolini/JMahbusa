@@ -256,4 +256,9 @@ public class Logic implements ILogic{
         SaveGameWriter.writeSaveFile(board, saveName);
     }
 
+    @Override
+    public BoardLogic getBoard() {
+        return board;
+    }
+
 }

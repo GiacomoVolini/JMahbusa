@@ -27,7 +27,7 @@
          </font>
       </Text>
       <Button fx:id="NewGame" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" onAction="#newGameAction" text="Nuova Partita" />
-      <Button fx:id="Continue" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" text="Continua" />
+      <Button fx:id="continueButton" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" onAction="#testLoadBuongiorno" text="Continua" />
       <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" text="Carica" />
       <Button fx:id="LDB" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard" text="Classifica" />
       <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" text="Impostazioni" />

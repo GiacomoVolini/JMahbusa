@@ -87,7 +87,7 @@ public class BoardLogic {
         whiteTurn = dice.initialToss();
 
         //TODO TEST
-        SaveGameReader.readSaveGame("BUONGIORNO");
+        //SaveGameReader.readSaveGame("BUONGIORNO");
     }
 
     public boolean isWhiteTurn() {
@@ -462,26 +462,37 @@ public class BoardLogic {
         }
     }
 
-    protected void setUpSavedGame(SaveGameReader save) {
+    public void setUpSavedGame(SaveGameReader save) {
         this.blackPlayer = save.blackPlayer;
+        System.out.println(save.blackPlayer);
         this.whitePlayer = save.whitePlayer;
+        System.out.println(save.whitePlayer);
         this.whiteTurn = save.isWhiteTurn;
+        System.out.println(save.isWhiteTurn);
         this.turnDuration = save.turnDuration;
+        System.out.println(save.turnDuration);
         setUpSavedBoard(save.squareMatrix);
     }
 
     private void setUpSavedBoard(int[][] squareMatrix) {
+        if (squares == null) {
+            squares = new PawnLogic[16][26];
+        }
         for (int row =0; row<16; row++) {
+            System.out.println();
             for (int col = 0; col < 26; col++) {
                 switch(squareMatrix[row][col]) {
                     case 0:
                         squares[row][col] = null;
+                        System.out.print(0);
                         break;
                     case 1:
                         squares[row][col] = PawnLogic.newWhitePawn();
+                        System.out.print(1);
                         break;
                     case 2:
                         squares[row][col] = PawnLogic.newBlackPawn();
+                        System.out.print(2);
                         break;
                 }
             }

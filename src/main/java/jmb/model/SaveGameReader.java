@@ -24,14 +24,14 @@ public class SaveGameReader {
             String squareMatrixString = (String) save.get("squareMatrix");
             isWhiteTurn = (boolean) save.get("isWhiteTurn");
             blackPlayer = (String) save.get("blackPlayer");
-            whitePlayer = (String) save.get("whitePLayer");
+            whitePlayer = (String) save.get("whitePlayer");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
-    protected static SaveGameReader readSaveGame (String saveName) {
+    public static SaveGameReader readSaveGame (String saveName) {
         return new SaveGameReader(saveName);
     }
 
@@ -52,7 +52,8 @@ public class SaveGameReader {
         int[][] intMatrix = new int[16][26];
         for (int row = 0; row <16; row++){
             for (int col = 0; col<26; col++) {
-                intMatrix[row][col] = Character.getNumericValue(stringArray[15-row].charAt(col));
+                //intMatrix[row][col] = Character.getNumericValue(stringArray[15-row].charAt(col));
+                intMatrix[row][col] = Character.getNumericValue(stringArray[row].charAt(col));
             }
         }
         return intMatrix;

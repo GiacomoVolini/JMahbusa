@@ -12,11 +12,9 @@ import javafx.util.Duration;
 import jmb.model.SaveGameReader;
 //import javafx.scene.media.AudioClip;
 
-import static jmb.App.leaderBoard;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-import java.applet.AudioClip;
 import java.io.IOException;
 
 import static jmb.App.getStage;
@@ -43,7 +41,7 @@ public class MainMenu {
     private Button NewGame;
 
     @FXML
-    private Button Continue;
+    private Button continueButton;
 
     @FXML
     private Button LoadGame;
@@ -95,6 +93,19 @@ public class MainMenu {
         jmb.App.edit();
         getStage().setFullScreen(cb);
         View.sceneImpostazioni.changeDimensions();
+    }
+
+    @FXML
+    void testLoadBuongiorno() {
+        try {
+            logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame("BUONGIORNO"));
+            jmb.App.board();
+            getStage().setFullScreen(cb);
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
     }
 
     public void initialize() {
@@ -167,9 +178,9 @@ public class MainMenu {
             NewGame.setPrefWidth(Window.getWidth()*0.25);
             NewGame.setMaxWidth(89);
 
-            Continue.setLayoutX(Window.getWidth()/2 + 13);
-            Continue.setPrefWidth(Window.getWidth()*0.25);
-            Continue.setMaxWidth(64);
+            continueButton.setLayoutX(Window.getWidth()/2 + 13);
+            continueButton.setPrefWidth(Window.getWidth()*0.25);
+            continueButton.setMaxWidth(64);
 
             LoadGame.setLayoutX(Window.getWidth()/2 + 22);
             LoadGame.setPrefWidth(Window.getWidth()*0.25);
@@ -195,9 +206,9 @@ public class MainMenu {
             NewGame.setPrefHeight(Window.getHeight()*0.25);
             NewGame.setMaxHeight(25);
 
-            Continue.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
-            Continue.setPrefHeight(Window.getHeight()*0.25);
-            Continue.setMaxHeight(25);
+            continueButton.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
+            continueButton.setPrefHeight(Window.getHeight()*0.25);
+            continueButton.setMaxHeight(25);
 
             LoadGame.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16);
             LoadGame.setPrefHeight(Window.getHeight()*0.25);

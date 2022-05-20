@@ -84,5 +84,7 @@ public interface ILogic {
 
     void saveGame(String saveName);
 
+    BoardLogic getBoard();
+
 
 }

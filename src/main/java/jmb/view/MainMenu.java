@@ -96,6 +96,12 @@ public class MainMenu {
     }
 
     @FXML
+    void openLoadGame() throws IOException {
+        jmb.App.loadGame();
+        getStage().setFullScreen(cb);
+    }
+
+    @FXML
     void testLoadBuongiorno() {
         try {
             logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame("BUONGIORNO"));

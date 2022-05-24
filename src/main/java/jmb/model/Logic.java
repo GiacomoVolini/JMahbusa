@@ -261,4 +261,11 @@ public class Logic implements ILogic{
         return board;
     }
 
+    @Override
+    public List<String> getSaveList() {
+        //TODO
+        System.out.println("Sono in logic\nSto per richiamare getSaveList da SaveGameReader");
+        return SaveGameReader.getSaveList();
+    }
+
 }

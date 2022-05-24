@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane fx:id="window" dividerPositions="0.2625418060200669" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoadGameView">
+  <items>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TitledPane fx:id="savesTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="403.0" prefWidth="154.0" text="Salvataggi" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                <AnchorPane fx:id="savesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="230.0">
+                     <children>
+                        <ListView fx:id="savesListView" layoutX="-24.0" layoutY="58.0" prefHeight="371.0" prefWidth="152.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <TitledPane fx:id="saveDetailTitledPane" alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" prefHeight="432.0" prefWidth="438.0" text="TEMP" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <content>
+                <AnchorPane fx:id="saveDetailView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </TitledPane>
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>

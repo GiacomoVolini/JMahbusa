@@ -5,9 +5,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SaveGameReader {
 
@@ -57,5 +60,19 @@ public class SaveGameReader {
             }
         }
         return intMatrix;
+    }
+
+    protected static List<String> getSaveList() {
+        System.out.println("Sono in SaveGameReader");
+        File saveDirectory = new File ("./saves/");
+        File[] saveFiles = saveDirectory.listFiles();
+        System.out.println("Lista file");
+        List<String> outputList = new ArrayList<String>();
+        for (File save : saveFiles) {
+            System.out.println(save.getName());
+            outputList.add(save.getName().replace(".json", ""));
+        }
+        System.out.println(outputList.toString());
+        return outputList;
     }
 }

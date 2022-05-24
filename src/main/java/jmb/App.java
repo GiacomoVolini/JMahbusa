@@ -31,6 +31,7 @@ public class App extends Application {
     private static Scene sceneSettings;
     private static Scene sceneLeaderBoard;
     private static Scene sceneLogIn;
+    private static Scene sceneLoadGame;
 
 
     public static Stage getStage() {
@@ -81,6 +82,14 @@ public class App extends Application {
             sceneLeaderBoard = new Scene(loadFXML("view/Leaderboard"));
         }
         stage.setScene(sceneLeaderBoard);
+        stage.show();
+    }
+
+    public static void loadGame() throws IOException {
+        if (sceneLoadGame == null){
+            sceneLoadGame = new Scene(loadFXML("view/LoadGameView"));
+        }
+        stage.setScene(sceneLoadGame);
         stage.show();
     }
 

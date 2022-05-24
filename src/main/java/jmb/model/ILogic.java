@@ -86,5 +86,7 @@ public interface ILogic {
 
     BoardLogic getBoard();
 
+    List<String> getSaveList();
+
 
 }

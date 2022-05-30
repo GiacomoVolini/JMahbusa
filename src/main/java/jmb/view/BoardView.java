@@ -8,11 +8,14 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -26,11 +29,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -466,10 +472,25 @@ public class BoardView {
     }
     @FXML
     void saveGame(ActionEvent event) {
-        logic.saveGame(saveTextField.getText());
+        WritableImage saveImage = this.saveBoardImage();
+        logic.saveGame(saveTextField.getText(), saveImage);
         getStage().setFullScreen(cb);
         View.sceneMusica.playerp.stop();
         vaialMainMenu();
+    }
+
+    private WritableImage saveBoardImage() {
+        SnapshotParameters param = new SnapshotParameters();
+        double minX = outerRect.getLayoutX() - max(whiteExitRegion.getWidth(), blackExitRegion.getWidth());
+        double minY = outerRect.getLayoutY();
+        double width = max(whiteExitRegion.getWidth(), blackExitRegion.getWidth()) + outerRect.getWidth();
+        double height = outerRect.getHeight();
+        saveDialogue.setVisible(false);
+        pauseMenu.setVisible(false);
+        timerIn.setVisible(false);
+        timerOut.setVisible(false);
+        param.setViewport(new Rectangle2D(minX, minY, width, height));
+        return window.snapshot(param, null);
     }
 
     @FXML
@@ -506,14 +527,10 @@ public class BoardView {
 
     @FXML
     void vaialMainMenu(){
-        try {
             //TODO forse la riga sotto non serve?
             senzaSalvare.getScene().getWindow();
             jmb.App.MainMenu();
             getStage().setFullScreen(cb);
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
         
         View.sceneMusica.playerp.stop();
         
@@ -651,9 +668,7 @@ public class BoardView {
 
 
     private void changeDimensions() {
-
         BoardViewRedraw.resizeAll(this);
-
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -766,7 +781,6 @@ public class BoardView {
     }
 
     private void gameOver() {
-        try {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
             jmb.App.MainMenu();
@@ -775,9 +789,6 @@ public class BoardView {
             } else {
                 getStage().setFullScreen(false);
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
 
     }
 

@@ -52,9 +52,9 @@ public class App extends Application {
 
     }
 
-    public static void MainMenu() throws IOException {
-        stage.setScene(sceneMainMenu);
-        stage.show();
+    public static void MainMenu() {
+            stage.setScene(sceneMainMenu);
+            stage.show();
     }
 
     public static void login() throws IOException{
@@ -63,10 +63,14 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void board() throws IOException{
-        sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
-        stage.setScene(sceneBoard);
-        stage.show();
+    public static void board() {
+        try {
+            sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
+            stage.setScene(sceneBoard);
+            stage.show();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     public static void edit() throws IOException{

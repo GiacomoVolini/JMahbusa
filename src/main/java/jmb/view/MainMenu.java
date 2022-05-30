@@ -103,15 +103,9 @@ public class MainMenu {
 
     @FXML
     void testLoadBuongiorno() {
-        try {
             logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame("BUONGIORNO"));
             jmb.App.board();
             getStage().setFullScreen(cb);
-
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
     }
 
     public void initialize() {

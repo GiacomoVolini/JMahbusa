@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class SaveGameReader {
@@ -19,6 +20,11 @@ public class SaveGameReader {
     String whitePlayer;
     long turnDuration;
     int[][] squareMatrix;
+    byte[] imageBytes;
+
+    long imageWidth;
+    long imageHeight;
+
     private SaveGameReader(String saveName) {
         try {
             JSONParser parser = new JSONParser();
@@ -30,6 +36,9 @@ public class SaveGameReader {
             whitePlayer = (String) save.get("whitePlayer");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
+            imageBytes = Base64.getDecoder().decode((String) save.get("boardImage"));
+            imageWidth = (long) save.get("imageWidth");
+            imageHeight = (long) save.get("imageHeight");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -62,6 +71,15 @@ public class SaveGameReader {
         return intMatrix;
     }
 
+    protected String[] getLoadViewData () {
+        String[] out = new String[] {whitePlayer, blackPlayer};
+        return out;
+    }
+
+    protected byte[] getImageBytes() {
+        return imageBytes;
+    }
+
     protected static List<String> getSaveList() {
         System.out.println("Sono in SaveGameReader");
         File saveDirectory = new File ("./saves/");
@@ -74,5 +92,10 @@ public class SaveGameReader {
         }
         System.out.println(outputList.toString());
         return outputList;
+    }
+
+    protected long[] getImageDimensions() {
+        long[] out = new long[] {imageWidth, imageHeight};
+        return out;
     }
 }

@@ -13,11 +13,25 @@ import javafx.scene.shape.Circle;
 import jmb.model.SaveGameReader;
 
 import static jmb.App.getStage;
-import static jmb.view.ConstantsView.cb;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
 
 public class LoadGameView {
+
+    //TODO POTREBBE ESSERE UNA BUONA IDEA INVECE DELL'IMMAGINE
+    // UTILIZZARE LE COMPONENTI DI JAVAFX PER
+    // IL RENDERING DEL TABELLONE
+
+    //TODO GESTIRE POSSIBILITA' CANCELLAZIONE SALVATAGGIO
+
+    //TODO UNA VOLTA FINITA UNA PARTITA PRECEDENTEMENTE SALVATA,
+    // CANCELLARE IL SALVATAGGIO, CHIEDERE ALL'UTENTE SE CANCELLARE
+    // O NON FARE NULLA?
+
+    //TODO
+    //  VALUTARE SE TOGLIERE UNO DEGLI STRATI DI ANCHORPANE VISTE
+    //  LE MODIFICHE ALL'FXML
 
     @FXML
     private Label blackPlayerName;
@@ -46,9 +60,13 @@ public class LoadGameView {
     @FXML
     private TitledPane savesTitlePane;
     @FXML
-    private SplitPane window;
+    private AnchorPane window;
     @FXML
     private ImageView saveImageView;
+    @FXML
+    private AnchorPane saveDetailAnchor;
+    @FXML
+    private AnchorPane saveListAnchor;
     private String saveName;
     private final double SEPARATOR_RATIO = 0.2625;
 
@@ -56,6 +74,14 @@ public class LoadGameView {
         System.out.println("Sto per andare in logic");
         refreshSaveList();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
+        whitePlayerPawn.setFill(pedIn1);
+        whitePlayerPawn.setStroke(pedOut1);
+        blackPlayerPawn.setFill(pedIn2);
+        blackPlayerPawn.setStroke(pedOut2);
+        //Si impedisce all'utente di muovere il divisore dello SplitPane
+        window.lookupAll(".split-pane-divider").stream()
+                .forEach(div ->  div.setMouseTransparent(true) );
+
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -107,7 +133,10 @@ public class LoadGameView {
     }
 
     private void changeDimensions() {
-        window.setDividerPosition(0, SEPARATOR_RATIO);
+        //window.setDividerPosition(0, SEPARATOR_RATIO);
+        saveListAnchor.setPrefWidth(window.getWidth()*SEPARATOR_RATIO);
+        //saveDetailView.setLayoutX(window.getWidth()*SEPARATOR_RATIO);
+        saveDetailAnchor.setPrefWidth(window.getWidth()*(1- SEPARATOR_RATIO));
         double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
         saveImageView.setFitWidth(imageWidth);
         double imageHeight = window.getHeight()*0.5;

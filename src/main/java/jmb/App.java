@@ -24,7 +24,6 @@ import static jmb.model.Logic.view;
  */
 public class App extends Application {
 
-
     private static Stage stage;
     private static Scene sceneMainMenu;
     private static Scene sceneBoard;

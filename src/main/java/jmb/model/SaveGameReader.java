@@ -59,7 +59,6 @@ public class SaveGameReader {
      */
 
     private int[][] parseSquareMatrixString (String matrixString) {
-        //TODO scrivere
         String[] stringArray = matrixString.split("\n");
         int[][] intMatrix = new int[16][26];
         for (int row = 0; row <16; row++){
@@ -72,7 +71,7 @@ public class SaveGameReader {
     }
 
     protected String[] getLoadViewData () {
-        String[] out = new String[] {whitePlayer, blackPlayer};
+        String[] out = new String[] {whitePlayer, blackPlayer, String.valueOf(turnDuration)};
         return out;
     }
 

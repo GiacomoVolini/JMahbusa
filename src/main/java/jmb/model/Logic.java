@@ -233,11 +233,6 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void saveData (double turnDuration, double percentRemaining) {
-        //TODO
-    }
-
-    @Override
     public void setTurnDuration (double value) {
         board.setTurnDuration(value);
     }

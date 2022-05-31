@@ -421,9 +421,9 @@ public class BoardView {
 
     protected Timeline turnTimer;
 
-    boolean gameStart = false;
+    boolean gameStart = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
 
-    boolean gameEndState = false;
+    boolean gameEndState = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
 
 
     @FXML
@@ -543,8 +543,6 @@ public class BoardView {
 
     @FXML 
     void exitAndSave(ActionEvent event) {
-        //TODO GESTIRE NOME DEL SALVATAGGIO
-        logic.saveData(turn_duration, timerIn.getScaleY());//TODO FORSE TOGLIERE
         saveDialogue.setVisible(true);
         saveDialogue.setViewOrder(-50);
     }
@@ -889,7 +887,7 @@ public class BoardView {
 
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
-        //TODO MODIFICARE
+        //TODO MODIFICARE ????
         gameEndDisable();
         if (turn_duration!=0)
             turnTimer.stop();

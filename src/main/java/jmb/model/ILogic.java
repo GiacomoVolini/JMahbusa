@@ -75,8 +75,6 @@ public interface ILogic {
 
     int getBlackTournamentPoints();
 
-    void saveData (double turnDuration, double percentRemaining);
-
     void setTurnDuration(double value);
 
     double getTurnDuration();

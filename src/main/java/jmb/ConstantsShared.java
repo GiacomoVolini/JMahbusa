@@ -37,4 +37,8 @@ public class ConstantsShared {
     public static final int NO_TOURNAMENT = 0;
     public static final int TOURNAMENT_CONTINUES = 1;
     public static final int TOURNAMENT_WON = 2;
+
+    public static final int WIDTH = 0;
+    public static final int HEIGHT = 1;
+    public static final int TIME = 2;
 }

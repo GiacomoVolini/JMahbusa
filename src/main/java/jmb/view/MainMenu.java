@@ -18,6 +18,7 @@ import static jmb.view.View.logic;
 import java.io.IOException;
 
 import static jmb.App.getStage;
+import static jmb.view.View.sceneLoadView;
 
 
 public class MainMenu {
@@ -98,6 +99,7 @@ public class MainMenu {
     @FXML
     void openLoadGame() throws IOException {
         jmb.App.loadGame();
+        sceneLoadView.refreshSaveList();
         getStage().setFullScreen(cb);
     }
 

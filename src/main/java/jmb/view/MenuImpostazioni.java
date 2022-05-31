@@ -108,6 +108,9 @@ public class MenuImpostazioni<string> {
         private Slider SliderES;
 
         @FXML
+        private Button RA;
+
+        @FXML
         private AnchorPane personalizzazione;
 
         @FXML
@@ -368,10 +371,12 @@ public class MenuImpostazioni<string> {
                         mu = muta;
                         SliderMusi.setValue(0);
                         SliderMusi.setDisable(true);
+                        View.sceneMusica.player.pause();
                 }else{
                         mu = nonmuta;
                         SliderMusi.setValue(Sv);
                         SliderMusi.setDisable(false);
+                        View.sceneMusica.player.play();
                 }
         }
 
@@ -584,6 +589,18 @@ public class MenuImpostazioni<string> {
                         getStage().setResizable(true);
                         checkBR.setSelected(false);
         }
+
+        @FXML
+        void resetAudio(ActionEvent event) {
+
+                checkMusi.setSelected(false);
+                Sv = 100;
+                checkMES.setSelected(false);
+                Sve = 100;
+                mutaLAmusica(null);
+                mutaGLIeffetto(null);
+        }
+
         //TODO trovare il metodo per i pulsanti della tastieria
         @FXML
         void resetComandi(ActionEvent event) {

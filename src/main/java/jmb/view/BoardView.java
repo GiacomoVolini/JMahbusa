@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
@@ -20,6 +22,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +30,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import jmb.App;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +40,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class BoardView {
+public class BoardView extends App implements EventHandler<KeyEvent> {
 
     //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
     //  roba nel view
@@ -436,6 +440,26 @@ public class BoardView {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
+        //rimettere i colori
+        i=0;
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayTop[i].setFill(point);
+                this.polArrayTop[i].setStroke(point);
+            }else{
+                this.polArrayTop[i].setFill(point2);
+                this.polArrayTop[i].setStroke(point2);
+            }
+        }
+        for (int i=0; i<polArrayTop.length;i++){
+            if((i%2)==0){
+                this.polArrayBot[i].setFill(point2);
+                this.polArrayBot[i].setStroke(point2);
+            }else{
+                this.polArrayBot[i].setFill(point);
+                this.polArrayBot[i].setStroke(point);
+            }
+        }
 
         /* TODO EVIDENZIARE QUALI PEDINE POSSONO ESSERE MOSSE
             AGGIUNGERE QUESTO METODO
@@ -490,7 +514,7 @@ public class BoardView {
     }
 
     @FXML
-    void openExitoption(ActionEvent event) {
+    void openExitoption() {
         pauseMenu.setVisible(true);
         if (turn_duration!=0)
             turnTimer.pause();
@@ -941,6 +965,112 @@ public class BoardView {
         timeline.play();
     }
 
+    int i=0;
+    String L="D";
+    @Override
+    public void handle(KeyEvent event) {
+        if(event.getCode().toString().equals("ESCAPE")){
+            openExitoption();
+        }
+        //spostamento a destra da sopra
+        if(event.getCode().toString().equals("D") && logic.getWhichTurn() && i <= 11){
+            if(L.equals("A")){
+                L="D";
+                i+=2;
+            }
+            polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
+            if (i!=0){
+                if ((i-1)%2 == 0){
+                    polArrayTop[i-1].setFill(point);
+                }else {
+                    polArrayTop[i-1].setFill(point2);
+                }}
+            i++;
+            L = event.getCode().toString();
+
+        } else if(event.getCode().toString().equals("D") && logic.getWhichTurn() && i > 11 && i <= 23){
+            if(L.equals("A")){
+                L="D";
+                i+=2;
+            }
+            polArrayTop[11].setFill(point2);
+            polArrayBot[23-i].setFill(Paint.valueOf("#fffb00"));
+            if (i!=12){
+                if ((24-i)%2 == 0){
+                    polArrayBot[24-i].setFill(point2);
+                }else {
+                    polArrayBot[24-i].setFill(point);
+                }}
+            i++;
+        } else if(i == 24 && logic.getWhichTurn()) {
+            i = 0;
+            polArrayBot[i].setFill(point2);
+            polArrayTop[i].setFill(point);
+        }
+
+        //spostamento a sinistra da sopra
+        if(event.getCode().toString().equals("A") && logic.getWhichTurn() && i>=0 && i <= 11){
+            if(L.equals("D")){
+                L="A";
+                i-=2;
+            }
+            polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
+            polArrayBot[11].setFill(point);
+            if(i!=11){
+                if ((i+1)%2 == 0){
+                    System.out.println("SECONDO F");
+                    polArrayTop[i+1].setFill(point);
+                }else {
+                    System.out.println("ELSE");
+                    polArrayTop[i+1].setFill(point2);
+                }}
+            i--;
+        } else if(event.getCode().toString().equals("A") && logic.getWhichTurn() && i > 11 && i <= 23){
+            if(L.equals("D")){
+                L="A";
+                i-=2;
+            }
+            polArrayBot[23-i].setFill(Paint.valueOf("#fffb00"));
+            if (i!=23){
+                if ((22-i)%2 == 0){
+                    polArrayBot[22-i].setFill(point2);
+                }else {
+                    polArrayBot[22-i].setFill(point);
+                }}
+            i--;
+
+        } else if(i <0) {
+            i = 23;
+            polArrayTop[0].setFill(point);
+        }
+
+        //spostamento a destra da sotto
+        if(event.getCode().toString().equals("D") && !logic.getWhichTurn() && i <= 11){
+            polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
+            if (i!=0){
+                if ((i-1)%2 == 0){
+                    polArrayBot[i-1].setFill(point2);
+                }else {
+                    polArrayBot[i-1].setFill(point);
+                }}
+            i++;
+        } else if(event.getCode().toString().equals("D") && !logic.getWhichTurn() && i > 11 && i <= 23){
+            polArrayBot[11].setFill(point);
+            polArrayTop[23-i].setFill(Paint.valueOf("#fffb00"));
+            if (i!=12){
+                if ((24-i)%2 == 0){
+                    polArrayTop[24-i].setFill(point);
+                }else {
+                    polArrayTop[24-i].setFill(point2);
+                }}
+            i++;
+        } else if(i == 24 && !logic.getWhichTurn()) {
+            i = 0;
+            polArrayBot[i].setFill(point2);
+            polArrayTop[i].setFill(point);
+        }
+        System.out.println(event.getCode().toString());
+    }
 
 
     //--------------------------------------------
@@ -948,6 +1078,8 @@ public class BoardView {
     //--------------------------------------------
 
     public void initialize() {
+
+        window.setOnKeyPressed(this);
 
         //musica
         if(mu) {

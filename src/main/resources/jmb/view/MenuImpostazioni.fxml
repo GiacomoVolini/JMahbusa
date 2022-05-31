@@ -93,6 +93,7 @@
                      </font>
                   </Text>
                   <Slider fx:id="SliderES" layoutX="209.0" layoutY="111.0" onMouseReleased="#soundProva" showTickLabels="true" showTickMarks="true" />
+                  <Button fx:id="RA" layoutX="406.0" layoutY="358.0" mnemonicParsing="false" onAction="#resetAudio" text="Reset" />
                </children>
             </AnchorPane>
          </content>

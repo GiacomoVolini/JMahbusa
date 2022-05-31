@@ -16,9 +16,9 @@ public class ConstantsShared {
     public static final int PAWN_NUMBER_PER_PLAYER = 15;
 
     //  Costanti per i metodi di scansione tabellone
-    public static final int EMPTY = 0;
-    public static final int WHITE = 1;
-    public static final int BLACK = 2;
+    public static final int EMPTY = -1;
+    public static final int WHITE = 0;
+    public static final int BLACK = 1;
 
     //  Costanti per i metodi di confronto nomi giocatori
     public static final int DECIDING = 0;
@@ -37,4 +37,8 @@ public class ConstantsShared {
     public static final int NO_TOURNAMENT = 0;
     public static final int TOURNAMENT_CONTINUES = 1;
     public static final int TOURNAMENT_WON = 2;
+
+    public static final int WIDTH = 0;
+    public static final int HEIGHT = 1;
+    public static final int TIME = 2;
 }

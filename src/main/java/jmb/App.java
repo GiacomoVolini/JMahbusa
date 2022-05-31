@@ -30,6 +30,7 @@ public class App extends Application {
     private static Scene sceneSettings;
     private static Scene sceneLeaderBoard;
     private static Scene sceneLogIn;
+    private static Scene sceneLoadGame;
 
 
     public static Stage getStage() {
@@ -50,9 +51,9 @@ public class App extends Application {
 
     }
 
-    public static void MainMenu() throws IOException {
-        stage.setScene(sceneMainMenu);
-        stage.show();
+    public static void MainMenu() {
+            stage.setScene(sceneMainMenu);
+            stage.show();
     }
 
     public static void login() throws IOException{
@@ -61,10 +62,14 @@ public class App extends Application {
         stage.show();
     }
 
-    public static void board() throws IOException{
-        sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
-        stage.setScene(sceneBoard);
-        stage.show();
+    public static void board() {
+        try {
+            sceneBoard = new Scene(loadFXML("view/GameBoard"), 640, 480);
+            stage.setScene(sceneBoard);
+            stage.show();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     public static void edit() throws IOException{
@@ -83,6 +88,14 @@ public class App extends Application {
         stage.show();
     }
 
+    public static void loadGame() throws IOException {
+        if (sceneLoadGame == null){
+            sceneLoadGame = new Scene(loadFXML("view/LoadGameView"));
+        }
+        stage.setScene(sceneLoadGame);
+        stage.show();
+    }
+
     static void setRoot(String fxml) throws IOException {
         sceneMainMenu.setRoot(loadFXML(fxml));
     }
@@ -92,7 +105,6 @@ public class App extends Application {
         Parent out = fxmlLoader.load();
         if(fxml == "view/GameBoard"){
             View.sceneBoard = fxmlLoader.getController();
-            //TODO TOGLIERE BoardViewRedraw.initializeRedraw(View.sceneBoard);
         } else if(fxml == "view/Leaderboard"){
             View.sceneLeaderboard = fxmlLoader.getController();
         } else if(fxml == "view/Login") {
@@ -101,6 +113,8 @@ public class App extends Application {
             View.sceneImpostazioni = fxmlLoader.getController();
         } else if(fxml == "view/MainMenu"){
             View.sceneMainMenu = fxmlLoader.getController();
+        } else if(fxml == "view/LoadGameView"){
+            View.sceneLoadView = fxmlLoader.getController();
         }
         return out;
     }

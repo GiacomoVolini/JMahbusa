@@ -1,6 +1,7 @@
 package jmb.model;
 
 import javafx.collections.ObservableList;
+import javafx.scene.image.WritableImage;
 import jmb.view.IView;
 
 import java.io.IOException;
@@ -232,11 +233,6 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void saveData (double turnDuration, double percentRemaining) {
-        //TODO
-    }
-
-    @Override
     public void setTurnDuration (double value) {
         board.setTurnDuration(value);
     }
@@ -252,13 +248,40 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public void saveGame(String saveName) {
-        SaveGameWriter.writeSaveFile(board, saveName);
+    public void saveGame(String saveName, WritableImage saveImage) {
+        SaveGameWriter.writeSaveFile(board, saveName, saveImage);
     }
 
     @Override
     public BoardLogic getBoard() {
         return board;
+    }
+
+    @Override
+    public List<String> getSaveList() {
+        //TODO
+        System.out.println("Sono in logic\nSto per richiamare getSaveList da SaveGameReader");
+        return SaveGameReader.getSaveList();
+    }
+
+    @Override
+    public SaveGameReader readSaveGame(String saveName) {
+        return SaveGameReader.readSaveGame(saveName);
+    }
+
+    @Override
+    public String[] getLoadViewData(String saveName) {
+        return this.readSaveGame(saveName).getLoadViewData();
+    }
+
+    @Override
+    public byte[] getImageBytes(String saveName) {
+        return this.readSaveGame(saveName).getImageBytes();
+    }
+
+    @Override
+    public long[] getImageDimensions(String saveName) {
+        return this.readSaveGame(saveName).getImageDimensions();
     }
 
 }

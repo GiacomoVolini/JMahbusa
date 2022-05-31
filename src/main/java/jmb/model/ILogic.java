@@ -1,6 +1,7 @@
 package jmb.model;
 
 import javafx.collections.ObservableList;
+import javafx.scene.image.WritableImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,17 +75,25 @@ public interface ILogic {
 
     int getBlackTournamentPoints();
 
-    void saveData (double turnDuration, double percentRemaining);
-
     void setTurnDuration(double value);
 
     double getTurnDuration();
 
     void setTimeRemaining (double value);
 
-    void saveGame(String saveName);
+    void saveGame(String saveName, WritableImage saveImage);
 
     BoardLogic getBoard();
+
+    List<String> getSaveList();
+
+    SaveGameReader readSaveGame (String saveName);
+
+    String[] getLoadViewData(String saveName);
+
+    byte[] getImageBytes(String saveName);
+
+    long[] getImageDimensions(String saveName);
 
 
 }

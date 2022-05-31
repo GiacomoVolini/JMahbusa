@@ -288,9 +288,11 @@ public class BoardViewRedraw {
                 if (logic.isLastOnPoint(col, rows) && white == logic.getWhichTurn()) {
                     pawnArray[pawnsPlaced].setViewOrder(-1.0);
                     pawnArray[pawnsPlaced].setDisable(false);
+                    pawnArray[pawnsPlaced].setStrokeWidth(3.5);
                 } else {
                     pawnArray[pawnsPlaced].setViewOrder(0.0);
                     pawnArray[pawnsPlaced].setDisable(true);
+                    pawnArray[pawnsPlaced].setStrokeWidth(2);
                 }
                 pawnsPlaced++;
             }

@@ -1,6 +1,8 @@
 package jmb.model;
 
 
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.WritableImage;
 import  org.json.*;
 
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
 
 public class SaveGameWriter {
 
@@ -15,14 +18,20 @@ public class SaveGameWriter {
 
 
 
-    protected static void writeSaveFile(BoardLogic board, String fileName) {
+    protected static void writeSaveFile(BoardLogic board, String fileName, WritableImage saveImage) {
         try {
+
             JSONObject saveContent = new JSONObject();
 
             saveContent.put("whitePlayer", board.getWhitePlayer());
             saveContent.put("blackPlayer", board.getBlackPlayer());
             saveContent.put("squareMatrix", generateSquareMatrixString(board));
-            saveContent.put("isWhiteTurn", board.isWhiteTurn()); //TODO O METTERE NEGAZIONE O FAR FARE NEXT TURN QUANDO SI PIGIA SU SALVA
+            saveContent.put("isWhiteTurn", !board.isWhiteTurn());
+            saveContent.put("boardImage", generateBoardImageString(saveImage));
+            int width = (int) saveImage.getWidth();
+            int height = (int) saveImage.getHeight();
+            saveContent.put("imageHeight", height);
+            saveContent.put("imageWidth", width);
 
             System.out.println(board.getTurnDuration());
             saveContent.put("turnDuration", board.getTurnDuration());
@@ -34,9 +43,6 @@ public class SaveGameWriter {
             //TODO
 
             Files.writeString(Path.of(savePath), saveContent.toString());
-            //FileWriter file = new FileWriter(Path.of(board.getClass().getResource(savePath).toString()).toString());
-            //file.write(String.valueOf(saveContent));
-            //file.write(saveContent.toString());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -56,6 +62,20 @@ public class SaveGameWriter {
         }
         return out;
     }
+
+    private static String generateBoardImageString(WritableImage saveImage) {
+        int width = (int) saveImage.getWidth();
+        int height = (int) saveImage.getHeight();
+        byte[] pixelBytes = new byte[width * height * 4];
+        System.out.println(pixelBytes.length);
+        saveImage.getPixelReader().getPixels(0, 0, width, height,
+                PixelFormat.getByteBgraInstance(),
+                pixelBytes, 0, width * 4);
+        return Base64.getEncoder().encodeToString(pixelBytes);
+    }
+
+
+    //TODO FORSE TOGLIERE METODI SOTTO
 
     private static String generateDiceValuesString(BoardLogic board) {
         String out = "";

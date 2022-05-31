@@ -23,6 +23,8 @@ public class View implements IView {
 
     public  static MainMenu sceneMainMenu;
 
+    public static LoadGameView sceneLoadView;
+
     public static Musica sceneMusica = new Musica();
 
     @Override
@@ -77,9 +79,7 @@ public class View implements IView {
 
     @Override
     public void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
-        //TODO VECCHIO sceneBoard.gameWon(winner, loser, whiteWon, doubleWin);
         sceneBoard.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, tournamentStatus);
-
     }
 
     @Override

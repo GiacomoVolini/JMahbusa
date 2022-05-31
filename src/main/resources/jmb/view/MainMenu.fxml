@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="Window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MainMenu">
+<AnchorPane fx:id="Window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MainMenu">
    <children>
       <ImageView fx:id="BackGround1" fitHeight="504.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -28,7 +28,7 @@
       </Text>
       <Button fx:id="NewGame" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" onAction="#newGameAction" text="Nuova Partita" />
       <Button fx:id="continueButton" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" onAction="#testLoadBuongiorno" text="Continua" />
-      <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" text="Carica" />
+      <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" onAction="#openLoadGame" text="Carica" />
       <Button fx:id="LDB" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard" text="Classifica" />
       <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" text="Impostazioni" />
       <Button fx:id="Exit" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Esci dal gioco" />

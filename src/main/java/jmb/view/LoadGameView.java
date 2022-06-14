@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
@@ -22,8 +23,6 @@ public class LoadGameView {
     //TODO POTREBBE ESSERE UNA BUONA IDEA INVECE DELL'IMMAGINE
     // UTILIZZARE LE COMPONENTI DI JAVAFX PER
     // IL RENDERING DEL TABELLONE
-
-    //TODO GESTIRE POSSIBILITA' CANCELLAZIONE SALVATAGGIO
 
     //TODO UNA VOLTA FINITA UNA PARTITA PRECEDENTEMENTE SALVATA,
     // CANCELLARE IL SALVATAGGIO, CHIEDERE ALL'UTENTE SE CANCELLARE
@@ -67,11 +66,20 @@ public class LoadGameView {
     private AnchorPane saveDetailAnchor;
     @FXML
     private AnchorPane saveListAnchor;
+    @FXML
+    private Button deleteSaveButton;
+    @FXML
+    private Label blackPoints;
+    @FXML
+    private Label whitePoints;
+    @FXML
+    private Label tournamentLabel;
+    @FXML
+    private ImageView tournamentCup;
     private String saveName;
     private final double SEPARATOR_RATIO = 0.2625;
 
     public void initialize() {
-        System.out.println("Sto per andare in logic");
         refreshSaveList();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
         whitePlayerPawn.setFill(pedIn1);
@@ -112,36 +120,74 @@ public class LoadGameView {
     }
 
     private void renderSelection() {
-        saveName = savesListView.getSelectionModel().getSelectedItem().toString();
-        String whitePlayer = logic.getLoadViewData(saveName)[WHITE];
-        String blackPlayer = logic.getLoadViewData(saveName)[BLACK];
-        String turnDuration = logic.getLoadViewData(saveName)[TIME].concat(" secondi");
-        if (turnDuration.equals("0 secondi"))
-            turnDuration = "Nessun Timer";
-        int width = (int)logic.getImageDimensions(saveName)[WIDTH];
-        int height = (int)logic.getImageDimensions(saveName)[HEIGHT];
-        WritableImage wImg = new WritableImage(width, height);
-        wImg.getPixelWriter().setPixels(0, 0, width, height,
-                PixelFormat.getByteBgraInstance(),
-                logic.getImageBytes(saveName), 0, width * 4);
-        saveImageView.setImage(wImg);
-        loadSaveButton.setDisable(false);
-        whitePlayerName.setText(whitePlayer);
-        blackPlayerName.setText(blackPlayer);
-        timerLabel.setText(turnDuration);
+        if (savesListView.getSelectionModel().getSelectedItem() == null)
+            renderNoSelection();
+        else {
+            saveName = savesListView.getSelectionModel().getSelectedItem().toString();
+            saveDetailTitledPane.setText(saveName);
+            String[] saveData = logic.getLoadViewData(saveName);
+            if (saveData[TIME].equals("0 secondi"))
+                saveData[TIME]= "Nessun Timer";
+            if (saveData[TOURNAMENT_POINTS].equals("0")) {
+                tournamentCup.setVisible(false);
+                tournamentLabel.setVisible(false);
+                blackPoints.setVisible(false);
+                whitePoints.setVisible(false);
+            } else {
+                tournamentCup.setVisible(true);
+                tournamentLabel.setVisible(true);
+                blackPoints.setVisible(true);
+                whitePoints.setVisible(true);
+                whitePoints.setText(saveData[WHITE_WON_POINTS]);
+                blackPoints.setText(saveData[BLACK_WON_POINTS]);
+                tournamentLabel.setText(saveData[TOURNAMENT_POINTS]);
+            }
+            int width = (int) logic.getImageDimensions(saveName)[WIDTH];
+            int height = (int) logic.getImageDimensions(saveName)[HEIGHT];
+            WritableImage wImg = new WritableImage(width, height);
+            wImg.getPixelWriter().setPixels(0, 0, width, height,
+                    PixelFormat.getByteBgraInstance(),
+                    logic.getImageBytes(saveName), 0, width * 4);
+            saveImageView.setImage(wImg);
+            loadSaveButton.setDisable(false);
+            deleteSaveButton.setDisable(false);
+            whitePlayerName.setText(saveData[WHITE]);
+            blackPlayerName.setText(saveData[BLACK]);
+            timerLabel.setText(saveData[TIME]);
+            changeDimensions();
+        }
 
+    }
+
+    private void renderNoSelection() {
+        String noSave = "---";
+        saveImageView.setImage(new Image("/jmb/view/loadView/EmptyBoard.png"));
+        loadSaveButton.setDisable(true);
+        deleteSaveButton.setDisable(true);
+        whitePlayerName.setText(noSave);
+        blackPlayerName.setText(noSave);
+        timerLabel.setText(noSave);
+        saveDetailTitledPane.setText(noSave);
+        tournamentCup.setVisible(false);
+        blackPoints.setVisible(false);
+        whitePoints.setVisible(false);
     }
 
     private void changeDimensions() {
         //window.setDividerPosition(0, SEPARATOR_RATIO);
-        saveListAnchor.setPrefWidth(window.getWidth()*SEPARATOR_RATIO);
-        //saveDetailView.setLayoutX(window.getWidth()*SEPARATOR_RATIO);
-        saveDetailAnchor.setPrefWidth(window.getWidth()*(1- SEPARATOR_RATIO));
+        double listWidth = window.getWidth()*SEPARATOR_RATIO;
+        double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
+        saveListAnchor.setPrefWidth(listWidth);
+        saveDetailAnchor.setPrefWidth(detailWidth);
+        //window.setRightAnchor(saveListAnchor, window.getWidth()*(1-SEPARATOR_RATIO));
+        //window.setLeftAnchor(saveDetailAnchor, window.getWidth()*SEPARATOR_RATIO);
+        saveDetailView.setRightAnchor(deleteSaveButton, saveDetailView.getRightAnchor(loadSaveButton) + loadSaveButton.getWidth());
+        saveDetailView.setLayoutX(listWidth);
         double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
         saveImageView.setFitWidth(imageWidth);
         double imageHeight = window.getHeight()*0.5;
         saveImageView.setFitHeight(imageHeight);
-        saveImageView.setLayoutX(window.getWidth()*(1-SEPARATOR_RATIO)/2 - imageWidth/2);
+        saveImageView.setLayoutX(detailWidth/2 - imageWidth/2);
         saveImageView.setLayoutY((window.getHeight() - imageHeight)/2);
         double xAnchor = 15;
         double yAnchor = 10;
@@ -149,14 +195,14 @@ public class LoadGameView {
         saveDetailView.setRightAnchor(blackPlayerPawn, xAnchor);
         saveDetailView.setTopAnchor(whitePlayerPawn, yAnchor);
         saveDetailView.setTopAnchor(blackPlayerPawn, yAnchor);
-        double pawnRadius = window.getHeight() * 0.04;
+        double pawnRadius = window.getHeight() * 0.036;
         whitePlayerPawn.setRadius(pawnRadius);
         blackPlayerPawn.setRadius(pawnRadius);
         whitePlayerName.setPrefHeight(pawnRadius*2);
         blackPlayerName.setPrefHeight(pawnRadius*2);
         saveDetailView.setTopAnchor(whitePlayerName, yAnchor);
         saveDetailView.setTopAnchor(blackPlayerName, yAnchor);
-        double labelXAnchor = (xAnchor + pawnRadius) * 2 + 5;
+        double labelXAnchor = (xAnchor + pawnRadius) * 2;
         saveDetailView.setLeftAnchor(whitePlayerName, labelXAnchor);
         saveDetailView.setRightAnchor(blackPlayerName, labelXAnchor);
         hourglass.setFitHeight(pawnRadius*3);
@@ -166,10 +212,26 @@ public class LoadGameView {
         saveDetailView.setBottomAnchor(timerLabel, yAnchor);
         saveDetailView.setLeftAnchor(hourglass, xAnchor);
         saveDetailView.setLeftAnchor(timerLabel, labelXAnchor);
-
-
-
-
+        if (tournamentCup.isVisible()) {
+            double circleDiameter = whitePlayerPawn.getRadius()*2;
+            double cupSize = circleDiameter * 1.5;
+            tournamentCup.setFitWidth(cupSize);
+            tournamentCup.setFitHeight(cupSize);
+            tournamentCup.setLayoutX((detailWidth - tournamentCup.getFitWidth())/2);
+            AnchorPane.setTopAnchor(tournamentCup, yAnchor);
+            tournamentLabel.setPrefWidth(tournamentCup.getFitWidth());
+            tournamentLabel.setPrefHeight(tournamentCup.getFitHeight()*0.7);
+            tournamentLabel.setLayoutX(tournamentCup.getLayoutX());
+            AnchorPane.setTopAnchor(tournamentLabel, yAnchor);
+            whitePoints.setPrefWidth(circleDiameter);
+            whitePoints.setPrefHeight(circleDiameter);
+            AnchorPane.setLeftAnchor(whitePoints, xAnchor);
+            AnchorPane.setTopAnchor(whitePoints, yAnchor);
+            blackPoints.setPrefWidth(circleDiameter);
+            blackPoints.setPrefHeight(circleDiameter);
+            AnchorPane.setRightAnchor(blackPoints, xAnchor);
+            AnchorPane.setTopAnchor(blackPoints, yAnchor);
+        }
     }
 
     @FXML
@@ -184,6 +246,12 @@ public class LoadGameView {
             jmb.App.board();
             getStage().setFullScreen(cb);
 
+    }
+
+    @FXML
+    void deleteSave(ActionEvent event) {
+        logic.deleteSaveFile(saveDetailTitledPane.getText());
+        refreshSaveList();
     }
 
 }

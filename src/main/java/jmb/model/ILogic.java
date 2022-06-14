@@ -95,5 +95,11 @@ public interface ILogic {
 
     long[] getImageDimensions(String saveName);
 
+    boolean isPawnMovable(int col, int row);
+
+    void deleteSaveFile(String fileName);
+
+    boolean isSaveNamePresent(String saveName);
+
 
 }

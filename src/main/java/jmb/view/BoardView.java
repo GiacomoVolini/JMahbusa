@@ -768,6 +768,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
+        BoardViewRedraw.redrawPawns(this);
 
         //window.getChildren().remove(startDialogue);
     }
@@ -1027,7 +1028,6 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
-                System.out.println("for");
                 if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
                         polArrayTop[j].setFill(point);
@@ -1127,7 +1127,6 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
-                System.out.println("for");
                 if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
                         polArrayBot[j].setFill(point2);

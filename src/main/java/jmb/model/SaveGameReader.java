@@ -19,6 +19,8 @@ public class SaveGameReader {
     boolean isWhiteTurn;
     String blackPlayer;
     String whitePlayer;
+    boolean blackExit;
+    boolean whiteExit;
     long turnDuration;
     int[][] squareMatrix;
     long tournamentPoints;
@@ -38,6 +40,8 @@ public class SaveGameReader {
             isWhiteTurn = (boolean) save.get("isWhiteTurn");
             blackPlayer = (String) save.get("blackPlayer");
             whitePlayer = (String) save.get("whitePlayer");
+            blackExit = (boolean) save.get("blackExit");
+            whiteExit = (boolean) save.get("whiteExit");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
             imageBytes = Base64.getDecoder().decode((String) save.get("boardImage"));

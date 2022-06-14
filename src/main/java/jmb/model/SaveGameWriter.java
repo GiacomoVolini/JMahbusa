@@ -21,6 +21,8 @@ public class SaveGameWriter {
 
             saveContent.put("whitePlayer", board.getWhitePlayer());
             saveContent.put("blackPlayer", board.getBlackPlayer());
+            saveContent.put("whiteExit", board.getWhiteExit());
+            saveContent.put("blackExit", board.getBlackExit());
             saveContent.put("squareMatrix", generateSquareMatrixString(board));
             saveContent.put("isWhiteTurn", !board.isWhiteTurn());
             saveContent.put("boardImage", generateBoardImageString(saveImage));

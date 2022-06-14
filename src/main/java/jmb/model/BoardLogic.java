@@ -196,6 +196,7 @@ public class BoardLogic {
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
+        dice.resetToBeUsed();
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
@@ -205,7 +206,6 @@ public class BoardLogic {
             squares[puntaInizR][puntaInizC]= null;
             dice.setUsed();
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
-            dice.resetToBeUsed();
             view.setDiceContrast();
             view.backBTNSetDisable(false);
 
@@ -458,6 +458,8 @@ public class BoardLogic {
     public void setUpSavedGame(SaveGameReader save) {
         this.blackPlayer = save.blackPlayer;
         this.whitePlayer = save.whitePlayer;
+        this.blackExit = save.blackExit;
+        this.whiteExit = save.whiteExit;
         this.whiteTurn = save.isWhiteTurn;
         this.turnDuration = save.turnDuration;
         this.tournamentPoints = toIntExact(save.tournamentPoints);

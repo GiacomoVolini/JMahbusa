@@ -447,6 +447,8 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             plWHTOutRect.setFill(red);
         }
         //rimettere i colori
+        s="";
+        L="";
         i=0;
         for (int i=0; i<polArrayTop.length;i++){
             if((i%2)==0){
@@ -975,6 +977,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
     }
 
     int i=0;
+    String s="";
     String L="";
     @Override
     public void handle(KeyEvent event) {
@@ -983,7 +986,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
         }
             //spostamenti per il bianco
          //****************************************************** bianco destra
-        if(event.getCode().toString().equals("D") && logic.getWhichTurn() && i>=0 && i <= 11){
+        if(event.getCode().toString().equals("D") && (logic.getWhichTurn() || s.equals("W")) && !s.equals("S") && i>=0 && i <= 11){
             if(L.equals("A") && i<10){
                 L="D";
                 i+=2;
@@ -1003,11 +1006,11 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals("D") && logic.getWhichTurn()) {
+        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
             i=1;
             polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(point2);
-        } else if( i==-1 && event.getCode().toString().equals("D") && logic.getWhichTurn()){
+        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
             i=2;
             polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
@@ -1015,7 +1018,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
         }
 
         // BIANCO sinistra
-        if(event.getCode().toString().equals("A") && logic.getWhichTurn() && i>=0 && i <= 11){
+        if(event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W")) && i>=0 && i <= 11){
             if(L.equals("D") && i>1){
                 L="A";
                 i-=2;
@@ -1036,19 +1039,54 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals("A") && logic.getWhichTurn()) {
+        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
             i=10;
             polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-        } else if( i==12 && event.getCode().toString().equals("A") && logic.getWhichTurn()){
+        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
             i=9;
             polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(point2);
             L="A";
         }
 
+        // da sopra a sotto
+        if(event.getCode().toString().equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+            s ="S";
+            if(L.equals("D")){
+                polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
+            }else if(L.equals("A")){
+                polArrayBot[i+1].setFill(Paint.valueOf("#fffb00"));
+            }
+            for (int i=0; i<polArrayTop.length;i++){
+                if((i%2)==0){
+                    this.polArrayTop[i].setFill(point);
+                }else{
+                    this.polArrayTop[i].setFill(point2);
+                }
+            }
+        }
+
+        // da sotto a sopra
+        if(event.getCode().toString().equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+            s ="W";
+            if(L.equals("D")){
+                polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
+            }else if(L.equals("A")){
+                polArrayTop[i+1].setFill(Paint.valueOf("#fffb00"));
+            }
+            for (int i=0; i<polArrayTop.length;i++){
+                if((i%2)==0){
+                    this.polArrayBot[i].setFill(point2);
+                }else{
+                    this.polArrayBot[i].setFill(point);
+                }
+            }
+        }
+
+            //spostamento per il nero
         //******************************************************* nero destra
-        if(event.getCode().toString().equals("D") && !logic.getWhichTurn() && i>=0 && i <= 11){
+        if(event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
             if(L.equals("A") && i<10){
                 L="D";
                 i+=2;
@@ -1068,11 +1106,11 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals("D") && !logic.getWhichTurn()) {
+        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
             i=1;
             polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-        } else if( i==-1 && event.getCode().toString().equals("D") && !logic.getWhichTurn()){
+        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
             i=2;
             polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[0].setFill(point2);
@@ -1080,7 +1118,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
         }
 
         // nero sinistra
-        if(event.getCode().toString().equals("A") && !logic.getWhichTurn() && i>=0 && i <= 11){
+        if(event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
             if(L.equals("D") && i>1){
                 L="A";
                 i-=2;
@@ -1101,11 +1139,11 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals("A") && !logic.getWhichTurn()) {
+        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
            i=10;
            polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
            polArrayBot[0].setFill(point2);
-        } else if( i==12 && event.getCode().toString().equals("A") && !logic.getWhichTurn()){
+        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
             i=9;
             polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);

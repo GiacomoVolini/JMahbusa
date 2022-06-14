@@ -15,6 +15,17 @@ import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw {
 
+    /*
+        TODO
+            - Semplificare il metodo per ridimensionare outerRect (togliere controllo sofisticato,
+                tanto in mezzo ci si metterà la coppa del torneo)
+            - Spostare dentro GameBoard (utilizzeremo gli stessi metodi di resize del tabellone sia
+                in BoardView che in LoadGameView)
+            - Valutare quanto sia possibile spostare anche il redraw delle pedine
+            - Alternativa: creare metodo placePawns in LoadGameView (più semplice ma si potrebbe finire
+                per duplicare codice)
+     */
+
     //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
     private static double maxExitWidth;
     private static double maxDTWidth;

@@ -141,7 +141,7 @@ public class DiceLogic {
         }
 
         //TODO TEST - BYPASSA CONTROLLO DADI
-        //possible = true;
+        possible = true;
 
         return possible;
 

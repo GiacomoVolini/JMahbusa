@@ -91,9 +91,10 @@ public class SaveGameReader {
         File saveDirectory = new File ("./saves/");
         File[] saveFiles = saveDirectory.listFiles();
         List<String> outputList = new ArrayList<String>();
-        for (File save : saveFiles) {
-            outputList.add(save.getName().replace(".json", ""));
-        }
+        if (saveFiles!=null)
+            for (File save : saveFiles) {
+                outputList.add(save.getName().replace(".json", ""));
+            }
         return outputList;
     }
 

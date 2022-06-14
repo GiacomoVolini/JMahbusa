@@ -21,12 +21,12 @@ import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jmb.App;
+import jmb.model.Logic;
 
 import java.io.File;
 import java.io.IOException;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -442,6 +442,8 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             plWHTOutRect.setFill(red);
         }
         //rimettere i colori
+        s="";
+        L="";
         i=0;
         for (int i=0; i<polArrayTop.length;i++){
             if((i%2)==0){
@@ -974,106 +976,177 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
     }
 
     int i=0;
-    String L="D";
+    String s="";
+    String L="";
     @Override
     public void handle(KeyEvent event) {
         if(event.getCode().toString().equals("ESCAPE")){
             openExitoption();
         }
-        //spostamento a destra da sopra
-        if(event.getCode().toString().equals("D") && logic.getWhichTurn() && i <= 11){
-            if(L.equals("A")){
+            //spostamenti per il bianco
+         //****************************************************** bianco destra
+        if(event.getCode().toString().equals("D") && (logic.getWhichTurn() || s.equals("W")) && !s.equals("S") && i>=0 && i <= 11){
+            if(L.equals("A") && i<10){
                 L="D";
                 i+=2;
+            } else if(L.equals("A") && i==10){
+                L="A";
+                i=0;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
-            if (i!=0){
-                if ((i-1)%2 == 0){
-                    polArrayTop[i-1].setFill(point);
-                }else {
-                    polArrayTop[i-1].setFill(point2);
-                }}
+            for(int j=0; j<12;j++){
+                if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
+                    if ((j)%2 == 0){
+                        polArrayTop[j].setFill(point);
+                    }else {
+                        polArrayTop[j].setFill(point2);
+                    }
+                }
+            }
             i++;
             L = event.getCode().toString();
-
-        } else if(event.getCode().toString().equals("D") && logic.getWhichTurn() && i > 11 && i <= 23){
-            if(L.equals("A")){
-                L="D";
-                i+=2;
-            }
+        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
+            i=1;
+            polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(point2);
-            polArrayBot[23-i].setFill(Paint.valueOf("#fffb00"));
-            if (i!=12){
-                if ((24-i)%2 == 0){
-                    polArrayBot[24-i].setFill(point2);
-                }else {
-                    polArrayBot[24-i].setFill(point);
-                }}
-            i++;
-        } else if(i == 24 && logic.getWhichTurn()) {
-            i = 0;
-            polArrayBot[i].setFill(point2);
-            polArrayTop[i].setFill(point);
+        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+            i=2;
+            polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
+            polArrayTop[0].setFill(point);
+            L="D";
         }
 
-        //spostamento a sinistra da sopra
-        if(event.getCode().toString().equals("A") && logic.getWhichTurn() && i>=0 && i <= 11){
-            if(L.equals("D")){
+        // BIANCO sinistra
+        if(event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W")) && i>=0 && i <= 11){
+            if(L.equals("D") && i>1){
                 L="A";
                 i-=2;
+            } else if(L.equals("D") && i==1){
+                L="A";
+                i=11;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[11].setFill(point);
-            if(i!=11){
-                if ((i+1)%2 == 0){
-                    polArrayTop[i+1].setFill(point);
-                }else {
-                    polArrayTop[i+1].setFill(point2);
-                }}
-            i--;
-        } else if(event.getCode().toString().equals("A") && logic.getWhichTurn() && i > 11 && i <= 23){
-            if(L.equals("D")){
-                L="A";
-                i-=2;
+            for(int j=0; j<12;j++){
+                System.out.println("for");
+                if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
+                    if ((j)%2 == 0){
+                        polArrayTop[j].setFill(point);
+                    }else {
+                        polArrayTop[j].setFill(point2);
+                    }
+                }
             }
-            polArrayBot[23-i].setFill(Paint.valueOf("#fffb00"));
-            if (i!=23){
-                if ((22-i)%2 == 0){
-                    polArrayBot[22-i].setFill(point2);
-                }else {
-                    polArrayBot[22-i].setFill(point);
-                }}
             i--;
-
-        } else if(i <0) {
-            i = 23;
+            L = event.getCode().toString();
+        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
+            i=10;
+            polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
+        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+            i=9;
+            polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
+            polArrayTop[11].setFill(point2);
+            L="A";
         }
 
-        //spostamento a destra da sotto
-        if(event.getCode().toString().equals("D") && !logic.getWhichTurn() && i <= 11){
+        // da sopra a sotto
+        if(event.getCode().toString().equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+            s ="S";
+            if(L.equals("D")){
+                polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
+            }else if(L.equals("A")){
+                polArrayBot[i+1].setFill(Paint.valueOf("#fffb00"));
+            }
+            for (int i=0; i<polArrayTop.length;i++){
+                if((i%2)==0){
+                    this.polArrayTop[i].setFill(point);
+                }else{
+                    this.polArrayTop[i].setFill(point2);
+                }
+            }
+        }
+
+        // da sotto a sopra
+        if(event.getCode().toString().equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+            s ="W";
+            if(L.equals("D")){
+                polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
+            }else if(L.equals("A")){
+                polArrayTop[i+1].setFill(Paint.valueOf("#fffb00"));
+            }
+            for (int i=0; i<polArrayTop.length;i++){
+                if((i%2)==0){
+                    this.polArrayBot[i].setFill(point2);
+                }else{
+                    this.polArrayBot[i].setFill(point);
+                }
+            }
+        }
+
+            //spostamento per il nero
+        //******************************************************* nero destra
+        if(event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
+            if(L.equals("A") && i<10){
+                L="D";
+                i+=2;
+            } else if(L.equals("A") && i==10){
+                L="A";
+                i=0;
+            }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
-            if (i!=0){
-                if ((i-1)%2 == 0){
-                    polArrayBot[i-1].setFill(point2);
-                }else {
-                    polArrayBot[i-1].setFill(point);
-                }}
+            for(int j=0; j<12;j++){
+                if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
+                    if ((j)%2 == 0){
+                        polArrayBot[j].setFill(point2);
+                    }else {
+                        polArrayBot[j].setFill(point);
+                    }
+                }
+            }
             i++;
-        } else if(event.getCode().toString().equals("D") && !logic.getWhichTurn() && i > 11 && i <= 23){
+            L = event.getCode().toString();
+        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
+            i=1;
+            polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-            polArrayTop[23-i].setFill(Paint.valueOf("#fffb00"));
-            if (i!=12){
-                if ((24-i)%2 == 0){
-                    polArrayTop[24-i].setFill(point);
-                }else {
-                    polArrayTop[24-i].setFill(point2);
-                }}
-            i++;
-        } else if(i == 24 && !logic.getWhichTurn()) {
-            i = 0;
-            polArrayBot[i].setFill(point2);
-            polArrayTop[i].setFill(point);
+        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+            i=2;
+            polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
+            polArrayBot[0].setFill(point2);
+            L="D";
+        }
+
+        // nero sinistra
+        if(event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
+            if(L.equals("D") && i>1){
+                L="A";
+                i-=2;
+            } else if(L.equals("D") && i==1){
+                L="A";
+                i=11;
+            }
+            polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
+            for(int j=0; j<12;j++){
+                System.out.println("for");
+                if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
+                    if ((j)%2 == 0){
+                        polArrayBot[j].setFill(point2);
+                    }else {
+                        polArrayBot[j].setFill(point);
+                    }
+                }
+            }
+            i--;
+            L = event.getCode().toString();
+        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
+           i=10;
+           polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
+           polArrayBot[0].setFill(point2);
+        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+            i=9;
+            polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
+            polArrayBot[11].setFill(point);
+            L="A";
         }
     }
 

@@ -109,7 +109,6 @@ public class DiceLogic {
         } while (this.dice[0] == this.dice[1]);
         boolean whiteBegins = this.dice[0] > this.dice[1];
 
-
         return whiteBegins;
 
     }
@@ -133,8 +132,6 @@ public class DiceLogic {
                 availableDice++;
         }
 
-
-
         //  Se c'è almeno un dado disponibile si procede con i controlli, altrimenti la mossa non è possibile
         if (availableDice!=0) {
             maxDeltaPossible = availableDice * 6;
@@ -144,7 +141,7 @@ public class DiceLogic {
         }
 
         //TODO TEST - BYPASSA CONTROLLO DADI
-        possible = true;
+        //possible = true;
 
         return possible;
 
@@ -158,6 +155,7 @@ public class DiceLogic {
             if (dice[i] == delta && !used[i]) {
                 possible = true;
                 toBeUsed[i] = true;
+                System.out.println("Metto il dado " + i + "in toBeUsed");
             }
         }
 
@@ -218,7 +216,6 @@ public class DiceLogic {
         boolean possible = false;
         for (int i = 0; i < 4 && !possible; i++) {
             if (dice[i] == delta && !used[i]) {
-                System.out.println("Ho trovato il dado " + i + "per portare fuori la pedina");
                 possible = true;
                 toBeUsed[i] = true;
             }

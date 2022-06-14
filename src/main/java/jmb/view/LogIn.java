@@ -93,7 +93,6 @@ public class LogIn {
         }
 
         if(scelta.isSelected()){
-            System.out.println(Integer.parseInt(oPt.getText()));
             defficile.setSelected(false);
             media.setSelected(false);
             noT.setSelected(false);

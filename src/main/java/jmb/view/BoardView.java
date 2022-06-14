@@ -1,24 +1,14 @@
 package jmb.view;
 
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.animation.*;
+import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
@@ -26,12 +16,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import jmb.App;
@@ -48,10 +34,16 @@ import static jmb.view.View.logic;
 
 public class BoardView extends App implements EventHandler<KeyEvent> {
 
+
+
     //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
     //  roba nel view
 
 
+    @FXML
+    AnchorPane saveAnchorPane;
+    @FXML
+    Label errorLabel;
     @FXML
     AnchorPane window;
 
@@ -377,6 +369,9 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
     Button saveButton;
 
     @FXML
+    Button closeSaveButton;
+
+    @FXML
     TitledPane saveDialogue;
 
     @FXML
@@ -469,17 +464,7 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             }
         }
 
-        /* TODO EVIDENZIARE QUALI PEDINE POSSONO ESSERE MOSSE
-            AGGIUNGERE QUESTO METODO
-            this.highlightMovablePawns();
-         */
     }
-
-    /* TODO
-        protected highlightMovablePawns() {
-
-        }
-     */
 
     @FXML
     protected void openBlackExit() {
@@ -498,11 +483,26 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
     }
     @FXML
     void saveGame(ActionEvent event) {
-        WritableImage saveImage = this.saveBoardImage();
-        logic.saveGame(saveTextField.getText(), saveImage);
-        getStage().setFullScreen(cb);
-        View.sceneMusica.playerp.stop();
-        vaialMainMenu();
+        if (saveTextField.getText().equals("")) {
+            errorLabel.setText("Inserisci un nome per il salvataggio");
+            errorLabel.setVisible(true);
+        } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
+                WritableImage saveImage = this.saveBoardImage();
+                logic.saveGame(saveTextField.getText(), saveImage);
+                getStage().setFullScreen(cb);
+                View.sceneMusica.playerp.stop();
+                vaialMainMenu();
+            } else {
+                errorLabel.setText("Nome Salvataggio già presente");
+                errorLabel.setVisible(true);
+            }
+    }
+
+    @FXML
+    void closeSaveDialogue(ActionEvent event) {
+        saveTextField.setText("");
+        errorLabel.setVisible(false);
+        saveDialogue.setVisible(false);
     }
 
     private WritableImage saveBoardImage() {
@@ -913,7 +913,6 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
 
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
-        //TODO MODIFICARE ????
         gameEndDisable();
         if (turn_duration!=0)
             turnTimer.stop();
@@ -1149,7 +1148,6 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
             polArrayBot[11].setFill(point);
             L="A";
         }
-        System.out.println(event.getCode().toString() + i);
     }
 
 
@@ -1263,7 +1261,6 @@ public class BoardView extends App implements EventHandler<KeyEvent> {
         }
 
         if (logic.isTournamentOngoing()){
-            System.out.println("Sto creando le label per il torneo");
             tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
             tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
             tournamentWhitePoints.setAlignment(Pos.CENTER);

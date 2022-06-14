@@ -294,9 +294,14 @@
    <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" />
    <TitledPane fx:id="saveDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="382.0" layoutY="306.0" prefHeight="176.0" prefWidth="383.0" text="Salva Partita" textAlignment="CENTER" visible="false">
       <content>
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <AnchorPane fx:id="saveAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <Button fx:id="saveButton" layoutX="113.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="38.0" prefWidth="141.0" text="Conferma">
+               <Button fx:id="saveButton" layoutX="73.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="38.0" prefWidth="110.5" text="Conferma">
+                  <font>
+                     <Font size="16.0" />
+                  </font>
+               </Button>
+               <Button fx:id="closeSaveButton" layoutX="183.5" layoutY="91.0" mnemonicParsing="false" onAction="#closeSaveDialogue" prefHeight="38.0" prefWidth="110.5" text="Annulla">
                   <font>
                      <Font size="16.0" />
                   </font>
@@ -306,6 +311,7 @@
                      <Font size="16.0" />
                   </font>
                </Text>
+               <Label fx:id="errorLabel" layoutY="61.0" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome Salvataggio già presente" textFill="RED" visible="false" />
                <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" />
             </children>
          </AnchorPane>

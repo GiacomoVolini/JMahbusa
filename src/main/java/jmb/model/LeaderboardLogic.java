@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.StandardOpenOption.*;
+import static jmb.ConstantsShared.*;
+import static jmb.ConstantsShared.SUCCESS;
 
 public class LeaderboardLogic {
 
@@ -52,10 +54,8 @@ public class LeaderboardLogic {
     }
 
     protected void addNewPlayer (String name) {
-        System.out.println("Provo ad aggiungere " + name + " alla lista");
         if (!name.contains("\u2001")) {
             arrList.add(new Player(name.concat("\u2001")));
-            System.out.println(name + " aggiunto");
         }
     }
 
@@ -95,6 +95,34 @@ public class LeaderboardLogic {
         winPlayer.setWinRate();
         lossPlayer.setWinRate();
         ldbWriter(path);
+    }
+
+    protected int compareNameLists(String newName1, String newName2) {
+        List<String> nameList = this.getNameList();
+        int output = DECIDING;
+        if (newName1 == null || newName2 == null) {
+            output = EMPTY_NAMES_ERROR;
+        } else if (newName1.equals(newName2)) {
+            output = SAME_NAME_ERROR;
+        }
+        // I nomi della lista hanno in coda il carattere di escape "\u2001"
+        // Questo consente di distinguere tra un nome preso dalla lista e lo stesso nome inserito manualmente,
+        //      e permette di effettuare un controllo su eventuali duplicati
+        if (output == DECIDING) {
+            Iterator<String> it = nameList.iterator();
+            while (it.hasNext() && output == DECIDING) {
+                String temp = it.next();
+                if (newName1.equals(temp.stripTrailing())) {
+                    output = NAME1_ALREADY_PRESENT;
+                } else if (newName2.equals(temp.stripTrailing())) {
+                    output = NAME2_ALREADY_PRESENT;
+                }
+            }
+        }
+        if (output == DECIDING) {
+            output = SUCCESS;
+        }
+        return output;
     }
 
 }

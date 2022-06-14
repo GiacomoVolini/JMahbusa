@@ -1,16 +1,10 @@
 package jmb.model;
 
-import jmb.view.IView;
-
 import java.util.ArrayDeque;
-import java.util.Iterator;
 
-import static java.lang.Math.abs;
+import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.model.ConstantsLogic.*;
-import static jmb.model.Logic.ldb;
 import static jmb.model.Logic.view;
-import static jmb.view.View.logic;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
@@ -127,7 +121,6 @@ public class BoardLogic {
 
         boolean possible;
 
-        //  Si effettuano dei controlli sui dadi
         possible = (puntaInizC!=puntaFinC);
 
         //  Si controlla che la mossa sia effettuata nel verso giusto
@@ -464,14 +457,14 @@ public class BoardLogic {
 
     public void setUpSavedGame(SaveGameReader save) {
         this.blackPlayer = save.blackPlayer;
-        System.out.println(save.blackPlayer);
         this.whitePlayer = save.whitePlayer;
-        System.out.println(save.whitePlayer);
         this.whiteTurn = save.isWhiteTurn;
-        System.out.println(save.isWhiteTurn);
         this.turnDuration = save.turnDuration;
-        System.out.println(save.turnDuration);
+        this.tournamentPoints = toIntExact(save.tournamentPoints);
+        this.blacksWonPoints = toIntExact(save.blacksWonPoints);
+        this.whitesWonPoints = toIntExact(save.whitesWonPoints);
         setUpSavedBoard(save.squareMatrix);
+        //TODO GESTIRE LOGICA TORNEO
     }
 
     private void setUpSavedBoard(int[][] squareMatrix) {
@@ -479,32 +472,60 @@ public class BoardLogic {
             squares = new PawnLogic[16][26];
         }
         for (int row =0; row<16; row++) {
-            System.out.println();
             for (int col = 0; col < 26; col++) {
                 switch(squareMatrix[row][col]) {
                     case 0:
                         squares[row][col] = null;
-                        System.out.print(0);
                         break;
                     case 1:
                         squares[row][col] = PawnLogic.newWhitePawn();
-                        System.out.print(1);
                         break;
                     case 2:
                         squares[row][col] = PawnLogic.newBlackPawn();
-                        System.out.print(2);
                         break;
                 }
             }
         }
     }
 
+    protected boolean isPawnMovable (int col, int row) {
 
-    /*TODO
-        protected void checkMovablePawns() {
+        boolean movable = false;
+        int sign;
+        int endCol;
+        if (isWhiteTurn())
+            sign = 1;
+        else sign = -1;
+        for (int i = 0; i<4 && !movable; i++) {
+            endCol = max (0, min(col + dice.getDiceValue(i) * sign, 25));
+            if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+                movable = true;
 
         }
-     */
+        endCol = max(0, min(25, col + (dice.getDiceValue(0) + dice.getDiceValue(1))*sign));
+        if (!movable && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+            movable = true;
+        for (int i =3; i<=4 && !movable; i++) {
+            endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
+            if (!movable && dice.getDoubleNum() && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+                movable = true;
+        }
+
+        return movable;
+    }
+
+    protected int getBoardPlaceState (int whichPoint, int whichRow) {
+        int boardPlaceState = UNDEFINED;
+        if (squares[whichRow][whichPoint] == null) {
+            boardPlaceState = EMPTY;
+        } else if (squares[whichRow][whichPoint].getisWhite()) {
+            boardPlaceState = WHITE;
+        } else {
+            boardPlaceState = BLACK;
+        }
+        return boardPlaceState;
+
+    }
 
 
     protected void setWhiteExit (boolean value) {

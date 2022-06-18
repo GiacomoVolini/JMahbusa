@@ -18,11 +18,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
 
-public class LoadGameView {
-
-    //TODO POTREBBE ESSERE UNA BUONA IDEA INVECE DELL'IMMAGINE
-    // UTILIZZARE LE COMPONENTI DI JAVAFX PER
-    // IL RENDERING DEL TABELLONE
+public class LoadGameView extends GameBoard {
 
     //TODO UNA VOLTA FINITA UNA PARTITA PRECEDENTEMENTE SALVATA,
     // CANCELLARE IL SALVATAGGIO, CHIEDERE ALL'UTENTE SE CANCELLARE
@@ -61,8 +57,6 @@ public class LoadGameView {
     @FXML
     private AnchorPane window;
     @FXML
-    private ImageView saveImageView;
-    @FXML
     private AnchorPane saveDetailAnchor;
     @FXML
     private AnchorPane saveListAnchor;
@@ -79,7 +73,13 @@ public class LoadGameView {
     private String saveName;
     private final double SEPARATOR_RATIO = 0.2625;
 
+    private final double HORIZONTAL_BOARD_FACTOR = 0.8;
+    private final double VERTICAL_BOARD_FACTOR = 0.6;
+
     public void initialize() {
+        this.boardAnchor = saveDetailAnchor;
+        addChildrenToAnchor();
+
         refreshSaveList();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
         whitePlayerPawn.setFill(pedIn1);
@@ -148,7 +148,6 @@ public class LoadGameView {
             wImg.getPixelWriter().setPixels(0, 0, width, height,
                     PixelFormat.getByteBgraInstance(),
                     logic.getImageBytes(saveName), 0, width * 4);
-            saveImageView.setImage(wImg);
             loadSaveButton.setDisable(false);
             deleteSaveButton.setDisable(false);
             whitePlayerName.setText(saveData[WHITE]);
@@ -161,7 +160,6 @@ public class LoadGameView {
 
     private void renderNoSelection() {
         String noSave = "---";
-        saveImageView.setImage(new Image("/jmb/view/loadView/EmptyBoard.png"));
         loadSaveButton.setDisable(true);
         deleteSaveButton.setDisable(true);
         whitePlayerName.setText(noSave);
@@ -174,6 +172,7 @@ public class LoadGameView {
     }
 
     private void changeDimensions() {
+        LoadGameViewRedraw.redrawAll(this);
         //window.setDividerPosition(0, SEPARATOR_RATIO);
         double listWidth = window.getWidth()*SEPARATOR_RATIO;
         double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
@@ -184,11 +183,7 @@ public class LoadGameView {
         saveDetailView.setRightAnchor(deleteSaveButton, saveDetailView.getRightAnchor(loadSaveButton) + loadSaveButton.getWidth());
         saveDetailView.setLayoutX(listWidth);
         double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
-        saveImageView.setFitWidth(imageWidth);
         double imageHeight = window.getHeight()*0.5;
-        saveImageView.setFitHeight(imageHeight);
-        saveImageView.setLayoutX(detailWidth/2 - imageWidth/2);
-        saveImageView.setLayoutY((window.getHeight() - imageHeight)/2);
         double xAnchor = 15;
         double yAnchor = 10;
         saveDetailView.setLeftAnchor(whitePlayerPawn, xAnchor);

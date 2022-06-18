@@ -13,6 +13,7 @@ import static jmb.view.ConstantsView.*;
 
 public class GameBoard {
 
+    protected AnchorPane boardAnchor;
     protected Rectangle outerRect;
     protected Rectangle boardRect;
     protected Rectangle separator;
@@ -67,5 +68,14 @@ public class GameBoard {
             this.pawnArrayBLK[i].setFill(pedIn2);
             this.pawnArrayBLK[i].setStroke(pedOut2);
         }
+    }
+
+    protected void addChildrenToAnchor() {
+        boardAnchor.getChildren().addAll(outerRect, boardRect, separator, whiteExitRegion, blackExitRegion);
+        for (int i = 0; i<12; i++)
+            boardAnchor.getChildren().addAll(polArrayTop[i], polArrayBot[i], regArrayTop[i], regArrayBot[i]);
+        for (int i = 0; i<15; i++)
+            boardAnchor.getChildren().addAll(pawnArrayWHT[i], pawnArrayBLK[i]);
+
     }
 }

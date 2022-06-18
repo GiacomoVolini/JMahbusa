@@ -12,20 +12,11 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-import jmb.App;
-import jmb.model.Logic;
-
-import java.io.File;
-import java.io.IOException;
-
 import static java.lang.Math.*;
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.*;
@@ -35,6 +26,8 @@ import static jmb.view.View.logic;
 public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
 
 
+    private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
+    private static final double VERTICAL_RESIZE_FACTOR = 0.75;
     //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
     //  roba nel view
 
@@ -893,11 +886,11 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
 
     public void initialize() {
 
-        window.getChildren().addAll(outerRect, boardRect, separator, whiteExitRegion, blackExitRegion);
-        for (int i = 0; i<12; i++)
-            window.getChildren().addAll(polArrayTop[i], polArrayBot[i], regArrayTop[i], regArrayBot[i]);
+        this.boardAnchor = window;
+        addChildrenToAnchor();
+        BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+        BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
         for (int i = 0; i<15; i++) {
-            window.getChildren().addAll(pawnArrayWHT[i], pawnArrayBLK[i]);
             pawnArrayWHT[i].setOnMouseDragged(this::drag);
             pawnArrayWHT[i].setOnMousePressed(this::savePosition);
             pawnArrayWHT[i].setOnMouseReleased(this::releasePawn);

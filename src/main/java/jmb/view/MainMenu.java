@@ -103,13 +103,6 @@ public class MainMenu {
         getStage().setFullScreen(cb);
     }
 
-    @FXML
-    void testLoadBuongiorno() {
-            logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame("BUONGIORNO"));
-            jmb.App.board();
-            getStage().setFullScreen(cb);
-    }
-
     public void initialize() {
 
 

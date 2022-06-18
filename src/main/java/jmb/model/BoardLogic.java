@@ -18,11 +18,11 @@ public class BoardLogic {
     //TODO Aggiungere delle variabili per la durata del turno e per il tempo rimanente nel turno
 
     /*TODO
-        - Trasformare la matrice squares in una matrice di interi come quella del salvataggio
+        - Trasformare la matrice squares in una matrice di interi come quella del salvataggio - FATTO
      */
 
     //TODO VECCHIO PawnLogic[][] squares;
-    int[][] squares;
+    protected int[][] squares;
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
@@ -84,7 +84,7 @@ public class BoardLogic {
         whiteTurn = dice.initialToss();
 
         //TODO TEST
-        //SaveGameReader.readSaveGame("BUONGIORNO");
+        //  SaveGameReader.readSaveGame("BUONGIORNO");
     }
 
     public boolean isWhiteTurn() {

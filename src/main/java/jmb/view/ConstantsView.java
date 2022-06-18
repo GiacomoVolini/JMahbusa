@@ -39,10 +39,12 @@ public class ConstantsView {
     public static boolean sr;
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
-    public static boolean mu;
+    //TODO TOGLIERE TRUE SOTTO
+    public static boolean mu = true;
     public static final boolean muta = true;
     public static final boolean nonmuta = false;
-    public static boolean mue;
+    //TODO TOGLIERE TRUE SOTTO
+    public static boolean mue = true;
     public static final boolean mutae = true;
     public static final boolean nonmutae = false;
 

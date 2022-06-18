@@ -215,11 +215,6 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public BoardLogic getBoard() {
-        return board;
-    }
-
-    @Override
     public List<String> getSaveList() {
         return SaveGameReader.getSaveList();
     }
@@ -257,5 +252,15 @@ public class Logic implements ILogic{
     @Override
     public boolean isSaveNamePresent(String saveName) {
         return SaveGameReader.isSaveNamePresent(saveName);
+    }
+
+    @Override
+    public void setUpSavedGame(String saveName) {
+        board.setUpSavedGame(SaveGameReader.readSaveGame(saveName));
+    }
+
+    @Override
+    public int[][] getBoardMatrix() {
+        return board.squares;
     }
 }

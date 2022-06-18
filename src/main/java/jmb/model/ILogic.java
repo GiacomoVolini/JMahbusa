@@ -83,8 +83,6 @@ public interface ILogic {
 
     void saveGame(String saveName, WritableImage saveImage);
 
-    BoardLogic getBoard();
-
     List<String> getSaveList();
 
     SaveGameReader readSaveGame (String saveName);
@@ -100,6 +98,10 @@ public interface ILogic {
     void deleteSaveFile(String fileName);
 
     boolean isSaveNamePresent(String saveName);
+
+    void setUpSavedGame(String saveName);
+
+    int[][] getBoardMatrix();
 
 
 }

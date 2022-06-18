@@ -44,7 +44,6 @@ public class GameBoardRedraw {
 
 
     protected static double getBoardSize (GameBoard board) {
-//TODO MODIFICARE E SEMPLIFICARE
         double usableWidth = board.boardAnchor.getWidth()* hResizeFactor;
         double usableHeight = board.boardAnchor.getHeight()* vResizeFactor;
         return min(usableHeight, usableWidth);
@@ -55,6 +54,8 @@ public class GameBoardRedraw {
         System.out.println(board.boardAnchor);
         System.out.println("WIDTH " + board.boardAnchor.getWidth());
         System.out.println("HEIGHT " + board.boardAnchor.getHeight());
+        System.out.println("hRF " + hResizeFactor);
+        System.out.println("vRF " + vResizeFactor);
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         double size = getBoardSize(board);
         System.out.println(getBoardSize(board));
@@ -146,109 +147,55 @@ public class GameBoardRedraw {
         board.blackExitRegion.setLayoutY(board.outerRect.getLayoutY());
         board.whiteExitRegion.setHeight(board.outerRect.getHeight()/2);
         board.whiteExitRegion.setLayoutY(board.outerRect.getLayoutY() + (board.outerRect.getHeight()/2));
-
-        if (blackExitCondition()) {
-            board.blackExitRegion.setWidth(maxExitWidth);
-            board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
-        }
-        if (whiteExitCondition()) {
-            board.whiteExitRegion.setWidth(maxExitWidth);
-            board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
-        }
     }
 
-    protected static boolean blackExitCondition() {
-        return true;
-    }
-    protected static boolean whiteExitCondition() {
-        return true;
-    }
+    /*TODO
+        COME POTREI RISCRIVERE REDRAWPAWNS
+        - Metodi redrawPawns sulle classi figlie (senza attributi passati), che vanno a pescare la matrice di interi giusta
+        - Metodo redrawPawns su classe madre a cui si passa una matrice di interi che fa il riposizionamento delle pedine
+            (scegliere se aggiungere dei sottometodi o fare tutto su uno)
+        - Metodo che sovrascrive redrawPawns con matrice su BoardViewRedraw che richiama il metodo padre e poi evidenzia
+            le pedine che si possono muovere
+     */
 
-    //TODO FORSE RISCRIVERE LE ROBE DELLE PEDINE
-    public static void redrawPawns(GameBoard board) {
 
-        int whitesPlaced = 0;
-        int blacksPlaced = 0;
 
-        blacksPlaced = redrawExitRegionPawns (blacksPlaced, board.pawnArrayBLK, board.blackExitRegion, COL_BLACK_EXIT, BLACK);
-        whitesPlaced = redrawExitRegionPawns (whitesPlaced, board.pawnArrayWHT, board.whiteExitRegion, COL_WHITE_EXIT, WHITE);
-        blacksPlaced = redrawAllPointsPawns (blacksPlaced, board.pawnArrayBLK, board.regArrayBot, board.regArrayTop, BLACK);
-        whitesPlaced = redrawAllPointsPawns (whitesPlaced, board.pawnArrayWHT, board.regArrayBot, board.regArrayTop, WHITE);
-    }
-
-    protected static int redrawAllPointsPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArrayBot, Region[] regArrayTop, int color) {
-        for (int cols = COL_WHITE; cols <= LAST_COL_TOP && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
-            pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayTop, cols, true, color);
-            //Il ciclo for chiama un redraw delle pedine di ogni singola punta in alto
-        }
-        for (int cols = FIRST_COL_BOT; cols <= COL_BLACK && pawnsPlaced < PAWN_NUMBER_PER_PLAYER; cols++) {
-            pawnsPlaced = redrawPointPawns (pawnsPlaced, pawnArray, regArrayBot, cols, false, color);
-            //Il ciclo for chiama un redraw delle pedine di ogni singola punta in basso
-        }
-        return pawnsPlaced;
-    }
-
-    private static int redrawPointPawns (int pawnsPlaced, PawnView[] pawnArray, Region[] regArray, int col, boolean top, int color) {
-
-        boolean white;
-        if (color==WHITE) {
-            white = true;
-        } else {
-            white = false;
-        }
-        for (int rows = 0; logic.getBoardPlaceState(col, rows) != EMPTY && pawnsPlaced < PAWN_NUMBER_PER_PLAYER && rows <= 16; rows++) {
-            if (logic.getBoardPlaceState(col, rows) == color) {
-                if (top) {
-                    pawnArray[pawnsPlaced].setLayoutX(regArray[col - 1].getLayoutX() + pawnArray[pawnsPlaced].getRadius());
-                    pawnArray[pawnsPlaced].setLayoutY(regArray[col - 1].getLayoutY() + (min(5, rows) * 2 + 1) * pawnArray[pawnsPlaced].getRadius());
-                } else {
-                    pawnArray[pawnsPlaced].setLayoutX(regArray[COL_BLACK - col].getLayoutX() + pawnArray[pawnsPlaced].getRadius());
-                    pawnArray[pawnsPlaced].setLayoutY(regArray[COL_BLACK - col].getLayoutY() + regArray[COL_BLACK - col].getPrefHeight() -
-                            (min(5, rows) * 2 + 1) * pawnArray[pawnsPlaced].getRadius());
-                }
-                //  L'if controlla se la pedina appena posizionata è l'ultima della punta o meno
-                //      In caso positivo la pedina viene visualizzata in cima a tutte le altre
-                //      In caso negativo si riporta la priorità di rendering di default
-                if (logic.isLastOnPoint(col, rows) && white == logic.getWhichTurn()) {
-                    pawnArray[pawnsPlaced].setViewOrder(-1.0);
-                    pawnArray[pawnsPlaced].setDisable(false);
-                    if (logic.isPawnMovable(col, rows))
-                        pawnArray[pawnsPlaced].setStrokeWidth(3.5);
-                    else pawnArray[pawnsPlaced].setStrokeWidth(2);
-                } else {
-                    pawnArray[pawnsPlaced].setViewOrder(0.0);
-                    pawnArray[pawnsPlaced].setDisable(true);
-                    pawnArray[pawnsPlaced].setStrokeWidth(2);
-                }
-                pawnsPlaced++;
-            }
-
-        }
-        return pawnsPlaced;
-    }
-
-    private static int redrawExitRegionPawns (int pawnsPlaced, PawnView[] pawnArray, Rectangle exitRegion, int exitID, int color) {
-        for ( int row = 0; logic.getBoardPlaceState(exitID, row)!=EMPTY && pawnsPlaced< PAWN_NUMBER_PER_PLAYER && row<= 16; row++) {
-            if (logic.getBoardPlaceState(exitID, row) == color) {
-                pawnArray[pawnsPlaced].setLayoutX(exitRegion.getLayoutX() + ((pawnsPlaced % 3) * 2 + 1) * pawnArray[pawnsPlaced].getRadius());
-                if (color == WHITE) {
-                    pawnArray[pawnsPlaced].setLayoutY(exitRegion.getLayoutY() + exitRegion.getHeight() - ( (pawnsPlaced/3) * 2  + 1) * pawnArray[pawnsPlaced].getRadius());
-                } else {
-                    pawnArray[pawnsPlaced].setLayoutY(exitRegion.getLayoutY() + ( (pawnsPlaced/3) * 2  + 1) * pawnArray[pawnsPlaced].getRadius());
-                }
-                pawnArray[pawnsPlaced].setDisable(true);
-                pawnsPlaced++;
-            }
-        }
-        return pawnsPlaced;
+    protected static void placePawn (GameBoard board, PawnView[] pawnArray, int pawnIndex, int col, int row) {
+       if (col<=LAST_COL_TOP && col >=COL_WHITE) {
+           pawnArray[pawnIndex].setLayoutX(board.regArrayTop[col - 1].getLayoutX() + pawnArray[pawnIndex].getRadius());
+           pawnArray[pawnIndex].setLayoutY(board.regArrayTop[col - 1].getLayoutY() + (min(5, row) * 2 + 1) * pawnArray[pawnIndex].getRadius());
+       } else if (col<=COL_BLACK && col >= FIRST_COL_BOT) {
+           pawnArray[pawnIndex].setLayoutX(board.regArrayBot[COL_BLACK - col].getLayoutX() + pawnArray[pawnIndex].getRadius());
+           pawnArray[pawnIndex].setLayoutY(board.regArrayBot[COL_BLACK - col].getLayoutY() + board.regArrayBot[COL_BLACK - col].getPrefHeight() -
+                   (min(5, row) * 2 + 1) * pawnArray[pawnIndex].getRadius());
+       } else if (col == COL_BLACK_EXIT) {
+           pawnArray[pawnIndex].setLayoutX(board.blackExitRegion.getLayoutX() + ((row % 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
+           pawnArray[pawnIndex].setLayoutY(board.blackExitRegion.getLayoutY() + ((row/3) * 2  + 1) * pawnArray[pawnIndex].getRadius());
+       } else {
+           System.out.println(pawnIndex);
+           pawnArray[pawnIndex].setLayoutX(board.whiteExitRegion.getLayoutX() + ((row % 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
+           pawnArray[pawnIndex].setLayoutY(board.whiteExitRegion.getLayoutY() + board.whiteExitRegion.getHeight() - ((row / 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
+       }
+       pawnArray[pawnIndex].setDisable(true);
     }
 
 
-    protected static void resizePawns (BoardView board) {
+    protected static void resizePawns (GameBoard board) {
         for (int i =0; i<board.pawnArrayWHT.length; i++){
             board.pawnArrayBLK[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
             board.pawnArrayWHT[i].setRadius(board.regArrayTop[0].getPrefWidth() / 2);
         }
+    }
+
+    public static void resizeAll(GameBoard board) {
+        resizeOuterRect(board);
+        resizeBoardRect(board);
+        resizeSeparator(board);
+        resizeLeftPoints(board);
+        resizeRightPoints(board);
+        resizePawns(board);
+        calcTrayWidths(board);
+        resizeExitRegions(board);
     }
 
 

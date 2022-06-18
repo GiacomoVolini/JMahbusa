@@ -28,6 +28,8 @@ public class LoadGameView extends GameBoard {
     //  VALUTARE SE TOGLIERE UNO DEGLI STRATI DI ANCHORPANE VISTE
     //  LE MODIFICHE ALL'FXML
 
+    private final static double HORIZONTAL_RESIZE_FACTOR = 0.45;
+    private final static double VERTICAL_RESIZE_FACTOR = 0.55;
     @FXML
     private Label blackPlayerName;
     @FXML
@@ -73,8 +75,6 @@ public class LoadGameView extends GameBoard {
     private String saveName;
     private final double SEPARATOR_RATIO = 0.2625;
 
-    private final double HORIZONTAL_BOARD_FACTOR = 0.8;
-    private final double VERTICAL_BOARD_FACTOR = 0.6;
 
     public void initialize() {
         this.boardAnchor = saveDetailAnchor;
@@ -172,7 +172,6 @@ public class LoadGameView extends GameBoard {
     }
 
     private void changeDimensions() {
-        LoadGameViewRedraw.redrawAll(this);
         //window.setDividerPosition(0, SEPARATOR_RATIO);
         double listWidth = window.getWidth()*SEPARATOR_RATIO;
         double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
@@ -207,6 +206,9 @@ public class LoadGameView extends GameBoard {
         saveDetailView.setBottomAnchor(timerLabel, yAnchor);
         saveDetailView.setLeftAnchor(hourglass, xAnchor);
         saveDetailView.setLeftAnchor(timerLabel, labelXAnchor);
+        LoadGameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+        LoadGameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+        LoadGameViewRedraw.redrawAll(this);
         if (tournamentCup.isVisible()) {
             double circleDiameter = whitePlayerPawn.getRadius()*2;
             double cupSize = circleDiameter * 1.5;
@@ -237,9 +239,10 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void loadGame(ActionEvent event) {
-            logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame(saveName));
-            jmb.App.board();
-            getStage().setFullScreen(cb);
+            //TODO VECCHIO logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame(saveName));
+        logic.setUpSavedGame(saveName);
+        jmb.App.board();
+        getStage().setFullScreen(cb);
 
     }
 

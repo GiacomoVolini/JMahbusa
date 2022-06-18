@@ -4,6 +4,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
@@ -29,7 +30,7 @@ public class GameBoard {
     public GameBoard() {
         outerRect = new Rectangle();
         outerRect.setFill(frame);
-        outerRect.setStroke(frame);
+        outerRect.setStroke(Color.BLACK);
         boardRect = new Rectangle();
         boardRect.setFill(table);
         boardRect.setStroke(table);
@@ -39,9 +40,11 @@ public class GameBoard {
         ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
         whiteExitRegion = new Rectangle();
         whiteExitRegion.setFill(pedIn1);
+        whiteExitRegion.setStroke(Color.BLACK);
         whiteExitRegion.setEffect(lowContrast);
         blackExitRegion = new Rectangle();
         blackExitRegion.setFill(pedIn2);
+        blackExitRegion.setStroke(Color.BLACK);
         blackExitRegion.setEffect(lowContrast);
         for (int i = 0; i<12; i++) {
             polArrayTop[i] = new Polygon();
@@ -65,8 +68,10 @@ public class GameBoard {
             pawnArrayBLK[i] = new PawnView();
             this.pawnArrayWHT[i].setFill(pedIn1);
             this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayWHT[i].setDisable(true);
             this.pawnArrayBLK[i].setFill(pedIn2);
             this.pawnArrayBLK[i].setStroke(pedOut2);
+            this.pawnArrayBLK[i].setDisable(true);
         }
     }
 

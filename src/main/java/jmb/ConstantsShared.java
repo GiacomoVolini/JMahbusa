@@ -13,7 +13,7 @@ public class ConstantsShared {
     public static final int COL_BLACK_EXIT = 0;
     public static final int FIRST_BOARD_COLUMN = COL_BLACK_EXIT;
 
-    public static final int PAWN_NUMBER_PER_PLAYER = 15;
+    public static final int PAWNS_PER_PLAYER = 15;
 
     //  Costanti per i metodi di scansione tabellone
     public static final int EMPTY = 0;

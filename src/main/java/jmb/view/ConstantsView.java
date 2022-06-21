@@ -40,11 +40,11 @@ public class ConstantsView {
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
     //TODO TOGLIERE TRUE SOTTO
-    public static boolean mu = true;
+    public static boolean mu;
     public static final boolean muta = true;
     public static final boolean nonmuta = false;
     //TODO TOGLIERE TRUE SOTTO
-    public static boolean mue = true;
+    public static boolean mue;
     public static final boolean mutae = true;
     public static final boolean nonmutae = false;
 

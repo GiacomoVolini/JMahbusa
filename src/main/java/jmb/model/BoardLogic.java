@@ -17,7 +17,12 @@ public class BoardLogic {
 
     //TODO Aggiungere delle variabili per la durata del turno e per il tempo rimanente nel turno
 
-    PawnLogic[][] squares;
+    /*TODO
+        - Trasformare la matrice squares in una matrice di interi come quella del salvataggio - FATTO
+     */
+
+    //TODO VECCHIO PawnLogic[][] squares;
+    protected int[][] squares;
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
@@ -65,23 +70,21 @@ public class BoardLogic {
         setBlackExit(false);
         setWhiteExit(false);
 
-        squares = new PawnLogic[16][26];
+        squares = new int[16][26];
 
         //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
         //  e lasciando null negli spazi vuoti
         for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= PawnLogic.newWhitePawn();
-            squares[i][COL_BLACK]= PawnLogic.newBlackPawn();
+            squares[i][COL_WHITE]= WHITE;
+            squares[i][COL_BLACK]= BLACK;
         }
-        squares[0][COL_WHITE].setLocksBlack(false);
-        squares[0][COL_BLACK].setLocksWhite(false);
 
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
         //  e tiriamo i dadi per il primo giocatore
         whiteTurn = dice.initialToss();
 
         //TODO TEST
-        //SaveGameReader.readSaveGame("BUONGIORNO");
+        //  SaveGameReader.readSaveGame("BUONGIORNO");
     }
 
     public boolean isWhiteTurn() {
@@ -133,11 +136,11 @@ public class BoardLogic {
                 //  la posizione di arrivo non sia bloccata per il giocatore di turno
                 if (dice.checkDice( abs(puntaFinC - puntaInizC))) {
                     if (whiteTurn) {
-                        if (puntaFinR > 0 && squares[puntaFinR - 1][puntaFinC].getLocksWhite()) {
+                        if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == BLACK) {
                             //controlla che la posizione di arrivo non sia preclusa al bianco
                             possible = false;
                         }
-                    } else if (puntaFinR > 0 && squares[puntaFinR - 1][puntaFinC].getLocksBlack()) {
+                    } else if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == WHITE) {
                         //controlla che la posizione di arrivo non sia preclusa al nero
                         possible = false;
                     }
@@ -168,18 +171,17 @@ public class BoardLogic {
     }
 
     private boolean checkIfFarthestPawn( int puntaIniz) {
-
         boolean farthest = true;
-        if (isWhiteTurn()) {
 
+        if (isWhiteTurn()) {
             for (int i = puntaIniz - 1; i>18 && farthest; i--) {
-                if ((squares[0][i]!= null && squares[0][i].getisWhite()) || (squares[1][i]!= null && squares[1][i].getisWhite())) {
+                if (squares[0][i]== WHITE || squares[1][i]==WHITE) {
                     farthest = false;
                 }
             }
         } else {
             for (int i = puntaIniz + 1; i <=6 && farthest; i++) {
-                if ((squares[0][i]!= null && !squares[0][i].getisWhite()) || (squares[1][i]!= null && !squares[1][i].getisWhite())) {
+                if (squares[0][i]==BLACK || squares[1][i]==BLACK) {
                     farthest = false;
                 }
             }
@@ -196,31 +198,18 @@ public class BoardLogic {
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
 
+        dice.resetToBeUsed();
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
             view.playmusica();
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
-            squares[puntaInizR][puntaInizC]= null;
+            squares[puntaInizR][puntaInizC]= EMPTY;
             dice.setUsed();
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
-            dice.resetToBeUsed();
             view.setDiceContrast();
             view.backBTNSetDisable(false);
-
-
-            //  Si effettuano dei controlli per impostare lo stato di bloccato alla pedina
-            if (puntaFinR==0) {
-                squares[puntaFinR][puntaFinC].setLocksBlack(false);
-                squares[puntaFinR][puntaFinC].setLocksWhite(false);
-            } else if (squares[puntaFinR][puntaFinC].getisWhite()) {
-                squares[puntaFinR][puntaFinC].setLocksBlack(true);
-                squares[puntaFinR][puntaFinC].setLocksWhite(false);
-            } else {
-                squares[puntaFinR][puntaFinC].setLocksBlack(false);
-                squares[puntaFinR][puntaFinC].setLocksWhite(true);
-            }
 
             //  Controlla se il giocatore di turno può far uscire le proprie
             //  pedine e aggiorna di conseguenza la variabile relativa
@@ -238,10 +227,10 @@ public class BoardLogic {
     public int searchFirstFreeRow(int whichPoint) {
         // Data una colonna della matrice cerca la prima riga libera e la restituisce
         int whichRow = UNDEFINED;
-        if (squares[15][whichPoint]==null) {
+        if (squares[15][whichPoint]==EMPTY) {
             boolean found = false;
             for (int i=14; i>=0 && !found; i--) {
-                if (squares[i][whichPoint] !=null) {
+                if (squares[i][whichPoint] !=EMPTY) {
                     found = true;
                     whichRow = i + 1;
                 }
@@ -258,7 +247,7 @@ public class BoardLogic {
         // Data una colonna della matrice cerca l'ultima riga occupata
         // Il metodo restituisce UNDEFINED se la colonna è completamente vuota
         int whichRow;
-        if (squares[15][whichPoint]!= null) {
+        if (squares[15][whichPoint]!= EMPTY) {
             whichRow = 15;
         } else {
             whichRow = searchFirstFreeRow(whichPoint) - 1;
@@ -275,8 +264,8 @@ public class BoardLogic {
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
 
 
-        boolean right = (squares[puntaInizR][puntaInizC].getisWhite() && (puntaFinC > puntaInizC)) ||
-                (!squares[puntaInizR][puntaInizC].getisWhite() && (puntaFinC < puntaInizC));
+        boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
+                (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
         return right;
 
     }
@@ -300,8 +289,7 @@ public class BoardLogic {
 
                 for (int i = 7; i<=24 && !found; i++){
                     for (int j = 0; j<=1 && !found; j++){
-                        if (squares[j][i] != null && !squares[j][i].getisWhite()){
-
+                        if (squares[j][i] == BLACK){
                             found = true;
                         }
                     }
@@ -316,18 +304,12 @@ public class BoardLogic {
 
 
     public void isWhiteExit() {
-
         // i=colonne  j=righe
-
-
         if (!this.whiteExit){
             boolean found = false;
-
-
             for (int i = 1; i<=18 && !found; i++){
                 for (int j = 0; j<=1 && !found; j++){
-
-                    if (squares[j][i] != null && squares[j][i].getisWhite()){
+                    if (squares[j][i] == WHITE){
                         found = true;
                     }
                 }
@@ -374,28 +356,25 @@ public class BoardLogic {
     }
 
     private boolean blackDoubleWinCondition() {
-        return (squares[0][COL_WHITE]!=null && squares[0][COL_WHITE].getisWhite() &&
-                squares[1][COL_WHITE]!=null && !squares[1][COL_WHITE].getisWhite()) ||
-                (squares[14][COL_BLACK_EXIT]!=null && squares[0][COL_WHITE_EXIT]==null);
+        return (squares[0][COL_WHITE]==WHITE && squares[1][COL_WHITE]==BLACK ||
+                (squares[14][COL_BLACK_EXIT]!=EMPTY && squares[0][COL_WHITE_EXIT]==EMPTY));
     }
 
     private boolean whiteDoubleWinCondition() {
-        return (squares[0][COL_BLACK]!=null && !squares[0][COL_BLACK].getisWhite() &&
-                squares[1][COL_BLACK]!=null && squares[1][COL_BLACK].getisWhite()) ||
-                (squares[14][COL_WHITE_EXIT]!=null && squares[0][COL_BLACK_EXIT]==null);
+        return (squares[0][COL_BLACK]==BLACK && squares[1][COL_BLACK]==WHITE) ||
+                (squares[14][COL_WHITE_EXIT]!=EMPTY && squares[0][COL_BLACK_EXIT]==EMPTY);
 
     }
 
     private boolean blackSingleWinCondition() {
-        return (squares[14][COL_BLACK_EXIT]!=null && squares[0][COL_WHITE_EXIT]!=null);
+        return (squares[14][COL_BLACK_EXIT]!=EMPTY && squares[0][COL_WHITE_EXIT]!=EMPTY);
     }
 
     private boolean whiteSingleWinCondition() {
-        return (squares[14][COL_WHITE_EXIT]!=null && squares[0][COL_BLACK_EXIT]!=null);
+        return (squares[14][COL_WHITE_EXIT]!=EMPTY && squares[0][COL_BLACK_EXIT]!=EMPTY);
     }
 
     private void gameWon(boolean whiteWon, boolean doubleWin) {
-
         if (whiteWon) {
             if (doubleWin)
                 whitesWonPoints += 2;
@@ -441,23 +420,14 @@ public class BoardLogic {
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];
-        squares[fromRow][from] = null;
-
-        if (toRow==0) {
-            squares[toRow][to].setLocksBlack(false);
-            squares[toRow][to].setLocksWhite(false);
-        } else if (squares[toRow][to].getisWhite()) {
-            squares[toRow][to].setLocksBlack(true);
-            squares[toRow][to].setLocksWhite(false);
-        } else {
-            squares[toRow][to].setLocksBlack(false);
-            squares[toRow][to].setLocksWhite(true);
-        }
+        squares[fromRow][from] = EMPTY;
     }
 
     public void setUpSavedGame(SaveGameReader save) {
         this.blackPlayer = save.blackPlayer;
         this.whitePlayer = save.whitePlayer;
+        this.blackExit = save.blackExit;
+        this.whiteExit = save.whiteExit;
         this.whiteTurn = save.isWhiteTurn;
         this.turnDuration = save.turnDuration;
         this.tournamentPoints = toIntExact(save.tournamentPoints);
@@ -469,21 +439,11 @@ public class BoardLogic {
 
     private void setUpSavedBoard(int[][] squareMatrix) {
         if (squares == null) {
-            squares = new PawnLogic[16][26];
+            squares = new int[16][26];
         }
         for (int row =0; row<16; row++) {
             for (int col = 0; col < 26; col++) {
-                switch(squareMatrix[row][col]) {
-                    case 0:
-                        squares[row][col] = null;
-                        break;
-                    case 1:
-                        squares[row][col] = PawnLogic.newWhitePawn();
-                        break;
-                    case 2:
-                        squares[row][col] = PawnLogic.newBlackPawn();
-                        break;
-                }
+                squares[row][col] = squareMatrix[row][col];
             }
         }
     }
@@ -515,16 +475,7 @@ public class BoardLogic {
     }
 
     protected int getBoardPlaceState (int whichPoint, int whichRow) {
-        int boardPlaceState = UNDEFINED;
-        if (squares[whichRow][whichPoint] == null) {
-            boardPlaceState = EMPTY;
-        } else if (squares[whichRow][whichPoint].getisWhite()) {
-            boardPlaceState = WHITE;
-        } else {
-            boardPlaceState = BLACK;
-        }
-        return boardPlaceState;
-
+        return squares[whichRow][whichPoint];
     }
 
 

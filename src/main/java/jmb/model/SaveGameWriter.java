@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Base64;
+import static jmb.ConstantsShared.*;
 
 public class SaveGameWriter {
 
@@ -21,6 +22,8 @@ public class SaveGameWriter {
 
             saveContent.put("whitePlayer", board.getWhitePlayer());
             saveContent.put("blackPlayer", board.getBlackPlayer());
+            saveContent.put("whiteExit", board.getWhiteExit());
+            saveContent.put("blackExit", board.getBlackExit());
             saveContent.put("squareMatrix", generateSquareMatrixString(board));
             saveContent.put("isWhiteTurn", !board.isWhiteTurn());
             saveContent.put("boardImage", generateBoardImageString(saveImage));
@@ -56,11 +59,15 @@ public class SaveGameWriter {
         String out = "";
         for (int i = 0; i<16 ; i++) {
             for (int j = 0; j<26 ; j++) {
+                /* TODO VECCHIO
                 if (board.squares[i][j]==null) {
-                    out = out.concat("0");
+                    out = out.concat(String.valueOf(EMPTY));
                 } else if (board.squares[i][j].getisWhite()) {
                     out= out.concat("1");
                 } else out = out.concat("2");
+
+                 */
+                out = out.concat(String.valueOf(board.squares[i][j]));
             }
             out = out.concat("\n");
         }

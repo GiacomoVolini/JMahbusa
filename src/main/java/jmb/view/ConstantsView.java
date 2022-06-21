@@ -4,10 +4,6 @@ import javafx.scene.paint.Color;
 
 public class ConstantsView {
 
-    public static final double HORIZONTAL_RESIZE_FACTOR = 0.53;         //  La larghezza massima che il tabellone può occupare rispetto alla finestra
-
-    public static final double VERTICAL_RESIZE_FACTOR = 0.9;
-    //  L'altezza massima che il tabellone può occupare rispetto alla finestra
     public static final double MAX_BTN_WIDTH = 111;                     //  La larghezza massima del buttone "finish turn"
     public static final double MAX_BTN_HEIGHT = 80;                     //  L'altezza massima dei buttoni piccoli
     public static final double BUTTON_ANCHOR = 10;                      //  Il valore dell'anchor per i tre pulsanti
@@ -43,9 +39,11 @@ public class ConstantsView {
     public static boolean sr;
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
+    //TODO TOGLIERE TRUE SOTTO
     public static boolean mu;
     public static final boolean muta = true;
     public static final boolean nonmuta = false;
+    //TODO TOGLIERE TRUE SOTTO
     public static boolean mue;
     public static final boolean mutae = true;
     public static final boolean nonmutae = false;

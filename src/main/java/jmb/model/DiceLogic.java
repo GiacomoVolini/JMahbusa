@@ -141,7 +141,7 @@ public class DiceLogic {
         }
 
         //TODO TEST - BYPASSA CONTROLLO DADI
-        //possible = true;
+        possible = true;
 
         return possible;
 
@@ -155,7 +155,6 @@ public class DiceLogic {
             if (dice[i] == delta && !used[i]) {
                 possible = true;
                 toBeUsed[i] = true;
-                System.out.println("Metto il dado " + i + "in toBeUsed");
             }
         }
 

@@ -93,6 +93,8 @@ public interface ILogic {
 
     long[] getImageDimensions(String saveName);
 
+    int searchTopOccupiedRow(int col);
+
     boolean isPawnMovable(int col, int row);
 
     void deleteSaveFile(String fileName);
@@ -102,6 +104,7 @@ public interface ILogic {
     void setUpSavedGame(String saveName);
 
     int[][] getBoardMatrix();
+
 
 
 }

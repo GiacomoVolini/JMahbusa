@@ -240,6 +240,9 @@ public class Logic implements ILogic{
     }
 
     @Override
+    public int searchTopOccupiedRow(int col){return board.searchTopOccupiedRow(col);}
+
+    @Override
     public boolean isPawnMovable(int col, int row) {
         return board.isPawnMovable(col, row);
     }

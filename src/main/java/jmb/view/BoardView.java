@@ -23,7 +23,8 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
+
+public class BoardView extends GameBoard {
 
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
@@ -709,19 +710,34 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
     int i=0;
     String s="";
     String L="";
-    @Override
-    public void handle(KeyEvent event) {
-        if(event.getCode().toString().equals("ESCAPE")){
+
+    //seleziona l'arrey
+    private int trovaColonna(){
+        int col = -1;
+        for (int i = 0; i < 12; i++) {
+            if (polArrayTop[i].getFill().equals(Paint.valueOf("#fffb00"))) {
+                col = i;
+            } else if (polArrayBot[i].getFill().equals(Paint.valueOf("#fffb00"))) {
+                col = i;
+            }
+        }
+        return col;
+    }
+
+
+    @FXML
+    void comandaLAtastiera(KeyEvent event) {
+        if(event.getCode().toString().equals(main_menu)){
             openExitoption();
         }
             //spostamenti per il bianco
          //****************************************************** bianco destra
-        if(event.getCode().toString().equals("D") && (logic.getWhichTurn() || s.equals("W")) && !s.equals("S") && i>=0 && i <= 11){
-            if(L.equals("A") && i<10){
-                L="D";
+        if(event.getCode().toString().equals(moveTO_right) && (logic.getWhichTurn() || s.equals(moveTO_up)) && !s.equals(moveTO_down) && i>=0 && i <= 11){
+            if(L.equals(moveTO_left) && i<10){
+                L=moveTO_right;
                 i+=2;
-            } else if(L.equals("A") && i==10){
-                L="A";
+            } else if(L.equals(moveTO_left) && i==10){
+                L=moveTO_left;
                 i=0;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
@@ -736,24 +752,24 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
+        } else if(i==12 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))) {
             i=1;
             polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(point2);
-        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+        } else if( i==-1 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
             i=2;
             polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-            L="D";
+            L=moveTO_right;
         }
 
         // BIANCO sinistra
-        if(event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W")) && i>=0 && i <= 11){
-            if(L.equals("D") && i>1){
-                L="A";
+        if(event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up)) && i>=0 && i <= 11){
+            if(L.equals(moveTO_right) && i>1){
+                L=moveTO_left;
                 i-=2;
-            } else if(L.equals("D") && i==1){
-                L="A";
+            } else if(L.equals(moveTO_right) && i==1){
+                L=moveTO_left;
                 i=11;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
@@ -768,23 +784,23 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))) {
+        } else if( i<=-1 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))) {
             i=10;
             polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("S") && (logic.getWhichTurn() || s.equals("W"))){
+        } else if( i==12 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
             i=9;
             polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(point2);
-            L="A";
+            L=moveTO_left;
         }
 
         // da sopra a sotto
-        if(event.getCode().toString().equals("S") && (logic.getWhichTurn() || s.equals("W"))){
-            s ="S";
-            if(L.equals("D")){
+        if(event.getCode().toString().equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
+            s =moveTO_down;
+            if(L.equals(moveTO_right)){
                 polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals("A")){
+            }else if(L.equals(moveTO_left)){
                 polArrayBot[i+1].setFill(Paint.valueOf("#fffb00"));
             }
             for (int i=0; i<polArrayTop.length;i++){
@@ -797,11 +813,11 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
         }
 
         // da sotto a sopra
-        if(event.getCode().toString().equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
-            s ="W";
-            if(L.equals("D")){
+        if(event.getCode().toString().equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+            s =moveTO_up;
+            if(L.equals(moveTO_right)){
                 polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals("A")){
+            }else if(L.equals(moveTO_left)){
                 polArrayTop[i+1].setFill(Paint.valueOf("#fffb00"));
             }
             for (int i=0; i<polArrayTop.length;i++){
@@ -815,12 +831,12 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
 
             //spostamento per il nero
         //******************************************************* nero destra
-        if(event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
-            if(L.equals("A") && i<10){
-                L="D";
+        if(event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+            if(L.equals(moveTO_left) && i<10){
+                L=moveTO_right;
                 i+=2;
-            } else if(L.equals("A") && i==10){
-                L="A";
+            } else if(L.equals(moveTO_left) && i==10){
+                L=moveTO_left;
                 i=0;
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
@@ -835,24 +851,24 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
+        } else if(i==12 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
             i=1;
             polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-        } else if( i==-1 && event.getCode().toString().equals("D") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+        } else if( i==-1 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
             i=2;
             polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[0].setFill(point2);
-            L="D";
+            L=moveTO_right;
         }
 
         // nero sinistra
-        if(event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S")) && i>=0 && i <= 11){
-            if(L.equals("D") && i>1){
-                L="A";
+        if(event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+            if(L.equals(moveTO_right) && i>1){
+                L=moveTO_left;
                 i-=2;
-            } else if(L.equals("D") && i==1){
-                L="A";
+            } else if(L.equals(moveTO_right) && i==1){
+                L=moveTO_left;
                 i=11;
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
@@ -867,16 +883,30 @@ public class BoardView extends GameBoard implements EventHandler<KeyEvent> {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))) {
+        } else if( i<=-1 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
            i=10;
            polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
            polArrayBot[0].setFill(point2);
-        } else if( i==12 && event.getCode().toString().equals("A") && !s.equals("W") && (!logic.getWhichTurn() || s.equals("S"))){
+        } else if( i==12 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
             i=9;
             polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-            L="A";
+            L=moveTO_left;
         }
+
+        //SELEZIONARE LA PEDDINA
+
+        /*if(event.getCode().toString().equals(select)){
+            int col = trovaColonna();
+            if((logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
+                logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))
+            }else if( logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
+
+            }
+
+        }*/
+        System.out.println(event.getCode().toString() + i);
+
     }
 
 

@@ -68,16 +68,8 @@ public class Logic implements ILogic{
 
     @Override
     public int getBoardPlaceState (int whichPoint, int whichRow) {
-        int boardPlaceState = UNDEFINED;
-        if (board.squares[whichRow][whichPoint] == null) {
-            boardPlaceState = EMPTY;
-        } else if (board.squares[whichRow][whichPoint].getisWhite()) {
-            boardPlaceState = WHITE;
-        } else {
-            boardPlaceState = BLACK;
+        return board.getBoardPlaceState(whichPoint, whichRow);
         }
-        return boardPlaceState;
-    }
 
     @Override
     public void createMoveBuffer (int whichPoint) {
@@ -109,50 +101,21 @@ public class Logic implements ILogic{
         return ldb.getNameList();
     }
 
-    //TODO forse spostare corpo da un'altra parte e richiamare quella funzione da qui
     @Override
     public int compareNameLists(String newName1, String newName2) {
-        List<String> nameList = this.getPlayerNameList();
-        int output = DECIDING;
-        if (newName1 == null || newName2 == null) {
-            output = EMPTY_NAMES_ERROR;
-        } else if (newName1.equals(newName2)) {
-            output = SAME_NAME_ERROR;
-        }
-        // I nomi della lista hanno in coda il carattere di escape "\u2001"
-        // Questo consente di distinguere tra un nome preso dalla lista e lo stesso nome inserito manualmente,
-        //      e permette di effettuare un controllo su eventuali duplicati
-        if (output == DECIDING) {
-            Iterator<String> it = nameList.iterator();
-            while (it.hasNext() && output == DECIDING) {
-                String temp = it.next();
-                if (newName1.equals(temp.stripTrailing())) {
-                    output = NAME1_ALREADY_PRESENT;
-                } else if (newName2.equals(temp.stripTrailing())) {
-                    output = NAME2_ALREADY_PRESENT;
-                }
-            }
-        }
-        if (output == DECIDING) {
-            output = SUCCESS;
-        }
-        return output;
+        return ldb.compareNameLists(newName1, newName2);
     }
 
     @Override
     public void addNewPlayersToList (String newName1, String newName2) {
         //  Se i due nomi non contengono il carattere di escape "\u2001" in coda essi sono nuovi.
         //  Si crea quindi un nuovo oggetto Player contenente quel nome e lo si aggiunge alla PlayerList
-        System.out.println("Provo ad aggiungere nomi");
         if (!newName1.contains("\u2001")) {
             ldb.addNewPlayer(newName1);
-            System.out.println("Aggiungo nome 1");
         }
         if (!newName2.contains("\u2001")) {
             ldb.addNewPlayer(newName2);
-            System.out.println("Aggiungo nome 2");
         }
-        System.out.println("Ho fatto di aggiungere");
     }
 
     @Override
@@ -218,7 +181,6 @@ public class Logic implements ILogic{
 
     @Override
     public boolean isTournamentOngoing() {
-        System.out.println(board.getTournamentPoints());
         return (board.getTournamentPoints()!=0);
     }
 
@@ -253,14 +215,7 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public BoardLogic getBoard() {
-        return board;
-    }
-
-    @Override
     public List<String> getSaveList() {
-        //TODO
-        System.out.println("Sono in logic\nSto per richiamare getSaveList da SaveGameReader");
         return SaveGameReader.getSaveList();
     }
 
@@ -287,4 +242,28 @@ public class Logic implements ILogic{
     @Override
     public int searchTopOccupiedRow(int col){return board.searchTopOccupiedRow(col);}
 
+    @Override
+    public boolean isPawnMovable(int col, int row) {
+        return board.isPawnMovable(col, row);
+    }
+
+    @Override
+    public void deleteSaveFile(String fileName) {
+        SaveGameWriter.deleteSaveFile(fileName);
+    }
+
+    @Override
+    public boolean isSaveNamePresent(String saveName) {
+        return SaveGameReader.isSaveNamePresent(saveName);
+    }
+
+    @Override
+    public void setUpSavedGame(String saveName) {
+        board.setUpSavedGame(SaveGameReader.readSaveGame(saveName));
+    }
+
+    @Override
+    public int[][] getBoardMatrix() {
+        return board.squares;
+    }
 }

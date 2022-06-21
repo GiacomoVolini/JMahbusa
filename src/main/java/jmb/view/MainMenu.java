@@ -42,7 +42,7 @@ public class MainMenu {
     private Button NewGame;
 
     @FXML
-    private Button continueButton;
+    private Button tutorialButton;
 
     @FXML
     private Button LoadGame;
@@ -101,13 +101,6 @@ public class MainMenu {
         jmb.App.loadGame();
         sceneLoadView.refreshSaveList();
         getStage().setFullScreen(cb);
-    }
-
-    @FXML
-    void testLoadBuongiorno() {
-            logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame("BUONGIORNO"));
-            jmb.App.board();
-            getStage().setFullScreen(cb);
     }
 
     public void initialize() {
@@ -180,9 +173,9 @@ public class MainMenu {
             NewGame.setPrefWidth(Window.getWidth()*0.25);
             NewGame.setMaxWidth(89);
 
-            continueButton.setLayoutX(Window.getWidth()/2 + 13);
-            continueButton.setPrefWidth(Window.getWidth()*0.25);
-            continueButton.setMaxWidth(64);
+            tutorialButton.setLayoutX(Window.getWidth()/2 + 13);
+            tutorialButton.setPrefWidth(Window.getWidth()*0.25);
+            tutorialButton.setMaxWidth(64);
 
             LoadGame.setLayoutX(Window.getWidth()/2 + 22);
             LoadGame.setPrefWidth(Window.getWidth()*0.25);
@@ -208,9 +201,9 @@ public class MainMenu {
             NewGame.setPrefHeight(Window.getHeight()*0.25);
             NewGame.setMaxHeight(25);
 
-            continueButton.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
-            continueButton.setPrefHeight(Window.getHeight()*0.25);
-            continueButton.setMaxHeight(25);
+            tutorialButton.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
+            tutorialButton.setPrefHeight(Window.getHeight()*0.25);
+            tutorialButton.setMaxHeight(25);
 
             LoadGame.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16);
             LoadGame.setPrefHeight(Window.getHeight()*0.25);

@@ -7,6 +7,12 @@ public class PawnLogic {
      *  per i due giocatori
      */
 
+    /*TODO FORSE PAWNLOGIC E' INUTILE
+        - TRASFORMARE SQUARES DENTRO BOARDLOGIC IN UNA MATRICE DI INTERI PARAGONABILE A QUELLA DEL SALVATAGGIO
+        - CAMBIARE I CONTROLLI SU LOCKSWHITE E LOCKSBLACK IN CONTROLLI RELATIVI AI NUMERI DELlA MATRICE
+        - SEMPLIFICARE I CONTROLLI SU GAMEBOARDREDRAW
+     */
+/*
     //VARIABILI D'ISTANZA
     private boolean isWhite;        //Se true la pedina appartiene al bianco
     private boolean locksWhite;     //Se true il bianco non può piazzare pedine sopra di questa
@@ -14,9 +20,7 @@ public class PawnLogic {
     //----------------------------------------------------
 
     public PawnLogic(boolean locksWhite, boolean locksBlack, boolean isWhite) {
-        /* Metodo costruttore, che prende le informazioni sullo stato iniziale della pedina dalla classe che lo invoca
-           e le assegna alle rispettive variabili d'istanza
-         */
+
         this.locksWhite = locksWhite;
         this.locksBlack = locksBlack;
         this.isWhite = isWhite;
@@ -49,5 +53,7 @@ public class PawnLogic {
     protected static PawnLogic newBlackPawn() {
         return new PawnLogic(true, false, false);
     }
+
+    */
 
 }

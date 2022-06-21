@@ -83,8 +83,6 @@ public interface ILogic {
 
     void saveGame(String saveName, WritableImage saveImage);
 
-    BoardLogic getBoard();
-
     List<String> getSaveList();
 
     SaveGameReader readSaveGame (String saveName);
@@ -96,6 +94,17 @@ public interface ILogic {
     long[] getImageDimensions(String saveName);
 
     int searchTopOccupiedRow(int col);
+
+    boolean isPawnMovable(int col, int row);
+
+    void deleteSaveFile(String fileName);
+
+    boolean isSaveNamePresent(String saveName);
+
+    void setUpSavedGame(String saveName);
+
+    int[][] getBoardMatrix();
+
 
 
 }

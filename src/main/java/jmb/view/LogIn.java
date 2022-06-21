@@ -93,7 +93,6 @@ public class LogIn {
         }
 
         if(scelta.isSelected()){
-            System.out.println(Integer.parseInt(oPt.getText()));
             defficile.setSelected(false);
             media.setSelected(false);
             noT.setSelected(false);
@@ -203,7 +202,7 @@ public class LogIn {
         nome1.setFill(pedIn1);
         nome1.setStroke(pedOut1);
         nome2.setFill(pedIn2);
-        nome2.setStroke(pedIn2);
+        nome2.setStroke(pedOut2);
 
         ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
         scrivinomi1.setItems(nameList);

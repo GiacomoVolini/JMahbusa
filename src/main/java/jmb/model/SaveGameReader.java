@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.List;
 
 public class SaveGameReader {
@@ -18,10 +19,15 @@ public class SaveGameReader {
     boolean isWhiteTurn;
     String blackPlayer;
     String whitePlayer;
+    boolean blackExit;
+    boolean whiteExit;
     long turnDuration;
     int[][] squareMatrix;
-    byte[] imageBytes;
+    long tournamentPoints;
+    long whitesWonPoints;
+    long blacksWonPoints;
 
+    byte[] imageBytes;
     long imageWidth;
     long imageHeight;
 
@@ -34,11 +40,16 @@ public class SaveGameReader {
             isWhiteTurn = (boolean) save.get("isWhiteTurn");
             blackPlayer = (String) save.get("blackPlayer");
             whitePlayer = (String) save.get("whitePlayer");
+            blackExit = (boolean) save.get("blackExit");
+            whiteExit = (boolean) save.get("whiteExit");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
             imageBytes = Base64.getDecoder().decode((String) save.get("boardImage"));
             imageWidth = (long) save.get("imageWidth");
             imageHeight = (long) save.get("imageHeight");
+            tournamentPoints = (long) save.get("tournamentPoints");
+            whitesWonPoints = (long) save.get("whitesWonPoints");
+            blacksWonPoints = (long) save.get("blacksWonPoints");
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -46,10 +57,6 @@ public class SaveGameReader {
     public static SaveGameReader readSaveGame (String saveName) {
         return new SaveGameReader(saveName);
     }
-
-
-
-
 
     /*TODO
         https://www.geeksforgeeks.org/parse-json-java/
@@ -71,7 +78,8 @@ public class SaveGameReader {
     }
 
     protected String[] getLoadViewData () {
-        String[] out = new String[] {whitePlayer, blackPlayer, String.valueOf(turnDuration)};
+        String[] out = new String[] {whitePlayer.stripTrailing(), blackPlayer.stripTrailing(), String.valueOf(turnDuration),
+                String.valueOf(tournamentPoints), String.valueOf(whitesWonPoints), String.valueOf(blacksWonPoints)};
         return out;
     }
 
@@ -80,17 +88,24 @@ public class SaveGameReader {
     }
 
     protected static List<String> getSaveList() {
-        System.out.println("Sono in SaveGameReader");
         File saveDirectory = new File ("./saves/");
         File[] saveFiles = saveDirectory.listFiles();
-        System.out.println("Lista file");
         List<String> outputList = new ArrayList<String>();
-        for (File save : saveFiles) {
-            System.out.println(save.getName());
-            outputList.add(save.getName().replace(".json", ""));
-        }
-        System.out.println(outputList.toString());
+        if (saveFiles!=null)
+            for (File save : saveFiles) {
+                outputList.add(save.getName().replace(".json", ""));
+            }
         return outputList;
+    }
+
+    protected static boolean isSaveNamePresent(String saveName) {
+        Iterator it = getSaveList().iterator();
+        boolean present = false;
+        while (it.hasNext() && !present) {
+            if (saveName.equals(it.next()))
+                present = true;
+        }
+        return present;
     }
 
     protected long[] getImageDimensions() {

@@ -1,224 +1,51 @@
 package jmb.view;
 
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.animation.*;
+import javafx.event.*;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
+import javafx.geometry.*;
 import javafx.scene.SnapshotParameters;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.util.Duration;
-import jmb.App;
-import jmb.model.Logic;
-
-import java.io.File;
-import java.io.IOException;
-
 import static java.lang.Math.*;
 import static jmb.App.getStage;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class BoardView {
 
+public class BoardView extends GameBoard {
+
+
+    private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
+    private static final double VERTICAL_RESIZE_FACTOR = 0.75;
     //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
     //  roba nel view
 
 
     @FXML
     AnchorPane window;
-
     @FXML
-    Rectangle outerRect;
-
+    AnchorPane saveAnchorPane;
     @FXML
-    Rectangle boardRect;
-
-    @FXML
-    Rectangle separator;
-
-    @FXML
-    private Polygon point_24;
-
-    @FXML
-    private Polygon point_23;
-
-    @FXML
-    private Polygon point_22;
-
-    @FXML
-    private Polygon point_21;
-
-    @FXML
-    private Polygon point_20;
-
-    @FXML
-    private Polygon point_19;
-
-    @FXML
-    private Polygon point_18;
-
-    @FXML
-    private Polygon point_17;
-
-    @FXML
-    private Polygon point_16;
-
-    @FXML
-    private Polygon point_15;
-
-    @FXML
-    private Polygon point_14;
-
-    @FXML
-    private Polygon point_13;
-
-    @FXML
-    private Polygon point_1;
-
-    @FXML
-    private Polygon point_2;
-
-    @FXML
-    private Polygon point_3;
-
-    @FXML
-    private Polygon point_4;
-
-    @FXML
-    private Polygon point_5;
-
-    @FXML
-    private Polygon point_6;
-
-    @FXML
-    private Polygon point_7;
-
-    @FXML
-    private Polygon point_8;
-
-    @FXML
-    private Polygon point_9;
-
-    @FXML
-    private Polygon point_10;
-
-    @FXML
-    private Polygon point_11;
-
-    @FXML
-    private Polygon point_12;
-
-    @FXML
-    private Region point_1_R;
-
-    @FXML
-    private Region point_2_R;
-
-    @FXML
-    private Region point_3_R;
-
-    @FXML
-    private Region point_4_R;
-
-    @FXML
-    private Region point_5_R;
-
-    @FXML
-    private Region point_6_R;
-
-    @FXML
-    private Region point_7_R;
-
-    @FXML
-    private Region point_8_R;
-
-    @FXML
-    private Region point_9_R;
-
-    @FXML
-    private Region point_10_R;
-
-    @FXML
-    private Region point_11_R;
-
-    @FXML
-    private Region point_12_R;
-
-    @FXML
-    private Region point_24_R;
-
-    @FXML
-    private Region point_23_R;
-
-    @FXML
-    private Region point_22_R;
-
-    @FXML
-    private Region point_21_R;
-
-    @FXML
-    private Region point_20_R;
-
-    @FXML
-    private Region point_19_R;
-
-    @FXML
-    private Region point_18_R;
-
-    @FXML
-    private Region point_17_R;
-
-    @FXML
-    private Region point_16_R;
-
-    @FXML
-    private Region point_15_R;
-
-    @FXML
-    private Region point_14_R;
-
-    @FXML
-    private Region point_13_R;
-
-    @FXML
-    protected Rectangle whiteExitRegion;
-
-    @FXML
-    protected Rectangle blackExitRegion;
-
+    Label errorLabel;
     @FXML
     Rectangle diceTray;
 
     @FXML
     protected Button backBTN;
+    @FXML
+    Button exitAndSave;
 
     @FXML
     Button finishBTN;
@@ -231,97 +58,6 @@ public class BoardView {
 
     @FXML
     Button menuBTN;
-
-    @FXML
-    private PawnView pawnBLK01;
-
-    @FXML
-    private PawnView pawnBLK02;
-
-    @FXML
-    private PawnView pawnBLK03;
-
-    @FXML
-    private PawnView pawnBLK04;
-
-    @FXML
-    private PawnView pawnBLK05;
-
-    @FXML
-    private PawnView pawnBLK06;
-
-    @FXML
-    private PawnView pawnBLK07;
-
-    @FXML
-    private PawnView pawnBLK08;
-
-    @FXML
-    private PawnView pawnBLK09;
-
-    @FXML
-    private PawnView pawnBLK10;
-
-    @FXML
-    private PawnView pawnBLK11;
-
-    @FXML
-    private PawnView pawnBLK12;
-
-    @FXML
-    private PawnView pawnBLK13;
-
-    @FXML
-    private PawnView pawnBLK14;
-
-    @FXML
-    private PawnView pawnBLK15;
-
-    @FXML
-    private PawnView pawnWHT01;
-
-    @FXML
-    private PawnView pawnWHT02;
-
-    @FXML
-    private PawnView pawnWHT03;
-
-    @FXML
-    private PawnView pawnWHT04;
-
-    @FXML
-    private PawnView pawnWHT05;
-
-    @FXML
-    private PawnView pawnWHT06;
-
-    @FXML
-    private PawnView pawnWHT07;
-
-    @FXML
-    private PawnView pawnWHT08;
-
-    @FXML
-    private PawnView pawnWHT09;
-
-    @FXML
-    private PawnView pawnWHT10;
-
-    @FXML
-    private PawnView pawnWHT11;
-
-    @FXML
-    private PawnView pawnWHT12;
-
-    @FXML
-    private PawnView pawnWHT13;
-
-    @FXML
-    private PawnView pawnWHT14;
-
-    @FXML
-    private PawnView pawnWHT15;
-
     @FXML
     TitledPane startDialogue;
 
@@ -377,6 +113,9 @@ public class BoardView {
     Button saveButton;
 
     @FXML
+    Button closeSaveButton;
+
+    @FXML
     TitledPane saveDialogue;
 
     @FXML
@@ -394,18 +133,6 @@ public class BoardView {
 
     //  Booleano che indica se l'animazione di diceTray è stata completata
     boolean dtAnimDone = false;
-
-    //  Si creano degli array di Polygon, Region, PawnView ed ImageView per gestire in maniera più agevole il
-    //  ridimensionamento dinamico delle componenti
-
-    protected Polygon[] polArrayTop;
-    protected Polygon[] polArrayBot;
-
-    protected Region[] regArrayTop;
-    protected Region[] regArrayBot;
-
-    protected PawnView[] pawnArrayWHT;
-    protected PawnView[] pawnArrayBLK;
 
     protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
     //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
@@ -428,7 +155,6 @@ public class BoardView {
     boolean gameStart = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
 
     boolean gameEndState = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
-
 
     @FXML
     protected void nextTurn (ActionEvent event) {
@@ -469,17 +195,7 @@ public class BoardView {
             }
         }
 
-        /* TODO EVIDENZIARE QUALI PEDINE POSSONO ESSERE MOSSE
-            AGGIUNGERE QUESTO METODO
-            this.highlightMovablePawns();
-         */
     }
-
-    /* TODO
-        protected highlightMovablePawns() {
-
-        }
-     */
 
     @FXML
     protected void openBlackExit() {
@@ -498,11 +214,26 @@ public class BoardView {
     }
     @FXML
     void saveGame(ActionEvent event) {
-        WritableImage saveImage = this.saveBoardImage();
-        logic.saveGame(saveTextField.getText(), saveImage);
-        getStage().setFullScreen(cb);
-        View.sceneMusica.playerp.stop();
-        vaialMainMenu();
+        if (saveTextField.getText().equals("")) {
+            errorLabel.setText("Inserisci un nome per il salvataggio");
+            errorLabel.setVisible(true);
+        } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
+                WritableImage saveImage = this.saveBoardImage();
+                logic.saveGame(saveTextField.getText(), saveImage);
+                getStage().setFullScreen(cb);
+                View.sceneMusica.playerp.stop();
+                vaialMainMenu();
+            } else {
+                errorLabel.setText("Nome Salvataggio già presente");
+                errorLabel.setVisible(true);
+            }
+    }
+
+    @FXML
+    void closeSaveDialogue(ActionEvent event) {
+        saveTextField.setText("");
+        errorLabel.setVisible(false);
+        saveDialogue.setVisible(false);
     }
 
     private WritableImage saveBoardImage() {
@@ -768,6 +499,7 @@ public class BoardView {
             plBLKOutRect.setFill(green);
             plWHTOutRect.setFill(red);
         }
+        BoardViewRedraw.redrawPawns(this);
 
         //window.getChildren().remove(startDialogue);
     }
@@ -913,7 +645,6 @@ public class BoardView {
 
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
-        //TODO MODIFICARE ????
         gameEndDisable();
         if (turn_duration!=0)
             turnTimer.stop();
@@ -1043,7 +774,6 @@ public class BoardView {
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
-                System.out.println("for");
                 if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
                         polArrayTop[j].setFill(point);
@@ -1143,7 +873,6 @@ public class BoardView {
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
-                System.out.println("for");
                 if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
                         polArrayBot[j].setFill(point2);
@@ -1177,6 +906,7 @@ public class BoardView {
 
         }*/
         System.out.println(event.getCode().toString() + i);
+
     }
 
 
@@ -1186,6 +916,21 @@ public class BoardView {
 
     public void initialize() {
 
+        this.boardAnchor = window;
+        addChildrenToAnchor();
+        BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+        BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+        for (int i = 0; i<15; i++) {
+            pawnArrayWHT[i].setOnMouseDragged(this::drag);
+            pawnArrayWHT[i].setOnMousePressed(this::savePosition);
+            pawnArrayWHT[i].setOnMouseReleased(this::releasePawn);
+            pawnArrayBLK[i].setOnMouseDragged(this::drag);
+            pawnArrayBLK[i].setOnMousePressed(this::savePosition);
+            pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
+        }
+        window.setOnKeyPressed(this);
+        timerIn.setViewOrder(-3);
+        timerOut.setViewOrder(-2);
 
         //musica
         if(mu) {
@@ -1205,18 +950,10 @@ public class BoardView {
         plWHTPawn.setStroke(pedOut1);
         plBLKPawn.setFill(pedIn2);
         plBLKPawn.setStroke(pedOut2);
+        diceTray.setFill(table);
         //turni
         plBLKOutRect.setFill(Color.GRAY);
         plWHTOutRect.setFill(Color.GRAY);
-        /*if (logic.getWhichTurn()){
-            plWHTOutRect.setFill(green);
-            plBLKOutRect.setFill(red);
-        }else {
-            plBLKOutRect.setFill(green);
-            plWHTOutRect.setFill(red);
-        }
-
-         */
 
         if (turn_duration==0) {
             timerIn.setVisible(false);
@@ -1224,60 +961,14 @@ public class BoardView {
         }
 
         //  INIZIALIZZAZIONE ARRAY
-        this.polArrayTop = new Polygon[]    {   this.point_1, this.point_2, this.point_3, this.point_4, this.point_5, this.point_6,
-                this.point_7, this.point_8, this.point_9, this.point_10, this.point_11, this.point_12               };
-        this.regArrayTop = new Region[]     {   this.point_1_R, this.point_2_R, this.point_3_R, this.point_4_R, this.point_5_R, this.point_6_R,
-                this.point_7_R, this.point_8_R, this.point_9_R, this.point_10_R, this.point_11_R, this.point_12_R   };
-        this.polArrayBot = new Polygon[]    {   this.point_13, this.point_14, this.point_15, this.point_16, this.point_17, this.point_18,
-                this.point_19, this.point_20, this.point_21, this.point_22, this.point_23, this.point_24            };
-        this.regArrayBot = new Region[]     {   this.point_13_R, this.point_14_R, this.point_15_R, this.point_16_R, this.point_17_R, this.point_18_R,
-                this.point_19_R, this.point_20_R, this.point_21_R, this.point_22_R, this.point_23_R, this.point_24_R};
-        this.pawnArrayWHT = new PawnView[]     {   this.pawnWHT01, this.pawnWHT02, this.pawnWHT03, this.pawnWHT04, this.pawnWHT05, this.pawnWHT06,
-                this.pawnWHT07, this.pawnWHT08, this.pawnWHT09, this.pawnWHT10, this.pawnWHT11, this.pawnWHT12, this.pawnWHT13, this.pawnWHT14, this.pawnWHT15};
-        this.pawnArrayBLK = new PawnView[]     {   this.pawnBLK01, this.pawnBLK02, this.pawnBLK03, this.pawnBLK04, this.pawnBLK05, this.pawnBLK06,
-                this.pawnBLK07, this.pawnBLK08, this.pawnBLK09, this.pawnBLK10, this.pawnBLK11, this.pawnBLK12, this.pawnBLK13, this.pawnBLK14, this.pawnBLK15};
         this.diceArray = new ImageView[]        { this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
 
         //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
         //  del tabellone
-        startDialogue.setViewOrder(-2);
-        pauseMenu.setViewOrder(-2);
+        startDialogue.setViewOrder(-4);
+        pauseMenu.setViewOrder(-4);
 
-        //colori tavolo
-        outerRect.setFill(frame);
-        outerRect.setStroke(frame);
-        separator.setFill(frame);
-        separator.setStroke(frame);
-        boardRect.setFill(table);
-        boardRect.setStroke(table);
 
-        //colori pedine
-        for (int i= 0; i<pawnArrayWHT.length; i++){
-            this.pawnArrayWHT[i].setFill(pedIn1);
-            this.pawnArrayWHT[i].setStroke(pedOut1);
-            this.pawnArrayBLK[i].setFill(pedIn2);
-            this.pawnArrayBLK[i].setStroke(pedOut2);
-        }
-
-        //colori punte
-        for (int i=0; i<polArrayTop.length;i++){
-            if((i%2)==0){
-                this.polArrayTop[i].setFill(point);
-                this.polArrayTop[i].setStroke(point);
-            }else{
-                this.polArrayTop[i].setFill(point2);
-                this.polArrayTop[i].setStroke(point2);
-            }
-        }
-        for (int i=0; i<polArrayTop.length;i++){
-            if((i%2)==0){
-                this.polArrayBot[i].setFill(point2);
-                this.polArrayBot[i].setStroke(point2);
-            }else{
-                this.polArrayBot[i].setFill(point);
-                this.polArrayBot[i].setStroke(point);
-            }
-        }
         if(turn_duration != 0) {
             //Inizializzo il timer del turno
             turnTimer = new Timeline(
@@ -1288,17 +979,21 @@ public class BoardView {
             );
         }
 
+        tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
+        tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
+        tournamentWhitePoints.setAlignment(Pos.CENTER);
+        tournamentBlackPoints.setAlignment(Pos.CENTER);
+        tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+        tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+        window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints);
+        tournamentWhitePoints.setTextFill(pedOut1);
+        tournamentBlackPoints.setTextFill(pedOut2);
         if (logic.isTournamentOngoing()){
-            System.out.println("Sto creando le label per il torneo");
-            tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
-            tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
-            tournamentWhitePoints.setAlignment(Pos.CENTER);
-            tournamentBlackPoints.setAlignment(Pos.CENTER);
-            tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-            tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-            window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints);
-            tournamentWhitePoints.setTextFill(pedOut1);
-            tournamentBlackPoints.setTextFill(pedOut2);
+            tournamentWhitePoints.setVisible(true);
+            tournamentBlackPoints.setVisible(true);
+        } else  {
+            tournamentWhitePoints.setVisible(false);
+            tournamentBlackPoints.setVisible(false);
         }
 
 

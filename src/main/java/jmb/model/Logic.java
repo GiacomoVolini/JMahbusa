@@ -284,4 +284,7 @@ public class Logic implements ILogic{
         return this.readSaveGame(saveName).getImageDimensions();
     }
 
+    @Override
+    public int searchTopOccupiedRow(int col){return board.searchTopOccupiedRow(col);}
+
 }

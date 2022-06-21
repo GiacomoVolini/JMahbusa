@@ -5,10 +5,12 @@ import javafx.animation.Timeline;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,13 +20,14 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import jmb.App;
 
 import static jmb.view.ConstantsView.*;
 import static jmb.App.getStage;
 
 import java.io.IOException;
 
-public class MenuImpostazioni<string> {
+public class MenuImpostazioni  {
 
         @FXML
         private AnchorPane GBG;
@@ -246,31 +249,31 @@ public class MenuImpostazioni<string> {
         private TitledPane Tcomandi;
 
         @FXML
-        private Text moDestra;
+        private TextField moDestra;
 
         @FXML
-        private Text moSinistra;
+        private TextField moSinistra;
 
         @FXML
-        private Text moSopra;
+        private TextField moSopra;
 
         @FXML
-        private Text moSotto;
+        private TextField moSotto;
 
         @FXML
-        private Text Selezionare;
+        private TextField Selezionare;
 
         @FXML
-        private Text confermare;
+        private TextField confermare;
 
         @FXML
-        private Text finitoT;
+        private TextField cacellareMo;
 
         @FXML
-        private Text cacellareMo;
+        private TextField finitoT;
 
         @FXML
-        private Text opUscita;
+        private TextField opUscita;
 
         @FXML
         private Button reComandi;
@@ -482,8 +485,28 @@ public class MenuImpostazioni<string> {
         //TODO riempi l'applicazioni
 
         //Comandi Action
+        @FXML
+        void selezionata(MouseEvent event) {
+                TextField b = (TextField) event.getSource();
+                b.setText("waiting...");
+        }
 
         @FXML
+        void stampa(KeyEvent event) {
+                TextField b = (TextField) event.getSource();
+                b.setText(event.getCode().toString());
+        }
+
+        /*@Override
+        public void handle(KeyEvent event) {
+
+
+                moSinistra.setText(event.getCode().toString());
+                moSopra.setText(event.getCode().toString());
+                moSotto.setText(event.getCode().toString());
+        }*/
+
+       /* @FXML
         void cambiaDestra(MouseEvent event) {
 
         }
@@ -526,7 +549,7 @@ public class MenuImpostazioni<string> {
         @FXML
         void cambiaUscita(MouseEvent event) {
 
-        }
+        }*/
 
         @FXML
         void ResetData(ActionEvent event) {
@@ -683,6 +706,17 @@ public class MenuImpostazioni<string> {
                         mue = nonmutae;
                         View.sceneMusica.Pawn.play();
                 }
+
+                //comandi
+                moveTO_right = moDestra.getText();
+                moveTO_left = moSinistra.getText();
+                moveTO_up = moSopra.getText();
+                moveTO_down = moSotto.getText();
+                select = Selezionare.getText();
+                confirm = confermare.getText();
+                delete_move = cacellareMo.getText();
+                finish_turn = finitoT.getText();
+                main_menu = opUscita.getText();
 
         }
 
@@ -851,6 +885,7 @@ public class MenuImpostazioni<string> {
                         getStage().setFullScreen(cb);
                         checkBR.setSelected(sr);
                         getStage().setResizable(sr);
+
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

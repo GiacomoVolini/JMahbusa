@@ -95,5 +95,7 @@ public interface ILogic {
 
     long[] getImageDimensions(String saveName);
 
+    int searchTopOccupiedRow(int col);
+
 
 }

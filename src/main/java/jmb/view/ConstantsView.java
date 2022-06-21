@@ -50,6 +50,16 @@ public class ConstantsView {
     public static final boolean mutae = true;
     public static final boolean nonmutae = false;
 
+    //salva comandi
+    public static String moveTO_right = "D";
+    public static String moveTO_left = "A";
+    public static String moveTO_up = "W";
+    public static String moveTO_down = "S";
+    public static String select = "SPACE";
+    public static String confirm = "ENTER";
+    public static String delete_move = "BACKSPACE";
+    public static String finish_turn = "F";
+    public static String main_menu = "ESCAPE";
 
     public static double MIN_PAWN_SIZE = 11.741538461538463;
 

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -66,7 +67,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <TitledPane fx:id="Taudio" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" text="Audio">
+      <TitledPane fx:id="Taudio" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" text="Audio" visible="false">
          <content>
             <AnchorPane fx:id="audio" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                <children>
@@ -207,7 +208,7 @@
             </AnchorPane>
          </content>
       </TitledPane>
-      <TitledPane fx:id="Tcomandi" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi" visible="false">
+      <TitledPane fx:id="Tcomandi" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi">
          <content>
             <AnchorPane fx:id="comandi" prefHeight="440.0" prefWidth="494.0">
                <children>
@@ -221,17 +222,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="moDestra" layoutX="295.0" layoutY="95.0" onMouseClicked="#cambiaDestra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Destra" wrappingWidth="111.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
                   <Text layoutX="220.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="moSinistra" layoutX="294.0" layoutY="123.0" onMouseClicked="#cambiaSinistra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Sinistra" wrappingWidth="118.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -241,17 +232,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="moSopra" layoutX="294.0" layoutY="151.0" onMouseClicked="#cambiaSopra" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Su" wrappingWidth="110.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
                   <Text layoutX="220.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="moSotto" layoutX="294.0" layoutY="179.0" onMouseClicked="#cambiaSotto" strokeType="OUTSIDE" strokeWidth="0.0" text="Freccia Gu" wrappingWidth="110.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -266,27 +247,12 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="Selezionare" layoutX="220.0" layoutY="215.0" onMouseClicked="#cambiaDeSelez" strokeType="OUTSIDE" strokeWidth="0.0" text="Spazio" wrappingWidth="95.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
                   <Text layoutX="96.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="confermare" layoutX="220.0" layoutY="243.0" onMouseClicked="#cambiaConferma" strokeType="OUTSIDE" strokeWidth="0.0" text="Invio" wrappingWidth="95.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="91.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="finitoT" layoutX="220.0" layoutY="297.0" onMouseClicked="#cambiaFinish" strokeType="OUTSIDE" strokeWidth="0.0" text="F" wrappingWidth="95.0">
+                  <Text layoutX="91.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -296,22 +262,21 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="cacellareMo" layoutX="220.0" layoutY="270.0" onMouseClicked="#cambiaCancellazione" strokeType="OUTSIDE" strokeWidth="0.0" text="Backspace" wrappingWidth="95.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="84.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="opUscita" layoutX="220.0" layoutY="321.0" onMouseClicked="#cambiaUscita" strokeType="OUTSIDE" strokeWidth="0.0" text="Esc" wrappingWidth="95.0">
+                  <Text layoutX="84.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
                   <Button fx:id="reComandi" layoutX="209.0" layoutY="358.0" mnemonicParsing="false" onAction="#resetComandi" prefHeight="25.0" prefWidth="58.0" text="Reset" />
+                  <TextField fx:id="moDestra" editable="false" layoutX="286.0" layoutY="78.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="D" />
+                  <TextField fx:id="moSinistra" editable="false" layoutX="286.0" layoutY="106.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="A" />
+                  <TextField fx:id="moSopra" editable="false" layoutX="286.0" layoutY="134.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="W" />
+                  <TextField fx:id="moSotto" editable="false" layoutX="286.0" layoutY="163.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="S" />
+                  <TextField fx:id="Selezionare" editable="false" layoutX="218.0" layoutY="197.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="SPACE" />
+                  <TextField fx:id="confermare" editable="false" layoutX="218.0" layoutY="226.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="ENTER" />
+                  <TextField fx:id="cacellareMo" editable="false" layoutX="218.0" layoutY="254.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="BACKSPACE" />
+                  <TextField fx:id="finitoT" editable="false" layoutX="217.0" layoutY="281.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="F" />
+                  <TextField fx:id="opUscita" editable="false" layoutX="217.0" layoutY="308.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="80.0" promptText="una lettera" text="ESCAPE" />
                </children>
             </AnchorPane>
          </content>

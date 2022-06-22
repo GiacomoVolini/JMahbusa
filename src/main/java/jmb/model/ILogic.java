@@ -89,10 +89,6 @@ public interface ILogic {
 
     String[] getLoadViewData(String saveName);
 
-    byte[] getImageBytes(String saveName);
-
-    long[] getImageDimensions(String saveName);
-
     int searchTopOccupiedRow(int col);
 
     boolean isPawnMovable(int col, int row);
@@ -101,10 +97,18 @@ public interface ILogic {
 
     boolean isSaveNamePresent(String saveName);
 
+    int getTournamentPointsToWin();
+
     void setUpSavedGame(String saveName);
 
     int[][] getBoardMatrix();
 
+    int[][] getSaveMatrix(String saveName);
 
-
+    boolean getGameStart();
+    boolean getGameEndState();
+    void setGameStart(boolean value);
+    void setGameEndState(boolean value);
+    boolean allDiceUsed();
+    void completeMoves();
 }

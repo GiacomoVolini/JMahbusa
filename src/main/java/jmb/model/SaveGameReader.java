@@ -44,9 +44,6 @@ public class SaveGameReader {
             whiteExit = (boolean) save.get("whiteExit");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
-            imageBytes = Base64.getDecoder().decode((String) save.get("boardImage"));
-            imageWidth = (long) save.get("imageWidth");
-            imageHeight = (long) save.get("imageHeight");
             tournamentPoints = (long) save.get("tournamentPoints");
             whitesWonPoints = (long) save.get("whitesWonPoints");
             blacksWonPoints = (long) save.get("blacksWonPoints");
@@ -83,8 +80,8 @@ public class SaveGameReader {
         return out;
     }
 
-    protected byte[] getImageBytes() {
-        return imageBytes;
+    protected int[][] getSquareMatrix() {
+        return this.squareMatrix;
     }
 
     protected static List<String> getSaveList() {
@@ -108,8 +105,4 @@ public class SaveGameReader {
         return present;
     }
 
-    protected long[] getImageDimensions() {
-        long[] out = new long[] {imageWidth, imageHeight};
-        return out;
-    }
 }

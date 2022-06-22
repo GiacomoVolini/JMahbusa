@@ -20,14 +20,6 @@ import static jmb.ConstantsShared.*;
 
 public class LoadGameView extends GameBoard {
 
-    //TODO UNA VOLTA FINITA UNA PARTITA PRECEDENTEMENTE SALVATA,
-    // CANCELLARE IL SALVATAGGIO, CHIEDERE ALL'UTENTE SE CANCELLARE
-    // O NON FARE NULLA?
-
-    //TODO
-    //  VALUTARE SE TOGLIERE UNO DEGLI STRATI DI ANCHORPANE VISTE
-    //  LE MODIFICHE ALL'FXML
-
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.45;
     private final static double VERTICAL_RESIZE_FACTOR = 0.55;
     @FXML
@@ -57,7 +49,7 @@ public class LoadGameView extends GameBoard {
     @FXML
     private TitledPane savesTitlePane;
     @FXML
-    private AnchorPane window;
+    protected AnchorPane window;
     @FXML
     private AnchorPane saveDetailAnchor;
     @FXML
@@ -73,7 +65,8 @@ public class LoadGameView extends GameBoard {
     @FXML
     private ImageView tournamentCup;
     private String saveName;
-    private final double SEPARATOR_RATIO = 0.2625;
+    protected final double SEPARATOR_RATIO = 0.2625;
+    protected int[][] saveMatrix;
 
 
     public void initialize() {
@@ -98,20 +91,6 @@ public class LoadGameView extends GameBoard {
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-        /* TODO
-            Quando si crea il salvataggio bisogna anche generare un'immagine del tabellone
-                - Usare snapshot, usando come viewport un rettangolo che vada a coprire solo il tabellone - FATTO
-                - Una volta ottenuto lo snapshot (dovrebbe generare una WritableImage), convertirlo in ByteArray - FATTO
-                - Convertire il ByteArray in Stringa tramite Base64.Encoder - FATTO
-                - Aggiungere la stringa nel salvataggio - FATTO
-            Quando si sceglie un salvataggio della lista:
-                - Andare a recuperare tutti i dati tramite SaveGameReader - FATTO
-                - Utilizzare Base64.Decoder per recuperare il ByteArray dell'immagine - FATTO
-                - Rigenerare l'immagine da mettere in un'ImageView - FATTO
-                - Pescare e visualizzare i dati del salvataggio
-                - Renderizzare l'ImageView - FATTO
-          */
-
     }
 
     protected void refreshSaveList() {
@@ -120,10 +99,14 @@ public class LoadGameView extends GameBoard {
     }
 
     private void renderSelection() {
-        if (savesListView.getSelectionModel().getSelectedItem() == null)
+        if (savesListView.getSelectionModel().getSelectedItem() == null) {
             renderNoSelection();
+            saveMatrix = null;
+        }
         else {
+            LoadGameViewRedraw.setPawnsVisibility(this, true);
             saveName = savesListView.getSelectionModel().getSelectedItem().toString();
+            saveMatrix = logic.getSaveMatrix(saveName);
             saveDetailTitledPane.setText(saveName);
             String[] saveData = logic.getLoadViewData(saveName);
             if (saveData[TIME].equals("0 secondi"))
@@ -142,24 +125,19 @@ public class LoadGameView extends GameBoard {
                 blackPoints.setText(saveData[BLACK_WON_POINTS]);
                 tournamentLabel.setText(saveData[TOURNAMENT_POINTS]);
             }
-            int width = (int) logic.getImageDimensions(saveName)[WIDTH];
-            int height = (int) logic.getImageDimensions(saveName)[HEIGHT];
-            WritableImage wImg = new WritableImage(width, height);
-            wImg.getPixelWriter().setPixels(0, 0, width, height,
-                    PixelFormat.getByteBgraInstance(),
-                    logic.getImageBytes(saveName), 0, width * 4);
             loadSaveButton.setDisable(false);
             deleteSaveButton.setDisable(false);
-            whitePlayerName.setText(saveData[WHITE]);
-            blackPlayerName.setText(saveData[BLACK]);
+            whitePlayerName.setText(saveData[WHITE_NAME]);
+            blackPlayerName.setText(saveData[BLACK_NAME]);
             timerLabel.setText(saveData[TIME]);
             changeDimensions();
         }
 
     }
 
-    private void renderNoSelection() {
+    protected void renderNoSelection() {
         String noSave = "---";
+        LoadGameViewRedraw.setPawnsVisibility(this, false);
         loadSaveButton.setDisable(true);
         deleteSaveButton.setDisable(true);
         whitePlayerName.setText(noSave);
@@ -239,7 +217,6 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void loadGame(ActionEvent event) {
-            //TODO VECCHIO logic.getBoard().setUpSavedGame(SaveGameReader.readSaveGame(saveName));
         logic.setUpSavedGame(saveName);
         jmb.App.board();
         getStage().setFullScreen(cb);

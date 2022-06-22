@@ -37,15 +37,14 @@ public class GameBoard {
         separator = new Rectangle();
         separator.setFill(frame);
         separator.setStroke(frame);
-        ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
         whiteExitRegion = new Rectangle();
         whiteExitRegion.setFill(pedIn1);
         whiteExitRegion.setStroke(Color.BLACK);
-        whiteExitRegion.setEffect(lowContrast);
+        whiteExitRegion.setEffect(LOW_CONTRAST);
         blackExitRegion = new Rectangle();
         blackExitRegion.setFill(pedIn2);
         blackExitRegion.setStroke(Color.BLACK);
-        blackExitRegion.setEffect(lowContrast);
+        blackExitRegion.setEffect(LOW_CONTRAST);
         for (int i = 0; i<12; i++) {
             polArrayTop[i] = new Polygon();
             polArrayBot[i] = new Polygon();
@@ -82,5 +81,40 @@ public class GameBoard {
         for (int i = 0; i<15; i++)
             boardAnchor.getChildren().addAll(pawnArrayWHT[i], pawnArrayBLK[i]);
 
+    }
+
+    protected void setBoardColors() {
+        outerRect.setFill(frame);
+        boardRect.setFill(table);
+        boardRect.setStroke(table);
+        separator.setFill(frame);
+        separator.setStroke(frame);
+        whiteExitRegion.setFill(pedIn1);
+        whiteExitRegion.setStroke(Color.BLACK);
+        whiteExitRegion.setEffect(LOW_CONTRAST);
+        blackExitRegion.setFill(pedIn2);
+        blackExitRegion.setStroke(Color.BLACK);
+        blackExitRegion.setEffect(LOW_CONTRAST);
+        for (int i = 0; i<12; i++) {
+            if((i%2)==0){
+                this.polArrayTop[i].setFill(point);
+                this.polArrayTop[i].setStroke(point);
+                this.polArrayBot[i].setFill(point2);
+                this.polArrayBot[i].setStroke(point2);
+            }else{
+                this.polArrayTop[i].setFill(point2);
+                this.polArrayTop[i].setStroke(point2);
+                this.polArrayBot[i].setFill(point);
+                this.polArrayBot[i].setStroke(point);
+            }
+        }
+        for (int i = 0; i<15; i++) {
+            this.pawnArrayWHT[i].setFill(pedIn1);
+            this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayWHT[i].setDisable(true);
+            this.pawnArrayBLK[i].setFill(pedIn2);
+            this.pawnArrayBLK[i].setStroke(pedOut2);
+            this.pawnArrayBLK[i].setDisable(true);
+        }
     }
 }

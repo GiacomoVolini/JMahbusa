@@ -95,10 +95,6 @@ public class BoardViewRedraw extends GameBoardRedraw {
 
     }
 
-    /*TODO
-        - PROBLEMA: il programma usa sempre le versioni madre di blackExitCondition e whiteExitCondition
-        - Possibile soluzione: creare dei metodi in Logic che decidano se richiamare getBlackExit o se restituire direttamente true
-     */
     public static void resizeExitRegions(GameBoard board) {
         if (logic.getBlackExit()) {
             board.blackExitRegion.setWidth(maxExitWidth);
@@ -111,25 +107,29 @@ public class BoardViewRedraw extends GameBoardRedraw {
     }
 
     public static void redrawPawns(GameBoard board) {
-        int[][] matrix = logic.getBoardMatrix();
+        redrawPawns(board, logic.getBoardMatrix());
+    }
+
+    protected static void redrawPawns (GameBoard board, int[][] matrix) {
         int whitesPlaced = 0;
         int blacksPlaced = 0;
         for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
             for (int row = 0; row < 16 && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER) && matrix[row][col] != EMPTY; row++) {
                 if (matrix[row][col] == WHITE) {
                     placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
+                    highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
                     whitesPlaced++;
                 }
                 if (matrix[row][col] == BLACK) {
                     placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
+                    highlightMovablePawn(board.pawnArrayBLK, blacksPlaced, col, row);
                     blacksPlaced++;
                 }
             }
         }
     }
 
-    protected static void placePawn(GameBoard board, PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        GameBoardRedraw.placePawn(board, pawnArray, pawnIndex, col, row);
+    private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
         if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row)) {
             pawnArray[pawnIndex].setViewOrder(-1.0);
             pawnArray[pawnIndex].setDisable(false);
@@ -295,19 +295,31 @@ public class BoardViewRedraw extends GameBoardRedraw {
 
     }
 
-    protected static void resizeTournamentLabel(BoardView board) {
-        AnchorPane.setTopAnchor(board.tournamentWhitePoints, board.window.getHeight() * 0.0275);
-        AnchorPane.setTopAnchor(board.tournamentBlackPoints, board.window.getHeight() * 0.0275);
+    protected static void resizeTournamentComponents(BoardView board) {
+        double yAnchor = board.window.getHeight() * 0.0275;
+        AnchorPane.setTopAnchor(board.tournamentWhitePoints, yAnchor);
+        AnchorPane.setTopAnchor(board.tournamentBlackPoints, yAnchor);
         AnchorPane.setLeftAnchor(board.tournamentWhitePoints, board.window.getWidth() * 0.0125);
         AnchorPane.setRightAnchor(board.tournamentBlackPoints, board.window.getWidth() * 0.0125);
-        board.tournamentWhitePoints.setPrefWidth(board.plWHTPawn.getRadius() * 2);
-        board.tournamentWhitePoints.setPrefHeight(board.plWHTPawn.getRadius() * 2);
-        board.tournamentBlackPoints.setPrefWidth(board.plBLKPawn.getRadius() * 2);
-        board.tournamentBlackPoints.setPrefHeight(board.plBLKPawn.getRadius() * 2);
+        AnchorPane.setTopAnchor(board.tournamentCup,yAnchor*0.3);
+        AnchorPane.setTopAnchor(board.tournamentPointsToWin, yAnchor*0.3);
+        double pawnSize = board.plWHTPawn.getRadius()*2;
+        double cupSize = board.plWHTPawn.getRadius()*3;
+        board.tournamentCup.setFitWidth(cupSize);
+        board.tournamentCup.setFitHeight(cupSize);
+        board.tournamentPointsToWin.setPrefWidth(cupSize);
+        board.tournamentPointsToWin.setPrefHeight(cupSize*0.7);
+        board.tournamentWhitePoints.setPrefWidth(pawnSize);
+        board.tournamentWhitePoints.setPrefHeight(pawnSize);
+        board.tournamentBlackPoints.setPrefWidth(pawnSize);
+        board.tournamentBlackPoints.setPrefHeight(pawnSize);
         double fontFactor = board.plWHTPawn.getRadius() / 25;
         board.tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 20 * fontFactor));
         board.tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 20 * fontFactor));
-
+        board.tournamentPointsToWin.setFont(Font.font("calibri", FontWeight.BOLD, 20 * fontFactor));
+        double cupX = (board.window.getWidth() - board.tournamentCup.getFitWidth())/2;
+        board.tournamentCup.setLayoutX(cupX);
+        board.tournamentPointsToWin.setLayoutX(cupX);
 
     }
 
@@ -318,14 +330,14 @@ public class BoardViewRedraw extends GameBoardRedraw {
 
 
     protected static void resizeAll(BoardView board) {
-        //TODO Inserire dove necessario controlli su font size
+        GameBoardRedraw.resizeOuterRect(board);
         GameBoardRedraw.resizeAll(board);
         resizeExitRegions(board);
         calcTrayWidths(board);
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
-        if (board.gameStart) {
+        if (logic.getGameStart()) {
             resizeDiceTray(board);
             if (board.dtAnimDone)
                 resizeDice(board);
@@ -336,8 +348,8 @@ public class BoardViewRedraw extends GameBoardRedraw {
         resizePauseMenu(board);
         resizeSaveDialogue(board);
         if (logic.isTournamentOngoing())
-            resizeTournamentLabel(board);
-        if (board.gameEndState) {
+            resizeTournamentComponents(board);
+        if (logic.getGameEndState()) {
             resizeVictoryPanel(board);
         }
     }

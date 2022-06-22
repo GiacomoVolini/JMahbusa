@@ -1,5 +1,6 @@
 package jmb.view;
 
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.paint.Color;
 
 public class ConstantsView {
@@ -39,11 +40,9 @@ public class ConstantsView {
     public static boolean sr;
     public static final boolean fermo = true;
     public static final boolean nonfermo = false;
-    //TODO TOGLIERE TRUE SOTTO
     public static boolean mu;
     public static final boolean muta = true;
     public static final boolean nonmuta = false;
-    //TODO TOGLIERE TRUE SOTTO
     public static boolean mue;
     public static final boolean mutae = true;
     public static final boolean nonmutae = false;
@@ -60,6 +59,8 @@ public class ConstantsView {
     public static String main_menu = "ESCAPE";
 
     public static double MIN_PAWN_SIZE = 11.741538461538463;
+
+    public static final ColorAdjust LOW_CONTRAST = new ColorAdjust(0,0,0,-0.5);
 
 
     private ConstantsView() {

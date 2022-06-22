@@ -74,7 +74,6 @@ public class MainMenu {
         jmb.App.login();
         View.sceneMusica.playerp.pause();
         getStage().setFullScreen(cb);
-        logic.setUpNewGame();
         View.sceneLogIn.changeDimensions();
     }
 
@@ -100,6 +99,8 @@ public class MainMenu {
     void openLoadGame() throws IOException {
         jmb.App.loadGame();
         sceneLoadView.refreshSaveList();
+        sceneLoadView.setBoardColors();
+        sceneLoadView.renderNoSelection();
         getStage().setFullScreen(cb);
     }
 

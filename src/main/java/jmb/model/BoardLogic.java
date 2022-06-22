@@ -15,13 +15,6 @@ public class BoardLogic {
 
     //  VARIABILI D'ISTANZA
 
-    //TODO Aggiungere delle variabili per la durata del turno e per il tempo rimanente nel turno
-
-    /*TODO
-        - Trasformare la matrice squares in una matrice di interi come quella del salvataggio - FATTO
-     */
-
-    //TODO VECCHIO PawnLogic[][] squares;
     protected int[][] squares;
     private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
@@ -45,6 +38,8 @@ public class BoardLogic {
     private double turnDuration = 120;
 
     private double timeRemaining;
+    private boolean gameStart = false;
+    private boolean gameEndState = false;
 
     //  ----------------------------
 
@@ -63,8 +58,8 @@ public class BoardLogic {
     //  METODI
 
     protected void setUpGame() {
-        //TODO Modificare una volta richiamato da LogIn
-
+        setGameStart(false);
+        setGameEndState(false);
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
         //  può portare fuori le proprie pedine
         setBlackExit(false);
@@ -82,9 +77,6 @@ public class BoardLogic {
         //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
         //  e tiriamo i dadi per il primo giocatore
         whiteTurn = dice.initialToss();
-
-        //TODO TEST
-        //  SaveGameReader.readSaveGame("BUONGIORNO");
     }
 
     public boolean isWhiteTurn() {
@@ -92,13 +84,6 @@ public class BoardLogic {
     }
 
     public void changeTurn() {
-    /*TODO TEST
-        Iterator it = turnMoves.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next().toString());
-        }
-    //TODO END TEST*/
-
         this.whiteTurn= !this.whiteTurn;
         runTurn();
         view.setPawnsForTurn();
@@ -160,11 +145,8 @@ public class BoardLogic {
 
         boolean possible = dice.checkExitDiceSimple(delta);
         if (!possible) {
-            if (checkIfFarthestPawn(puntaIniz)) {
+            if (checkIfFarthestPawn(puntaIniz))
                 possible = dice.checkExitDiceGreaterThan(delta);
-            } else {
-                //TODO EVIDENZIARE PEDINE DA MUOVERE PRIMA
-            }
         }
 
         return possible;
@@ -262,8 +244,6 @@ public class BoardLogic {
      */
 
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
-
-
         boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
                 (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
         return right;
@@ -337,10 +317,6 @@ public class BoardLogic {
     }
 
     public DiceLogic getDiceLogic () { return this.dice; }
-
-    public void resetMoveBuffer() {
-        this.moveBuffer[0] = this.moveBuffer[1] = UNDEFINED;
-    }
 
     protected void victoryCheck() {
 
@@ -434,7 +410,6 @@ public class BoardLogic {
         this.blacksWonPoints = toIntExact(save.blacksWonPoints);
         this.whitesWonPoints = toIntExact(save.whitesWonPoints);
         setUpSavedBoard(save.squareMatrix);
-        //TODO GESTIRE LOGICA TORNEO
     }
 
     private void setUpSavedBoard(int[][] squareMatrix) {
@@ -557,5 +532,17 @@ public class BoardLogic {
 
     protected double getTimeRemaining() {
         return this.timeRemaining;
+    }
+    protected boolean getGameStart() {
+        return this.gameStart;
+    }
+    protected void setGameStart(boolean value) {
+        this.gameStart = value;
+    }
+    protected boolean getGameEndState() {
+        return this.gameEndState;
+    }
+    protected void setGameEndState(boolean value) {
+        this.gameEndState = value;
     }
 }

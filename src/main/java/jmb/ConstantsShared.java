@@ -40,6 +40,8 @@ public class ConstantsShared {
 
     public static final int WIDTH = 0;
     public static final int HEIGHT = 1;
+    public static final int WHITE_NAME = 0;
+    public static final int BLACK_NAME = 1;
     public static final int TIME = 2;
     public static final int TOURNAMENT_POINTS = 3;
     public static final int WHITE_WON_POINTS = 4;

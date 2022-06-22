@@ -195,6 +195,10 @@ public class Logic implements ILogic{
     }
 
     @Override
+    public int getTournamentPointsToWin() {
+        return board.getTournamentPoints();
+    }
+    @Override
     public void setTurnDuration (double value) {
         board.setTurnDuration(value);
     }
@@ -230,16 +234,6 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public byte[] getImageBytes(String saveName) {
-        return this.readSaveGame(saveName).getImageBytes();
-    }
-
-    @Override
-    public long[] getImageDimensions(String saveName) {
-        return this.readSaveGame(saveName).getImageDimensions();
-    }
-
-    @Override
     public int searchTopOccupiedRow(int col){return board.searchTopOccupiedRow(col);}
 
     @Override
@@ -265,5 +259,41 @@ public class Logic implements ILogic{
     @Override
     public int[][] getBoardMatrix() {
         return board.squares;
+    }
+
+    @Override
+    public int[][] getSaveMatrix(String saveName) {return this.readSaveGame(saveName).getSquareMatrix();}
+
+    @Override
+    public boolean getGameStart() {
+        return board.getGameStart();
+    }
+    @Override
+    public boolean getGameEndState() {
+        return board.getGameEndState();
+    }
+    @Override
+    public void setGameStart(boolean value) {
+        board.setGameStart(value);
+    }
+    @Override
+    public void setGameEndState(boolean value) {
+        board.setGameEndState(value);
+    }
+    @Override
+    public boolean allDiceUsed() {
+        boolean used = true;
+        for (int i = 0; i<4 && used; i++)
+            if (!isDiceUsed(i))
+                used = false;
+        return used;
+    }
+
+    @Override
+    public void completeMoves() {
+        /*TODO
+            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
+            - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
+         */
     }
 }

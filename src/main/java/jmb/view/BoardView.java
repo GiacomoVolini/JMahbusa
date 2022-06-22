@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.*;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -29,8 +30,6 @@ public class BoardView extends GameBoard {
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
     private static final double VERTICAL_RESIZE_FACTOR = 0.75;
-    //TODO Nella gestione del turno, una volta create le variabili in BoardLogic, puntare a quelle anzichè usare
-    //  roba nel view
 
 
     @FXML
@@ -149,18 +148,16 @@ public class BoardView extends GameBoard {
     Label tournamentWhitePoints;
 
     Label tournamentBlackPoints;
+    ImageView tournamentCup;
+    Label tournamentPointsToWin;
 
     protected Timeline turnTimer;
-
-    boolean gameStart = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
-
-    boolean gameEndState = false; //TODO FORSE SENSATO SPOSTARE IN LOGIC
 
     @FXML
     protected void nextTurn (ActionEvent event) {
         if(turn_duration != 0) {
             turnTimer.stop();
-            turnTimer.play();
+
         }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         BoardViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
@@ -214,7 +211,10 @@ public class BoardView extends GameBoard {
     }
     @FXML
     void saveGame(ActionEvent event) {
-        if (saveTextField.getText().equals("")) {
+        if (!logic.allDiceUsed()) {
+            errorLabel.setText("Completa le tue mosse prima di salvare");
+            errorLabel.setVisible(true);
+        } else if (saveTextField.getText().equals("")) {
             errorLabel.setText("Inserisci un nome per il salvataggio");
             errorLabel.setVisible(true);
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
@@ -284,8 +284,6 @@ public class BoardView extends GameBoard {
 
     @FXML
     void vaialMainMenu(){
-            //TODO forse la riga sotto non serve?
-            senzaSalvare.getScene().getWindow();
             jmb.App.MainMenu();
             getStage().setFullScreen(cb);
         
@@ -394,7 +392,7 @@ public class BoardView extends GameBoard {
                     this.dtAnimDone = true;
                     jmb.App.getStage().setResizable(true);
                     BoardViewRedraw.resizeDice(this);
-                    rollDice();
+                    logic.firstTurn();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
                 )
         );
@@ -417,6 +415,8 @@ public class BoardView extends GameBoard {
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
+            if (logic.getTurnDuration()!=0)
+                turnTimer.play();
         });
         timeline.play();
     }
@@ -484,11 +484,10 @@ public class BoardView extends GameBoard {
     @FXML
     protected void startGame(ActionEvent event) {
         startDialogue.setVisible(false);
-        gameStart = true;
+        logic.setGameStart(true);
         changeDimensions();
         if (diceTray.getWidth()==0)
             diceTrayAnim();
-        logic.firstTurn();
         if(turn_duration != 0) {
             runTimer();
         }
@@ -641,8 +640,7 @@ public class BoardView extends GameBoard {
     }
 
     private void removeVictoryPanel() {
-        gameEndState = false;
-
+        logic.setGameEndState(false);
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
         gameEndDisable();
@@ -661,7 +659,7 @@ public class BoardView extends GameBoard {
         victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
         if (tournamentStatus == TOURNAMENT_WON)
             tourmanentRibbon = createTournamentRibbon();
-        gameEndState = true;
+        logic.setGameEndState(true);
         BoardViewRedraw.resizeVictoryPanel(this);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
@@ -928,7 +926,6 @@ public class BoardView extends GameBoard {
             pawnArrayBLK[i].setOnMousePressed(this::savePosition);
             pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
         }
-        window.setOnKeyPressed(this);
         timerIn.setViewOrder(-3);
         timerOut.setViewOrder(-2);
 
@@ -974,26 +971,37 @@ public class BoardView extends GameBoard {
             turnTimer = new Timeline(
                     new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                     new KeyFrame(Duration.seconds(turn_duration), e -> {
+                        logic.completeMoves();
                         nextTurn(null);
                     }, new KeyValue(timerIn.scaleYProperty(), 0))
             );
         }
 
+        tournamentCup = new ImageView(new Image("/jmb/view/TournamentCup.png"));
         tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
         tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
+        tournamentPointsToWin = new Label (String.valueOf(logic.getTournamentPointsToWin()));
         tournamentWhitePoints.setAlignment(Pos.CENTER);
         tournamentBlackPoints.setAlignment(Pos.CENTER);
+        tournamentPointsToWin.setAlignment(Pos.CENTER);
+        tournamentPointsToWin.setFont(Font.font("calibri", FontWeight.BOLD, 16));
         tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
         tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-        window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints);
+        window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         tournamentWhitePoints.setTextFill(pedOut1);
         tournamentBlackPoints.setTextFill(pedOut2);
+        tournamentCup.setBlendMode(BlendMode.DARKEN);
+
         if (logic.isTournamentOngoing()){
             tournamentWhitePoints.setVisible(true);
             tournamentBlackPoints.setVisible(true);
+            tournamentPointsToWin.setVisible(true);
+            tournamentCup.setVisible(true);
         } else  {
             tournamentWhitePoints.setVisible(false);
             tournamentBlackPoints.setVisible(false);
+            tournamentPointsToWin.setVisible(false);
+            tournamentCup.setVisible(false);
         }
 
 

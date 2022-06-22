@@ -49,6 +49,14 @@ public class GameBoardRedraw {
         return min(usableHeight, usableWidth);
     }
 
+    protected static double getBoardLayoutX (GameBoard board) {
+        return (board.boardAnchor.getWidth()/2)-(getBoardSize(board)*0.6);
+    }
+
+    protected static double getBoardLayoutY (GameBoard board) {
+        return (board.boardAnchor.getHeight()/2)-(getBoardSize(board)/2);
+    }
+
     public static void resizeOuterRect(GameBoard board) {
         System.out.println("Sono dentro resizeOuterRect");
         System.out.println(board.boardAnchor);
@@ -58,12 +66,10 @@ public class GameBoardRedraw {
         System.out.println("vRF " + vResizeFactor);
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         double size = getBoardSize(board);
-        System.out.println(getBoardSize(board));
-        board.outerRect.setLayoutX((board.boardAnchor.getWidth()/2)-(size*0.6));
-        board.outerRect.setLayoutY((board.boardAnchor.getHeight()/2)-(size/2));
+        board.outerRect.setLayoutX(getBoardLayoutX(board));
+        board.outerRect.setLayoutY(getBoardLayoutY(board));
         board.outerRect.setWidth(size);
         board.outerRect.setHeight(size);
-
     }
 
     public static void resizeBoardRect(GameBoard board) {
@@ -158,7 +164,22 @@ public class GameBoardRedraw {
             le pedine che si possono muovere
      */
 
-
+    protected static void redrawPawns (GameBoard board, int[][] matrix) {
+        int whitesPlaced = 0;
+        int blacksPlaced = 0;
+        for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
+            for (int row = 0; row < 16 && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER) && matrix[row][col] != EMPTY; row++) {
+                if (matrix[row][col] == WHITE) {
+                    placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
+                    whitesPlaced++;
+                }
+                if (matrix[row][col] == BLACK) {
+                    placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
+                    blacksPlaced++;
+                }
+            }
+        }
+    }
 
     protected static void placePawn (GameBoard board, PawnView[] pawnArray, int pawnIndex, int col, int row) {
        if (col<=LAST_COL_TOP && col >=COL_WHITE) {
@@ -188,7 +209,6 @@ public class GameBoardRedraw {
     }
 
     public static void resizeAll(GameBoard board) {
-        resizeOuterRect(board);
         resizeBoardRect(board);
         resizeSeparator(board);
         resizeLeftPoints(board);

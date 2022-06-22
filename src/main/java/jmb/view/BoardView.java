@@ -709,6 +709,7 @@ public class BoardView extends GameBoard {
     String s="";
     String L="";
     String selez="";
+    boolean selected = false;
     int col;
 
     //seleziona l'arrey
@@ -716,7 +717,7 @@ public class BoardView extends GameBoard {
         int col = 1;
         for (int i = 0; i < 12; i++) {
             if (polArrayTop[i].getFill().equals(Paint.valueOf("#fffb00"))) {
-                col = i;
+                col = i + 1;
             } else if (polArrayBot[i].getFill().equals(Paint.valueOf("#fffb00"))) {
                 col = (24-i);
             }
@@ -896,22 +897,31 @@ public class BoardView extends GameBoard {
 
         //SELEZIONARE LA PEDINA
 
-        if(event.getCode().toString().equals(select)){
+        if(event.getCode().toString().equals(select) && !selected){
             col = trovaColonna();
             System.out.println(logic.searchTopOccupiedRow(col));
             System.out.println(col);
             if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
                 logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+                selected = true;
             }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
                 logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+                selected = true;
             }
+            logic.createMoveBuffer(col);
+            logic.printMatrix();
+
 
         }
 
         // confermare e muovere la pedina
-        if(event.getCode().toString().equals(confirm) && selez.equals(select) && !select.equals(confirm)){
+        if(event.getCode().toString().equals(confirm) && selected){
             int col2 = trovaColonna();
-            logic.movePawn( col, logic.searchTopOccupiedRow(col), logic.searchTopOccupiedRow(col2), col2);
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
+            logic.placePawnOnPoint(col2);
+            logic.printMatrix();
+            BoardViewRedraw.redrawPawns(this);
+            selected = false;
         }
         System.out.println(event.getCode().toString() + i + col);
 

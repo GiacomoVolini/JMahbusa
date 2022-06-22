@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
+import static jmb.model.ConstantsLogic.DESELECTED;
 import static jmb.model.Logic.view;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
@@ -455,6 +456,10 @@ public class BoardLogic {
         }else if(squares[whichRow][whichPoint]==BLACK){
             squares[whichRow][whichPoint] =selectedBLACK;
         }
+    }
+
+    protected void deselectPawn(int col, int row) {
+        squares[row][col] += DESELECTED;
     }
 
     protected int getBoardPlaceState (int whichPoint, int whichRow) {

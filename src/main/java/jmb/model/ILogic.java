@@ -116,4 +116,9 @@ public interface ILogic {
     void setGameEndState(boolean value);
     boolean allDiceUsed();
     void completeMoves();
+
+    void deselectPawn(int col, int row);
+
+    void printMatrix(); //TODO TEST
+
 }

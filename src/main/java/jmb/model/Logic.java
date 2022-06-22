@@ -265,8 +265,9 @@ public class Logic implements ILogic{
     public void thePawnColor(int whichPoint, int whichRow){board.thePawnColor( whichPoint, whichRow);}
 
     @Override
-    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
-        return logic.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
+        return board.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    }
     @Override
     public int[][] getSaveMatrix(String saveName) {return this.readSaveGame(saveName).getSquareMatrix();}
 
@@ -301,5 +302,18 @@ public class Logic implements ILogic{
             - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
             - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
          */
+    }
+
+    @Override
+    public void deselectPawn(int col, int row) {
+        board.deselectPawn(col, row);
+    }
+    @Override
+    public void printMatrix() {
+        for (int col = COL_BLACK_EXIT; col<=COL_WHITE_EXIT; col++) {
+            for (int row = 0; row <=15; row++)
+                System.out.print(getBoardMatrix()[row][col]);
+            System.out.println();
+        }
     }
 }

@@ -53,8 +53,8 @@ public class ConstantsView {
     public static String moveTO_left = "A";
     public static String moveTO_up = "W";
     public static String moveTO_down = "S";
-    public static String select = "SPACE";
-    public static String confirm = "ENTER";
+    public static String select = "V";
+    public static String confirm = "C";
     public static String delete_move = "BACKSPACE";
     public static String finish_turn = "F";
     public static String main_menu = "ESCAPE";

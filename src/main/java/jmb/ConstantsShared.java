@@ -19,6 +19,8 @@ public class ConstantsShared {
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
+    public static final int selectedWHITE = 3;
+    public static final int selectedBLACK = 4;
 
     //  Costanti per i metodi di confronto nomi giocatori
     public static final int DECIDING = 0;

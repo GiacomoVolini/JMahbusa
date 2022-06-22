@@ -105,6 +105,9 @@ public interface ILogic {
 
     int[][] getBoardMatrix();
 
+    void thePawnColor(int whichPoint, int whichRow);
+
+    boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
 
 
 }

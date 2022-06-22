@@ -102,8 +102,13 @@ public interface ILogic {
     void setUpSavedGame(String saveName);
 
     int[][] getBoardMatrix();
+  
+    void thePawnColor(int whichPoint, int whichRow);
+
+    boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
 
     int[][] getSaveMatrix(String saveName);
+
 
     boolean getGameStart();
     boolean getGameEndState();

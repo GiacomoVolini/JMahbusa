@@ -14,6 +14,7 @@ import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw extends GameBoardRedraw {
 
+    //TODO colorare la pedina selezionata
 
     //  L'altezza massima che il tabellone può occupare rispetto alla finestra
 

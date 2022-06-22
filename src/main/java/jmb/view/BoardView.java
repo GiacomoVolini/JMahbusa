@@ -708,15 +708,17 @@ public class BoardView extends GameBoard {
     int i=0;
     String s="";
     String L="";
+    String selez="";
+    int col;
 
     //seleziona l'arrey
     private int trovaColonna(){
-        int col = -1;
+        int col = 1;
         for (int i = 0; i < 12; i++) {
             if (polArrayTop[i].getFill().equals(Paint.valueOf("#fffb00"))) {
                 col = i;
             } else if (polArrayBot[i].getFill().equals(Paint.valueOf("#fffb00"))) {
-                col = i;
+                col = (24-i);
             }
         }
         return col;
@@ -892,18 +894,26 @@ public class BoardView extends GameBoard {
             L=moveTO_left;
         }
 
-        //SELEZIONARE LA PEDDINA
+        //SELEZIONARE LA PEDINA
 
-        /*if(event.getCode().toString().equals(select)){
-            int col = trovaColonna();
-            if((logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
-                logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))
-            }else if( logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
-
+        if(event.getCode().toString().equals(select)){
+            col = trovaColonna();
+            System.out.println(logic.searchTopOccupiedRow(col));
+            System.out.println(col);
+            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
+                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
+                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
             }
 
-        }*/
-        System.out.println(event.getCode().toString() + i);
+        }
+
+        // confermare e muovere la pedina
+        if(event.getCode().toString().equals(confirm) && selez.equals(select) && !select.equals(confirm)){
+            int col2 = trovaColonna();
+            logic.movePawn( col, logic.searchTopOccupiedRow(col), logic.searchTopOccupiedRow(col2), col2);
+        }
+        System.out.println(event.getCode().toString() + i + col);
 
     }
 

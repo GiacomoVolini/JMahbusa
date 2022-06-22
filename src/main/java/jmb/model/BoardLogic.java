@@ -449,6 +449,14 @@ public class BoardLogic {
         return movable;
     }
 
+    protected void thePawnColor(int whichPoint, int whichRow){
+        if(squares[whichRow][whichPoint] == WHITE) {
+            squares[whichRow][whichPoint] = selectedWHITE;
+        }else if(squares[whichRow][whichPoint]==BLACK){
+            squares[whichRow][whichPoint] =selectedBLACK;
+        }
+    }
+
     protected int getBoardPlaceState (int whichPoint, int whichRow) {
         return squares[whichRow][whichPoint];
     }

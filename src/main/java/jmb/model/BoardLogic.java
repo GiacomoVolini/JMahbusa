@@ -452,9 +452,9 @@ public class BoardLogic {
 
     protected void thePawnColor(int whichPoint, int whichRow){
         if(squares[whichRow][whichPoint] == WHITE) {
-            squares[whichRow][whichPoint] = selectedWHITE;
+            squares[whichRow][whichPoint] = SELECTED_WHITE;
         }else if(squares[whichRow][whichPoint]==BLACK){
-            squares[whichRow][whichPoint] =selectedBLACK;
+            squares[whichRow][whichPoint] = SELECTED_BLACK;
         }
     }
 

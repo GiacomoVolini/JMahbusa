@@ -571,7 +571,7 @@ public class BoardView extends GameBoard {
             pawn.setFill(pedIn2);
             pawn.setStroke(pedOut2);
         }
-        pawn.setStrokeWidth(2);
+        pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
         return pawn;
 
@@ -910,6 +910,7 @@ public class BoardView extends GameBoard {
             }
             logic.createMoveBuffer(col);
             logic.printMatrix();
+            BoardViewRedraw.redrawPawns(this);
 
 
         }
@@ -924,6 +925,9 @@ public class BoardView extends GameBoard {
             selected = false;
         }
         System.out.println(event.getCode().toString() + i + col);
+        System.out.println(event.getCode().toString() + select);
+        System.out.println(event.getCode().toString().equals(select));
+        System.out.println("selected = " + selected);
 
     }
 

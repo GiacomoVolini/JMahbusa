@@ -15,6 +15,7 @@ import jmb.model.SaveGameReader;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
+import java.awt.*;
 import java.io.IOException;
 
 import static jmb.App.getStage;

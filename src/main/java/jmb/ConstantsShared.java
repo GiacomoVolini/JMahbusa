@@ -48,4 +48,10 @@ public class ConstantsShared {
     public static final int TOURNAMENT_POINTS = 3;
     public static final int WHITE_WON_POINTS = 4;
     public static final int BLACK_WON_POINTS = 5;
+
+    //Costanti per il valore di boardPreset delle impostazioni
+    public static final int CUSTOM_BOARD = 0;
+    public static final int LEFT_PRESET = 1;
+    public static final int RIGHT_PRESET = 2;
+
 }

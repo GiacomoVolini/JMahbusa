@@ -120,5 +120,68 @@ public interface ILogic {
     void deselectPawn(int col, int row);
 
     void printMatrix(); //TODO TEST
+    void resetDefaultSettings();
+    void applySettingsChanges();
+    void revertSettingsChanges();
+    void initializeSettingsLogic();
+
+    //------------------------------
+    //GETTER E SETTER DELLE IMPOSTAZIONI
+    //------------------------------
+    void setFullScreen(boolean value);
+    boolean getFullScreen();
+    void setLockResolution (boolean value);
+    boolean getLockResolution ();
+    void setResolutionHeight (int value);
+    int getResolutionHeight ();
+    void setResolutionWidth (int value);
+    int getResolutionWidth ();
+    void setMusicVolume (int value);
+    int getMusicVolume ();
+    void setSFXVolume (int value);
+    int getSFXVolume ();
+    void setMuteMusic (boolean value);
+    boolean getMuteMusic ();
+    void setMuteSFX (boolean value);
+    boolean getMuteSFX ();
+    void setBoardPreset (int value);
+    int getBoardPreset ();
+    void setWhitePawnStroke (String value);
+    String getWhitePawnStroke ();
+    void setWhitePawnFill (String value);
+    String getWhitePawnFill ();
+    void setBlackPawnStroke (String value);
+    String getBlackPawnStroke ();
+    void setBlackPawnFill (String value);
+    String getBlackPawnFill ();
+    void setBoardFrameColor (String value);
+    String getBoardFrameColor ();
+    void setBoardInnerColor (String value);
+    String getBoardInnerColor ();
+    void setEvenPointsColor (String value);
+    String getEvenPointsColor ();
+    void setOddPointsColor (String value);
+    String getOddPointsColor ();
+    void setMoveRight (String value);
+    String getMoveRight ();
+    void setMoveLeft (String value);
+    String getMoveLeft ();
+    void setMoveUp (String value);
+    String getMoveUp ();
+    void setMoveDown (String value);
+    String getMoveDown ();
+    void setSelect (String value);
+    String getSelect ();
+    void setConfirm (String value);
+    String getConfirm ();
+    void setRevertMove (String value);
+    String getRevertMove ();
+    void setFinishTurn (String value);
+    String getFinishTurn ();
+    void setOpenMenu (String value);
+    String getOpenMenu ();
+    boolean getBypassDice ();
+
+    //_________________________
 
 }

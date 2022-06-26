@@ -131,7 +131,7 @@ public class App extends Application {
         Logic.view = new View();
         logic.initializeBoardLogic();
         logic.initializeLeaderboardLogic();
-
+        logic.initializeSettingsLogic();
     }
 
 }

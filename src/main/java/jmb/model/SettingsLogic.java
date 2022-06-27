@@ -54,14 +54,17 @@ public class SettingsLogic {
         try{
             //defaults = new Ini();
             //current = new Ini();
-            defaultsPath = Path.of("/settings/Defaults.ini");
-            currentPath = Path.of("/settings/Current.ini");
+            defaultsPath = Path.of("./settings/Defaults.ini");
+            currentPath = Path.of("./settings/Current.ini");
             if (Files.exists(defaultsPath)) {
+                System.out.println("Defaults esiste");
                 if (Files.exists(currentPath)) {
+                    System.out.println("Current esiste");
                     //current.load(currentPath.toFile());
                     //loadSettingsFrom(current);
                     loadSettingsFrom(currentPath);
                 } else{
+                    System.out.println("Current non esiste");
                     //defaults.load(defaultsPath.toFile());
                     //loadSettingsFrom(defaults);
                     loadSettingsFrom(defaultsPath);
@@ -70,6 +73,7 @@ public class SettingsLogic {
                     saveSettingsTo(currentPath);
                 }
             } else {
+                System.out.println("Defaults non esiste");
                 Files.createFile(defaultsPath);
                 Files.createFile(currentPath);
                 //defaults.load(defaultsPath.toFile());

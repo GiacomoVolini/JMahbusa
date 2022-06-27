@@ -607,7 +607,7 @@ public class MenuImpostazioni  {
         //TODO FORSE SPOSTARE ---
         private String colorStringFactory(Color color) {
                 String out = "#" + componentSubstringFactory(color.getRed()) +
-                        componentSubstringFactory(color.getGreen()) + componentSubstringFactory(color.getBlue())
+                        componentSubstringFactory(color.getGreen()) + componentSubstringFactory(color.getBlue());
                 return out;
         }
         private String componentSubstringFactory(double val) {

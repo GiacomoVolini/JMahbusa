@@ -1,17 +1,9 @@
 package jmb.view;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -19,16 +11,17 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
-import jmb.App;
+import javafx.stage.Stage;
 
 import static jmb.view.ConstantsView.*;
-import static jmb.App.getStage;
+import static jmb.ConstantsShared.*;
+import static jmb.view.View.logic;
 
 import java.io.IOException;
 
 public class MenuImpostazioni  {
 
+        private Stage stage;
         @FXML
         private AnchorPane GBG;
 
@@ -54,7 +47,7 @@ public class MenuImpostazioni  {
         private Button Bcomandi;
 
         @FXML
-        private Button tornaMM;
+        private Button mainMenuButton;
 
         @FXML
         private AnchorPane video;
@@ -110,8 +103,8 @@ public class MenuImpostazioni  {
         @FXML
         private Slider SliderES;
 
-        @FXML
-        private Button RA;
+        //@FXML TODO CANCELLARE
+        //private Button RA;
 
         @FXML
         private AnchorPane personalizzazione;
@@ -121,6 +114,9 @@ public class MenuImpostazioni  {
 
         @FXML
         private ImageView Ibg;
+
+        @FXML
+        private Button resetButton;
 
         @FXML
         private ColorPicker Inpedina1;
@@ -237,10 +233,10 @@ public class MenuImpostazioni  {
         private RadioButton TM;
 
         @FXML
-        private Button Apply;
+        private Button applyButton;
 
-        @FXML
-        private Button Reset;
+        //@FXML TODO CANCELLARE
+        //private Button Reset;
 
         @FXML
         private AnchorPane comandi;
@@ -275,8 +271,8 @@ public class MenuImpostazioni  {
         @FXML
         private TextField opUscita;
 
-        @FXML
-        private Button reComandi;
+        //@FXML TODO CANCELLARE
+        //private Button reComandi;
 
         @FXML
         private Button Bvuoto1;
@@ -285,12 +281,16 @@ public class MenuImpostazioni  {
         private Button Bvuoto2;
 
         double Sv, Sve;
+        ToggleGroup group = new ToggleGroup();
+        private String bindingBefore;
 
         @FXML
-        void Tmainmenu()  throws IOException {
-                tornaMM.getScene().getWindow();
-                jmb.App.MainMenu();
-                getStage().setFullScreen(cb);
+        void goToMainMenu()  throws IOException {
+                //TODO controllare se ci sono cambiamenti alle impostazioni senza aver pigiato apply
+                //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
+                //      altrimenti andare al menu
+                mainMenuButton.getScene().getWindow();
+                App.MainMenu();
         }
 
         @FXML
@@ -346,29 +346,22 @@ public class MenuImpostazioni  {
         //schermo intero
         @FXML
         void fullscreen(ActionEvent event) {
-              /*  if (checkSI.isSelected()){
-                        cb = fullscreen;
-                        //getStage().setFullScreen(true);
-                }else{
-                        cb = nofullscreen;
-                        //getStage().setFullScreen(false);
-                }*/
+                Stage stage = (Stage)GBG.getScene().getWindow();
+                stage.setFullScreen(checkSI.isSelected());
+                applyButton.setDisable(false);
         }
 
         @FXML
         void blockresolution(ActionEvent event) {
-                if(checkBR.isSelected()) {
-                        sr = fermo;
-                }else{
-                        sr = nonfermo;
-                }
+                Stage stage = (Stage)GBG.getScene().getWindow();
+                stage.setResizable(!checkBR.isSelected());
+                applyButton.setDisable(false);
         }
 
         //Audio
 
         @FXML
         void mutaLAmusica(ActionEvent event) {
-
                 if (checkMusi.isSelected()){
                         Sv = SliderMusi.getValue();
                         mu = muta;
@@ -381,11 +374,11 @@ public class MenuImpostazioni  {
                         SliderMusi.setDisable(false);
                         View.sceneMusica.player.play();
                 }
+                applyButton.setDisable(false);
         }
 
         @FXML
         void mutaGLIeffetto(ActionEvent event) {
-
                 if (checkMES.isSelected()) {
                         Sve = SliderES.getValue();
                         mue = mutae;
@@ -396,6 +389,7 @@ public class MenuImpostazioni  {
                         SliderES.setValue(Sve);
                         SliderES.setDisable(false);
                 }
+                applyButton.setDisable(false);
         }
 
         @FXML
@@ -406,56 +400,80 @@ public class MenuImpostazioni  {
         //Personalizzazione
         @FXML
         void coloreINpedina1(ActionEvent event) {
-              pedina1.setFill(Inpedina1.getValue());
-
+                Color newValue = Inpedina1.getValue();
+                if (newValue!=pedina1.getFill()) {
+                        pedina1.setFill(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void coloreOUTpedina1(ActionEvent event) {
-               pedina1.setStroke(Conpedina1.getValue());
-
+                Color newValue = Conpedina1.getValue();
+                if (newValue!=pedina1.getStroke()) {
+                        pedina1.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void coloreINpedina2(ActionEvent event) {
-                pedina2.setFill(Inpedina2.getValue());
-
+                Color newValue = Inpedina2.getValue();
+                if (newValue!=pedina2.getFill()) {
+                        pedina2.setFill(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void coloreOUTpedina2(ActionEvent event) {
-                pedina2.setStroke(Conpedina2.getValue());
-
+                Color newValue = Conpedina2.getValue();
+                if (newValue!=pedina2.getStroke()) {
+                        pedina2.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void coloreTavolo(ActionEvent event) {
-                tavolo.setFill(Ctavolo.getValue());
-                tavolo.setStroke(Ctavolo.getValue());
-
+                Color newValue = Ctavolo.getValue();
+                if (newValue!=tavolo.getFill()) {
+                        tavolo.setFill(newValue);
+                        tavolo.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void coloreCornice(ActionEvent event) {
-                cornice.setFill(Ccornice.getValue());
-                cornice.setStroke(Ccornice.getValue());
-
+                Color newValue = Ccornice.getValue();
+                if (newValue!= cornice.getFill()) {
+                        cornice.setFill(newValue);
+                        cornice.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void colorePunte(ActionEvent event) {
-                punta1.setFill(Cpunte.getValue());
-                punta1.setStroke(Cpunte.getValue());
-                punta3.setFill(Cpunte.getValue());
-                punta3.setStroke(Cpunte.getValue());
-
+                Color newValue = Cpunte.getValue();
+                if (newValue!=punta1.getFill()) {
+                        punta1.setFill(newValue);
+                        punta1.setStroke(newValue);
+                        punta3.setFill(newValue);
+                        punta3.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
         void colorePunte2(ActionEvent event) {
-                punta2.setFill(Cpunte2.getValue());
-                punta2.setStroke(Cpunte2.getValue());
-
+                Color newValue = Cpunte2.getValue();
+                if (newValue!=punta2.getFill()) {
+                        punta2.setFill(newValue);
+                        punta2.setStroke(newValue);
+                        applyButton.setDisable(false);
+                }
         }
 
         @FXML
@@ -464,6 +482,8 @@ public class MenuImpostazioni  {
                 Cpunte.setDisable(true);
                 Cpunte2.setDisable(true);
                 Ccornice.setDisable(true);
+                if (logic.getBoardPreset()!=LEFT_PRESET)
+                        applyButton.setDisable(false);
         }
 
         @FXML
@@ -472,6 +492,8 @@ public class MenuImpostazioni  {
                 Cpunte.setDisable(false);
                 Cpunte2.setDisable(false);
                 Ccornice.setDisable(false);
+                if (logic.getBoardPreset()!=CUSTOM_BOARD)
+                        applyButton.setDisable(false);
         }
 
         @FXML
@@ -480,6 +502,8 @@ public class MenuImpostazioni  {
                 Cpunte.setDisable(true);
                 Cpunte2.setDisable(true);
                 Ccornice.setDisable(true);
+                if (logic.getBoardPreset()!=RIGHT_PRESET)
+                        applyButton.setDisable(false);
         }
 
         //TODO riempi l'applicazioni
@@ -488,13 +512,21 @@ public class MenuImpostazioni  {
         @FXML
         void selezionata(MouseEvent event) {
                 TextField b = (TextField) event.getSource();
+                bindingBefore = b.getText();
                 b.setText("waiting...");
+                applyButton.setDisable(true);
+                resetButton.setDisable(true);
+                mainMenuButton.setDisable(true);
         }
 
         @FXML
         void stampa(KeyEvent event) {
                 TextField b = (TextField) event.getSource();
                 b.setText(event.getCode().toString());
+                if (!b.getText().equals(bindingBefore))
+                        applyButton.setDisable(false);
+                resetButton.setDisable(false);
+                mainMenuButton.setDisable(false);
         }
 
         /*@Override
@@ -551,178 +583,122 @@ public class MenuImpostazioni  {
 
         }*/
 
-        @FXML
-        void ResetData(ActionEvent event) {
-                pedIn1 = Color.web("#ffffff");
-                pedIn2 = Color.web("#000000");
-                pedOut1 = Color.web("#ffffff");
-                pedOut2 = Color.web("#000000");
-                table = Color.web("#e1c699");
-                frame = Color.web("#432d05");
-                point = Color.web("#b27e31");
-                point2 = Color.web("#2abc95");
-
-                Inpedina1.setValue(pedIn1);
-                Conpedina1.setValue(pedOut1);
-                Inpedina2.setValue(pedIn2);
-                Conpedina2.setValue(pedOut2);
-                Ctavolo.setValue(table);
-                Ccornice.setValue(frame);
-                Cpunte.setValue(point);
-                Cpunte2.setValue(point2);
-
-                pedina1.setFill(Inpedina1.getValue());
-                pedina1.setStroke(Conpedina1.getValue());
-
-                pedina2.setFill(Inpedina2.getValue());
-                pedina2.setStroke(Conpedina2.getValue());
-
-                tavolo.setFill(Ctavolo.getValue());
-                tavolo.setStroke(Ctavolo.getValue());
-
-                cornice.setFill(Ccornice.getValue());
-                cornice.setStroke(Ccornice.getValue());
-
-                punta1.setFill(Cpunte.getValue());
-                punta1.setStroke(Cpunte.getValue());
-                punta2.setFill(Cpunte2.getValue());
-                punta2.setStroke(Cpunte2.getValue());
-                punta3.setFill(Cpunte.getValue());
-                punta3.setStroke(Cpunte.getValue());
-
-                Imsinistra.setToggleGroup(group);
-                TM.setToggleGroup(group);
-                TM.setSelected(true);
-                Imdestra.setToggleGroup(group);
-
-             //   rd = middle;
-                Ctavolo.setDisable(false);
-                Cpunte.setDisable(false);
-                Cpunte2.setDisable(false);
-                Ccornice.setDisable(false);
-        }
-
-        @FXML
-        void resetVideo(ActionEvent event){
-
-                        cb = nofullscreen;
-                        getStage().setFullScreen(false);
-                        checkSI.setSelected(false);
-                        sr = nonfermo;
-                        getStage().setResizable(true);
-                        checkBR.setSelected(false);
-        }
-
-        @FXML
-        void resetAudio(ActionEvent event) {
-
-                checkMusi.setSelected(false);
-                Sv = 100;
-                checkMES.setSelected(false);
-                Sve = 100;
-                mutaLAmusica(null);
-                mutaGLIeffetto(null);
-        }
-
-        //TODO trovare il metodo per i pulsanti della tastieria
-        @FXML
-        void resetComandi(ActionEvent event) {
-
-        }
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
+        /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
+                - pedIn1 - whitePawnFill
+                - pedOut1 - whitePawnStroke
+                - pedIn2 - blackPawnFill
+                - pedOut2 - blackPawnStroke
+                - table - boardInnerColor
+                - frame - boardFrameColor
+                - point - evenPointsColor
+                - point2 - oddPointsColor
+                - cb - fullScreen
+                - sr - lockResolution
+                - mu - muteMusic
+                - mue - muteSFX
+                - moveTO_X - moveX
+                - select - select
+                - confirm - confirm
+                - finish_turn - finishTurn
+                - main_menu - openMenu
+         */
+
+        //TODO FORSE SPOSTARE ---
+        private String colorStringFactory(Color color) {
+                String out = "#" + componentSubstringFactory(color.getRed()) +
+                        componentSubstringFactory(color.getGreen()) + componentSubstringFactory(color.getBlue());
+                return out;
+        }
+        private String componentSubstringFactory(double val) {
+                String in = Integer.toHexString((int) Math.round(val * 255));
+                //Se il valore esadecimale è a una cifra gli aggiunge uno zero in testa e restituisce le due cifre come stringa
+                //      altrimenti restituisce il valore
+                return in.length() == 1 ? "0" + in : in;
+        }
+        //TODO FORSE SPOSTARE ^^^
+
         @FXML
-        void SaveData(ActionEvent event) {
-                //colori
-                pedIn1 = Inpedina1.getValue();
-                pedOut1 = Conpedina1.getValue();
-                pedIn2 = Inpedina2.getValue();
-                pedOut2 = Conpedina2.getValue();
-                table = Ctavolo.getValue();
-                frame = Ccornice.getValue();
-                point = Cpunte.getValue();
-                point2 = Cpunte2.getValue();
-                //scelte di opzioni fisse
-
-                if (Imsinistra.isSelected()) {
-                     //   rd = left;
-                        Ctavolo.setDisable(true);
-                        Cpunte.setDisable(true);
-                        Cpunte2.setDisable(true);
-                        Ccornice.setDisable(true);
-                        table = Color.web("#ad1111");
-                        frame = Color.web("#000000");
-                        point = Color.web("#ffde3a");
-                        point2 = Color.web("#c0c0c0");
-                } else if (Imdestra.isSelected()) {
-                     //   rd = right;
-                        Ctavolo.setDisable(true);
-                        Cpunte.setDisable(true);
-                        Cpunte2.setDisable(true);
-                        Ccornice.setDisable(true);
-                        table = Color.web("#53960f");
-                        frame = Color.web("#090957");
-                        point = Color.web("#c21123");
-                        point2 = Color.web("#daa505");
-                } else {
-                      //  rd = middle;
-                        Ctavolo.setDisable(false);
-                        Cpunte.setDisable(false);
-                        Cpunte2.setDisable(false);
-                        Ccornice.setDisable(false);
-                }
-
-                //video
-                if (checkSI.isSelected()){
-                        cb = fullscreen;
-                        getStage().setFullScreen(true);
-                }else{
-                        cb = nofullscreen;
-                        getStage().setFullScreen(false);
-                }
-
-                if(checkBR.isSelected()) {
-                        sr = fermo;
-                        getStage().setResizable(false);
-                }else{
-                        sr = nonfermo;
-                        getStage().setResizable(true);
-                }
-
-                //Audio
-                if(checkMusi.isSelected()) {
-                        mu = muta;
-                        View.sceneMusica.player.pause();
-                        View.sceneMusica.playerp.stop();
-                }else{
-                        mu = nonmuta;
-                        View.sceneMusica.player.play();
-                }
-
-                if(checkMES.isSelected()) {
-                        mue = mutae;
-                        View.sceneMusica.Pawn.stop();
-                }else{
-                        mue = nonmutae;
-                        View.sceneMusica.Pawn.play();
-                }
-
-                //comandi
-                moveTO_right = moDestra.getText();
-                moveTO_left = moSinistra.getText();
-                moveTO_up = moSopra.getText();
-                moveTO_down = moSotto.getText();
-                select = Selezionare.getText();
-                confirm = confermare.getText();
-                delete_move = cacellareMo.getText();
-                finish_turn = finitoT.getText();
-                main_menu = opUscita.getText();
-
+        void applySettings(ActionEvent event) {
+                logic.setFullScreen(checkSI.isSelected());
+                logic.setLockResolution(checkBR.isSelected());
+                //logic.setResolutionWidth();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
+                //logic.setResolutionHeight();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
+                logic.setMusicVolume((int)SliderMusi.getValue()*100);
+                logic.setSFXVolume((int)SliderES.getValue()*100);
+                logic.setMuteMusic(checkMusi.isSelected());
+                logic.setMuteSFX(checkMES.isSelected());
+                if(TM.isSelected())
+                        logic.setBoardPreset(CUSTOM_BOARD);
+                else if (Imsinistra.isSelected())
+                        logic.setBoardPreset(LEFT_PRESET);
+                else logic.setBoardPreset(RIGHT_PRESET);
+                logic.setWhitePawnStroke(colorStringFactory(Conpedina1.getValue()));
+                logic.setWhitePawnFill(colorStringFactory(Inpedina1.getValue()));
+                logic.setBlackPawnStroke(colorStringFactory(Conpedina2.getValue()));
+                logic.setBlackPawnFill(colorStringFactory(Inpedina2.getValue()));
+                logic.setBoardFrameColor(colorStringFactory(Ccornice.getValue()));
+                logic.setBoardInnerColor(colorStringFactory(Ctavolo.getValue()));
+                logic.setEvenPointsColor(colorStringFactory(Cpunte.getValue()));
+                logic.setOddPointsColor(colorStringFactory(Cpunte2.getValue()));
+                logic.setMoveRight(moDestra.getText());
+                logic.setMoveLeft(moSinistra.getText());
+                logic.setMoveUp(moSopra.getText());
+                logic.setMoveDown(moSotto.getText());
+                logic.setSelect(Selezionare.getText());
+                logic.setConfirm(confermare.getText());
+                logic.setRevertMove(cacellareMo.getText());
+                logic.setFinishTurn(finitoT.getText());
+                logic.setOpenMenu(opUscita.getText());
+                logic.applySettingsChanges();
         }
 
+        @FXML
+        void resetToDefaults(ActionEvent event) {
+                logic.resetDefaultSettings();
+                checkSI.setSelected(logic.getFullScreen());
+                checkBR.setSelected(logic.getLockResolution());
+                //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
+                //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
+                SliderMusi.setValue(logic.getMusicVolume()/100.0);
+                SliderES.setValue(logic.getSFXVolume()/100.0);
+                checkMusi.setSelected(logic.getMuteMusic());
+                checkMES.setSelected(logic.getMuteSFX());
+                switch (logic.getBoardPreset()) {
+                        case CUSTOM_BOARD:
+                                TM.setSelected(true);
+                                break;
+                        case LEFT_PRESET:
+                                Imsinistra.setSelected(true);
+                                break;
+                        case RIGHT_PRESET:
+                                Imdestra.setSelected(true);
+                                break;
+                }
+                Conpedina1.setValue(Color.web(logic.getWhitePawnStroke()));
+                Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
+                Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
+                Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
+                //TODO IMPOSTARE ANCHE I COLORI ALLE PEDINE DEL MENU
+                Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
+                Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
+                Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
+                Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
+                //TODO IMPOSTARE ANCHE I COLORI AL MINITABELLONE CENTRALE
+                moDestra.setText(logic.getMoveRight());
+                moSinistra.setText(logic.getMoveLeft());
+                moSopra.setText(logic.getMoveUp());
+                moSotto.setText(logic.getMoveDown());
+                Selezionare.setText(logic.getSelect());
+                confermare.setText(logic.getConfirm());
+                cacellareMo.setText(logic.getRevertMove());
+                finitoT.setText(logic.getFinishTurn());
+                opUscita.setText(logic.getOpenMenu());
+        }
 
         protected void changeDimensions() {
-
+                //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
                 Bvideo.setMaxWidth(133);
@@ -736,10 +712,10 @@ public class MenuImpostazioni  {
                 Bvuoto1.setMaxWidth(133);
                 Bvuoto2.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
                 Bvuoto2.setMaxWidth(133);
-                tornaMM.setLayoutX(GBG.getWidth()/8 - tornaMM.getWidth()/2);
-                tornaMM.setMaxWidth(89);
-                Apply.setLayoutX(GBG.getWidth()/8 - Apply.getWidth()/2);
-                Apply.setMaxWidth(58);
+                mainMenuButton.setLayoutX(GBG.getWidth()/8 - mainMenuButton.getWidth()/2);
+                mainMenuButton.setMaxWidth(89);
+                applyButton.setLayoutX(GBG.getWidth()/8 - applyButton.getWidth()/2);
+                applyButton.setMaxWidth(58);
 
                 //bottoni destra
                 //Video
@@ -782,7 +758,6 @@ public class MenuImpostazioni  {
                 GBG.setLeftAnchor(Inpedina2,GBG.getWidth() * 0.40);
                 GBG.setLeftAnchor(Conpedina2,GBG.getWidth() * 0.40);
                 GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
-                GBG.setLeftAnchor(Reset,GBG.getWidth() * 0.31);
 
                 //schermi
 
@@ -819,25 +794,43 @@ public class MenuImpostazioni  {
                 Tcomandi.setPrefHeight(GBG.getHeight());
         }
 
-        ToggleGroup group = new ToggleGroup();
-
         public void initialize() {
 
                 group = new ToggleGroup();
                 Imsinistra.setToggleGroup(group);
                 TM.setToggleGroup(group);
-                TM.setSelected(true);
                 Imdestra.setToggleGroup(group);
+                switch (logic.getBoardPreset()) {
+                        case CUSTOM_BOARD:
+                                TM.setSelected(true);
+                                break;
+                        case LEFT_PRESET:
+                                Imsinistra.setSelected(true);
+                                Ctavolo.setDisable(true);
+                                Cpunte.setDisable(true);
+                                Cpunte2.setDisable(true);
+                                Ccornice.setDisable(true);
+                                break;
+                        case RIGHT_PRESET:
+                                Imdestra.setSelected(true);
+                                Ctavolo.setDisable(true);
+                                Cpunte.setDisable(true);
+                                Cpunte2.setDisable(true);
+                                Ccornice.setDisable(true);
+                                break;
+                }
+
+
 
                 //color picker
-                Inpedina1.setValue(pedIn1);
-                Conpedina1.setValue(pedOut1);
-                Inpedina2.setValue(pedIn2);
-                Conpedina2.setValue(pedOut2);
-                Ctavolo.setValue(table);
-                Ccornice.setValue(frame);
-                Cpunte.setValue(point);
-                Cpunte2.setValue(point2);
+                Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
+                Conpedina1.setValue(Color.web(logic.getWhitePawnStroke()));
+                Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
+                Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
+                Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
+                Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
+                Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
+                Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
 
                 //Oggetti
                 pedina1.setFill(Inpedina1.getValue());
@@ -860,32 +853,18 @@ public class MenuImpostazioni  {
                 punta3.setStroke(Cpunte.getValue());
 
                 //musica
-                        checkMusi.setSelected(mu);
-                        checkMES.setSelected(mue);
-                        SliderMusi.setValue(View.sceneMusica.player.getVolume() * 100);
-                        SliderMusi.setValue(View.sceneMusica.playerp.getVolume() * 100);
-                        SliderES.setValue(View.sceneMusica.Pawn.getVolume() * 100);
-                        SliderMusi.valueProperty().addListener(new InvalidationListener() {
-                                @Override
-                                public void invalidated(Observable observable) {
-                                        View.sceneMusica.player.setVolume(SliderMusi.getValue()/100);
-                                        View.sceneMusica.playerp.setVolume(SliderMusi.getValue()/100);
-                                }
+                        checkMusi.setSelected(logic.getMuteMusic());
+                        checkMES.setSelected(logic.getMuteSFX());
+                        SliderMusi.setValue(logic.getMusicVolume());
+                        SliderMusi.setValue(logic.getMusicVolume());
+                        SliderES.setValue(logic.getSFXVolume());
+                        SliderMusi.valueProperty().addListener(observable -> {
+                                View.sceneMusica.player.setVolume(SliderMusi.getValue()/100);
+                                View.sceneMusica.playerp.setVolume(SliderMusi.getValue()/100);
                         });
-                        SliderES.valueProperty().addListener(new InvalidationListener() {
-                                @Override
-                                public void invalidated(Observable observable) {
-                                        View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100);
-                                }
-                        });
+                        SliderES.valueProperty().addListener(observable -> View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100));
 
-                //schermo intero
-
-                        checkSI.setSelected(cb);
-                        getStage().setFullScreen(cb);
-                        checkBR.setSelected(sr);
-                        getStage().setResizable(sr);
-
+                //TODO CONTROLLARE CHE IL PROGRAMMA ENTRI CORRETTAMENTE IN FULLSCREEN O NO
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -895,6 +874,7 @@ public class MenuImpostazioni  {
                 GBG.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
                 openEditVideo();
+
 
         }
 

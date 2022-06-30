@@ -1,7 +1,6 @@
 package jmb.view;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,20 +8,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
-import jmb.model.Logic;
 import jmb.model.Player;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
-import static jmb.App.getStage;
+import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.cb;
 import static jmb.view.View.logic;
 
@@ -65,7 +59,7 @@ public class LeaderboardView {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        jmb.App.MainMenu();
+        App.MainMenu();
         getStage().setFullScreen(cb);
     }
 

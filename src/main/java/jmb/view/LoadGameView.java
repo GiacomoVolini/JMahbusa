@@ -5,15 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.PixelFormat;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
-import jmb.model.SaveGameReader;
 
-import static jmb.App.getStage;
+import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -211,14 +207,14 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        jmb.App.MainMenu();
+        App.MainMenu();
         getStage().setFullScreen(cb);
     }
 
     @FXML
     void loadGame(ActionEvent event) {
         logic.setUpSavedGame(saveName);
-        jmb.App.board();
+        App.board();
         getStage().setFullScreen(cb);
 
     }

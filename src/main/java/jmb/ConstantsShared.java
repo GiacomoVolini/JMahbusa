@@ -19,8 +19,8 @@ public class ConstantsShared {
     public static final int EMPTY = 0;
     public static final int WHITE = 1;
     public static final int BLACK = 2;
-    public static final int selectedWHITE = 3;
-    public static final int selectedBLACK = 4;
+    public static final int SELECTED_WHITE = 3;
+    public static final int SELECTED_BLACK = 4;
 
     //  Costanti per i metodi di confronto nomi giocatori
     public static final int DECIDING = 0;
@@ -48,4 +48,10 @@ public class ConstantsShared {
     public static final int TOURNAMENT_POINTS = 3;
     public static final int WHITE_WON_POINTS = 4;
     public static final int BLACK_WON_POINTS = 5;
+
+    //Costanti per il valore di boardPreset delle impostazioni
+    public static final int CUSTOM_BOARD = 0;
+    public static final int LEFT_PRESET = 1;
+    public static final int RIGHT_PRESET = 2;
+
 }

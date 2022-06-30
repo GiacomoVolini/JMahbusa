@@ -5,17 +5,36 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import static jmb.view.View.logic;
 
+import java.net.URISyntaxException;
 import java.util.Random;
 
 public class DiceView {
 
     private static Random rnd = new Random();
-    private static Image[] diceImgs = {new Image("/jmb/view/diceImg/Dado1.png"), new Image("/jmb/view/diceImg/Dado2.png"),
-                        new Image("/jmb/view/diceImg/Dado3.png"), new Image("/jmb/view/diceImg/Dado4.png"),
-                        new Image("/jmb/view/diceImg/Dado5.png"), new Image("/jmb/view/diceImg/Dado6.png")};
-    private static Image[] invDiceImgs = {new Image("/jmb/view/diceImg/Dado1INV.png"), new Image("/jmb/view/diceImg/Dado2INV.png"),
-                           new Image("/jmb/view/diceImg/Dado3INV.png"), new Image("/jmb/view/diceImg/Dado4INV.png"),
-                           new Image("/jmb/view/diceImg/Dado5INV.png"), new Image("/jmb/view/diceImg/Dado6INV.png")};
+    private static Image[] diceImgs;
+
+    static {
+        try {
+            diceImgs = new Image[]{new Image(DiceView.class.getResource("diceImg/Dado1.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado2.png").toURI().toString()),
+                    new Image(DiceView.class.getResource("diceImg/Dado3.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado4.png").toURI().toString()),
+                    new Image(DiceView.class.getResource("diceImg/Dado5.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado6.png").toURI().toString())};
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static Image[] invDiceImgs;
+
+    static {
+        try {
+            invDiceImgs = new Image[]{new Image(DiceView.class.getResource("diceImg/Dado1INV.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado2INV.png").toURI().toString()),
+                    new Image(DiceView.class.getResource("diceImg/Dado3INV.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado4INV.png").toURI().toString()),
+                    new Image(DiceView.class.getResource("diceImg/Dado5INV.png").toURI().toString()), new Image(DiceView.class.getResource("diceImg/Dado6INV.png").toURI().toString())};
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
     private static ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
 

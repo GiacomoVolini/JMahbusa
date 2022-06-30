@@ -19,7 +19,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import static java.lang.Math.*;
-import static jmb.App.getStage;
+import static jmb.view.App.getStage;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -175,20 +175,20 @@ public class BoardView extends GameBoard {
         i=0;
         for (int i=0; i<polArrayTop.length;i++){
             if((i%2)==0){
-                this.polArrayTop[i].setFill(point);
-                this.polArrayTop[i].setStroke(point);
+                this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
+                this.polArrayTop[i].setStroke(Color.web(logic.getEvenPointsColor()));
             }else{
-                this.polArrayTop[i].setFill(point2);
-                this.polArrayTop[i].setStroke(point2);
+                this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
+                this.polArrayTop[i].setStroke(Color.web(logic.getOddPointsColor()));
             }
         }
         for (int i=0; i<polArrayTop.length;i++){
             if((i%2)==0){
-                this.polArrayBot[i].setFill(point2);
-                this.polArrayBot[i].setStroke(point2);
+                this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
+                this.polArrayBot[i].setStroke(Color.web(logic.getOddPointsColor()));
             }else{
-                this.polArrayBot[i].setFill(point);
-                this.polArrayBot[i].setStroke(point);
+                this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
+                this.polArrayBot[i].setStroke(Color.web(logic.getEvenPointsColor()));
             }
         }
 
@@ -196,12 +196,12 @@ public class BoardView extends GameBoard {
 
     @FXML
     protected void openBlackExit() {
-        jmb.App.getStage().setResizable(false);
+        App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                                 new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    jmb.App.getStage().setResizable(true);
+                    App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
                 )
@@ -253,12 +253,12 @@ public class BoardView extends GameBoard {
     @FXML
     protected void openWhiteExit() {
 
-        jmb.App.getStage().setResizable(false);
+        App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    jmb.App.getStage().setResizable(true);
+                    App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
                 )
@@ -284,7 +284,7 @@ public class BoardView extends GameBoard {
 
     @FXML
     void vaialMainMenu(){
-            jmb.App.MainMenu();
+            App.MainMenu();
             getStage().setFullScreen(cb);
         
         View.sceneMusica.playerp.stop();
@@ -340,7 +340,7 @@ public class BoardView extends GameBoard {
 
     protected void openDoubleDice() {
         if (!diceArray[2].isVisible()) {
-            jmb.App.getStage().setResizable(false);
+            App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
                     new KeyFrame(Duration.ZERO,
                             e -> {
@@ -351,7 +351,7 @@ public class BoardView extends GameBoard {
                             new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
                             ),
                     new KeyFrame(Duration.seconds(0.5),
-                            e -> jmb.App.getStage().setResizable(true),
+                            e -> App.getStage().setResizable(true),
                             new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
                             new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
                     )
@@ -363,7 +363,7 @@ public class BoardView extends GameBoard {
 
     protected void closeDoubleDice() {
         if (diceArray[2].isVisible()) {
-            jmb.App.getStage().setResizable(false);
+            App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
@@ -371,7 +371,7 @@ public class BoardView extends GameBoard {
                     ),
                     new KeyFrame(Duration.seconds(0.5),
                             e -> {
-                                jmb.App.getStage().setResizable(true);
+                                App.getStage().setResizable(true);
                                 diceArray[2].setVisible(false);
                                 diceArray[3].setVisible(false);
                             },
@@ -385,12 +385,12 @@ public class BoardView extends GameBoard {
     }
 
     private void diceTrayAnim() {
-        jmb.App.getStage().setResizable(false);
+        App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
                 new KeyFrame(Duration.seconds(1), e-> {
                     this.dtAnimDone = true;
-                    jmb.App.getStage().setResizable(true);
+                    App.getStage().setResizable(true);
                     BoardViewRedraw.resizeDice(this);
                     logic.firstTurn();
                 }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
@@ -538,7 +538,7 @@ public class BoardView extends GameBoard {
     private void gameOver() {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
-            jmb.App.MainMenu();
+            App.MainMenu();
             if (cb == fullscreen) {
                 getStage().setFullScreen(true);
             } else {
@@ -571,7 +571,7 @@ public class BoardView extends GameBoard {
             pawn.setFill(pedIn2);
             pawn.setStroke(pedOut2);
         }
-        pawn.setStrokeWidth(2);
+        pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
         return pawn;
 
@@ -675,12 +675,12 @@ public class BoardView extends GameBoard {
     }
 
     protected void closeBlackExit() {
-        jmb.App.getStage().setResizable(false);
+        App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    jmb.App.getStage().setResizable(true);
+                    App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
                 )
@@ -691,12 +691,12 @@ public class BoardView extends GameBoard {
 
     protected void closeWhiteExit() {
 
-        jmb.App.getStage().setResizable(false);
+        App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    jmb.App.getStage().setResizable(true);
+                    App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
                 )
@@ -709,6 +709,7 @@ public class BoardView extends GameBoard {
     String s="";
     String L="";
     String selez="";
+    boolean selected = false;
     int col;
 
     //seleziona l'arrey
@@ -716,7 +717,7 @@ public class BoardView extends GameBoard {
         int col = 1;
         for (int i = 0; i < 12; i++) {
             if (polArrayTop[i].getFill().equals(Paint.valueOf("#fffb00"))) {
-                col = i;
+                col = i + 1;
             } else if (polArrayBot[i].getFill().equals(Paint.valueOf("#fffb00"))) {
                 col = (24-i);
             }
@@ -727,17 +728,17 @@ public class BoardView extends GameBoard {
 
     @FXML
     void comandaLAtastiera(KeyEvent event) {
-        if(event.getCode().toString().equals(main_menu)){
+        if(event.getCode().toString().equals(logic.getOpenMenu())){
             openExitoption();
         }
             //spostamenti per il bianco
          //****************************************************** bianco destra
-        if(event.getCode().toString().equals(moveTO_right) && (logic.getWhichTurn() || s.equals(moveTO_up)) && !s.equals(moveTO_down) && i>=0 && i <= 11){
-            if(L.equals(moveTO_left) && i<10){
-                L=moveTO_right;
+        if(event.getCode().toString().equals(logic.getMoveRight()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && !s.equals(moveTO_down) && i>=0 && i <= 11){
+            if(L.equals(logic.getMoveLeft()) && i<10){
+                L=logic.getMoveRight();
                 i+=2;
-            } else if(L.equals(moveTO_left) && i==10){
-                L=moveTO_left;
+            } else if(L.equals(logic.getMoveLeft()) && i==10){
+                L=logic.getMoveLeft();
                 i=0;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
@@ -746,30 +747,30 @@ public class BoardView extends GameBoard {
                     if ((j)%2 == 0){
                         polArrayTop[j].setFill(point);
                     }else {
-                        polArrayTop[j].setFill(point2);
+                        polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
                     }
                 }
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))) {
+        } else if(i==12 && event.getCode().toString().equals(logic.getMoveDown()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
             i=1;
             polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[11].setFill(point2);
-        } else if( i==-1 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
+            polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
+        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=2;
             polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-            L=moveTO_right;
+            L=logic.getMoveRight();
         }
 
         // BIANCO sinistra
-        if(event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up)) && i>=0 && i <= 11){
-            if(L.equals(moveTO_right) && i>1){
-                L=moveTO_left;
+        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && i>=0 && i <= 11){
+            if(L.equals(logic.getMoveRight()) && i>1){
+                L=logic.getMoveLeft();
                 i-=2;
-            } else if(L.equals(moveTO_right) && i==1){
-                L=moveTO_left;
+            } else if(L.equals(logic.getMoveRight()) && i==1){
+                L=logic.getMoveLeft();
                 i=11;
             }
             polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
@@ -778,51 +779,51 @@ public class BoardView extends GameBoard {
                     if ((j)%2 == 0){
                         polArrayTop[j].setFill(point);
                     }else {
-                        polArrayTop[j].setFill(point2);
+                        polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
                     }
                 }
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))) {
+        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
             i=10;
             polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-        } else if( i==12 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
+        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=9;
             polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[11].setFill(point2);
-            L=moveTO_left;
+            polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
+            L=logic.getMoveLeft();
         }
 
         // da sopra a sotto
-        if(event.getCode().toString().equals(moveTO_down) && (logic.getWhichTurn() || s.equals(moveTO_up))){
+        if(event.getCode().toString().equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             s =moveTO_down;
-            if(L.equals(moveTO_right)){
+            if(L.equals(logic.getMoveRight())){
                 polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals(moveTO_left)){
+            }else if(L.equals(logic.getMoveLeft())){
                 polArrayBot[i+1].setFill(Paint.valueOf("#fffb00"));
             }
             for (int i=0; i<polArrayTop.length;i++){
                 if((i%2)==0){
                     this.polArrayTop[i].setFill(point);
                 }else{
-                    this.polArrayTop[i].setFill(point2);
+                    this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
                 }
             }
         }
 
         // da sotto a sopra
-        if(event.getCode().toString().equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
-            s =moveTO_up;
-            if(L.equals(moveTO_right)){
+        if(event.getCode().toString().equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+            s =logic.getMoveUp();
+            if(L.equals(logic.getMoveRight())){
                 polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals(moveTO_left)){
+            }else if(L.equals(logic.getMoveLeft())){
                 polArrayTop[i+1].setFill(Paint.valueOf("#fffb00"));
             }
             for (int i=0; i<polArrayTop.length;i++){
                 if((i%2)==0){
-                    this.polArrayBot[i].setFill(point2);
+                    this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
                 }else{
                     this.polArrayBot[i].setFill(point);
                 }
@@ -831,19 +832,19 @@ public class BoardView extends GameBoard {
 
             //spostamento per il nero
         //******************************************************* nero destra
-        if(event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
-            if(L.equals(moveTO_left) && i<10){
-                L=moveTO_right;
+        if(event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+            if(L.equals(logic.getMoveLeft()) && i<10){
+                L=logic.getMoveRight();
                 i+=2;
-            } else if(L.equals(moveTO_left) && i==10){
-                L=moveTO_left;
+            } else if(L.equals(logic.getMoveLeft()) && i==10){
+                L=logic.getMoveLeft();
                 i=0;
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
                 if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
-                        polArrayBot[j].setFill(point2);
+                        polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
                     }else {
                         polArrayBot[j].setFill(point);
                     }
@@ -851,31 +852,31 @@ public class BoardView extends GameBoard {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
+        } else if(i==12 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
             i=1;
             polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-        } else if( i==-1 && event.getCode().toString().equals(moveTO_right) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
             i=2;
             polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[0].setFill(point2);
-            L=moveTO_right;
+            polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
+            L=logic.getMoveRight();
         }
 
         // nero sinistra
-        if(event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
-            if(L.equals(moveTO_right) && i>1){
-                L=moveTO_left;
+        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+            if(L.equals(logic.getMoveRight()) && i>1){
+                L=logic.getMoveLeft();
                 i-=2;
-            } else if(L.equals(moveTO_right) && i==1){
-                L=moveTO_left;
+            } else if(L.equals(logic.getMoveRight()) && i==1){
+                L=logic.getMoveLeft();
                 i=11;
             }
             polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
             for(int j=0; j<12;j++){
                 if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
-                        polArrayBot[j].setFill(point2);
+                        polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
                     }else {
                         polArrayBot[j].setFill(point);
                     }
@@ -883,38 +884,50 @@ public class BoardView extends GameBoard {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
+        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
            i=10;
            polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
-           polArrayBot[0].setFill(point2);
-        } else if( i==12 && event.getCode().toString().equals(moveTO_left) && !s.equals(moveTO_up) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+           polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
+        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
             i=9;
             polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-            L=moveTO_left;
+            L=logic.getMoveLeft();
         }
 
         //SELEZIONARE LA PEDINA
 
-        if(event.getCode().toString().equals(select)){
+        if(event.getCode().toString().equals(logic.getSelect()) && !selected){
             col = trovaColonna();
             System.out.println(logic.searchTopOccupiedRow(col));
             System.out.println(col);
             if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
                 logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+                selected = true;
             }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
                 logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+                selected = true;
             }
+            logic.createMoveBuffer(col);
+            logic.printMatrix();
+            BoardViewRedraw.redrawPawns(this);
+
 
         }
 
         // confermare e muovere la pedina
-        if(event.getCode().toString().equals(confirm) && selez.equals(select) && !select.equals(confirm)){
+        if(event.getCode().toString().equals(logic.getConfirm()) && selected){
             int col2 = trovaColonna();
-            // logic.deselect
-            logic.movePawn( col, logic.searchTopOccupiedRow(col), logic.searchTopOccupiedRow(col2), col2);
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
+            logic.placePawnOnPoint(col2);
+            logic.printMatrix();
+            BoardViewRedraw.redrawPawns(this);
+            selected = false;
         }
         System.out.println(event.getCode().toString() + i + col);
+        System.out.println(event.getCode().toString() + logic.getSelect());
+        System.out.println(event.getCode().toString().equals(logic.getSelect()));
+        System.out.println("selected = " + selected);
 
     }
 
@@ -925,104 +938,109 @@ public class BoardView extends GameBoard {
 
     public void initialize() {
 
-        this.boardAnchor = window;
-        addChildrenToAnchor();
-        BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
-        BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
-        for (int i = 0; i<15; i++) {
-            pawnArrayWHT[i].setOnMouseDragged(this::drag);
-            pawnArrayWHT[i].setOnMousePressed(this::savePosition);
-            pawnArrayWHT[i].setOnMouseReleased(this::releasePawn);
-            pawnArrayBLK[i].setOnMouseDragged(this::drag);
-            pawnArrayBLK[i].setOnMousePressed(this::savePosition);
-            pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
+        try {
+
+            this.boardAnchor = window;
+            addChildrenToAnchor();
+            BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+            BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+            for (int i = 0; i < 15; i++) {
+                pawnArrayWHT[i].setOnMouseDragged(this::drag);
+                pawnArrayWHT[i].setOnMousePressed(this::savePosition);
+                pawnArrayWHT[i].setOnMouseReleased(this::releasePawn);
+                pawnArrayBLK[i].setOnMouseDragged(this::drag);
+                pawnArrayBLK[i].setOnMousePressed(this::savePosition);
+                pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
+            }
+            timerIn.setViewOrder(-3);
+            timerOut.setViewOrder(-2);
+
+            //musica
+            if (mu) {
+                View.sceneMusica.playerp.pause();
+            } else {
+                View.sceneMusica.playerp.play();
+            }
+
+            window.getStylesheets().add(this.getClass().getResource("style.css").toURI().toString());
+
+            //informazione del giocatore
+            //nomi
+            plWHTText.setText(logic.getWhitePlayer().stripTrailing());
+            plBLKText.setText(logic.getBlackPlayer().stripTrailing());
+            //colori
+            plWHTPawn.setFill(pedIn1);
+            plWHTPawn.setStroke(pedOut1);
+            plBLKPawn.setFill(pedIn2);
+            plBLKPawn.setStroke(pedOut2);
+            diceTray.setFill(table);
+            //turni
+            plBLKOutRect.setFill(Color.GRAY);
+            plWHTOutRect.setFill(Color.GRAY);
+
+            if (turn_duration == 0) {
+                timerIn.setVisible(false);
+                timerOut.setVisible(false);
+            }
+
+            //  INIZIALIZZAZIONE ARRAY
+            this.diceArray = new ImageView[]{this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
+
+            //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
+            //  del tabellone
+            startDialogue.setViewOrder(-4);
+            pauseMenu.setViewOrder(-4);
+
+
+            if (turn_duration != 0) {
+                //Inizializzo il timer del turno
+                turnTimer = new Timeline(
+                        new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                        new KeyFrame(Duration.seconds(turn_duration), e -> {
+                            logic.completeMoves();
+                            nextTurn(null);
+                        }, new KeyValue(timerIn.scaleYProperty(), 0))
+                );
+            }
+
+            tournamentCup = new ImageView(new Image(this.getClass().getResource("TournamentCup.png").toURI().toString()));
+            tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
+            tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
+            tournamentPointsToWin = new Label(String.valueOf(logic.getTournamentPointsToWin()));
+            tournamentWhitePoints.setAlignment(Pos.CENTER);
+            tournamentBlackPoints.setAlignment(Pos.CENTER);
+            tournamentPointsToWin.setAlignment(Pos.CENTER);
+            tournamentPointsToWin.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+            tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+            tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+            window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
+            tournamentWhitePoints.setTextFill(pedOut1);
+            tournamentBlackPoints.setTextFill(pedOut2);
+            tournamentCup.setBlendMode(BlendMode.DARKEN);
+
+            if (logic.isTournamentOngoing()) {
+                tournamentWhitePoints.setVisible(true);
+                tournamentBlackPoints.setVisible(true);
+                tournamentPointsToWin.setVisible(true);
+                tournamentCup.setVisible(true);
+            } else {
+                tournamentWhitePoints.setVisible(false);
+                tournamentBlackPoints.setVisible(false);
+                tournamentPointsToWin.setVisible(false);
+                tournamentCup.setVisible(false);
+            }
+
+
+            //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+            window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+
+            //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+            window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        timerIn.setViewOrder(-3);
-        timerOut.setViewOrder(-2);
-
-        //musica
-        if(mu) {
-            View.sceneMusica.playerp.pause();
-        } else {
-            View.sceneMusica.playerp.play();
-        }
-
-        window.getStylesheets().add("/jmb/view/style.css");
-
-        //informazione del giocatore
-        //nomi
-        plWHTText.setText(logic.getWhitePlayer().stripTrailing());
-        plBLKText.setText(logic.getBlackPlayer().stripTrailing());
-        //colori
-        plWHTPawn.setFill(pedIn1);
-        plWHTPawn.setStroke(pedOut1);
-        plBLKPawn.setFill(pedIn2);
-        plBLKPawn.setStroke(pedOut2);
-        diceTray.setFill(table);
-        //turni
-        plBLKOutRect.setFill(Color.GRAY);
-        plWHTOutRect.setFill(Color.GRAY);
-
-        if (turn_duration==0) {
-            timerIn.setVisible(false);
-            timerOut.setVisible(false);
-        }
-
-        //  INIZIALIZZAZIONE ARRAY
-        this.diceArray = new ImageView[]        { this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
-
-        //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
-        //  del tabellone
-        startDialogue.setViewOrder(-4);
-        pauseMenu.setViewOrder(-4);
-
-
-        if(turn_duration != 0) {
-            //Inizializzo il timer del turno
-            turnTimer = new Timeline(
-                    new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                    new KeyFrame(Duration.seconds(turn_duration), e -> {
-                        logic.completeMoves();
-                        nextTurn(null);
-                    }, new KeyValue(timerIn.scaleYProperty(), 0))
-            );
-        }
-
-        tournamentCup = new ImageView(new Image("/jmb/view/TournamentCup.png"));
-        tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
-        tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
-        tournamentPointsToWin = new Label (String.valueOf(logic.getTournamentPointsToWin()));
-        tournamentWhitePoints.setAlignment(Pos.CENTER);
-        tournamentBlackPoints.setAlignment(Pos.CENTER);
-        tournamentPointsToWin.setAlignment(Pos.CENTER);
-        tournamentPointsToWin.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-        tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-        tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-        window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
-        tournamentWhitePoints.setTextFill(pedOut1);
-        tournamentBlackPoints.setTextFill(pedOut2);
-        tournamentCup.setBlendMode(BlendMode.DARKEN);
-
-        if (logic.isTournamentOngoing()){
-            tournamentWhitePoints.setVisible(true);
-            tournamentBlackPoints.setVisible(true);
-            tournamentPointsToWin.setVisible(true);
-            tournamentCup.setVisible(true);
-        } else  {
-            tournamentWhitePoints.setVisible(false);
-            tournamentBlackPoints.setVisible(false);
-            tournamentPointsToWin.setVisible(false);
-            tournamentCup.setVisible(false);
-        }
-
-
-        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-
-        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
     }
 }
 

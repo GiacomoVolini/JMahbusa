@@ -61,6 +61,11 @@ public class ConstantsView {
     public static double MIN_PAWN_SIZE = 11.741538461538463;
 
     public static final ColorAdjust LOW_CONTRAST = new ColorAdjust(0,0,0,-0.5);
+    public static final double SELECTED_PAWN_SCALE = 1.2;
+    public static final double NORMAL_PAWN_SCALE = 1;
+    public static final double NORMAL_PAWN_STROKE_WIDTH= 2;
+    public static final double SELECTED_PAWN_STROKE_WIDTH = 4;
+    public static final double MOVABLE_PAWN_STROKE_WIDTH = 3.5;
 
 
     private ConstantsView() {

@@ -10,10 +10,6 @@ public interface IView {
 
     void rollDice();
 
-    void openDoubleDice();
-
-    void closeDoubleDice();
-
     void setDiceContrast();
 
     void setPawnsForTurn();
@@ -28,7 +24,4 @@ public interface IView {
 
     void playmusica();
 
-    double getTurnDuration();
-
-    double getTimeRemaining();
 }

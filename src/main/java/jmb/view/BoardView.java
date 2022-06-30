@@ -911,6 +911,7 @@ public class BoardView extends GameBoard {
         // confermare e muovere la pedina
         if(event.getCode().toString().equals(confirm) && selez.equals(select) && !select.equals(confirm)){
             int col2 = trovaColonna();
+            // logic.deselect
             logic.movePawn( col, logic.searchTopOccupiedRow(col), logic.searchTopOccupiedRow(col2), col2);
         }
         System.out.println(event.getCode().toString() + i + col);

@@ -265,8 +265,9 @@ public class Logic implements ILogic{
     public void thePawnColor(int whichPoint, int whichRow){board.thePawnColor( whichPoint, whichRow);}
 
     @Override
-    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
+    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         return logic.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    }
     @Override
     public int[][] getSaveMatrix(String saveName) {return this.readSaveGame(saveName).getSquareMatrix();}
 

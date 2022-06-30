@@ -11,6 +11,9 @@ public final class ConstantsLogic {
     public static final boolean WHITE_TURN = true;
     public static final boolean BLACK_TURN = false;
 
+    public static final int SELECTED = 2;
+    public static final int DESELECTED = -2;
+
 
     private ConstantsLogic() {
         throw new AssertionError() ;

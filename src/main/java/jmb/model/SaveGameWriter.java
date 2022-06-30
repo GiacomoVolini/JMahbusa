@@ -3,7 +3,7 @@ package jmb.model;
 
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
-import  org.json.*;
+import org.json.*;
 
 import java.io.File;
 import java.io.FileWriter;

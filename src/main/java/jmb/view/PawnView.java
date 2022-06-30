@@ -31,4 +31,9 @@ public class PawnView extends Circle {
         return new Point2D(getPawnCenterX(), getPawnCenterY());
     }
 
+    protected void setPawnScale (double scale) {
+        this.setScaleY(scale);
+        this.setScaleX(scale);
+    }
+
 }

@@ -15,12 +15,10 @@ import static jmb.ConstantsShared.*;
 public class Logic implements ILogic{
 
     public static IView view;
-
     public static BoardLogic board;
-
     public static LeaderboardLogic ldb;
-
     public static DiceLogic dice;
+    public static SettingsLogic settings;
 
     @Override
     public void initializeBoardLogic() {
@@ -265,8 +263,9 @@ public class Logic implements ILogic{
     public void thePawnColor(int whichPoint, int whichRow){board.thePawnColor( whichPoint, whichRow);}
 
     @Override
-    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
-        return logic.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
+        return board.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    }
     @Override
     public int[][] getSaveMatrix(String saveName) {return this.readSaveGame(saveName).getSquareMatrix();}
 
@@ -301,5 +300,251 @@ public class Logic implements ILogic{
             - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
             - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
          */
+    }
+
+    @Override
+    public void deselectPawn(int col, int row) {
+        board.deselectPawn(col, row);
+    }
+    @Override
+    public void printMatrix() {
+        for (int col = COL_BLACK_EXIT; col<=COL_WHITE_EXIT; col++) {
+            for (int row = 0; row <=15; row++)
+                System.out.print(getBoardMatrix()[row][col]);
+            System.out.println();
+        }
+    }
+    @Override
+    public void resetDefaultSettings() {
+        settings.resetDefaultSettings();
+    }
+    @Override
+    public void applySettingsChanges() {
+        settings.applySettingsChanges();
+    }
+    @Override
+    public void revertSettingsChanges(){
+        settings.revertSettingsChanges();
+    }
+    @Override
+    public void initializeSettingsLogic() {
+        settings = new SettingsLogic();
+    }
+
+    //------------------------------
+    //GETTER E SETTER DELLE IMPOSTAZIONI
+    //------------------------------
+
+    @Override
+    public void setFullScreen(boolean value){
+        settings.setFullScreen(value);
+    }
+    @Override
+    public boolean getFullScreen() {
+        return settings.getFullScreen();
+    }
+    @Override
+    public void setLockResolution (boolean value){
+        settings.setLockResolution(value);
+    }
+    @Override
+    public boolean getLockResolution (){
+        return settings.getLockResolution();
+    }
+    @Override
+    public void setResolutionHeight (int value){
+        settings.setResolutionHeight(value);
+    }
+    @Override
+    public int getResolutionHeight (){
+        return settings.getResolutionHeight();
+    }
+    @Override
+    public void setResolutionWidth (int value){
+        settings.setResolutionWidth(value);
+    }
+    @Override
+    public int getResolutionWidth (){
+        return settings.getResolutionWidth();
+    }
+    @Override
+    public void setMusicVolume (int value){
+        settings.setMusicVolume(value);
+    }
+    @Override
+    public int getMusicVolume (){
+        return settings.getMusicVolume();
+    }
+    @Override
+    public void setSFXVolume (int value){
+        settings.setMusicVolume(value);
+    }
+    @Override
+    public int getSFXVolume (){
+        return settings.getSoundFXVolume();
+    }
+    @Override
+    public void setMuteMusic (boolean value){
+        settings.setMuteMusic(value);
+    }
+    @Override
+    public boolean getMuteMusic (){
+        return settings.getMuteMusic();
+    }
+    @Override
+    public void setMuteSFX (boolean value){
+        settings.setMuteSFX(value);
+    }
+    @Override
+    public boolean getMuteSFX (){
+        return settings.getMuteSFX();
+    }
+    @Override
+    public void setBoardPreset (int value){
+        settings.setBoardPreset(value);
+    }
+    @Override
+    public int getBoardPreset (){
+        return settings.getBoardPreset();
+    }
+    @Override
+    public void setWhitePawnStroke (String value){
+        settings.setWhitePawnStroke(value);
+    }
+    @Override
+    public String getWhitePawnStroke (){
+        return settings.getWhitePawnStroke();
+    }
+    @Override
+    public void setWhitePawnFill (String value){
+        settings.setWhitePawnFill(value);
+    }
+    @Override
+    public String getWhitePawnFill (){
+        return settings.getWhitePawnFill();
+    }
+    @Override
+    public void setBlackPawnStroke (String value){
+        settings.setBlackPawnStroke(value);
+    }
+    @Override
+    public String getBlackPawnStroke (){
+        return settings.getBlackPawnStroke();
+    }
+    @Override
+    public void setBlackPawnFill (String value){
+        settings.setBlackPawnFill(value);
+    }
+    @Override
+    public String getBlackPawnFill (){
+        return settings.getBlackPawnFill();
+    }
+    @Override
+    public void setBoardFrameColor (String value){
+        settings.setBoardFrameColor(value);
+    }
+    @Override
+    public String getBoardFrameColor (){
+        return settings.getBoardFrameColor();
+    }
+    @Override
+    public void setBoardInnerColor (String value)  {
+        settings.setBoardInnerColor(value);
+    }
+    @Override
+    public String getBoardInnerColor (){
+        return settings.getBoardInnerColor();
+    }
+    @Override
+    public void setEvenPointsColor (String value){
+        settings.setEvenPointsColor(value);
+    }
+    @Override
+    public String getEvenPointsColor (){
+        return settings.getEvenPointsColor();
+    }
+    @Override
+    public void setOddPointsColor (String value){
+        settings.setOddPointsColor(value);
+    }
+    @Override
+    public String getOddPointsColor (){
+        return settings.getOddPointsColor();
+    }
+    @Override
+    public void setMoveRight (String value){
+        settings.setMoveRight(value);
+    }
+    @Override
+    public String getMoveRight (){
+        return settings.getMoveRight();
+    }
+    @Override
+    public void setMoveLeft (String value){
+        settings.setMoveLeft(value);
+    }
+    @Override
+    public String getMoveLeft (){
+        return settings.getMoveLeft();
+    }
+    @Override
+    public void setMoveUp (String value){
+        settings.setMoveUp(value);
+    }
+    @Override
+    public String getMoveUp (){
+        return settings.getMoveUp();
+    }
+    @Override
+    public void setMoveDown (String value){
+        settings.setMoveDown(value);
+    }
+    @Override
+    public String getMoveDown (){
+        return settings.getMoveDown();
+    }
+    @Override
+    public void setSelect (String value){
+        settings.setSelect(value);
+    }
+    @Override
+    public String getSelect (){
+        return settings.getSelect();
+    }
+    @Override
+    public void setConfirm (String value){
+        settings.setConfirm(value);
+    }
+    @Override
+    public String getConfirm (){
+        return settings.getConfirm();
+    }
+    @Override
+    public void setRevertMove (String value) {
+        settings.setRevertMove(value);
+    }
+    @Override
+    public String getRevertMove (){
+        return settings.getRevertMove();
+    }
+    @Override
+    public void setFinishTurn (String value){
+        settings.setFinishTurn(value);
+    }
+    @Override
+    public String getFinishTurn (){
+        return settings.getFinishTurn();
+    }
+    @Override
+    public void setOpenMenu (String value){
+        settings.setOpenMenu(value);
+    }
+    @Override
+    public String getOpenMenu (){
+        return settings.getOpenMenu();
+    }
+    @Override
+    public boolean getBypassDice (){
+        return settings.getBypassDice();
     }
 }

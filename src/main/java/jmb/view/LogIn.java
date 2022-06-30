@@ -10,7 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-import static jmb.App.getStage;
+import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -108,7 +108,7 @@ public class LogIn {
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue(), tournamentSpinner.getValue().intValue());
                     else
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
-                    jmb.App.board();
+                    App.board();
                     getStage().setFullScreen(cb);
                     break;
                 case SAME_NAME_ERROR:
@@ -133,7 +133,7 @@ public class LogIn {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        jmb.App.MainMenu();
+        App.MainMenu();
         getStage().setFullScreen(cb);
     }
 

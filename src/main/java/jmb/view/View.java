@@ -1,13 +1,6 @@
 package jmb.view;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import jmb.App;
 import jmb.model.ILogic;
-
-import static jmb.ConstantsShared.*;
-
-import java.io.IOException;
 
 public class View implements IView {
 
@@ -43,16 +36,6 @@ public class View implements IView {
     }
 
     @Override
-    public void openDoubleDice() {
-        sceneBoard.openDoubleDice();
-    }
-
-    @Override
-    public void closeDoubleDice() {
-        sceneBoard.closeDoubleDice();
-    }
-
-    @Override
     public void setDiceContrast() {
         DiceView.setDiceContrast(sceneBoard.diceArray);
     }
@@ -85,13 +68,4 @@ public class View implements IView {
     @Override
     public void playmusica() {sceneMusica.Pawn.play();}
 
-    @Override
-    public double getTurnDuration() {
-        return ConstantsView.turn_duration;
-    }
-
-    @Override
-    public double getTimeRemaining() {
-        return sceneBoard.timerIn.getScaleY() * logic.getTurnDuration();
-    }
 }

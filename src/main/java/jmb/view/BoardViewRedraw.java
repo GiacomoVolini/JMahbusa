@@ -14,7 +14,6 @@ import javafx.scene.text.FontWeight;
 
 public class BoardViewRedraw extends GameBoardRedraw {
 
-    //TODO colorare la pedina selezionata
 
     //  L'altezza massima che il tabellone può occupare rispetto alla finestra
 
@@ -115,15 +114,35 @@ public class BoardViewRedraw extends GameBoardRedraw {
         int blacksPlaced = 0;
         for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
             for (int row = 0; row < 16 && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER) && matrix[row][col] != EMPTY; row++) {
-                if (matrix[row][col] == WHITE) {
-                    placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
-                    highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
-                    whitesPlaced++;
+                switch (matrix[row][col]) {
+                    case WHITE: case SELECTED_WHITE:
+                        placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
+                        highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
+                        break;
+                    case BLACK: case SELECTED_BLACK:
+                        placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
+                        highlightMovablePawn(board.pawnArrayBLK, blacksPlaced, col, row);
+                        break;
                 }
-                if (matrix[row][col] == BLACK) {
-                    placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
-                    highlightMovablePawn(board.pawnArrayBLK, blacksPlaced, col, row);
-                    blacksPlaced++;
+                switch (matrix[row][col]) {
+                    case WHITE:
+                        board.pawnArrayWHT[whitesPlaced].setPawnScale(NORMAL_PAWN_SCALE);
+                        whitesPlaced++;
+                        break;
+                    case BLACK:
+                        board.pawnArrayBLK[blacksPlaced].setPawnScale(NORMAL_PAWN_SCALE);
+                        blacksPlaced++;
+                        break;
+                    case SELECTED_WHITE:
+                        board.pawnArrayWHT[whitesPlaced].setPawnScale(SELECTED_PAWN_SCALE);
+                        board.pawnArrayWHT[whitesPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
+                        whitesPlaced++;
+                        break;
+                    case SELECTED_BLACK:
+                        board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
+                        board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
+                        blacksPlaced++;
+                        break;
                 }
             }
         }
@@ -133,11 +152,11 @@ public class BoardViewRedraw extends GameBoardRedraw {
         if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row)) {
             pawnArray[pawnIndex].setViewOrder(-1.0);
             pawnArray[pawnIndex].setDisable(false);
-            pawnArray[pawnIndex].setStrokeWidth(3.5);
+            pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
         } else {
             pawnArray[pawnIndex].setViewOrder(0.0);
             pawnArray[pawnIndex].setDisable(true);
-            pawnArray[pawnIndex].setStrokeWidth(2);
+            pawnArray[pawnIndex].setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
         }
     }
 

@@ -20,8 +20,8 @@ public class SettingsLogic {
 
     private boolean fullScreen = false;
     private boolean lockResolution = false;
-    private int resolutionHeight = 640;
-    private int resolutionWidth = 480;
+    private int resolutionWidth = 640;
+    private int resolutionHeight = 480;
     private int musicVolume = 100;
     private int soundFXVolume = 100;
     private boolean muteMusic = false;
@@ -93,8 +93,8 @@ public class SettingsLogic {
         Profile.Section video = ini.get("Video");
         this.fullScreen = video.get("fullScreen", boolean.class);
         this.lockResolution = video.get("lockResolution", boolean.class);
-        this.resolutionHeight = video.get ("resolutionHeight", int.class);
         this.resolutionWidth = video.get("resolutionWidth", int.class);
+        this.resolutionHeight = video.get ("resolutionHeight", int.class);
         Profile.Section audio = ini.get("Audio");
         this.musicVolume = min(100, max(audio.get ("musicVolume", int.class), 0));
         this.soundFXVolume = min(100, max(audio.get("soundFXVolume", int.class), 0));
@@ -129,8 +129,8 @@ public class SettingsLogic {
         Ini ini = new Ini(path.toFile());
         ini.put ("Video", "fullScreen", fullScreen);
         ini.put ("Video", "lockResolution", lockResolution);
-        ini.put ("Video", "resolutionHeight", resolutionHeight);
         ini.put ("Video", "resolutionWidth", resolutionWidth);
+        ini.put ("Video", "resolutionHeight", resolutionHeight);
         ini.put("Audio", "musicVolume", musicVolume);
         ini.put("Audio", "soundFXVolume", soundFXVolume);
         ini.put("Audio", "muteMusic", muteMusic);

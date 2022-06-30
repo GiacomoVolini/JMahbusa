@@ -9,16 +9,14 @@ import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import jmb.model.SaveGameReader;
 //import javafx.scene.media.AudioClip;
 
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
 
-import java.awt.*;
 import java.io.IOException;
+import java.nio.file.Path;
 
-import static jmb.App.getStage;
+import static jmb.view.App.getStage;
 import static jmb.view.View.sceneLoadView;
 
 
@@ -66,13 +64,13 @@ public class MainMenu {
     @FXML
     void closeButtonAction() {
         Exit.getScene().getWindow();
-        jmb.App.getStage().close();
+        App.getStage().close();
     }
 
     @FXML
     void newGameAction()  throws IOException {
         NewGame.getScene().getWindow();
-        jmb.App.login();
+        App.login();
         View.sceneMusica.playerp.pause();
         getStage().setFullScreen(cb);
         View.sceneLogIn.changeDimensions();
@@ -81,7 +79,7 @@ public class MainMenu {
     @FXML
     void openLeaderBoard()  throws IOException {
         LDB.getScene().getWindow();
-        jmb.App.leaderBoard();
+        App.leaderBoard();
         getStage().setFullScreen(cb);
         View.sceneLeaderboard.table.refresh();
         View.sceneLeaderboard.changeDimensions();
@@ -91,14 +89,14 @@ public class MainMenu {
     @FXML
     void openMenuImpostazioni()  throws IOException {
         Settings.getScene().getWindow();
-        jmb.App.edit();
+        App.edit();
         getStage().setFullScreen(cb);
         View.sceneImpostazioni.changeDimensions();
     }
 
     @FXML
     void openLoadGame() throws IOException {
-        jmb.App.loadGame();
+        App.loadGame();
         sceneLoadView.refreshSaveList();
         sceneLoadView.setBoardColors();
         sceneLoadView.renderNoSelection();
@@ -106,57 +104,70 @@ public class MainMenu {
     }
 
     public void initialize() {
-
-
-        Image im1 = new Image("/jmb/view/background1.jpg");
+        try {
+        /*Image im1 = new Image("/jmb/view/background1.jpg");
         Image im2 = new Image("/jmb/view/background2.jpg");
         Image im3 = new Image("/jmb/view/background3.jpg");
         Image im4 = new Image("/jmb/view/background4.jpg");
 
-
-          //  BackGround.setImage(new Image("/jmb/view/background3.jpg"));
+         */
+            Image im1 = new Image(this.getClass().getResource("background1.jpg").toURI().toString());
+            Image im2 = new Image(this.getClass().getResource("background2.jpg").toURI().toString());
+            Image im3 = new Image(this.getClass().getResource("background3.jpg").toURI().toString());
+            Image im4 = new Image(this.getClass().getResource("background4.jpg").toURI().toString());
+            //  BackGround.setImage(new Image("/jmb/view/background3.jpg"));
             BackGround1.setPreserveRatio(false);
             background2.setPreserveRatio(false);
 
-          // musica
-                if(!mu) {
-                    View.sceneMusica.player.play();
-                }
+            // musica
+            if (!mu) {
+                View.sceneMusica.player.play();
+            }
 
-           Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(background2.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(5),
-                        new KeyValue(background2.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(6), e-> {BackGround1.setImage(im3);},
-                        new KeyValue(background2.opacityProperty(),1)
-                        ),
-                new KeyFrame(Duration.seconds(11),
-                        new KeyValue(background2.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(12),e-> {background2.setImage(im4);},
-                        new KeyValue(background2.opacityProperty(),0)
-                        ),
-                new KeyFrame(Duration.seconds(17),
-                        new KeyValue(background2.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(18), e -> {BackGround1.setImage(im1);},
-                        new KeyValue(background2.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(23),
-                        new KeyValue(background2.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(24), e->{background2.setImage(im2);},
-                        new KeyValue(background2.opacityProperty(),0))
-                );
-           timeline.setCycleCount(Timeline.INDEFINITE);
-           timeline.play();
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(background2.opacityProperty(), 0)),
+                    new KeyFrame(Duration.seconds(5),
+                            new KeyValue(background2.opacityProperty(), 0)),
+                    new KeyFrame(Duration.seconds(6), e -> {
+                        BackGround1.setImage(im3);
+                    },
+                            new KeyValue(background2.opacityProperty(), 1)
+                    ),
+                    new KeyFrame(Duration.seconds(11),
+                            new KeyValue(background2.opacityProperty(), 1)),
+                    new KeyFrame(Duration.seconds(12), e -> {
+                        background2.setImage(im4);
+                    },
+                            new KeyValue(background2.opacityProperty(), 0)
+                    ),
+                    new KeyFrame(Duration.seconds(17),
+                            new KeyValue(background2.opacityProperty(), 0)),
+                    new KeyFrame(Duration.seconds(18), e -> {
+                        BackGround1.setImage(im1);
+                    },
+                            new KeyValue(background2.opacityProperty(), 1)),
+                    new KeyFrame(Duration.seconds(23),
+                            new KeyValue(background2.opacityProperty(), 1)),
+                    new KeyFrame(Duration.seconds(24), e -> {
+                        background2.setImage(im2);
+                    },
+                            new KeyValue(background2.opacityProperty(), 0))
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
 
 
-        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        Window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+            //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+            Window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
-        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        Window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+            //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+            Window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

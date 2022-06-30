@@ -290,8 +290,7 @@ public class MenuImpostazioni  {
                 //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
                 //      altrimenti andare al menu
                 mainMenuButton.getScene().getWindow();
-                jmb.App.MainMenu();
-                stage.setFullScreen(cb);
+                App.MainMenu();
         }
 
         @FXML
@@ -347,12 +346,14 @@ public class MenuImpostazioni  {
         //schermo intero
         @FXML
         void fullscreen(ActionEvent event) {
+                Stage stage = (Stage)GBG.getScene().getWindow();
                 stage.setFullScreen(checkSI.isSelected());
                 applyButton.setDisable(false);
         }
 
         @FXML
         void blockresolution(ActionEvent event) {
+                Stage stage = (Stage)GBG.getScene().getWindow();
                 stage.setResizable(!checkBR.isSelected());
                 applyButton.setDisable(false);
         }
@@ -615,7 +616,6 @@ public class MenuImpostazioni  {
                 //Se il valore esadecimale è a una cifra gli aggiunge uno zero in testa e restituisce le due cifre come stringa
                 //      altrimenti restituisce il valore
                 return in.length() == 1 ? "0" + in : in;
-
         }
         //TODO FORSE SPOSTARE ^^^
 
@@ -796,7 +796,6 @@ public class MenuImpostazioni  {
 
         public void initialize() {
 
-                stage = (Stage)GBG.getScene().getWindow();
                 group = new ToggleGroup();
                 Imsinistra.setToggleGroup(group);
                 TM.setToggleGroup(group);
@@ -865,13 +864,7 @@ public class MenuImpostazioni  {
                         });
                         SliderES.valueProperty().addListener(observable -> View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100));
 
-                //schermo intero
-
-                        checkSI.setSelected(logic.getFullScreen());
-                        stage.setFullScreen(logic.getFullScreen()); //TODO FORSE TOGLIERE UNA VOLTA CHE TUTTI I PASSAGGI DA UNA SCENE ALL'ALTRA CONTROLLERANNO DIM FINESTRE E SCHERMO INTERO
-                        checkBR.setSelected(logic.getLockResolution());
-                        stage.setResizable(!logic.getLockResolution());
-
+                //TODO CONTROLLARE CHE IL PROGRAMMA ENTRI CORRETTAMENTE IN FULLSCREEN O NO
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

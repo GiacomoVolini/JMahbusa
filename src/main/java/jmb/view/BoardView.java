@@ -273,6 +273,7 @@ public class BoardView extends GameBoard {
         if (turn_duration!=0)
             turnTimer.pause();
         BoardViewRedraw.resizePauseMenu(this);
+        senzaSalvare.requestFocus();
     }
 
     @FXML
@@ -280,6 +281,7 @@ public class BoardView extends GameBoard {
         pauseMenu.setVisible(false);
         if (turn_duration!=0)
             turnTimer.play();
+        window.requestFocus();
     }
 
     @FXML
@@ -424,6 +426,14 @@ public class BoardView extends GameBoard {
 
     private void changeDimensions() {
         BoardViewRedraw.resizeAll(this);
+        if (pauseMenu.isVisible()) {
+            senzaSalvare.requestFocus();
+        } else if (startDialogue.isVisible()) {
+            startBTN.requestFocus();
+        } else {
+            window.requestFocus();
+        }
+        System.out.println(window.getScene().getFocusOwner() + "FHJHJFHSJ");
     }
 
     private int searchPawnPlace(PawnView node) {
@@ -484,6 +494,9 @@ public class BoardView extends GameBoard {
     @FXML
     protected void startGame(ActionEvent event) {
         startDialogue.setVisible(false);
+        finishBTN.setDisable(false);
+        menuBTN.setDisable(false);
+
         logic.setGameStart(true);
         changeDimensions();
         if (diceTray.getWidth()==0)
@@ -942,6 +955,13 @@ public class BoardView extends GameBoard {
 
             this.boardAnchor = window;
             addChildrenToAnchor();
+            window.setFocusTraversable(true);
+            //backBTN.setFocusTraversable(false);
+            //finishBTN.setFocusTraversable(false);
+            //menuBTN.setFocusTraversable(false);
+            //startBTN.setFocusTraversable(false);
+            //startDialogue.setFocusTraversable(false);
+
             BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
             BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
             for (int i = 0; i < 15; i++) {
@@ -1031,12 +1051,14 @@ public class BoardView extends GameBoard {
             }
 
 
+
             //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
             window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
             //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
             window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -153,7 +153,6 @@ public class SettingsLogic {
         ini.put("Controls", "revertMove", revertMove);
         ini.put("Controls", "finishTurn", finishTurn);
         ini.put("Controls", "openMenu", openMenu);
-        ini.put("DEBUG", "bypassDice", bypassDice);
         ini.store();
     }
 

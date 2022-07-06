@@ -8,15 +8,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import jmb.view.PawnView?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#comandaLAtastiera" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#comandaLAtastiera" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.BoardView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -24,17 +21,17 @@
 
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-   <Button fx:id="backBTN" disable="true" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="backBTN" disable="true" focusTraversable="false" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
-   <Button fx:id="finishBTN" alignment="CENTER" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="finishBTN" alignment="CENTER" disable="true" focusTraversable="false" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="17.0" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font name="Calibri Bold" size="17.0" />
       </font>
@@ -43,7 +40,7 @@
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <Button fx:id="startBTN" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
+               <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
                   <font>
                      <Font size="42.0" />
                   </font>
@@ -132,7 +129,7 @@
                      <Font size="16.0" />
                   </font>
                </Text>
-               <Label fx:id="errorLabel" layoutY="61.0" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome Salvataggio già presente" textFill="RED" visible="false" />
+               <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome Salvataggio già presente" textFill="RED" visible="false" />
                <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" />
             </children>
          </AnchorPane>

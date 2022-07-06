@@ -586,8 +586,8 @@ public class MenuImpostazioni  {
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
         /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
-                - pedIn1 - whitePawnFill
-                - pedOut1 - whitePawnStroke
+                - pedIn1 - whitePawnFill - getWhitePawnFill()
+                - pedOut1 - whitePawnStroke -
                 - pedIn2 - blackPawnFill
                 - pedOut2 - blackPawnStroke
                 - table - boardInnerColor

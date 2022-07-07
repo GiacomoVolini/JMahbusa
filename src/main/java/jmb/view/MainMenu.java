@@ -22,6 +22,12 @@ import static jmb.view.View.sceneLoadView;
 
 public class MainMenu {
 
+    /*TODO
+        Aggiungere variabile booleana che controlla se il giocatore ha mai giocato
+        Se true, quando si pigia nuova partita, chiedere se si vuole il tutorial
+     */
+
+
     @FXML
     private AnchorPane Window;
 

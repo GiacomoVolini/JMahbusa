@@ -103,6 +103,11 @@ public class MainMenu {
         getStage().setFullScreen(cb);
     }
 
+    @FXML
+    void openTutorial() {
+        //TODO
+    }
+
     public void initialize() {
         try {
         /*Image im1 = new Image("/jmb/view/background1.jpg");

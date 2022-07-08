@@ -19,7 +19,7 @@ import static jmb.view.View.logic;
 
 import java.io.IOException;
 
-public class MenuImpostazioni  {
+public class SettingsView {
 
         private Stage stage;
         @FXML
@@ -589,6 +589,8 @@ public class MenuImpostazioni  {
                 logic.setFinishTurn(finitoT.getText());
                 logic.setOpenMenu(opUscita.getText());
                 logic.applySettingsChanges();
+
+                applyButton.setDisable(true);
         }
 
         @FXML
@@ -737,6 +739,9 @@ public class MenuImpostazioni  {
         }
 
         public void initialize() {
+
+                checkSI.setSelected(logic.getFullScreen());
+                checkBR.setSelected(logic.getLockResolution());
 
                 group = new ToggleGroup();
                 Imsinistra.setToggleGroup(group);

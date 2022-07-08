@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -132,7 +131,7 @@ public class LogIn {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        App.MainMenu();
+        App.mainMenu();
     }
 
     @FXML

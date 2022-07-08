@@ -26,6 +26,13 @@ public class App extends Application {
     private static Scene sceneLogIn;
     private static Scene sceneLoadGame;
     private static Scene sceneTutorial;
+    private static final String MAIN_MENU = "MainMenu";
+    private static final String LOG_IN = "Login";
+    private static final String SETTINGS = "MenuImpostazioni";
+    private static final String LOAD_GAME = "LoadGameView";
+    private static final String LEADERBOARDS = "Leaderboard";
+    private static final String PLAY_GAME = "GameBoard";
+    private static final String TUTORIAL = "TutorialView";
 
 
     public static Stage getStage() {
@@ -38,22 +45,31 @@ public class App extends Application {
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         interfaceInstantiation();
-        sceneMainMenu = new Scene(loadFXML("MainMenu"), logic.getResolutionWidth(), logic.getResolutionHeight());
+        sceneMainMenu = new Scene(loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
         setStageOptions();
         stage.setScene(sceneMainMenu);
         stage.show();
     }
 
-    public static void MainMenu() {
+    public static void mainMenu(){
+        try {
+            if (stage.isFullScreen() == logic.getFullScreen())
+                sceneMainMenu = new Scene(loadFXML(MAIN_MENU), stage.getScene().getWidth(), stage.getScene().getHeight());
+            else
+                sceneMainMenu = new Scene(loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
             stage.setScene(sceneMainMenu);
             setStageOptions();
             stage.show();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     //TODO FORSE I METODI SOTTO POSSONO ESSERE PORTATI A UNO SOLO
 
+    //TODO STO PROVANDO A RICREARE OGNI VOLTA LE SCENE, IN MODO DA PASSARE LA GIUSTA RISOLUZIONE DI VOLTA IN VOLTA
     public static void login() throws IOException{
-        sceneLogIn = new Scene(loadFXML("Login"), 640, 480);
+        sceneLogIn = new Scene(loadFXML(LOG_IN), stage.getScene().getWidth(), stage.getScene().getHeight());
         stage.setScene(sceneLogIn);
         setStageOptions();
         stage.show();
@@ -61,7 +77,7 @@ public class App extends Application {
 
     public static void board() {
         try {
-            sceneBoard = new Scene(loadFXML("GameBoard"), 640, 480);
+            sceneBoard = new Scene(loadFXML(PLAY_GAME), stage.getScene().getWidth(), stage.getScene().getHeight());
             stage.setScene(sceneBoard);
             setStageOptions();
             stage.show();
@@ -71,41 +87,42 @@ public class App extends Application {
     }
 
     public static void edit() throws IOException{
-        if (sceneSettings == null) {
-            sceneSettings = new Scene(loadFXML("MenuImpostazioni"));
-        }
+        //if (sceneSettings == null) {TODO TEST
+            sceneSettings = new Scene(loadFXML(SETTINGS), stage.getScene().getWidth(), stage.getScene().getHeight());
+        //}TODO TEST
         stage.setScene(sceneSettings);
         setStageOptions();
         stage.show();
     }
 
     public static void leaderBoard() throws IOException{
-        if (sceneLeaderBoard == null){
-            sceneLeaderBoard = new Scene(loadFXML("Leaderboard"));
-        }
+        //if (sceneLeaderBoard == null){ TODO TEST
+            sceneLeaderBoard = new Scene(loadFXML(LEADERBOARDS), stage.getScene().getWidth(), stage.getScene().getHeight());
+        //}TODO TEST
         stage.setScene(sceneLeaderBoard);
         setStageOptions();
         stage.show();
     }
 
     public static void loadGame() throws IOException {
-        if (sceneLoadGame == null){
-            sceneLoadGame = new Scene(loadFXML("LoadGameView"));
-        }
+        //if (sceneLoadGame == null){TODO TEST
+            sceneLoadGame = new Scene(loadFXML(LOAD_GAME), stage.getScene().getWidth(), stage.getScene().getHeight());
+        //}TODO TEST
         stage.setScene(sceneLoadGame);
         setStageOptions();
         stage.show();
     }
 
     public static void tutorial() throws IOException {
-        if (sceneTutorial == null) {
-            sceneTutorial = new Scene(loadFXML("TutorialView"));
-        }
+        //if (sceneTutorial == null) {TODO TEST
+            sceneTutorial = new Scene(loadFXML(TUTORIAL), stage.getScene().getWidth(), stage.getScene().getHeight());
+        //}TODO TEST
         stage.setScene(sceneTutorial);
         setStageOptions();
         stage.show();
     }
 
+    //TODO FORSE CANCELLARE, MAI USATO
     static void setRoot(String fxml) throws IOException {
         sceneMainMenu.setRoot(loadFXML(fxml));
     }
@@ -113,18 +130,28 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent out = fxmlLoader.load();
-        if(fxml == "GameBoard"){
-            View.sceneBoard = fxmlLoader.getController();
-        } else if(fxml == "Leaderboard"){
-            View.sceneLeaderboard = fxmlLoader.getController();
-        } else if(fxml == "Login") {
-            View.sceneLogIn = fxmlLoader.getController();
-        } else if(fxml == "MenuImpostazioni") {
-            View.sceneImpostazioni = fxmlLoader.getController();
-        } else if(fxml == "MainMenu"){
-            View.sceneMainMenu = fxmlLoader.getController();
-        } else if(fxml == "LoadGameView"){
-            View.sceneLoadView = fxmlLoader.getController();
+        switch (fxml) {
+            case PLAY_GAME:
+                View.sceneBoard = fxmlLoader.getController();
+                break;
+            case LEADERBOARDS:
+                View.sceneLeaderboard = fxmlLoader.getController();
+                break;
+            case LOG_IN:
+                View.sceneLogIn = fxmlLoader.getController();
+                break;
+            case SETTINGS:
+                View.sceneImpostazioni = fxmlLoader.getController();
+                break;
+            case MAIN_MENU:
+                View.sceneMainMenu = fxmlLoader.getController();
+                break;
+            case LOAD_GAME:
+                View.sceneLoadView = fxmlLoader.getController();
+                break;
+            case TUTORIAL:
+                View.sceneTutorial = fxmlLoader.getController();
+                break;
         }
         return out;
     }

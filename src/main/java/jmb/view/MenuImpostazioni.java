@@ -281,7 +281,7 @@ public class MenuImpostazioni  {
                 //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
                 //      altrimenti andare al menu
                 mainMenuButton.getScene().getWindow();
-                App.MainMenu();
+                App.mainMenu();
         }
 
         @FXML

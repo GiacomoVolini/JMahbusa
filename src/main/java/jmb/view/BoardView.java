@@ -19,7 +19,6 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 import static java.lang.Math.*;
-import static jmb.view.App.getStage;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -260,8 +259,7 @@ public class BoardView extends GameBoard {
 
     @FXML
     void vaialMainMenu(){
-            App.MainMenu();
-        
+            App.mainMenu();
         View.sceneMusica.playerp.stop();
         
         if (!mu) {
@@ -524,7 +522,7 @@ public class BoardView extends GameBoard {
     private void gameOver() {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
-            App.MainMenu();
+            App.mainMenu();
     }
 
     private Rectangle createVictoryPanel() {

@@ -79,6 +79,6 @@ public class TutorialView extends GameBoard{
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.MainMenu();
+        App.mainMenu();
     }
 }

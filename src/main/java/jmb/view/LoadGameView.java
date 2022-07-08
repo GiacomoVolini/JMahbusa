@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -207,7 +206,7 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.MainMenu();
+        App.mainMenu();
     }
 
     @FXML

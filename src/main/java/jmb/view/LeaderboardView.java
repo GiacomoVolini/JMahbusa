@@ -60,7 +60,6 @@ public class LeaderboardView {
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         App.MainMenu();
-        getStage().setFullScreen(cb);
     }
 
     @FXML

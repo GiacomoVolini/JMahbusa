@@ -1,24 +1,30 @@
 package jmb.view;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 public class TutorialView extends GameBoard{
 
-    private final static double HORIZONTAL_RESIZE_FACTOR = 0.45;    //TODO MODIFICARE
-    private final static double VERTICAL_RESIZE_FACTOR = 0.55;      //TODO MODIFICARE
+    private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
+    private final static double VERTICAL_RESIZE_FACTOR = 0.8;
+    private final static double X_LAYOUT_FACTOR = 0.5;
+    private final static double Y_LAYOUT_FACTOR = 0.5;
     @FXML
-    private Label textboxLabel1;
+    Label textboxLabel1;
     @FXML
-    private Label textboxLabel2;
+    Label textboxLabel2;
     @FXML
-    private Rectangle textboxRectangle1;
+    Rectangle textboxRectangle1;
     @FXML
-    private Rectangle textboxRectangle2;
+    Rectangle textboxRectangle2;
     @FXML
-    private AnchorPane windowPane;
+    AnchorPane windowPane;
+    @FXML
+    Button mainMenuButton;
 
     /*TODO
         Idea generale di TutorialView
@@ -49,9 +55,30 @@ public class TutorialView extends GameBoard{
 
     public void initialize() {
         this.boardAnchor = windowPane;
+
         addChildrenToAnchor();
+        TutorialViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+        TutorialViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+        TutorialViewRedraw.setXLayoutFactor(X_LAYOUT_FACTOR);
+        TutorialViewRedraw.setYLayoutFactor(Y_LAYOUT_FACTOR);
+
+        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+        windowPane.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+
+        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+        windowPane.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
 
     }
 
+    private void changeDimensions() {
+        TutorialViewRedraw.resizeOuterRect(this);
+        TutorialViewRedraw.resizeInnerBoard(this);
+    }
 
+    @FXML
+    void goToMainMenu(ActionEvent event) {
+        App.MainMenu();
+    }
 }

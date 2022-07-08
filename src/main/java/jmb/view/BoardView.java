@@ -209,7 +209,6 @@ public class BoardView extends GameBoard {
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
                 WritableImage saveImage = this.saveBoardImage();
                 logic.saveGame(saveTextField.getText(), saveImage);
-                getStage().setFullScreen(cb);
                 View.sceneMusica.playerp.stop();
                 vaialMainMenu();
             } else {
@@ -262,7 +261,6 @@ public class BoardView extends GameBoard {
     @FXML
     void vaialMainMenu(){
             App.MainMenu();
-            getStage().setFullScreen(cb);
         
         View.sceneMusica.playerp.stop();
         
@@ -527,12 +525,6 @@ public class BoardView extends GameBoard {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
             App.MainMenu();
-            if (cb == fullscreen) {
-                getStage().setFullScreen(true);
-            } else {
-                getStage().setFullScreen(false);
-            }
-
     }
 
     private Rectangle createVictoryPanel() {

@@ -7,7 +7,7 @@ public class LoadGameViewRedraw extends GameBoardRedraw{
 
     protected static void redrawAll(LoadGameView loadGameView) {
         resizeOuterRect(loadGameView);
-        GameBoardRedraw.resizeAll(loadGameView);
+        GameBoardRedraw.resizeInnerBoard(loadGameView);
         redrawExitRegions(loadGameView);
         if (loadGameView.saveMatrix!= null) {
             redrawPawns(loadGameView);

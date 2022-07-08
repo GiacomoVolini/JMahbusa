@@ -41,7 +41,7 @@ public class SettingsLogic {
     private String moveDown = "S";
     private String select = "SPACE";
     private String confirm = "ENTER";
-    private String revertMove = "BACKSPACE";
+    private String revertMove = "BACK_SPACE";
     private String finishTurn = "F";
     private String openMenu = "ESCAPE";
     private boolean bypassDice = false;

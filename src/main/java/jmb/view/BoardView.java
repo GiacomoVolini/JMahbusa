@@ -711,9 +711,12 @@ public class BoardView extends GameBoard {
         if(event.getCode().toString().equals(logic.getOpenMenu())){
             openExitoption();
         }
+        if(event.getCode().toString().equals(logic.getFinishTurn())){
+            nextTurn(null);
+        }
             //spostamenti per il bianco
          //****************************************************** bianco destra
-        if(event.getCode().toString().equals(logic.getMoveRight()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && !s.equals(moveTO_down) && i>=0 && i <= 11){
+        if(event.getCode().toString().equals(logic.getMoveRight()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && !s.equals(logic.getMoveDown()) && i>=0 && i <= 11){
             if(L.equals(logic.getMoveLeft()) && i<10){
                 L=logic.getMoveRight();
                 i+=2;
@@ -737,7 +740,7 @@ public class BoardView extends GameBoard {
             i=1;
             polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
-        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
+        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=2;
             polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
@@ -745,7 +748,7 @@ public class BoardView extends GameBoard {
         }
 
         // BIANCO sinistra
-        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && i>=0 && i <= 11){
+        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && i>=0 && i <= 11){
             if(L.equals(logic.getMoveRight()) && i>1){
                 L=logic.getMoveLeft();
                 i-=2;
@@ -765,11 +768,11 @@ public class BoardView extends GameBoard {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
+        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
             i=10;
             polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[0].setFill(point);
-        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
+        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=9;
             polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
             polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
@@ -777,8 +780,8 @@ public class BoardView extends GameBoard {
         }
 
         // da sopra a sotto
-        if(event.getCode().toString().equals(moveTO_down) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
-            s =moveTO_down;
+        if(event.getCode().toString().equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
+            s =logic.getMoveDown();
             if(L.equals(logic.getMoveRight())){
                 polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
             }else if(L.equals(logic.getMoveLeft())){
@@ -794,7 +797,7 @@ public class BoardView extends GameBoard {
         }
 
         // da sotto a sopra
-        if(event.getCode().toString().equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+        if(event.getCode().toString().equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
             s =logic.getMoveUp();
             if(L.equals(logic.getMoveRight())){
                 polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
@@ -812,7 +815,7 @@ public class BoardView extends GameBoard {
 
             //spostamento per il nero
         //******************************************************* nero destra
-        if(event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+        if(event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown())) && i>=0 && i <= 11){
             if(L.equals(logic.getMoveLeft()) && i<10){
                 L=logic.getMoveRight();
                 i+=2;
@@ -832,11 +835,11 @@ public class BoardView extends GameBoard {
             }
             i++;
             L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
+        } else if(i==12 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))) {
             i=1;
             polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);
-        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
             i=2;
             polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
@@ -844,7 +847,7 @@ public class BoardView extends GameBoard {
         }
 
         // nero sinistra
-        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down)) && i>=0 && i <= 11){
+        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown())) && i>=0 && i <= 11){
             if(L.equals(logic.getMoveRight()) && i>1){
                 L=logic.getMoveLeft();
                 i-=2;
@@ -864,11 +867,11 @@ public class BoardView extends GameBoard {
             }
             i--;
             L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))) {
+        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))) {
            i=10;
            polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
            polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
-        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(moveTO_down))){
+        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
             i=9;
             polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
             polArrayBot[11].setFill(point);

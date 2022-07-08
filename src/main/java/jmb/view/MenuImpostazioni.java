@@ -271,15 +271,6 @@ public class MenuImpostazioni  {
         @FXML
         private TextField opUscita;
 
-        //@FXML TODO CANCELLARE
-        //private Button reComandi;
-
-        @FXML
-        private Button Bvuoto1;
-
-        @FXML
-        private Button Bvuoto2;
-
         double Sv, Sve;
         ToggleGroup group = new ToggleGroup();
         private String bindingBefore;
@@ -529,60 +520,6 @@ public class MenuImpostazioni  {
                 mainMenuButton.setDisable(false);
         }
 
-        /*@Override
-        public void handle(KeyEvent event) {
-
-
-                moSinistra.setText(event.getCode().toString());
-                moSopra.setText(event.getCode().toString());
-                moSotto.setText(event.getCode().toString());
-        }*/
-
-       /* @FXML
-        void cambiaDestra(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaCancellazione(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaConferma(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaDeSelez(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaFinish(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaSinistra(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaSopra(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaSotto(MouseEvent event) {
-
-        }
-
-        @FXML
-        void cambiaUscita(MouseEvent event) {
-
-        }*/
-
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
         /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
@@ -701,21 +638,26 @@ public class MenuImpostazioni  {
                 //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
+                Bvideo.setLayoutY(GBG.getHeight()*0.12);
                 Bvideo.setMaxWidth(133);
                 Baudio.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
+                Baudio.setLayoutY(GBG.getHeight()*0.20);
                 Baudio.setMaxWidth(133);
                 Bpersonalizzazione.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
+                Bpersonalizzazione.setLayoutY(GBG.getHeight()*0.28);
                 Bpersonalizzazione.setMaxWidth(133);
                 Bcomandi.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
+                Bcomandi.setLayoutY(GBG.getHeight()*0.36);
                 Bcomandi.setMaxWidth(133);
-                Bvuoto1.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Bvuoto1.setMaxWidth(133);
-                Bvuoto2.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Bvuoto2.setMaxWidth(133);
                 mainMenuButton.setLayoutX(GBG.getWidth()/8 - mainMenuButton.getWidth()/2);
-                mainMenuButton.setMaxWidth(89);
+                mainMenuButton.setLayoutY(GBG.getHeight()*0.86);
+                mainMenuButton.setMaxWidth(133);
+                resetButton.setLayoutX(GBG.getWidth()/8 - mainMenuButton.getWidth()/2);
+                resetButton.setLayoutY(GBG.getHeight()*0.78);
+                resetButton.setMaxWidth(133);
                 applyButton.setLayoutX(GBG.getWidth()/8 - applyButton.getWidth()/2);
-                applyButton.setMaxWidth(58);
+                applyButton.setLayoutY(GBG.getHeight()*0.70);
+                applyButton.setMaxWidth(133);
 
                 //bottoni destra
                 //Video
@@ -863,6 +805,18 @@ public class MenuImpostazioni  {
                                 View.sceneMusica.playerp.setVolume(SliderMusi.getValue()/100);
                         });
                         SliderES.valueProperty().addListener(observable -> View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100));
+
+                //Comandi
+                        moDestra.setText(logic.getMoveRight());
+                        moSinistra.setText(logic.getMoveLeft());
+                        moSopra.setText(logic.getMoveUp());
+                        moSotto.setText(logic.getMoveDown());
+                        Selezionare.setText(logic.getSelect());
+                        confermare.setText(logic.getConfirm());
+                        cacellareMo.setText(logic.getRevertMove());
+                        finitoT.setText(logic.getFinishTurn());
+                        opUscita.setText(logic.getOpenMenu());
+
 
                 //TODO CONTROLLARE CHE IL PROGRAMMA ENTRI CORRETTAMENTE IN FULLSCREEN O NO
 

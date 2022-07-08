@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="GBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MenuImpostazioni">
+<AnchorPane fx:id="GBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MenuImpostazioni">
    <children>
       <TitledPane fx:id="Timpostazioni" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Impostazioni">
          <content>
@@ -213,65 +213,65 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="220.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="58.0">
+                  <Text layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="58.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="220.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
+                  <Text layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="220.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="67.0">
+                  <Text layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="220.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
+                  <Text layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="103.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muovere:" wrappingWidth="75.0">
+                  <Text layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muovere:" wrappingWidth="75.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="54.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
+                  <Text layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="96.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
+                  <Text layoutX="130.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="91.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
+                  <Text layoutX="125.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="37.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
+                  <Text layoutX="71.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="84.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
+                  <Text layoutX="118.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="moDestra" editable="false" layoutX="286.0" layoutY="78.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="D" />
-                  <TextField fx:id="moSinistra" editable="false" layoutX="286.0" layoutY="106.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="A" />
-                  <TextField fx:id="moSopra" editable="false" layoutX="286.0" layoutY="134.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="W" />
-                  <TextField fx:id="moSotto" editable="false" layoutX="286.0" layoutY="163.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="73.0" promptText="una lettera" text="S" />
-                  <TextField fx:id="Selezionare" editable="false" layoutX="218.0" layoutY="197.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="SPACE" />
-                  <TextField fx:id="confermare" editable="false" layoutX="218.0" layoutY="226.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="ENTER" />
-                  <TextField fx:id="cacellareMo" editable="false" layoutX="218.0" layoutY="254.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="BACKSPACE" />
-                  <TextField fx:id="finitoT" editable="false" layoutX="217.0" layoutY="281.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="79.0" promptText="una lettera" text="F" />
-                  <TextField fx:id="opUscita" editable="false" layoutX="217.0" layoutY="308.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="80.0" promptText="una lettera" text="ESCAPE" />
+                  <TextField fx:id="moDestra" editable="false" layoutX="252.0" layoutY="106.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="D" />
+                  <TextField fx:id="moSinistra" editable="false" layoutX="252.0" layoutY="134.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="A" />
+                  <TextField fx:id="moSopra" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="W" />
+                  <TextField fx:id="moSotto" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="S" />
+                  <TextField fx:id="Selezionare" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="SPACE" />
+                  <TextField fx:id="confermare" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ENTER" />
+                  <TextField fx:id="cacellareMo" editable="false" layoutX="252.0" layoutY="286.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACKSPACE" />
+                  <TextField fx:id="finitoT" editable="false" layoutX="251.0" layoutY="313.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
+                  <TextField fx:id="opUscita" editable="false" layoutX="251.0" layoutY="340.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
                </children>
             </AnchorPane>
          </content>

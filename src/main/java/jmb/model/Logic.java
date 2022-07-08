@@ -20,10 +20,13 @@ public class Logic implements ILogic{
     public static DiceLogic dice;
     public static SettingsLogic settings;
 
+    public static String appDirectory;
+
     @Override
     public void initializeBoardLogic() {
         board = new BoardLogic();
         dice = board.getDiceLogic();
+        appDirectory = System.getProperty("user.dir");
     }
 
     @Override
@@ -34,6 +37,10 @@ public class Logic implements ILogic{
             ioe.printStackTrace();
         }
 
+    }
+
+    public static String getAppDirectory() {
+        return appDirectory;
     }
 
     @Override

@@ -27,6 +27,7 @@ public class LeaderboardLogic {
     // Il costruttore crea il BufferedReader per il file csv della classifica,
     //      l'ObservableList per le singole entry e un oggetto String per la gestione di una singola riga del
     //      file csv
+/* TODO VECCHIO
     public LeaderboardLogic () throws IOException {
         try {
             URL resource = this.getClass().getResource("LeaderBoards.csv");
@@ -43,6 +44,32 @@ public class LeaderboardLogic {
             }
         }
     }
+
+ */
+
+/*TODO CAMBIARE IL COSTRUTTORE NELLO STILE DEL SETTINGSLOGIC
+
+ */
+    public LeaderboardLogic() throws IOException{
+        try {
+            String ldbDirectory = Logic.getAppDirectory() + "/leaderboard";
+            if (!Files.exists(Path.of(ldbDirectory)))
+                Files.createDirectory(Path.of(ldbDirectory));
+            String ldbPath = ldbDirectory + "/Leaderboards.csv";
+            if (!Files.exists(Path.of(ldbPath))) {
+                Files.createFile(Path.of(ldbPath));
+            }
+            reader = Files.newBufferedReader(Path.of(ldbPath));
+            this.populateList();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            if (reader != null)
+                reader.close();
+        }
+    }
+
+
 
     private void populateList() throws IOException {
         while ((line = reader.readLine()) != null)

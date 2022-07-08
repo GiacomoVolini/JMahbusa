@@ -109,7 +109,6 @@ public class LogIn {
                     else
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
                     App.board();
-                    getStage().setFullScreen(cb);
                     break;
                 case SAME_NAME_ERROR:
                     errorLabel.setText("ERRORE: I due giocatori hanno lo stesso nome");
@@ -134,7 +133,6 @@ public class LogIn {
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
         App.MainMenu();
-        getStage().setFullScreen(cb);
     }
 
     @FXML

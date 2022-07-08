@@ -25,6 +25,7 @@ public class App extends Application {
     private static Scene sceneLeaderBoard;
     private static Scene sceneLogIn;
     private static Scene sceneLoadGame;
+    private static Scene sceneTutorial;
 
 
     public static Stage getStage() {
@@ -48,6 +49,8 @@ public class App extends Application {
             setStageOptions();
             stage.show();
     }
+
+    //TODO FORSE I METODI SOTTO POSSONO ESSERE PORTATI A UNO SOLO
 
     public static void login() throws IOException{
         sceneLogIn = new Scene(loadFXML("Login"), 640, 480);
@@ -94,6 +97,15 @@ public class App extends Application {
         stage.show();
     }
 
+    public static void tutorial() throws IOException {
+        if (sceneTutorial == null) {
+            sceneTutorial = new Scene(loadFXML("TutorialView"));
+        }
+        stage.setScene(sceneTutorial);
+        setStageOptions();
+        stage.show();
+    }
+
     static void setRoot(String fxml) throws IOException {
         sceneMainMenu.setRoot(loadFXML(fxml));
     }
@@ -131,6 +143,10 @@ public class App extends Application {
     private static void setStageOptions() {
         stage.setFullScreen(logic.getFullScreen());
         stage.setResizable(!logic.getLockResolution());
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
 }

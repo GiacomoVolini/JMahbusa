@@ -349,8 +349,8 @@ public class BoardViewRedraw extends GameBoardRedraw {
 
 
     protected static void resizeAll(BoardView board) {
-        GameBoardRedraw.resizeOuterRect(board);
-        GameBoardRedraw.resizeAll(board);
+        resizeOuterRect(board);
+        GameBoardRedraw.resizeInnerBoard(board);
         resizeExitRegions(board);
         calcTrayWidths(board);
         resizePlsPawns(board);

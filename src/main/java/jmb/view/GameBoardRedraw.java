@@ -1,12 +1,8 @@
 package jmb.view;
 
-import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
-
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.ConstantsShared.*;
-import static jmb.view.View.logic;
 
 public class GameBoardRedraw {
 
@@ -33,6 +29,10 @@ public class GameBoardRedraw {
     protected static void setVResizeFactor(double value) {
         vResizeFactor = value;
     }
+    protected static double xLayoutFactor = 0.6;
+    protected static void setXLayoutFactor (double value) {xLayoutFactor = value;}
+    protected static double yLayoutFactor = 0.5;
+    protected static void setYLayoutFactor (double value) {yLayoutFactor = value;}
 
 
     // Metodo getter per maxExitWidth
@@ -50,20 +50,16 @@ public class GameBoardRedraw {
     }
 
     protected static double getBoardLayoutX (GameBoard board) {
-        return (board.boardAnchor.getWidth()/2)-(getBoardSize(board)*0.6);
+        //return (board.boardAnchor.getWidth()/2)-(getBoardSize(board)*0.6); TODO VECCHIO
+        return (board.boardAnchor.getWidth()/2) - (getBoardSize(board) * xLayoutFactor);
     }
 
     protected static double getBoardLayoutY (GameBoard board) {
-        return (board.boardAnchor.getHeight()/2)-(getBoardSize(board)/2);
+        //return (board.boardAnchor.getHeight()/2)-(getBoardSize(board)/2); TODO VECCHIO
+        return (board.boardAnchor.getHeight()/2) - (getBoardSize(board) * yLayoutFactor);
     }
 
     public static void resizeOuterRect(GameBoard board) {
-        System.out.println("Sono dentro resizeOuterRect");
-        System.out.println(board.boardAnchor);
-        System.out.println("WIDTH " + board.boardAnchor.getWidth());
-        System.out.println("HEIGHT " + board.boardAnchor.getHeight());
-        System.out.println("hRF " + hResizeFactor);
-        System.out.println("vRF " + vResizeFactor);
         //  Ridimensiona il bordo del tavolo da gioco in funzione della finestra principale
         double size = getBoardSize(board);
         board.outerRect.setLayoutX(getBoardLayoutX(board));
@@ -208,7 +204,7 @@ public class GameBoardRedraw {
         }
     }
 
-    public static void resizeAll(GameBoard board) {
+    public static void resizeInnerBoard(GameBoard board) {
         resizeBoardRect(board);
         resizeSeparator(board);
         resizeLeftPoints(board);

@@ -22,6 +22,12 @@ import static jmb.view.View.sceneLoadView;
 
 public class MainMenu {
 
+    /*TODO
+        Aggiungere variabile booleana che controlla se il giocatore ha mai giocato
+        Se true, quando si pigia nuova partita, chiedere se si vuole il tutorial
+     */
+
+
     @FXML
     private AnchorPane Window;
 
@@ -63,24 +69,22 @@ public class MainMenu {
 
     @FXML
     void closeButtonAction() {
-        Exit.getScene().getWindow();
+        //Exit.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
         App.getStage().close();
     }
 
     @FXML
     void newGameAction()  throws IOException {
-        NewGame.getScene().getWindow();
+        //NewGame.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
         App.login();
         View.sceneMusica.playerp.pause();
-        getStage().setFullScreen(cb);
         View.sceneLogIn.changeDimensions();
     }
 
     @FXML
     void openLeaderBoard()  throws IOException {
-        LDB.getScene().getWindow();
+        //LDB.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
         App.leaderBoard();
-        getStage().setFullScreen(cb);
         View.sceneLeaderboard.table.refresh();
         View.sceneLeaderboard.changeDimensions();
 
@@ -88,9 +92,8 @@ public class MainMenu {
 
     @FXML
     void openMenuImpostazioni()  throws IOException {
-        Settings.getScene().getWindow();
+        //Settings.getScene().getWindow(); TODO VEDERE SE FUNZIONA ANCHE SENZA
         App.edit();
-        getStage().setFullScreen(cb);
         View.sceneImpostazioni.changeDimensions();
     }
 
@@ -100,7 +103,11 @@ public class MainMenu {
         sceneLoadView.refreshSaveList();
         sceneLoadView.setBoardColors();
         sceneLoadView.renderNoSelection();
-        getStage().setFullScreen(cb);
+    }
+
+    @FXML
+    void openTutorial() throws IOException{
+        App.tutorial();
     }
 
     public void initialize() {

@@ -1,10 +1,15 @@
 package jmb.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 import java.lang.reflect.AccessibleObject;
 
@@ -115,5 +120,35 @@ public class GameBoard {
             this.pawnArrayBLK[i].setStroke(pedOut2);
             this.pawnArrayBLK[i].setDisable(true);
         }
+    }
+
+    protected void openBlackExit() {
+        App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
+                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
+                new KeyFrame(Duration.seconds(1),  e-> {
+                    App.getStage().setResizable(true);
+                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    protected void openWhiteExit() {
+
+        App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    App.getStage().setResizable(true);
+                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
     }
 }

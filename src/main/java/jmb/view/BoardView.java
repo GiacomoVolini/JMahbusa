@@ -866,10 +866,10 @@ public class BoardView extends DynamicGameBoard {
             plWHTText.setText(logic.getWhitePlayer().stripTrailing());
             plBLKText.setText(logic.getBlackPlayer().stripTrailing());
             //colori
-            plWHTPawn.setFill(pedIn1);
-            plWHTPawn.setStroke(pedOut1);
-            plBLKPawn.setFill(pedIn2);
-            plBLKPawn.setStroke(pedOut2);
+            plWHTPawn.setFill(Color.web(logic.getWhitePawnFill()));
+            plWHTPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
+            plBLKPawn.setFill(Color.web(logic.getBlackPawnFill()));
+            plBLKPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
             diceTray.setFill(table);
             //turni
             plBLKOutRect.setFill(Color.GRAY);

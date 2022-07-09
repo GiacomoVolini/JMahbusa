@@ -10,13 +10,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="GBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+<AnchorPane fx:id="GBG" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
    <children>
       <TitledPane fx:id="Timpostazioni" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Impostazioni" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -166,13 +168,13 @@
                      </font>
                   </Text>
                   <RadioButton fx:id="Imsinistra" layoutX="35.0" layoutY="339.0" mnemonicParsing="false" onAction="#sinistraAction" text="Preset" />
-                  <RadioButton fx:id="Imdestra" layoutX="376.0" layoutY="339.0" mnemonicParsing="false" onAction="#destraAction" text="Preset" />
                   <RadioButton fx:id="TM" layoutX="203.0" layoutY="339.0" mnemonicParsing="false" onAction="#inMezzo" text="custom" />
                   <ColorPicker fx:id="Cpunte2" editable="true" layoutX="235.0" layoutY="210.0" onAction="#colorePunte2" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                      <value>
                         <Color red="0.16470588743686676" green="0.7372549176216125" blue="0.5843137502670288" />
                      </value>
                   </ColorPicker>
+                  <RadioButton fx:id="Imdestra" layoutX="376.0" layoutY="339.0" mnemonicParsing="false" onAction="#destraAction" text="Preset" />
                   <AnchorPane fx:id="Ancorsini" layoutX="30.0" layoutY="254.0" minHeight="78.0" minWidth="89.0" prefHeight="78.0" prefWidth="91.0">
                      <children>
                         <Rectangle fx:id="cornice1" arcHeight="5.0" arcWidth="5.0" height="78.0" stroke="BLACK" strokeType="INSIDE" width="89.0" />
@@ -208,57 +210,57 @@
          <content>
             <AnchorPane fx:id="comandi" prefHeight="440.0" prefWidth="494.0">
                <children>
-                  <Text layoutX="54.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard:" wrappingWidth="95.0">
+                  <Text fx:id="Tkeyboard" layoutX="54.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="95.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="58.0">
+                  <Text fx:id="Tright" layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="58.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
+                  <Text fx:id="Tleft" layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="67.0">
+                  <Text fx:id="Tup" layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
+                  <Text fx:id="Tdown" layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="67.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muovere:" wrappingWidth="75.0">
+                  <Text fx:id="Tmuov" layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muovere:" wrappingWidth="75.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
+                  <Text fx:id="Tdese" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="130.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
+                  <Text fx:id="Tconfirm" layoutX="130.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="125.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
+                  <Text fx:id="Tfinish" layoutX="125.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="71.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
+                  <Text fx:id="Tcancellation" layoutX="71.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="118.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
+                  <Text fx:id="Tmainmenu" layoutX="118.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -269,9 +271,33 @@
                   <TextField fx:id="moSotto" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="S" />
                   <TextField fx:id="Selezionare" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="SPACE" />
                   <TextField fx:id="confermare" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ENTER" />
-                  <TextField fx:id="cacellareMo" editable="false" layoutX="252.0" layoutY="286.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACKSPACE" />
+                  <TextField fx:id="cacellareMo" editable="false" layoutX="252.0" layoutY="286.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACK_SPACE" />
                   <TextField fx:id="finitoT" editable="false" layoutX="251.0" layoutY="313.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
                   <TextField fx:id="opUscita" editable="false" layoutX="251.0" layoutY="340.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
+                  <Rectangle fx:id="retBsceliere" arcHeight="5.0" arcWidth="5.0" height="25.0" layoutX="205.0" layoutY="37.0" onMousePressed="#scegliIlComando" stroke="BLACK" strokeType="INSIDE" width="55.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Rectangle>
+                  <Rectangle fx:id="retSscegliere" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="25.0" layoutX="205.0" layoutY="37.0" onMouseClicked="#scegliIlComando" stroke="BLACK" strokeType="INSIDE" width="27.5" />
+                  <Text fx:id="Tmouse" layoutX="328.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="mause">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </content>

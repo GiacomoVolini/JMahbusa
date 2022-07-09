@@ -28,20 +28,20 @@ public class GameBoard {
 
     public GameBoard() {
         outerRect = new Rectangle();
-        outerRect.setFill(frame);
+        outerRect.setFill(Color.web(logic.getBoardFrameColor()));
         outerRect.setStroke(Color.BLACK);
         boardRect = new Rectangle();
-        boardRect.setFill(table);
-        boardRect.setStroke(table);
+        boardRect.setFill(Color.web(logic.getBoardInnerColor()));
+        boardRect.setStroke(Color.web(logic.getBoardInnerColor()));
         separator = new Rectangle();
-        separator.setFill(frame);
-        separator.setStroke(frame);
+        separator.setFill(Color.web(logic.getBoardFrameColor()));
+        separator.setStroke(Color.web(logic.getBoardFrameColor()));
         whiteExitRegion = new Rectangle();
-        whiteExitRegion.setFill(pedIn1);
+        whiteExitRegion.setFill(Color.web(logic.getWhitePawnFill()));
         whiteExitRegion.setStroke(Color.BLACK);
         whiteExitRegion.setEffect(LOW_CONTRAST);
         blackExitRegion = new Rectangle();
-        blackExitRegion.setFill(pedIn2);
+        blackExitRegion.setFill(Color.web(logic.getBlackPawnFill()));
         blackExitRegion.setStroke(Color.BLACK);
         blackExitRegion.setEffect(LOW_CONTRAST);
         for (int i = 0; i<12; i++) {
@@ -64,11 +64,11 @@ public class GameBoard {
         for (int i = 0; i<15; i++) {
             pawnArrayWHT[i] = new PawnView();
             pawnArrayBLK[i] = new PawnView();
-            this.pawnArrayWHT[i].setFill(pedIn1);
-            this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayWHT[i].setFill(Color.web(logic.getWhitePawnFill()));
+            this.pawnArrayWHT[i].setStroke(Color.web(logic.getWhitePawnStroke()));
             this.pawnArrayWHT[i].setDisable(true);
-            this.pawnArrayBLK[i].setFill(pedIn2);
-            this.pawnArrayBLK[i].setStroke(pedOut2);
+            this.pawnArrayBLK[i].setFill(Color.web(logic.getBlackPawnFill()));
+            this.pawnArrayBLK[i].setStroke(Color.web(logic.getBlackPawnStroke()));
             this.pawnArrayBLK[i].setDisable(true);
         }
     }
@@ -83,15 +83,15 @@ public class GameBoard {
     }
 
     protected void setBoardColors() {
-        outerRect.setFill(frame);
-        boardRect.setFill(table);
-        boardRect.setStroke(table);
-        separator.setFill(frame);
-        separator.setStroke(frame);
-        whiteExitRegion.setFill(pedIn1);
+        outerRect.setFill(Color.web(logic.getBoardFrameColor()));
+        boardRect.setFill(Color.web(logic.getBoardInnerColor()));
+        boardRect.setStroke(Color.web(logic.getBoardInnerColor()));
+        separator.setFill(Color.web(logic.getBoardFrameColor()));
+        separator.setStroke(Color.web(logic.getBoardFrameColor()));
+        whiteExitRegion.setFill(Color.web(logic.getWhitePawnFill()));
         whiteExitRegion.setStroke(Color.BLACK);
         whiteExitRegion.setEffect(LOW_CONTRAST);
-        blackExitRegion.setFill(pedIn2);
+        blackExitRegion.setFill(Color.web(logic.getBlackPawnFill()));
         blackExitRegion.setStroke(Color.BLACK);
         blackExitRegion.setEffect(LOW_CONTRAST);
         for (int i = 0; i<12; i++) {
@@ -108,11 +108,11 @@ public class GameBoard {
             }
         }
         for (int i = 0; i<15; i++) {
-            this.pawnArrayWHT[i].setFill(pedIn1);
-            this.pawnArrayWHT[i].setStroke(pedOut1);
+            this.pawnArrayWHT[i].setFill(Color.web(logic.getWhitePawnFill()));
+            this.pawnArrayWHT[i].setStroke(Color.web(logic.getWhitePawnStroke()));
             this.pawnArrayWHT[i].setDisable(true);
-            this.pawnArrayBLK[i].setFill(pedIn2);
-            this.pawnArrayBLK[i].setStroke(pedOut2);
+            this.pawnArrayBLK[i].setFill(Color.web(logic.getBlackPawnFill()));
+            this.pawnArrayBLK[i].setStroke(Color.web(logic.getBlackPawnStroke()));
             this.pawnArrayBLK[i].setDisable(true);
         }
     }

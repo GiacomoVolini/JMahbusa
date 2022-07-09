@@ -245,6 +245,45 @@ public class MenuImpostazioni  {
         private TitledPane Tcomandi;
 
         @FXML
+        private Text Tkeyboard;
+
+        @FXML
+        private Rectangle retBsceliere;
+
+        @FXML
+        private Rectangle retSscegliere;
+
+        @FXML
+        private Text Tmuov;
+
+        @FXML
+        private Text Tright;
+
+        @FXML
+        private Text Tleft;
+
+        @FXML
+        private Text Tup;
+
+        @FXML
+        private Text Tdown;
+
+        @FXML
+        private Text Tdese;
+
+        @FXML
+        private Text Tconfirm;
+
+        @FXML
+        private Text Tfinish;
+
+        @FXML
+        private Text Tcancellation;
+
+        @FXML
+        private Text Tmainmenu;
+
+        @FXML
         private TextField moDestra;
 
         @FXML
@@ -520,6 +559,15 @@ public class MenuImpostazioni  {
                 mainMenuButton.setDisable(false);
         }
 
+        @FXML
+        void scegliIlComando(MouseEvent event) {
+                if(retBsceliere.getLayoutX() != retSscegliere.getLayoutX()) {
+                        retSscegliere.setLayoutX(retBsceliere.getLayoutX());
+                }else{
+                        retSscegliere.setLayoutX(retSscegliere.getLayoutX()+retSscegliere.getWidth());
+                }
+        }
+
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
         /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
@@ -605,6 +653,10 @@ public class MenuImpostazioni  {
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
+                                Ctavolo.setDisable(false);
+                                Cpunte.setDisable(false);
+                                Cpunte2.setDisable(false);
+                                Ccornice.setDisable(false);
                                 break;
                         case LEFT_PRESET:
                                 Imsinistra.setSelected(true);
@@ -617,12 +669,26 @@ public class MenuImpostazioni  {
                 Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
                 Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
                 Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
-                //TODO IMPOSTARE ANCHE I COLORI ALLE PEDINE DEL MENU
+
+                pedina1.setFill(Color.web(logic.getWhitePawnFill()));
+                pedina1.setStroke(Color.web(logic.getWhitePawnStroke()));
+                pedina2.setFill(Color.web(logic.getBlackPawnFill()));
+                pedina2.setStroke(Color.web(logic.getBlackPawnStroke()));
                 Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
                 Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
                 Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
                 Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
-                //TODO IMPOSTARE ANCHE I COLORI AL MINITABELLONE CENTRALE
+
+                cornice.setFill(Color.web(logic.getBoardFrameColor()));
+                cornice.setStroke(Color.web(logic.getBoardFrameColor()));
+                tavolo.setFill(Color.web(logic.getBoardInnerColor()));
+                tavolo.setStroke(Color.web(logic.getBoardInnerColor()));
+                punta1.setFill(Color.web(logic.getEvenPointsColor()));
+                punta1.setStroke(Color.web(logic.getEvenPointsColor()));
+                punta2.setFill(Color.web(logic.getOddPointsColor()));
+                punta2.setStroke(Color.web(logic.getOddPointsColor()));
+                punta3.setFill(Color.web(logic.getEvenPointsColor()));
+                punta3.setStroke(Color.web(logic.getEvenPointsColor()));
                 moDestra.setText(logic.getMoveRight());
                 moSinistra.setText(logic.getMoveLeft());
                 moSopra.setText(logic.getMoveUp());
@@ -632,6 +698,7 @@ public class MenuImpostazioni  {
                 cacellareMo.setText(logic.getRevertMove());
                 finitoT.setText(logic.getFinishTurn());
                 opUscita.setText(logic.getOpenMenu());
+                applyButton.setDisable(true);
         }
 
         protected void changeDimensions() {
@@ -701,6 +768,27 @@ public class MenuImpostazioni  {
                 GBG.setLeftAnchor(Conpedina2,GBG.getWidth() * 0.40);
                 GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
 
+                //Comandi
+                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tup,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tdown,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(moDestra,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(moSinistra,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(moSopra,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(moSotto,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(Tdese,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tconfirm,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tcancellation,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tfinish,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tmainmenu,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Selezionare,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(confermare,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
+                GBG.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
                 //schermi
 
                 Sbackgraound.setPrefWidth(GBG.getWidth()/4);
@@ -745,6 +833,10 @@ public class MenuImpostazioni  {
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
+                                Ctavolo.setDisable(false);
+                                Cpunte.setDisable(false);
+                                Cpunte2.setDisable(false);
+                                Ccornice.setDisable(false);
                                 break;
                         case LEFT_PRESET:
                                 Imsinistra.setSelected(true);

@@ -159,6 +159,7 @@ public class SettingsLogic {
     protected void resetDefaultSettings() {
         try {
             loadSettingsFrom(defaultsPath);
+            saveSettingsTo(currentPath);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

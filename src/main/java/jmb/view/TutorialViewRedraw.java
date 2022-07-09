@@ -1,5 +1,6 @@
 package jmb.view;
 
-public class TutorialViewRedraw extends GameBoardRedraw {
+public class TutorialViewRedraw extends DynamicGameBoardRedraw {
+
 
 }

@@ -59,6 +59,7 @@ public class BoardLogic {
     //  METODI
 
     protected void setUpGame() {
+        System.out.println("Sono in setupgame");
         setGameStart(false);
         setGameEndState(false);
         //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori

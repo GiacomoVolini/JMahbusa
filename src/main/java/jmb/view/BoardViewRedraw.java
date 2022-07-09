@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class BoardViewRedraw extends GameBoardRedraw {
+public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
 
     //  L'altezza massima che il tabellone può occupare rispetto alla finestra
@@ -104,11 +104,14 @@ public class BoardViewRedraw extends GameBoardRedraw {
             board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
     }
-
+/* TODO TEST, SE LASCIATO CANCELLARE
     public static void redrawPawns(GameBoard board) {
         redrawPawns(board, logic.getBoardMatrix());
     }
 
+ */
+
+/* TODO TEST, SE LASCIATO CANCELLARE
     protected static void redrawPawns (GameBoard board, int[][] matrix) {
         int whitesPlaced = 0;
         int blacksPlaced = 0;
@@ -147,6 +150,7 @@ public class BoardViewRedraw extends GameBoardRedraw {
             }
         }
     }
+     */
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
         if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row)) {

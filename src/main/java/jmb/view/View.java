@@ -17,6 +17,7 @@ public class View implements IView {
     public  static MainMenu sceneMainMenu;
 
     public static LoadGameView sceneLoadView;
+    public static TutorialView sceneTutorial;
 
     public static Musica sceneMusica = new Musica();
 

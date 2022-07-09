@@ -156,12 +156,17 @@ public interface ILogic {
     String getBlackPawnFill ();
     void setBoardFrameColor (String value);
     String getBoardFrameColor ();
+    String getBoardFrameColor (boolean forceCustom);
     void setBoardInnerColor (String value);
     String getBoardInnerColor ();
+    String getBoardInnerColor (boolean forceCustom);
+
     void setEvenPointsColor (String value);
     String getEvenPointsColor ();
+    String getEvenPointsColor (boolean forceCustom);
     void setOddPointsColor (String value);
     String getOddPointsColor ();
+    String getOddPointsColor (boolean forceCustom);
     void setMoveRight (String value);
     String getMoveRight ();
     void setMoveLeft (String value);

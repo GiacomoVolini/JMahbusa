@@ -21,7 +21,9 @@ import java.io.IOException;
 
 public class SettingsView {
 
+
         private Stage stage;
+
         @FXML
         private AnchorPane GBG;
 
@@ -320,7 +322,7 @@ public class SettingsView {
                 //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
                 //      altrimenti andare al menu
                 mainMenuButton.getScene().getWindow();
-                App.MainMenu();
+                App.mainMenu();
         }
 
         @FXML
@@ -568,7 +570,6 @@ public class SettingsView {
                 }
         }
 
-
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
         /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
                 - pedIn1 - whitePawnFill - getWhitePawnFill()
@@ -637,6 +638,11 @@ public class SettingsView {
                 logic.setFinishTurn(finitoT.getText());
                 logic.setOpenMenu(opUscita.getText());
                 logic.applySettingsChanges();
+                logic.setResolutionWidth((int)GBG.getScene().getWidth());
+                logic.setResolutionHeight((int)GBG.getScene().getHeight());
+                logic.applySettingsChanges();
+
+                applyButton.setDisable(true);
         }
 
         @FXML
@@ -657,6 +663,7 @@ public class SettingsView {
                                 Cpunte.setDisable(false);
                                 Cpunte2.setDisable(false);
                                 Ccornice.setDisable(false);
+
                                 break;
                         case LEFT_PRESET:
                                 Imsinistra.setSelected(true);
@@ -669,7 +676,6 @@ public class SettingsView {
                 Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
                 Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
                 Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
-
                 pedina1.setFill(Color.web(logic.getWhitePawnFill()));
                 pedina1.setStroke(Color.web(logic.getWhitePawnStroke()));
                 pedina2.setFill(Color.web(logic.getBlackPawnFill()));
@@ -678,7 +684,6 @@ public class SettingsView {
                 Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
                 Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
                 Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
-
                 cornice.setFill(Color.web(logic.getBoardFrameColor()));
                 cornice.setStroke(Color.web(logic.getBoardFrameColor()));
                 tavolo.setFill(Color.web(logic.getBoardInnerColor()));
@@ -822,10 +827,18 @@ public class SettingsView {
                 Tpersonalizzazione.setPrefHeight(GBG.getHeight());
                 comandi.setPrefHeight(GBG.getHeight());
                 Tcomandi.setPrefHeight(GBG.getHeight());
+
+                if (((int)GBG.getScene().getHeight() != logic.getResolutionHeight() ||
+                        (int)GBG.getScene().getWidth() != logic.getResolutionWidth()) &&
+                        (int)GBG.getScene().getWidth()!= 0 && (int)GBG.getScene().getHeight() != 0) {
+                        applyButton.setDisable(false);
+                }
         }
 
         public void initialize() {
 
+                checkSI.setSelected(logic.getFullScreen());
+                checkBR.setSelected(logic.getLockResolution());
                 group = new ToggleGroup();
                 Imsinistra.setToggleGroup(group);
                 TM.setToggleGroup(group);
@@ -861,10 +874,10 @@ public class SettingsView {
                 Conpedina1.setValue(Color.web(logic.getWhitePawnStroke()));
                 Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
                 Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
-                Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
-                Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
-                Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
-                Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
+                Ctavolo.setValue(Color.web(logic.getBoardInnerColor(true)));
+                Ccornice.setValue(Color.web(logic.getBoardFrameColor(true)));
+                Cpunte.setValue(Color.web(logic.getEvenPointsColor(true)));
+                Cpunte2.setValue(Color.web(logic.getOddPointsColor(true)));
 
                 //Oggetti
                 pedina1.setFill(Inpedina1.getValue());

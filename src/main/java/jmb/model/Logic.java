@@ -453,15 +453,21 @@ public class Logic implements ILogic{
     }
     @Override
     public String getBoardFrameColor (){
-        return settings.getBoardFrameColor();
+        return settings.getBoardFrameColor(false);
     }
+    @Override
+    public String getBoardFrameColor (boolean forceCustom) { return settings.getBoardFrameColor(forceCustom);}
     @Override
     public void setBoardInnerColor (String value)  {
         settings.setBoardInnerColor(value);
     }
     @Override
     public String getBoardInnerColor (){
-        return settings.getBoardInnerColor();
+        return settings.getBoardInnerColor(false);
+    }
+    @Override
+    public String getBoardInnerColor (boolean forceCustom){
+        return settings.getBoardInnerColor(forceCustom);
     }
     @Override
     public void setEvenPointsColor (String value){
@@ -469,7 +475,11 @@ public class Logic implements ILogic{
     }
     @Override
     public String getEvenPointsColor (){
-        return settings.getEvenPointsColor();
+        return settings.getEvenPointsColor(false);
+    }
+    @Override
+    public String getEvenPointsColor (boolean forceCustom){
+        return settings.getEvenPointsColor(forceCustom);
     }
     @Override
     public void setOddPointsColor (String value){
@@ -477,7 +487,11 @@ public class Logic implements ILogic{
     }
     @Override
     public String getOddPointsColor (){
-        return settings.getOddPointsColor();
+        return settings.getOddPointsColor(false);
+    }
+    @Override
+    public String getOddPointsColor (boolean forceCustom){
+        return settings.getOddPointsColor(forceCustom);
     }
     @Override
     public void setMoveRight (String value){

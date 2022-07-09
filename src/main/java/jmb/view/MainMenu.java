@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 import static jmb.view.App.getStage;
+import static jmb.view.View.logic;
 import static jmb.view.View.sceneLoadView;
 
 
@@ -108,6 +109,7 @@ public class MainMenu {
     @FXML
     void openTutorial() throws IOException{
         App.tutorial();
+        logic.setUpNewGame();
     }
 
     public void initialize() {

@@ -8,9 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -132,7 +132,7 @@ public class LogIn {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        App.MainMenu();
+        App.mainMenu();
     }
 
     @FXML
@@ -194,10 +194,10 @@ public class LogIn {
         media.setToggleGroup(group);
         scelta.setToggleGroup(group);
 
-        nome1.setFill(pedIn1);
-        nome1.setStroke(pedOut1);
-        nome2.setFill(pedIn2);
-        nome2.setStroke(pedOut2);
+        nome1.setFill(Color.web(logic.getWhitePawnFill()));
+        nome1.setStroke(Color.web(logic.getWhitePawnStroke()));
+        nome2.setFill(Color.web(logic.getBlackPawnFill()));
+        nome2.setStroke(Color.web(logic.getBlackPawnStroke()));
 
         ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
         scrivinomi1.setItems(nameList);
@@ -215,16 +215,20 @@ public class LogIn {
     }
 
     protected void changeDimensions() {
+        double panelWidth = 383;
+        double regHeight = 191;
+        double gtHeight = 97;
+        double tpHeight = 80;
 
-        double panelX = window.getWidth()/2 - registrati.getWidth()/2;
+        double panelX = window.getWidth()/2 - panelWidth/2;
 
         registrati.setLayoutX(panelX);
         GT.setLayoutX(panelX);
         tournamentPanel.setLayoutX(panelX);
-
-        registrati.setLayoutY((window.getHeight() - registrati.getHeight() - GT.getHeight() - tournamentPanel.getHeight())/2);
-        GT.setLayoutY(registrati.getLayoutY() + registrati.getHeight());
-        tournamentPanel.setLayoutY(GT.getLayoutY()+GT.getHeight());
+        double regY = (window.getHeight() - regHeight - gtHeight - tpHeight)/2;
+        registrati.setLayoutY(regY);
+        GT.setLayoutY(regY + regHeight);
+        tournamentPanel.setLayoutY(regY + regHeight + gtHeight);
 
 
     }

@@ -2,6 +2,7 @@ package jmb.model;
 
 import java.util.Random;
 
+import static jmb.model.Logic.settings;
 import static jmb.model.Logic.view;
 
 /**
@@ -55,16 +56,6 @@ public class DiceLogic {
             this.dice[3]=this.dice[2]=0;
             this.used[3]=this.used[2]=true;
         }
-
-    /*TODO TEST TIRI DOPPI A OLTRANZA
-        this.doubleNum = true;
-        this.dice[0]=this.dice[1]=this.dice[2]=this.dice[3]= rnd.nextInt(6) + 1;
-        for (int i=0; i<4; i++) {
-            this.used[i] = false;
-            this.toBeUsed[i] = false;
-        }
-
-         */
 
     }
 
@@ -140,8 +131,8 @@ public class DiceLogic {
             }
         }
 
-        //TODO TEST - BYPASSA CONTROLLO DADI
-        possible = true;
+        if (settings.getBypassDice())
+            possible = true;
 
         return possible;
 
@@ -219,6 +210,8 @@ public class DiceLogic {
                 toBeUsed[i] = true;
             }
         }
+        if (settings.getBypassDice())
+            possible = true;
         return possible;
     }
 
@@ -230,6 +223,8 @@ public class DiceLogic {
                 toBeUsed[i] = true;
             }
         }
+        if (settings.getBypassDice())
+            possible = true;
         return possible;
     }
 

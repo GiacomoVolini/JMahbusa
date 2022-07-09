@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
    <children>
-      <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="486.0">
+      <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="486.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="133.0" text="NOME" />
           <TableColumn fx:id="victories" minWidth="0.0" prefWidth="122.0" sortType="DESCENDING" text="Vittorie" />
@@ -18,10 +20,10 @@
             <TableColumn fx:id="rate" minWidth="0.0" prefWidth="117.0" sortType="DESCENDING" text="Tasso vittorie" />
         </columns>
       </TableView>
-      <AnchorPane fx:id="smallAncor" layoutX="476.0" layoutY="119.0" prefHeight="25.0" prefWidth="107.0">
+      <AnchorPane fx:id="smallAncor" layoutX="476.0" layoutY="119.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="cerca" prefHeight="25.0" prefWidth="73.0" promptText="Search" />
-            <Button fx:id="searchBTN" layoutX="73.0" maxHeight="25.0" maxWidth="36.0" mnemonicParsing="false" onAction="#cercaNomi" prefHeight="25.0" prefWidth="36.0">
+            <TextField fx:id="cerca" prefHeight="26.0" prefWidth="83.0" promptText="Search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="searchBTN" layoutX="73.0" maxHeight="26.0" maxWidth="50.0" mnemonicParsing="false" onAction="#cercaNomi" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="0.0">
                <graphic>
                   <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -32,6 +34,11 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="uscita" layoutX="513.0" layoutY="220.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="25.0" prefWidth="36.0" text="Exit" />
+      <Button fx:id="uscita" layoutX="513.0" layoutY="220.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="26.0" prefWidth="145.0" text="Exit" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Label alignment="CENTER" layoutX="95.0" layoutY="5.0" prefHeight="26.0" prefWidth="601.0" text="Classifica" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

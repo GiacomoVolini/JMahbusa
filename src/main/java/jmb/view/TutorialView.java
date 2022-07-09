@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
-public class TutorialView extends GameBoard{
+public class TutorialView extends DynamicGameBoard{
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
     private final static double VERTICAL_RESIZE_FACTOR = 0.8;
@@ -73,12 +73,12 @@ public class TutorialView extends GameBoard{
     }
 
     private void changeDimensions() {
-        TutorialViewRedraw.resizeOuterRect(this);
-        TutorialViewRedraw.resizeInnerBoard(this);
+        //TutorialViewRedraw.resizeAll(); TODO
+
     }
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.MainMenu();
+        App.mainMenu();
     }
 }

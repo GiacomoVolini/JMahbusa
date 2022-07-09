@@ -13,11 +13,6 @@ import static jmb.ConstantsShared.*;
 
 public class SettingsLogic {
 
-    /*TODO
-        Forse potrebbe esserci un problema sui metodi loadFrom e storeTo
-        I metodi potrebbero aggiornare gli oggetti Ini e non gestire correttamente la lettura e scrittura da file
-     */
-
     private boolean fullScreen = false;
     private boolean lockResolution = false;
     private int resolutionWidth = 640;
@@ -32,9 +27,17 @@ public class SettingsLogic {
     private String blackPawnStroke = "#ffffff";
     private String blackPawnFill = "#000000";
     private String boardFrameColor = "#432d05";
+    private static final String BOARD_FRAME_LEFT_PRESET = "#000000";
+    private static final String BOARD_FRAME_RIGHT_PRESET = "#090957";
     private String boardInnerColor = "#e1c699";
+    private static final String BOARD_INNER_LEFT_PRESET = "#ad1111";
+    private static final String BOARD_INNER_RIGHT_PRESET = "#53960f";
     private String evenPointsColor = "#b27e31";
+    private static final String EVEN_POINTS_LEFT_PRESET = "#ffde3a";
+    private static final String EVEN_POINTS_RIGHT_PRESET = "#c21123";
     private String oddPointsColor ="#2abc95";
+    private static final String ODD_POINTS_LEFT_PRESET = "#c0c0c0";
+    private static final String ODD_POINTS_RIGHT_PRESET = "#daa505";
     private String moveRight = "D";
     private String moveLeft = "A";
     private String moveUp = "W";
@@ -47,48 +50,7 @@ public class SettingsLogic {
     private boolean bypassDice = false;
     private Path defaultsPath;
     private Path currentPath;
-    private Ini defaults;
-    private Ini current;
 
-/* TODO VECCHIO
-    public SettingsLogic() {
-        try{
-            //defaults = new Ini();
-            //current = new Ini();
-            defaultsPath = Path.of("./settings/Defaults.ini");
-            currentPath = Path.of("./settings/Current.ini");
-            if (Files.exists(defaultsPath)) {
-                System.out.println("Defaults esiste");
-                if (Files.exists(currentPath)) {
-                    System.out.println("Current esiste");
-                    //current.load(currentPath.toFile());
-                    //loadSettingsFrom(current);
-                    loadSettingsFrom(currentPath);
-                } else{
-                    System.out.println("Current non esiste");
-                    //defaults.load(defaultsPath.toFile());
-                    //loadSettingsFrom(defaults);
-                    loadSettingsFrom(defaultsPath);
-                    Files.createFile(currentPath);
-                    //defaults.store(currentPath.toFile());
-                    saveSettingsTo(currentPath);
-                }
-            } else {
-                System.out.println("Defaults non esiste");
-                Files.createFile(defaultsPath);
-                Files.createFile(currentPath);
-                //defaults.load(defaultsPath.toFile());
-                //saveSettingsTo(defaults);
-                //defaults.store(currentPath.toFile());
-                saveSettingsTo(defaultsPath);
-                saveSettingsTo(currentPath);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
- */
 
     public SettingsLogic() {
         try {
@@ -186,6 +148,7 @@ public class SettingsLogic {
         ini.put("Controls", "revertMove", revertMove);
         ini.put("Controls", "finishTurn", finishTurn);
         ini.put("Controls", "openMenu", openMenu);
+        ini.put("DEBUG", "bypassDice", bypassDice);
         ini.store();
     }
 
@@ -306,32 +269,76 @@ public class SettingsLogic {
             this.boardFrameColor = value;
         }
     }
-    protected String getBoardFrameColor() {
-        return this.boardFrameColor;
+    protected String getBoardFrameColor(boolean forceCustom) {
+        String out = this.boardFrameColor;
+        if (!forceCustom) {
+            switch (boardPreset) {
+                case LEFT_PRESET:
+                    out = BOARD_FRAME_LEFT_PRESET;
+                    break;
+                case RIGHT_PRESET:
+                    out = BOARD_FRAME_RIGHT_PRESET;
+                    break;
+            }
+        }
+                return out;
     }
     protected void setBoardInnerColor(String value) {
         if (value.charAt(0)=='#' && value.length()==7) {
             this.boardInnerColor = value;
         }
     }
-    protected String getBoardInnerColor() {
-        return this.boardInnerColor;
+    protected String getBoardInnerColor(boolean forceCustom) {
+        String out = this.boardInnerColor;
+        if (!forceCustom) {
+            switch (boardPreset) {
+                case LEFT_PRESET:
+                    out = BOARD_INNER_LEFT_PRESET;
+                    break;
+                case RIGHT_PRESET:
+                    out = BOARD_INNER_RIGHT_PRESET;
+                    break;
+            }
+        }
+        return out;
     }
     protected void setEvenPointsColor(String value) {
         if (value.charAt(0)=='#' && value.length()==7) {
             this.evenPointsColor = value;
         }
     }
-    protected String getEvenPointsColor() {
-        return this.evenPointsColor;
+    protected String getEvenPointsColor(boolean forceCustom) {
+        String out = this.evenPointsColor;
+        if (!forceCustom) {
+            switch (boardPreset) {
+                case LEFT_PRESET:
+                    out = EVEN_POINTS_LEFT_PRESET;
+                    break;
+                case RIGHT_PRESET:
+                    out = EVEN_POINTS_RIGHT_PRESET;
+                    break;
+            }
+        }
+        return out;
     }
     protected void setOddPointsColor(String value) {
         if (value.charAt(0)=='#' && value.length()==7) {
             this.oddPointsColor = value;
         }
     }
-    protected String getOddPointsColor() {
-        return this.oddPointsColor;
+    protected String getOddPointsColor(boolean forceCustom) {
+        String out = this.oddPointsColor;
+        if (!forceCustom) {
+            switch (boardPreset) {
+                case LEFT_PRESET:
+                    out = ODD_POINTS_LEFT_PRESET;
+                    break;
+                case RIGHT_PRESET:
+                    out = ODD_POINTS_RIGHT_PRESET;
+                    break;
+            }
+        }
+        return out;
     }
     protected void setMoveRight(String value) {
         this.moveRight = value;

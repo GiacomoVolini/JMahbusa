@@ -12,11 +12,12 @@ public class View implements IView {
 
     public static LogIn sceneLogIn;
 
-    public  static MenuImpostazioni sceneImpostazioni;
+    public  static SettingsView sceneImpostazioni;
 
     public  static MainMenu sceneMainMenu;
 
     public static LoadGameView sceneLoadView;
+    public static TutorialView sceneTutorial;
 
     public static Musica sceneMusica = new Musica();
 

@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.App.getStage;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
@@ -151,28 +150,28 @@ public class LoadGameView extends GameBoard {
         double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
         saveListAnchor.setPrefWidth(listWidth);
         saveDetailAnchor.setPrefWidth(detailWidth);
-        //window.setRightAnchor(saveListAnchor, window.getWidth()*(1-SEPARATOR_RATIO));
+        //window.setRightAnchor(saveListAnchor, window.getWidth()*(1-SEPARATOR_RATIO)); TODO
         //window.setLeftAnchor(saveDetailAnchor, window.getWidth()*SEPARATOR_RATIO);
-        saveDetailView.setRightAnchor(deleteSaveButton, saveDetailView.getRightAnchor(loadSaveButton) + loadSaveButton.getWidth());
+        //AnchorPane.setRightAnchor(deleteSaveButton, 41.0);
         saveDetailView.setLayoutX(listWidth);
         double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
         double imageHeight = window.getHeight()*0.5;
         double xAnchor = 15;
         double yAnchor = 10;
-        saveDetailView.setLeftAnchor(whitePlayerPawn, xAnchor);
-        saveDetailView.setRightAnchor(blackPlayerPawn, xAnchor);
-        saveDetailView.setTopAnchor(whitePlayerPawn, yAnchor);
-        saveDetailView.setTopAnchor(blackPlayerPawn, yAnchor);
+        AnchorPane.setLeftAnchor(whitePlayerPawn, xAnchor);
+        AnchorPane.setRightAnchor(blackPlayerPawn, xAnchor);
+        AnchorPane.setTopAnchor(whitePlayerPawn, yAnchor);
+        AnchorPane.setTopAnchor(blackPlayerPawn, yAnchor);
         double pawnRadius = window.getHeight() * 0.036;
         whitePlayerPawn.setRadius(pawnRadius);
         blackPlayerPawn.setRadius(pawnRadius);
         whitePlayerName.setPrefHeight(pawnRadius*2);
         blackPlayerName.setPrefHeight(pawnRadius*2);
-        saveDetailView.setTopAnchor(whitePlayerName, yAnchor);
-        saveDetailView.setTopAnchor(blackPlayerName, yAnchor);
+        AnchorPane.setTopAnchor(whitePlayerName, yAnchor);
+        AnchorPane.setTopAnchor(blackPlayerName, yAnchor);
         double labelXAnchor = (xAnchor + pawnRadius) * 2;
-        saveDetailView.setLeftAnchor(whitePlayerName, labelXAnchor);
-        saveDetailView.setRightAnchor(blackPlayerName, labelXAnchor);
+        AnchorPane.setLeftAnchor(whitePlayerName, labelXAnchor);
+        AnchorPane.setRightAnchor(blackPlayerName, labelXAnchor);
         hourglass.setFitHeight(pawnRadius*3);
         hourglass.setFitWidth(pawnRadius*2);
         timerLabel.setPrefHeight(pawnRadius*3);
@@ -207,7 +206,7 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.MainMenu();
+        App.mainMenu();
     }
 
     @FXML

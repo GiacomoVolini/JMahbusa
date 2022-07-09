@@ -72,12 +72,10 @@ public class LeaderboardView {
 
     protected void changeDimensions() {
 
-        table.setLayoutX(Window.getWidth()/2 - table.getWidth()/2);
-        table.setLayoutY(Window.getHeight()/2 - table.getHeight()/2);
-        uscita.setLayoutX(table.getLayoutX());
-        uscita.setLayoutY(table.getLayoutY() - 25);
-        smallAncor.setLayoutX(table.getLayoutX() + 376);
-        smallAncor.setLayoutY(table.getLayoutY() - 25);
+        name.setPrefWidth(Window.getWidth()/4);
+        victories.setPrefWidth(Window.getWidth()/4);
+        defeats.setPrefWidth(Window.getWidth()/4);
+        rate.setPrefWidth(Window.getWidth()/4);
 
 
         /*uscita.setLayoutX(table.getLayoutX() + (table.getWidth() * 0.15) + table.getWidth());

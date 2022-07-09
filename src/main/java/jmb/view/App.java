@@ -11,7 +11,6 @@ import java.io.IOException;
 
 import static jmb.view.View.logic;
 
-//TODO CAMBIARE TUTTI I RIFERIMENTI A PATH O NEL JAR COMPILATO NON FUNZIONA NIENTE
 //TODO QUANDO SI CAMBIA SCENE L'APPLICAZIONE FA UNO SCATTO IN FULLSCREEN, POI TORNA IN FINESTRA ANCHE SE NON DOVREBBE
 /**
  * JavaFX App
@@ -19,6 +18,8 @@ import static jmb.view.View.logic;
 public class App extends Application {
 
     private static Stage stage;
+
+    private static Scene scene;
     private static Scene sceneMainMenu;
     private static Scene sceneBoard;
     private static Scene sceneSettings;
@@ -45,20 +46,16 @@ public class App extends Application {
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         interfaceInstantiation();
-        sceneMainMenu = new Scene(loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
+        scene = new Scene (loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
         setStageOptions();
-        stage.setScene(sceneMainMenu);
+        stage.setScene(scene);
         stage.show();
     }
 
     public static void mainMenu(){
         try {
-            if (stage.isFullScreen() == logic.getFullScreen())
-                sceneMainMenu = new Scene(loadFXML(MAIN_MENU), stage.getScene().getWidth(), stage.getScene().getHeight());
-            else
-                sceneMainMenu = new Scene(loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
-            stage.setScene(sceneMainMenu);
-            setStageOptions();
+            scene.setRoot(loadFXML(MAIN_MENU));
+            //setStageOptions(); TODO TEST
             stage.show();
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -69,17 +66,15 @@ public class App extends Application {
 
     //TODO STO PROVANDO A RICREARE OGNI VOLTA LE SCENE, IN MODO DA PASSARE LA GIUSTA RISOLUZIONE DI VOLTA IN VOLTA
     public static void login() throws IOException{
-        sceneLogIn = new Scene(loadFXML(LOG_IN), stage.getScene().getWidth(), stage.getScene().getHeight());
-        stage.setScene(sceneLogIn);
-        setStageOptions();
+        scene.setRoot(loadFXML(LOG_IN));
+        //setStageOptions(); TODO TEST
         stage.show();
     }
 
     public static void board() {
         try {
-            sceneBoard = new Scene(loadFXML(PLAY_GAME), stage.getScene().getWidth(), stage.getScene().getHeight());
-            stage.setScene(sceneBoard);
-            setStageOptions();
+            scene.setRoot(loadFXML(PLAY_GAME));
+            //setStageOptions(); TODO TEST
             stage.show();
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -88,37 +83,29 @@ public class App extends Application {
 
     public static void edit() throws IOException{
         //if (sceneSettings == null) {TODO TEST
-            sceneSettings = new Scene(loadFXML(SETTINGS), stage.getScene().getWidth(), stage.getScene().getHeight());
-        //}TODO TEST
-        stage.setScene(sceneSettings);
-        setStageOptions();
+            scene.setRoot(loadFXML(SETTINGS));
+        //setStageOptions(); TODO TEST
         stage.show();
     }
 
     public static void leaderBoard() throws IOException{
         //if (sceneLeaderBoard == null){ TODO TEST
-            sceneLeaderBoard = new Scene(loadFXML(LEADERBOARDS), stage.getScene().getWidth(), stage.getScene().getHeight());
-        //}TODO TEST
-        stage.setScene(sceneLeaderBoard);
-        setStageOptions();
+            scene.setRoot(loadFXML(LEADERBOARDS));
+        //setStageOptions(); TODO TEST
         stage.show();
     }
 
     public static void loadGame() throws IOException {
         //if (sceneLoadGame == null){TODO TEST
-            sceneLoadGame = new Scene(loadFXML(LOAD_GAME), stage.getScene().getWidth(), stage.getScene().getHeight());
-        //}TODO TEST
-        stage.setScene(sceneLoadGame);
-        setStageOptions();
+            scene.setRoot(loadFXML(LOAD_GAME));
+        //setStageOptions(); TODO TEST
         stage.show();
     }
 
     public static void tutorial() throws IOException {
         //if (sceneTutorial == null) {TODO TEST
-            sceneTutorial = new Scene(loadFXML(TUTORIAL), stage.getScene().getWidth(), stage.getScene().getHeight());
-        //}TODO TEST
-        stage.setScene(sceneTutorial);
-        setStageOptions();
+            scene.setRoot(loadFXML(TUTORIAL));
+        //setStageOptions(); TODO TEST
         stage.show();
     }
 

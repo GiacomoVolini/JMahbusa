@@ -19,7 +19,7 @@ import static jmb.view.View.logic;
 
 import java.io.IOException;
 
-public class MenuImpostazioni  {
+public class SettingsView {
 
         private Stage stage;
         @FXML

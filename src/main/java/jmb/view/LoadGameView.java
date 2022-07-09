@@ -208,15 +208,12 @@ public class LoadGameView extends GameBoard {
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.MainMenu();
-        getStage().setFullScreen(cb);
     }
 
     @FXML
     void loadGame(ActionEvent event) {
         logic.setUpSavedGame(saveName);
         App.board();
-        getStage().setFullScreen(cb);
-
     }
 
     @FXML

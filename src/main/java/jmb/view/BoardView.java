@@ -24,6 +24,10 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
+/*TODO
+    Potremmo far vedere quali sono i comandi per tastiera quando l'utente pigia un tasto (o sotto o vicino ai pulsanti)
+ */
+
 
 public class BoardView extends GameBoard {
 
@@ -195,21 +199,6 @@ public class BoardView extends GameBoard {
     }
 
     @FXML
-    protected void openBlackExit() {
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
-                                new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-    @FXML
     void saveGame(ActionEvent event) {
         if (!logic.allDiceUsed()) {
             errorLabel.setText("Completa le tue mosse prima di salvare");
@@ -220,7 +209,6 @@ public class BoardView extends GameBoard {
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
                 WritableImage saveImage = this.saveBoardImage();
                 logic.saveGame(saveTextField.getText(), saveImage);
-                getStage().setFullScreen(cb);
                 View.sceneMusica.playerp.stop();
                 vaialMainMenu();
             } else {
@@ -250,22 +238,8 @@ public class BoardView extends GameBoard {
         return window.snapshot(param, null);
     }
 
-    @FXML
-    protected void openWhiteExit() {
 
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
+
 
     @FXML
     void openExitoption() {
@@ -287,7 +261,6 @@ public class BoardView extends GameBoard {
     @FXML
     void vaialMainMenu(){
             App.MainMenu();
-            getStage().setFullScreen(cb);
         
         View.sceneMusica.playerp.stop();
         
@@ -552,12 +525,6 @@ public class BoardView extends GameBoard {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
             App.MainMenu();
-            if (cb == fullscreen) {
-                getStage().setFullScreen(true);
-            } else {
-                getStage().setFullScreen(false);
-            }
-
     }
 
     private Rectangle createVictoryPanel() {

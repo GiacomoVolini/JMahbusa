@@ -50,6 +50,7 @@ public class SettingsLogic {
     private Ini defaults;
     private Ini current;
 
+/* TODO VECCHIO
     public SettingsLogic() {
         try{
             //defaults = new Ini();
@@ -84,6 +85,38 @@ public class SettingsLogic {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+ */
+
+    public SettingsLogic() {
+        try {
+            String settingsDir = Logic.getAppDirectory() + "/settings";
+            if (!Files.exists(Path.of(settingsDir)))
+                Files.createDirectory(Path.of(settingsDir));
+            defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));
+            currentPath = Path.of (settingsDir.concat("/Current.ini"));
+            if (Files.exists(defaultsPath)) {
+                System.out.println("Defaults esiste");
+                if (Files.exists(currentPath)) {
+                    System.out.println("Current esiste");
+                    loadSettingsFrom(currentPath);
+                } else{
+                    System.out.println("Current non esiste");
+                    loadSettingsFrom(defaultsPath);
+                    Files.createFile(currentPath);
+                    saveSettingsTo(currentPath);
+                }
+            } else {
+                System.out.println("Defaults non esiste");
+                Files.createFile(defaultsPath);
+                Files.createFile(currentPath);
+                saveSettingsTo(defaultsPath);
+                saveSettingsTo(currentPath);
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 

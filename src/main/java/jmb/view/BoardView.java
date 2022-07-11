@@ -18,6 +18,10 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -41,8 +45,6 @@ public class BoardView extends DynamicGameBoard {
     AnchorPane saveAnchorPane;
     @FXML
     Label errorLabel;
-    @FXML
-    Rectangle diceTray;
 
     @FXML
     protected Button backBTN;
@@ -74,18 +76,6 @@ public class BoardView extends DynamicGameBoard {
 
     @FXML
     Button annulla;
-
-    @FXML
-    ImageView diceD;
-
-    @FXML
-    ImageView diceU;
-
-    @FXML
-    ImageView doubleDiceD;
-
-    @FXML
-    ImageView doubleDiceU;
 
     @FXML
     Rectangle plBLKInRect;
@@ -126,18 +116,6 @@ public class BoardView extends DynamicGameBoard {
     @FXML
     TextField saveTextField;
 
-
-    /*muscia
-    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\partita.mp3").toURI().toString();
-    MediaPlayer playerp = new MediaPlayer( new Media(uriString));
-*/
-
-
-    //  Booleano che indica se l'animazione di diceTray è stata completata
-    boolean dtAnimDone = false;
-
-    protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-    //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
@@ -281,84 +259,22 @@ public class BoardView extends DynamicGameBoard {
         BoardViewRedraw.redrawPawns(this);
     }
 
-    protected void openDoubleDice() {
-        if (!diceArray[2].isVisible()) {
-            App.getStage().setResizable(false);
-            Timeline timeline = new Timeline (
-                    new KeyFrame(Duration.ZERO,
-                            e -> {
-                                diceArray[2].setVisible(true);
-                                diceArray[3].setVisible(true);
-                            },
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
-                            ),
-                    new KeyFrame(Duration.seconds(0.5),
-                            e -> App.getStage().setResizable(true),
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
-                    )
-            );
-            timeline.setCycleCount(1);
-            timeline.play();
-        }
-    }
-
-    protected void closeDoubleDice() {
-        if (diceArray[2].isVisible()) {
-            App.getStage().setResizable(false);
-            Timeline timeline = new Timeline (
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
-                    ),
-                    new KeyFrame(Duration.seconds(0.5),
-                            e -> {
-                                App.getStage().setResizable(true);
-                                diceArray[2].setVisible(false);
-                                diceArray[3].setVisible(false);
-                            },
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
-                    )
-            );
-            timeline.setCycleCount(1);
-            timeline.play();
-        }
-    }
-
-    private void diceTrayAnim() {
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    this.dtAnimDone = true;
-                    App.getStage().setResizable(true);
-                    BoardViewRedraw.resizeDice(this);
-                    logic.firstTurn();
-                }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
         finishBTN.setDisable(true);
-        if(!logic.isRollDouble())
+        if (!logic.isRollDouble())
             closeDoubleDice();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
         );
         timeline.setCycleCount(10);
-        timeline.setOnFinished( e -> {
+        timeline.setOnFinished(e -> {
             DiceView.setDiceValues(diceArray);
             finishBTN.setDisable(false);
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
-            if (logic.getTurnDuration()!=0)
+            if (logic.getTurnDuration() != 0)
                 turnTimer.play();
         });
         timeline.play();
@@ -569,36 +485,7 @@ public class BoardView extends DynamicGameBoard {
         timeline.play();
     }
 
-    protected void closeBlackExit() {
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
 
-    protected void closeWhiteExit() {
-
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
 
     int i=0;
     String s="";
@@ -879,9 +766,6 @@ public class BoardView extends DynamicGameBoard {
                 timerIn.setVisible(false);
                 timerOut.setVisible(false);
             }
-
-            //  INIZIALIZZAZIONE ARRAY
-            this.diceArray = new ImageView[]{this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
 
             //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
             //  del tabellone

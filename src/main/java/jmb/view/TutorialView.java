@@ -1,11 +1,15 @@
 package jmb.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class TutorialView extends DynamicGameBoard{
 
@@ -62,6 +66,34 @@ public class TutorialView extends DynamicGameBoard{
         TutorialViewRedraw.setXLayoutFactor(X_LAYOUT_FACTOR);
         TutorialViewRedraw.setYLayoutFactor(Y_LAYOUT_FACTOR);
 
+        for (int i = 0; i<15; i++) {
+            pawnArrayWHT[i].setVisible(false);
+            pawnArrayBLK[i].setVisible(false);
+        }
+        textboxLabel1.setViewOrder(-10);
+        textboxLabel2.setVisible(false);
+        textboxLabel2.setViewOrder(-10);
+        textboxRectangle1.setViewOrder(-9);
+        textboxRectangle2.setVisible(false);
+        textboxRectangle2.setViewOrder(-9);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(textboxRectangle1.scaleXProperty(), 0),
+                        new KeyValue(textboxRectangle1.scaleYProperty(), 0),
+                        new KeyValue(textboxLabel1.scaleXProperty(), 0),
+                        new KeyValue(textboxLabel1.scaleYProperty(), 0)),
+                new KeyFrame(Duration.seconds(1.5), new KeyValue(textboxRectangle1.scaleXProperty(), 0),
+                        new KeyValue(textboxRectangle1.scaleYProperty(), 0),
+                        new KeyValue(textboxLabel1.scaleXProperty(), 0),
+                        new KeyValue(textboxLabel1.scaleYProperty(), 0)),
+                new KeyFrame(Duration.seconds(1.9), new KeyValue(textboxRectangle1.scaleXProperty(), 1),
+                        new KeyValue(textboxRectangle1.scaleYProperty(), 1),
+                        new KeyValue(textboxLabel1.scaleXProperty(), 1),
+                        new KeyValue(textboxLabel1.scaleYProperty(), 1)));
+        timeline.setCycleCount(1);
+        timeline.play();
+
+
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         windowPane.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -73,7 +105,7 @@ public class TutorialView extends DynamicGameBoard{
     }
 
     private void changeDimensions() {
-        //TutorialViewRedraw.resizeAll(); TODO
+        TutorialViewRedraw.resizeAll(this);
 
     }
 

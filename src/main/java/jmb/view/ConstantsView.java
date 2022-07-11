@@ -9,6 +9,10 @@ public class ConstantsView {
     public static final double MAX_BTN_HEIGHT = 80;                     //  L'altezza massima dei buttoni piccoli
     public static final double BUTTON_ANCHOR = 10;                      //  Il valore dell'anchor per i tre pulsanti
 
+    protected static final int UPPER_DICE = 0;
+    protected static final int LOWER_DICE = 1;
+    protected static final int UPPER_DOUBLE_DICE = 2;
+    protected static final int LOWER_DOUBLE_DICE = 3;
 
     // variabili per le impostazioni (opzioni)
     public static Color pedIn1 = Color.web("#ffffff");

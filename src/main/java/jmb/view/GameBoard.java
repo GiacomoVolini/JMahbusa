@@ -122,13 +122,19 @@ public class GameBoard {
         }
     }
 
+    protected boolean blockResizeCondition() {
+        return (!logic.getFullScreen() && !logic.getLockResolution());
+    }
+
     protected void openBlackExit() {
-        App.getStage().setResizable(false);
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    App.getStage().setResizable(true);
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
                 }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
                 )
@@ -137,15 +143,50 @@ public class GameBoard {
         timeline.play();
     }
     protected void openWhiteExit() {
-
-        App.getStage().setResizable(false);
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    App.getStage().setResizable(true);
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
                 }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    protected void closeBlackExit() {
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1),  e-> {
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    protected void closeWhiteExit() {
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
                 )
         );
         timeline.setCycleCount(1);

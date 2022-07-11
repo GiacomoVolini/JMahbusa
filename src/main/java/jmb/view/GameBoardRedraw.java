@@ -151,15 +151,6 @@ public class GameBoardRedraw {
         board.whiteExitRegion.setLayoutY(board.outerRect.getLayoutY() + (board.outerRect.getHeight()/2));
     }
 
-    /*TODO
-        COME POTREI RISCRIVERE REDRAWPAWNS
-        - Metodi redrawPawns sulle classi figlie (senza attributi passati), che vanno a pescare la matrice di interi giusta
-        - Metodo redrawPawns su classe madre a cui si passa una matrice di interi che fa il riposizionamento delle pedine
-            (scegliere se aggiungere dei sottometodi o fare tutto su uno)
-        - Metodo che sovrascrive redrawPawns con matrice su BoardViewRedraw che richiama il metodo padre e poi evidenzia
-            le pedine che si possono muovere
-     */
-
     protected static void redrawPawns (GameBoard board, int[][] matrix) {
         int whitesPlaced = 0;
         int blacksPlaced = 0;

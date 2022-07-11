@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
@@ -17,7 +15,6 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
-   <Rectangle fx:id="diceTray" fill="#1f93ff66" layoutX="954.0" layoutY="81.0" smooth="false" stroke="BLACK" strokeType="INSIDE" />
 
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
@@ -82,26 +79,6 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <ImageView fx:id="doubleDiceU" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-         <Image url="@diceImg/Dado6INV.png" />
-      </image>
-   </ImageView>
-   <ImageView fx:id="doubleDiceD" fitHeight="82.0" fitWidth="79.0" layoutX="1015.0" layoutY="674.0" pickOnBounds="true" preserveRatio="true" visible="false">
-      <image>
-         <Image url="@diceImg/Dado4INV.png" />
-      </image>
-   </ImageView>
-   <ImageView fx:id="diceU" fitHeight="1.0" fitWidth="1.0" layoutX="1015.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@diceImg/Dado6.png" />
-      </image>
-   </ImageView>
-   <ImageView fx:id="diceD" fitHeight="1.0" fitWidth="1.0" layoutX="1015.0" layoutY="635.0" pickOnBounds="true" preserveRatio="true">
-      <image>
-         <Image url="@diceImg/Dado6.png" />
-      </image>
-   </ImageView>
    <Circle fx:id="plWHTPawn" fill="DODGERBLUE" layoutX="39.0" layoutY="39.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="23.0" />
    <Circle fx:id="plBLKPawn" fill="DODGERBLUE" layoutX="49.0" layoutY="49.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plWHTOutRect" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="50.0" layoutX="74.0" layoutY="23.0" stroke="BLACK" strokeType="INSIDE" width="124.0" />

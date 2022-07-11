@@ -15,21 +15,6 @@ import javafx.scene.text.FontWeight;
 public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
 
-    //  L'altezza massima che il tabellone può occupare rispetto alla finestra
-
-    //Valore di larghezza massima delle regioni di uscita e della zona dei dadi
-    private static double maxDTWidth;
-
-    // Metodo getter per maxDTWidth
-    public static double getMaxDTWidth() {
-        return maxDTWidth;
-    }
-
-    protected static void calcTrayWidths(GameBoard board) {
-        maxExitWidth = maxDTWidth = board.pawnArrayWHT[0].getRadius() * 6;
-    }
-
-
     private static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
         double maxBtnWidth = window.getWidth() - (outerRect.getLayoutX() + outerRect.getWidth() + maxDTWidth + (BUTTON_ANCHOR * 2));
         return min(MAX_BTN_WIDTH, maxBtnWidth);
@@ -47,28 +32,6 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.timerIn.setLayoutX(board.timerOut.getLayoutX() + 2);
         board.timerIn.setHeight(board.timerOut.getHeight() - 4);
         board.timerIn.setLayoutY(board.timerOut.getLayoutY() + 2);
-    }
-
-
-    public static void resizeDice(BoardView board) {
-        if (!board.diceArray[0].isVisible()) {
-            for (ImageView dice : board.diceArray) {
-                dice.setVisible(true);
-            }
-        }
-        for (ImageView dice : board.diceArray) {
-            dice.setFitHeight(board.diceTray.getWidth() * 0.425);
-            dice.setFitWidth(board.diceTray.getWidth() * 0.425);
-        }
-        double diceX = board.diceTray.getLayoutX() + board.diceTray.getWidth() / 2 - board.diceArray[0].getFitWidth() / 2;
-        for (ImageView dice : board.diceArray) {
-            dice.setLayoutX(diceX);
-        }
-        board.diceArray[0].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight() * 0.15);
-        board.diceArray[2].setLayoutY(board.diceArray[0].getLayoutY() + board.diceArray[0].getFitHeight());
-        board.diceArray[1].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight() * 0.85 - board.diceArray[3].getFitHeight());
-        board.diceArray[3].setLayoutY(board.diceArray[1].getLayoutY() - board.diceArray[1].getFitHeight());
-
     }
 
     public static void resizeButtons(BoardView board) {
@@ -92,17 +55,6 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.finishBTN.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2);
         board.menuBTN.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2);
 
-    }
-
-    public static void resizeExitRegions(GameBoard board) {
-        if (logic.getBlackExit()) {
-            board.blackExitRegion.setWidth(maxExitWidth);
-            board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
-        }
-        if (logic.getWhiteExit()) {
-            board.whiteExitRegion.setWidth(maxExitWidth);
-            board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
-        }
     }
 /* TODO TEST, SE LASCIATO CANCELLARE
     public static void redrawPawns(GameBoard board) {
@@ -151,32 +103,6 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         }
     }
      */
-
-    private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row)) {
-            pawnArray[pawnIndex].setViewOrder(-1.0);
-            pawnArray[pawnIndex].setDisable(false);
-            pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
-        } else {
-            pawnArray[pawnIndex].setViewOrder(0.0);
-            pawnArray[pawnIndex].setDisable(true);
-            pawnArray[pawnIndex].setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
-        }
-    }
-
-    public static void resizeDiceTray(BoardView board) {
-        System.out.println("Sono dentro resizeDiceTray");
-        System.out.println("X " + board.outerRect.getLayoutX());
-        System.out.println("Y " + board.outerRect.getLayoutY());
-        System.out.println("WDT " + board.outerRect.getWidth());
-        board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
-        board.diceTray.setLayoutY(board.outerRect.getLayoutY());
-        if (board.dtAnimDone) {
-            board.diceTray.setWidth(maxDTWidth);
-        }
-        board.diceTray.setHeight(board.outerRect.getHeight());
-
-    }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
     protected static void resizePauseMenu(BoardView board) {
@@ -353,21 +279,23 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
 
     protected static void resizeAll(BoardView board) {
-        resizeOuterRect(board);
-        GameBoardRedraw.resizeInnerBoard(board);
-        resizeExitRegions(board);
-        calcTrayWidths(board);
+        DynamicGameBoardRedraw.resizeAll(board);
+        //resizeOuterRect(board);
+        //GameBoardRedraw.resizeInnerBoard(board);
+        //resizeExitRegions(board);
+        //calcTrayWidths(board);
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
-        if (logic.getGameStart()) {
-            resizeDiceTray(board);
-            if (board.dtAnimDone)
-                resizeDice(board);
-        } else
+        //if (logic.getGameStart()) {
+        //    resizeDiceTray(board);
+        //    if (board.dtAnimDone)
+        //        resizeDice(board);
+        //} else
+        if (!logic.getGameStart())
             resizeStartDialogue(board);
         resizeButtons(board);
-        redrawPawns(board);
+        //redrawPawns(board);
         resizePauseMenu(board);
         resizeSaveDialogue(board);
         if (logic.isTournamentOngoing())

@@ -11,8 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
 import java.io.IOException;
@@ -85,20 +85,11 @@ public class LogIn {
     @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
-        View.sceneMusica.player.stop();
-            if (!mu) {
-            View.sceneMusica.playerp.play();
-        }else{
-            View.sceneMusica.playerp.stop();
-        }
-
         if(scelta.isSelected()){
             defficile.setSelected(false);
             media.setSelected(false);
             noT.setSelected(false);
             oPt.setDisable(false);
-            turn_duration = Integer.parseInt(oPt.getText());
-
         }
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
@@ -108,7 +99,7 @@ public class LogIn {
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue(), tournamentSpinner.getValue().intValue());
                     else
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue());
-                    App.board();
+                    App.changeRoot(PLAY_GAME);
                     break;
                 case SAME_NAME_ERROR:
                     errorLabel.setText("ERRORE: I due giocatori hanno lo stesso nome");
@@ -132,7 +123,7 @@ public class LogIn {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        App.mainMenu();
+        App.changeRoot(MAIN_MENU);
     }
 
     @FXML
@@ -142,7 +133,6 @@ public class LogIn {
         media.setSelected(false);
         scelta.setSelected(false);
         oPt.setDisable(true);
-        turn_duration = 0;
         logic.setTurnDuration(0);
     }
 
@@ -153,7 +143,6 @@ public class LogIn {
         media.setSelected(true);
         scelta.setSelected(false);
         oPt.setDisable(true);
-        turn_duration = 120;
         logic.setTurnDuration(120);
     }
 
@@ -164,7 +153,6 @@ public class LogIn {
         media.setSelected(false);
         scelta.setSelected(false);
         oPt.setDisable(true);
-        turn_duration = 30;
         logic.setTurnDuration(30);
     }
 
@@ -175,6 +163,7 @@ public class LogIn {
         noT.setSelected(false);
         scelta.setSelected(true);
         oPt.setDisable(false);
+        logic.setTurnDuration(Integer.parseInt(oPt.getText()));
     }
 
     @FXML

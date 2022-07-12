@@ -1,6 +1,10 @@
 package jmb.model;
 
-public class TutorialLogic {
+import static jmb.ConstantsShared.*;
 
-    private BoardLogic board;
+public class TutorialLogic extends DynamicBoardLogic {
+
+    public TutorialLogic() {
+        setWhoCalled(TUTORIAL_CALLED);
+    }
 }

@@ -11,14 +11,11 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 //import javafx.scene.media.AudioClip;
 
-import static jmb.view.ConstantsView.*;
-
 import java.io.IOException;
-import java.nio.file.Path;
 
-import static jmb.view.App.getStage;
 import static jmb.view.View.logic;
 import static jmb.view.View.sceneLoadView;
+import static jmb.view.ConstantsView.*;
 
 
 public class MainMenu {
@@ -63,44 +60,39 @@ public class MainMenu {
     private Button Exit;
 
     /*muscia
-    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\musicaMenu.mp3").toURI().toString();
-    MediaPlayer player = new MediaPlayer( new Media(uriString));
+    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\menuMusicLocation.mp3").toURI().toString();
+    MediaPlayer menuMusic = new MediaPlayer( new Media(uriString));
 */
 
 
     @FXML
     void closeButtonAction() {
-        //Exit.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
         App.getStage().close();
     }
 
     @FXML
     void newGameAction()  throws IOException {
-        //NewGame.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
-        App.login();
-        View.sceneMusica.playerp.pause();
+        App.changeRoot(LOG_IN);
+        View.sceneMusica.gameMusic.pause();
         View.sceneLogIn.changeDimensions();
     }
 
     @FXML
     void openLeaderBoard()  throws IOException {
-        //LDB.getScene().getWindow(); TODO VEDERE SE FUNZIONA SENZA
-        App.leaderBoard();
+        App.changeRoot(LEADERBOARDS);
         View.sceneLeaderboard.table.refresh();
         View.sceneLeaderboard.changeDimensions();
-
     }
 
     @FXML
     void openMenuImpostazioni()  throws IOException {
-        //Settings.getScene().getWindow(); TODO VEDERE SE FUNZIONA ANCHE SENZA
-        App.edit();
+        App.changeRoot(SETTINGS);
         View.sceneImpostazioni.changeDimensions();
     }
 
     @FXML
     void openLoadGame() throws IOException {
-        App.loadGame();
+        App.changeRoot(LOAD_GAME);
         sceneLoadView.refreshSaveList();
         sceneLoadView.setBoardColors();
         sceneLoadView.renderNoSelection();
@@ -108,7 +100,7 @@ public class MainMenu {
 
     @FXML
     void openTutorial() throws IOException{
-        App.tutorial();
+        App.changeRoot(TUTORIAL);
         logic.setUpNewGame();
     }
 
@@ -129,8 +121,8 @@ public class MainMenu {
             background2.setPreserveRatio(false);
 
             // musica
-            if (!mu) {
-                View.sceneMusica.player.play();
+            if (!logic.getMuteMusic()) {
+                View.sceneMusica.menuMusic.play();
             }
 
             Timeline timeline = new Timeline(

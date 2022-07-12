@@ -12,18 +12,22 @@ import static jmb.model.Logic.view;
  */
 
 
-public class BoardLogic {
+public class GameLogic extends DynamicBoardLogic {
+
+    /*TODO
+        IDEA - Creare gerarchia ereditaria simile a quella di BoardView
+        VIEW                        LOGIC
+        BoardView (ex GameBoard)    niente - prende da salvataggio
+        DynamicBoardView            DynamicBoardLogic (da creare, prende parte dei metodi da questo)
+        GameView (ex BoardView)     GameLogic (ex BoardLogic)
+
+     */
 
     //  VARIABILI D'ISTANZA
-
-    protected int[][] squares;
-    private boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
-    private boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
     private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    private DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
     private int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
-                                                //mentre si sta per effettuare una mossa
-                                                //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
+                                                            //mentre si sta per effettuare una mossa
+                                                            //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
                                                 //  in un turno
 
@@ -46,10 +50,11 @@ public class BoardLogic {
 
     //  COSTRUTTORE
 
-    public BoardLogic(){
+    public GameLogic(){
 
         //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
         dice = new DiceLogic();
+        setWhoCalled(GAME_CALLED);
 
     }
 
@@ -198,9 +203,9 @@ public class BoardLogic {
             //  Controlla se il giocatore di turno può far uscire le proprie
             //  pedine e aggiorna di conseguenza la variabile relativa
             if (whiteTurn) {
-                this.isWhiteExit();
+                this.checkWhiteExit();
             } else {
-                this.isBlackExit();
+                this.checkBlackExit();
             }
         } else {
             dice.resetToBeUsed();
@@ -252,56 +257,21 @@ public class BoardLogic {
 
     }
 
+    //TODO Spostare metodi sotto in DynamicBoardLogic, renderli booleani.
+    //  Creare metodi void sotto che chiamino i boolean e se ottengono true chiamino l'apertura e vadano a mettere lo stato opensXExit
+    //      nella mosssa
 
-    /** I metodi isBlackExit ed isWhiteExit controllano rispettivamente per il nero e per il bianco che lo stato
-     *  del tabellone consenta l'uscita delle pedine e aggiornano le rispettive variabili.
-     *  I metodi eseguono suddetti controlli solamente se i booleani di uscita sono ancora "false",
-     *  poichè una volta diventati "true" non è possibile che tornino "false".
-     *  I controlli consistono nello scandire le prime due righe delle colonne intermedie della matrice squares.
-     *  Non appena la scansione trova una pedina del giocatore controllato essa si ferma e non cambia lo stato di is*Exit.
-     *  In caso contrario la pone a "true".
-     */
-
-    public void isBlackExit() {
-
-        // i=colonne  j=righe
-
-            if (!this.blackExit){
-                boolean found = false;
-
-                for (int i = 7; i<=24 && !found; i++){
-                    for (int j = 0; j<=1 && !found; j++){
-                        if (squares[j][i] == BLACK){
-                            found = true;
-                        }
-                    }
-                }
-                if (!found){
-                    setBlackExit(true);
-                    Logic.view.openBlackExit();
-                    turnMoves.peek().moveOpensBlackExit();
-                }
-            }
+    public boolean checkWhiteExit() {
+        if (super.checkWhiteExit())
+            turnMoves.peek().moveOpensWhiteExit();
+        return true;
     }
 
-
-    public void isWhiteExit() {
-        // i=colonne  j=righe
-        if (!this.whiteExit){
-            boolean found = false;
-            for (int i = 1; i<=18 && !found; i++){
-                for (int j = 0; j<=1 && !found; j++){
-                    if (squares[j][i] == WHITE){
-                        found = true;
-                    }
-                }
-            }
-            if (!found){
-                setWhiteExit(true);
-                Logic.view.openWhiteExit();
-                turnMoves.peek().moveOpensWhiteExit();
-            }
-        }
+    @Override
+    public boolean checkBlackExit() {
+        if (super.checkBlackExit())
+            turnMoves.peek().moveOpensBlackExit();
+        return true;
     }
 
     // Metodo setter per l'array moveBuffer
@@ -402,6 +372,8 @@ public class BoardLogic {
     }
 
     public void setUpSavedGame(SaveGameReader save) {
+        setGameStart(false);
+        setGameEndState(false);
         this.blackPlayer = save.blackPlayer;
         this.whitePlayer = save.whitePlayer;
         this.blackExit = save.blackExit;
@@ -465,23 +437,6 @@ public class BoardLogic {
 
     protected int getBoardPlaceState (int whichPoint, int whichRow) {
         return squares[whichRow][whichPoint];
-    }
-
-
-    protected void setWhiteExit (boolean value) {
-        this.whiteExit = value;
-    }
-
-    protected void setBlackExit (boolean value) {
-        this.blackExit = value;
-    }
-
-    protected boolean getWhiteExit() {
-        return whiteExit;
-    }
-
-    protected boolean getBlackExit() {
-        return blackExit;
     }
 
     protected void setWhitePlayer(String playerName) {

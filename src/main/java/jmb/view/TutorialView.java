@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import static jmb.view.ConstantsView.*;
+
 public class TutorialView extends DynamicGameBoard{
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
@@ -111,6 +113,6 @@ public class TutorialView extends DynamicGameBoard{
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.mainMenu();
+        App.changeRoot(MAIN_MENU);
     }
 }

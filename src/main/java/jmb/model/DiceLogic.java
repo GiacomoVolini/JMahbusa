@@ -13,7 +13,6 @@ public class DiceLogic {
 
     private int[] dice = new int[4];            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
     private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossa
-    private int sum;                            //Variabile intera per la somma dei dadi
     private boolean doubleNum;                  //Variabile booleana per indicare lo stato di "tiro doppio"
     private boolean[] toBeUsed = new boolean [4];//Array che memorizza quali dadi verranno utilizzati da un movimento
     Random rnd = new Random();
@@ -28,8 +27,6 @@ public class DiceLogic {
             this.dice[i]=0;
             this.used[i]=true;
         }
-
-        this.sum = 0;
         this.doubleNum = false;
 
     }
@@ -67,10 +64,6 @@ public class DiceLogic {
 
     public boolean getUsed (int i) {
         return this.used[i];
-    }
-
-    public int getSum() {
-        return this.sum;
     }
 
     public int[] getDiceValues () {
@@ -230,6 +223,26 @@ public class DiceLogic {
 
     protected void revertUsed (int i) {
         this.used[i]= false;
+    }
+
+    protected void forceDice (int dice0, int dice1) {
+        this.dice[0]=dice0;
+        this.dice[1]=dice1;
+        this.used[0]=this.used[1]=false;
+        this.used[2]=this.used[3]=true;
+        this.doubleNum=false;
+        for (boolean tbu : this.toBeUsed)
+            tbu=false;
+    }
+
+    protected void forceDice (int value) {
+        this.doubleNum = true;
+        for (int i = 0; i<4; i++) {
+            this.dice[i] = value;
+            this.used[i] = false;
+            this.toBeUsed[i] = false;
+        }
+
     }
 
 

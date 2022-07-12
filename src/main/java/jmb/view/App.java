@@ -10,8 +10,9 @@ import jmb.model.Logic;
 import java.io.IOException;
 
 import static jmb.view.View.logic;
+import static jmb.model.Logic.view;
+import static jmb.view.ConstantsView.*;
 
-//TODO QUANDO SI CAMBIA SCENE L'APPLICAZIONE FA UNO SCATTO IN FULLSCREEN, POI TORNA IN FINESTRA ANCHE SE NON DOVREBBE
 /**
  * JavaFX App
  */
@@ -20,25 +21,13 @@ public class App extends Application {
     private static Stage stage;
 
     private static Scene scene;
-    private static Scene sceneMainMenu;
-    private static Scene sceneBoard;
-    private static Scene sceneSettings;
-    private static Scene sceneLeaderBoard;
-    private static Scene sceneLogIn;
-    private static Scene sceneLoadGame;
-    private static Scene sceneTutorial;
-    private static final String MAIN_MENU = "MainMenu";
-    private static final String LOG_IN = "Login";
-    private static final String SETTINGS = "MenuImpostazioni";
-    private static final String LOAD_GAME = "LoadGameView";
-    private static final String LEADERBOARDS = "Leaderboard";
-    private static final String PLAY_GAME = "GameBoard";
-    private static final String TUTORIAL = "TutorialView";
 
 
     public static Stage getStage() {
         return stage;
     }
+
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -52,10 +41,19 @@ public class App extends Application {
         stage.show();
     }
 
+    //TODO TEST SOSTITUISCO TUTTI I METODI CHE FANNO setRoot CON UNO SOLO
+    public static void changeRoot (String newRoot) {
+        try {
+            scene.setRoot(loadFXML(newRoot));
+            stage.show();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
     public static void mainMenu(){
         try {
             scene.setRoot(loadFXML(MAIN_MENU));
-            //setStageOptions(); TODO TEST
             stage.show();
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -109,17 +107,12 @@ public class App extends Application {
         stage.show();
     }
 
-    //TODO FORSE CANCELLARE, MAI USATO
-    static void setRoot(String fxml) throws IOException {
-        sceneMainMenu.setRoot(loadFXML(fxml));
-    }
-
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent out = fxmlLoader.load();
         switch (fxml) {
             case PLAY_GAME:
-                View.sceneBoard = fxmlLoader.getController();
+                View.sceneGame = fxmlLoader.getController();
                 break;
             case LEADERBOARDS:
                 View.sceneLeaderboard = fxmlLoader.getController();
@@ -152,6 +145,7 @@ public class App extends Application {
         logic.initializeBoardLogic();
         logic.initializeLeaderboardLogic();
         logic.initializeSettingsLogic();
+        view.initializeMusic();
     }
 
     private static void setStageOptions() {

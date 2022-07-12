@@ -4,9 +4,11 @@ import java.io.IOException;
 
 public interface IView {
 
-    void openWhiteExit();
+    void initializeMusic();
 
-    void openBlackExit();
+    void openWhiteExit(int whoCalled);
+
+    void openBlackExit(int whoCalled);
 
     void rollDice();
 

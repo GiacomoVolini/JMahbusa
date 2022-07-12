@@ -6,19 +6,6 @@ import static jmb.ConstantsShared.*;
 
 public class GameBoardRedraw {
 
-    /*TODO
-        - Individuare i metodi di BoardView
-     */
-    /*
-        TODO
-            - Semplificare il metodo per ridimensionare outerRect (togliere controllo sofisticato,
-                tanto in mezzo ci si metterà la coppa del torneo)
-            - Spostare dentro GameBoard (utilizzeremo gli stessi metodi di resize del tabellone sia
-                in BoardView che in LoadGameView)
-            - Valutare quanto sia possibile spostare anche il redraw delle pedine
-            - Alternativa: creare metodo placePawns in LoadGameView (più semplice ma si potrebbe finire
-                per duplicare codice)
-     */
     protected static double maxExitWidth;
 
     protected static double hResizeFactor;
@@ -50,12 +37,10 @@ public class GameBoardRedraw {
     }
 
     protected static double getBoardLayoutX (GameBoard board) {
-        //return (board.boardAnchor.getWidth()/2)-(getBoardSize(board)*0.6); TODO VECCHIO
         return (board.boardAnchor.getWidth()/2) - (getBoardSize(board) * xLayoutFactor);
     }
 
     protected static double getBoardLayoutY (GameBoard board) {
-        //return (board.boardAnchor.getHeight()/2)-(getBoardSize(board)/2); TODO VECCHIO
         return (board.boardAnchor.getHeight()/2) - (getBoardSize(board) * yLayoutFactor);
     }
 

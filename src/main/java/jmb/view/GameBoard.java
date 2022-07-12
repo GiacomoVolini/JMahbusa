@@ -3,15 +3,12 @@ package jmb.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import java.lang.reflect.AccessibleObject;
 
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -135,8 +132,8 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1),  e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                }, new KeyValue(blackExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -151,8 +148,8 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                }, new KeyValue(whiteExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
@@ -163,8 +160,8 @@ public class GameBoard {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1),  e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
@@ -180,8 +177,8 @@ public class GameBoard {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
                 new KeyFrame(Duration.seconds(1), e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);

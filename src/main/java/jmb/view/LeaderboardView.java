@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static jmb.view.View.logic;
+import static jmb.view.ConstantsView.*;
 
 public class LeaderboardView {
 
@@ -57,7 +58,7 @@ public class LeaderboardView {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        App.mainMenu();
+        App.changeRoot(MAIN_MENU);
     }
 
     @FXML

@@ -204,7 +204,9 @@ public class SettingsLogic {
         return this.resolutionWidth;
     }
     protected void setMusicVolume(int value) {
+        System.out.println(value + "SETTINGSLOGIC");
         this.musicVolume = max(0, min(100, value));
+        System.out.println(musicVolume + " COSA SALVA IN FILE");
     }
     protected int getMusicVolume() {
         return this.musicVolume;

@@ -2,17 +2,15 @@ package jmb.view;
 
 import static java.lang.Math.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class BoardViewRedraw extends DynamicGameBoardRedraw {
+public class GameViewRedraw extends DynamicGameBoardRedraw {
 
 
     private static double getMaxBtnWidth(AnchorPane window, Rectangle outerRect) {
@@ -21,7 +19,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    public static void resizeTimer(BoardView board) {
+    public static void resizeTimer(GameView board) {
         //  Ridimensiona le barre per il timer
         board.timerOut.setWidth(board.separator.getWidth() / 2);
         board.timerOut.setLayoutX(board.separator.getLayoutX() + (board.separator.getWidth() / 2) - (board.timerOut.getWidth() / 2));
@@ -34,7 +32,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.timerIn.setLayoutY(board.timerOut.getLayoutY() + 2);
     }
 
-    public static void resizeButtons(BoardView board) {
+    public static void resizeButtons(GameView board) {
 
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
@@ -56,88 +54,41 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.menuBTN.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2);
 
     }
-/* TODO TEST, SE LASCIATO CANCELLARE
-    public static void redrawPawns(GameBoard board) {
-        redrawPawns(board, logic.getBoardMatrix());
-    }
-
- */
-
-/* TODO TEST, SE LASCIATO CANCELLARE
-    protected static void redrawPawns (GameBoard board, int[][] matrix) {
-        int whitesPlaced = 0;
-        int blacksPlaced = 0;
-        for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
-            for (int row = 0; row < 16 && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER) && matrix[row][col] != EMPTY; row++) {
-                switch (matrix[row][col]) {
-                    case WHITE: case SELECTED_WHITE:
-                        placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
-                        highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
-                        break;
-                    case BLACK: case SELECTED_BLACK:
-                        placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
-                        highlightMovablePawn(board.pawnArrayBLK, blacksPlaced, col, row);
-                        break;
-                }
-                switch (matrix[row][col]) {
-                    case WHITE:
-                        board.pawnArrayWHT[whitesPlaced].setPawnScale(NORMAL_PAWN_SCALE);
-                        whitesPlaced++;
-                        break;
-                    case BLACK:
-                        board.pawnArrayBLK[blacksPlaced].setPawnScale(NORMAL_PAWN_SCALE);
-                        blacksPlaced++;
-                        break;
-                    case SELECTED_WHITE:
-                        board.pawnArrayWHT[whitesPlaced].setPawnScale(SELECTED_PAWN_SCALE);
-                        board.pawnArrayWHT[whitesPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
-                        whitesPlaced++;
-                        break;
-                    case SELECTED_BLACK:
-                        board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
-                        board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
-                        blacksPlaced++;
-                        break;
-                }
-            }
-        }
-    }
-     */
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
-    protected static void resizePauseMenu(BoardView board) {
+    protected static void resizePauseMenu(GameView board) {
         board.pauseMenu.setLayoutX(board.window.getWidth() / 2 - board.pauseMenu.getWidth() / 2);
         board.pauseMenu.setLayoutY(board.window.getHeight() / 2 - board.pauseMenu.getHeight() / 2);
     }
 
-    private static void resizeVictoryRect(BoardView board) {
+    private static void resizeVictoryRect(GameView board) {
         board.victoryPanel.setWidth(board.window.getWidth() / 2);
         board.victoryPanel.setHeight(board.window.getHeight() / 2.5);
         board.victoryPanel.setLayoutX((board.window.getWidth() - board.victoryPanel.getWidth()) / 2);
         board.victoryPanel.setLayoutY((board.window.getHeight() - board.victoryPanel.getHeight()) / 2);
     }
 
-    private static void resizeVictoryPawn(BoardView board) {
+    private static void resizeVictoryPawn(GameView board) {
         board.victoryPawn.setRadius(board.victoryPanel.getHeight() / 10);
         board.victoryPawn.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.05 + board.victoryPawn.getRadius());
         board.victoryPawn.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() / 2);
     }
 
-    private static void resizeVictoryExit(BoardView board) {
+    private static void resizeVictoryExit(GameView board) {
         board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.4);
         board.victoryExit.setPrefHeight(board.victoryPanel.getHeight() * 0.15);
         board.victoryExit.setLayoutY(board.victoryPanel.getLayoutY() + (0.66 * board.victoryPanel.getHeight()));
         board.victoryExit.setLayoutX(board.victoryPanel.getLayoutX() + (board.victoryPanel.getWidth() - (board.victoryPanel.getWidth() * 0.3)) / 2);
     }
 
-    private static void resizeVictoryCrown(BoardView board) {
+    private static void resizeVictoryCrown(GameView board) {
         board.victoryCrown.setFitWidth(board.victoryPawn.getRadius() * 2);
         board.victoryCrown.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius() * 2.2);
         board.victoryCrown.setLayoutX(board.victoryPawn.getLayoutX() - board.victoryPawn.getRadius());
     }
 
 
-    private static void resizeVictoryLabel(BoardView board) {
+    private static void resizeVictoryLabel(GameView board) {
         board.victoryLabel.setLayoutY(board.victoryPanel.getLayoutY() + board.victoryPanel.getHeight() * 0.15);
         board.victoryLabel.setLayoutX(board.victoryPanel.getLayoutX() + board.victoryPanel.getWidth() * 0.25);
         resizeVictoryFont(board.victoryPanel, board.victoryLabel);
@@ -154,7 +105,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
     }
 
-    private static void resizeTournamentRibbon(BoardView board) {
+    private static void resizeTournamentRibbon(GameView board) {
         board.tourmanentRibbon.setLayoutX(board.victoryPawn.getLayoutX() + board.victoryPawn.getRadius() * 0.10);
         board.tourmanentRibbon.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius() * 0.20);
         board.tourmanentRibbon.setFitWidth(board.victoryPawn.getRadius());
@@ -162,7 +113,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
 
     //  Metodo per ridimensionare gli elementi del pannello vittoria
-    protected static void resizeVictoryPanel(BoardView board) {
+    protected static void resizeVictoryPanel(GameView board) {
         resizeVictoryRect(board);
         resizeVictoryPawn(board);
         resizeVictoryLabel(board);
@@ -173,13 +124,13 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizeStartDialogue(BoardView board) {
+    private static void resizeStartDialogue(GameView board) {
         board.startDialogue.setLayoutX(board.window.getWidth() / 2 - board.startDialogue.getPrefWidth() / 2);
         board.startDialogue.setLayoutY(board.window.getHeight() / 2 - board.startDialogue.getPrefHeight() / 2);
     }
 
 
-    private static void resizePlsPawns(BoardView board) {
+    private static void resizePlsPawns(GameView board) {
 
         board.plWHTPawn.setRadius(board.window.getHeight() * 0.038);
         board.plBLKPawn.setRadius(board.window.getHeight() * 0.038);
@@ -190,7 +141,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizePlsRects(BoardView board) {
+    private static void resizePlsRects(GameView board) {
 
         resizePlsOutRects(board);
         resizePlsInRects(board);
@@ -199,7 +150,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizePlsOutRects(BoardView board) {
+    private static void resizePlsOutRects(GameView board) {
         AnchorPane.setTopAnchor(board.plWHTOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setTopAnchor(board.plBLKOutRect, board.window.getHeight() * 0.0275);
         AnchorPane.setLeftAnchor(board.plWHTOutRect, board.window.getWidth() * 0.025 + board.plWHTPawn.getRadius() * 2);
@@ -210,7 +161,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.plBLKOutRect.setWidth(board.window.getWidth() * 0.18);
     }
 
-    private static void resizePlsInRects(BoardView board) {
+    private static void resizePlsInRects(GameView board) {
         board.plWHTInRect.setWidth(board.window.getWidth() * 0.15);
         board.plWHTInRect.setHeight(board.plWHTPawn.getRadius() * 1.5);
         board.plBLKInRect.setWidth(board.window.getWidth() * 0.15);
@@ -225,7 +176,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
                 AnchorPane.getRightAnchor(board.plBLKOutRect) + board.plBLKOutRect.getWidth() / 2 - board.plBLKInRect.getWidth() / 2);
     }
 
-    private static void resizePlsNames(BoardView board) {
+    private static void resizePlsNames(GameView board) {
         AnchorPane.setTopAnchor(board.plWHTText, AnchorPane.getTopAnchor(board.plWHTInRect));
         AnchorPane.setTopAnchor(board.plBLKText, AnchorPane.getTopAnchor(board.plBLKInRect));
         AnchorPane.setLeftAnchor(board.plWHTText, AnchorPane.getLeftAnchor(board.plWHTInRect));
@@ -236,7 +187,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         board.plBLKText.setPrefHeight(board.plBLKInRect.getHeight());
     }
 
-    private static void resizePlsFont(BoardView board) {
+    private static void resizePlsFont(GameView board) {
         double widthFactor = board.plWHTInRect.getWidth() / 110;
         double fontSize = max(13.5, min(25, (12 * widthFactor)));
         board.plWHTText.setFont(Font.font("calibri", FontWeight.NORMAL, fontSize));
@@ -244,7 +195,7 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    protected static void resizeTournamentComponents(BoardView board) {
+    protected static void resizeTournamentComponents(GameView board) {
         double yAnchor = board.window.getHeight() * 0.0275;
         AnchorPane.setTopAnchor(board.tournamentWhitePoints, yAnchor);
         AnchorPane.setTopAnchor(board.tournamentBlackPoints, yAnchor);
@@ -272,13 +223,13 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizeSaveDialogue(BoardView board) {
+    private static void resizeSaveDialogue(GameView board) {
         board.saveDialogue.setLayoutX(board.window.getWidth() / 2 - board.saveDialogue.getPrefWidth() / 2);
         board.saveDialogue.setLayoutY(board.window.getHeight() / 2 - board.saveDialogue.getPrefHeight() / 2);
     }
 
 
-    protected static void resizeAll(BoardView board) {
+    protected static void resizeAll(GameView board) {
         DynamicGameBoardRedraw.resizeAll(board);
         //resizeOuterRect(board);
         //GameBoardRedraw.resizeInnerBoard(board);
@@ -295,7 +246,6 @@ public class BoardViewRedraw extends DynamicGameBoardRedraw {
         if (!logic.getGameStart())
             resizeStartDialogue(board);
         resizeButtons(board);
-        //redrawPawns(board);
         resizePauseMenu(board);
         resizeSaveDialogue(board);
         if (logic.isTournamentOngoing())

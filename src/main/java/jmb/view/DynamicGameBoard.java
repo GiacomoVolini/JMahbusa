@@ -3,7 +3,6 @@ package jmb.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import static jmb.ConstantsShared.UNDEFINED;
@@ -83,7 +81,7 @@ public class DynamicGameBoard extends GameBoard{
         if (col != UNDEFINED) {
             logic.placePawnOnPoint(col);
         }
-        BoardViewRedraw.redrawPawns(this);
+        GameViewRedraw.redrawPawns(this);
 
     }
     private int searchPawnPlace(PawnView node) {
@@ -201,7 +199,7 @@ public class DynamicGameBoard extends GameBoard{
                     diceArray[LOWER_DICE].setVisible(true);
                     DynamicGameBoardRedraw.resizeDice(this);
                     logic.firstTurn();
-                }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
+                }, new KeyValue(diceTray.widthProperty() , GameViewRedraw.getMaxDTWidth() )
                 )
         );
         timeline.setCycleCount(1);

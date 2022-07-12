@@ -1,21 +1,17 @@
 package jmb.model;
 
-import javafx.collections.ObservableList;
 import javafx.scene.image.WritableImage;
 import jmb.view.IView;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
 
 public class Logic implements ILogic{
 
     public static IView view;
-    public static BoardLogic board;
+    public static GameLogic board;
     public static LeaderboardLogic ldb;
     public static DiceLogic dice;
     public static SettingsLogic settings;
@@ -24,7 +20,7 @@ public class Logic implements ILogic{
 
     @Override
     public void initializeBoardLogic() {
-        board = new BoardLogic();
+        board = new GameLogic();
         dice = board.getDiceLogic();
         appDirectory = System.getProperty("user.dir");
     }
@@ -378,6 +374,7 @@ public class Logic implements ILogic{
     @Override
     public void setMusicVolume (int value){
         settings.setMusicVolume(value);
+        System.out.println(value + "LOGIC");
     }
     @Override
     public int getMusicVolume (){
@@ -385,7 +382,7 @@ public class Logic implements ILogic{
     }
     @Override
     public void setSFXVolume (int value){
-        settings.setMusicVolume(value);
+        settings.setSoundFXVolume(value);
     }
     @Override
     public int getSFXVolume (){

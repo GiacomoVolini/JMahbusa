@@ -20,7 +20,7 @@ public class View implements IView {
     public static LoadGameView sceneLoadView;
     public static TutorialView sceneTutorial;
 
-    public static Musica sceneMusica = new Musica();
+    public static Musica sceneMusica;
     protected static void setMusicVolume (double value) {
         sceneMusica.setMusicVolume(value);
     }
@@ -36,6 +36,7 @@ public class View implements IView {
 
     @Override
     public void initializeMusic() {
+        sceneMusica = new Musica();
         sceneMusica.setMusicVolume(logic.getMusicVolume()/100.0);
         sceneMusica.setSFXVolume(logic.getSFXVolume()/100.0);
     }
@@ -112,5 +113,13 @@ public class View implements IView {
 
     @Override
     public void playmusica() {sceneMusica.pawnSFX.play();}
+    @Override
+    public void setNextTutorialString(String text) {
+        sceneTutorial.setNextTutorialStage(text);
+    }
+    @Override
+    public void setTutorialOver(){
+        sceneTutorial.setTutorialOver();
+    }
 
 }

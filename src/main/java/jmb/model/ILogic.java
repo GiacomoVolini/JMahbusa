@@ -21,6 +21,7 @@ public interface ILogic {
     void initializeBoardLogic ();
 
     void initializeLeaderboardLogic();
+    void initializeTutorialLogic();
 
     int getBoardPlaceState (int whichPoint, int whichRow);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
@@ -186,6 +187,8 @@ public interface ILogic {
     void setOpenMenu (String value);
     String getOpenMenu ();
     boolean getBypassDice ();
+    String getNextTutorialString();
+    void nextTutorialStage();
 
     //_________________________
 

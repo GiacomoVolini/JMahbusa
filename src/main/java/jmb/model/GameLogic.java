@@ -63,27 +63,12 @@ public class GameLogic extends DynamicBoardLogic {
 
     //  METODI
 
-    protected void setUpGame() {
+    protected void setUp() {
         System.out.println("Sono in setupgame");
         setGameStart(false);
         setGameEndState(false);
-        //  Impostiamo a false i seguenti booleani: all'inizio della partita nessuno dei giocatori
-        //  può portare fuori le proprie pedine
-        setBlackExit(false);
-        setWhiteExit(false);
-
-        squares = new int[16][26];
-
-        //  Inizializziamo la matrice squares, assegnando le pedine dei due giocatori nelle posizioni iniziali
-        //  e lasciando null negli spazi vuoti
-        for (int i=0; i<=14;i++){
-            squares[i][COL_WHITE]= WHITE;
-            squares[i][COL_BLACK]= BLACK;
-        }
-
-        //Determiniamo quale giocatore inizierà la partita richiamando il metodo initialToss
-        //  e tiriamo i dadi per il primo giocatore
-        whiteTurn = dice.initialToss();
+        super.setUp();
+        whiteTurn = dice.whoStarts();
     }
 
     public boolean isWhiteTurn() {
@@ -287,8 +272,6 @@ public class GameLogic extends DynamicBoardLogic {
     public int getMoveBufferRow () {
         return this.moveBuffer[1];
     }
-
-    public DiceLogic getDiceLogic () { return this.dice; }
 
     protected void victoryCheck() {
 

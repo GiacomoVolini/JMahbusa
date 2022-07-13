@@ -90,9 +90,9 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
     }
 
     public static void resizeDice(DynamicGameBoard board) {
-        /*if (!board.diceArray[UPPER_DICE].isVisible()) {
-            for (ImageView dice : board.diceArray) {
-                dice.setVisible(true);
+        /*if (!game.diceArray[UPPER_DICE].isVisible()) {
+            for (ImageView gameDice : game.diceArray) {
+                gameDice.setVisible(true);
             }
         }*/
         for (ImageView dice : board.diceArray) {

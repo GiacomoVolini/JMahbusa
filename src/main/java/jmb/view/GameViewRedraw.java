@@ -231,17 +231,17 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     protected static void resizeAll(GameView board) {
         DynamicGameBoardRedraw.resizeAll(board);
-        //resizeOuterRect(board);
-        //GameBoardRedraw.resizeInnerBoard(board);
-        //resizeExitRegions(board);
-        //calcTrayWidths(board);
+        //resizeOuterRect(game);
+        //GameBoardRedraw.resizeInnerBoard(game);
+        //resizeExitRegions(game);
+        //calcTrayWidths(game);
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
         //if (logic.getGameStart()) {
-        //    resizeDiceTray(board);
-        //    if (board.dtAnimDone)
-        //        resizeDice(board);
+        //    resizeDiceTray(game);
+        //    if (game.dtAnimDone)
+        //        resizeDice(game);
         //} else
         if (!logic.getGameStart())
             resizeStartDialogue(board);

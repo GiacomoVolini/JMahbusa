@@ -3,7 +3,6 @@ package jmb.model;
 import java.util.Random;
 
 import static jmb.model.Logic.settings;
-import static jmb.model.Logic.view;
 
 /**
  * La classe DiceLogic modella e gestisce la logica dei dadi
@@ -83,7 +82,7 @@ public class DiceLogic {
     }
     //--------------------------------
 
-    public boolean initialToss() {
+    public boolean whoStarts() {
 
         //  Metodo che determina quale dei due giocatori effettuerà il primo turno
 

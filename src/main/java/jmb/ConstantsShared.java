@@ -58,4 +58,6 @@ public class ConstantsShared {
     public static final int GAME_CALLED = 0;
     public static final int TUTORIAL_CALLED = 1;
 
+    public static final String ARRAY_ENDED = "\u2204";
+
 }

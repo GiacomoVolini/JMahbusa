@@ -11,17 +11,18 @@ import static jmb.ConstantsShared.*;
 public class Logic implements ILogic{
 
     public static IView view;
-    public static GameLogic board;
+    public static GameLogic game;
     public static LeaderboardLogic ldb;
-    public static DiceLogic dice;
+    public static DiceLogic gameDice;
+    public static DiceLogic tutorialDice;
     public static SettingsLogic settings;
-
+    public static TutorialLogic tutorial;
     public static String appDirectory;
 
     @Override
     public void initializeBoardLogic() {
-        board = new GameLogic();
-        dice = board.getDiceLogic();
+        game = new GameLogic();
+        gameDice = game.getDiceLogic();
         appDirectory = System.getProperty("user.dir");
     }
 
@@ -34,6 +35,11 @@ public class Logic implements ILogic{
         }
 
     }
+    @Override
+    public void initializeTutorialLogic() {
+        tutorial = new TutorialLogic();
+        tutorialDice = tutorial.getDiceLogic();
+    }
 
     public static String getAppDirectory() {
         return appDirectory;
@@ -41,14 +47,14 @@ public class Logic implements ILogic{
 
     @Override
     public boolean getWhichTurn() {
-        return board.isWhiteTurn();
+        return game.isWhiteTurn();
     }
 
     @Override
     public void placePawnOnPoint(int whichPoint) {
-        if (board.movePawn(board.getMoveBufferColumn(), board.getMoveBufferRow(),
-                board.searchFirstFreeRow(whichPoint), whichPoint)) {
-            board.victoryCheck();
+        if (game.movePawn(game.getMoveBufferColumn(), game.getMoveBufferRow(),
+                game.searchFirstFreeRow(whichPoint), whichPoint)) {
+            game.victoryCheck();
         }
     }
 
@@ -63,18 +69,18 @@ public class Logic implements ILogic{
 
     @Override
     public void nextTurn() {
-        board.changeTurn();
+        game.changeTurn();
 
     }
 
     @Override
     public int getBoardPlaceState (int whichPoint, int whichRow) {
-        return board.getBoardPlaceState(whichPoint, whichRow);
+        return game.getBoardPlaceState(whichPoint, whichRow);
         }
 
     @Override
     public void createMoveBuffer (int whichPoint) {
-        board.setMoveBuffer(whichPoint, board.searchTopOccupiedRow(whichPoint));
+        game.setMoveBuffer(whichPoint, game.searchTopOccupiedRow(whichPoint));
     }
 
     @Override
@@ -84,17 +90,17 @@ public class Logic implements ILogic{
 
     @Override
     public boolean isRollDouble() {
-        return dice.getDoubleNum();
+        return gameDice.getDoubleNum();
     }
 
     @Override
     public int[] getDiceValues() {
-        return dice.getDiceValues();
+        return gameDice.getDiceValues();
     }
 
     @Override
     public void firstTurn() {
-        board.runTurn();
+        game.runTurn();
     }
 
     @Override
@@ -121,7 +127,7 @@ public class Logic implements ILogic{
 
     @Override
     public boolean isDiceUsed (int i) {
-        return dice.getUsed(i);
+        return gameDice.getUsed(i);
     }
 
     @Override
@@ -131,92 +137,92 @@ public class Logic implements ILogic{
 
     @Override
     public void setUpNewGame () {
-        board.setUpGame();
+        game.setUp();
     }
 
     @Override
     public void revertMove() {
-        board.revertMove();
+        game.revertMove();
     }
 
     @Override
     public boolean getWhiteExit() {
-        return board.getWhiteExit();
+        return game.getWhiteExit();
     }
 
     @Override
     public boolean getBlackExit() {
-        return board.getBlackExit();
+        return game.getBlackExit();
     }
 
     @Override
     public void setPlayersForGame(String whitePlayer, String blackPlayer) {
-        board.setWhitePlayer(whitePlayer);
-        board.setBlackPlayer(blackPlayer);
-        board.setBlacksWonPoints(0);
-        board.setWhitesWonPoints(0);
+        game.setWhitePlayer(whitePlayer);
+        game.setBlackPlayer(blackPlayer);
+        game.setBlacksWonPoints(0);
+        game.setWhitesWonPoints(0);
 
     }
 
     @Override
     public void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints) {
         setPlayersForGame(whitePlayer, blackPlayer);
-        board.setTournamentPoints(tournamentPoints);
+        game.setTournamentPoints(tournamentPoints);
     }
 
     @Override
     public String getWhitePlayer() {
-        return board.getWhitePlayer();
+        return game.getWhitePlayer();
     }
 
     @Override
     public String getBlackPlayer() {
-        return board.getBlackPlayer();
+        return game.getBlackPlayer();
     }
 
     @Override
     public void addStatsToLeaderboard() {
-        ldb.addStatsToList(board.getWhitePlayer(), board.getBlackPlayer(), board.getWhitesWonPoints());
-        ldb.addStatsToList(board.getBlackPlayer(), board.getWhitePlayer(), board.getBlacksWonPoints());
+        ldb.addStatsToList(game.getWhitePlayer(), game.getBlackPlayer(), game.getWhitesWonPoints());
+        ldb.addStatsToList(game.getBlackPlayer(), game.getWhitePlayer(), game.getBlacksWonPoints());
     }
 
     @Override
     public boolean isTournamentOngoing() {
-        return (board.getTournamentPoints()!=0);
+        return (game.getTournamentPoints()!=0);
     }
 
     @Override
     public int getWhiteTournamentPoints() {
-        return board.getWhitesWonPoints();
+        return game.getWhitesWonPoints();
     }
 
     @Override
     public int getBlackTournamentPoints() {
-        return board.getBlacksWonPoints();
+        return game.getBlacksWonPoints();
     }
 
     @Override
     public int getTournamentPointsToWin() {
-        return board.getTournamentPoints();
+        return game.getTournamentPoints();
     }
     @Override
     public void setTurnDuration (double value) {
-        board.setTurnDuration(value);
+        game.setTurnDuration(value);
     }
 
     @Override
     public double getTurnDuration () {
-        return board.getTurnDuration();
+        return game.getTurnDuration();
     }
 
     @Override
     public void setTimeRemaining (double value) {
-        board.setTimeRemaining(value);
+        game.setTimeRemaining(value);
     }
 
     @Override
     public void saveGame(String saveName, WritableImage saveImage) {
-        SaveGameWriter.writeSaveFile(board, saveName, saveImage);
+        SaveGameWriter.writeSaveFile(game, saveName, saveImage);
     }
 
     @Override
@@ -235,11 +241,11 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public int searchTopOccupiedRow(int col){return board.searchTopOccupiedRow(col);}
+    public int searchTopOccupiedRow(int col){return game.searchTopOccupiedRow(col);}
 
     @Override
     public boolean isPawnMovable(int col, int row) {
-        return board.isPawnMovable(col, row);
+        return game.isPawnMovable(col, row);
     }
 
     @Override
@@ -254,20 +260,21 @@ public class Logic implements ILogic{
 
     @Override
     public void setUpSavedGame(String saveName) {
-        board.setUpSavedGame(SaveGameReader.readSaveGame(saveName));
+        game.setUpSavedGame(SaveGameReader.readSaveGame(saveName));
     }
 
     @Override
     public int[][] getBoardMatrix() {
-        return board.squares;
+        return game.squares;
     }
 
     @Override
-    public void thePawnColor(int whichPoint, int whichRow){board.thePawnColor( whichPoint, whichRow);}
+    public void thePawnColor(int whichPoint, int whichRow){
+        game.thePawnColor( whichPoint, whichRow);}
 
     @Override
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-        return board.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+        return game.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
     }
     
     @Override
@@ -275,19 +282,19 @@ public class Logic implements ILogic{
 
     @Override
     public boolean getGameStart() {
-        return board.getGameStart();
+        return game.getGameStart();
     }
     @Override
     public boolean getGameEndState() {
-        return board.getGameEndState();
+        return game.getGameEndState();
     }
     @Override
     public void setGameStart(boolean value) {
-        board.setGameStart(value);
+        game.setGameStart(value);
     }
     @Override
     public void setGameEndState(boolean value) {
-        board.setGameEndState(value);
+        game.setGameEndState(value);
     }
     @Override
     public boolean allDiceUsed() {
@@ -308,7 +315,7 @@ public class Logic implements ILogic{
 
     @Override
     public void deselectPawn(int col, int row) {
-        board.deselectPawn(col, row);
+        game.deselectPawn(col, row);
     }
     @Override
     public void printMatrix() {
@@ -565,5 +572,13 @@ public class Logic implements ILogic{
     @Override
     public boolean getBypassDice (){
         return settings.getBypassDice();
+    }
+    @Override
+    public String getNextTutorialString() {
+        return tutorial.getNextTutorialString();
+    }
+    @Override
+    public void nextTutorialStage() {
+        tutorial.nextTutorialStage();
     }
 }

@@ -1,7 +1,7 @@
 package jmb.model;
 
-import static jmb.ConstantsShared.BLACK;
-import static jmb.ConstantsShared.WHITE;
+import static jmb.ConstantsShared.*;
+import static jmb.ConstantsShared.COL_BLACK;
 
 public class DynamicBoardLogic {
 
@@ -77,4 +77,16 @@ public class DynamicBoardLogic {
         }
         return open;
     }
+
+    protected void setUp() {
+        setBlackExit(false);
+        setWhiteExit(false);
+
+        squares = new int[16][26];
+        for (int i=0; i<=14;i++){
+            squares[i][COL_WHITE]= WHITE;
+            squares[i][COL_BLACK]= BLACK;
+        }
+    }
+    public DiceLogic getDiceLogic () { return this.dice; }
 }

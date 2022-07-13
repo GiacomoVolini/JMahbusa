@@ -6,8 +6,8 @@ import static jmb.ConstantsShared.*;
 
 public class GameBoardRedraw {
 
+    protected static int whoCalled;
     protected static double maxExitWidth;
-
     protected static double hResizeFactor;
     protected static void setHResizeFactor(double value) {
         hResizeFactor = value;
@@ -188,6 +188,10 @@ public class GameBoardRedraw {
         resizePawns(board);
         calcTrayWidths(board);
         resizeExitRegions(board);
+    }
+
+    protected static void setWhoCalled(int value) {
+        whoCalled = value;
     }
 
 

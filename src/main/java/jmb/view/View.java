@@ -82,8 +82,17 @@ public class View implements IView {
     }
 
     @Override
-    public void setDiceContrast() {
-        DiceView.setDiceContrast(sceneGame.diceArray);
+    public void setDiceContrast(int whoCalled) {
+        DynamicGameBoard sceneToCall = null;
+        switch (whoCalled) {
+            case GAME_CALLED:
+                sceneToCall = sceneGame;
+                break;
+            case TUTORIAL_CALLED:
+                sceneToCall = sceneTutorial;
+                break;
+        }
+        DiceView.setDiceContrast(sceneToCall.diceArray, whoCalled);
     }
 
     @Override
@@ -112,7 +121,7 @@ public class View implements IView {
     }
 
     @Override
-    public void playmusica() {sceneMusica.pawnSFX.play();}
+    public void playPawnSFX() {sceneMusica.pawnSFX.play();}
     @Override
     public void setNextTutorialString(String text) {
         sceneTutorial.setNextTutorialStage(text);
@@ -120,6 +129,25 @@ public class View implements IView {
     @Override
     public void setTutorialOver(){
         sceneTutorial.setTutorialOver();
+    }
+    @Override
+    public void setPawnsVisible(boolean set, int whoCalled) {
+        switch (whoCalled) {
+            case TUTORIAL_CALLED:
+                sceneTutorial.setPawnsVisible(set);
+                break;
+            case GAME_CALLED:
+                sceneGame.setPawnsVisible(set);
+                break;
+        }
+    }
+    @Override
+    public void tutorialPointAnimation(boolean set) {
+        sceneTutorial.tutorialPointAnimation(set);
+    }
+    @Override
+    public void tutorialExitZoneAnimation(boolean set) {
+        sceneTutorial.tutorialExitZoneAnimation(set);
     }
 
 }

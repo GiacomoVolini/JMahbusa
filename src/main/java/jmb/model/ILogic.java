@@ -1,9 +1,7 @@
 package jmb.model;
 
-import javafx.collections.ObservableList;
 import javafx.scene.image.WritableImage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ILogic {
@@ -12,7 +10,7 @@ public interface ILogic {
 
     //void placePawnOnBotPoints (int whichPoint);
 
-    void placePawnOnPoint (int whichPoint);
+    void placePawnOnPoint (int whichPoint, int whoCalled);
 
     boolean getWhichTurn();
 
@@ -23,16 +21,16 @@ public interface ILogic {
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
 
-    int getBoardPlaceState (int whichPoint, int whichRow);
+    int getBoardPlaceState (int whichPoint, int whichRow, int whoCalled);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
     //      Restituisce EMPTY (0) se la casella non contiene alcuna pedina
     //                  WHITE (1) se la casella contiene una pedina del bianco
     //                  BLACK (2) se la casella contiene una pedina del nero
 
-    boolean isLastOnPoint (int whichPoint, int whichRow);
+    boolean isLastOnPoint (int whichPoint, int whichRow, int whoCalled);
     //  Metodo che restituisce true se non ci sono altre pedine al di sopra di essa in quella punta
 
-    void createMoveBuffer (int whichPoint);
+    void createMoveBuffer (int whichPoint, int whoCalled);
 
     List<Player> getPlayerList ();
 
@@ -48,7 +46,7 @@ public interface ILogic {
 
     void addNewPlayersToList (String newName1, String newName2);
 
-    boolean isDiceUsed (int i);
+    boolean isDiceUsed (int i, int whoCalled);
 
     void writeLdbList();
 
@@ -58,9 +56,9 @@ public interface ILogic {
 
     void revertMove();
 
-    boolean getBlackExit();
+    boolean getBlackExit(int whoCalled);
 
-    boolean getWhiteExit();
+    boolean getWhiteExit(int whoCalled);
 
     void setPlayersForGame(String whitePlayer, String blackPlayer);
 
@@ -92,7 +90,7 @@ public interface ILogic {
 
     int searchTopOccupiedRow(int col);
 
-    boolean isPawnMovable(int col, int row);
+    boolean isPawnMovable(int col, int row, int whoCalled);
 
     void deleteSaveFile(String fileName);
 
@@ -102,9 +100,9 @@ public interface ILogic {
 
     void setUpSavedGame(String saveName);
 
-    int[][] getBoardMatrix();
+    int[][] getBoardMatrix(int whoCalled);
   
-    void thePawnColor(int whichPoint, int whichRow);
+    void selectPawn(int whichPoint, int whichRow, int whoCalled);
 
     boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
 
@@ -115,12 +113,10 @@ public interface ILogic {
     boolean getGameEndState();
     void setGameStart(boolean value);
     void setGameEndState(boolean value);
-    boolean allDiceUsed();
+    boolean allDiceUsed(int whoCalled);
     void completeMoves();
 
-    void deselectPawn(int col, int row);
-
-    void printMatrix(); //TODO TEST
+    void deselectPawn(int col, int row, int whoCalled);
     void resetDefaultSettings();
     void applySettingsChanges();
     void revertSettingsChanges();
@@ -189,6 +185,7 @@ public interface ILogic {
     boolean getBypassDice ();
     String getNextTutorialString();
     void nextTutorialStage();
+    void tutorialStageAction();
 
     //_________________________
 

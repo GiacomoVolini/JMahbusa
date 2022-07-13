@@ -21,7 +21,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     public static void redrawPawns(DynamicGameBoard board) {
-        redrawPawns(board, logic.getBoardMatrix());
+        redrawPawns(board, logic.getBoardMatrix(whoCalled));
     }
 
     protected static void redrawPawns (GameBoard board, int[][] matrix) {
@@ -65,7 +65,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row)) {
+        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row, whoCalled) && logic.isPawnMovable(col, row, whoCalled)) {
             pawnArray[pawnIndex].setViewOrder(-1.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
@@ -116,11 +116,11 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
     }
     public static void resizeExitRegions(GameBoard board) {
-        if (logic.getBlackExit()) {
+        if (logic.getBlackExit(whoCalled)) {
             board.blackExitRegion.setWidth(maxExitWidth);
             board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
-        if (logic.getWhiteExit()) {
+        if (logic.getWhiteExit(whoCalled)) {
             board.whiteExitRegion.setWidth(maxExitWidth);
             board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }

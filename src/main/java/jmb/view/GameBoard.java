@@ -27,6 +27,7 @@ public class GameBoard {
     protected PawnView[] pawnArrayBLK = new PawnView[15];
     protected Rectangle whiteExitRegion;
     protected Rectangle blackExitRegion;
+    protected int whoCalled;
 
     public GameBoard() {
         outerRect = new Rectangle();
@@ -126,6 +127,7 @@ public class GameBoard {
     protected void openBlackExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
+        blackExitRegion.setVisible(true);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
@@ -142,6 +144,7 @@ public class GameBoard {
     protected void openWhiteExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
+        whiteExitRegion.setVisible(true);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
@@ -165,6 +168,7 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1),  e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
+                    blackExitRegion.setVisible(false);
                 }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
                 )
@@ -182,11 +186,15 @@ public class GameBoard {
                 new KeyFrame(Duration.seconds(1), e-> {
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
+                    whiteExitRegion.setVisible(false);
                 }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
                 )
         );
         timeline.setCycleCount(1);
         timeline.play();
+    }
+    protected void setWhoCalled(int value) {
+        whoCalled = value;
     }
 }

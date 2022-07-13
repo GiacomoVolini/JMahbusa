@@ -13,6 +13,7 @@ import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 
+import static jmb.ConstantsShared.PAWNS_PER_PLAYER;
 import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -64,7 +65,7 @@ public class DynamicGameBoard extends GameBoard{
 
     private void savePosition (MouseEvent event) {
         PawnView node = (PawnView)event.getSource();
-        logic.createMoveBuffer(this.searchPawnPlace(node));
+        logic.createMoveBuffer(this.searchPawnPlace(node), whoCalled);
     }
 
     //  Metodo per il trascinamento della pedina
@@ -79,7 +80,7 @@ public class DynamicGameBoard extends GameBoard{
         PawnView node = (PawnView)event.getSource();
         int col = this.searchPawnPlace(node);
         if (col != UNDEFINED) {
-            logic.placePawnOnPoint(col);
+            logic.placePawnOnPoint(col, whoCalled);
         }
         GameViewRedraw.redrawPawns(this);
 
@@ -204,6 +205,13 @@ public class DynamicGameBoard extends GameBoard{
         );
         timeline.setCycleCount(1);
         timeline.play();
+    }
+
+    protected void setPawnsVisible (boolean set) {
+        for (int i = 0; i < PAWNS_PER_PLAYER; i++){
+            pawnArrayWHT[i].setVisible(set);
+            pawnArrayBLK[i].setVisible(set);
+        }
     }
 
 }

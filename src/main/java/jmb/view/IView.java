@@ -1,7 +1,5 @@
 package jmb.view;
 
-import java.io.IOException;
-
 public interface IView {
 
     void initializeMusic();
@@ -12,7 +10,7 @@ public interface IView {
 
     void rollDice();
 
-    void setDiceContrast();
+    void setDiceContrast(int whoCalled);
 
     void setPawnsForTurn();
 
@@ -24,8 +22,11 @@ public interface IView {
 
     void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus);
 
-    void playmusica();
+    void playPawnSFX();
     void setNextTutorialString(String text);
     void setTutorialOver();
+    void setPawnsVisible(boolean set, int whoCalled);
+    void tutorialPointAnimation(boolean set);
+    void tutorialExitZoneAnimation(boolean set);
 
 }

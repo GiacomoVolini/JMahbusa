@@ -101,7 +101,8 @@ public class MainMenu {
     @FXML
     void openTutorial() throws IOException{
         App.changeRoot(TUTORIAL);
-        logic.setUpNewGame();
+        logic.initializeTutorialLogic();
+        //logic.setUpNewGame();
     }
 
     public void initialize() {

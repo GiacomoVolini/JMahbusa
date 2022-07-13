@@ -173,7 +173,7 @@ public class GameView extends DynamicGameBoard {
 
     @FXML
     void saveGame(ActionEvent event) {
-        if (!logic.allDiceUsed()) {
+        if (!logic.allDiceUsed(whoCalled)) {
             errorLabel.setText("Completa le tue mosse prima di salvare");
             errorLabel.setVisible(true);
         } else if (saveTextField.getText().equals("")) {
@@ -252,7 +252,7 @@ public class GameView extends DynamicGameBoard {
     }
 
     protected void rollDice() {
-        DiceView.setDiceContrast(diceArray);
+        DiceView.setDiceContrast(diceArray, whoCalled);
         finishBTN.setDisable(true);
         if (!logic.isRollDouble())
             closeDoubleDice();
@@ -679,15 +679,14 @@ public class GameView extends DynamicGameBoard {
             col = trovaColonna();
             System.out.println(logic.searchTopOccupiedRow(col));
             System.out.println(col);
-            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
-                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==WHITE && logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
                 selected = true;
-            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
-                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==BLACK && !logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
                 selected = true;
             }
-            logic.createMoveBuffer(col);
-            logic.printMatrix();
+            logic.createMoveBuffer(col, whoCalled);
             GameViewRedraw.redrawPawns(this);
 
 
@@ -696,9 +695,8 @@ public class GameView extends DynamicGameBoard {
         // confermare e muovere la pedina
         if(event.getCode().toString().equals(logic.getConfirm()) && selected){
             int col2 = trovaColonna();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
-            logic.placePawnOnPoint(col2);
-            logic.printMatrix();
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
+            logic.placePawnOnPoint(col2, whoCalled);
             GameViewRedraw.redrawPawns(this);
             selected = false;
         }
@@ -717,6 +715,7 @@ public class GameView extends DynamicGameBoard {
     public void initialize() {
 
         try {
+            setWhoCalled(GAME_CALLED);
             View.sceneMusica.menuMusic.stop();
             if (!logic.getMuteMusic()) {
                 View.sceneMusica.gameMusic.play();

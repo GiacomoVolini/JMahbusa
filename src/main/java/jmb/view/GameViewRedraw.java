@@ -1,6 +1,7 @@
 package jmb.view;
 
 import static java.lang.Math.*;
+import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -230,6 +231,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
 
     protected static void resizeAll(GameView board) {
+        setWhoCalled(GAME_CALLED);
         DynamicGameBoardRedraw.resizeAll(board);
         //resizeOuterRect(game);
         //GameBoardRedraw.resizeInnerBoard(game);

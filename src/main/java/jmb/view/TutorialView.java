@@ -1,5 +1,6 @@
 package jmb.view;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -9,9 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -52,9 +55,9 @@ public class TutorialView extends DynamicGameBoard{
             - Magari interattivo per quanto possibile
             -
             - Idea
-                - Si parte con solo tabellone, si da benvenuto
+                - Si parte con solo tabellone, si da benvenuto - FATTO
                 - Si piazzano le pedine, si spiega obiettivo del gioco
-                - Si evidenziano le punte, spiegando cosa sono
+                - Si evidenziano le punte, spiegando cosa sono - FATTO
                 - Si aprono le zone di uscita, spiegando cosa sono
                 - Chiudi zone di uscita, apri cassetto dei dadi
                 - Fa partire animazione dei dadi, in loop infinito, spiega dadi
@@ -72,9 +75,33 @@ public class TutorialView extends DynamicGameBoard{
                 - Chiudere cassetti
                 - Aprire menu: si vuole cominciare una partita o tornare al menu?
      */
+    private int pointAnimationIndex = 1;
+    private int pointAnimationIndexIncrement = 1;
+    private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.08),
+                                            e -> pointAnimationCycle()));
+    private Timeline getPawnOut = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        logic.tutorialStageAction();
+                        TutorialViewRedraw.redrawPawns(this);
+                    })
+    );
+    private Timeline openZones = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    e -> {
+                        openWhiteExit();
+                        openBlackExit();
+                    }),
+            new KeyFrame(Duration.seconds(3.0),
+                    e -> {
+                        getPawnOut.setCycleCount(30);
+                        getPawnOut.play();
+                    })
+    );
 
     public void initialize() {
         this.boardAnchor = windowPane;
+        setWhoCalled(TUTORIAL_CALLED);
 
         addChildrenToAnchor();
         TutorialViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
@@ -170,5 +197,65 @@ public class TutorialView extends DynamicGameBoard{
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeRoot(MAIN_MENU);
+    }
+
+    protected void tutorialPointAnimation(boolean start) {
+        if (start) {
+            TutorialViewRedraw.resizeAll(this);
+            pointAnimation.setCycleCount(Animation.INDEFINITE);
+            pointAnimation.play();
+        } else {
+            pointAnimation.stop();
+            int index =pointAnimationIndex-pointAnimationIndexIncrement;
+            if (index%2==0)
+                colorPoint(index, Color.web(logic.getEvenPointsColor()));
+            else colorPoint(index, Color.web(logic.getOddPointsColor()));
+        }
+    }
+    private void pointAnimationCycle() {
+        int restoreIndex = pointAnimationIndex - pointAnimationIndexIncrement;
+        Color color = Color.RED;
+        Color color2;
+        if (pointAnimationIndexIncrement == 1) {
+            color = Color.web(logic.getWhitePawnFill());
+        } else if (pointAnimationIndexIncrement == -1) {
+            color = Color.web(logic.getBlackPawnFill());
+        }
+        colorPoint(pointAnimationIndex, color);
+        if (restoreIndex%2==0)
+            color2 = Color.web(logic.getEvenPointsColor());
+        else color2 = Color.web(logic.getOddPointsColor());
+        colorPoint(restoreIndex, color2);
+        if (pointAnimationIndex == 0)
+            pointAnimationIndexIncrement = 1;
+        else if (pointAnimationIndex ==23)
+            pointAnimationIndexIncrement = -1;
+        pointAnimationIndex+=pointAnimationIndexIncrement;
+    }
+
+    private void colorPoint(int index, Color color) {
+        if (index<12) {
+            polArrayTop[index].setFill(color);
+            polArrayTop[index].setStroke(color);
+        } else {
+            polArrayBot[23 - index].setFill(color);
+            polArrayBot[23 - index].setStroke(color);
+        }
+    }
+
+    protected void tutorialExitZoneAnimation(boolean start) {
+        if (start) {
+            openZones.setCycleCount(1);
+            openZones.play();
+        }
+        else {
+            getPawnOut.stop();
+            openZones.stop();
+            closeBlackExit();
+            closeWhiteExit();
+            TutorialViewRedraw.redrawPawns(this);
+        }
+
+
     }
 }

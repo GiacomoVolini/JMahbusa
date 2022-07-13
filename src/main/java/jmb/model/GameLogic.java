@@ -24,10 +24,7 @@ public class GameLogic extends DynamicBoardLogic {
      */
 
     //  VARIABILI D'ISTANZA
-    private boolean whiteTurn;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    private int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
-                                                            //mentre si sta per effettuare una mossa
-                                                            //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
+
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
                                                 //  in un turno
 
@@ -64,15 +61,11 @@ public class GameLogic extends DynamicBoardLogic {
     //  METODI
 
     protected void setUp() {
-        System.out.println("Sono in setupgame");
+        System.out.println("Sono in setUp");
         setGameStart(false);
         setGameEndState(false);
         super.setUp();
         whiteTurn = dice.whoStarts();
-    }
-
-    public boolean isWhiteTurn() {
-        return whiteTurn;
     }
 
     public void changeTurn() {
@@ -88,112 +81,11 @@ public class GameLogic extends DynamicBoardLogic {
         view.rollDice();
     }
 
-
-
-
-
-    /*  Il metodo possibleMove riceve informazioni sulla mossa (posizioni iniziale e finale della pedina mossa),
-        poi verifica le condizioni per cui la mossa non potrebbe essere effettuata.
-        Il metodo da per scontato che la pedina mossa sia del colore giusto.
-     */
-
-    public boolean possibleMove(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
-
-        boolean possible;
-
-        possible = (puntaInizC!=puntaFinC);
-
-        //  Si controlla che la mossa sia effettuata nel verso giusto
-        if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
-
-            //  Se true, controlla se la mossa è volta a portare fuori la pedina
-            if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
-
-                //  Se la mossa non fa uscire dal gioco una pedina controlla che i dadi la permettano, poi che
-                //  la posizione di arrivo non sia bloccata per il giocatore di turno
-                if (dice.checkDice( abs(puntaFinC - puntaInizC))) {
-                    if (whiteTurn) {
-                        if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == BLACK) {
-                            //controlla che la posizione di arrivo non sia preclusa al bianco
-                            possible = false;
-                        }
-                    } else if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == WHITE) {
-                        //controlla che la posizione di arrivo non sia preclusa al nero
-                        possible = false;
-                    }
-                } else possible = false;
-            }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
-            else {
-                int delta = abs(puntaFinC - puntaInizC);
-                possible = delta <= 6 && checkExitMove(delta, puntaInizC);
-            }
-        } else possible = false;
-
-        return possible;
-
-    }
-
-    private boolean checkExitMove(int delta, int puntaIniz) {
-
-        boolean possible = dice.checkExitDiceSimple(delta);
-        if (!possible) {
-            if (checkIfFarthestPawn(puntaIniz))
-                possible = dice.checkExitDiceGreaterThan(delta);
-        }
-
-        return possible;
-    }
-
-    private boolean checkIfFarthestPawn( int puntaIniz) {
-        boolean farthest = true;
-
-        if (isWhiteTurn()) {
-            for (int i = puntaIniz - 1; i>18 && farthest; i--) {
-                if (squares[0][i]== WHITE || squares[1][i]==WHITE) {
-                    farthest = false;
-                }
-            }
-        } else {
-            for (int i = puntaIniz + 1; i <=6 && farthest; i++) {
-                if (squares[0][i]==BLACK || squares[1][i]==BLACK) {
-                    farthest = false;
-                }
-            }
-        }
-        return farthest;
-    }
-
-    /*  Il metodo movePawn si occupa dello spostamento delle pedine.
-        Esso controlla innanzitutto che la mossa possa essere effettuata,
-        in caso positivo sposta la pedina nella posizione desiderata e
-        fa controllare se il nuovo stato del tabellone consente al giocatore
-        di far uscire dal gioco le proprie pedine.
-     */
-
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-
-        dice.resetToBeUsed();
-        //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
-        boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
-        if(possible){
-            view.playmusica();
-            //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
-            squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
-            squares[puntaInizR][puntaInizC]= EMPTY;
-            dice.setUsed();
+        boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+        if (possible) {
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
-            view.setDiceContrast();
             view.backBTNSetDisable(false);
-
-            //  Controlla se il giocatore di turno può far uscire le proprie
-            //  pedine e aggiorna di conseguenza la variabile relativa
-            if (whiteTurn) {
-                this.checkWhiteExit();
-            } else {
-                this.checkBlackExit();
-            }
-        } else {
-            dice.resetToBeUsed();
         }
         return possible;
     }
@@ -242,10 +134,6 @@ public class GameLogic extends DynamicBoardLogic {
 
     }
 
-    //TODO Spostare metodi sotto in DynamicBoardLogic, renderli booleani.
-    //  Creare metodi void sotto che chiamino i boolean e se ottengono true chiamino l'apertura e vadano a mettere lo stato opensXExit
-    //      nella mosssa
-
     public boolean checkWhiteExit() {
         if (super.checkWhiteExit())
             turnMoves.peek().moveOpensWhiteExit();
@@ -258,21 +146,6 @@ public class GameLogic extends DynamicBoardLogic {
             turnMoves.peek().moveOpensBlackExit();
         return true;
     }
-
-    // Metodo setter per l'array moveBuffer
-    public void setMoveBuffer (int col, int row) {
-        this.moveBuffer[0] = col;
-        this.moveBuffer[1] = row;
-    }
-
-    public int getMoveBufferColumn () {
-        return this.moveBuffer[0];
-    }
-
-    public int getMoveBufferRow () {
-        return this.moveBuffer[1];
-    }
-
     protected void victoryCheck() {
 
         if (blackDoubleWinCondition())
@@ -342,16 +215,9 @@ public class GameLogic extends DynamicBoardLogic {
             setWhiteExit(false);
         }
         dice.resetToBeUsed();
-        view.setDiceContrast();
+        view.setDiceContrast(whoCalled);
         if (turnMoves.isEmpty())
             view.backBTNSetDisable(true);
-    }
-
-    private void forceMovePawn(int from, int to) {
-        int toRow = searchFirstFreeRow(to);
-        int fromRow = searchTopOccupiedRow(from);
-        squares[toRow][to] = squares[fromRow][from];
-        squares[fromRow][from] = EMPTY;
     }
 
     public void setUpSavedGame(SaveGameReader save) {
@@ -378,48 +244,6 @@ public class GameLogic extends DynamicBoardLogic {
                 squares[row][col] = squareMatrix[row][col];
             }
         }
-    }
-
-    protected boolean isPawnMovable (int col, int row) {
-
-        boolean movable = false;
-        int sign;
-        int endCol;
-        if (isWhiteTurn())
-            sign = 1;
-        else sign = -1;
-        for (int i = 0; i<4 && !movable; i++) {
-            endCol = max (0, min(col + dice.getDiceValue(i) * sign, 25));
-            if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
-                movable = true;
-
-        }
-        endCol = max(0, min(25, col + (dice.getDiceValue(0) + dice.getDiceValue(1))*sign));
-        if (!movable && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
-            movable = true;
-        for (int i =3; i<=4 && !movable; i++) {
-            endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
-            if (!movable && dice.getDoubleNum() && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
-                movable = true;
-        }
-
-        return movable;
-    }
-
-    protected void thePawnColor(int whichPoint, int whichRow){
-        if(squares[whichRow][whichPoint] == WHITE) {
-            squares[whichRow][whichPoint] = SELECTED_WHITE;
-        }else if(squares[whichRow][whichPoint]==BLACK){
-            squares[whichRow][whichPoint] = SELECTED_BLACK;
-        }
-    }
-
-    protected void deselectPawn(int col, int row) {
-        squares[row][col] += DESELECTED;
-    }
-
-    protected int getBoardPlaceState (int whichPoint, int whichRow) {
-        return squares[whichRow][whichPoint];
     }
 
     protected void setWhitePlayer(String playerName) {

@@ -58,9 +58,9 @@ public class DiceView {
         }
     }
 
-    public static void setDiceContrast (ImageView[] diceArr) {
+    public static void setDiceContrast (ImageView[] diceArr, int whoCalled) {
         for (int i = 0; i<4; i++) {
-            if (logic.isDiceUsed(i))
+            if (logic.isDiceUsed(i, whoCalled))
                 diceArr[i].setEffect(lowContrast);
             else
                 diceArr[i].setEffect(normalContrast);

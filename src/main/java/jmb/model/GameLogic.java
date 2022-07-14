@@ -14,6 +14,15 @@ import static jmb.model.Logic.view;
 
 public class GameLogic extends DynamicBoardLogic {
 
+    /*TODO
+        IDEA - Creare gerarchia ereditaria simile a quella di BoardView
+        VIEW                        LOGIC
+        BoardView (ex GameBoard)    niente - prende da salvataggio
+        DynamicBoardView            DynamicBoardLogic (da creare, prende parte dei metodi da questo)
+        GameView (ex BoardView)     GameLogic (ex BoardLogic)
+
+     */
+
     //  VARIABILI D'ISTANZA
 
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate

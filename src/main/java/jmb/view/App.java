@@ -22,7 +22,6 @@ public class App extends Application {
 
     private static Scene scene;
 
-
     public static Stage getStage() {
         return stage;
     }

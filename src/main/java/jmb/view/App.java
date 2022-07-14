@@ -29,7 +29,7 @@ public class App extends Application {
     private static Scene sceneTutorial;
     private static final String MAIN_MENU = "MainMenu";
     private static final String LOG_IN = "Login";
-    private static final String SETTINGS = "MenuImpostazioni";
+    private static final String SETTINGS = "SettingsView";
     private static final String LOAD_GAME = "LoadGameView";
     private static final String LEADERBOARDS = "Leaderboard";
     private static final String PLAY_GAME = "GameBoard";

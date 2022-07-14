@@ -1,20 +1,15 @@
 package jmb.model;
 
 
-import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
 import org.json.*;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Base64;
-import static jmb.ConstantsShared.*;
 
 public class SaveGameWriter {
-    protected static void writeSaveFile(BoardLogic board, String fileName, WritableImage saveImage) {
+    protected static void writeSaveFile(GameLogic board, String fileName, WritableImage saveImage) {
         try {
             JSONObject saveContent = new JSONObject();
             saveContent.put("whitePlayer", board.getWhitePlayer());
@@ -46,7 +41,7 @@ public class SaveGameWriter {
         }
     }
 
-    private static String generateSquareMatrixString(BoardLogic board) {
+    private static String generateSquareMatrixString(GameLogic board) {
         String out = "";
         for (int i = 0; i<16 ; i++) {
             for (int j = 0; j<26 ; j++) {

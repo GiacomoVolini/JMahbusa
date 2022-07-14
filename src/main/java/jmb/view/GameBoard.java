@@ -3,15 +3,12 @@ package jmb.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
-import java.lang.reflect.AccessibleObject;
 
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -30,6 +27,7 @@ public class GameBoard {
     protected PawnView[] pawnArrayBLK = new PawnView[15];
     protected Rectangle whiteExitRegion;
     protected Rectangle blackExitRegion;
+    protected int whoCalled;
 
     public GameBoard() {
         outerRect = new Rectangle();
@@ -122,33 +120,81 @@ public class GameBoard {
         }
     }
 
+    protected boolean blockResizeCondition() {
+        return (!logic.getFullScreen() && !logic.getLockResolution());
+    }
+
     protected void openBlackExit() {
-        App.getStage().setResizable(false);
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        blackExitRegion.setVisible(true);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
                         new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1),  e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                }, new KeyValue(blackExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
         timeline.play();
     }
     protected void openWhiteExit() {
-
-        App.getStage().setResizable(false);
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        whiteExitRegion.setVisible(true);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
                         new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , BoardViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                }, new KeyValue(whiteExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
                 )
         );
         timeline.setCycleCount(1);
         timeline.play();
+    }
+
+    protected void closeBlackExit() {
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1),  e-> {
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                    blackExitRegion.setVisible(false);
+                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
+                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    protected void closeWhiteExit() {
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
+                new KeyFrame(Duration.seconds(1), e-> {
+                    if (blockResizeCondition())
+                        App.getStage().setResizable(true);
+                    whiteExitRegion.setVisible(false);
+                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
+                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    protected void setWhoCalled(int value) {
+        whoCalled = value;
     }
 }

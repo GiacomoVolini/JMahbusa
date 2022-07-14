@@ -6,21 +6,8 @@ import static jmb.ConstantsShared.*;
 
 public class GameBoardRedraw {
 
-    /*TODO
-        - Individuare i metodi di BoardView
-     */
-    /*
-        TODO
-            - Semplificare il metodo per ridimensionare outerRect (togliere controllo sofisticato,
-                tanto in mezzo ci si metterà la coppa del torneo)
-            - Spostare dentro GameBoard (utilizzeremo gli stessi metodi di resize del tabellone sia
-                in BoardView che in LoadGameView)
-            - Valutare quanto sia possibile spostare anche il redraw delle pedine
-            - Alternativa: creare metodo placePawns in LoadGameView (più semplice ma si potrebbe finire
-                per duplicare codice)
-     */
+    protected static int whoCalled;
     protected static double maxExitWidth;
-
     protected static double hResizeFactor;
     protected static void setHResizeFactor(double value) {
         hResizeFactor = value;
@@ -50,12 +37,10 @@ public class GameBoardRedraw {
     }
 
     protected static double getBoardLayoutX (GameBoard board) {
-        //return (board.boardAnchor.getWidth()/2)-(getBoardSize(board)*0.6); TODO VECCHIO
         return (board.boardAnchor.getWidth()/2) - (getBoardSize(board) * xLayoutFactor);
     }
 
     protected static double getBoardLayoutY (GameBoard board) {
-        //return (board.boardAnchor.getHeight()/2)-(getBoardSize(board)/2); TODO VECCHIO
         return (board.boardAnchor.getHeight()/2) - (getBoardSize(board) * yLayoutFactor);
     }
 
@@ -151,15 +136,6 @@ public class GameBoardRedraw {
         board.whiteExitRegion.setLayoutY(board.outerRect.getLayoutY() + (board.outerRect.getHeight()/2));
     }
 
-    /*TODO
-        COME POTREI RISCRIVERE REDRAWPAWNS
-        - Metodi redrawPawns sulle classi figlie (senza attributi passati), che vanno a pescare la matrice di interi giusta
-        - Metodo redrawPawns su classe madre a cui si passa una matrice di interi che fa il riposizionamento delle pedine
-            (scegliere se aggiungere dei sottometodi o fare tutto su uno)
-        - Metodo che sovrascrive redrawPawns con matrice su BoardViewRedraw che richiama il metodo padre e poi evidenzia
-            le pedine che si possono muovere
-     */
-
     protected static void redrawPawns (GameBoard board, int[][] matrix) {
         int whitesPlaced = 0;
         int blacksPlaced = 0;
@@ -212,6 +188,10 @@ public class GameBoardRedraw {
         resizePawns(board);
         calcTrayWidths(board);
         resizeExitRegions(board);
+    }
+
+    protected static void setWhoCalled(int value) {
+        whoCalled = value;
     }
 
 

@@ -13,13 +13,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import static jmb.view.ConstantsView.*;
 import static jmb.ConstantsShared.*;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
 import java.io.IOException;
 
 public class SettingsView {
+
+        private final static int MUSIC_SLIDER = 0;
+        private final static int SFX_SLIDER = 1;
 
 
         private Stage stage;
@@ -104,9 +107,6 @@ public class SettingsView {
 
         @FXML
         private Slider SliderES;
-
-        //@FXML TODO CANCELLARE
-        //private Button RA;
 
         @FXML
         private AnchorPane personalizzazione;
@@ -237,9 +237,6 @@ public class SettingsView {
         @FXML
         private Button applyButton;
 
-        //@FXML TODO CANCELLARE
-        //private Button Reset;
-
         @FXML
         private AnchorPane comandi;
 
@@ -315,10 +312,8 @@ public class SettingsView {
                 //TODO controllare se ci sono cambiamenti alle impostazioni senza aver pigiato apply
                 //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
                 //      altrimenti andare al menu
-                Stage stage = (Stage)GBG.getScene().getWindow();
-                stage.setResizable(!logic.getLockResolution());
-                App.mainMenu();
-                stage.setFullScreen(logic.getFullScreen());
+                mainMenuButton.getScene().getWindow(); //TODO FORSE NON SERVE
+                App.changeRoot(MAIN_MENU);
         }
 
         @FXML
@@ -392,15 +387,13 @@ public class SettingsView {
         void mutaLAmusica(ActionEvent event) {
                 if (checkMusi.isSelected()){
                         Sv = SliderMusi.getValue();
-                        mu = muta;
                         SliderMusi.setValue(0);
                         SliderMusi.setDisable(true);
-                        View.sceneMusica.player.pause();
+                        View.pauseMenuMusic();
                 }else{
-                        mu = nonmuta;
                         SliderMusi.setValue(Sv);
                         SliderMusi.setDisable(false);
-                        View.sceneMusica.player.play();
+                        View.playMenuMusic();
                 }
                 applyButton.setDisable(false);
         }
@@ -409,11 +402,9 @@ public class SettingsView {
         void mutaGLIeffetto(ActionEvent event) {
                 if (checkMES.isSelected()) {
                         Sve = SliderES.getValue();
-                        mue = mutae;
                         SliderES.setValue(0);
                         SliderES.setDisable(true);
                 } else {
-                        mue = nonmutae;
                         SliderES.setValue(Sve);
                         SliderES.setDisable(false);
                 }
@@ -422,7 +413,7 @@ public class SettingsView {
 
         @FXML
         void soundProva(MouseEvent event) {
-                View.sceneMusica.Pawn.play();
+                View.sceneMusica.pawnSFX.play();
         }
 
         //Personalizzazione
@@ -578,8 +569,6 @@ public class SettingsView {
                 resetButton.setDisable(false);
                 mainMenuButton.setDisable(false);
         }
-
-        //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
         /*TODO sostituire riferimenti alle seguenti variabili con riferimenti alla rispettiva variabile di SettingsLogic
                 - pedIn1 - whitePawnFill - getWhitePawnFill()
                 - pedOut1 - whitePawnStroke -
@@ -600,7 +589,6 @@ public class SettingsView {
                 - main_menu - openMenu
          */
 
-        //TODO FORSE SPOSTARE ---
         private String colorStringFactory(Color color) {
                 String out = "#" + componentSubstringFactory(color.getRed()) +
                         componentSubstringFactory(color.getGreen()) + componentSubstringFactory(color.getBlue());
@@ -612,16 +600,17 @@ public class SettingsView {
                 //      altrimenti restituisce il valore
                 return in.length() == 1 ? "0" + in : in;
         }
-        //TODO FORSE SPOSTARE ^^^
 
         @FXML
         void applySettings(ActionEvent event) {
+                System.out.println("PIGIATO APPLY");
+                applyButton.setDisable(true);
                 logic.setFullScreen(checkSI.isSelected());
                 logic.setLockResolution(checkBR.isSelected());
                 //logic.setResolutionWidth();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //logic.setResolutionHeight();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
-                logic.setMusicVolume((int)SliderMusi.getValue()*100);
-                logic.setSFXVolume((int)SliderES.getValue()*100);
+                logic.setMusicVolume((int)SliderMusi.getValue());
+                logic.setSFXVolume((int)SliderES.getValue());
                 logic.setMuteMusic(checkMusi.isSelected());
                 logic.setMuteSFX(checkMES.isSelected());
                 if(TM.isSelected())
@@ -646,7 +635,6 @@ public class SettingsView {
                 logic.setRevertMove(cacellareMo.getText());
                 logic.setFinishTurn(finitoT.getText());
                 logic.setOpenMenu(opUscita.getText());
-                logic.applySettingsChanges();
                 logic.setResolutionWidth((int)GBG.getScene().getWidth());
                 logic.setResolutionHeight((int)GBG.getScene().getHeight());
                 logic.applySettingsChanges();
@@ -665,10 +653,17 @@ public class SettingsView {
                 stage.setHeight(logic.getResolutionHeight());
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
-                SliderMusi.setValue(logic.getMusicVolume()/100.0);
-                SliderES.setValue(logic.getSFXVolume()/100.0);
+                SliderMusi.setValue(logic.getMusicVolume());
+                View.setMusicVolume(logic.getMusicVolume());
+                SliderES.setValue(logic.getSFXVolume());
+                View.setSFXVolume(logic.getSFXVolume());
                 checkMusi.setSelected(logic.getMuteMusic());
                 checkMES.setSelected(logic.getMuteSFX());
+                SliderMusi.setDisable(logic.getMuteMusic());
+                SliderES.setDisable(logic.getMuteSFX());
+                if (logic.getMuteMusic())
+                        View.pauseMenuMusic();
+                else View.playMenuMusic();
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
@@ -676,7 +671,6 @@ public class SettingsView {
                                 Cpunte.setDisable(false);
                                 Cpunte2.setDisable(false);
                                 Ccornice.setDisable(false);
-
                                 break;
                         case LEFT_PRESET:
                                 Imsinistra.setSelected(true);
@@ -920,11 +914,8 @@ public class SettingsView {
                         SliderMusi.setValue(logic.getMusicVolume());
                         SliderMusi.setValue(logic.getMusicVolume());
                         SliderES.setValue(logic.getSFXVolume());
-                        SliderMusi.valueProperty().addListener(observable -> {
-                                View.sceneMusica.player.setVolume(SliderMusi.getValue()/100);
-                                View.sceneMusica.playerp.setVolume(SliderMusi.getValue()/100);
-                        });
-                        SliderES.valueProperty().addListener(observable -> View.sceneMusica.Pawn.setVolume(SliderES.getValue()/100));
+                        SliderMusi.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, MUSIC_SLIDER));
+                        SliderES.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, SFX_SLIDER));
 
                 //Comandi
                         moDestra.setText(logic.getMoveRight());
@@ -937,9 +928,6 @@ public class SettingsView {
                         finitoT.setText(logic.getFinishTurn());
                         opUscita.setText(logic.getOpenMenu());
 
-
-                //TODO CONTROLLARE CHE IL PROGRAMMA ENTRI CORRETTAMENTE IN FULLSCREEN O NO
-
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -950,6 +938,24 @@ public class SettingsView {
                 openEditVideo();
 
 
+        }
+
+        private void checkSliderChanges (Number value, int whichSlider) {
+                int savedValue = 0;
+                int sliderValue = (int)(value.doubleValue());
+                System.out.println(sliderValue);
+                switch (whichSlider) {
+                        case MUSIC_SLIDER:
+                                savedValue = logic.getMusicVolume();
+                                View.setMusicVolume(value.doubleValue()/100);
+                                break;
+                        case SFX_SLIDER:
+                                savedValue = logic.getSFXVolume();
+                                View.setSFXVolume(value.doubleValue()/100);
+                                break;
+                }
+                if (savedValue != sliderValue)
+                        applyButton.setDisable(false);
         }
 
 

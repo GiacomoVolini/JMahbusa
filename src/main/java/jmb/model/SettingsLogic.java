@@ -13,6 +13,11 @@ import static jmb.ConstantsShared.*;
 
 public class SettingsLogic {
 
+    /* TODO
+        METTERE IMPOSTAZIONE PER LINGUA
+        UTILIZZARE POI DEI FILE Strings_IT.ini e Strings_EN.ini DA CUI PESCARE LA LINGUA GIUSTA
+     */
+
     private boolean fullScreen = false;
     private boolean lockResolution = false;
     private int resolutionWidth = 640;
@@ -204,7 +209,9 @@ public class SettingsLogic {
         return this.resolutionWidth;
     }
     protected void setMusicVolume(int value) {
+        System.out.println(value + "SETTINGSLOGIC");
         this.musicVolume = max(0, min(100, value));
+        System.out.println(musicVolume + " COSA SALVA IN FILE");
     }
     protected int getMusicVolume() {
         return this.musicVolume;

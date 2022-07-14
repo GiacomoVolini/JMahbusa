@@ -146,14 +146,10 @@ public class LoadGameView extends GameBoard {
     }
 
     private void changeDimensions() {
-        //window.setDividerPosition(0, SEPARATOR_RATIO);
         double listWidth = window.getWidth()*SEPARATOR_RATIO;
         double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
         saveListAnchor.setPrefWidth(listWidth);
         saveDetailAnchor.setPrefWidth(detailWidth);
-        //window.setRightAnchor(saveListAnchor, window.getWidth()*(1-SEPARATOR_RATIO)); TODO
-        //window.setLeftAnchor(saveDetailAnchor, window.getWidth()*SEPARATOR_RATIO);
-        //AnchorPane.setRightAnchor(deleteSaveButton, 41.0);
         saveDetailView.setLayoutX(listWidth);
         double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
         double imageHeight = window.getHeight()*0.5;
@@ -176,10 +172,10 @@ public class LoadGameView extends GameBoard {
         hourglass.setFitHeight(pawnRadius*3);
         hourglass.setFitWidth(pawnRadius*2);
         timerLabel.setPrefHeight(pawnRadius*3);
-        saveDetailView.setBottomAnchor(hourglass, yAnchor);
-        saveDetailView.setBottomAnchor(timerLabel, yAnchor);
-        saveDetailView.setLeftAnchor(hourglass, xAnchor);
-        saveDetailView.setLeftAnchor(timerLabel, labelXAnchor);
+        AnchorPane.setBottomAnchor(hourglass, yAnchor);
+        AnchorPane.setBottomAnchor(timerLabel, yAnchor);
+        AnchorPane.setLeftAnchor(hourglass, xAnchor);
+        AnchorPane.setLeftAnchor(timerLabel, labelXAnchor);
         LoadGameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
         LoadGameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
         LoadGameViewRedraw.redrawAll(this);
@@ -207,13 +203,13 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.mainMenu();
+        App.changeRoot(MAIN_MENU);
     }
 
     @FXML
     void loadGame(ActionEvent event) {
         logic.setUpSavedGame(saveName);
-        App.board();
+        App.changeRoot(PLAY_GAME);
     }
 
     @FXML

@@ -1,16 +1,16 @@
 package jmb.view;
 
-import java.io.IOException;
-
 public interface IView {
 
-    void openWhiteExit();
+    void initializeMusic();
 
-    void openBlackExit();
+    void openWhiteExit(int whoCalled);
+
+    void openBlackExit(int whoCalled);
 
     void rollDice();
 
-    void setDiceContrast();
+    void setDiceContrast(int whoCalled);
 
     void setPawnsForTurn();
 
@@ -22,6 +22,14 @@ public interface IView {
 
     void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus);
 
-    void playmusica();
+    void playPawnSFX();
+    void setNextTutorialString(String text);
+    void setTutorialOver();
+    void setPawnsVisible(boolean set, int whoCalled);
+    void tutorialPointAnimation(boolean set);
+    void tutorialExitZoneAnimation(boolean set);
+    void tutorialDiceAnimation(boolean set);
+    void callRedraw (int whoCalled);
+    void allowTextBoxMouseInput (boolean allow);
 
 }

@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static jmb.view.View.logic;
+import static jmb.view.ConstantsView.*;
 
 public class LeaderboardView {
 
@@ -57,7 +58,7 @@ public class LeaderboardView {
     @FXML
     void vaialMainMenu()  throws IOException {
         uscita.getScene().getWindow();
-        App.mainMenu();
+        App.changeRoot(MAIN_MENU);
     }
 
     @FXML
@@ -71,11 +72,18 @@ public class LeaderboardView {
     }
 
     protected void changeDimensions() {
+        double quarterWidth = Window.getWidth()/4;
 
-        name.setPrefWidth(Window.getWidth()/4);
-        victories.setPrefWidth(Window.getWidth()/4);
-        defeats.setPrefWidth(Window.getWidth()/4);
-        rate.setPrefWidth(Window.getWidth()/4);
+        name.setPrefWidth(quarterWidth);
+        victories.setPrefWidth(quarterWidth);
+        defeats.setPrefWidth(quarterWidth);
+        rate.setPrefWidth(quarterWidth);
+
+        smallAncor.setPrefWidth(quarterWidth);
+
+        uscita.setPrefWidth(Window.getWidth()/6);
+
+
 
 
         /*uscita.setLayoutX(table.getLayoutX() + (table.getWidth() * 0.15) + table.getWidth());

@@ -12,12 +12,12 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -28,7 +28,7 @@ import static jmb.view.View.logic;
  */
 
 
-public class BoardView extends DynamicGameBoard {
+public class GameView extends DynamicGameBoard {
 
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
@@ -41,8 +41,6 @@ public class BoardView extends DynamicGameBoard {
     AnchorPane saveAnchorPane;
     @FXML
     Label errorLabel;
-    @FXML
-    Rectangle diceTray;
 
     @FXML
     protected Button backBTN;
@@ -74,18 +72,6 @@ public class BoardView extends DynamicGameBoard {
 
     @FXML
     Button annulla;
-
-    @FXML
-    ImageView diceD;
-
-    @FXML
-    ImageView diceU;
-
-    @FXML
-    ImageView doubleDiceD;
-
-    @FXML
-    ImageView doubleDiceU;
 
     @FXML
     Rectangle plBLKInRect;
@@ -127,18 +113,6 @@ public class BoardView extends DynamicGameBoard {
     TextField saveTextField;
 
 
-    /*muscia
-    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\partita.mp3").toURI().toString();
-    MediaPlayer playerp = new MediaPlayer( new Media(uriString));
-*/
-
-
-    //  Booleano che indica se l'animazione di diceTray è stata completata
-    boolean dtAnimDone = false;
-
-    protected ImageView[] diceArray;        //  L'array segue la numerazione di dice in DiceLogic, con le posizioni
-    //      0 e 1 occupate dai dadi standard e 2 e 3 occupate dai dadi doppi
-
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
     Circle victoryPawn;
@@ -158,19 +132,19 @@ public class BoardView extends DynamicGameBoard {
 
     @FXML
     protected void nextTurn (ActionEvent event) {
-        if(turn_duration != 0) {
+        if(logic.getTurnDuration() != 0) {
             turnTimer.stop();
 
         }
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        BoardViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
+        GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
         if (logic.getWhichTurn()){
-            plWHTOutRect.setFill(green);
-            plBLKOutRect.setFill(red);
+            plWHTOutRect.setFill(Color.GREEN);
+            plBLKOutRect.setFill(Color.RED);
         }else {
-            plBLKOutRect.setFill(green);
-            plWHTOutRect.setFill(red);
+            plBLKOutRect.setFill(Color.GREEN);
+            plWHTOutRect.setFill(Color.RED);
         }
         //rimettere i colori
         s="";
@@ -199,7 +173,7 @@ public class BoardView extends DynamicGameBoard {
 
     @FXML
     void saveGame(ActionEvent event) {
-        if (!logic.allDiceUsed()) {
+        if (!logic.allDiceUsed(whoCalled)) {
             errorLabel.setText("Completa le tue mosse prima di salvare");
             errorLabel.setVisible(true);
         } else if (saveTextField.getText().equals("")) {
@@ -208,7 +182,7 @@ public class BoardView extends DynamicGameBoard {
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
                 WritableImage saveImage = this.saveBoardImage();
                 logic.saveGame(saveTextField.getText(), saveImage);
-                View.sceneMusica.playerp.stop();
+                View.sceneMusica.gameMusic.stop();
                 vaialMainMenu();
             } else {
                 errorLabel.setText("Nome Salvataggio già presente");
@@ -236,36 +210,32 @@ public class BoardView extends DynamicGameBoard {
         param.setViewport(new Rectangle2D(minX, minY, width, height));
         return window.snapshot(param, null);
     }
-
-
-
-
     @FXML
     void openExitoption() {
         pauseMenu.setVisible(true);
-        if (turn_duration!=0)
+        if (logic.getTurnDuration()!=0)
             turnTimer.pause();
-        BoardViewRedraw.resizePauseMenu(this);
+        GameViewRedraw.resizePauseMenu(this);
         senzaSalvare.requestFocus();
     }
 
     @FXML
     void closeExitoption(ActionEvent event) {
         pauseMenu.setVisible(false);
-        if (turn_duration!=0)
+        if (logic.getTurnDuration()!=0)
             turnTimer.play();
         window.requestFocus();
     }
 
     @FXML
     void vaialMainMenu(){
-            App.mainMenu();
-        View.sceneMusica.playerp.stop();
+            App.changeRoot(MAIN_MENU);
+        View.sceneMusica.gameMusic.stop();
         
-        if (!mu) {
-            View.sceneMusica.player.play();
+        if (!logic.getMuteMusic()) {
+            View.sceneMusica.menuMusic.play();
         }else{
-            View.sceneMusica.player.pause();
+            View.sceneMusica.menuMusic.pause();
         }
     }
 
@@ -278,95 +248,31 @@ public class BoardView extends DynamicGameBoard {
     @FXML
     protected void revertMove() {
         logic.revertMove();
-        BoardViewRedraw.redrawPawns(this);
-    }
-
-    protected void openDoubleDice() {
-        if (!diceArray[2].isVisible()) {
-            App.getStage().setResizable(false);
-            Timeline timeline = new Timeline (
-                    new KeyFrame(Duration.ZERO,
-                            e -> {
-                                diceArray[2].setVisible(true);
-                                diceArray[3].setVisible(true);
-                            },
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
-                            ),
-                    new KeyFrame(Duration.seconds(0.5),
-                            e -> App.getStage().setResizable(true),
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
-                    )
-            );
-            timeline.setCycleCount(1);
-            timeline.play();
-        }
-    }
-
-    protected void closeDoubleDice() {
-        if (diceArray[2].isVisible()) {
-            App.getStage().setResizable(false);
-            Timeline timeline = new Timeline (
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY() + diceArray[0].getFitHeight()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY() - diceArray[0].getFitHeight())
-                    ),
-                    new KeyFrame(Duration.seconds(0.5),
-                            e -> {
-                                App.getStage().setResizable(true);
-                                diceArray[2].setVisible(false);
-                                diceArray[3].setVisible(false);
-                            },
-                            new KeyValue(diceArray[2].layoutYProperty(), diceArray[0].getLayoutY()),
-                            new KeyValue(diceArray[3].layoutYProperty(), diceArray[1].getLayoutY())
-                    )
-            );
-            timeline.setCycleCount(1);
-            timeline.play();
-        }
-    }
-
-    private void diceTrayAnim() {
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    this.dtAnimDone = true;
-                    App.getStage().setResizable(true);
-                    BoardViewRedraw.resizeDice(this);
-                    logic.firstTurn();
-                }, new KeyValue(diceTray.widthProperty() , BoardViewRedraw.getMaxDTWidth() )
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
+        GameViewRedraw.redrawPawns(this);
     }
 
     protected void rollDice() {
-        DiceView.setDiceContrast(diceArray);
+        DiceView.setDiceContrast(diceArray, whoCalled);
         finishBTN.setDisable(true);
-        if(!logic.isRollDouble())
+        if (!logic.isRollDouble(whoCalled))
             closeDoubleDice();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
-        );
-        timeline.setCycleCount(10);
-        timeline.setOnFinished( e -> {
-            DiceView.setDiceValues(diceArray);
+        diceRollAnimation.setCycleCount(10);
+        diceRollAnimation.setOnFinished(e -> {
+            DiceView.setDiceValues(diceArray, whoCalled);
             finishBTN.setDisable(false);
-            if (logic.isRollDouble()) {
+            if (logic.isRollDouble(whoCalled)) {
                 openDoubleDice();
             }
-            if (logic.getTurnDuration()!=0)
+            if (logic.getTurnDuration() != 0)
                 turnTimer.play();
+            GameViewRedraw.redrawPawns(this);
         });
-        timeline.play();
+        diceRollAnimation.play();
     }
 
 
     private void changeDimensions() {
-        BoardViewRedraw.resizeAll(this);
+        GameViewRedraw.resizeAll(this);
         if (pauseMenu.isVisible()) {
             senzaSalvare.requestFocus();
         } else if (startDialogue.isVisible()) {
@@ -388,18 +294,18 @@ public class BoardView extends DynamicGameBoard {
         logic.setGameStart(true);
         changeDimensions();
         if (diceTray.getWidth()==0)
-            diceTrayAnim();
-        if(turn_duration != 0) {
+            openDiceTray();
+        if(logic.getTurnDuration() != 0) {
             runTimer();
         }
         if (logic.getWhichTurn()){
-            plWHTOutRect.setFill(green);
-            plBLKOutRect.setFill(red);
+            plWHTOutRect.setFill(Color.GREEN);
+            plBLKOutRect.setFill(Color.RED);
         }else {
-            plBLKOutRect.setFill(green);
-            plWHTOutRect.setFill(red);
+            plBLKOutRect.setFill(Color.GREEN);
+            plWHTOutRect.setFill(Color.RED);
         }
-        BoardViewRedraw.redrawPawns(this);
+        GameViewRedraw.redrawPawns(this);
 
         //window.getChildren().remove(startDialogue);
     }
@@ -439,7 +345,7 @@ public class BoardView extends DynamicGameBoard {
     private void gameOver() {
             logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
             logic.addStatsToLeaderboard();
-            App.mainMenu();
+            App.changeRoot(MAIN_MENU);
     }
 
     private Rectangle createVictoryPanel() {
@@ -460,11 +366,11 @@ public class BoardView extends DynamicGameBoard {
         window.getChildren().add(pawn);
         pawn.setViewOrder(-15);
         if (whiteWon) {
-            pawn.setFill(pedIn1);
-            pawn.setStroke(pedOut1);
+            pawn.setFill(Color.web(logic.getWhitePawnFill()));
+            pawn.setStroke(Color.web(logic.getWhitePawnStroke()));
         } else {
-            pawn.setFill(pedIn2);
-            pawn.setStroke(pedOut2);
+            pawn.setFill(Color.web(logic.getBlackPawnFill()));
+            pawn.setStroke(Color.web(logic.getBlackPawnStroke()));
         }
         pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
@@ -539,7 +445,7 @@ public class BoardView extends DynamicGameBoard {
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
         gameEndDisable();
-        if (turn_duration!=0)
+        if (logic.getTurnDuration()!=0)
             turnTimer.stop();
         plWHTOutRect.setFill(Color.GRAY);
         plBLKOutRect.setFill(Color.GRAY);
@@ -555,7 +461,7 @@ public class BoardView extends DynamicGameBoard {
         if (tournamentStatus == TOURNAMENT_WON)
             tourmanentRibbon = createTournamentRibbon();
         logic.setGameEndState(true);
-        BoardViewRedraw.resizeVictoryPanel(this);
+        GameViewRedraw.resizeVictoryPanel(this);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
                         new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
@@ -569,36 +475,7 @@ public class BoardView extends DynamicGameBoard {
         timeline.play();
     }
 
-    protected void closeBlackExit() {
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
 
-    protected void closeWhiteExit() {
-
-        App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), BoardViewRedraw.getMaxExitWidth()),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - BoardViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
 
     int i=0;
     String s="";
@@ -643,7 +520,7 @@ public class BoardView extends DynamicGameBoard {
             for(int j=0; j<12;j++){
                 if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
-                        polArrayTop[j].setFill(point);
+                        polArrayTop[j].setFill(Color.web(logic.getEvenPointsColor()));
                     }else {
                         polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
                     }
@@ -658,7 +535,7 @@ public class BoardView extends DynamicGameBoard {
         } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=2;
             polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[0].setFill(point);
+            polArrayTop[0].setFill(Color.web(logic.getEvenPointsColor()));
             L=logic.getMoveRight();
         }
 
@@ -675,7 +552,7 @@ public class BoardView extends DynamicGameBoard {
             for(int j=0; j<12;j++){
                 if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
                     if ((j)%2 == 0){
-                        polArrayTop[j].setFill(point);
+                        polArrayTop[j].setFill(Color.web(logic.getEvenPointsColor()));
                     }else {
                         polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
                     }
@@ -686,7 +563,7 @@ public class BoardView extends DynamicGameBoard {
         } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
             i=10;
             polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[0].setFill(point);
+            polArrayTop[0].setFill(Color.web(logic.getEvenPointsColor()));
         } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
             i=9;
             polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
@@ -704,7 +581,7 @@ public class BoardView extends DynamicGameBoard {
             }
             for (int i=0; i<polArrayTop.length;i++){
                 if((i%2)==0){
-                    this.polArrayTop[i].setFill(point);
+                    this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
                 }else{
                     this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
                 }
@@ -723,7 +600,7 @@ public class BoardView extends DynamicGameBoard {
                 if((i%2)==0){
                     this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
                 }else{
-                    this.polArrayBot[i].setFill(point);
+                    this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
                 }
             }
         }
@@ -744,7 +621,7 @@ public class BoardView extends DynamicGameBoard {
                     if ((j)%2 == 0){
                         polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
                     }else {
-                        polArrayBot[j].setFill(point);
+                        polArrayBot[j].setFill(Color.web(logic.getEvenPointsColor()));
                     }
                 }
             }
@@ -753,7 +630,7 @@ public class BoardView extends DynamicGameBoard {
         } else if(i==12 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))) {
             i=1;
             polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[11].setFill(point);
+            polArrayBot[11].setFill(Color.web(logic.getEvenPointsColor()));
         } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
             i=2;
             polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
@@ -776,7 +653,7 @@ public class BoardView extends DynamicGameBoard {
                     if ((j)%2 == 0){
                         polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
                     }else {
-                        polArrayBot[j].setFill(point);
+                        polArrayBot[j].setFill(Color.web(logic.getEvenPointsColor()));
                     }
                 }
             }
@@ -789,7 +666,7 @@ public class BoardView extends DynamicGameBoard {
         } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
             i=9;
             polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[11].setFill(point);
+            polArrayBot[11].setFill(Color.web(logic.getEvenPointsColor()));
             L=logic.getMoveLeft();
         }
 
@@ -799,16 +676,15 @@ public class BoardView extends DynamicGameBoard {
             col = trovaColonna();
             System.out.println(logic.searchTopOccupiedRow(col));
             System.out.println(col);
-            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE && logic.getWhichTurn()){
-                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==WHITE && logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
                 selected = true;
-            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==BLACK && !logic.getWhichTurn()){
-                logic.thePawnColor(col, logic.searchTopOccupiedRow(col));
+            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==BLACK && !logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
                 selected = true;
             }
-            logic.createMoveBuffer(col);
-            logic.printMatrix();
-            BoardViewRedraw.redrawPawns(this);
+            logic.createMoveBuffer(col, whoCalled);
+            GameViewRedraw.redrawPawns(this);
 
 
         }
@@ -816,10 +692,9 @@ public class BoardView extends DynamicGameBoard {
         // confermare e muovere la pedina
         if(event.getCode().toString().equals(logic.getConfirm()) && selected){
             int col2 = trovaColonna();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
-            logic.placePawnOnPoint(col2);
-            logic.printMatrix();
-            BoardViewRedraw.redrawPawns(this);
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
+            logic.placePawnOnPoint(col2, whoCalled);
+            GameViewRedraw.redrawPawns(this);
             selected = false;
         }
         System.out.println(event.getCode().toString() + i + col);
@@ -837,6 +712,13 @@ public class BoardView extends DynamicGameBoard {
     public void initialize() {
 
         try {
+            setWhoCalled(GAME_CALLED);
+            View.sceneMusica.menuMusic.stop();
+            if (!logic.getMuteMusic()) {
+                View.sceneMusica.gameMusic.play();
+            }else{
+                View.sceneMusica.gameMusic.stop();
+            }
 
             this.boardAnchor = window;
             addChildrenToAnchor();
@@ -847,16 +729,16 @@ public class BoardView extends DynamicGameBoard {
             //startBTN.setFocusTraversable(false);
             //startDialogue.setFocusTraversable(false);
 
-            BoardViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
-            BoardViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+            GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
+            GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
             timerIn.setViewOrder(-3);
             timerOut.setViewOrder(-2);
 
             //musica
-            if (mu) {
-                View.sceneMusica.playerp.pause();
+            if (logic.getMuteMusic()) {
+                View.sceneMusica.gameMusic.pause();
             } else {
-                View.sceneMusica.playerp.play();
+                View.sceneMusica.gameMusic.play();
             }
 
             window.getStylesheets().add(this.getClass().getResource("style.css").toURI().toString());
@@ -870,18 +752,15 @@ public class BoardView extends DynamicGameBoard {
             plWHTPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
             plBLKPawn.setFill(Color.web(logic.getBlackPawnFill()));
             plBLKPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
-            diceTray.setFill(table);
+            diceTray.setFill(Color.web(logic.getBoardInnerColor()));
             //turni
             plBLKOutRect.setFill(Color.GRAY);
             plWHTOutRect.setFill(Color.GRAY);
 
-            if (turn_duration == 0) {
+            if (logic.getTurnDuration() == 0) {
                 timerIn.setVisible(false);
                 timerOut.setVisible(false);
             }
-
-            //  INIZIALIZZAZIONE ARRAY
-            this.diceArray = new ImageView[]{this.diceU, this.diceD, this.doubleDiceU, this.doubleDiceD};
 
             //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
             //  del tabellone
@@ -889,11 +768,11 @@ public class BoardView extends DynamicGameBoard {
             pauseMenu.setViewOrder(-4);
 
 
-            if (turn_duration != 0) {
+            if (logic.getTurnDuration() != 0) {
                 //Inizializzo il timer del turno
                 turnTimer = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                        new KeyFrame(Duration.seconds(turn_duration), e -> {
+                        new KeyFrame(Duration.seconds(logic.getTurnDuration()), e -> {
                             logic.completeMoves();
                             nextTurn(null);
                         }, new KeyValue(timerIn.scaleYProperty(), 0))
@@ -911,8 +790,8 @@ public class BoardView extends DynamicGameBoard {
             tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
             tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
             window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
-            tournamentWhitePoints.setTextFill(pedOut1);
-            tournamentBlackPoints.setTextFill(pedOut2);
+            tournamentWhitePoints.setTextFill(Color.web(logic.getWhitePawnStroke()));
+            tournamentBlackPoints.setTextFill(Color.web(logic.getBlackPawnStroke()));
             tournamentCup.setBlendMode(BlendMode.DARKEN);
 
             if (logic.isTournamentOngoing()) {

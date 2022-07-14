@@ -244,9 +244,6 @@ public class SettingsView {
         private TitledPane Tcomandi;
 
         @FXML
-        private Text Tkeyboard;
-
-        @FXML
         private Text Tmuov;
 
         @FXML
@@ -779,7 +776,6 @@ public class SettingsView {
                 GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
 
                 //Comandi
-                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
                 GBG.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);

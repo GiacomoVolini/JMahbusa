@@ -254,23 +254,20 @@ public class GameView extends DynamicGameBoard {
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray, whoCalled);
         finishBTN.setDisable(true);
-        if (!logic.isRollDouble())
+        if (!logic.isRollDouble(whoCalled))
             closeDoubleDice();
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
-        );
-        timeline.setCycleCount(10);
-        timeline.setOnFinished(e -> {
-            DiceView.setDiceValues(diceArray);
+        diceRollAnimation.setCycleCount(10);
+        diceRollAnimation.setOnFinished(e -> {
+            DiceView.setDiceValues(diceArray, whoCalled);
             finishBTN.setDisable(false);
-            if (logic.isRollDouble()) {
+            if (logic.isRollDouble(whoCalled)) {
                 openDoubleDice();
             }
             if (logic.getTurnDuration() != 0)
                 turnTimer.play();
             GameViewRedraw.redrawPawns(this);
         });
-        timeline.play();
+        diceRollAnimation.play();
     }
 
 
@@ -297,7 +294,7 @@ public class GameView extends DynamicGameBoard {
         logic.setGameStart(true);
         changeDimensions();
         if (diceTray.getWidth()==0)
-            diceTrayAnim();
+            openDiceTray();
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }

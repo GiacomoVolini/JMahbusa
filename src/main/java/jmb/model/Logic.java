@@ -116,18 +116,37 @@ public class Logic implements ILogic{
     }
 
     @Override
-    public boolean isRollDouble() {
-        return gameDice.getDoubleNum();
+    public boolean isRollDouble(int whoCalled) {
+        DiceLogic dice = null;
+        switch (whoCalled){
+            case GAME_CALLED:
+                dice = gameDice;
+                break;
+            case TUTORIAL_CALLED:
+                dice = tutorialDice;
+                break;
+        }
+        return dice.getDoubleNum();
     }
 
     @Override
-    public int[] getDiceValues() {
-        return gameDice.getDiceValues();
+    public int[] getDiceValues(int whoCalled) {
+        DiceLogic dice = null;
+        switch (whoCalled){
+            case GAME_CALLED:
+                dice = gameDice;
+                break;
+            case TUTORIAL_CALLED:
+                dice = tutorialDice;
+                break;
+        }
+        return dice.getDiceValues();
     }
 
     @Override
-    public void firstTurn() {
-        game.runTurn();
+    public void firstTurn(int whoCalled) {
+        if (whoCalled == GAME_CALLED)
+            game.runTurn();
     }
 
     @Override
@@ -378,8 +397,17 @@ public class Logic implements ILogic{
     public int[][] getSaveMatrix(String saveName) {return this.readSaveGame(saveName).getSquareMatrix();}
 
     @Override
-    public boolean getGameStart() {
-        return game.getGameStart();
+    public boolean getGameStart(int whoCalled) {
+        boolean out = false;
+        switch (whoCalled) {
+            case GAME_CALLED:
+                out = game.getGameStart();
+                break;
+            case TUTORIAL_CALLED:
+                out = true;
+                break;
+        }
+        return out;
     }
     @Override
     public boolean getGameEndState() {

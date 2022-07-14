@@ -34,11 +34,11 @@ public interface ILogic {
 
     List<Player> getPlayerList ();
 
-    boolean isRollDouble();
+    boolean isRollDouble(int whoCalled);
 
-    int[] getDiceValues();
+    int[] getDiceValues(int whoCalled);
 
-    void firstTurn();
+    void firstTurn(int whoCalled);
 
     List<String> getPlayerNameList();
 
@@ -109,7 +109,7 @@ public interface ILogic {
     int[][] getSaveMatrix(String saveName);
 
 
-    boolean getGameStart();
+    boolean getGameStart(int whoCalled);
     boolean getGameEndState();
     void setGameStart(boolean value);
     void setGameEndState(boolean value);

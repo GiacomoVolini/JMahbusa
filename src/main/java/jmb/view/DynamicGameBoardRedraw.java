@@ -82,7 +82,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         System.out.println("WDT " + board.outerRect.getWidth());
         board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
         board.diceTray.setLayoutY(board.outerRect.getLayoutY());
-        if (board.dtAnimDone) {
+        if (board.diceTrayOpen) {
             board.diceTray.setWidth(maxDTWidth);
         }
         board.diceTray.setHeight(board.outerRect.getHeight());
@@ -131,9 +131,9 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         GameBoardRedraw.resizeInnerBoard(board);
         resizeExitRegions(board);
         calcTrayWidths(board);
-        if (logic.getGameStart()) {
+        if (logic.getGameStart(whoCalled)) {
             resizeDiceTray(board);
-            if (board.dtAnimDone)
+            if (board.diceTrayOpen)
                 resizeDice(board);
         }
         if (board.pawnArrayWHT[0].isVisible())

@@ -56,9 +56,9 @@ public class TutorialView extends DynamicGameBoard{
             -
             - Idea
                 - Si parte con solo tabellone, si da benvenuto - FATTO
-                - Si piazzano le pedine, si spiega obiettivo del gioco
+                - Si piazzano le pedine, si spiega obiettivo del gioco - FATTO
                 - Si evidenziano le punte, spiegando cosa sono - FATTO
-                - Si aprono le zone di uscita, spiegando cosa sono
+                - Si aprono le zone di uscita, spiegando cosa sono - FATTO
                 - Chiudi zone di uscita, apri cassetto dei dadi
                 - Fa partire animazione dei dadi, in loop infinito, spiega dadi
                 - Ferma animazione in risultato, permetti a giocatore di muovere
@@ -77,10 +77,10 @@ public class TutorialView extends DynamicGameBoard{
      */
     private int pointAnimationIndex = 1;
     private int pointAnimationIndexIncrement = 1;
-    private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.08),
+    private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.06),
                                             e -> pointAnimationCycle()));
     private Timeline getPawnOut = new Timeline(
-            new KeyFrame(Duration.seconds(1),
+            new KeyFrame(Duration.seconds(0.8),
                     e -> {
                         logic.tutorialStageAction();
                         TutorialViewRedraw.redrawPawns(this);
@@ -92,7 +92,7 @@ public class TutorialView extends DynamicGameBoard{
                         openWhiteExit();
                         openBlackExit();
                     }),
-            new KeyFrame(Duration.seconds(3.0),
+            new KeyFrame(Duration.seconds(2.0),
                     e -> {
                         getPawnOut.setCycleCount(30);
                         getPawnOut.play();
@@ -120,8 +120,8 @@ public class TutorialView extends DynamicGameBoard{
 
         initialAnimation();
 
-        //TODO TEST
-        windowPane.setOnMouseClicked(e ->textBoxAnimation());
+        textBox1.setOnMouseClicked(e ->textBoxAnimation());
+        textBox2.setOnMouseClicked(e ->textBoxAnimation());
 
 
 
@@ -159,11 +159,13 @@ public class TutorialView extends DynamicGameBoard{
         }
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
+                        e -> textBoxToClose.setMouseTransparent(true),
                         new KeyValue(textBoxToOpen.scaleXProperty(), 0),
                         new KeyValue(textBoxToOpen.scaleYProperty(), 0),
                         new KeyValue(textBoxToClose.scaleXProperty(), 1),
                         new KeyValue(textBoxToClose.scaleYProperty(), 1)),
                 new KeyFrame(Duration.seconds(0.5),
+                        e -> textBoxToOpen.setMouseTransparent(false),
                         new KeyValue(textBoxToOpen.scaleXProperty(), 1),
                         new KeyValue(textBoxToOpen.scaleYProperty(), 1),
                         new KeyValue(textBoxToClose.scaleXProperty(), 0),
@@ -255,7 +257,31 @@ public class TutorialView extends DynamicGameBoard{
             closeWhiteExit();
             TutorialViewRedraw.redrawPawns(this);
         }
+    }
 
-
+    protected void tutorialDiceAnimation (boolean start) {
+        if (start) {
+            diceRollAnimation.setCycleCount(Animation.INDEFINITE);
+            Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
+                                                    e -> openDiceTray()),
+                                            new KeyFrame(Duration.seconds(2),
+                                                    e -> diceRollAnimation.play())
+                                                );
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
+        else {
+            diceRollAnimation.stop();
+        }
+    }
+    protected void allowTextBoxMouseInput (boolean allow) {
+        if (allow) {
+            if (textBox1ToOpen)
+                textBox2.setMouseTransparent(false);
+            else textBox1.setMouseTransparent(false);
+        } else {
+            textBox1.setMouseTransparent(true);
+            textBox2.setMouseTransparent(true);
+        }
     }
 }

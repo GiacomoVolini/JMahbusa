@@ -24,7 +24,10 @@ public class DynamicGameBoard extends GameBoard{
 
     protected ImageView[] diceArray = new ImageView[4];
 
-    protected boolean dtAnimDone = false;
+    protected boolean diceTrayOpen = false;
+    protected Timeline diceRollAnimation = new Timeline(
+            new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
+    ); //Necessario impostare il numero di cicli quando si utilizza
 
 
     public DynamicGameBoard() {
@@ -49,6 +52,7 @@ public class DynamicGameBoard extends GameBoard{
                 pawnArrayBLK[i].setOnMousePressed(this::savePosition);
                 pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
             }
+
         } catch (URISyntaxException use) {
             use.printStackTrace();
         }
@@ -187,20 +191,38 @@ public class DynamicGameBoard extends GameBoard{
         }
     }
 
-    protected void diceTrayAnim() {
+    protected void openDiceTray() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
                 new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
                 new KeyFrame(Duration.seconds(1), e-> {
-                    this.dtAnimDone = true;
+                    this.diceTrayOpen = true;
                     if (blockResizeCondition())
                         App.getStage().setResizable(true);
                     diceArray[UPPER_DICE].setVisible(true);
                     diceArray[LOWER_DICE].setVisible(true);
                     DynamicGameBoardRedraw.resizeDice(this);
-                    logic.firstTurn();
+                    logic.firstTurn(whoCalled);
                 }, new KeyValue(diceTray.widthProperty() , GameViewRedraw.getMaxDTWidth() )
+                )
+        );
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    protected void closeDiceTray() {
+        if (blockResizeCondition())
+            App.getStage().setResizable(false);
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO,
+                        e -> {
+                            this.diceTrayOpen = false;
+                            diceArray[UPPER_DICE].setVisible(false);
+                            diceArray[LOWER_DICE].setVisible(false);
+                        },
+                        new KeyValue(diceTray.widthProperty(), GameViewRedraw.getMaxDTWidth())),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(diceTray.widthProperty() , 0 )
                 )
         );
         timeline.setCycleCount(1);

@@ -28,5 +28,8 @@ public interface IView {
     void setPawnsVisible(boolean set, int whoCalled);
     void tutorialPointAnimation(boolean set);
     void tutorialExitZoneAnimation(boolean set);
+    void tutorialDiceAnimation(boolean set);
+    void callRedraw (int whoCalled);
+    void allowTextBoxMouseInput (boolean allow);
 
 }

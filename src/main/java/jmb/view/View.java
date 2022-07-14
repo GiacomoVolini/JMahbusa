@@ -149,5 +149,22 @@ public class View implements IView {
     public void tutorialExitZoneAnimation(boolean set) {
         sceneTutorial.tutorialExitZoneAnimation(set);
     }
-
+    @Override
+    public void tutorialDiceAnimation(boolean set) { sceneTutorial.tutorialDiceAnimation(set);}
+    @Override
+    public void callRedraw(int whoCalled) {
+        switch (whoCalled) {
+            case GAME_CALLED:
+                GameViewRedraw.resizeAll(sceneGame);
+                break;
+            case TUTORIAL_CALLED:
+                TutorialViewRedraw.resizeAll(sceneTutorial);
+                DiceView.setDiceValues(sceneTutorial.diceArray, whoCalled);
+                break;
+        }
+    }
+    @Override
+    public void allowTextBoxMouseInput(boolean allow) {
+        sceneTutorial.allowTextBoxMouseInput(allow);
+    }
 }

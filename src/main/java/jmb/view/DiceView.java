@@ -48,11 +48,11 @@ public class DiceView {
         dice.setImage(diceImgs[i]);
     }
 
-    public static void setDiceValues (ImageView[] diceArr) {
-        int[] values = logic.getDiceValues();
+    public static void setDiceValues (ImageView[] diceArr, int whoCalled) {
+        int[] values = logic.getDiceValues(whoCalled);
         diceArr[0].setImage(diceImgs[values[0]-1]);
         diceArr[1].setImage(diceImgs[values[1]-1]);
-        if (logic.isRollDouble()) {
+        if (logic.isRollDouble(whoCalled)) {
             diceArr[2].setImage(invDiceImgs[values[2]-1]);
             diceArr[3].setImage(invDiceImgs[values[3]-1]);
         }

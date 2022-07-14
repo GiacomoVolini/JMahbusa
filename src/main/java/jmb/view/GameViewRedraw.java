@@ -242,10 +242,10 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         resizeTimer(board);
         //if (logic.getGameStart()) {
         //    resizeDiceTray(game);
-        //    if (game.dtAnimDone)
+        //    if (game.diceTrayOpen)
         //        resizeDice(game);
         //} else
-        if (!logic.getGameStart())
+        if (!logic.getGameStart(whoCalled))
             resizeStartDialogue(board);
         resizeButtons(board);
         resizePauseMenu(board);

@@ -525,7 +525,6 @@ public class SettingsView {
                         applyButton.setDisable(false);
         }
 
-        //TODO riempi l'applicazioni
 
         //Comandi Action
         int IdiWaiting;
@@ -714,7 +713,6 @@ public class SettingsView {
         }
 
         protected void changeDimensions() {
-                //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
                 Bvideo.setLayoutY(GBG.getHeight()*0.12);

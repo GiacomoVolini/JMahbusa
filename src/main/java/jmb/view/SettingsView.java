@@ -250,12 +250,6 @@ public class SettingsView {
         private Text Tkeyboard;
 
         @FXML
-        private Rectangle retBsceliere;
-
-        @FXML
-        private Rectangle retSscegliere;
-
-        @FXML
         private Text Tmuov;
 
         @FXML
@@ -321,8 +315,10 @@ public class SettingsView {
                 //TODO controllare se ci sono cambiamenti alle impostazioni senza aver pigiato apply
                 //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
                 //      altrimenti andare al menu
-                mainMenuButton.getScene().getWindow();
+                Stage stage = (Stage)GBG.getScene().getWindow();
+                stage.setResizable(!logic.getLockResolution());
                 App.mainMenu();
+                stage.setFullScreen(logic.getFullScreen());
         }
 
         @FXML
@@ -541,33 +537,46 @@ public class SettingsView {
         //TODO riempi l'applicazioni
 
         //Comandi Action
+        int IdiWaiting;
         @FXML
         void selezionata(MouseEvent event) {
                 TextField b = (TextField) event.getSource();
                 bindingBefore = b.getText();
                 b.setText("waiting...");
+                for(int i=0; i<9; i++){
+                        if(nomiDiPulsanti[i].getText().equals("waiting...")){
+                                nomiDiPulsanti[i].setDisable(false);
+                                IdiWaiting = i;
+                        }else{
+                                nomiDiPulsanti[i].setDisable(true);
+                        }
+                }
                 applyButton.setDisable(true);
                 resetButton.setDisable(true);
                 mainMenuButton.setDisable(true);
         }
 
+        protected TextField[] nomiDiPulsanti;
         @FXML
         void stampa(KeyEvent event) {
                 TextField b = (TextField) event.getSource();
-                b.setText(event.getCode().toString());
+                for(int i=0; i<9; i++){
+                        System.out.println(nomiDiPulsanti[i].getText());
+                        System.out.println(event.getCode().toString());
+                        if(nomiDiPulsanti[i].getText().equals(event.getCode().toString()) && i != IdiWaiting){
+                                b.setText(bindingBefore);
+                                i=9;
+                        }else{
+                                b.setText(event.getCode().toString());
+                        }
+                }
+                for(int i=0; i<9; i++){
+                        nomiDiPulsanti[i].setDisable(false);
+                }
                 if (!b.getText().equals(bindingBefore))
                         applyButton.setDisable(false);
                 resetButton.setDisable(false);
                 mainMenuButton.setDisable(false);
-        }
-
-        @FXML
-        void scegliIlComando(MouseEvent event) {
-                if(retBsceliere.getLayoutX() != retSscegliere.getLayoutX()) {
-                        retSscegliere.setLayoutX(retBsceliere.getLayoutX());
-                }else{
-                        retSscegliere.setLayoutX(retSscegliere.getLayoutX()+retSscegliere.getWidth());
-                }
         }
 
         //TODO salva i cambiamenti dei impostazzioni anche se chiudi il gioco
@@ -641,7 +650,6 @@ public class SettingsView {
                 logic.setResolutionWidth((int)GBG.getScene().getWidth());
                 logic.setResolutionHeight((int)GBG.getScene().getHeight());
                 logic.applySettingsChanges();
-
                 applyButton.setDisable(true);
         }
 
@@ -649,7 +657,12 @@ public class SettingsView {
         void resetToDefaults(ActionEvent event) {
                 logic.resetDefaultSettings();
                 checkSI.setSelected(logic.getFullScreen());
+                fullscreen(null);
+                blockresolution(null);
                 checkBR.setSelected(logic.getLockResolution());
+                Stage stage = (Stage) GBG.getScene().getWindow();
+                stage.setWidth(logic.getResolutionWidth());
+                stage.setHeight(logic.getResolutionHeight());
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 SliderMusi.setValue(logic.getMusicVolume()/100.0);
@@ -765,7 +778,7 @@ public class SettingsView {
                 GBG.setLeftAnchor(Ctavolo,GBG.getWidth() * 0.11);
                 GBG.setLeftAnchor(Tpunt,GBG.getWidth() * 0.30);
                 GBG.setLeftAnchor(Cpunte,GBG.getWidth() * 0.281);
-                GBG.setLeftAnchor(Cpunte2,GBG.getLeftAnchor(Cpunte) + Cpunte2.getWidth() + 10);
+                GBG.setLeftAnchor(Cpunte2,GBG.getLeftAnchor(Cpunte) + 64);
                 GBG.setLeftAnchor(Tcorn,GBG.getWidth() * 0.50);
                 GBG.setLeftAnchor(Ccornice,GBG.getWidth() * 0.51);
                 GBG.setLeftAnchor(Tpedgioc2,GBG.getWidth() * 0.40);
@@ -774,7 +787,7 @@ public class SettingsView {
                 GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
 
                 //Comandi
-                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.20);
+                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
                 GBG.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);
@@ -794,8 +807,8 @@ public class SettingsView {
                 GBG.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
-                //schermi
 
+                //schermi
                 Sbackgraound.setPrefWidth(GBG.getWidth()/4);
                 Timpostazioni.setPrefWidth(GBG.getWidth()/4);
 
@@ -836,6 +849,8 @@ public class SettingsView {
         }
 
         public void initialize() {
+
+                 nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.confermare, this.cacellareMo, this.finitoT, this.opUscita};
 
                 checkSI.setSelected(logic.getFullScreen());
                 checkBR.setSelected(logic.getLockResolution());

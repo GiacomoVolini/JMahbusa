@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import static jmb.view.ConstantsView.*;
@@ -70,10 +71,10 @@ public class LoadGameView extends GameBoard {
 
         refreshSaveList();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
-        whitePlayerPawn.setFill(pedIn1);
-        whitePlayerPawn.setStroke(pedOut1);
-        blackPlayerPawn.setFill(pedIn2);
-        blackPlayerPawn.setStroke(pedOut2);
+        whitePlayerPawn.setFill(Color.web(logic.getWhitePawnFill()));
+        whitePlayerPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
+        blackPlayerPawn.setFill(Color.web(logic.getBlackPawnFill()));
+        blackPlayerPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
         //Si impedisce all'utente di muovere il divisore dello SplitPane
         window.lookupAll(".split-pane-divider").stream()
                 .forEach(div ->  div.setMouseTransparent(true) );

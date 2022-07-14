@@ -80,7 +80,7 @@ public class TutorialView extends DynamicGameBoard{
     private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.06),
                                             e -> pointAnimationCycle()));
     private Timeline getPawnOut = new Timeline(
-            new KeyFrame(Duration.seconds(0.7),
+            new KeyFrame(Duration.seconds(0.8),
                     e -> {
                         logic.tutorialStageAction();
                         TutorialViewRedraw.redrawPawns(this);
@@ -92,7 +92,7 @@ public class TutorialView extends DynamicGameBoard{
                         openWhiteExit();
                         openBlackExit();
                     }),
-            new KeyFrame(Duration.seconds(1.0),
+            new KeyFrame(Duration.seconds(2.0),
                     e -> {
                         getPawnOut.setCycleCount(30);
                         getPawnOut.play();
@@ -264,7 +264,7 @@ public class TutorialView extends DynamicGameBoard{
             diceRollAnimation.setCycleCount(Animation.INDEFINITE);
             Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
                                                     e -> openDiceTray()),
-                                            new KeyFrame(Duration.seconds(1.2),
+                                            new KeyFrame(Duration.seconds(2),
                                                     e -> diceRollAnimation.play())
                                                 );
             timeline.setCycleCount(1);
@@ -276,11 +276,12 @@ public class TutorialView extends DynamicGameBoard{
     }
     protected void allowTextBoxMouseInput (boolean allow) {
         if (allow) {
-            textBox1.setOnMouseClicked(e -> textBoxAnimation());
-            textBox2.setOnMouseClicked(e -> textBoxAnimation());
+            if (textBox1ToOpen)
+                textBox2.setMouseTransparent(false);
+            else textBox1.setMouseTransparent(false);
         } else {
-            textBox1.setOnMouseClicked(null);
-            textBox2.setOnMouseClicked(null);
+            textBox1.setMouseTransparent(true);
+            textBox2.setMouseTransparent(true);
         }
     }
 }

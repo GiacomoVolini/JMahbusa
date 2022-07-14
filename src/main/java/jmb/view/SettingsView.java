@@ -495,6 +495,7 @@ public class SettingsView {
                 }
         }
 
+
         @FXML
         void sinistraAction(ActionEvent event) {
                 Ctavolo.setDisable(true);

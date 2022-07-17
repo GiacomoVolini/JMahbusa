@@ -3,6 +3,8 @@ package jmb.view;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.View.logic;
 
 import java.net.URISyntaxException;
@@ -50,11 +52,13 @@ public class DiceView {
 
     public static void setDiceValues (ImageView[] diceArr, int whoCalled) {
         int[] values = logic.getDiceValues(whoCalled);
-        diceArr[0].setImage(diceImgs[values[0]-1]);
-        diceArr[1].setImage(diceImgs[values[1]-1]);
-        if (logic.isRollDouble(whoCalled)) {
-            diceArr[2].setImage(invDiceImgs[values[2]-1]);
-            diceArr[3].setImage(invDiceImgs[values[3]-1]);
+        if(values[0]!=0) {
+            diceArr[0].setImage(diceImgs[values[0] - 1]);
+            diceArr[1].setImage(diceImgs[values[1] - 1]);
+            if (logic.isRollDouble(whoCalled)) {
+                diceArr[2].setImage(invDiceImgs[values[2] - 1]);
+                diceArr[3].setImage(invDiceImgs[values[3] - 1]);
+            }
         }
     }
 

@@ -34,6 +34,7 @@ public class App extends Application {
         stage.setMinWidth(640);
         scene = new Scene (loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
         setStageOptions();
+        stage.setTitle("JMahbusa");
         stage.setScene(scene);
         stage.show();
     }

@@ -5,6 +5,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.ConstantsShared.COL_BLACK;
 import static jmb.model.ConstantsLogic.DESELECTED;
 import static jmb.model.ConstantsLogic.SELECTED;
+import static jmb.model.Logic.logic;
 import static jmb.model.Logic.view;
 
 public class DynamicBoardLogic {
@@ -65,6 +66,8 @@ public class DynamicBoardLogic {
                 open = true;
                 setBlackExit(true);
                 Logic.view.openBlackExit(whoCalled);
+                if (whoCalled == GAME_CALLED)
+                    logic.moveOpensBlackExit();
             }
         }
         return open;
@@ -86,6 +89,8 @@ public class DynamicBoardLogic {
                 open = true;
                 setWhiteExit(true);
                 Logic.view.openWhiteExit(whoCalled);
+                if (whoCalled == GAME_CALLED)
+                    logic.moveOpensWhiteExit();
             }
         }
         return open;
@@ -100,6 +105,10 @@ public class DynamicBoardLogic {
             squares[i][COL_WHITE]= WHITE;
             squares[i][COL_BLACK]= BLACK;
         }
+    }
+
+    public boolean movePawn(int from, int to) {
+        return movePawn(from, searchTopOccupiedRow(from), searchFirstFreeRow(to), to);
     }
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
@@ -220,6 +229,7 @@ public class DynamicBoardLogic {
         return whichRow;
     }
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
+        System.out.println(puntaInizC + "\n" + puntaInizR + "\n" + puntaFinC);
         boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
                 (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
         return right;
@@ -267,10 +277,25 @@ public class DynamicBoardLogic {
         return squares[whichRow][whichPoint];
     }
     protected void forceMovePawn(int from, int to) {
+        view.playPawnSFX();
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];
         squares[fromRow][from] = EMPTY;
+    }
+    protected void setWhiteTurn(boolean value) {
+        whiteTurn = value;
+    }
+
+    protected void setUpSavedBoard(int[][] squareMatrix) {
+        if (squares == null) {
+            squares = new int[16][26];
+        }
+        for (int row =0; row<16; row++) {
+            for (int col = 0; col < 26; col++) {
+                squares[row][col] = squareMatrix[row][col];
+            }
+        }
     }
 
 

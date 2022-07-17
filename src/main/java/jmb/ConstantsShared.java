@@ -21,6 +21,7 @@ public class ConstantsShared {
     public static final int BLACK = 2;
     public static final int SELECTED_WHITE = 3;
     public static final int SELECTED_BLACK = 4;
+    public static final int WRONG_WHITE = 5;
 
     //  Costanti per i metodi di confronto nomi giocatori
     public static final int DECIDING = 0;
@@ -57,6 +58,15 @@ public class ConstantsShared {
     //Costanti per la variabile whoCalled per alcuni metodi del View
     public static final int GAME_CALLED = 0;
     public static final int TUTORIAL_CALLED = 1;
+
+    public static final int PAWN_SFX = 0;
+    public static final int ERROR_SFX = 1;
+    public static final int SINGLE_WIN_SFX = 2;
+    public static final int DOUBLE_WIN_SFX = 3;
+
+    public static final int MENU_MUSIC = 0;
+    public static final int GAME_MUSIC = 1;
+    public static final int TUTORIAL_MUSIC = 2;
 
     public static final String ARRAY_ENDED = "\u2204";
 

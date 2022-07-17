@@ -13,9 +13,9 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-import static jmb.view.View.logic;
-import static jmb.view.View.sceneLoadView;
+import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.*;
 
 
 public class MainMenu {
@@ -73,7 +73,6 @@ public class MainMenu {
     @FXML
     void newGameAction()  throws IOException {
         App.changeRoot(LOG_IN);
-        View.sceneMusica.gameMusic.pause();
         View.sceneLogIn.changeDimensions();
     }
 
@@ -102,6 +101,7 @@ public class MainMenu {
     void openTutorial() throws IOException{
         App.changeRoot(TUTORIAL);
         logic.initializeTutorialLogic();
+        view.playMusic(TUTORIAL_MUSIC);
         //logic.setUpNewGame();
     }
 
@@ -123,7 +123,7 @@ public class MainMenu {
 
             // musica
             if (!logic.getMuteMusic()) {
-                View.sceneMusica.menuMusic.play();
+                view.playMusic(MENU_MUSIC);
             }
 
             Timeline timeline = new Timeline(

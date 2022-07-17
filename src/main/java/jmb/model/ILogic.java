@@ -52,10 +52,11 @@ public interface ILogic {
 
     void addStatsToLeaderboard();
 
-    void setUpNewGame ();
+    void setUpNewBoard (int whoCalled);
 
     void revertMove();
-
+    void setWhiteExit(int whoCalled, boolean value);
+    void setBlackExit(int whoCalled, boolean value);
     boolean getBlackExit(int whoCalled);
 
     boolean getWhiteExit(int whoCalled);
@@ -88,7 +89,7 @@ public interface ILogic {
 
     String[] getLoadViewData(String saveName);
 
-    int searchTopOccupiedRow(int col);
+    int searchTopOccupiedRow(int whoCalled, int col);
 
     boolean isPawnMovable(int col, int row, int whoCalled);
 
@@ -103,8 +104,8 @@ public interface ILogic {
     int[][] getBoardMatrix(int whoCalled);
   
     void selectPawn(int whichPoint, int whichRow, int whoCalled);
-
-    boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
+    boolean movePawn(int whoCalled, int from, int to);
+    boolean movePawn(int whoCalled, int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
 
     int[][] getSaveMatrix(String saveName);
 
@@ -121,7 +122,17 @@ public interface ILogic {
     void applySettingsChanges();
     void revertSettingsChanges();
     void initializeSettingsLogic();
-
+    void nextTutorialStage();
+    void tutorialStageAction();
+    void checkTutorialStageAdvancement();
+    void forceMovePawn(int whoCalled, int from, int to);
+    void forceDice(int whoCalled, int value1, int value2);
+    void forceDice(int whoCalled, int value);
+    void setWhiteTurn(int whoCalled, boolean value);
+    boolean[] getUsedArray(int whoCalled);
+    void setUpSavedBoard(int whoCalled, int[][]matrix);
+    void moveOpensWhiteExit();
+    void moveOpensBlackExit();
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
@@ -157,13 +168,19 @@ public interface ILogic {
     void setBoardInnerColor (String value);
     String getBoardInnerColor ();
     String getBoardInnerColor (boolean forceCustom);
-
     void setEvenPointsColor (String value);
     String getEvenPointsColor ();
     String getEvenPointsColor (boolean forceCustom);
     void setOddPointsColor (String value);
     String getOddPointsColor ();
     String getOddPointsColor (boolean forceCustom);
+    String getSelectedPointColor();
+    String getSelectedPointColor (boolean forceCustom);
+    String getSelectedPointPreset();
+    String getEvenPointsLeftPreset();
+    String getOddPointsLeftPreset();
+    String getEvenPointsRightPreset();
+    String getOddPointsRightPreset();
     void setMoveRight (String value);
     String getMoveRight ();
     void setMoveLeft (String value);
@@ -183,9 +200,6 @@ public interface ILogic {
     void setOpenMenu (String value);
     String getOpenMenu ();
     boolean getBypassDice ();
-    String getNextTutorialString();
-    void nextTutorialStage();
-    void tutorialStageAction();
 
     //_________________________
 

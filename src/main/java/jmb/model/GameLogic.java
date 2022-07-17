@@ -27,6 +27,8 @@ public class GameLogic extends DynamicBoardLogic {
     private int blacksWonPoints;
 
     private int whitesWonPoints;
+    private boolean moveOpensWhiteExit = false;
+    private boolean moveOpensBlackExit = false;
 
     private double turnDuration = 120;
 
@@ -72,10 +74,19 @@ public class GameLogic extends DynamicBoardLogic {
         view.rollDice();
     }
 
+    public boolean movePawn(int from, int to) {
+        return this.movePawn(from, searchTopOccupiedRow(from), searchFirstFreeRow(to), to);
+    }
+
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if (possible) {
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
+            if (moveOpensWhiteExit)
+                turnMoves.peek().moveOpensWhiteExit();
+            else if (moveOpensBlackExit)
+                turnMoves.peek().moveOpensBlackExit();
+            moveOpensWhiteExit=moveOpensBlackExit=false;
             view.backBTNSetDisable(false);
         }
         return possible;
@@ -100,20 +111,6 @@ public class GameLogic extends DynamicBoardLogic {
         return whichRow;
     }
 
-    public int searchTopOccupiedRow(int whichPoint) {
-        // Data una colonna della matrice cerca l'ultima riga occupata
-        // Il metodo restituisce UNDEFINED se la colonna è completamente vuota
-        int whichRow;
-        if (squares[15][whichPoint]!= EMPTY) {
-            whichRow = 15;
-        } else {
-            whichRow = searchFirstFreeRow(whichPoint) - 1;
-        }
-        return whichRow;
-    }
-
-
-
     /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
             Il bianco può andare "avanti", il nero "indietro", per quanto concerne il numero di punta
      */
@@ -125,18 +122,6 @@ public class GameLogic extends DynamicBoardLogic {
 
     }
 
-    public boolean checkWhiteExit() {
-        if (super.checkWhiteExit())
-            turnMoves.peek().moveOpensWhiteExit();
-        return true;
-    }
-
-    @Override
-    public boolean checkBlackExit() {
-        if (super.checkBlackExit())
-            turnMoves.peek().moveOpensBlackExit();
-        return true;
-    }
     protected void victoryCheck() {
 
         if (blackDoubleWinCondition())
@@ -226,16 +211,7 @@ public class GameLogic extends DynamicBoardLogic {
         setUpSavedBoard(save.squareMatrix);
     }
 
-    private void setUpSavedBoard(int[][] squareMatrix) {
-        if (squares == null) {
-            squares = new int[16][26];
-        }
-        for (int row =0; row<16; row++) {
-            for (int col = 0; col < 26; col++) {
-                squares[row][col] = squareMatrix[row][col];
-            }
-        }
-    }
+
 
     protected void setWhitePlayer(String playerName) {
         this.whitePlayer = playerName;
@@ -303,5 +279,14 @@ public class GameLogic extends DynamicBoardLogic {
     }
     protected void setGameEndState(boolean value) {
         this.gameEndState = value;
+    }
+    protected ArrayDeque<MoveRecord> getTurnMoves () {
+        return turnMoves;
+    }
+    protected void flagMoveOpensWhiteExit() {
+        moveOpensWhiteExit = true;
+    }
+    protected void flagMoveOpensBlackExit() {
+        moveOpensBlackExit = true;
     }
 }

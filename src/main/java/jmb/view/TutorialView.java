@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
+import static jmb.view.View.view;
 
 public class TutorialView extends DynamicGameBoard{
 
@@ -24,14 +26,16 @@ public class TutorialView extends DynamicGameBoard{
     private final static double VERTICAL_RESIZE_FACTOR = 0.8;
     private final static double X_LAYOUT_FACTOR = 0.5;
     private final static double Y_LAYOUT_FACTOR = 0.5;
-    private boolean textBox1ToOpen = true;
+    protected boolean textBox1ToOpen = true;
     private boolean tutorialOver = false;
+    protected double textBoxXFactor = 0.1;
+    protected double textBoxYFactor = 0.2;
     @FXML
     Button completeTutorialButton;
     @FXML
-    private Label tutorialOverLabel;
+    Label tutorialOverLabel;
     @FXML
-    private TitledPane tutorialOverPane;
+    TitledPane tutorialOverPane;
     @FXML
     AnchorPane textBox1;
     @FXML
@@ -49,33 +53,7 @@ public class TutorialView extends DynamicGameBoard{
     @FXML
     Button mainMenuButton;
 
-    /*TODO
-        Idea generale di TutorialView
-            - Tutorial con delle TextBox che compaiono e scompaiono di volta in volta e del testo che spiega cosa fare
-            - Magari interattivo per quanto possibile
-            -
-            - Idea
-                - Si parte con solo tabellone, si da benvenuto - FATTO
-                - Si piazzano le pedine, si spiega obiettivo del gioco - FATTO
-                - Si evidenziano le punte, spiegando cosa sono - FATTO
-                - Si aprono le zone di uscita, spiegando cosa sono - FATTO
-                - Chiudi zone di uscita, apri cassetto dei dadi
-                - Fa partire animazione dei dadi, in loop infinito, spiega dadi
-                - Ferma animazione in risultato, permetti a giocatore di muovere
-                - Dopo la mossa del giocatore, fai tiro per altro giocatore. Risultati fissi in base alla mossa del giocatore
-                    - Se si riesce mostrare tiro doppio
-                - Prepara situazione per far bloccare la pedina al giocatore, informalo
-                - Fagli vedere che può impilare quante pedine vuole se non è già bloccata dall'altro
-                - Cambia situazione pedine, manca solo una per aprire la zona di uscita
-                    - Fare in modo che si possa muovere solo quella pedina
-                - Mostrare apertura zona uscita, spiegare
-                - Spiegare metodo per vittoria singola
-                - Spiegare metodi per vittoria doppia
-                - Far sparire pedine gradualmente
-                - Chiudere cassetti
-                - Aprire menu: si vuole cominciare una partita o tornare al menu?
-     */
-    private int pointAnimationIndex = 1;
+    private int pointAnimationIndex = 2;
     private int pointAnimationIndexIncrement = 1;
     private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.06),
                                             e -> pointAnimationCycle()));
@@ -112,6 +90,7 @@ public class TutorialView extends DynamicGameBoard{
         for (int i = 0; i<15; i++) {
             pawnArrayWHT[i].setVisible(false);
             pawnArrayBLK[i].setVisible(false);
+            pawnArrayWHT[i].setOnMouseReleased(this::releasePawn);
         }
         textBox1.setViewOrder(-10);
         textBox2.setVisible(false);
@@ -120,8 +99,8 @@ public class TutorialView extends DynamicGameBoard{
 
         initialAnimation();
 
-        textBox1.setOnMouseClicked(e ->textBoxAnimation());
-        textBox2.setOnMouseClicked(e ->textBoxAnimation());
+        textBox1.setOnMouseClicked(e ->logic.nextTutorialStage());
+        textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
 
 
 
@@ -137,7 +116,7 @@ public class TutorialView extends DynamicGameBoard{
     private void initialAnimation() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1.0),
-                        e -> textBoxAnimation()),
+                        e -> textBoxClick()),
                 new KeyFrame(Duration.seconds(1.6),
                         e ->textBox2.setVisible(true))
         );
@@ -145,11 +124,14 @@ public class TutorialView extends DynamicGameBoard{
         timeline.play();
     }
 
-    protected void textBoxAnimation() {
+    protected void textBoxClick() {
+        //textBoxAnimation();
+        logic.nextTutorialStage();
+    }
+    protected void textBoxAnimation(double textBoxXFactor, double textBoxYFactor) {
         AnchorPane textBoxToOpen;
         AnchorPane textBoxToClose;
-        logic.nextTutorialStage();
-        // String tutorialText = logic.getNextTutorialString(); TODO
+
         if (textBox1ToOpen) {
             textBoxToOpen = textBox1;
             textBoxToClose = textBox2;
@@ -157,6 +139,11 @@ public class TutorialView extends DynamicGameBoard{
             textBoxToOpen = textBox2;
             textBoxToClose = textBox1;
         }
+        textBox1ToOpen = !textBox1ToOpen;
+        textBoxToOpen.setLayoutX(windowPane.getWidth()*textBoxXFactor);
+        textBoxToOpen.setLayoutY(windowPane.getHeight()*textBoxYFactor);
+        setTextBoxXFactor(textBoxXFactor);
+        setTextBoxYFactor(textBoxYFactor);
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         e -> textBoxToClose.setMouseTransparent(true),
@@ -174,13 +161,13 @@ public class TutorialView extends DynamicGameBoard{
         timeline.setCycleCount(1);
         timeline.play();
         timeline.setOnFinished( e -> {
-            textBox1ToOpen = !textBox1ToOpen;
             if (tutorialOver)
                 tutorialOverPane.setVisible(true);
         });
     }
-    protected void setNextTutorialStage(String text) {
-        if (textBox1ToOpen)
+    protected void setNextTutorialString(String text, boolean changeTextBox) {
+        System.out.println(text);
+        if ((textBox1ToOpen && changeTextBox) || (!textBox1ToOpen && !changeTextBox))
             textBoxLabel1.setText(text);
         else textBoxLabel2.setText(text);
     }
@@ -199,9 +186,31 @@ public class TutorialView extends DynamicGameBoard{
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeRoot(MAIN_MENU);
+        view.playMusic(MENU_MUSIC);
     }
 
-    protected void tutorialPointAnimation(boolean start) {
+    @FXML
+    void startNewGame(ActionEvent event) {
+        App.changeRoot(LOG_IN);
+        view.playMusic(MENU_MUSIC);
+    }
+    protected void highlightPointsToOpenExit(int stage) {
+        if (stage%2==1) {
+            //COLORA DEL COLORE DEI GIOCATORI
+            for (int i = COL_WHITE; i<=6; i++)
+                colorPoint(i, Color.web(logic.getBlackPawnFill()), Color.web(logic.getBlackPawnStroke()));
+            for (int i = COL_BLACK; i > 18; i--)
+                colorPoint(i, Color.web(logic.getWhitePawnFill()), Color.web(logic.getWhitePawnStroke()));
+        } else
+        {
+            for (int i = COL_WHITE; i<=6; i++)
+                restoreColorToPoint(i);
+            for (int i = COL_BLACK; i > 18; i--)
+                restoreColorToPoint(i);
+        }
+    }
+
+    protected void pointAnimation(boolean start) {
         if (start) {
             TutorialViewRedraw.resizeAll(this);
             pointAnimation.setCycleCount(Animation.INDEFINITE);
@@ -209,43 +218,26 @@ public class TutorialView extends DynamicGameBoard{
         } else {
             pointAnimation.stop();
             int index =pointAnimationIndex-pointAnimationIndexIncrement;
-            if (index%2==0)
-                colorPoint(index, Color.web(logic.getEvenPointsColor()));
-            else colorPoint(index, Color.web(logic.getOddPointsColor()));
+            restoreColorToPoint(index);
         }
     }
     private void pointAnimationCycle() {
         int restoreIndex = pointAnimationIndex - pointAnimationIndexIncrement;
         Color color = Color.RED;
-        Color color2;
         if (pointAnimationIndexIncrement == 1) {
             color = Color.web(logic.getWhitePawnFill());
         } else if (pointAnimationIndexIncrement == -1) {
             color = Color.web(logic.getBlackPawnFill());
         }
         colorPoint(pointAnimationIndex, color);
-        if (restoreIndex%2==0)
-            color2 = Color.web(logic.getEvenPointsColor());
-        else color2 = Color.web(logic.getOddPointsColor());
-        colorPoint(restoreIndex, color2);
-        if (pointAnimationIndex == 0)
+        restoreColorToPoint(restoreIndex);
+        if (pointAnimationIndex == COL_WHITE)
             pointAnimationIndexIncrement = 1;
-        else if (pointAnimationIndex ==23)
+        else if (pointAnimationIndex == COL_BLACK)
             pointAnimationIndexIncrement = -1;
         pointAnimationIndex+=pointAnimationIndexIncrement;
     }
-
-    private void colorPoint(int index, Color color) {
-        if (index<12) {
-            polArrayTop[index].setFill(color);
-            polArrayTop[index].setStroke(color);
-        } else {
-            polArrayBot[23 - index].setFill(color);
-            polArrayBot[23 - index].setStroke(color);
-        }
-    }
-
-    protected void tutorialExitZoneAnimation(boolean start) {
+    protected void exitZoneAnimation(boolean start) {
         if (start) {
             openZones.setCycleCount(1);
             openZones.play();
@@ -259,28 +251,67 @@ public class TutorialView extends DynamicGameBoard{
         }
     }
 
-    protected void tutorialDiceAnimation (boolean start) {
+    protected void diceAnimation(boolean start, boolean infinite, int cycles) {
         if (start) {
-            diceRollAnimation.setCycleCount(Animation.INDEFINITE);
-            Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
-                                                    e -> openDiceTray()),
-                                            new KeyFrame(Duration.seconds(1.2),
-                                                    e -> diceRollAnimation.play())
-                                                );
-            timeline.setCycleCount(1);
-            timeline.play();
+            if (infinite)
+                diceRollAnimation.setCycleCount(Animation.INDEFINITE);
+            else {
+                diceRollAnimation.setCycleCount(cycles);
+                diceRollAnimation.setOnFinished(e -> {
+                    logic.tutorialStageAction();
+                    if (logic.isRollDouble(whoCalled)) {
+                        openDoubleDice();
+                    }
+                    DiceView.setDiceValues(diceArray, whoCalled);
+                });
+            }
+            if (!diceTrayOpen) {
+                Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
+                        e -> openDiceTray()),
+                        new KeyFrame(Duration.seconds(0.55),
+                                e -> diceRollAnimation.play())
+                );
+                timeline.setCycleCount(1);
+                timeline.play();
+            } else diceRollAnimation.play();
         }
         else {
             diceRollAnimation.stop();
+            if (diceArray[UPPER_DOUBLE_DICE].isVisible())
+                closeDoubleDice();
         }
     }
     protected void allowTextBoxMouseInput (boolean allow) {
         if (allow) {
-            textBox1.setOnMouseClicked(e -> textBoxAnimation());
-            textBox2.setOnMouseClicked(e -> textBoxAnimation());
+            textBox1.setOnMouseClicked(e -> textBoxClick());
+            textBox2.setOnMouseClicked(e -> textBoxClick());
         } else {
             textBox1.setOnMouseClicked(null);
             textBox2.setOnMouseClicked(null);
         }
     }
+    protected void releasePawn(MouseEvent event) {
+        super.releasePawn(event);
+        logic.tutorialStageAction();
+    }
+
+    protected void waitForRecall(double seconds) {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds),
+                                            e -> logic.tutorialStageAction()));
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+    public double getTextBoxYFactor() {
+        return textBoxYFactor;
+    }
+    public void setTextBoxYFactor(double textBoxYFactor) {
+        this.textBoxYFactor = textBoxYFactor;
+    }
+    public double getTextBoxXFactor() {
+        return textBoxXFactor;
+    }
+    public void setTextBoxXFactor(double textBoxXFactor) {
+        this.textBoxXFactor = textBoxXFactor;
+    }
+
 }

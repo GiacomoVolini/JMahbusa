@@ -9,6 +9,7 @@ public interface ILogic {
     //void placePawnOnTopPoints (int prevRegion, int prevPoint, int whichPoint);
 
     //void placePawnOnBotPoints (int whichPoint);
+    String getAppDirectory();
 
     void placePawnOnPoint (int whichPoint, int whoCalled);
 

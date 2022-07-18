@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.ConstantsShared.*;
+import static jmb.model.Logic.logic;
 
 public class SettingsLogic {
 
@@ -62,7 +63,7 @@ public class SettingsLogic {
 
     public SettingsLogic() {
         try {
-            String settingsDir = Logic.getAppDirectory() + "/settings";
+            String settingsDir = logic.getAppDirectory() + "/settings";
             if (!Files.exists(Path.of(settingsDir)))
                 Files.createDirectory(Path.of(settingsDir));
             defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));

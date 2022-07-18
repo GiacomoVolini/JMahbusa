@@ -43,7 +43,7 @@ public class Logic implements ILogic {
         tutorialDice = tutorial.getDiceLogic();
     }
 
-    public static String getAppDirectory() {
+    public String getAppDirectory() {
         return appDirectory;
     }
 

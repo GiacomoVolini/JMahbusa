@@ -22,7 +22,6 @@ import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
 import java.io.IOException;
-
 public class SettingsView {
 
         private final static int MUSIC_SLIDER = 0;

@@ -31,7 +31,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
             for (int row = 0; row < 16 && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER) && matrix[row][col] != EMPTY; row++) {
                 switch (matrix[row][col]) {
-                    case WHITE: case SELECTED_WHITE:
+                    case WHITE: case SELECTED_WHITE: case WRONG_WHITE:
                         placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
                         highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
                         board.pawnArrayWHT[whitesPlaced].setEffect(null);
@@ -62,6 +62,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
                         break;
                     case WRONG_WHITE:
                         board.pawnArrayWHT[whitesPlaced].setEffect(new ColorAdjust(0.0,0.9,0.0,0.0));
+                        whitesPlaced++;
                         break;
                 }
             }
@@ -71,11 +72,11 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
         if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row, whoCalled) && logic.isPawnMovable(col, row, whoCalled)) {
-            pawnArray[pawnIndex].setViewOrder(-1.0);
+            pawnArray[pawnIndex].setViewOrder(-2.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
         } else {
-            pawnArray[pawnIndex].setViewOrder(0.0);
+            pawnArray[pawnIndex].setViewOrder(-1.0);
             pawnArray[pawnIndex].setDisable(true);
             pawnArray[pawnIndex].setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
         }

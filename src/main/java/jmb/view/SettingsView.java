@@ -247,6 +247,9 @@ public class SettingsView {
         private TitledPane Tcomandi;
 
         @FXML
+        private Text Tkeyboard;
+
+        @FXML
         private Text Tmuov;
 
         @FXML
@@ -544,6 +547,7 @@ public class SettingsView {
                         applyButton.setDisable(false);
         }
 
+        //TODO riempi l'applicazioni
 
         //Comandi Action
         int IdiWaiting;
@@ -732,6 +736,7 @@ public class SettingsView {
         }
 
         protected void changeDimensions() {
+                //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
                 Bvideo.setLayoutY(GBG.getHeight()*0.12);
@@ -798,6 +803,7 @@ public class SettingsView {
                 GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
 
                 //Comandi
+                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
                 GBG.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);

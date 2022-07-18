@@ -174,7 +174,7 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public boolean isDiceUsed(int i, int whoCalled) {
+    public boolean isDiceUsed (int i, int whoCalled) {
         DiceLogic dice = null;
         switch (whoCalled) {
             case GAME_CALLED:
@@ -506,7 +506,7 @@ public class Logic implements ILogic {
     @Override
     public void completeMoves() {
         /*TODO
-            - Il metodo deve andare in GameLogic e controllare se ci sono dei dadi con used == false
+            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
             - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
          */
     }

@@ -7,7 +7,7 @@ public class ConstantsView {
 
     public static final String MAIN_MENU = "MainMenu";
     public static final String LOG_IN = "Login";
-    public static final String SETTINGS = "MenuImpostazioni";
+    public static final String SETTINGS = "SettingsView";
     public static final String LOAD_GAME = "LoadGameView";
     public static final String LEADERBOARDS = "Leaderboard";
     public static final String PLAY_GAME = "GameBoard";

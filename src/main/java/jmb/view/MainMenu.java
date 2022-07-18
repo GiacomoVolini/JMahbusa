@@ -59,6 +59,18 @@ public class MainMenu {
     @FXML
     private Button Exit;
 
+    @FXML
+    private Rectangle Ptutorial;
+
+    @FXML
+    private Text Ttutorial;
+
+    @FXML
+    private Button tutorialButton2;
+
+    @FXML
+    private Button notutorial;
+
     /*muscia
     String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\menuMusicLocation.mp3").toURI().toString();
     MediaPlayer menuMusic = new MediaPlayer( new Media(uriString));
@@ -71,7 +83,19 @@ public class MainMenu {
     }
 
     @FXML
+    void openlogin() {
+        App.changeRoot(LOG_IN);
+        View.sceneMusica.gameMusic.pause();
+        View.sceneLogIn.changeDimensions();
+    }
+
+    @FXML
     void newGameAction()  throws IOException {
+        //if(){}
+        Ttutorial.setVisible(true);
+        Ttutorial.setDisable(false);
+        Ptutorial.setVisible(true);
+        Ptutorial.setDisable(false);
         App.changeRoot(LOG_IN);
         View.sceneMusica.gameMusic.pause();
         View.sceneLogIn.changeDimensions();

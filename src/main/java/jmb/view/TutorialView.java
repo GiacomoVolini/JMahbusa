@@ -58,7 +58,7 @@ public class TutorialView extends DynamicGameBoard{
     private Timeline pointAnimation = new Timeline(new KeyFrame(Duration.seconds(0.06),
                                             e -> pointAnimationCycle()));
     private Timeline getPawnOut = new Timeline(
-            new KeyFrame(Duration.seconds(0.7),
+            new KeyFrame(Duration.seconds(0.8),
                     e -> {
                         logic.tutorialStageAction();
                         TutorialViewRedraw.redrawPawns(this);
@@ -70,7 +70,7 @@ public class TutorialView extends DynamicGameBoard{
                         openWhiteExit();
                         openBlackExit();
                     }),
-            new KeyFrame(Duration.seconds(1.0),
+            new KeyFrame(Duration.seconds(2.0),
                     e -> {
                         getPawnOut.setCycleCount(30);
                         getPawnOut.play();

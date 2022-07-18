@@ -98,15 +98,12 @@ public class DiceLogic{
     }
 
     protected boolean checkDice(int delta) {
-        //  Il metodo controlla se sia possibile muovere la pedina di un certo numero di punte
+        //  Il metodo controlla se sia possibile effettuare muovere la pedina di un certo numero di punte
         //      dato il risultato dei dadi.
         //  Per prima cosa controlla se esiste un dado con il valore esatto di delta.
         //  Nel caso contrario controlla se delta sia pari alla somma dei due dadi.
         //  Se ciò non fosse controlla se il tiro è doppio e se il movimento è possibile con i quattro dadi
         //      risultanti.
-        //TODO QUANDO SI DEVE FARE UNA MOSSA CON LA SOMMA DI PIU DADI,
-        // CONTROLLARE CHE SIA POSSIBILE FARE LE MOSSE INTERMEDIE,
-        // CONTROLLARE ANCHE METODO CHECKMOVE SE NECESSARIO
 
         int maxDeltaPossible;
         int availableDice = 0;

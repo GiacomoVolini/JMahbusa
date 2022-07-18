@@ -1,4 +1,6 @@
 package jmb.view;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,13 +14,14 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
+import static jmb.view.View.view;
 
 import java.io.IOException;
-
 public class SettingsView {
 
         private final static int MUSIC_SLIDER = 0;
@@ -306,6 +309,23 @@ public class SettingsView {
         double Sv, Sve;
         ToggleGroup group = new ToggleGroup();
         private String bindingBefore;
+        private Timeline selectedPointAnimation;
+        private Timeline selectedPointPresetsAnimation = new Timeline(
+                new KeyFrame(Duration.ZERO, e-> {
+                        punta311.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta11.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta31.setFill(Color.web(logic.getEvenPointsLeftPreset()));
+                        punta111.setFill(Color.web(logic.getEvenPointsRightPreset()));
+                }), new KeyFrame(Duration.seconds(0.5), e-> {
+                        punta21.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta211.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta11.setFill(Color.web(logic.getEvenPointsLeftPreset()));
+                        punta311.setFill(Color.web(logic.getEvenPointsRightPreset()));
+                }), new KeyFrame(Duration.seconds(1), e-> {
+                        //TODO CONTINUARE ANIMAZIONE
+        })
+
+        );
 
         @FXML
         void goToMainMenu()  throws IOException {
@@ -389,11 +409,11 @@ public class SettingsView {
                         Sv = SliderMusi.getValue();
                         SliderMusi.setValue(0);
                         SliderMusi.setDisable(true);
-                        View.pauseMenuMusic();
+                        view.pauseMusic();
                 }else{
                         SliderMusi.setValue(Sv);
                         SliderMusi.setDisable(false);
-                        View.playMenuMusic();
+                        view.playMusic(MENU_MUSIC);
                 }
                 applyButton.setDisable(false);
         }
@@ -413,7 +433,7 @@ public class SettingsView {
 
         @FXML
         void soundProva(MouseEvent event) {
-                View.sceneMusica.pawnSFX.play();
+                view.playSFX(PAWN_SFX);
         }
 
         //Personalizzazione
@@ -494,6 +514,7 @@ public class SettingsView {
                         applyButton.setDisable(false);
                 }
         }
+
 
 
         @FXML
@@ -655,16 +676,16 @@ public class SettingsView {
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 SliderMusi.setValue(logic.getMusicVolume());
-                View.setMusicVolume(logic.getMusicVolume());
+                view.setMusicVolume(logic.getMusicVolume());
                 SliderES.setValue(logic.getSFXVolume());
-                View.setSFXVolume(logic.getSFXVolume());
+                view.setSFXVolume(logic.getSFXVolume());
                 checkMusi.setSelected(logic.getMuteMusic());
                 checkMES.setSelected(logic.getMuteSFX());
                 SliderMusi.setDisable(logic.getMuteMusic());
                 SliderES.setDisable(logic.getMuteSFX());
                 if (logic.getMuteMusic())
-                        View.pauseMenuMusic();
-                else View.playMenuMusic();
+                        view.pauseMusic();
+                else view.playMusic(MENU_MUSIC);
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
@@ -948,11 +969,11 @@ public class SettingsView {
                 switch (whichSlider) {
                         case MUSIC_SLIDER:
                                 savedValue = logic.getMusicVolume();
-                                View.setMusicVolume(value.doubleValue()/100);
+                                view.setMusicVolume(value.doubleValue()/100);
                                 break;
                         case SFX_SLIDER:
                                 savedValue = logic.getSFXVolume();
-                                View.setSFXVolume(value.doubleValue()/100);
+                                view.setSFXVolume(value.doubleValue()/100);
                                 break;
                 }
                 if (savedValue != sliderValue)

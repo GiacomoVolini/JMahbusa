@@ -16,6 +16,7 @@ import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.StandardOpenOption.*;
 import static jmb.ConstantsShared.*;
 import static jmb.ConstantsShared.SUCCESS;
+import static jmb.model.Logic.logic;
 
 public class LeaderboardLogic {
 
@@ -29,7 +30,7 @@ public class LeaderboardLogic {
     //      file csv
     public LeaderboardLogic() throws IOException{
         try {
-            String ldbDirectory = Logic.getAppDirectory() + "/leaderboard";
+            String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
             if (!Files.exists(Path.of(ldbDirectory)))
                 Files.createDirectory(Path.of(ldbDirectory));
             String ldbPath = ldbDirectory + "/Leaderboards.csv";

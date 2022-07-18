@@ -82,6 +82,8 @@ public class LogIn {
     @FXML
     private Spinner<Integer> tournamentSpinner;
 
+    private int whoCalled = GAME_CALLED;
+
     @FXML
     void savePlayer(ActionEvent event) throws IOException{
 
@@ -94,7 +96,7 @@ public class LogIn {
 
             switch (logic.compareNameLists(scrivinomi1.getValue(), scrivinomi2.getValue())){
                 case SUCCESS:
-                    logic.setUpNewGame();
+                    logic.setUpNewBoard(whoCalled);
                     if (tournamentCheckBox.isSelected())
                         logic.setPlayersForGame(scrivinomi1.getValue(), scrivinomi2.getValue(), tournamentSpinner.getValue().intValue());
                     else

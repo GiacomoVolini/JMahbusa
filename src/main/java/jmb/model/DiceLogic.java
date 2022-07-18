@@ -3,12 +3,13 @@ package jmb.model;
 import java.util.Random;
 
 import static jmb.model.Logic.settings;
+import static jmb.model.Logic.view;
 
 /**
  * La classe DiceLogic modella e gestisce la logica dei dadi
  */
 
-public class DiceLogic {
+public class DiceLogic{
 
     private int[] dice = new int[] {0, 0, 0, 0};            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
     private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossa
@@ -224,7 +225,7 @@ public class DiceLogic {
         this.used[i]= false;
     }
 
-    protected void forceDice (int dice0, int dice1) {
+    protected void forceDice (int whoCalled, int dice0, int dice1) {
         this.dice[0]=dice0;
         this.dice[1]=dice1;
         this.used[0]=this.used[1]=false;
@@ -232,16 +233,17 @@ public class DiceLogic {
         this.doubleNum=false;
         for (boolean tbu : this.toBeUsed)
             tbu=false;
+        view.setDiceContrast(whoCalled);
     }
 
-    protected void forceDice (int value) {
+    protected void forceDice (int whoCalled, int value) {
         this.doubleNum = true;
         for (int i = 0; i<4; i++) {
             this.dice[i] = value;
             this.used[i] = false;
             this.toBeUsed[i] = false;
         }
-
+        view.setDiceContrast(whoCalled);
     }
 
 

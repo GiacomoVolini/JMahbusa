@@ -124,77 +124,30 @@ public class GameBoard {
         return (!logic.getFullScreen() && !logic.getLockResolution());
     }
 
-    protected void openBlackExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        blackExitRegion.setVisible(true);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), 0),
-                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                }, new KeyValue(blackExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-    protected void openWhiteExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        whiteExitRegion.setVisible(true);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), 0),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                }, new KeyValue(whiteExitRegion.widthProperty() , GameViewRedraw.getMaxExitWidth() ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-
-    protected void closeBlackExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                    blackExitRegion.setVisible(false);
-                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
-
-    protected void closeWhiteExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                    whiteExitRegion.setVisible(false);
-                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
     protected void setWhoCalled(int value) {
         whoCalled = value;
+    }
+    protected void colorPoint (int index, Color color) {
+        colorPoint(index, color, color);
+    }
+
+    protected void colorPoint(int index, Color colorFill, Color colorStroke) {
+        if (index<13) {
+            polArrayTop[index-1].setFill(colorFill);
+            polArrayTop[index-1].setStroke(colorStroke);
+        } else {
+            polArrayBot[24 - index].setFill(colorFill);
+            polArrayBot[24 - index].setStroke(colorStroke);
+        }
+    }
+    protected void restoreColorToPoint(int restoreIndex) {
+        Color color;
+        if (restoreIndex % 2 == 1) {
+            color = Color.web(logic.getEvenPointsColor());
+        }
+        else {
+            color = Color.web(logic.getOddPointsColor());
+        }
+        colorPoint(restoreIndex, color);
     }
 }

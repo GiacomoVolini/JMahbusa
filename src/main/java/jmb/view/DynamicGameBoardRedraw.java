@@ -1,5 +1,6 @@
 package jmb.view;
 
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
 import static jmb.ConstantsShared.COL_BLACK;
@@ -33,6 +34,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
                     case WHITE: case SELECTED_WHITE:
                         placePawn(board, board.pawnArrayWHT, whitesPlaced, col, row);
                         highlightMovablePawn(board.pawnArrayWHT, whitesPlaced, col, row);
+                        board.pawnArrayWHT[whitesPlaced].setEffect(null);
                         break;
                     case BLACK: case SELECTED_BLACK:
                         placePawn(board, board.pawnArrayBLK, blacksPlaced, col, row);
@@ -57,6 +59,9 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
                         board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         blacksPlaced++;
+                        break;
+                    case WRONG_WHITE:
+                        board.pawnArrayWHT[whitesPlaced].setEffect(new ColorAdjust(0.0,0.9,0.0,0.0));
                         break;
                 }
             }

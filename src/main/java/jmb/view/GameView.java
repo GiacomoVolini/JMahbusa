@@ -22,6 +22,7 @@ import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
+import static jmb.view.View.view;
 
 /*TODO
     Potremmo far vedere quali sono i comandi per tastiera quando l'utente pigia un tasto (o sotto o vicino ai pulsanti)
@@ -182,7 +183,7 @@ public class GameView extends DynamicGameBoard {
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
                 WritableImage saveImage = this.saveBoardImage();
                 logic.saveGame(saveTextField.getText(), saveImage);
-                View.sceneMusica.gameMusic.stop();
+                view.stopMusic();
                 vaialMainMenu();
             } else {
                 errorLabel.setText("Nome Salvataggio già presente");
@@ -230,13 +231,10 @@ public class GameView extends DynamicGameBoard {
     @FXML
     void vaialMainMenu(){
             App.changeRoot(MAIN_MENU);
-        View.sceneMusica.gameMusic.stop();
+        view.stopMusic();
         
-        if (!logic.getMuteMusic()) {
-            View.sceneMusica.menuMusic.play();
-        }else{
-            View.sceneMusica.menuMusic.pause();
-        }
+        if (!logic.getMuteMusic())
+            view.playMusic(MENU_MUSIC);
     }
 
     @FXML 
@@ -337,7 +335,7 @@ public class GameView extends DynamicGameBoard {
         menuBTN.setDisable(false);
         tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
         tournamentBlackPoints.setText(String.valueOf(logic.getBlackTournamentPoints()));
-        logic.setUpNewGame();
+        logic.setUpNewBoard(whoCalled);
 
         this.changeDimensions();
     }
@@ -453,6 +451,9 @@ public class GameView extends DynamicGameBoard {
         if (whiteWon)
             winner = whitePlayer;
         else winner = blackPlayer;
+        if (doubleWin)
+            view.playSFX(DOUBLE_WIN_SFX);
+        else view.playSFX(SINGLE_WIN_SFX);
         victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
         victoryLabel = createVictoryLabel(winner, doubleWin, tournamentStatus);    //  Crea la Label del pannello vittoria con il nome del vincitore
@@ -674,13 +675,13 @@ public class GameView extends DynamicGameBoard {
 
         if(event.getCode().toString().equals(logic.getSelect()) && !selected){
             col = trovaColonna();
-            System.out.println(logic.searchTopOccupiedRow(col));
+            System.out.println(logic.searchTopOccupiedRow(whoCalled, col));
             System.out.println(col);
-            if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==WHITE && logic.getWhichTurn()){
-                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
+            if(logic.searchTopOccupiedRow(whoCalled, col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE && logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
                 selected = true;
-            }else if(logic.searchTopOccupiedRow(col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col), whoCalled)==BLACK && !logic.getWhichTurn()){
-                logic.selectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
+            }else if(logic.searchTopOccupiedRow(whoCalled, col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==BLACK && !logic.getWhichTurn()){
+                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
                 selected = true;
             }
             logic.createMoveBuffer(col, whoCalled);
@@ -692,7 +693,7 @@ public class GameView extends DynamicGameBoard {
         // confermare e muovere la pedina
         if(event.getCode().toString().equals(logic.getConfirm()) && selected){
             int col2 = trovaColonna();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(col), whoCalled);
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
             logic.placePawnOnPoint(col2, whoCalled);
             GameViewRedraw.redrawPawns(this);
             selected = false;
@@ -713,12 +714,9 @@ public class GameView extends DynamicGameBoard {
 
         try {
             setWhoCalled(GAME_CALLED);
-            View.sceneMusica.menuMusic.stop();
-            if (!logic.getMuteMusic()) {
-                View.sceneMusica.gameMusic.play();
-            }else{
-                View.sceneMusica.gameMusic.stop();
-            }
+            view.stopMusic();
+            if (!logic.getMuteMusic())
+                view.playMusic(GAME_MUSIC);
 
             this.boardAnchor = window;
             addChildrenToAnchor();
@@ -736,9 +734,9 @@ public class GameView extends DynamicGameBoard {
 
             //musica
             if (logic.getMuteMusic()) {
-                View.sceneMusica.gameMusic.pause();
+                view.pauseMusic();
             } else {
-                View.sceneMusica.gameMusic.play();
+                view.playMusic(GAME_MUSIC);
             }
 
             window.getStylesheets().add(this.getClass().getResource("style.css").toURI().toString());

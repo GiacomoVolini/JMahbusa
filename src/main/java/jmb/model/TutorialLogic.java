@@ -1,7 +1,18 @@
 package jmb.model;
 
+import jmb.model.tutorial.ComparableTutorialStage;
+import jmb.model.tutorial.TutorialStage;
+import org.reflections.Reflections;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
+
 import static jmb.ConstantsShared.*;
 import static jmb.model.Logic.view;
+import static org.reflections.scanners.Scanners.*;
 
 public class TutorialLogic extends DynamicBoardLogic {
 
@@ -11,86 +22,73 @@ public class TutorialLogic extends DynamicBoardLogic {
     private static final String TUTORIAL_STRING_2 = "L'obiettivo del gioco è di spostare tutte le proprie pedine nella propria zona di uscita, come mostrato ora.";
     private static final String TUTORIAL_STRING_3 = "All'inizio di ogni turno vengono tirati due dadi. I risultati dei dadi determinano come si potranno muovere le pedine";
     private static final String TUTORIAL_STRING_4 = "Con questi risultati puoi giocare il tuo turno in due modi:\n\u2022Puoi muovere una pedina di 5 punte e una di 6.\n\u2022Puoi muovere una pedina della somma dei due dadi, ovvero 11 punte.\nProva!";
-    private static final String TUTORIAL_STRING_5 = "Stringa 5";
+    private static final String TUTORIAL_STRING_5 = "Ora è il turno dell'avversario.";
+    private static final String TUTORIAL_STRING_5_CONCAT = "\nHa ottenuto un risultato doppio! Quando ciò capita, è come se per quel turno il giocatore avesse quattro dadi di quel valore a sua disposizione!";
     private static final String TUTORIAL_STRING_6 = "Stringa 6";
     private static final String TUTORIAL_STRING_7 = "Stringa 7";
+    private static final int WELCOME_STAGE = 0;
+    private static final int PAWN_DIRECTION_STAGE = 1;
+    private static final int GAME_GOAL_STAGE = 2;
+    private static final int DICE_PRESENTATION_STAGE = 3;
+    private static final int TURN_TRIAL_STAGE = 4;
+    private static final int FIRST_OPPONENT_TURN_STAGE = 5;
+    private static final int POINT_BLOCKING_EXPLANATION_STAGE = 6;
+
+    private ArrayList<ComparableTutorialStage> stageArrayList;
+    private Iterator<ComparableTutorialStage> stageArrayIterator;
+    private ComparableTutorialStage currentStage;
+
     private int tutorialStage = UNDEFINED;
     private int index = 0;
     private int stringIndex = 0;
 
-    private String[] tutorialStrings = new String[] {TUTORIAL_STRING_0, TUTORIAL_STRING_1, TUTORIAL_STRING_2, TUTORIAL_STRING_3,
-                                                        TUTORIAL_STRING_4, TUTORIAL_STRING_5, TUTORIAL_STRING_6, TUTORIAL_STRING_7};
-    public TutorialLogic() {
-        setWhoCalled(TUTORIAL_CALLED);
-        dice = new DiceLogic();
-        squares = new int[16][26];
-    }
-    protected String getNextTutorialString() {
-        String out;
-        if (tutorialStage < tutorialStrings.length) {
-            out = tutorialStrings[tutorialStage];
-            tutorialStage++;
-        } else out = ARRAY_ENDED;
-        return out;
-    }
-    protected void nextTutorialStage() {
-        this.setTutorialStage(++tutorialStage);
-    }
-    private void sendNextTutorialString() {
-        if (stringIndex < tutorialStrings.length)
-            view.setNextTutorialString(tutorialStrings[stringIndex++]);
-    }
-    private void setTutorialStage(int stage) {
-        System.out.println("Ho ricevuto chiamata di setTutorialStage");
-        switch (stage) {
-            default:
-                view.setTutorialOver();
-                break;
-            case 0:
-                sendNextTutorialString();
-                break;
-            case 1:
-                this.setUp();
-                view.setPawnsVisible(true, whoCalled);
-                view.tutorialPointAnimation(true);
-                sendNextTutorialString();
-                break;
-            case 2:
-                view.tutorialPointAnimation(false);
-                setWhiteExit(true);
-                setBlackExit(true);
-                view.tutorialExitZoneAnimation(true);
-                sendNextTutorialString();
-                break;
-            case 3:
-                setUp();
-                view.tutorialExitZoneAnimation(false);
-                view.tutorialDiceAnimation(true);
-                sendNextTutorialString();
-                break;
-            case 4:
-                view.allowTextBoxMouseInput(false); //TODO NON FUNZIONA
-                view.tutorialDiceAnimation(false);
-                dice.forceDice(6, 5);
-                view.callRedraw(whoCalled);
-                sendNextTutorialString();
-                break;
+public TutorialLogic() {
+        try {
+            setWhoCalled(TUTORIAL_CALLED);
+            dice = new DiceLogic();
+            squares = new int[16][26];
+            stageArrayList = stageArrayListConstructor();
+            stageArrayIterator = stageArrayList.iterator();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+    protected void nextTutorialStage() {
+        if(stageArrayIterator.hasNext())
+            currentStage = stageArrayIterator.next();
+        currentStage.start();
+    }
     protected void tutorialStageAction() {
+        currentStage.action();
+    }
+    protected void checkTutorialStageAdvancement() {
         switch (tutorialStage) {
             default:
                 break;
-            case 2:
-                if (index < 30) {
-                    if (index%2==0)
-                        forceMovePawn(COL_WHITE, COL_WHITE_EXIT);
-                    else forceMovePawn(COL_BLACK, COL_BLACK_EXIT);
-                    index++;
-                }
-                break;
+            case TURN_TRIAL_STAGE: case FIRST_OPPONENT_TURN_STAGE:
+                boolean allUsed = true;
+                for (boolean used: dice.getUsedArray())
+                    if (!used)
+                        allUsed = false;
+                if (allUsed)
+                    nextTutorialStage();
         }
+    }
+
+    private ArrayList<ComparableTutorialStage> stageArrayListConstructor() throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+            Reflections reflections = new Reflections("jmb.model.tutorial");
+            Set<Class<?>> set = reflections.get(SubTypes.of(ComparableTutorialStage.class).asClass());
+            ArrayList<ComparableTutorialStage> out = new ArrayList<>();
+            Iterator<Class<?>> iterator = set.iterator();
+            while (iterator.hasNext()) {
+                Class c = iterator.next();
+                System.out.println(c);
+                out.add((ComparableTutorialStage) c.getConstructor().newInstance());
+            }
+            Collections.sort(out);
+            System.out.println(out);
+            return out;
     }
 
 }

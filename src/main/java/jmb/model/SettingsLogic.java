@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.ConstantsShared.*;
+import static jmb.model.Logic.logic;
 
 public class SettingsLogic {
 
@@ -43,6 +44,9 @@ public class SettingsLogic {
     private String oddPointsColor ="#2abc95";
     private static final String ODD_POINTS_LEFT_PRESET = "#c0c0c0";
     private static final String ODD_POINTS_RIGHT_PRESET = "#daa505";
+    private String selectedPointColor = "#fffb00";
+    private static final String SELECTED_POINT_PRESET = "#fffb00";
+
     private String moveRight = "D";
     private String moveLeft = "A";
     private String moveUp = "W";
@@ -59,7 +63,7 @@ public class SettingsLogic {
 
     public SettingsLogic() {
         try {
-            String settingsDir = Logic.getAppDirectory() + "/settings";
+            String settingsDir = logic.getAppDirectory() + "/settings";
             if (!Files.exists(Path.of(settingsDir)))
                 Files.createDirectory(Path.of(settingsDir));
             defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));
@@ -144,6 +148,7 @@ public class SettingsLogic {
         ini.put("Customization", "boardInnerColor", boardInnerColor);
         ini.put("Customization", "evenPointsColor", evenPointsColor);
         ini.put("Customization", "oddPointsColor", oddPointsColor);
+        ini.put("Customization", "selectedPointColor", selectedPointColor);
         ini.put("Controls", "moveRight", moveRight);
         ini.put("Controls", "moveLeft", moveLeft);
         ini.put("Controls", "moveUp", moveUp);
@@ -348,6 +353,21 @@ public class SettingsLogic {
         }
         return out;
     }
+    protected void setSelectedPointColor(String value) {
+        if (value.charAt(0)=='#' && value.length()==7) {
+            this.selectedPointColor = value;
+        }
+    }
+    protected String getSelectedPointColor(boolean forceCustom) {
+        String out = this.selectedPointColor;
+        if (!forceCustom && boardPreset!=CUSTOM_BOARD) {
+            out = SELECTED_POINT_PRESET;
+        }
+        return out;
+    }
+    protected String getSelectedPointPreset() {
+        return SELECTED_POINT_PRESET;
+    }
     protected void setMoveRight(String value) {
         this.moveRight = value;
     }
@@ -404,5 +424,17 @@ public class SettingsLogic {
     }
     protected boolean getBypassDice() {
         return this.bypassDice;
+    }
+    protected String getEvenPointsLeftPreset() {
+        return EVEN_POINTS_LEFT_PRESET;
+    }
+    protected String getOddPointsLeftPreset() {
+        return ODD_POINTS_LEFT_PRESET;
+    }
+    protected String getEvenPointsRightPreset(){
+        return EVEN_POINTS_RIGHT_PRESET;
+    }
+    protected String getOddPointsRightPreset() {
+        return ODD_POINTS_RIGHT_PRESET;
     }
 }

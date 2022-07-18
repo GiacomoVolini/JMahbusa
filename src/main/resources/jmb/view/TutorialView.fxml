@@ -20,13 +20,13 @@
             <Label fx:id="textBoxLabel2" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox2" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="mainMenuButton" layoutX="498.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToMainMenu" text="Main Menu" />
       <TitledPane fx:id="tutorialOverPane" alignment="CENTER" animated="false" collapsible="false" layoutX="158.0" layoutY="114.0" prefHeight="172.0" prefWidth="285.0" text="Complimenti" textAlignment="CENTER" visible="false">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <Label fx:id="tutorialOverLabel" layoutX="24.0" layoutY="27.0" text="tutorialOver" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Button fx:id="completeTutorialButton" layoutX="103.0" layoutY="99.0" mnemonicParsing="false" onAction="#goToMainMenu" text="Main Menu" />
+                  <Button fx:id="mainMenuButton" layoutX="79.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="125.0" text="Main Menu" />
+                  <Button fx:id="newGameButton" layoutX="79.0" layoutY="73.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" text="New Game" />
                </children>
             </AnchorPane>
         </content>

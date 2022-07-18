@@ -6,6 +6,7 @@ import static jmb.ConstantsShared.*;
 public class View implements IView {
 
     public static ILogic logic;
+    public static IView view;
 
     public static GameView sceneGame;
 
@@ -21,17 +22,11 @@ public class View implements IView {
     public static TutorialView sceneTutorial;
 
     public static Musica sceneMusica;
-    protected static void setMusicVolume (double value) {
+    public void setMusicVolume (double value) {
         sceneMusica.setMusicVolume(value);
     }
-    protected static void setSFXVolume (double value) {
+    public void setSFXVolume (double value) {
         sceneMusica.setSFXVolume(value);
-    }
-    protected static void playMenuMusic() {
-        sceneMusica.menuMusic.play();
-    }
-    protected static void pauseMenuMusic() {
-        sceneMusica.menuMusic.pause();
     }
 
     @Override
@@ -43,7 +38,7 @@ public class View implements IView {
     @Override
     public void openBlackExit(int whoCalled){
         try {
-            GameBoard sceneToCall = null;
+            DynamicGameBoard sceneToCall = null;
             switch (whoCalled) {
                 case GAME_CALLED:
                     sceneToCall = sceneGame;
@@ -61,7 +56,7 @@ public class View implements IView {
     @Override
     public void openWhiteExit(int whoCalled) {
         try {
-            GameBoard sceneToCall = null;
+            DynamicGameBoard sceneToCall = null;
             switch (whoCalled) {
                 case GAME_CALLED:
                     sceneToCall = sceneGame;
@@ -121,10 +116,10 @@ public class View implements IView {
     }
 
     @Override
-    public void playPawnSFX() {sceneMusica.pawnSFX.play();}
+    public void playPawnSFX() {playSFX(PAWN_SFX);}
     @Override
-    public void setNextTutorialString(String text) {
-        sceneTutorial.setNextTutorialStage(text);
+    public void setNextTutorialString(String text, boolean changeTextBox) {
+        sceneTutorial.setNextTutorialString(text, changeTextBox);
     }
     @Override
     public void setTutorialOver(){
@@ -142,15 +137,25 @@ public class View implements IView {
         }
     }
     @Override
+    public void tutorialTextBoxAnimation(double tbx, double tby) {sceneTutorial.textBoxAnimation(tbx, tby);}
+    @Override
     public void tutorialPointAnimation(boolean set) {
-        sceneTutorial.tutorialPointAnimation(set);
+        sceneTutorial.pointAnimation(set);
     }
     @Override
     public void tutorialExitZoneAnimation(boolean set) {
-        sceneTutorial.tutorialExitZoneAnimation(set);
+        sceneTutorial.exitZoneAnimation(set);
     }
     @Override
-    public void tutorialDiceAnimation(boolean set) { sceneTutorial.tutorialDiceAnimation(set);}
+    public void tutorialDiceAnimation(boolean set, boolean infinite) {
+        sceneTutorial.diceAnimation(set, infinite, 10);
+    }
+    @Override
+    public void tutorialDiceAnimation(boolean set) { sceneTutorial.diceAnimation(set, false, 10);}
+    @Override
+    public void tutorialDiceAnimation(boolean set, int cycles) {
+        sceneTutorial.diceAnimation(set, false, cycles);
+    }
     @Override
     public void callRedraw(int whoCalled) {
         switch (whoCalled) {
@@ -166,5 +171,57 @@ public class View implements IView {
     @Override
     public void allowTextBoxMouseInput(boolean allow) {
         sceneTutorial.allowTextBoxMouseInput(allow);
+    }
+    @Override
+    public void waitForRecall(int whoCalled, double seconds) {
+        switch (whoCalled) {
+            case TUTORIAL_CALLED:
+                sceneTutorial.waitForRecall(seconds);
+                break;
+            default:
+                break;
+        }
+    }
+    @Override
+    public void playMusic(int which) {
+        sceneMusica.playMusic(which);
+    }
+    @Override
+    public void playSFX(int which) {
+        sceneMusica.playSFX(which);
+    }
+    @Override
+    public void pauseMusic() {
+        sceneMusica.pauseMusic();
+    }
+    @Override
+    public void stopMusic() {
+        sceneMusica.stopMusic();
+    }
+    @Override
+    public void highlightPointsToOpenExit(int stage) {
+        sceneTutorial.highlightPointsToOpenExit(stage);
+    }
+    @Override
+    public void openDoubleDice(int whoCalled) {
+        switch (whoCalled) {
+            case GAME_CALLED:
+                sceneGame.openDoubleDice();
+                break;
+            case TUTORIAL_CALLED:
+                sceneTutorial.openDoubleDice();
+                break;
+        }
+    }
+    @Override
+    public void closeDoubleDice(int whoCalled) {
+        switch (whoCalled) {
+            case GAME_CALLED:
+                sceneGame.closeDoubleDice();
+                break;
+            case TUTORIAL_CALLED:
+                sceneTutorial.closeDoubleDice();
+                break;
+        }
     }
 }

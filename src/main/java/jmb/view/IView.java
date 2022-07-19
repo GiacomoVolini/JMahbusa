@@ -35,6 +35,7 @@ public interface IView {
     void callRedraw (int whoCalled);
     void allowTextBoxMouseInput (boolean allow);
     void waitForRecall(int whoCalled, double seconds);
+    void restoreBoardColors(int whoCalled);
     void playMusic(int which);
     void playSFX(int which);
     void pauseMusic();

@@ -74,6 +74,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 break;
             case 1:
                 setBoardUp(startingMatrix, 19, 24);
+                view.restoreBoardColors(whoCalled);
                 view.setNextTutorialString(singleWinString, true);
                 view.tutorialTextBoxAnimation(0.5,0.45 );
                 break;
@@ -85,6 +86,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 break;
             case 3:
                 setBoardUp(doubleWinMatrix, 4, 10);
+                view.restoreBoardColors(whoCalled);
                 view.setNextTutorialString(doubleWinString, true);
                 view.tutorialTextBoxAnimation(0.55,0.57 );
                 break;

@@ -16,6 +16,7 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
         setStageIndex(6);
     }
     public void start() {
+        logic.setWhiteTurn(whoCalled, false);
         String stageStringMiddlePart;
         if (logic.getBoardMatrix(whoCalled)[0][12]==WHITE)
             stageStringMiddlePart = " 12";

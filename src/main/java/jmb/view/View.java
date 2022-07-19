@@ -183,6 +183,15 @@ public class View implements IView {
         }
     }
     @Override
+    public void restoreBoardColors(int whoCalled) {
+        switch (whoCalled) {
+            case TUTORIAL_CALLED:
+                for (int i = 0; i <26; i++) {
+                    sceneTutorial.restoreColorToPoint(i);
+                }
+        }
+    }
+    @Override
     public void playMusic(int which) {
         sceneMusica.playMusic(which);
     }

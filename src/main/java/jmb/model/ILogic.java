@@ -13,7 +13,7 @@ public interface ILogic {
 
     void placePawnOnPoint (int whichPoint, int whoCalled);
 
-    boolean getWhichTurn();
+    boolean getWhichTurn(int whoCalled);
 
     void nextTurn ();
 
@@ -175,9 +175,10 @@ public interface ILogic {
     void setOddPointsColor (String value);
     String getOddPointsColor ();
     String getOddPointsColor (boolean forceCustom);
+    void setSelectedPointColor(String value);
     String getSelectedPointColor();
     String getSelectedPointColor (boolean forceCustom);
-    String getSelectedPointPreset();
+    String getSelectedPointPreset(boolean left);
     String getEvenPointsLeftPreset();
     String getOddPointsLeftPreset();
     String getEvenPointsRightPreset();

@@ -48,8 +48,17 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public boolean getWhichTurn() {
-        return game.isWhiteTurn();
+    public boolean getWhichTurn(int whoCalled) {
+        DynamicBoardLogic board = null;
+        switch (whoCalled) {
+            case GAME_CALLED:
+                board=game;
+                break;
+            case TUTORIAL_CALLED:
+                board = tutorial;
+                break;
+        }
+        return board.isWhiteTurn();
     }
 
     @Override
@@ -372,7 +381,7 @@ public class Logic implements ILogic {
                 board = tutorial;
                 break;
         }
-        return board.isPawnMovable(col, row);
+        return board.isPawnMovable(col, row, false);
     }
 
     @Override
@@ -814,6 +823,10 @@ public class Logic implements ILogic {
         return settings.getOddPointsColor(forceCustom);
     }
     @Override
+    public void setSelectedPointColor(String value) {
+        settings.setSelectedPointColor(value);
+    }
+    @Override
     public String getSelectedPointColor() {
         return settings.getSelectedPointColor(false);
     }
@@ -822,8 +835,8 @@ public class Logic implements ILogic {
         return settings.getSelectedPointColor(forceCustom);
     }
     @Override
-    public String getSelectedPointPreset() {
-        return settings.getSelectedPointPreset();
+    public String getSelectedPointPreset(boolean left) {
+        return settings.getSelectedPointPreset(left);
     }
     public String getEvenPointsLeftPreset() {
         return settings.getEvenPointsLeftPreset();

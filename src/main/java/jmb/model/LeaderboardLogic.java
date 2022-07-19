@@ -34,10 +34,12 @@ public class LeaderboardLogic {
             if (!Files.exists(Path.of(ldbDirectory)))
                 Files.createDirectory(Path.of(ldbDirectory));
             String ldbPath = ldbDirectory + "/Leaderboards.csv";
-            if (!Files.exists(Path.of(ldbPath))) {
-                Files.createFile(Path.of(ldbPath));
+            path = Path.of(ldbPath);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
             }
-            reader = Files.newBufferedReader(Path.of(ldbPath));
+
+            reader = Files.newBufferedReader(path);
             this.populateList();
         } catch (IOException ioe) {
             ioe.printStackTrace();

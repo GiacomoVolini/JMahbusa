@@ -18,6 +18,8 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
+import java.net.URISyntaxException;
+
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -400,17 +402,22 @@ public class GameView extends DynamicGameBoard {
 
 
     private ImageView createCrownImage( boolean doubleWin) {
-        ImageView crown;
-        if (doubleWin) {
-            crown = new ImageView(new Image("/jmb/view/victory/crownDouble.png"));
-        } else {
-            crown = new ImageView(new Image("jmb/view/victory/crown.png"));
-        }
-        crown.setPreserveRatio(true);
-        crown.setViewOrder(-14);
-        window.getChildren().add(crown);
+        try {
+            ImageView crown;
+            if (doubleWin) {
+                crown = new ImageView(new Image(this.getClass().getResource("victory/crownDouble.png").toURI().toString()));
+            } else {
+                crown = new ImageView(new Image(this.getClass().getResource("victory/crown.png").toURI().toString()));
+            }
+            crown.setPreserveRatio(true);
+            crown.setViewOrder(-14);
+            window.getChildren().add(crown);
 
-        return crown;
+            return crown;
+        } catch (URISyntaxException use) {
+            use.printStackTrace();
+            return null;
+        }
     }
 
     private Label createVictoryLabel(String winner, boolean doubleWin, int tournamentStatus) {
@@ -425,7 +432,6 @@ public class GameView extends DynamicGameBoard {
             else
                 victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
-        //victoryLabel.getStyleClass().add("victory-label");
         victoryLabel.setViewOrder(-15);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
 
@@ -436,11 +442,16 @@ public class GameView extends DynamicGameBoard {
     }
 
     private ImageView createTournamentRibbon() {
-        ImageView tournamentRibbon = new ImageView(new Image("/jmb/view/victory/tournamentRibbon.png"));
-        tournamentRibbon.setPreserveRatio(true);
-        tournamentRibbon.setViewOrder(-15);
-        window.getChildren().add(tournamentRibbon);
-        return tournamentRibbon;
+        try {
+            ImageView tournamentRibbon = new ImageView(new Image(this.getClass().getResource("victory/tournamentRibbon.png").toURI().toString()));
+            tournamentRibbon.setPreserveRatio(true);
+            tournamentRibbon.setViewOrder(-15);
+            window.getChildren().add(tournamentRibbon);
+            return tournamentRibbon;
+        } catch (URISyntaxException use) {
+            use.printStackTrace();
+            return null;
+        }
     }
 
     private void removeVictoryPanel() {

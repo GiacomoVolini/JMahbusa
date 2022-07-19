@@ -3,7 +3,6 @@ package jmb.model;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,9 +31,9 @@ public class SaveGameReader {
     long imageHeight;
 
     private SaveGameReader(String saveName) {
-        try {
+        try (FileReader reader = new FileReader("./saves/" + saveName + ".json")) {
             JSONParser parser = new JSONParser();
-            Object objSave = parser.parse(new FileReader("./saves/" + saveName + ".json"));
+            Object objSave = parser.parse(reader);
             JSONObject save = (JSONObject) objSave;
             String squareMatrixString = (String) save.get("squareMatrix");
             isWhiteTurn = (boolean) save.get("isWhiteTurn");

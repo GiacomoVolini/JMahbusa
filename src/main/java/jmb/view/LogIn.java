@@ -104,7 +104,7 @@ public class LogIn {
                     App.changeRoot(PLAY_GAME);
                     break;
                 case SAME_NAME_ERROR:
-                    errorLabel.setText("ERRORE: I due giocatori hanno lo stesso nome");
+                    errorLabel.setText(logic.getString("errorSameName"));
                     errorLabel.setVisible(true);
                     break;
                 case EMPTY_NAMES_ERROR:

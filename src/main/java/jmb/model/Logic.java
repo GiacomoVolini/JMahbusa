@@ -19,6 +19,7 @@ public class Logic implements ILogic {
     public static SettingsLogic settings;
     public static TutorialLogic tutorial;
     public static String appDirectory;
+    public static StringsReader strings;
 
     @Override
     public void initializeBoardLogic() {
@@ -42,6 +43,10 @@ public class Logic implements ILogic {
         tutorial = new TutorialLogic();
         tutorialDice = tutorial.getDiceLogic();
     }
+    @Override
+    public void initializeStringsReader() {
+        strings = new StringsReader(this.getLanguage());
+    }
 
     public String getAppDirectory() {
         return appDirectory;
@@ -63,16 +68,16 @@ public class Logic implements ILogic {
 
     @Override
     public void placePawnOnPoint(int whichPoint, int whoCalled) {
-        boolean possible = false;
+        boolean done = false;
         switch (whoCalled) {
             case GAME_CALLED:
-                possible = game.movePawn(game.getMoveBufferColumn(), game.getMoveBufferRow(),
+                done = game.movePawn(game.getMoveBufferColumn(), game.getMoveBufferRow(),
                         game.searchFirstFreeRow(whichPoint), whichPoint);
-                if (possible)
+                if (done)
                     game.victoryCheck();
                 break;
             case TUTORIAL_CALLED:
-                possible = tutorial.movePawn(tutorial.getMoveBufferColumn(), tutorial.getMoveBufferRow(),
+                done = tutorial.movePawn(tutorial.getMoveBufferColumn(), tutorial.getMoveBufferRow(),
                         tutorial.searchFirstFreeRow(whichPoint), whichPoint);
                 break;
         }
@@ -624,11 +629,17 @@ public class Logic implements ILogic {
     public void moveOpensBlackExit() {
         game.flagMoveOpensBlackExit();
     }
+    @Override
+    public String getString(String key) {
+        return strings.get(key);
+    }
 
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
 
+    @Override
+    public String getLanguage() {return settings.getLanguage();}
     @Override
     public void setFullScreen(boolean value) {
         settings.setFullScreen(value);

@@ -1,7 +1,6 @@
 package jmb.model;
 
 import org.ini4j.Ini;
-import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Profile;
 
 import java.io.IOException;
@@ -62,6 +61,7 @@ public class SettingsLogic {
     private boolean bypassDice = false;
     private Path defaultsPath;
     private Path currentPath;
+    private String language = "IT";
 
 
     public SettingsLogic() {
@@ -93,6 +93,8 @@ public class SettingsLogic {
     //private void loadSettingsFrom(Ini ini) {
     private void loadSettingsFrom(Path path) throws IOException {
         Ini ini = new Ini(path.toFile());
+        Profile.Section general = ini.get("General");
+        this.language = general.get("language");
         Profile.Section video = ini.get("Video");
         this.fullScreen = video.get("fullScreen", boolean.class);
         this.lockResolution = video.get("lockResolution", boolean.class);
@@ -131,6 +133,7 @@ public class SettingsLogic {
     //private void saveSettingsTo (Ini ini) {
     private void saveSettingsTo(Path path) throws IOException {
         Ini ini = new Ini(path.toFile());
+        ini.put ("General", "language", language);
         ini.put ("Video", "fullScreen", fullScreen);
         ini.put ("Video", "lockResolution", lockResolution);
         ini.put ("Video", "resolutionWidth", resolutionWidth);
@@ -445,5 +448,8 @@ public class SettingsLogic {
     }
     protected String getOddPointsRightPreset() {
         return ODD_POINTS_RIGHT_PRESET;
+    }
+    protected String getLanguage() {
+        return language;
     }
 }

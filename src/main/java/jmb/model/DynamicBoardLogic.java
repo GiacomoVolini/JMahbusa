@@ -135,7 +135,13 @@ public class DynamicBoardLogic {
         return possible;
     }
     public boolean isPointUnlocked(int point) {
-        return searchFirstFreeRow(point)==0 || (squares[searchTopOccupiedRow(point)][point] == WHITE && isWhiteTurn());
+        boolean out;
+        if (searchFirstFreeRow(point)<2)
+            out = true;
+        else {
+            out = (squares[searchTopOccupiedRow(point)][point]==WHITE)==isWhiteTurn();
+        }
+        return out;
     }
     protected boolean checkDiceSimple (int delta) {
         boolean out = false;
@@ -145,6 +151,8 @@ public class DynamicBoardLogic {
                 dice.setToBeUsed(i);
             }
         }
+        if (logic.getBypassDice())
+            out = true;
         return out;
     }
     protected boolean checkDiceSum (int pointFrom, int delta) {
@@ -204,8 +212,9 @@ public class DynamicBoardLogic {
                 }
             }
             else {
-                if (puntaFinC<= COL_BLACK_EXIT && getBlackExit() || puntaFinC >= COL_WHITE_EXIT && getWhiteExit())
-                    possible = delta <=6 && checkExitMove(delta, puntaInizC);
+                if (puntaFinC<= COL_BLACK_EXIT && getBlackExit() || puntaFinC >= COL_WHITE_EXIT && getWhiteExit()) {
+                    possible = delta <= 6 && checkExitMove(delta, puntaInizC);
+                } else possible= false;
             }
         }
         return possible;

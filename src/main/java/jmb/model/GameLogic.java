@@ -78,7 +78,6 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-        System.out.println(puntaInizR + "puntaInizR");
         boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if (possible) {
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
@@ -93,33 +92,33 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     protected void completeMoves() {
-        /*TODO
-            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
-            - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
-         */
         int availableDice = dice.countAvailableDice();
-        while (availableDice!=0) {
-            System.out.println(availableDice);
+        boolean atLeastOneMoveDone = true;
+        while (availableDice!=0 && atLeastOneMoveDone) {
+            atLeastOneMoveDone = false;
             if (dice.getDoubleNum()) {
                 for (int i = availableDice; i>0 && availableDice!=0; i--) {
-                    boolean moveDone = false;
-                    moveDone = tryToMove(dice.getDiceValue(0) * i);
-                    if (moveDone)
-                        availableDice -=i;
-                    System.out.println(availableDice + "dopo tentativo mossa doppia con dadi " + i );
+                    boolean moveDone = tryToMove(dice.getDiceValue(0) * i);
+                    if (moveDone) {
+                        availableDice -= i;
+                        atLeastOneMoveDone = true;
+                    }
                 }
             } else {
                 if (availableDice == 2) {
-                    if (tryToMove(dice.getDiceValue(0) + dice.getDiceValue(1)))
+                    if (tryToMove(dice.getDiceValue(0) + dice.getDiceValue(1))) {
                         availableDice = 0;
-                    System.out.println(availableDice+ " dopo tentativo mossa somma");
+                        atLeastOneMoveDone = true;
+                    }
                 }
-                if (availableDice!=0 &&tryToMove(dice.getDiceValue(0)))
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(0))) {
                     availableDice--;
-                System.out.println(availableDice + " dopo tentativo dado 0");
-                if (availableDice!=0 &&tryToMove(dice.getDiceValue(1)))
+                    atLeastOneMoveDone = true;
+                }
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(1))) {
                     availableDice--;
-                System.out.println(availableDice + " dopo tentativo dado 1");
+                    atLeastOneMoveDone = true;
+                }
             }
         }
     }
@@ -137,7 +136,6 @@ public class GameLogic extends DynamicBoardLogic {
         }
         boolean moveDone = false;
         for (int i = firstCol; lastCol+sign!=i && !moveDone; i+=sign) {
-            System.out.println("Colonna " + i);
             int to = max(0, min(25, i+(delta*sign)));
             if (searchTopOccupiedRow(i) != UNDEFINED)
                 moveDone = movePawn(i, to);

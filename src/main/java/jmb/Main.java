@@ -20,5 +20,6 @@ public class Main {
         Logic.logic.initializeBoardLogic();
         Logic.logic.initializeLeaderboardLogic();
         Logic.logic.initializeSettingsLogic();
+        Logic.logic.initializeStringsReader();
     }
 }

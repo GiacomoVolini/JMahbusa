@@ -92,7 +92,7 @@ public interface ILogic {
 
     int searchTopOccupiedRow(int whoCalled, int col);
 
-    boolean isPawnMovable(int col, int row, int whoCalled);
+    boolean isPawnMovable(int col, int row,boolean highlight, int whoCalled);
 
     void deleteSaveFile(String fileName);
 

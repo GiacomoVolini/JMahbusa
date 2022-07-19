@@ -35,6 +35,8 @@ public class GameView extends DynamicGameBoard {
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
     private static final double VERTICAL_RESIZE_FACTOR = 0.75;
 
+    private boolean wasBackBTNDisabled;
+
 
     @FXML
     AnchorPane window;
@@ -158,8 +160,8 @@ public class GameView extends DynamicGameBoard {
     protected void nextTurn (ActionEvent event) {
         if(logic.getTurnDuration() != 0) {
             turnTimer.stop();
-
         }
+        logic.completeMoves();
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
@@ -170,10 +172,6 @@ public class GameView extends DynamicGameBoard {
             plBLKOutRect.setFill(Color.GREEN);
             plWHTOutRect.setFill(Color.RED);
         }
-        //rimettere i colori
-        s="";
-        L="";
-        i=0;
         if (selectedIndex!=UNDEFINED) {
             restoreColorToPoint(selectedIndex);
             selectedIndex = UNDEFINED;
@@ -483,25 +481,32 @@ public class GameView extends DynamicGameBoard {
         timeline.play();
     }
 
-
-
-    int i=0;
-    String s="";
-    String L="";
-    String selez="";
-
     void comandaLAtastiera (KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.comandaLAtastiera(event);
         if(keyPressed.equals(logic.getOpenMenu())){
-            openExitoption();
+            if (menuBTN.isDisabled())
+                openExitoption();
         }
         else if(keyPressed.equals(logic.getFinishTurn())){
-            nextTurn(null);
+            if (!finishBTN.isDisabled())
+                nextTurn(null);
         }
         else if (keyPressed.equals(logic.getRevertMove())) {
-            revertMove();
+            if(!backBTN.isDisabled())
+                revertMove();
         }
+        else if (keyPressed.equals(logic.getSelect()))
+            if (selected) {
+                finishBTN.setDisable(true);
+                wasBackBTNDisabled = backBTN.isDisabled();
+                backBTN.setDisable(true);
+                menuBTN.setDisable(true);
+            } else {
+                finishBTN.setDisable(false);
+                backBTN.setDisable(wasBackBTNDisabled);
+                menuBTN.setDisable(false);
+            }
     }
 
 

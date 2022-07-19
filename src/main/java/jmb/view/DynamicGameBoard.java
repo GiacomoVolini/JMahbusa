@@ -18,9 +18,9 @@ import java.net.URISyntaxException;
 
 import static java.lang.Math.max;
 import static jmb.ConstantsShared.*;
-import static jmb.ConstantsShared.BLACK;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
+import static jmb.view.View.view;
 
 public class DynamicGameBoard extends GameBoard{
 
@@ -72,14 +72,14 @@ public class DynamicGameBoard extends GameBoard{
 
     private void savePosition (MouseEvent event) {
         PawnView node = (PawnView)event.getSource();
-        logic.createMoveBuffer(this.searchPawnPlace(node), whoCalled);
+        int col = searchPawnPlace(node);
+        logic.createMoveBuffer(col, whoCalled);
+        logic.isPawnMovable(col, logic.searchTopOccupiedRow(whoCalled, col), true, whoCalled);
     }
 
     //  Metodo per il trascinamento della pedina
     private void drag(MouseEvent event) {
-
         PawnView n = (PawnView) event.getSource();
-
         n.setLayoutX(n.getLayoutX() + event.getX());
         n.setLayoutY(n.getLayoutY() + event.getY());
     }
@@ -89,10 +89,11 @@ public class DynamicGameBoard extends GameBoard{
         if (col != UNDEFINED) {
             logic.placePawnOnPoint(col, whoCalled);
         }
+        view.restoreBoardColors(whoCalled);
         GameViewRedraw.redrawPawns(this);
 
     }
-    private int searchPawnPlace(PawnView node) {
+    protected int searchPawnPlace(PawnView node) {
         //Il metodo cerca a quale zona del tabellone appartiene la pedina
 
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
@@ -146,8 +147,6 @@ public class DynamicGameBoard extends GameBoard{
         return out;
     }
     protected void openDoubleDice() {
-        System.out.println("Ho chiamato openDoubleDice");
-        System.out.println(diceArray[UPPER_DOUBLE_DICE].isVisible());
         if (!diceArray[UPPER_DOUBLE_DICE].isVisible()) {
             App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -170,8 +169,6 @@ public class DynamicGameBoard extends GameBoard{
         }
     }
     protected void closeDoubleDice() {
-        System.out.println("Ho chiamato closeDoubleDice");
-        System.out.println(diceArray[UPPER_DOUBLE_DICE].isVisible());
         if (diceArray[UPPER_DOUBLE_DICE].isVisible()) {
             App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -380,12 +377,37 @@ public class DynamicGameBoard extends GameBoard{
             int col2 = trovaColonna();
             logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
             logic.placePawnOnPoint(col2, whoCalled);
-            GameViewRedraw.redrawPawns(this);
+            view.restoreBoardColors(whoCalled);
+            DynamicGameBoardRedraw.redrawPawns(this);
             selected = false;
         }
     }
     boolean selected = false;
     int col;
+
+    protected void restoreColorToPoint(int restoreIndex) {
+        Color color;
+        switch (restoreIndex){
+            default:
+                if (restoreIndex % 2 == 1) {
+                    color = Color.web(logic.getEvenPointsColor());
+                }
+                else {
+                    color = Color.web(logic.getOddPointsColor());
+                }
+                break;
+            case COL_WHITE_EXIT:
+                color = Color.web(logic.getWhitePawnFill());
+                break;
+            case COL_BLACK_EXIT:
+                color = Color.web(logic.getBlackPawnFill());
+                break;
+        }
+        colorPoint(restoreIndex, color);
+        if (selected) {
+            DynamicGameBoardRedraw.redrawPawns(this);
+        }
+    }
 
     private int trovaColonna(){
         int col = UNDEFINED;

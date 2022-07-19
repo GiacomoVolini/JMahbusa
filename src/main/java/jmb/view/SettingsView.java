@@ -605,8 +605,6 @@ public class SettingsView {
         void stampa(KeyEvent event) {
                 TextField b = (TextField) event.getSource();
                 for(int i=0; i<8; i++){
-                        System.out.println(nomiDiPulsanti[i].getText());
-                        System.out.println(event.getCode().toString());
                         if(nomiDiPulsanti[i].getText().equals(event.getCode().toString()) && i != IdiWaiting){
                                 b.setText(bindingBefore);
                                 i=9;
@@ -676,7 +674,6 @@ public class SettingsView {
 
         @FXML
         void applySettings(ActionEvent event) {
-                System.out.println("PIGIATO APPLY");
                 Stage stage = (Stage) GBG.getScene().getWindow();
                 applyButton.setDisable(true);
                 logic.setFullScreen(checkSI.isSelected());
@@ -1030,7 +1027,6 @@ public class SettingsView {
         private void checkSliderChanges (Number value, int whichSlider) {
                 int savedValue = 0;
                 int sliderValue = (int)(value.doubleValue());
-                System.out.println(sliderValue);
                 switch (whichSlider) {
                         case MUSIC_SLIDER:
                                 savedValue = logic.getMusicVolume();

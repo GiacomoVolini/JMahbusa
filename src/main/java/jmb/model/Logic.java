@@ -371,7 +371,7 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public boolean isPawnMovable(int col, int row, int whoCalled) {
+    public boolean isPawnMovable(int col, int row, boolean highlight, int whoCalled) {
         DynamicBoardLogic board = null;
         switch (whoCalled) {
             case GAME_CALLED:
@@ -381,7 +381,7 @@ public class Logic implements ILogic {
                 board = tutorial;
                 break;
         }
-        return board.isPawnMovable(col, row, false);
+        return board.isPawnMovable(col, row, highlight);
     }
 
     @Override
@@ -514,10 +514,7 @@ public class Logic implements ILogic {
 
     @Override
     public void completeMoves() {
-        /*TODO
-            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
-            - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
-         */
+        game.completeMoves();
     }
 
     @Override
@@ -675,7 +672,6 @@ public class Logic implements ILogic {
     @Override
     public void setMusicVolume(int value) {
         settings.setMusicVolume(value);
-        System.out.println(value + "LOGIC");
     }
 
     @Override

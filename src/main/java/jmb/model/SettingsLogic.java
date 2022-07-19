@@ -72,18 +72,14 @@ public class SettingsLogic {
             defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));
             currentPath = Path.of (settingsDir.concat("/Current.ini"));
             if (Files.exists(defaultsPath)) {
-                System.out.println("Defaults esiste");
                 if (Files.exists(currentPath)) {
-                    System.out.println("Current esiste");
                     loadSettingsFrom(currentPath);
                 } else{
-                    System.out.println("Current non esiste");
                     loadSettingsFrom(defaultsPath);
                     Files.createFile(currentPath);
                     saveSettingsTo(currentPath);
                 }
             } else {
-                System.out.println("Defaults non esiste");
                 Files.createFile(defaultsPath);
                 Files.createFile(currentPath);
                 saveSettingsTo(defaultsPath);
@@ -218,9 +214,7 @@ public class SettingsLogic {
         return this.resolutionWidth;
     }
     protected void setMusicVolume(int value) {
-        System.out.println(value + "SETTINGSLOGIC");
         this.musicVolume = max(0, min(100, value));
-        System.out.println(musicVolume + " COSA SALVA IN FILE");
     }
     protected int getMusicVolume() {
         return this.musicVolume;

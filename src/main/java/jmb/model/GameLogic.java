@@ -54,7 +54,6 @@ public class GameLogic extends DynamicBoardLogic {
     //  METODI
 
     protected void setUp() {
-        System.out.println("Sono in setUp");
         setGameStart(false);
         setGameEndState(false);
         super.setUp();
@@ -79,6 +78,7 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
+        System.out.println(puntaInizR + "puntaInizR");
         boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if (possible) {
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
@@ -90,6 +90,59 @@ public class GameLogic extends DynamicBoardLogic {
             view.backBTNSetDisable(false);
         }
         return possible;
+    }
+
+    protected void completeMoves() {
+        /*TODO
+            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
+            - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
+         */
+        int availableDice = dice.countAvailableDice();
+        while (availableDice!=0) {
+            System.out.println(availableDice);
+            if (dice.getDoubleNum()) {
+                for (int i = availableDice; i>0 && availableDice!=0; i--) {
+                    boolean moveDone = false;
+                    moveDone = tryToMove(dice.getDiceValue(0) * i);
+                    if (moveDone)
+                        availableDice -=i;
+                    System.out.println(availableDice + "dopo tentativo mossa doppia con dadi " + i );
+                }
+            } else {
+                if (availableDice == 2) {
+                    if (tryToMove(dice.getDiceValue(0) + dice.getDiceValue(1)))
+                        availableDice = 0;
+                    System.out.println(availableDice+ " dopo tentativo mossa somma");
+                }
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(0)))
+                    availableDice--;
+                System.out.println(availableDice + " dopo tentativo dado 0");
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(1)))
+                    availableDice--;
+                System.out.println(availableDice + " dopo tentativo dado 1");
+            }
+        }
+    }
+
+    private boolean tryToMove(int delta) {
+        int sign, firstCol, lastCol;
+        if (isWhiteTurn()) {
+            sign = 1;
+            firstCol = COL_WHITE;
+            lastCol = COL_BLACK;
+        } else {
+            sign = -1;
+            firstCol = COL_BLACK;
+            lastCol = COL_WHITE;
+        }
+        boolean moveDone = false;
+        for (int i = firstCol; lastCol+sign!=i && !moveDone; i+=sign) {
+            System.out.println("Colonna " + i);
+            int to = max(0, min(25, i+(delta*sign)));
+            if (searchTopOccupiedRow(i) != UNDEFINED)
+                moveDone = movePawn(i, to);
+        }
+        return moveDone;
     }
 
     public int searchFirstFreeRow(int whichPoint) {
@@ -109,17 +162,6 @@ public class GameLogic extends DynamicBoardLogic {
         }
 
         return whichRow;
-    }
-
-    /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
-            Il bianco può andare "avanti", il nero "indietro", per quanto concerne il numero di punta
-     */
-
-    public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
-        boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
-                (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
-        return right;
-
     }
 
     protected void victoryCheck() {
@@ -175,23 +217,25 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     protected void revertMove() {
-        MoveRecord move = turnMoves.pop();
-        int from = move.getPointFin();
-        int to = move.getPointInit();
-        this.forceMovePawn(from, to);
-        for (int i = 0; i<4; i++) {
-            if (dice.getUsed(i) && move.getDiceUsed()[i])
-                dice.revertUsed(i);
+        if (!turnMoves.isEmpty()) {
+            MoveRecord move = turnMoves.pop();
+            int from = move.getPointFin();
+            int to = move.getPointInit();
+            this.forceMovePawn(from, to);
+            for (int i = 0; i < 4; i++) {
+                if (dice.getUsed(i) && move.getDiceUsed()[i])
+                    dice.revertUsed(i);
+            }
+            if (move.getOpensBlackExit()) {
+                view.closeBlackExit();
+                setBlackExit(false);
+            } else if (move.getOpensWhiteExit()) {
+                view.closeWhiteExit();
+                setWhiteExit(false);
+            }
+            dice.resetToBeUsed();
+            view.setDiceContrast(whoCalled);
         }
-        if (move.getOpensBlackExit()) {
-            view.closeBlackExit();
-            setBlackExit(false);
-        } else if (move.getOpensWhiteExit()) {
-            view.closeWhiteExit();
-            setWhiteExit(false);
-        }
-        dice.resetToBeUsed();
-        view.setDiceContrast(whoCalled);
         if (turnMoves.isEmpty())
             view.backBTNSetDisable(true);
     }

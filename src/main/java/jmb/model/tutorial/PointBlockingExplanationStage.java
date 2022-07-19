@@ -29,8 +29,6 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
     }
 
     public void action() {
-        System.out.println("Sono in ACTION");
-        System.out.println(internalIndex);
         if (internalIndex < 11) {
             boardMoves();
             view.callRedraw(whoCalled);

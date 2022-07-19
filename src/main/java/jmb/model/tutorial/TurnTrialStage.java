@@ -20,9 +20,6 @@ public class TurnTrialStage extends ComparableTutorialStage{
         view.tutorialTextBoxAnimation(0.4,0.55);
     }
     public void action() {
-        System.out.println("Controllo i dadi");
-        for (int i = 0; i<4; i++)
-            System.out.println(logic.getUsedArray(whoCalled)[i] + " " + i);
         boolean allUsed = true;
         for (boolean used: logic.getUsedArray(whoCalled))
             if (!used)

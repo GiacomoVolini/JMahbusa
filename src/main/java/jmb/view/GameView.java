@@ -24,11 +24,6 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-/*TODO
-    Potremmo far vedere quali sono i comandi per tastiera quando l'utente pigia un tasto (o sotto o vicino ai pulsanti)
- */
-
-
 public class GameView extends DynamicGameBoard {
 
 

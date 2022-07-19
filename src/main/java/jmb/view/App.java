@@ -36,6 +36,8 @@ public class App extends Application {
         setStageOptions();
         stage.setTitle("JMahbusa");
         stage.setScene(scene);
+        stage.setWidth(logic.getResolutionWidth());
+        stage.setHeight(logic.getResolutionHeight());
         stage.show();
     }
 

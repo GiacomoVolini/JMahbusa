@@ -34,33 +34,38 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="Tvideo" alignment="CENTER" animated="false" collapsible="false" layoutX="172.0" prefHeight="440.0" text="Video" visible="false">
+        <TitledPane fx:id="Tvideo" alignment="CENTER" animated="false" collapsible="false" layoutX="172.0" prefHeight="440.0" text="Video">
             <content>
                 <AnchorPane fx:id="video" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                     <children>
                         <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true" />
-                        <Text fx:id="Gtext" layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grandezza di text:" wrappingWidth="161.0">
+                        <Text fx:id="tResolution" layoutX="28.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Risoluzione:" wrappingWidth="109.0">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Text>
-                        <CheckBox fx:id="checkSI" layoutX="28.0" layoutY="166.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Schermo intero">
+                        <CheckBox fx:id="checkSI" layoutX="28.0" layoutY="171.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Schermo intero">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </CheckBox>
-                        <Slider fx:id="SliderGT" layoutX="28.0" layoutY="111.0" showTickLabels="true" showTickMarks="true" />
-                        <CheckBox fx:id="checkBR" layoutX="255.0" layoutY="166.0" mnemonicParsing="false" onAction="#blockresolution" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
+                        <CheckBox fx:id="checkBR" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#blockresolution" prefHeight="30.0" prefWidth="224.0" text="Blocca risoluzione">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </CheckBox>
-                        <Text fx:id="Luminosita" layoutX="255.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luminosità:" wrappingWidth="156.0">
+                        <Text fx:id="tLarghezza" layoutX="42.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Larghezza:" wrappingWidth="103.0">
                             <font>
                                 <Font size="20.0" />
                             </font>
                         </Text>
-                        <Slider fx:id="SliderL" layoutX="255.0" layoutY="111.0" showTickLabels="true" showTickMarks="true" />
+                  <Text fx:id="tAltezza" layoutX="42.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Altezza:" wrappingWidth="103.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="fLarghezza" layoutX="144.0" layoutY="81.0" onKeyReleased="#cambiaRisoluzione" promptText="Solo Numeri" />
+                  <TextField fx:id="fAltezza" layoutX="144.0" layoutY="117.0" onKeyReleased="#cambiaRisoluzione" promptText="Solo Numeri" />
                     </children>
                 </AnchorPane>
             </content>
@@ -96,7 +101,7 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione">
+        <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione" visible="false">
             <content>
                 <AnchorPane fx:id="personalizzazione" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                     <children>
@@ -243,27 +248,22 @@
                                 <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="Tdese" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="De/Selezionare:" wrappingWidth="124.0">
+                        <Text fx:id="Tdese" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare:" wrappingWidth="124.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="Tconfirm" layoutX="130.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conferma:" wrappingWidth="82.0">
+                        <Text fx:id="Tfinish" layoutX="125.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="Tfinish" layoutX="125.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Finish turn:" wrappingWidth="88.0">
+                        <Text fx:id="Tcancellation" layoutX="71.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
                         </Text>
-                        <Text fx:id="Tcancellation" layoutX="71.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cancellare mossa:" wrappingWidth="142.0">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Text>
-                        <Text fx:id="Tmainmenu" layoutX="118.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
+                        <Text fx:id="Tmainmenu" layoutX="118.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Main menu:" wrappingWidth="94.0">
                             <font>
                                 <Font size="18.0" />
                             </font>
@@ -273,10 +273,9 @@
                         <TextField fx:id="moSopra" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="W" />
                         <TextField fx:id="moSotto" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="S" />
                         <TextField fx:id="Selezionare" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="SPACE" />
-                        <TextField fx:id="confermare" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ENTER" />
-                        <TextField fx:id="cacellareMo" editable="false" layoutX="252.0" layoutY="286.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACK_SPACE" />
-                        <TextField fx:id="finitoT" editable="false" layoutX="251.0" layoutY="313.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
-                        <TextField fx:id="opUscita" editable="false" layoutX="251.0" layoutY="340.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
+                        <TextField fx:id="cacellareMo" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACK_SPACE" />
+                        <TextField fx:id="finitoT" editable="false" layoutX="251.0" layoutY="285.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
+                        <TextField fx:id="opUscita" editable="false" layoutX="251.0" layoutY="312.0" onKeyPressed="#stampa" onMousePressed="#selezionata" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
                     </children>
                 </AnchorPane>
             </content>

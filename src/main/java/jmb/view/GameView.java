@@ -113,6 +113,29 @@ public class GameView extends DynamicGameBoard {
     @FXML
     TextField saveTextField;
 
+    @FXML
+    Text LforBack;
+
+    @FXML
+    Text LforFinishTurn;
+
+    @FXML
+    Text LforMenu;
+
+    @FXML
+    Text TforRight;
+
+    @FXML
+    Text TforLeft;
+
+    @FXML
+    Text TforUp;
+
+    @FXML
+    Text TforDown;
+
+    @FXML
+    Text TforDese;
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
@@ -490,6 +513,17 @@ public class GameView extends DynamicGameBoard {
     public void initialize() {
 
         try {
+
+            LforBack.setText(logic.getRevertMove());
+            LforFinishTurn.setText(logic.getFinishTurn());
+            LforMenu.setText(logic.getOpenMenu());
+            TforUp.setText("Sopra:\n" + logic.getMoveUp());
+            TforDown.setText("Sotto:\n" + logic.getMoveDown());
+            TforRight.setText("Destra:\n" + logic.getMoveRight());
+            TforLeft.setText("Sinistra:\n" +logic.getMoveLeft());
+            TforDese.setText("Selezionare:\n" + logic.getSelect());
+
+
             setWhoCalled(GAME_CALLED);
             view.stopMusic();
             if (!logic.getMuteMusic())

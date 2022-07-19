@@ -67,22 +67,25 @@ public class SettingsView {
         private ImageView Vbg;
 
         @FXML
-        private Text Gtext;
-
-        @FXML
         private CheckBox checkSI;
-
-        @FXML
-        private Slider SliderGT;
 
         @FXML
         private CheckBox checkBR;
 
         @FXML
-        private Text Luminosita;
+        private Text tResolution;
 
         @FXML
-        private Slider SliderL;
+        private Text tLarghezza;
+
+        @FXML
+        private Text tAltezza;
+
+        @FXML
+        private TextField fLarghezza;
+
+        @FXML
+        private TextField fAltezza;
 
         @FXML
         private AnchorPane audio;
@@ -268,9 +271,6 @@ public class SettingsView {
         private Text Tdese;
 
         @FXML
-        private Text Tconfirm;
-
-        @FXML
         private Text Tfinish;
 
         @FXML
@@ -293,9 +293,6 @@ public class SettingsView {
 
         @FXML
         private TextField Selezionare;
-
-        @FXML
-        private TextField confermare;
 
         @FXML
         private TextField cacellareMo;
@@ -556,7 +553,7 @@ public class SettingsView {
                 TextField b = (TextField) event.getSource();
                 bindingBefore = b.getText();
                 b.setText("waiting...");
-                for(int i=0; i<9; i++){
+                for(int i=0; i<8; i++){
                         if(nomiDiPulsanti[i].getText().equals("waiting...")){
                                 nomiDiPulsanti[i].setDisable(false);
                                 IdiWaiting = i;
@@ -573,7 +570,7 @@ public class SettingsView {
         @FXML
         void stampa(KeyEvent event) {
                 TextField b = (TextField) event.getSource();
-                for(int i=0; i<9; i++){
+                for(int i=0; i<8; i++){
                         System.out.println(nomiDiPulsanti[i].getText());
                         System.out.println(event.getCode().toString());
                         if(nomiDiPulsanti[i].getText().equals(event.getCode().toString()) && i != IdiWaiting){
@@ -583,7 +580,7 @@ public class SettingsView {
                                 b.setText(event.getCode().toString());
                         }
                 }
-                for(int i=0; i<9; i++){
+                for(int i=0; i<8; i++){
                         nomiDiPulsanti[i].setDisable(false);
                 }
                 if (!b.getText().equals(bindingBefore))
@@ -623,14 +620,39 @@ public class SettingsView {
                 return in.length() == 1 ? "0" + in : in;
         }
 
+        public static boolean isParsable(String input) {
+                try {
+                        Integer.parseInt(input);
+                        return true;
+                } catch (final NumberFormatException e) {
+                        return false;
+                }
+        }
+
+        @FXML
+        void cambiaRisoluzione(KeyEvent event) {
+                if(isParsable(fLarghezza.getText()) && isParsable(fAltezza.getText())) {
+                        logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
+                        logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
+                        applyButton.setDisable(false);
+                }else{
+                        applyButton.setDisable(true);
+                }
+        }
+
         @FXML
         void applySettings(ActionEvent event) {
                 System.out.println("PIGIATO APPLY");
+                Stage stage = (Stage) GBG.getScene().getWindow();
                 applyButton.setDisable(true);
                 logic.setFullScreen(checkSI.isSelected());
                 logic.setLockResolution(checkBR.isSelected());
                 //logic.setResolutionWidth();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //logic.setResolutionHeight();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
+                logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
+                stage.setWidth(logic.getResolutionWidth());
+                logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
+                stage.setHeight(logic.getResolutionHeight());
                 logic.setMusicVolume((int)SliderMusi.getValue());
                 logic.setSFXVolume((int)SliderES.getValue());
                 logic.setMuteMusic(checkMusi.isSelected());
@@ -653,12 +675,9 @@ public class SettingsView {
                 logic.setMoveUp(moSopra.getText());
                 logic.setMoveDown(moSotto.getText());
                 logic.setSelect(Selezionare.getText());
-                logic.setConfirm(confermare.getText());
                 logic.setRevertMove(cacellareMo.getText());
                 logic.setFinishTurn(finitoT.getText());
                 logic.setOpenMenu(opUscita.getText());
-                logic.setResolutionWidth((int)GBG.getScene().getWidth());
-                logic.setResolutionHeight((int)GBG.getScene().getHeight());
                 logic.applySettingsChanges();
                 applyButton.setDisable(true);
         }
@@ -673,6 +692,8 @@ public class SettingsView {
                 Stage stage = (Stage) GBG.getScene().getWindow();
                 stage.setWidth(logic.getResolutionWidth());
                 stage.setHeight(logic.getResolutionHeight());
+                fLarghezza.setText(String.valueOf(logic.getResolutionWidth()));
+                fAltezza.setText(String.valueOf(logic.getResolutionHeight()));
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 SliderMusi.setValue(logic.getMusicVolume());
@@ -728,7 +749,6 @@ public class SettingsView {
                 moSopra.setText(logic.getMoveUp());
                 moSotto.setText(logic.getMoveDown());
                 Selezionare.setText(logic.getSelect());
-                confermare.setText(logic.getConfirm());
                 cacellareMo.setText(logic.getRevertMove());
                 finitoT.setText(logic.getFinishTurn());
                 opUscita.setText(logic.getOpenMenu());
@@ -736,6 +756,7 @@ public class SettingsView {
         }
 
         protected void changeDimensions() {
+                Stage stage = (Stage) GBG.getScene().getWindow();
                 //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
@@ -762,12 +783,15 @@ public class SettingsView {
 
                 //bottoni destra
                 //Video
-                GBG.setLeftAnchor(Gtext,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Luminosita,GBG.getWidth() * 0.4);
-                GBG.setLeftAnchor(SliderGT,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(SliderL,GBG.getWidth() * 0.4);
+                GBG.setLeftAnchor(tResolution,GBG.getWidth() * 0.10);
+                GBG.setLeftAnchor(tAltezza,GBG.getWidth() * 0.13);
+                GBG.setLeftAnchor(tLarghezza,GBG.getWidth() * 0.13);
+                GBG.setLeftAnchor(fAltezza,GBG.getWidth() * 0.28);
+                GBG.setLeftAnchor(fLarghezza,GBG.getWidth() * 0.28);
                 GBG.setLeftAnchor(checkSI,GBG.getWidth() * 0.10);
                 GBG.setLeftAnchor(checkBR,GBG.getWidth() * 0.4);
+                fAltezza.setText(String.valueOf((int)stage.getHeight()));
+                fLarghezza.setText(String.valueOf((int)stage.getWidth()));
 
                 //Audio
                 GBG.setLeftAnchor(Music,GBG.getWidth() * 0.10);
@@ -814,12 +838,10 @@ public class SettingsView {
                 GBG.setLeftAnchor(moSopra,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(moSotto,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(Tdese,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tconfirm,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tcancellation,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tfinish,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Tmainmenu,GBG.getWidth() * 0.20);
                 GBG.setLeftAnchor(Selezionare,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(confermare,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
                 GBG.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
@@ -863,13 +885,16 @@ public class SettingsView {
                         applyButton.setDisable(false);
                 }
         }
-
         public void initialize() {
 
-                 nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.confermare, this.cacellareMo, this.finitoT, this.opUscita};
+                 nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.cacellareMo, this.finitoT, this.opUscita};
 
+                 //Video
                 checkSI.setSelected(logic.getFullScreen());
                 checkBR.setSelected(logic.getLockResolution());
+
+
+                //Personalizzazione
                 group = new ToggleGroup();
                 Imsinistra.setToggleGroup(group);
                 TM.setToggleGroup(group);
@@ -945,7 +970,6 @@ public class SettingsView {
                         moSopra.setText(logic.getMoveUp());
                         moSotto.setText(logic.getMoveDown());
                         Selezionare.setText(logic.getSelect());
-                        confermare.setText(logic.getConfirm());
                         cacellareMo.setText(logic.getRevertMove());
                         finitoT.setText(logic.getFinishTurn());
                         opUscita.setText(logic.getOpenMenu());

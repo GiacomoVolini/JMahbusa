@@ -12,8 +12,11 @@ import javafx.util.Duration;
 //import javafx.scene.media.AudioClip;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static jmb.ConstantsShared.*;
+import static jmb.model.Logic.logic;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.*;
 
@@ -71,6 +74,8 @@ public class MainMenu {
     @FXML
     private Button notutorial;
 
+    private Path tutorialPath;
+
     /*muscia
     String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\menuMusicLocation.mp3").toURI().toString();
     MediaPlayer menuMusic = new MediaPlayer( new Media(uriString));
@@ -83,21 +88,36 @@ public class MainMenu {
     }
 
     @FXML
-    void openlogin() {
+    void newGameAction()  throws IOException {
+        if(!Files.exists(tutorialPath)) {
+            Ttutorial.setVisible(true);
+            Ttutorial.setDisable(false);
+            Ptutorial.setVisible(true);
+            Ptutorial.setDisable(false);
+            notutorial.setVisible(true);
+            notutorial.setDisable(false);
+            tutorialButton2.setVisible(true);
+            tutorialButton2.setDisable(false);
+        }else {
+            App.changeRoot(LOG_IN);
+            View.sceneLogIn.changeDimensions();
+        }
+    }
+
+    @FXML
+    void openlogin() throws IOException {
+        Files.createFile(tutorialPath);
         App.changeRoot(LOG_IN);
         View.sceneMusica.gameMusic.pause();
         View.sceneLogIn.changeDimensions();
     }
 
     @FXML
-    void newGameAction()  throws IOException {
-        //if(){}
-        Ttutorial.setVisible(true);
-        Ttutorial.setDisable(false);
-        Ptutorial.setVisible(true);
-        Ptutorial.setDisable(false);
-        App.changeRoot(LOG_IN);
-        View.sceneLogIn.changeDimensions();
+    void openTutorialdamessaggio() throws IOException {
+        Files.createFile(tutorialPath);
+        App.changeRoot(TUTORIAL);
+        logic.initializeTutorialLogic();
+        view.playMusic(TUTORIAL_MUSIC);
     }
 
     @FXML
@@ -131,6 +151,8 @@ public class MainMenu {
 
     public void initialize() {
         try {
+            String settingsDir = logic.getAppDirectory() + "/settings";
+            tutorialPath = Path.of (settingsDir.concat("/played.ini"));
         /*Image im1 = new Image("/jmb/view/background1.jpg");
         Image im2 = new Image("/jmb/view/background2.jpg");
         Image im3 = new Image("/jmb/view/background3.jpg");
@@ -204,6 +226,16 @@ public class MainMenu {
                 Text.setLayoutX(Window.getWidth()/2 - 170);
                 BGText.setLayoutX(Window.getWidth()/2 - 136);
 
+            // Ridimensiona il messaggio del tutorial
+
+                Ptutorial.setLayoutX(Window.getWidth()/2 + 153);
+                Ptutorial.setLayoutY(Window.getHeight()/2.5);
+                Ttutorial.setLayoutX(Window.getWidth()/2 +151);
+                Ttutorial.setLayoutY(Window.getHeight()/2.5 +15);
+                tutorialButton2.setLayoutX(Window.getWidth()/2 + 178);
+                tutorialButton2.setLayoutY(Window.getHeight()/2.5 + 60);
+                notutorial.setLayoutX(Window.getWidth()/2 + 250);
+                notutorial.setLayoutY(Window.getHeight()/2.5 + 60);
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
             // Largezza

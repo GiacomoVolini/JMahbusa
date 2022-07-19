@@ -23,11 +23,6 @@ import static jmb.view.View.*;
 
 public class MainMenu {
 
-    /*TODO
-        Aggiungere variabile booleana che controlla se il giocatore ha mai giocato
-        Se true, quando si pigia nuova partita, chiedere se si vuole il tutorial
-     */
-
 
     @FXML
     private AnchorPane Window;
@@ -129,7 +124,9 @@ public class MainMenu {
 
     @FXML
     void openMenuImpostazioni()  throws IOException {
+
         App.changeRoot(SETTINGS);
+        View.sceneImpostazioni.applyButton.setDisable(true);
         View.sceneImpostazioni.changeDimensions();
     }
 

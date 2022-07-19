@@ -239,7 +239,7 @@ public class SettingsView {
         private RadioButton TM;
 
         @FXML
-        private Button applyButton;
+        protected Button applyButton;
 
         @FXML
         private AnchorPane comandi;
@@ -300,8 +300,21 @@ public class SettingsView {
 
         @FXML
         private TextField opUscita;
+
         @FXML
         private ColorPicker selectedPointColorPicker;
+
+        @FXML
+        private TitledPane Pavvertimento;
+
+        @FXML
+        private Button applyButton2;
+
+        @FXML
+        private Button nonsalvaBTN;
+
+        @FXML
+        private Button annullareBTN;
 
         double Sv, Sve;
         ToggleGroup group = new ToggleGroup();
@@ -331,10 +344,22 @@ public class SettingsView {
 
         @FXML
         void goToMainMenu()  throws IOException {
-                //TODO controllare se ci sono cambiamenti alle impostazioni senza aver pigiato apply
-                //      se sono stati fatti, aprire un dialogo che avverte che così si perderanno i cambiamenti
-                //      altrimenti andare al menu
-                mainMenuButton.getScene().getWindow(); //TODO FORSE NON SERVE
+                if(!applyButton.isDisable()){
+                        Pavvertimento.setVisible(true);
+                        Pavvertimento.setDisable(false);
+                }else {
+                        App.changeRoot(MAIN_MENU);
+                }
+        }
+
+        @FXML
+        void chiudiAttenzioni(ActionEvent event) {
+                Pavvertimento.setVisible(false);
+                Pavvertimento.setDisable(true);
+        }
+
+        @FXML
+        void tornaMainMenu(ActionEvent event) {
                 App.changeRoot(MAIN_MENU);
         }
 
@@ -578,8 +603,6 @@ public class SettingsView {
                         applyButton.setDisable(false);
         }
 
-        //TODO riempi l'applicazioni
-
         //Comandi Action
         int IdiWaiting;
         @FXML
@@ -674,15 +697,20 @@ public class SettingsView {
                 }
         }
 
+
+        @FXML
+        void applySettingsAndExit(ActionEvent event) {
+                applySettings(null);
+                applyButton.setDisable(true);
+                App.changeRoot(MAIN_MENU);
+        }
+
         @FXML
         void applySettings(ActionEvent event) {
                 System.out.println("PIGIATO APPLY");
                 Stage stage = (Stage) GBG.getScene().getWindow();
-                applyButton.setDisable(true);
                 logic.setFullScreen(checkSI.isSelected());
                 logic.setLockResolution(checkBR.isSelected());
-                //logic.setResolutionWidth();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
-                //logic.setResolutionHeight();TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
                 stage.setWidth(logic.getResolutionWidth());
                 logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
@@ -729,8 +757,6 @@ public class SettingsView {
                 stage.setHeight(logic.getResolutionHeight());
                 fLarghezza.setText(String.valueOf(logic.getResolutionWidth()));
                 fAltezza.setText(String.valueOf(logic.getResolutionHeight()));
-                //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
-                //TODO AGGIUNGERE COMPONENTE PER INFLUENZARE RISOLUZIONE
                 SliderMusi.setValue(logic.getMusicVolume());
                 view.setMusicVolume(logic.getMusicVolume());
                 SliderES.setValue(logic.getSFXVolume());
@@ -918,9 +944,9 @@ public class SettingsView {
                 comandi.setPrefHeight(GBG.getHeight());
                 Tcomandi.setPrefHeight(GBG.getHeight());
 
-                if (((int)GBG.getScene().getHeight() != logic.getResolutionHeight() ||
-                        (int)GBG.getScene().getWidth() != logic.getResolutionWidth()) &&
-                        (int)GBG.getScene().getWidth()!= 0 && (int)GBG.getScene().getHeight() != 0) {
+                if (((int)stage.getHeight() != logic.getResolutionHeight() ||
+                        (int)stage.getWidth() != logic.getResolutionWidth()) &&
+                        (int)stage.getWidth()!= 0 && (int)stage.getHeight() != 0) {
                         applyButton.setDisable(false);
                 }
         }

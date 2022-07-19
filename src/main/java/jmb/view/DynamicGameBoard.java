@@ -3,18 +3,22 @@ package jmb.view;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 
-import static jmb.ConstantsShared.PAWNS_PER_PLAYER;
-import static jmb.ConstantsShared.UNDEFINED;
+import static java.lang.Math.max;
+import static jmb.ConstantsShared.*;
+import static jmb.ConstantsShared.BLACK;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -52,7 +56,6 @@ public class DynamicGameBoard extends GameBoard{
                 pawnArrayBLK[i].setOnMousePressed(this::savePosition);
                 pawnArrayBLK[i].setOnMouseReleased(this::releasePawn);
             }
-
         } catch (URISyntaxException use) {
             use.printStackTrace();
         }
@@ -304,5 +307,104 @@ public class DynamicGameBoard extends GameBoard{
             pawnArrayBLK[i].setVisible(set);
         }
     }
+
+    protected int selectedIndex = UNDEFINED;
+    protected boolean isMovementKey (String keyPressed) {
+        return keyPressed.equals(logic.getMoveRight()) || keyPressed.equals(logic.getMoveLeft())
+                || keyPressed.equals(logic.getMoveUp()) || keyPressed.equals(logic.getMoveDown());
+    }
+
+    protected void selectInitialPoint() {
+        if (logic.getWhichTurn(whoCalled))
+            selectedIndex = COL_WHITE;
+        else selectedIndex = COL_BLACK;
+        colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
+    }
+    protected int moveHorizontally(int selectedIndex, String keyPressed) {
+        int out;
+        if (selectedIndex <13) { // La punta selezionata è sopra
+            if (keyPressed.equals(logic.getMoveRight())) {
+                out = (selectedIndex + 13 + 1) % 13;
+                if (!logic.getWhiteExit(whoCalled))
+                    out = max(1, out);
+            }
+            else {
+                out = (selectedIndex+13-1)%13;
+                if (!logic.getBlackExit(whoCalled) && out == COL_BLACK_EXIT)
+                    out = 12;
+            }
+        } else { // La punta selezionata è sotto
+            if (keyPressed.equals(logic.getMoveRight())) {
+                out = ((selectedIndex - 1) % 13) + 13;
+                if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)
+                    out = 24;
+            }
+            else {
+                out = ((selectedIndex+1)%13)+13;
+                if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)
+                    out = 13;
+            }
+        }
+        return out;
+    }
+    @FXML
+    void comandaLAtastiera(KeyEvent event) {
+        String keyPressed = event.getCode().toString();
+        if (isMovementKey(keyPressed)) {
+            if (selectedIndex==UNDEFINED)
+                selectInitialPoint();
+            else {
+                restoreColorToPoint(selectedIndex);
+                if (keyPressed.equals(logic.getMoveUp())||keyPressed.equals(logic.getMoveDown())) {
+                    selectedIndex = 25 - selectedIndex;
+                    if (selectedIndex == COL_WHITE_EXIT && !logic.getWhiteExit(whoCalled))
+                        selectedIndex = COL_BLACK;
+                    else if (selectedIndex == COL_BLACK_EXIT &&!logic.getBlackExit(whoCalled))
+                        selectedIndex = COL_WHITE;
+                }
+                else selectedIndex = moveHorizontally(selectedIndex, keyPressed);
+                colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
+            }
+        }
+        else if (keyPressed.equals(logic.getSelect()) && !selected){
+            col = trovaColonna();
+            if(logic.searchTopOccupiedRow(whoCalled, col)!=UNDEFINED &&
+                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE)
+                            == logic.getWhichTurn(whoCalled)) {
+                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
+                selected = true;
+                logic.createMoveBuffer(col, whoCalled);
+                DynamicGameBoardRedraw.redrawPawns(this);
+            }
+        } else if (keyPressed.equals(logic.getSelect()) && selected){
+            int col2 = trovaColonna();
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
+            logic.placePawnOnPoint(col2, whoCalled);
+            GameViewRedraw.redrawPawns(this);
+            selected = false;
+        }
+    }
+    boolean selected = false;
+    int col;
+
+    private int trovaColonna(){
+        int col = UNDEFINED;
+        for (int i = 0; i < 12; i++) {
+            if (polArrayTop[i].getFill().equals(Paint.valueOf(logic.getSelectedPointColor()))) {
+                col = i + 1;
+            } else if (polArrayBot[i].getFill().equals(Paint.valueOf(logic.getSelectedPointColor()))) {
+                col = (24-i);
+            }
+        }
+        if (col == UNDEFINED) {
+            if (whiteExitRegion.getFill().equals(Paint.valueOf(logic.getSelectedPointColor())))
+                col = COL_WHITE_EXIT;
+            else if (blackExitRegion.getFill().equals(Paint.valueOf(logic.getSelectedPointColor())))
+                col = COL_BLACK_EXIT;
+        }
+        return col;
+    }
+
+
 
 }

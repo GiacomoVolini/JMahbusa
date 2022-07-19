@@ -166,7 +166,11 @@ public class DiceLogic{
         return possible;
     }
 
-    private void setDoublesToBeUsed (int howManyDice) {
+    protected void setToBeUsed(int i) {
+        this.toBeUsed[i] = true;
+    }
+
+    protected void setDoublesToBeUsed (int howManyDice) {
         int set = 0;
         for (int i = 0; i<4 && set< howManyDice; i++) {
             if (set < howManyDice && !used[i]) {
@@ -176,7 +180,7 @@ public class DiceLogic{
         }
     }
 
-    public void setUsed() {
+    public void setDiceToUsed() {
         // Il metodo, richiamato in seguito ad una mossa correttamente effettuata, imposta come usati i dadi
         //      indicati nell'array toBeUsed
         // Il metodo agisce "alla cieca" poichè si assume che i controlli necessari siano già stati

@@ -14,6 +14,7 @@ public class PawnDirectionStage extends ComparableTutorialStage{
     }
 
     public void start() {
+        logic.setWhiteTurn(whoCalled, false);
         logic.setUpNewBoard(whoCalled);
         view.setPawnsVisible(true, whoCalled);
         view.callRedraw(whoCalled);

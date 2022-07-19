@@ -47,6 +47,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
         switch (internalIndex) {
             case 0:
                 setBoardUp();
+                logic.setWhiteTurn(whoCalled, false);
                 view.closeDoubleDice(whoCalled);
                 view.setNextTutorialString(stageStringInter, true);
                 view.tutorialTextBoxAnimation(0.55,0.4 );
@@ -58,6 +59,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 break;
             case 7:
                 setBoardUp();
+                view.restoreBoardColors(whoCalled);
                 view.callRedraw(whoCalled);
                 view.setNextTutorialString(stageStringFinal, true);
                 view.tutorialTextBoxAnimation(0.52,0.2 );
@@ -73,6 +75,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 view.waitForRecall(whoCalled, 3);
                 break;
             case 9:
+                view.restoreBoardColors(whoCalled);
                 logic.nextTutorialStage();
                 break;
         }

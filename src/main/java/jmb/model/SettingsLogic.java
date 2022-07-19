@@ -22,7 +22,9 @@ public class SettingsLogic {
     private boolean fullScreen = false;
     private boolean lockResolution = false;
     private int resolutionWidth = 640;
+    private final static int MIN_RESOLUTION_WIDTH = 640;
     private int resolutionHeight = 480;
+    private final static int MIN_RESOLUTION_HEIGHT = 480;
     private int musicVolume = 100;
     private int soundFXVolume = 100;
     private boolean muteMusic = false;
@@ -45,7 +47,8 @@ public class SettingsLogic {
     private static final String ODD_POINTS_LEFT_PRESET = "#c0c0c0";
     private static final String ODD_POINTS_RIGHT_PRESET = "#daa505";
     private String selectedPointColor = "#fffb00";
-    private static final String SELECTED_POINT_PRESET = "#fffb00";
+    private static final String SELECTED_POINT_LEFT_PRESET = "#6495ed";
+    private static final String SELECTED_POINT_RIGHT_PRESET = "#fffb00";
 
     private String moveRight = "D";
     private String moveLeft = "A";
@@ -114,6 +117,7 @@ public class SettingsLogic {
         this.boardInnerColor = customization.get("boardInnerColor");
         this.evenPointsColor = customization.get("evenPointsColor");
         this.oddPointsColor = customization.get("oddPointsColor");
+        this.selectedPointColor = customization.get("selectedPointColor");
         Profile.Section controls = ini.get("Controls");
         this.moveRight = controls.get("moveRight");
         this.moveLeft = controls.get("moveLeft");
@@ -202,13 +206,13 @@ public class SettingsLogic {
         return this.lockResolution;
     }
     protected void setResolutionHeight(int value) {
-        this.resolutionHeight = value;
+        this.resolutionHeight = max(MIN_RESOLUTION_HEIGHT, value);
     }
     protected int getResolutionHeight() {
         return this.resolutionHeight;
     }
     protected void setResolutionWidth(int value) {
-        this.resolutionWidth = value;
+        this.resolutionWidth = max(MIN_RESOLUTION_WIDTH, value);
     }
     protected int getResolutionWidth() {
         return this.resolutionWidth;
@@ -360,13 +364,24 @@ public class SettingsLogic {
     }
     protected String getSelectedPointColor(boolean forceCustom) {
         String out = this.selectedPointColor;
-        if (!forceCustom && boardPreset!=CUSTOM_BOARD) {
-            out = SELECTED_POINT_PRESET;
+        if (!forceCustom) {
+            switch (boardPreset) {
+                case LEFT_PRESET:
+                    out = SELECTED_POINT_LEFT_PRESET;
+                    break;
+                case RIGHT_PRESET:
+                    out = SELECTED_POINT_RIGHT_PRESET;
+                    break;
+            }
         }
         return out;
     }
-    protected String getSelectedPointPreset() {
-        return SELECTED_POINT_PRESET;
+    protected String getSelectedPointPreset(boolean left) {
+        String out;
+        if (left)
+            out = SELECTED_POINT_LEFT_PRESET;
+        else out = SELECTED_POINT_RIGHT_PRESET;
+        return out;
     }
     protected void setMoveRight(String value) {
         this.moveRight = value;

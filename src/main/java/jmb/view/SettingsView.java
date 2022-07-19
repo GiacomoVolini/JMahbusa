@@ -1,4 +1,5 @@
 package jmb.view;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -26,10 +27,7 @@ public class SettingsView {
 
         private final static int MUSIC_SLIDER = 0;
         private final static int SFX_SLIDER = 1;
-
-
         private Stage stage;
-
         @FXML
         private AnchorPane GBG;
 
@@ -302,26 +300,33 @@ public class SettingsView {
 
         @FXML
         private TextField opUscita;
+        @FXML
+        private ColorPicker selectedPointColorPicker;
 
         double Sv, Sve;
         ToggleGroup group = new ToggleGroup();
+        private static final boolean LEFT = true;
+        private static final boolean RIGHT = false;
         private String bindingBefore;
+        private Color selectedPointColor;
         private Timeline selectedPointAnimation;
         private Timeline selectedPointPresetsAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, e-> {
-                        punta311.setFill(Color.web(logic.getSelectedPointPreset()));
-                        punta11.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta11.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        punta311.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
                         punta31.setFill(Color.web(logic.getEvenPointsLeftPreset()));
                         punta111.setFill(Color.web(logic.getEvenPointsRightPreset()));
                 }), new KeyFrame(Duration.seconds(0.5), e-> {
-                        punta21.setFill(Color.web(logic.getSelectedPointPreset()));
-                        punta211.setFill(Color.web(logic.getSelectedPointPreset()));
+                        punta21.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        punta211.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
                         punta11.setFill(Color.web(logic.getEvenPointsLeftPreset()));
                         punta311.setFill(Color.web(logic.getEvenPointsRightPreset()));
                 }), new KeyFrame(Duration.seconds(1), e-> {
-                        //TODO CONTINUARE ANIMAZIONE
-        })
-
+                        punta31.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        punta111.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
+                        punta21.setFill(Color.web(logic.getOddPointsLeftPreset()));
+                        punta211.setFill(Color.web(logic.getOddPointsRightPreset()));
+                }), new KeyFrame(Duration.seconds(1.5))
         );
 
         @FXML
@@ -512,7 +517,36 @@ public class SettingsView {
                 }
         }
 
+        @FXML
+        void selectedPointColorChange(ActionEvent event) {
+                Color newValue = selectedPointColorPicker.getValue();
+                if (newValue!=selectedPointColor) {
+                        selectedPointColor = newValue;
+                        regeneratePointAnimation();
+                        applyButton.setDisable(false);
+                }
+        }
 
+        private void regeneratePointAnimation() {
+                if (selectedPointAnimation!=null)
+                        selectedPointAnimation.stop();
+                selectedPointPresetsAnimation.stop();
+                selectedPointAnimation = new Timeline(
+                        new KeyFrame(Duration.ZERO, e-> {
+                                punta3.setFill(selectedPointColor);
+                                punta1.setFill(Cpunte.getValue());
+                        }), new KeyFrame(Duration.seconds(0.5), e-> {
+                                punta2.setFill(selectedPointColor);
+                                punta3.setFill(Cpunte.getValue());
+                        }), new KeyFrame(Duration.seconds(1), e-> {
+                                punta1.setFill(selectedPointColor);
+                                punta2.setFill(Cpunte2.getValue());
+                        }), new KeyFrame(Duration.seconds(1.5))
+                );
+                selectedPointAnimation.setCycleCount(Animation.INDEFINITE);
+                selectedPointAnimation.play();
+                selectedPointPresetsAnimation.play();
+        }
 
         @FXML
         void sinistraAction(ActionEvent event) {
@@ -670,6 +704,7 @@ public class SettingsView {
                 logic.setBoardInnerColor(colorStringFactory(Ctavolo.getValue()));
                 logic.setEvenPointsColor(colorStringFactory(Cpunte.getValue()));
                 logic.setOddPointsColor(colorStringFactory(Cpunte2.getValue()));
+                logic.setSelectedPointColor(colorStringFactory(selectedPointColorPicker.getValue()));
                 logic.setMoveRight(moDestra.getText());
                 logic.setMoveLeft(moSinistra.getText());
                 logic.setMoveUp(moSopra.getText());
@@ -734,6 +769,8 @@ public class SettingsView {
                 Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
                 Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
                 Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
+                selectedPointColor = Color.web(logic.getSelectedPointColor());
+                selectedPointColorPicker.setValue(selectedPointColor);
                 cornice.setFill(Color.web(logic.getBoardFrameColor()));
                 cornice.setStroke(Color.web(logic.getBoardFrameColor()));
                 tavolo.setFill(Color.web(logic.getBoardInnerColor()));
@@ -752,12 +789,12 @@ public class SettingsView {
                 cacellareMo.setText(logic.getRevertMove());
                 finitoT.setText(logic.getFinishTurn());
                 opUscita.setText(logic.getOpenMenu());
+                regeneratePointAnimation();
                 applyButton.setDisable(true);
         }
 
         protected void changeDimensions() {
                 Stage stage = (Stage) GBG.getScene().getWindow();
-                //TODO DA MODIFICARE
                 //bottoni sinistra
                 Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
                 Bvideo.setLayoutY(GBG.getHeight()*0.12);
@@ -783,68 +820,70 @@ public class SettingsView {
 
                 //bottoni destra
                 //Video
-                GBG.setLeftAnchor(tResolution,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(tAltezza,GBG.getWidth() * 0.13);
-                GBG.setLeftAnchor(tLarghezza,GBG.getWidth() * 0.13);
-                GBG.setLeftAnchor(fAltezza,GBG.getWidth() * 0.28);
-                GBG.setLeftAnchor(fLarghezza,GBG.getWidth() * 0.28);
-                GBG.setLeftAnchor(checkSI,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(checkBR,GBG.getWidth() * 0.4);
+
+                AnchorPane.setLeftAnchor(tResolution,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(tAltezza,GBG.getWidth() * 0.13);
+                AnchorPane.setLeftAnchor(tLarghezza,GBG.getWidth() * 0.13);
+                AnchorPane.setLeftAnchor(fAltezza,GBG.getWidth() * 0.28);
+                AnchorPane.setLeftAnchor(fLarghezza,GBG.getWidth() * 0.28);
+                AnchorPane.setLeftAnchor(checkSI,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(checkBR,GBG.getWidth() * 0.4);
                 fAltezza.setText(String.valueOf((int)stage.getHeight()));
                 fLarghezza.setText(String.valueOf((int)stage.getWidth()));
 
                 //Audio
-                GBG.setLeftAnchor(Music,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(SliderMusi,GBG.getWidth() * 0.4);
-                GBG.setLeftAnchor(Esonori,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(SliderES,GBG.getWidth() * 0.4);
-                GBG.setLeftAnchor(checkMusi,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(checkMES,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Music,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(SliderMusi,GBG.getWidth() * 0.4);
+                AnchorPane.setLeftAnchor(Esonori,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(SliderES,GBG.getWidth() * 0.4);
+                AnchorPane.setLeftAnchor(checkMusi,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(checkMES,GBG.getWidth() * 0.10);
 
                 //Personalizzazioni
-                GBG.setLeftAnchor(Tint,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Tcont,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Tpedgioc1,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Inpedina1,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Conpedina1,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(pedina1,GBG.getWidth() * 0.30);
-                GBG.setLeftAnchor(Ttav,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Ancorsini,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Imsinistra,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Ancormed,GBG.getWidth() * 0.30);
-                GBG.setLeftAnchor(TM,GBG.getWidth() * 0.30);
-                GBG.setLeftAnchor(Ancordes,GBG.getWidth() * 0.50);
-                GBG.setLeftAnchor(Imdestra,GBG.getWidth() * 0.50);
-                GBG.setLeftAnchor(Ctavolo,GBG.getWidth() * 0.11);
-                GBG.setLeftAnchor(Tpunt,GBG.getWidth() * 0.30);
-                GBG.setLeftAnchor(Cpunte,GBG.getWidth() * 0.281);
-                GBG.setLeftAnchor(Cpunte2,GBG.getLeftAnchor(Cpunte) + 64);
-                GBG.setLeftAnchor(Tcorn,GBG.getWidth() * 0.50);
-                GBG.setLeftAnchor(Ccornice,GBG.getWidth() * 0.51);
-                GBG.setLeftAnchor(Tpedgioc2,GBG.getWidth() * 0.40);
-                GBG.setLeftAnchor(Inpedina2,GBG.getWidth() * 0.40);
-                GBG.setLeftAnchor(Conpedina2,GBG.getWidth() * 0.40);
-                GBG.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Tint,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Tcont,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Tpedgioc1,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Inpedina1,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Conpedina1,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(pedina1,GBG.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(Ttav,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Ancorsini,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Imsinistra,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Ancormed,GBG.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(TM,GBG.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(Ancordes,GBG.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Imdestra,GBG.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Ctavolo,GBG.getWidth() * 0.11);
+                AnchorPane.setLeftAnchor(Tpunt,GBG.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(Cpunte2,GBG.getWidth() * 0.30 + 7);
+                AnchorPane.setLeftAnchor(Cpunte,AnchorPane.getLeftAnchor(Cpunte2) - 56);
+                AnchorPane.setLeftAnchor(selectedPointColorPicker, AnchorPane.getLeftAnchor(Cpunte2) + 56);
+                AnchorPane.setLeftAnchor(Tcorn,GBG.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Ccornice,GBG.getWidth() * 0.51);
+                AnchorPane.setLeftAnchor(Tpedgioc2,GBG.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(Inpedina2,GBG.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(Conpedina2,GBG.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
 
                 //Comandi
-                GBG.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
-                GBG.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tup,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tdown,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(moDestra,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(moSinistra,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(moSopra,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(moSotto,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(Tdese,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tcancellation,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tfinish,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Tmainmenu,GBG.getWidth() * 0.20);
-                GBG.setLeftAnchor(Selezionare,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
-                GBG.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tup,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tdown,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(moDestra,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSinistra,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSopra,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSotto,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(Tdese,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tcancellation,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tfinish,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tmainmenu,GBG.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Selezionare,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
 
                 //schermi
                 Sbackgraound.setPrefWidth(GBG.getWidth()/4);
@@ -886,7 +925,6 @@ public class SettingsView {
                 }
         }
         public void initialize() {
-
                  nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.cacellareMo, this.finitoT, this.opUscita};
 
                  //Video
@@ -934,6 +972,8 @@ public class SettingsView {
                 Ccornice.setValue(Color.web(logic.getBoardFrameColor(true)));
                 Cpunte.setValue(Color.web(logic.getEvenPointsColor(true)));
                 Cpunte2.setValue(Color.web(logic.getOddPointsColor(true)));
+                selectedPointColor = Color.web(logic.getSelectedPointColor(true));
+                selectedPointColorPicker.setValue(selectedPointColor);
 
                 //Oggetti
                 pedina1.setFill(Inpedina1.getValue());
@@ -982,7 +1022,8 @@ public class SettingsView {
                 GBG.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
                 openEditVideo();
-
+                selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);
+                regeneratePointAnimation();
 
         }
 

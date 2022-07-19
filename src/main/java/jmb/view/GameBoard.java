@@ -10,6 +10,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
@@ -130,23 +131,43 @@ public class GameBoard {
     protected void colorPoint (int index, Color color) {
         colorPoint(index, color, color);
     }
-
+    //La variabile index dei due colorPoint deve essere compresa tra 1 e 24
     protected void colorPoint(int index, Color colorFill, Color colorStroke) {
-        if (index<13) {
-            polArrayTop[index-1].setFill(colorFill);
-            polArrayTop[index-1].setStroke(colorStroke);
-        } else {
-            polArrayBot[24 - index].setFill(colorFill);
-            polArrayBot[24 - index].setStroke(colorStroke);
+        switch (index) {
+            default:
+                if (index<13) {
+                    polArrayTop[index-1].setFill(colorFill);
+                    polArrayTop[index-1].setStroke(colorStroke);
+                } else {
+                    polArrayBot[24 - index].setFill(colorFill);
+                    polArrayBot[24 - index].setStroke(colorStroke);
+                }
+                break;
+            case COL_WHITE_EXIT:
+                whiteExitRegion.setFill(colorFill);
+                break;
+            case COL_BLACK_EXIT:
+                blackExitRegion.setFill(colorFill);
         }
+
     }
     protected void restoreColorToPoint(int restoreIndex) {
         Color color;
-        if (restoreIndex % 2 == 1) {
-            color = Color.web(logic.getEvenPointsColor());
-        }
-        else {
-            color = Color.web(logic.getOddPointsColor());
+        switch (restoreIndex){
+            default:
+                if (restoreIndex % 2 == 1) {
+                    color = Color.web(logic.getEvenPointsColor());
+                }
+                else {
+                    color = Color.web(logic.getOddPointsColor());
+                }
+                break;
+            case COL_WHITE_EXIT:
+                color = Color.web(logic.getWhitePawnFill());
+                break;
+            case COL_BLACK_EXIT:
+                color = Color.web(logic.getBlackPawnFill());
+                break;
         }
         colorPoint(restoreIndex, color);
     }

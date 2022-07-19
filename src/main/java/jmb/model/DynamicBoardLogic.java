@@ -112,7 +112,6 @@ public class DynamicBoardLogic {
     }
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-
         dice.resetToBeUsed();
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
@@ -121,7 +120,7 @@ public class DynamicBoardLogic {
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
-            dice.setUsed();
+            dice.setDiceToUsed();
             view.setDiceContrast(whoCalled);
             //  Controlla se il giocatore di turno può far uscire le proprie
             //  pedine e aggiorna di conseguenza la variabile relativa
@@ -135,50 +134,103 @@ public class DynamicBoardLogic {
         }
         return possible;
     }
-    public boolean possibleMove(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC){
+    public boolean isPointUnlocked(int point) {
+        System.out.println((searchFirstFreeRow(point) == 0) + " punta libera");
 
-        boolean possible;
-
-        possible = (puntaInizC!=puntaFinC);
-
-        //  Si controlla che la mossa sia effettuata nel verso giusto
-        if (rightWay(puntaInizC, puntaInizR, puntaFinC) && possible) {
-
-            //  Se true, controlla se la mossa è volta a portare fuori la pedina
-            if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
-
-                //  Se la mossa non fa uscire dal gioco una pedina controlla che i dadi la permettano, poi che
-                //  la posizione di arrivo non sia bloccata per il giocatore di turno
-                if (dice.checkDice( abs(puntaFinC - puntaInizC))) {
-                    if (whiteTurn) {
-                        if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == BLACK) {
-                            //controlla che la posizione di arrivo non sia preclusa al bianco
-                            possible = false;
-                        }
-                    } else if (puntaFinR > 1 && squares[puntaFinR - 1][puntaFinC] == WHITE) {
-                        //controlla che la posizione di arrivo non sia preclusa al nero
-                        possible = false;
-                    }
-                } else possible = false;
-            }   //  Se la mossa fa uscire dal gioco la pedina controlla che al giocatore ciò sia permesso
-            else {
-                int delta = abs(puntaFinC - puntaInizC);
-                possible = delta <= 6 && checkExitMove(delta, puntaInizC);
-            }
-        } else possible = false;
-
-        return possible;
-
+        return searchFirstFreeRow(point)==0 || (squares[searchTopOccupiedRow(point)][point] == WHITE && isWhiteTurn());
     }
-
+    protected boolean checkDiceSimple (int delta) {
+        boolean out = false;
+        for (int i = 0; i<4 && !out; i++) {
+            if (!dice.getUsedArray()[i] && dice.getDiceValues()[i] == delta) {
+                out = true;
+                dice.setToBeUsed(i);
+            }
+        }
+        System.out.println("Dado libero che corrisponde a delta " + out);
+        return out;
+    }
+    protected boolean checkDiceSum (int pointFrom, int delta) {
+        boolean legal = false;
+        int sign;
+        if (isWhiteTurn())
+            sign = 1;
+        else sign = -1;
+        System.out.println("Direzione " + sign);
+        if (dice.getDoubleNum()) {
+            System.out.println("Tiro doppio");
+            int neededDice = 0;
+            legal = delta % dice.getDiceValue(0) == 0;
+            System.out.println(delta + " raggiungibile con dadi da " + dice.getDiceValue(0));
+            if (legal) {
+                legal = false;
+                for (int i = 0; i < 4 && !legal; i++) {
+                    if (!dice.getUsed(i))
+                        neededDice++;
+                    if (dice.getDiceValue(0) * neededDice == delta)
+                        legal = true;
+                }
+                System.out.println("Mossa realizzabile con " + neededDice + " dadi");
+                if (legal) {
+                    for (int i = 1; i <= neededDice; i++)
+                        if (!isPointUnlocked(pointFrom + (dice.getDiceValue(0)*i*sign))) {
+                            legal = false;
+                            System.out.println("La mossa intermedia numero " + i + " non è  realizzabile");
+                        }
+                }
+                if (legal)
+                    dice.setDoublesToBeUsed(neededDice);
+            }
+        } else {
+            System.out.println("Non tiro doppio");
+            if (!dice.getUsed(0) && !dice.getUsed(1) && delta == dice.getDiceValue(0) + dice.getDiceValue(1)) {
+                System.out.println("Dadi non usati e delta raggiungibile con somma");
+                legal = isPointUnlocked(pointFrom + dice.getDiceValue(0)*sign) ||
+                        isPointUnlocked(pointFrom + dice.getDiceValue(1)*sign);
+                if (legal) {
+                    dice.setToBeUsed(0);
+                    dice.setToBeUsed(1);
+                }
+                System.out.println("Almeno una mossa intermedia effettuabile "+ legal);
+            }
+        }
+        return legal;
+    }
+    public boolean possibleMove (int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
+        boolean possible = false;
+        for (int i = 0; i<4 && !possible; i++) {
+            if (!dice.getUsed(i))
+                possible = true;
+        }
+        System.out.println("Mossa da " + puntaInizC + " a "+ puntaFinC);
+        System.out.println("Ci soono dadi " + possible);
+        possible = possible && puntaInizC!=puntaFinC && rightWay(puntaInizC, puntaInizR, puntaFinC) &&
+                isPointUnlocked(puntaFinC);
+        System.out.println("Direzione giusta e punta libera" + true);
+        int delta = abs(puntaFinC - puntaInizC);
+        System.out.println("Delta " + delta);
+        if (possible) {
+            if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
+                System.out.println("Non è per uscire");
+                if(checkDiceSimple(delta)) {
+                    possible = true;
+                } else {
+                   possible = checkDiceSum(puntaInizC, delta);
+                }
+            }
+            else {
+                possible = delta <=6 && checkExitMove(delta, puntaInizC);
+            }
+        }
+        System.out.println("Mossa possibile " + possible);
+        return possible;
+    }
     private boolean checkExitMove(int delta, int puntaIniz) {
-
         boolean possible = dice.checkExitDiceSimple(delta);
         if (!possible) {
             if (checkIfFarthestPawn(puntaIniz))
                 possible = dice.checkExitDiceGreaterThan(delta);
         }
-
         return possible;
     }
 
@@ -229,12 +281,11 @@ public class DynamicBoardLogic {
         return whichRow;
     }
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
-        System.out.println(puntaInizC + "\n" + puntaInizR + "\n" + puntaFinC);
         boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
                 (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
         return right;
     }
-    protected boolean isPawnMovable (int col, int row) {
+    protected boolean isPawnMovable (int col, int row, boolean highlight) {
         boolean movable = false;
         int sign;
         int endCol;
@@ -243,8 +294,9 @@ public class DynamicBoardLogic {
         else sign = -1;
         for (int i = 0; i<4 && !movable; i++) {
             endCol = max (0, min(col + dice.getDiceValue(i) * sign, 25));
-            if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+            if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
                 movable = true;
+            }
         }
         endCol = max(0, min(25, col + (dice.getDiceValue(0) + dice.getDiceValue(1))*sign));
         if (!movable && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))

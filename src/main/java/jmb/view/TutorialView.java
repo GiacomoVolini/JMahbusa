@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -101,6 +102,9 @@ public class TutorialView extends DynamicGameBoard{
 
         textBox1.setOnMouseClicked(e ->logic.nextTutorialStage());
         textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
+        windowPane.setFocusTraversable(true);
+        windowPane.setOnKeyPressed(this::comandaLAtastiera);
+
 
 
 
@@ -180,7 +184,22 @@ public class TutorialView extends DynamicGameBoard{
 
     private void changeDimensions() {
         TutorialViewRedraw.resizeAll(this);
-
+        windowPane.requestFocus();
+    }
+    void comandaLAtastiera(KeyEvent event) {
+        String keyPressed = event.getCode().toString();
+        if (logic.getWhichTurn(whoCalled)) {
+            boolean pawnMoved = false;
+            System.out.println("RECEPISCO");
+            System.out.println(keyPressed.equals(logic.getSelect()) && selected);
+            System.out.println(keyPressed);
+            System.out.println(selected);
+            if (keyPressed.equals(logic.getSelect()) && selected)
+                pawnMoved = true;
+            super.comandaLAtastiera(event);
+            if (keyPressed.equals(logic.getSelect()) && pawnMoved)
+                logic.tutorialStageAction();
+        }
     }
 
     @FXML

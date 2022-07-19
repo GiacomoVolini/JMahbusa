@@ -163,7 +163,7 @@ public class GameView extends DynamicGameBoard {
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
-        if (logic.getWhichTurn()){
+        if (logic.getWhichTurn(whoCalled)){
             plWHTOutRect.setFill(Color.GREEN);
             plBLKOutRect.setFill(Color.RED);
         }else {
@@ -174,25 +174,10 @@ public class GameView extends DynamicGameBoard {
         s="";
         L="";
         i=0;
-        for (int i=0; i<polArrayTop.length;i++){
-            if((i%2)==0){
-                this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
-                this.polArrayTop[i].setStroke(Color.web(logic.getEvenPointsColor()));
-            }else{
-                this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
-                this.polArrayTop[i].setStroke(Color.web(logic.getOddPointsColor()));
-            }
+        if (selectedIndex!=UNDEFINED) {
+            restoreColorToPoint(selectedIndex);
+            selectedIndex = UNDEFINED;
         }
-        for (int i=0; i<polArrayTop.length;i++){
-            if((i%2)==0){
-                this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
-                this.polArrayBot[i].setStroke(Color.web(logic.getOddPointsColor()));
-            }else{
-                this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
-                this.polArrayBot[i].setStroke(Color.web(logic.getEvenPointsColor()));
-            }
-        }
-
     }
 
     @FXML
@@ -301,7 +286,6 @@ public class GameView extends DynamicGameBoard {
         } else {
             window.requestFocus();
         }
-        System.out.println(window.getScene().getFocusOwner() + "FHJHJFHSJ");
     }
 
 
@@ -319,7 +303,7 @@ public class GameView extends DynamicGameBoard {
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }
-        if (logic.getWhichTurn()){
+        if (logic.getWhichTurn(whoCalled)){
             plWHTOutRect.setFill(Color.GREEN);
             plBLKOutRect.setFill(Color.RED);
         }else {
@@ -505,228 +489,21 @@ public class GameView extends DynamicGameBoard {
     String s="";
     String L="";
     String selez="";
-    boolean selected = false;
-    int col;
 
-    //seleziona l'arrey
-    private int trovaColonna(){
-        int col = 1;
-        for (int i = 0; i < 12; i++) {
-            if (polArrayTop[i].getFill().equals(Paint.valueOf("#fffb00"))) {
-                col = i + 1;
-            } else if (polArrayBot[i].getFill().equals(Paint.valueOf("#fffb00"))) {
-                col = (24-i);
-            }
-        }
-        return col;
-    }
-
-
-    @FXML
-    void comandaLAtastiera(KeyEvent event) {
-        if(event.getCode().toString().equals(logic.getOpenMenu())){
+    void comandaLAtastiera (KeyEvent event){
+        String keyPressed = event.getCode().toString();
+        super.comandaLAtastiera(event);
+        if(keyPressed.equals(logic.getOpenMenu())){
             openExitoption();
         }
-        if(event.getCode().toString().equals(logic.getFinishTurn())){
+        else if(keyPressed.equals(logic.getFinishTurn())){
             nextTurn(null);
         }
-            //spostamenti per il bianco
-         //****************************************************** bianco destra
-        if(event.getCode().toString().equals(logic.getMoveRight()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && !s.equals(logic.getMoveDown()) && i>=0 && i <= 11){
-            if(L.equals(logic.getMoveLeft()) && i<10){
-                L=logic.getMoveRight();
-                i+=2;
-            } else if(L.equals(logic.getMoveLeft()) && i==10){
-                L=logic.getMoveLeft();
-                i=0;
-            }
-            polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
-            for(int j=0; j<12;j++){
-                if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
-                    if ((j)%2 == 0){
-                        polArrayTop[j].setFill(Color.web(logic.getEvenPointsColor()));
-                    }else {
-                        polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
-                    }
-                }
-            }
-            i++;
-            L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals(logic.getMoveDown()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
-            i=1;
-            polArrayTop[0].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
-        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
-            i=2;
-            polArrayTop[1].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[0].setFill(Color.web(logic.getEvenPointsColor()));
-            L=logic.getMoveRight();
+        else if (keyPressed.equals(logic.getRevertMove())) {
+            revertMove();
         }
-
-        // BIANCO sinistra
-        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp())) && i>=0 && i <= 11){
-            if(L.equals(logic.getMoveRight()) && i>1){
-                L=logic.getMoveLeft();
-                i-=2;
-            } else if(L.equals(logic.getMoveRight()) && i==1){
-                L=logic.getMoveLeft();
-                i=11;
-            }
-            polArrayTop[i].setFill(Paint.valueOf("#fffb00"));
-            for(int j=0; j<12;j++){
-                if(polArrayTop[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
-                    if ((j)%2 == 0){
-                        polArrayTop[j].setFill(Color.web(logic.getEvenPointsColor()));
-                    }else {
-                        polArrayTop[j].setFill(Color.web(logic.getOddPointsColor()));
-                    }
-                }
-            }
-            i--;
-            L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))) {
-            i=10;
-            polArrayTop[11].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[0].setFill(Color.web(logic.getEvenPointsColor()));
-        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
-            i=9;
-            polArrayTop[10].setFill(Paint.valueOf("#fffb00"));
-            polArrayTop[11].setFill(Color.web(logic.getOddPointsColor()));
-            L=logic.getMoveLeft();
-        }
-
-        // da sopra a sotto
-        if(event.getCode().toString().equals(logic.getMoveDown()) && (logic.getWhichTurn() || s.equals(logic.getMoveUp()))){
-            s =logic.getMoveDown();
-            if(L.equals(logic.getMoveRight())){
-                polArrayBot[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals(logic.getMoveLeft())){
-                polArrayBot[i+1].setFill(Paint.valueOf("#fffb00"));
-            }
-            for (int i=0; i<polArrayTop.length;i++){
-                if((i%2)==0){
-                    this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
-                }else{
-                    this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
-                }
-            }
-        }
-
-        // da sotto a sopra
-        if(event.getCode().toString().equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
-            s =logic.getMoveUp();
-            if(L.equals(logic.getMoveRight())){
-                polArrayTop[i-1].setFill(Paint.valueOf("#fffb00"));
-            }else if(L.equals(logic.getMoveLeft())){
-                polArrayTop[i+1].setFill(Paint.valueOf("#fffb00"));
-            }
-            for (int i=0; i<polArrayTop.length;i++){
-                if((i%2)==0){
-                    this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
-                }else{
-                    this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
-                }
-            }
-        }
-
-            //spostamento per il nero
-        //******************************************************* nero destra
-        if(event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown())) && i>=0 && i <= 11){
-            if(L.equals(logic.getMoveLeft()) && i<10){
-                L=logic.getMoveRight();
-                i+=2;
-            } else if(L.equals(logic.getMoveLeft()) && i==10){
-                L=logic.getMoveLeft();
-                i=0;
-            }
-            polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
-            for(int j=0; j<12;j++){
-                if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
-                    if ((j)%2 == 0){
-                        polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
-                    }else {
-                        polArrayBot[j].setFill(Color.web(logic.getEvenPointsColor()));
-                    }
-                }
-            }
-            i++;
-            L = event.getCode().toString();
-        } else if(i==12 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))) {
-            i=1;
-            polArrayBot[0].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[11].setFill(Color.web(logic.getEvenPointsColor()));
-        } else if( i==-1 && event.getCode().toString().equals(logic.getMoveRight()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
-            i=2;
-            polArrayBot[1].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
-            L=logic.getMoveRight();
-        }
-
-        // nero sinistra
-        if(event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown())) && i>=0 && i <= 11){
-            if(L.equals(logic.getMoveRight()) && i>1){
-                L=logic.getMoveLeft();
-                i-=2;
-            } else if(L.equals(logic.getMoveRight()) && i==1){
-                L=logic.getMoveLeft();
-                i=11;
-            }
-            polArrayBot[i].setFill(Paint.valueOf("#fffb00"));
-            for(int j=0; j<12;j++){
-                if(polArrayBot[j].getFill().equals(Paint.valueOf("#fffb00")) && j!=i){
-                    if ((j)%2 == 0){
-                        polArrayBot[j].setFill(Color.web(logic.getOddPointsColor()));
-                    }else {
-                        polArrayBot[j].setFill(Color.web(logic.getEvenPointsColor()));
-                    }
-                }
-            }
-            i--;
-            L = event.getCode().toString();
-        } else if( i<=-1 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))) {
-           i=10;
-           polArrayBot[11].setFill(Paint.valueOf("#fffb00"));
-           polArrayBot[0].setFill(Color.web(logic.getOddPointsColor()));
-        } else if( i==12 && event.getCode().toString().equals(logic.getMoveLeft()) && !s.equals(logic.getMoveUp()) && (!logic.getWhichTurn() || s.equals(logic.getMoveDown()))){
-            i=9;
-            polArrayBot[10].setFill(Paint.valueOf("#fffb00"));
-            polArrayBot[11].setFill(Color.web(logic.getEvenPointsColor()));
-            L=logic.getMoveLeft();
-        }
-
-        //SELEZIONARE LA PEDINA
-
-        if(event.getCode().toString().equals(logic.getSelect()) && !selected){
-            col = trovaColonna();
-            System.out.println(logic.searchTopOccupiedRow(whoCalled, col));
-            System.out.println(col);
-            if(logic.searchTopOccupiedRow(whoCalled, col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE && logic.getWhichTurn()){
-                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
-                selected = true;
-            }else if(logic.searchTopOccupiedRow(whoCalled, col)!=-1 && logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==BLACK && !logic.getWhichTurn()){
-                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
-                selected = true;
-            }
-            logic.createMoveBuffer(col, whoCalled);
-            GameViewRedraw.redrawPawns(this);
-
-
-        }
-
-        // confermare e muovere la pedina
-        if(event.getCode().toString().equals(logic.getConfirm()) && selected){
-            int col2 = trovaColonna();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
-            logic.placePawnOnPoint(col2, whoCalled);
-            GameViewRedraw.redrawPawns(this);
-            selected = false;
-        }
-        System.out.println(event.getCode().toString() + i + col);
-        System.out.println(event.getCode().toString() + logic.getSelect());
-        System.out.println(event.getCode().toString().equals(logic.getSelect()));
-        System.out.println("selected = " + selected);
-
     }
+
 
 
     //--------------------------------------------
@@ -755,6 +532,7 @@ public class GameView extends DynamicGameBoard {
             this.boardAnchor = window;
             addChildrenToAnchor();
             window.setFocusTraversable(true);
+            window.setOnKeyPressed(this::comandaLAtastiera);
             //backBTN.setFocusTraversable(false);
             //finishBTN.setFocusTraversable(false);
             //menuBTN.setFocusTraversable(false);

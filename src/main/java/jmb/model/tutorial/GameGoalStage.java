@@ -12,6 +12,7 @@ public class GameGoalStage extends ComparableTutorialStage{
     }
 
     public void start() {
+        logic.setWhiteTurn(whoCalled, false);
         view.tutorialPointAnimation(false);
         logic.setWhiteExit(whoCalled,true);
         logic.setBlackExit(whoCalled,true);

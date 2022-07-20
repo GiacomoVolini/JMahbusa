@@ -363,8 +363,9 @@ public class DynamicGameBoard extends GameBoard{
                 colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
             }
         }
-        else if (keyPressed.equals(logic.getSelect()) && !selected){
+        else if (keyPressed.equals(logic.getSelect()) && selectedIndex!= UNDEFINED && !selected){
             col = trovaColonna();
+            System.out.println(col);
             if(logic.searchTopOccupiedRow(whoCalled, col)!=UNDEFINED &&
                     (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE)
                             == logic.getWhichTurn(whoCalled)) {

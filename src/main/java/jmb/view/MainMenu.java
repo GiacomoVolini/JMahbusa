@@ -84,10 +84,15 @@ public class MainMenu {
     private Path tutorialPath;
     private static Image engBandiera;
     private static Image itaBandiera;
-    /*muscia
-    String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\menuMusicLocation.mp3").toURI().toString();
-    MediaPlayer menuMusic = new MediaPlayer( new Media(uriString));
-*/
+    private static final String MAIN_MENU_KEY = "newGame";
+    private static final String LOAD_KEY = "loadGame";
+    private static final String LEADERBOARD_KEY = "leaderboards";
+    private static final String SETTINGS_KEY = "settings";
+    private static final String EXIT_KEY = "exitGame";
+    private static final String TUTORIAL_NEVER_PLAYED_KEY = "tutorialNeverPlayed";
+    private static final String YES_KEY = "yes";
+    private static final String NO_KEY = "no";
+
     //image per le lingue
     static {
         try{
@@ -107,13 +112,10 @@ public class MainMenu {
     void newGameAction()  throws IOException {
         if(!Files.exists(tutorialPath)) {
             Ttutorial.setVisible(true);
-            Ttutorial.setDisable(false);
             Ptutorial.setVisible(true);
-            Ptutorial.setDisable(false);
             notutorial.setVisible(true);
-            notutorial.setDisable(false);
             tutorialButton2.setVisible(true);
-            tutorialButton2.setDisable(false);
+            loadStrings();
         }else {
             App.changeRoot(LOG_IN);
             View.sceneLogIn.changeDimensions();
@@ -145,7 +147,6 @@ public class MainMenu {
 
     @FXML
     void openMenuImpostazioni()  throws IOException {
-
         App.changeRoot(SETTINGS);
         View.sceneImpostazioni.applyButton.setDisable(true);
         View.sceneImpostazioni.changeDimensions();
@@ -167,13 +168,23 @@ public class MainMenu {
         //logic.setUpNewGame();
     }
 
+    private void loadStrings() {
+        NewGame.setText(logic.getString(MAIN_MENU_KEY));
+        LoadGame.setText(logic.getString(LOAD_KEY));
+        Settings.setText(logic.getString(SETTINGS_KEY));
+        LDB.setText(logic.getString(LEADERBOARD_KEY));
+        Exit.setText(logic.getString(EXIT_KEY));
+        Ttutorial.setText(logic.getString(TUTORIAL_NEVER_PLAYED_KEY));
+        tutorialButton2.setText(logic.getString(YES_KEY));
+        notutorial.setText(logic.getString(NO_KEY));
+    }
 
     @FXML
     void linguaInglese(ActionEvent event) {
         imgPrencipale.setImage(engBandiera);
         logic.setLanguage("EN");
         logic.applySettingsChanges();
-        App.changeRoot(MAIN_MENU);
+        this.loadStrings();
     }
 
     @FXML
@@ -181,23 +192,36 @@ public class MainMenu {
         imgPrencipale.setImage(itaBandiera);
         logic.setLanguage("IT");
         logic.applySettingsChanges();
-        App.changeRoot(MAIN_MENU);
+        this.loadStrings();
+    }
+
+    private void setCorrectFlag() {
+        switch (logic.getLanguage()) {
+            case "IT":
+                imgPrencipale.setImage(itaBandiera);
+                break;
+            case "EN":
+                imgPrencipale.setImage(engBandiera);
+                break;
+        }
     }
 
         public void initialize() {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));
-        /*Image im1 = new Image("/jmb/view/background1.jpg");
-        Image im2 = new Image("/jmb/view/background2.jpg");
-        Image im3 = new Image("/jmb/view/background3.jpg");
-        Image im4 = new Image("/jmb/view/background4.jpg");
 
-         */
+            NewGame.setText(logic.getString(MAIN_MENU_KEY));
+            LoadGame.setText(logic.getString(LOAD_KEY));
+            Settings.setText(logic.getString(SETTINGS_KEY));
+            LDB.setText(logic.getString(LEADERBOARD_KEY));
+            Exit.setText(logic.getString(EXIT_KEY));
+
             Image im1 = new Image(this.getClass().getResource("background1.jpg").toURI().toString());
             Image im2 = new Image(this.getClass().getResource("background2.jpg").toURI().toString());
             Image im3 = new Image(this.getClass().getResource("background3.jpg").toURI().toString());
             Image im4 = new Image(this.getClass().getResource("background4.jpg").toURI().toString());
+            setCorrectFlag();
             //  BackGround.setImage(new Image("/jmb/view/background3.jpg"));
             BackGround1.setPreserveRatio(false);
             background2.setPreserveRatio(false);

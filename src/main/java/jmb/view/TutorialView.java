@@ -32,8 +32,6 @@ public class TutorialView extends DynamicGameBoard{
     protected double textBoxXFactor = 0.1;
     protected double textBoxYFactor = 0.2;
     @FXML
-    Button completeTutorialButton;
-    @FXML
     Label tutorialOverLabel;
     @FXML
     TitledPane tutorialOverPane;
@@ -53,6 +51,8 @@ public class TutorialView extends DynamicGameBoard{
     AnchorPane windowPane;
     @FXML
     Button mainMenuButton;
+    @FXML
+    Button newGameButton;
 
     private int pointAnimationIndex = 2;
     private int pointAnimationIndexIncrement = 1;
@@ -104,8 +104,10 @@ public class TutorialView extends DynamicGameBoard{
         textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
         windowPane.setFocusTraversable(true);
         windowPane.setOnKeyPressed(this::comandaLAtastiera);
-
-
+        tutorialOverLabel.setText(logic.getString("tutorialOver"));
+        mainMenuButton.setText(logic.getString("backToMenu"));
+        newGameButton.setText(logic.getString("newGame"));
+        tutorialOverPane.setText(logic.getString("congratulations"));
 
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA

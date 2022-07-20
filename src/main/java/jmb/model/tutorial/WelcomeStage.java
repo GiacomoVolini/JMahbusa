@@ -9,11 +9,11 @@ public class WelcomeStage extends ComparableTutorialStage{
         super();
         setStageIndex(0);
     }
-    private String stageString = "Benvenuto nel tutorial di JMahbusa!\nIl gioco si svolge su questo tabellone, diviso in 24 zone dette \"punte\"";
+    private String stageString = "tutorialWelcome";
 
     public void start() {
         logic.setWhiteTurn(whoCalled, false);
-        view.setNextTutorialString(stageString, true);
+        view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.1,0.2);
 
     }

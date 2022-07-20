@@ -11,7 +11,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
@@ -21,17 +20,17 @@
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
    <Button fx:id="backBTN" disable="true" focusTraversable="false" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="17.0" />
+         <Font size="16.0" />
       </font>
    </Button>
    <Button fx:id="finishBTN" alignment="CENTER" disable="true" focusTraversable="false" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="17.0" />
+         <Font size="16.0" />
       </font>
    </Button>
    <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
-         <Font name="Calibri Bold" size="17.0" />
+         <Font size="16.0" />
       </font>
    </Button>
      <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
@@ -43,7 +42,7 @@
                      <Font size="42.0" />
                   </font>
                </Button>
-               <Text layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?" textAlignment="CENTER" wrappingWidth="174.78125">
+               <Text fx:id="readyText" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?" textAlignment="CENTER" wrappingWidth="174.78125">
                   <font>
                      <Font size="32.0" />
                   </font>
@@ -71,7 +70,7 @@
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Text layoutX="58.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei sicuro che di voler uscire?" textAlignment="CENTER">
+               <Text fx:id="pauseText" layoutX="58.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei sicuro che di voler uscire?" textAlignment="CENTER">
                   <font>
                      <Font size="20.0" />
                   </font>
@@ -107,15 +106,24 @@
                      <Font size="16.0" />
                   </font>
                </Text>
-               <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome Salvataggio già presente" textFill="RED" visible="false" />
+               <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome salvataggio già presente" textFill="RED" visible="false" />
                <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" />
             </children>
          </AnchorPane>
       </content>
    </TitledPane>
-   <Text fx:id="LforBack" layoutX="1369.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="71.0" AnchorPane.rightAnchor="28.0" />
-   <Text fx:id="LforFinishTurn" layoutX="1370.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="71.0" AnchorPane.rightAnchor="28.0" />
-   <Text fx:id="LforMenu" layoutX="1369.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="71.0" AnchorPane.rightAnchor="28.0" />
+   <Text fx:id="LforBack" layoutX="1348.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+      <font>
+         <Font size="12.0" />
+      </font></Text>
+   <Text fx:id="LforFinishTurn" layoutX="1348.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+      <font>
+         <Font size="12.0" />
+      </font></Text>
+   <Text fx:id="LforMenu" layoutX="1348.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+      <font>
+         <Font size="12.0" />
+      </font></Text>
    <Text fx:id="TforRight" layoutX="555.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="62.13671874999994">
       <font>
          <Font size="15.0" />

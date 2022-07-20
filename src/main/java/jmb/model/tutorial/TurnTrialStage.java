@@ -4,8 +4,7 @@ import static jmb.model.Logic.logic;
 import static jmb.model.Logic.view;
 
 public class TurnTrialStage extends ComparableTutorialStage{
-    private String stageString = "Con questi risultati puoi giocare il tuo turno in due modi:\n\u2022Puoi muovere una pedina di 5 punte e una di 6.\n\u2022Puoi muovere una pedina della somma dei due dadi, ovvero 11 punte.\nProva!";
-
+    private String stageString = "turnTrialStage";
     public TurnTrialStage() {
         super();
         setStageIndex(4);
@@ -16,7 +15,7 @@ public class TurnTrialStage extends ComparableTutorialStage{
         view.tutorialDiceAnimation(false);
         logic.forceDice(whoCalled, 5, 6);
         view.callRedraw(whoCalled);
-        view.setNextTutorialString(stageString, true);
+        view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.4,0.55);
     }
     public void action() {

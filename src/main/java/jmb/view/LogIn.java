@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -81,6 +82,14 @@ public class LogIn {
 
     @FXML
     private Spinner<Integer> tournamentSpinner;
+    @FXML
+    private Text easyText;
+    @FXML
+    private Text mediumText;
+    @FXML
+    private Text hardText;
+    @FXML
+    private Text customText;
 
     private int whoCalled = GAME_CALLED;
 
@@ -108,15 +117,15 @@ public class LogIn {
                     errorLabel.setVisible(true);
                     break;
                 case EMPTY_NAMES_ERROR:
-                    errorLabel.setText("ERRORE: Almeno uno dei due nomi è vuoto");
+                    errorLabel.setText(logic.getString("errorEmptyName"));
                     errorLabel.setVisible(true);
                     break;
                 case NAME1_ALREADY_PRESENT:
-                    errorLabel.setText("ERRORE: " + scrivinomi1.getValue().stripTrailing() + "  è già presente nella lista");
+                    errorLabel.setText(logic.getString("error")+" " + scrivinomi1.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
                     errorLabel.setVisible(true);
                     break;
                 case NAME2_ALREADY_PRESENT:
-                    errorLabel.setText("ERRORE: " + scrivinomi2.getValue().stripTrailing() + " è già presente nella lista");
+                    errorLabel.setText(logic.getString("error")+" " + scrivinomi2.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
                     errorLabel.setVisible(true);
                     break;
             }
@@ -196,6 +205,24 @@ public class LogIn {
 
         tournamentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 10));
 
+        salvag.setText(logic.getString("confirm"));
+        uscita.setText(logic.getString("cancel"));
+        scrivinomi1.setPromptText(logic.getString("player") + " 1");
+        scrivinomi2.setPromptText(logic.getString("player") + " 2");
+        registrati.setText(logic.getString("playerNames"));
+        GT.setText(logic.getString("turnTimer"));
+        noT.setText(logic.getString("none"));
+        media.setText("2 " + logic.getString("minutes"));
+        defficile.setText("30 "+ logic.getString("seconds"));
+        oPt.setPromptText(logic.getString("seconds"));
+        easyText.setText(logic.getString("easy"));
+        mediumText.setText(logic.getString("medium"));
+        hardText.setText(logic.getString("hard"));
+        customText.setText(logic.getString("custom"));
+        tournamentPanel.setText(logic.getString("tournament"));
+        tournamentCheckBox.setText(logic.getString("activate"));
+        tournamentLabel.setText(logic.getString("target"));
+
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -220,8 +247,6 @@ public class LogIn {
         registrati.setLayoutY(regY);
         GT.setLayoutY(regY + regHeight);
         tournamentPanel.setLayoutY(regY + regHeight + gtHeight);
-
-
     }
 
 }

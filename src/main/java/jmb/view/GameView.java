@@ -135,6 +135,10 @@ public class GameView extends DynamicGameBoard {
 
     @FXML
     Text TforDese;
+    @FXML
+    Text readyText;
+    @FXML
+    Text pauseText;
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
@@ -382,8 +386,8 @@ public class GameView extends DynamicGameBoard {
         String label;
         boolean tournamentContinues = tournamentStatus == TOURNAMENT_CONTINUES;
         if (tournamentContinues)
-            label = "Continua torneo";
-        else label = "Torna al menu";
+            label = logic.getString("continueTournament");
+        else label = logic.getString("backToMenu");
         Button victoryExit = new Button(label);
         window.getChildren().add(victoryExit);
         if (tournamentContinues)
@@ -418,14 +422,15 @@ public class GameView extends DynamicGameBoard {
     private Label createVictoryLabel(String winner, boolean doubleWin, int tournamentStatus) {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
-        String victoryString = "Congratulazioni ";
+        victoryLabel.setWrapText(true);
+        String victoryString = logic.getString("congratulations") + " ";
         victoryString = victoryString.concat(winner.stripTrailing());
         if (tournamentStatus == TOURNAMENT_WON)
-            victoryString = victoryString.concat("!\nHai vinto il torneo!");
+            victoryString = victoryString.concat(logic.getString("tournamentWon"));
         else if (doubleWin)
-                victoryString = victoryString.concat("!\nHai ottenuto una vittoria doppia!");
+                victoryString = victoryString.concat(logic.getString("doubleVictory"));
             else
-                victoryString = victoryString.concat("!\nHai vinto la partita!");
+                victoryString = victoryString.concat(logic.getString("singleVictory"));
         victoryLabel.setText(victoryString);
         victoryLabel.setViewOrder(-15);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
@@ -491,7 +496,7 @@ public class GameView extends DynamicGameBoard {
         String keyPressed = event.getCode().toString();
         super.comandaLAtastiera(event);
         if(keyPressed.equals(logic.getOpenMenu())){
-            if (menuBTN.isDisabled())
+            if (!menuBTN.isDisabled())
                 openExitoption();
         }
         else if(keyPressed.equals(logic.getFinishTurn())){
@@ -528,11 +533,29 @@ public class GameView extends DynamicGameBoard {
             LforBack.setText(logic.getRevertMove());
             LforFinishTurn.setText(logic.getFinishTurn());
             LforMenu.setText(logic.getOpenMenu());
-            TforUp.setText("Sopra:\n" + logic.getMoveUp());
-            TforDown.setText("Sotto:\n" + logic.getMoveDown());
-            TforRight.setText("Destra:\n" + logic.getMoveRight());
-            TforLeft.setText("Sinistra:\n" +logic.getMoveLeft());
-            TforDese.setText("Selezionare:\n" + logic.getSelect());
+            TforUp.setText(logic.getString("moveUp")+"\n" + logic.getMoveUp());
+            TforDown.setText(logic.getString("moveDown")+"\n" + logic.getMoveDown());
+            TforRight.setText(logic.getString("moveRight")+"\n" + logic.getMoveRight());
+            TforLeft.setText(logic.getString("moveLeft")+"\n" +logic.getMoveLeft());
+            TforDese.setText(logic.getString("select")+"\n" + logic.getSelect());
+            backBTN.setText(logic.getString("revertMove").toUpperCase());
+            menuBTN.setText(logic.getString("menu").toUpperCase());
+            finishBTN.setText(logic.getString("finishTurn").toUpperCase());
+            startDialogue.setText(logic.getString("startTitle"));
+            readyText.setText(logic.getString("ready"));
+            startBTN.setText(logic.getString("yes").toUpperCase());
+            pauseMenu.setText(logic.getString("pause"));
+            pauseText.setText(logic.getString("pausePrompt"));
+            senzaSalvare.setText(logic.getString("exitNoSave"));
+            exitAndSave.setText(logic.getString("exitAndSave"));
+            annulla.setText(logic.getString("cancel"));
+            saveDialogue.setText(logic.getString("saveDialogueTitle"));
+            saveLabel.setText(logic.getString("saveName"));
+            errorLabel.setText(logic.getString("saveError"));
+            saveButton.setText(logic.getString("confirm"));
+            closeSaveButton.setText(logic.getString("cancel"));
+            saveTextField.setPromptText(logic.getString("savePrompt"));
+
 
 
             setWhoCalled(GAME_CALLED);
@@ -552,8 +575,8 @@ public class GameView extends DynamicGameBoard {
 
             GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
             GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
-            timerIn.setViewOrder(-3);
-            timerOut.setViewOrder(-2);
+            timerIn.setViewOrder(-2);
+            timerOut.setViewOrder(-1.999);
 
             //musica
             if (logic.getMuteMusic()) {

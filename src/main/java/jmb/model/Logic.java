@@ -640,6 +640,11 @@ public class Logic implements ILogic {
 
     @Override
     public String getLanguage() {return settings.getLanguage();}
+
+    @Override
+    public void setLanguage(String value) {
+        settings.setLanguage(value);
+    }
     @Override
     public void setFullScreen(boolean value) {
         settings.setFullScreen(value);

@@ -15,7 +15,6 @@ public class StringsReader {
     public StringsReader(String language) {
         try {
             String name = "STRINGS_"+language+".ini";
-            System.out.println(name);
             strings = new Ini(this.getClass().getResource(name));
         } catch (IOException ioe) {
             ioe.printStackTrace();

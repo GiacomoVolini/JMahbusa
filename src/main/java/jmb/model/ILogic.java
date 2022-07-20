@@ -140,6 +140,7 @@ public interface ILogic {
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
     String getLanguage();
+    void setLanguage(String value);
     void setFullScreen(boolean value);
     boolean getFullScreen();
     void setLockResolution (boolean value);

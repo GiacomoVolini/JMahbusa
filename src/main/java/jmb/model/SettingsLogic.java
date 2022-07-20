@@ -452,4 +452,7 @@ public class SettingsLogic {
     protected String getLanguage() {
         return language;
     }
+    protected void setLanguage(String value) {
+        this.language = value;
+    }
 }

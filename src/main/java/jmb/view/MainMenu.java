@@ -1,10 +1,12 @@
 package jmb.view;
 
 import javafx.animation.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -12,6 +14,7 @@ import javafx.util.Duration;
 //import javafx.scene.media.AudioClip;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -69,13 +72,31 @@ public class MainMenu {
     @FXML
     private Button notutorial;
 
-    private Path tutorialPath;
+    @FXML
+    private ImageView imgItaliana;
 
+    @FXML
+    private ImageView imgEnglish;
+
+    @FXML
+    private ImageView imgPrencipale;
+
+    private Path tutorialPath;
+    private static Image engBandiera;
+    private static Image itaBandiera;
     /*muscia
     String uriString = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\menuMusicLocation.mp3").toURI().toString();
     MediaPlayer menuMusic = new MediaPlayer( new Media(uriString));
 */
-
+    //image per le lingue
+    static {
+        try{
+            engBandiera = new Image(MainMenu.class.getResource("eng.jpg").toURI().toString());
+            itaBandiera = new Image(MainMenu.class.getResource("ita.jpg").toURI().toString());
+        }catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void closeButtonAction() {
@@ -146,7 +167,24 @@ public class MainMenu {
         //logic.setUpNewGame();
     }
 
-    public void initialize() {
+
+    @FXML
+    void linguaInglese(ActionEvent event) {
+        imgPrencipale.setImage(engBandiera);
+        logic.setLanguage("EN");
+        logic.applySettingsChanges();
+        App.changeRoot(MAIN_MENU);
+    }
+
+    @FXML
+    void linguaItaliana(ActionEvent event) {
+        imgPrencipale.setImage(itaBandiera);
+        logic.setLanguage("IT");
+        logic.applySettingsChanges();
+        App.changeRoot(MAIN_MENU);
+    }
+
+        public void initialize() {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));

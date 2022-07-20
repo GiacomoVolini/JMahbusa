@@ -519,6 +519,15 @@ public class Logic implements ILogic {
             - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
          */
     }
+    @Override
+    public boolean isParsable(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (final NumberFormatException e) {
+            return false;
+        }
+    }
 
     @Override
     public void resetDefaultSettings() {

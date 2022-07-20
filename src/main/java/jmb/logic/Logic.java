@@ -1,4 +1,4 @@
-package jmb.model;
+package jmb.logic;
 
 import javafx.scene.image.WritableImage;
 import jmb.view.IView;

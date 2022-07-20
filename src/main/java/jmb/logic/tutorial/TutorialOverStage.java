@@ -1,6 +1,6 @@
-package jmb.model.tutorial;
+package jmb.logic.tutorial;
 
-import static jmb.model.Logic.view;
+import static jmb.logic.Logic.view;
 
 public class TutorialOverStage extends ComparableTutorialStage{
     public TutorialOverStage() {

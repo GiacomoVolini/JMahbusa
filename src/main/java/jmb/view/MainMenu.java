@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -19,7 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import static jmb.ConstantsShared.*;
-import static jmb.model.Logic.logic;
+import static jmb.logic.Logic.logic;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.*;
 

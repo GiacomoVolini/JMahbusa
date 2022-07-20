@@ -1,8 +1,6 @@
-package jmb.model;
+package jmb.logic;
 
 import javafx.beans.property.*;
-
-import static jmb.model.ConstantsLogic.*;
 
 
 public class Player {

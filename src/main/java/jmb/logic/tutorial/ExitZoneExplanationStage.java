@@ -1,9 +1,9 @@
-package jmb.model.tutorial;
+package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.COL_BLACK;
 import static jmb.ConstantsShared.EMPTY;
-import static jmb.model.Logic.logic;
-import static jmb.model.Logic.view;
+import static jmb.logic.Logic.logic;
+import static jmb.logic.Logic.view;
 
 public class ExitZoneExplanationStage extends ComparableTutorialStage {
 

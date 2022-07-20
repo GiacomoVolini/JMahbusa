@@ -1,4 +1,4 @@
-package jmb.model;
+package jmb.logic;
 
 public final class ConstantsLogic {
 

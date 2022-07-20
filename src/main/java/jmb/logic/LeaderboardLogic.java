@@ -1,22 +1,17 @@
-package jmb.model;
+package jmb.logic;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.nio.file.Files.deleteIfExists;
 import static java.nio.file.StandardOpenOption.*;
 import static jmb.ConstantsShared.*;
 import static jmb.ConstantsShared.SUCCESS;
-import static jmb.model.Logic.logic;
+import static jmb.logic.Logic.logic;
 
 public class LeaderboardLogic {
 

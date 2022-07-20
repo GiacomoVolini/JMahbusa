@@ -5,12 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jmb.model.Logic;
 
 import java.io.IOException;
 
 import static jmb.view.View.logic;
-import static jmb.model.Logic.view;
+import static jmb.logic.Logic.view;
 import static jmb.view.ConstantsView.*;
 
 /**

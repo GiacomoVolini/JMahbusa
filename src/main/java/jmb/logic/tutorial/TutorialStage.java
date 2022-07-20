@@ -1,4 +1,4 @@
-package jmb.model.tutorial;
+package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.TUTORIAL_CALLED;
 

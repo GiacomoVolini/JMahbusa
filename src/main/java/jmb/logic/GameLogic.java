@@ -1,11 +1,10 @@
-package jmb.model;
+package jmb.logic;
 
 import java.util.ArrayDeque;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.model.ConstantsLogic.DESELECTED;
-import static jmb.model.Logic.view;
+import static jmb.logic.Logic.view;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco

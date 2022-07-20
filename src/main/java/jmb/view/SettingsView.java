@@ -913,8 +913,8 @@ public class SettingsView {
                 //schermi
                 Sbackgraound.setPrefWidth(GBG.getWidth()/4);
                 Timpostazioni.setPrefWidth(GBG.getWidth()/4);
-                Pavvertimento.setLayoutX(GBG.getWidth()/2 - Pavvertimento.getWidth()/2);
-                Pavvertimento.setLayoutY(GBG.getHeight()/2 -Pavvertimento.getHeight()/2);
+                Pavvertimento.setLayoutX(GBG.getWidth()/2 - 206);
+                Pavvertimento.setLayoutY(GBG.getHeight()/2 -103);
 
                 video.setLayoutX(GBG.getWidth()/4);
                 Tvideo.setLayoutX(GBG.getWidth()/4);

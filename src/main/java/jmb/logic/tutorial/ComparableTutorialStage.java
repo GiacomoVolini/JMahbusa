@@ -1,4 +1,4 @@
-package jmb.model.tutorial;
+package jmb.logic.tutorial;
 
 public abstract class ComparableTutorialStage implements TutorialStage, Comparable<ComparableTutorialStage>{
 

@@ -1,4 +1,4 @@
-package jmb.model;
+package jmb.logic;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -9,7 +9,7 @@ import java.nio.file.Path;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.ConstantsShared.*;
-import static jmb.model.Logic.logic;
+import static jmb.logic.Logic.logic;
 
 public class SettingsLogic {
 

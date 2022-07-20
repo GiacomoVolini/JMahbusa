@@ -578,6 +578,7 @@ public class SettingsView {
                 Ctavolo.setDisable(true);
                 Cpunte.setDisable(true);
                 Cpunte2.setDisable(true);
+                selectedPointColorPicker.setDisable(true);
                 Ccornice.setDisable(true);
                 if (logic.getBoardPreset()!=LEFT_PRESET)
                         applyButton.setDisable(false);
@@ -588,6 +589,7 @@ public class SettingsView {
                 Ctavolo.setDisable(false);
                 Cpunte.setDisable(false);
                 Cpunte2.setDisable(false);
+                selectedPointColorPicker.setDisable(false);
                 Ccornice.setDisable(false);
                 if (logic.getBoardPreset()!=CUSTOM_BOARD)
                         applyButton.setDisable(false);
@@ -598,6 +600,7 @@ public class SettingsView {
                 Ctavolo.setDisable(true);
                 Cpunte.setDisable(true);
                 Cpunte2.setDisable(true);
+                selectedPointColorPicker.setDisable(true);
                 Ccornice.setDisable(true);
                 if (logic.getBoardPreset()!=RIGHT_PRESET)
                         applyButton.setDisable(false);
@@ -677,18 +680,9 @@ public class SettingsView {
                 return in.length() == 1 ? "0" + in : in;
         }
 
-        public static boolean isParsable(String input) {
-                try {
-                        Integer.parseInt(input);
-                        return true;
-                } catch (final NumberFormatException e) {
-                        return false;
-                }
-        }
-
         @FXML
         void cambiaRisoluzione(KeyEvent event) {
-                if(isParsable(fLarghezza.getText()) && isParsable(fAltezza.getText())) {
+                if(logic.isParsable(fLarghezza.getText()) && logic.isParsable(fAltezza.getText())) {
                         logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
                         logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
                         applyButton.setDisable(false);
@@ -774,6 +768,7 @@ public class SettingsView {
                                 Ctavolo.setDisable(false);
                                 Cpunte.setDisable(false);
                                 Cpunte2.setDisable(false);
+                                selectedPointColorPicker.setDisable(false);
                                 Ccornice.setDisable(false);
                                 break;
                         case LEFT_PRESET:
@@ -914,6 +909,8 @@ public class SettingsView {
                 //schermi
                 Sbackgraound.setPrefWidth(GBG.getWidth()/4);
                 Timpostazioni.setPrefWidth(GBG.getWidth()/4);
+                Pavvertimento.setLayoutX(GBG.getWidth()/2 - Pavvertimento.getWidth()/2);
+                Pavvertimento.setLayoutY(GBG.getHeight()/2 -Pavvertimento.getHeight()/2);
 
                 video.setLayoutX(GBG.getWidth()/4);
                 Tvideo.setLayoutX(GBG.getWidth()/4);
@@ -969,6 +966,7 @@ public class SettingsView {
                                 Ctavolo.setDisable(false);
                                 Cpunte.setDisable(false);
                                 Cpunte2.setDisable(false);
+                                selectedPointColorPicker.setDisable(false);
                                 Ccornice.setDisable(false);
                                 break;
                         case LEFT_PRESET:
@@ -976,6 +974,7 @@ public class SettingsView {
                                 Ctavolo.setDisable(true);
                                 Cpunte.setDisable(true);
                                 Cpunte2.setDisable(true);
+                                selectedPointColorPicker.setDisable(true);
                                 Ccornice.setDisable(true);
                                 break;
                         case RIGHT_PRESET:
@@ -983,6 +982,7 @@ public class SettingsView {
                                 Ctavolo.setDisable(true);
                                 Cpunte.setDisable(true);
                                 Cpunte2.setDisable(true);
+                                selectedPointColorPicker.setDisable(true);
                                 Ccornice.setDisable(true);
                                 break;
                 }

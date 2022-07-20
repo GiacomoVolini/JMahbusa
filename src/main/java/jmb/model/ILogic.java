@@ -202,6 +202,8 @@ public interface ILogic {
     void setOpenMenu (String value);
     String getOpenMenu ();
     boolean getBypassDice ();
+    boolean isParsable(String input);
+
 
     //_________________________
 

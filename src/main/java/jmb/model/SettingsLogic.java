@@ -176,6 +176,7 @@ public class SettingsLogic {
     protected void applySettingsChanges() {
         try {
             saveSettingsTo(currentPath);
+            logic.initializeStringsReader();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

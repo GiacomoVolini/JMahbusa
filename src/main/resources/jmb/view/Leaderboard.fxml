@@ -10,19 +10,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
    <children>
-      <Label alignment="CENTER" focusTraversable="false" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Classifica" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="lTesto" alignment="CENTER" focusTraversable="false" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Leaderboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
       <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="486.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
         <columns>
-          <TableColumn fx:id="name" prefWidth="133.0" text="NOME" />
-          <TableColumn fx:id="victories" minWidth="0.0" prefWidth="122.0" sortType="DESCENDING" text="Vittorie" />
-            <TableColumn fx:id="defeats" minWidth="0.0" prefWidth="112.0" sortType="DESCENDING" text="Sconfitte" />
-            <TableColumn fx:id="rate" minWidth="0.0" prefWidth="117.0" sortType="DESCENDING" text="Tasso vittorie" />
+          <TableColumn fx:id="name" prefWidth="133.0" text="Name" />
+          <TableColumn fx:id="victories" minWidth="0.0" prefWidth="122.0" sortType="DESCENDING" text="Victories" />
+            <TableColumn fx:id="defeats" minWidth="0.0" prefWidth="112.0" sortType="DESCENDING" text="Defeats" />
+            <TableColumn fx:id="rate" minWidth="0.0" prefWidth="117.0" sortType="DESCENDING" text="Winrate" />
         </columns>
       </TableView>
       <AnchorPane fx:id="smallAncor" layoutX="476.0" layoutY="119.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

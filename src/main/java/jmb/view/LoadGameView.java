@@ -64,8 +64,15 @@ public class LoadGameView extends GameBoard {
     protected final double SEPARATOR_RATIO = 0.2625;
     protected int[][] saveMatrix;
 
+    private void loadStrings() {
+        savesTitlePane.setText(logic.getString("Savedgames"));
+        mainMenuButton.setText(logic.getString("MainMenu"));
+        deleteSaveButton.setText(logic.getString("Delete"));
+        loadSaveButton.setText(logic.getString("Load"));
+    }
 
     public void initialize() {
+
         this.boardAnchor = saveDetailAnchor;
         addChildrenToAnchor();
 
@@ -79,6 +86,8 @@ public class LoadGameView extends GameBoard {
         window.lookupAll(".split-pane-divider").stream()
                 .forEach(div ->  div.setMouseTransparent(true) );
 
+        //languages
+        loadStrings();
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -128,7 +137,7 @@ public class LoadGameView extends GameBoard {
             timerLabel.setText(saveData[TIME]);
             changeDimensions();
         }
-
+        loadStrings();
     }
 
     protected void renderNoSelection() {

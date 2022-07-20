@@ -173,7 +173,7 @@ public class MainMenu {
         imgPrencipale.setImage(engBandiera);
         logic.setLanguage("EN");
         logic.applySettingsChanges();
-        App.changeRoot(MAIN_MENU);
+        this.initialize();
     }
 
     @FXML
@@ -181,7 +181,7 @@ public class MainMenu {
         imgPrencipale.setImage(itaBandiera);
         logic.setLanguage("IT");
         logic.applySettingsChanges();
-        App.changeRoot(MAIN_MENU);
+        this.initialize();
     }
 
         public void initialize() {

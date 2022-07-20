@@ -3,10 +3,7 @@ package jmb.view;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +20,9 @@ public class LeaderboardView {
 
     @FXML
     private AnchorPane Window;
+
+    @FXML
+    private Label lTesto;
 
     @FXML
     private AnchorPane smallAncor;
@@ -98,6 +98,15 @@ public class LeaderboardView {
         victories.setCellValueFactory(new PropertyValueFactory<Player,Integer>("wins"));
         defeats.setCellValueFactory(new PropertyValueFactory<Player, Integer>("losses"));
         rate.setCellValueFactory(new PropertyValueFactory<Player, Double>("winRate"));
+
+        //Languages
+        lTesto.setText(logic.getString("leaderboard"));
+        name.setText(logic.getString("Name"));
+        victories.setText(logic.getString("Victories"));
+        defeats.setText(logic.getString("Defeats"));
+        rate.setText(logic.getString("Winrate"));
+        cerca.setPromptText(logic.getString("Search"));
+        uscita.setText(logic.getString("Exit"));
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         Window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

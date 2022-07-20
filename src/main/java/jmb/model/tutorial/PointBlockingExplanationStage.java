@@ -8,9 +8,8 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
 
     private int to;
     private String stringToPass;
-    private String stageStringFirstPart ="Accidenti! L'avversario ha bloccato la tua pedina nella punta";
-    private String stageStringLastPart = "! Questo significa che non potrai muoverla finché lui non toglierà la sua, mentre lui è libero di impilarne quante vuole.";
-
+    private String stageStringFirstPart ="pointBlockingStageFirst";
+    private String stageStringLastPart = "pointBlockingStageLast";
     public PointBlockingExplanationStage() {
         super();
         setStageIndex(6);
@@ -21,7 +20,7 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
         if (logic.getBoardMatrix(whoCalled)[0][12]==WHITE)
             stageStringMiddlePart = " 12";
         else stageStringMiddlePart = " 6";
-        stringToPass = stageStringFirstPart+stageStringMiddlePart+stageStringLastPart;
+        stringToPass = logic.getString(stageStringFirstPart)+stageStringMiddlePart+logic.getString(stageStringLastPart);
         view.setNextTutorialString(stringToPass, true);
         view.tutorialTextBoxAnimation(0.6,0.5);
         view.allowTextBoxMouseInput(false);

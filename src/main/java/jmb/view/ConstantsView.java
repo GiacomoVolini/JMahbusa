@@ -15,7 +15,7 @@ public class ConstantsView {
 
     public static final double MAX_BTN_WIDTH = 111;                     //  La larghezza massima del buttone "finish turn"
     public static final double MAX_BTN_HEIGHT = 80;                     //  L'altezza massima dei buttoni piccoli
-    public static final double BUTTON_ANCHOR = 10;                      //  Il valore dell'anchor per i tre pulsanti
+    public static final double BUTTON_ANCHOR = 8;                      //  Il valore dell'anchor per i tre pulsanti
 
     protected static final int UPPER_DICE = 0;
     protected static final int LOWER_DICE = 1;

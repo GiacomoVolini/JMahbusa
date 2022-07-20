@@ -43,10 +43,10 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
             };
-    private String initialString = "Ora vedremo i diversi modi per vincere una partita di JMahbusa.";
-    private String singleWinString = "Il modo più semplice per vincere è portar fuori tutte le proprie pedine prima dell'avversario.\nProva ora!";
-    private String afterSingleWinString = "Proprio così! In questo caso hai ottenuto una vittoria singola. Nel caso riesca a portare fuori tutte le tue pedine senza farne portare fuori nemmeno una all'avversario otterresti una vittoria doppia!";
-    private String doubleWinString = "Un altro modo per ottenere una vittoria doppia è quello di bloccare una pedina all'avversario nella sua punta di partenza. Prova!";
+    private String initialString = "victoryStageInitial";
+    private String singleWinString = "victoryStageBeforeSingle";
+    private String afterSingleWinString = "victoryStageAfterSingle";
+    private String doubleWinString = "victoryStageDouble";
 
     public VictoryConditionsStage(){
         super();
@@ -54,7 +54,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        view.setNextTutorialString(initialString, true);
+        view.setNextTutorialString(logic.getString(initialString), true);
         view.tutorialTextBoxAnimation(0.5, 0.4);
         view.waitForRecall(whoCalled, 3.0);
     }
@@ -75,19 +75,19 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
             case 1:
                 setBoardUp(startingMatrix, 19, 24);
                 view.restoreBoardColors(whoCalled);
-                view.setNextTutorialString(singleWinString, true);
+                view.setNextTutorialString(logic.getString(singleWinString), true);
                 view.tutorialTextBoxAnimation(0.5,0.45 );
                 break;
             case 2:
                 view.playSFX(SINGLE_WIN_SFX);
-                view.setNextTutorialString(afterSingleWinString, true);
+                view.setNextTutorialString(logic.getString(afterSingleWinString), true);
                 view.tutorialTextBoxAnimation(0.2,0.4 );
                 view.waitForRecall(whoCalled, 3.0);
                 break;
             case 3:
                 setBoardUp(doubleWinMatrix, 4, 10);
                 view.restoreBoardColors(whoCalled);
-                view.setNextTutorialString(doubleWinString, true);
+                view.setNextTutorialString(logic.getString(doubleWinString), true);
                 view.tutorialTextBoxAnimation(0.55,0.57 );
                 break;
             case 4:

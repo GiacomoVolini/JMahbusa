@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import jmb.model.Player;
+import jmb.logic.Player;
 
 import java.io.IOException;
 import java.util.List;

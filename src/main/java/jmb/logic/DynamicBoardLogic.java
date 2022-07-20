@@ -1,12 +1,12 @@
-package jmb.model;
+package jmb.logic;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.ConstantsShared.COL_BLACK;
-import static jmb.model.ConstantsLogic.DESELECTED;
-import static jmb.model.ConstantsLogic.SELECTED;
-import static jmb.model.Logic.logic;
-import static jmb.model.Logic.view;
+import static jmb.logic.ConstantsLogic.DESELECTED;
+import static jmb.logic.ConstantsLogic.SELECTED;
+import static jmb.logic.Logic.logic;
+import static jmb.logic.Logic.view;
 
 public class DynamicBoardLogic {
 

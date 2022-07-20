@@ -1,11 +1,8 @@
-package jmb.model;
+package jmb.logic;
 
 import org.ini4j.Ini;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.Objects;
 
 public class StringsReader {
 

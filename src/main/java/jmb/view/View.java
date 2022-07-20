@@ -1,7 +1,7 @@
 package jmb.view;
 
 import javafx.scene.paint.Color;
-import jmb.model.ILogic;
+import jmb.logic.ILogic;
 import static jmb.ConstantsShared.*;
 
 public class View implements IView {

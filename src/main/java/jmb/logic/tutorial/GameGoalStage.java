@@ -1,6 +1,6 @@
-package jmb.model.tutorial;
+package jmb.logic.tutorial;
 
-import static jmb.model.Logic.*;
+import static jmb.logic.Logic.*;
 import static jmb.ConstantsShared.*;
 
 public class GameGoalStage extends ComparableTutorialStage{

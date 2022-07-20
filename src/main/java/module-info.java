@@ -10,6 +10,6 @@ module jMahbusa {
 
     opens jmb to javafx.graphics, javafx.fxml;
     opens jmb.view to javafx.graphics, javafx.fxml;
-    opens jmb.model to javafx.base;
+    opens jmb.logic to javafx.base;
 
 }

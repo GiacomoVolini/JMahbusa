@@ -1,9 +1,7 @@
 package jmb;
 
-import jmb.model.Logic;
+import jmb.logic.Logic;
 import jmb.view.View;
-
-import static jmb.model.Logic.ldb;
 
 public class Main {
 
@@ -12,7 +10,7 @@ public class Main {
         jmb.view.App.main(args);
     }
     private static void interfaceInstantiation() {
-        Logic.logic = new jmb.model.Logic();
+        Logic.logic = new jmb.logic.Logic();
         View.logic = Logic.logic;
         View.view = new jmb.view.View();
         Logic.view = View.view;

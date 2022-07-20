@@ -1,7 +1,6 @@
-package jmb.model;
+package jmb.logic;
 
-import jmb.model.tutorial.ComparableTutorialStage;
-import jmb.model.tutorial.TutorialStage;
+import jmb.logic.tutorial.ComparableTutorialStage;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -11,7 +10,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import static jmb.ConstantsShared.*;
-import static jmb.model.Logic.view;
 import static org.reflections.scanners.Scanners.*;
 
 public class TutorialLogic extends DynamicBoardLogic {

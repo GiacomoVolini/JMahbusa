@@ -1,9 +1,9 @@
-package jmb.model;
+package jmb.logic;
 
 import java.util.Random;
 
-import static jmb.model.Logic.settings;
-import static jmb.model.Logic.view;
+import static jmb.logic.Logic.settings;
+import static jmb.logic.Logic.view;
 
 /**
  * La classe DiceLogic modella e gestisce la logica dei dadi

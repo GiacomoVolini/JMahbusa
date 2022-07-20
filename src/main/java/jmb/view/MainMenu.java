@@ -204,6 +204,7 @@ public class MainMenu {
                 imgPrencipale.setImage(engBandiera);
                 break;
         }
+
     }
 
         public void initialize() {

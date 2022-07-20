@@ -308,6 +308,9 @@ public class SettingsView {
         private TitledPane Pavvertimento;
 
         @FXML
+        private Text Tattenzione;
+
+        @FXML
         private Button applyButton2;
 
         @FXML
@@ -347,6 +350,7 @@ public class SettingsView {
                 if(!applyButton.isDisable()){
                         Pavvertimento.setVisible(true);
                         Pavvertimento.setDisable(false);
+                        Sbackgraound.setDisable(true);
                 }else {
                         App.changeRoot(MAIN_MENU);
                 }
@@ -356,10 +360,12 @@ public class SettingsView {
         void chiudiAttenzioni(ActionEvent event) {
                 Pavvertimento.setVisible(false);
                 Pavvertimento.setDisable(true);
+                Sbackgraound.setDisable(false);
         }
 
         @FXML
         void tornaMainMenu(ActionEvent event) {
+                Sbackgraound.setDisable(false);
                 App.changeRoot(MAIN_MENU);
         }
 
@@ -612,9 +618,9 @@ public class SettingsView {
         void selezionata(MouseEvent event) {
                 TextField b = (TextField) event.getSource();
                 bindingBefore = b.getText();
-                b.setText("waiting...");
+                b.setText(logic.getString("Waiting"));
                 for(int i=0; i<8; i++){
-                        if(nomiDiPulsanti[i].getText().equals("waiting...")){
+                        if(nomiDiPulsanti[i].getText().equals(logic.getString("Waiting"))){
                                 nomiDiPulsanti[i].setDisable(false);
                                 IdiWaiting = i;
                         }else{
@@ -694,6 +700,7 @@ public class SettingsView {
         void applySettingsAndExit(ActionEvent event) {
                 applySettings(null);
                 applyButton.setDisable(true);
+                Sbackgraound.setDisable(false);
                 App.changeRoot(MAIN_MENU);
         }
 
@@ -946,6 +953,61 @@ public class SettingsView {
         }
         public void initialize() {
                  nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.cacellareMo, this.finitoT, this.opUscita};
+
+                 //languages
+                Timpostazioni.setText(logic.getString("Settings"));
+                //video lang...
+                Bvideo.setText(logic.getString("Video"));
+                Tvideo.setText(logic.getString("Video"));
+                tResolution.setText(logic.getString("Resolution"));
+                tLarghezza.setText(logic.getString("Length"));
+                tAltezza.setText(logic.getString("Height"));
+                checkSI.setText(logic.getString("Fullscreen"));
+                checkBR.setText(logic.getString("BlockResolution"));
+                //Audio lang...
+                Baudio.setText(logic.getString("Audio"));
+                Taudio.setText(logic.getString("Audio"));
+                Music.setText(logic.getString("Music"));
+                Esonori.setText(logic.getString("SoundEffects"));
+                checkMusi.setText(logic.getString("MuteMusic"));
+                checkMES.setText(logic.getString("MuteSoundEffects"));
+                //Personalizzazione lang...
+                Bpersonalizzazione.setText(logic.getString("Customization"));
+                Tpersonalizzazione.setText(logic.getString("Customization"));
+                Tpedgioc1.setText(logic.getString("Player1Pawns"));
+                Tpedgioc2.setText(logic.getString("Player2Pawns"));
+                Tint.setText(logic.getString("Internal"));
+                Tcont.setText(logic.getString("Outline"));
+                Ttav.setText(logic.getString("Table"));
+                Tpunt.setText(logic.getString("Points"));
+                Tcorn.setText(logic.getString("Frame"));
+                Imsinistra.setText(logic.getString("Preset"));
+                TM.setText(logic.getString("Custom"));
+                Imdestra.setText(logic.getString("Preset"));
+                //Comandi lang...
+                Bcomandi.setText(logic.getString("Commands"));
+                Tcomandi.setText(logic.getString("Commands"));
+                Tkeyboard.setText(logic.getString("Keyboard"));
+                Tmuov.setText(logic.getString("Move"));
+                Tright.setText(logic.getString("Right"));
+                Tleft.setText(logic.getString("Left"));
+                Tup.setText(logic.getString("Up"));
+                Tdown.setText(logic.getString("Down"));
+                Tdese.setText(logic.getString("Select"));
+                Tcancellation.setText(logic.getString("DeleteMove"));
+                Tfinish.setText(logic.getString("FinishTurn"));
+                Tmainmenu.setText(logic.getString("TmainMenu"));
+                //Attention page lang...
+                Pavvertimento.setText(logic.getString("Attention"));
+                Tattenzione.setText(logic.getString("AttentionText"));
+                applyButton2.setText(logic.getString("Save"));
+                nonsalvaBTN.setText(logic.getString("Don'tSave"));
+                annullareBTN.setText(logic.getString("Cancel"));
+                //BTN Prencipali
+                applyButton.setText(logic.getString("Apply"));
+                resetButton.setText(logic.getString("Reset"));
+                mainMenuButton.setText(logic.getString("MainMenu"));
+
 
                  //Video
                 checkSI.setSelected(logic.getFullScreen());

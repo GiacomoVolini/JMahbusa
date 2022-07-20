@@ -1,5 +1,6 @@
 package jmb.view;
 
+import javafx.scene.paint.Color;
 import jmb.model.ILogic;
 import static jmb.ConstantsShared.*;
 
@@ -185,10 +186,14 @@ public class View implements IView {
     @Override
     public void restoreBoardColors(int whoCalled) {
         switch (whoCalled) {
+            case GAME_CALLED:
+                for (int i = 0; i < 26; i++)
+                    sceneGame.restoreColorToPoint(i);
+                break;
             case TUTORIAL_CALLED:
-                for (int i = 0; i <26; i++) {
+                for (int i = 0; i <26; i++)
                     sceneTutorial.restoreColorToPoint(i);
-                }
+                break;
         }
     }
     @Override
@@ -230,6 +235,17 @@ public class View implements IView {
                 break;
             case TUTORIAL_CALLED:
                 sceneTutorial.closeDoubleDice();
+                break;
+        }
+    }
+    @Override
+    public void colorPoint (int whoCalled, int index, String colorFill, String colorStroke) {
+        switch (whoCalled) {
+            case GAME_CALLED:
+                sceneGame.colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
+                break;
+            case TUTORIAL_CALLED:
+                sceneTutorial.colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
                 break;
         }
     }

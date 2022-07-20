@@ -1,7 +1,6 @@
 package jmb.model;
 
 import org.ini4j.Ini;
-import org.ini4j.InvalidFileFormatException;
 import org.ini4j.Profile;
 
 import java.io.IOException;
@@ -62,6 +61,7 @@ public class SettingsLogic {
     private boolean bypassDice = false;
     private Path defaultsPath;
     private Path currentPath;
+    private String language = "IT";
 
 
     public SettingsLogic() {
@@ -72,18 +72,14 @@ public class SettingsLogic {
             defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));
             currentPath = Path.of (settingsDir.concat("/Current.ini"));
             if (Files.exists(defaultsPath)) {
-                System.out.println("Defaults esiste");
                 if (Files.exists(currentPath)) {
-                    System.out.println("Current esiste");
                     loadSettingsFrom(currentPath);
                 } else{
-                    System.out.println("Current non esiste");
                     loadSettingsFrom(defaultsPath);
                     Files.createFile(currentPath);
                     saveSettingsTo(currentPath);
                 }
             } else {
-                System.out.println("Defaults non esiste");
                 Files.createFile(defaultsPath);
                 Files.createFile(currentPath);
                 saveSettingsTo(defaultsPath);
@@ -97,6 +93,8 @@ public class SettingsLogic {
     //private void loadSettingsFrom(Ini ini) {
     private void loadSettingsFrom(Path path) throws IOException {
         Ini ini = new Ini(path.toFile());
+        Profile.Section general = ini.get("General");
+        this.language = general.get("language");
         Profile.Section video = ini.get("Video");
         this.fullScreen = video.get("fullScreen", boolean.class);
         this.lockResolution = video.get("lockResolution", boolean.class);
@@ -135,6 +133,7 @@ public class SettingsLogic {
     //private void saveSettingsTo (Ini ini) {
     private void saveSettingsTo(Path path) throws IOException {
         Ini ini = new Ini(path.toFile());
+        ini.put ("General", "language", language);
         ini.put ("Video", "fullScreen", fullScreen);
         ini.put ("Video", "lockResolution", lockResolution);
         ini.put ("Video", "resolutionWidth", resolutionWidth);
@@ -218,9 +217,7 @@ public class SettingsLogic {
         return this.resolutionWidth;
     }
     protected void setMusicVolume(int value) {
-        System.out.println(value + "SETTINGSLOGIC");
         this.musicVolume = max(0, min(100, value));
-        System.out.println(musicVolume + " COSA SALVA IN FILE");
     }
     protected int getMusicVolume() {
         return this.musicVolume;
@@ -451,5 +448,11 @@ public class SettingsLogic {
     }
     protected String getOddPointsRightPreset() {
         return ODD_POINTS_RIGHT_PRESET;
+    }
+    protected String getLanguage() {
+        return language;
+    }
+    protected void setLanguage(String value) {
+        this.language = value;
     }
 }

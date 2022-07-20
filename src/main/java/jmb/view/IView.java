@@ -45,5 +45,6 @@ public interface IView {
     void closeDoubleDice(int whoCalled);
     void setMusicVolume(double value);
     void setSFXVolume(double value);
+    void colorPoint(int whoCalled, int index, String colorFill, String colorStroke);
 
 }

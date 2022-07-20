@@ -5,7 +5,7 @@ import static jmb.ConstantsShared.*;
 
 public class GameGoalStage extends ComparableTutorialStage{
 
-    private String stageString = "L'obiettivo del gioco è di spostare tutte le proprie pedine nella propria zona di uscita, o \"portarle fuori\", come mostrato ora.";
+    private String stageString = "gameGoal";
     public GameGoalStage() {
         super();
         setStageIndex(2);
@@ -17,7 +17,7 @@ public class GameGoalStage extends ComparableTutorialStage{
         logic.setWhiteExit(whoCalled,true);
         logic.setBlackExit(whoCalled,true);
         view.tutorialExitZoneAnimation(true);
-        view.setNextTutorialString(stageString, true);
+        view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.6,0.3);
     }
 

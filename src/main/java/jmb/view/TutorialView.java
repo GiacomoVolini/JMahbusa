@@ -170,7 +170,6 @@ public class TutorialView extends DynamicGameBoard{
         });
     }
     protected void setNextTutorialString(String text, boolean changeTextBox) {
-        System.out.println(text);
         if ((textBox1ToOpen && changeTextBox) || (!textBox1ToOpen && !changeTextBox))
             textBoxLabel1.setText(text);
         else textBoxLabel2.setText(text);
@@ -190,10 +189,6 @@ public class TutorialView extends DynamicGameBoard{
         String keyPressed = event.getCode().toString();
         if (logic.getWhichTurn(whoCalled)) {
             boolean pawnMoved = false;
-            System.out.println("RECEPISCO");
-            System.out.println(keyPressed.equals(logic.getSelect()) && selected);
-            System.out.println(keyPressed);
-            System.out.println(selected);
             if (keyPressed.equals(logic.getSelect()) && selected)
                 pawnMoved = true;
             super.comandaLAtastiera(event);

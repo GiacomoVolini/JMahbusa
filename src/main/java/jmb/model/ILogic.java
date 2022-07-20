@@ -21,6 +21,7 @@ public interface ILogic {
 
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
+    void initializeStringsReader();
 
     int getBoardPlaceState (int whichPoint, int whichRow, int whoCalled);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
@@ -92,7 +93,7 @@ public interface ILogic {
 
     int searchTopOccupiedRow(int whoCalled, int col);
 
-    boolean isPawnMovable(int col, int row, int whoCalled);
+    boolean isPawnMovable(int col, int row,boolean highlight, int whoCalled);
 
     void deleteSaveFile(String fileName);
 
@@ -134,9 +135,12 @@ public interface ILogic {
     void setUpSavedBoard(int whoCalled, int[][]matrix);
     void moveOpensWhiteExit();
     void moveOpensBlackExit();
+    String getString(String key);
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
+    String getLanguage();
+    void setLanguage(String value);
     void setFullScreen(boolean value);
     boolean getFullScreen();
     void setLockResolution (boolean value);

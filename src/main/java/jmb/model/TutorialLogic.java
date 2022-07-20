@@ -83,11 +83,9 @@ public TutorialLogic() {
             Iterator<Class<?>> iterator = set.iterator();
             while (iterator.hasNext()) {
                 Class c = iterator.next();
-                System.out.println(c);
                 out.add((ComparableTutorialStage) c.getConstructor().newInstance());
             }
             Collections.sort(out);
-            System.out.println(out);
             return out;
     }
 

@@ -25,7 +25,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         redrawPawns(board, logic.getBoardMatrix(whoCalled));
     }
 
-    protected static void redrawPawns (GameBoard board, int[][] matrix) {
+    protected static void redrawPawns (DynamicGameBoard board, int[][] matrix) {
         int whitesPlaced = 0;
         int blacksPlaced = 0;
         for (int col = COL_BLACK_EXIT; col <= COL_WHITE_EXIT && (whitesPlaced < PAWNS_PER_PLAYER || blacksPlaced < PAWNS_PER_PLAYER); col++) {
@@ -51,11 +51,13 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
                         blacksPlaced++;
                         break;
                     case SELECTED_WHITE:
+                        logic.isPawnMovable(col, row, true, board.whoCalled);
                         board.pawnArrayWHT[whitesPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayWHT[whitesPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         whitesPlaced++;
                         break;
                     case SELECTED_BLACK:
+                        logic.isPawnMovable(col, row, true, board.whoCalled);
                         board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         blacksPlaced++;
@@ -71,7 +73,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row, whoCalled) && logic.isPawnMovable(col, row, whoCalled)) {
+        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row, whoCalled) && logic.isPawnMovable(col, row, false, whoCalled)) {
             pawnArray[pawnIndex].setViewOrder(-2.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
@@ -82,10 +84,6 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         }
     }
     public static void resizeDiceTray(DynamicGameBoard board) {
-        System.out.println("Sono dentro resizeDiceTray");
-        System.out.println("X " + board.outerRect.getLayoutX());
-        System.out.println("Y " + board.outerRect.getLayoutY());
-        System.out.println("WDT " + board.outerRect.getWidth());
         board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
         board.diceTray.setLayoutY(board.outerRect.getLayoutY());
         if (board.diceTrayOpen) {
@@ -109,19 +107,13 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         for (ImageView dice : board.diceArray) {
             dice.setLayoutX(diceX);
         }
-
-        System.out.println("UPPER DICE "+ (board.diceTray.getLayoutY() + board.diceTray.getHeight()*0.15));
-        System.out.println("UPPER DOUBLE DICE " + (board.diceArray[0].getLayoutY() + board.diceArray[0].getFitHeight()));
-        System.out.println("LOWER DOUBLE DICE " + (board.diceArray[1].getLayoutY() - board.diceArray[1].getFitHeight()));
-        System.out.println("LOWER DICE " + (board.diceTray.getLayoutY() + board.diceTray.getHeight() * 0.85 - board.diceArray[3].getFitHeight()));
-
         board.diceArray[UPPER_DICE].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight() * 0.15);
         board.diceArray[UPPER_DOUBLE_DICE].setLayoutY(board.diceArray[UPPER_DICE].getLayoutY() + board.diceArray[UPPER_DICE].getFitHeight());
         board.diceArray[LOWER_DICE].setLayoutY(board.diceTray.getLayoutY() + board.diceTray.getHeight() * 0.85 - board.diceArray[3].getFitHeight());
         board.diceArray[LOWER_DOUBLE_DICE].setLayoutY(board.diceArray[LOWER_DICE].getLayoutY() - board.diceArray[LOWER_DICE].getFitHeight());
 
     }
-    public static void resizeExitRegions(GameBoard board) {
+    public static void resizeExitRegions(DynamicGameBoard board) {
         if (logic.getBlackExit(whoCalled)) {
             board.blackExitRegion.setWidth(maxExitWidth);
             board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);

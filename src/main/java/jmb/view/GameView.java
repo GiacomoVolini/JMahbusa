@@ -18,6 +18,8 @@ import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
+import java.net.URISyntaxException;
+
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -29,6 +31,8 @@ public class GameView extends DynamicGameBoard {
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
     private static final double VERTICAL_RESIZE_FACTOR = 0.75;
+
+    private boolean wasBackBTNDisabled;
 
 
     @FXML
@@ -153,8 +157,8 @@ public class GameView extends DynamicGameBoard {
     protected void nextTurn (ActionEvent event) {
         if(logic.getTurnDuration() != 0) {
             turnTimer.stop();
-
         }
+        logic.completeMoves();
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
@@ -165,10 +169,6 @@ public class GameView extends DynamicGameBoard {
             plBLKOutRect.setFill(Color.GREEN);
             plWHTOutRect.setFill(Color.RED);
         }
-        //rimettere i colori
-        s="";
-        L="";
-        i=0;
         if (selectedIndex!=UNDEFINED) {
             restoreColorToPoint(selectedIndex);
             selectedIndex = UNDEFINED;
@@ -397,17 +397,22 @@ public class GameView extends DynamicGameBoard {
 
 
     private ImageView createCrownImage( boolean doubleWin) {
-        ImageView crown;
-        if (doubleWin) {
-            crown = new ImageView(new Image("/jmb/view/victory/crownDouble.png"));
-        } else {
-            crown = new ImageView(new Image("jmb/view/victory/crown.png"));
-        }
-        crown.setPreserveRatio(true);
-        crown.setViewOrder(-14);
-        window.getChildren().add(crown);
+        try {
+            ImageView crown;
+            if (doubleWin) {
+                crown = new ImageView(new Image(this.getClass().getResource("victory/crownDouble.png").toURI().toString()));
+            } else {
+                crown = new ImageView(new Image(this.getClass().getResource("victory/crown.png").toURI().toString()));
+            }
+            crown.setPreserveRatio(true);
+            crown.setViewOrder(-14);
+            window.getChildren().add(crown);
 
-        return crown;
+            return crown;
+        } catch (URISyntaxException use) {
+            use.printStackTrace();
+            return null;
+        }
     }
 
     private Label createVictoryLabel(String winner, boolean doubleWin, int tournamentStatus) {
@@ -422,7 +427,6 @@ public class GameView extends DynamicGameBoard {
             else
                 victoryString = victoryString.concat("!\nHai vinto la partita!");
         victoryLabel.setText(victoryString);
-        //victoryLabel.getStyleClass().add("victory-label");
         victoryLabel.setViewOrder(-15);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
 
@@ -433,11 +437,16 @@ public class GameView extends DynamicGameBoard {
     }
 
     private ImageView createTournamentRibbon() {
-        ImageView tournamentRibbon = new ImageView(new Image("/jmb/view/victory/tournamentRibbon.png"));
-        tournamentRibbon.setPreserveRatio(true);
-        tournamentRibbon.setViewOrder(-15);
-        window.getChildren().add(tournamentRibbon);
-        return tournamentRibbon;
+        try {
+            ImageView tournamentRibbon = new ImageView(new Image(this.getClass().getResource("victory/tournamentRibbon.png").toURI().toString()));
+            tournamentRibbon.setPreserveRatio(true);
+            tournamentRibbon.setViewOrder(-15);
+            window.getChildren().add(tournamentRibbon);
+            return tournamentRibbon;
+        } catch (URISyntaxException use) {
+            use.printStackTrace();
+            return null;
+        }
     }
 
     private void removeVictoryPanel() {
@@ -478,25 +487,32 @@ public class GameView extends DynamicGameBoard {
         timeline.play();
     }
 
-
-
-    int i=0;
-    String s="";
-    String L="";
-    String selez="";
-
     void comandaLAtastiera (KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.comandaLAtastiera(event);
         if(keyPressed.equals(logic.getOpenMenu())){
-            openExitoption();
+            if (menuBTN.isDisabled())
+                openExitoption();
         }
         else if(keyPressed.equals(logic.getFinishTurn())){
-            nextTurn(null);
+            if (!finishBTN.isDisabled())
+                nextTurn(null);
         }
         else if (keyPressed.equals(logic.getRevertMove())) {
-            revertMove();
+            if(!backBTN.isDisabled())
+                revertMove();
         }
+        else if (keyPressed.equals(logic.getSelect()))
+            if (selected) {
+                finishBTN.setDisable(true);
+                wasBackBTNDisabled = backBTN.isDisabled();
+                backBTN.setDisable(true);
+                menuBTN.setDisable(true);
+            } else {
+                finishBTN.setDisable(false);
+                backBTN.setDisable(wasBackBTNDisabled);
+                menuBTN.setDisable(false);
+            }
     }
 
 

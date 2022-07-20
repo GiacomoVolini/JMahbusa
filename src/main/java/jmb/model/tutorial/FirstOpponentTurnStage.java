@@ -6,8 +6,8 @@ import static jmb.model.Logic.logic;
 import static jmb.model.Logic.view;
 
 public class FirstOpponentTurnStage extends ComparableTutorialStage{
-    private String stageString = "Ora è il turno dell'avversario.";
-    private String stageStringAfterAction = "Ha ottenuto un risultato doppio! Quando ciò capita, è come se per quel turno il giocatore avesse quattro dadi di quel valore a sua disposizione!";
+    private String stageString = "beforeFirstOpponentTurn";
+    private String stageStringAfterAction = "afterFirstOpponentTurn";
 
     public FirstOpponentTurnStage() {
         super();
@@ -19,13 +19,13 @@ public class FirstOpponentTurnStage extends ComparableTutorialStage{
         view.tutorialDiceAnimation(true, 20);
         logic.forceDice(whoCalled, 6);
         view.callRedraw(whoCalled);
-        view.setNextTutorialString(stageString, true);
+        view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.1,0.4 );
     }
 
     public void action() {
         if (internalIndex == 0) {
-            view.setNextTutorialString(stageStringAfterAction,true);
+            view.setNextTutorialString(logic.getString(stageStringAfterAction),true);
             view.tutorialTextBoxAnimation(0.15,0.2 );
         }
         if (internalIndex < 5)

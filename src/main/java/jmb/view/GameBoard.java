@@ -151,24 +151,5 @@ public class GameBoard {
         }
 
     }
-    protected void restoreColorToPoint(int restoreIndex) {
-        Color color;
-        switch (restoreIndex){
-            default:
-                if (restoreIndex % 2 == 1) {
-                    color = Color.web(logic.getEvenPointsColor());
-                }
-                else {
-                    color = Color.web(logic.getOddPointsColor());
-                }
-                break;
-            case COL_WHITE_EXIT:
-                color = Color.web(logic.getWhitePawnFill());
-                break;
-            case COL_BLACK_EXIT:
-                color = Color.web(logic.getBlackPawnFill());
-                break;
-        }
-        colorPoint(restoreIndex, color);
-    }
+
 }

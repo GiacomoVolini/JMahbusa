@@ -165,7 +165,6 @@ public class GameBoardRedraw {
            pawnArray[pawnIndex].setLayoutX(board.blackExitRegion.getLayoutX() + ((row % 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
            pawnArray[pawnIndex].setLayoutY(board.blackExitRegion.getLayoutY() + ((row/3) * 2  + 1) * pawnArray[pawnIndex].getRadius());
        } else {
-           System.out.println(pawnIndex);
            pawnArray[pawnIndex].setLayoutX(board.whiteExitRegion.getLayoutX() + ((row % 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
            pawnArray[pawnIndex].setLayoutY(board.whiteExitRegion.getLayoutY() + board.whiteExitRegion.getHeight() - ((row / 3) * 2 + 1) * pawnArray[pawnIndex].getRadius());
        }

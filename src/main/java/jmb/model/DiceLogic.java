@@ -97,74 +97,15 @@ public class DiceLogic{
 
     }
 
-    protected boolean checkDice(int delta) {
-        //  Il metodo controlla se sia possibile effettuare muovere la pedina di un certo numero di punte
-        //      dato il risultato dei dadi.
-        //  Per prima cosa controlla se esiste un dado con il valore esatto di delta.
-        //  Nel caso contrario controlla se delta sia pari alla somma dei due dadi.
-        //  Se ciò non fosse controlla se il tiro è doppio e se il movimento è possibile con i quattro dadi
-        //      risultanti.
-
-        int maxDeltaPossible;
+    public int countAvailableDice() {
         int availableDice = 0;
-        boolean possible = false;
-
-        //  Si scorre l'array used per controllare quanti dadi non sono stati ancora usati, e si incrementa il
-        //      contatore dei dadi disponibili di conseguenza
         for (int i = 0; i<used.length; i++) {
             if (!used[i])
                 availableDice++;
         }
-
-        //  Se c'è almeno un dado disponibile si procede con i controlli, altrimenti la mossa non è possibile
-        if (availableDice!=0) {
-            maxDeltaPossible = availableDice * 6;
-            if (delta <= maxDeltaPossible) {
-                possible = checkMove(delta, availableDice);
-            }
-        }
-
-        if (settings.getBypassDice())
-            possible = true;
-
-        return possible;
-
+        return availableDice;
     }
 
-    private boolean checkMove(int delta, int availableDice) {
-
-        // Prima di tutto si controlla se esiste un dado non usato dal valore uguale a delta
-        boolean possible = false;
-        for (int i = 0; i < dice.length && !possible ; i++) {
-            if (dice[i] == delta && !used[i]) {
-                possible = true;
-                toBeUsed[i] = true;
-            }
-        }
-
-        // Nel caso in cui non sia possibile effettuare la mossa con un solo dado e ci siano almeno due dadi
-        //  disponibili si procede con dei controlli sulle somme di dadi
-        if (!possible && availableDice > 1) {
-            // Nel caso di un tiro doppio si controlla se il delta è ottenibile tramite somme dei dadi disponibili
-            if (doubleNum) {
-                for (int i = 2; i <= availableDice && !possible; i++) {
-                    if ((dice[0]*i) == delta && !possible) {
-                        setDoublesToBeUsed(i);     // Sceglie i primi "i" dadi disponibili da usare per il movimento
-                        possible = true;
-                    }
-                }
-            } else {
-                // Nel caso non si tratti di un tiro doppio si controlla che entrambi i dadi siano disponibili
-                //  e che la somma dei due sia pari a delta
-                if (!used[0] && !used[1] && dice[0]+dice[1] == delta) {
-                    possible = true;
-                    toBeUsed[0] = toBeUsed[1] = true;
-                }
-            }
-        }
-
-        return possible;
-    }
 
     protected void setToBeUsed(int i) {
         this.toBeUsed[i] = true;

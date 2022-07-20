@@ -19,6 +19,7 @@ public class Logic implements ILogic {
     public static SettingsLogic settings;
     public static TutorialLogic tutorial;
     public static String appDirectory;
+    public static StringsReader strings;
 
     @Override
     public void initializeBoardLogic() {
@@ -42,6 +43,10 @@ public class Logic implements ILogic {
         tutorial = new TutorialLogic();
         tutorialDice = tutorial.getDiceLogic();
     }
+    @Override
+    public void initializeStringsReader() {
+        strings = new StringsReader(this.getLanguage());
+    }
 
     public String getAppDirectory() {
         return appDirectory;
@@ -63,16 +68,16 @@ public class Logic implements ILogic {
 
     @Override
     public void placePawnOnPoint(int whichPoint, int whoCalled) {
-        boolean possible = false;
+        boolean done = false;
         switch (whoCalled) {
             case GAME_CALLED:
-                possible = game.movePawn(game.getMoveBufferColumn(), game.getMoveBufferRow(),
+                done = game.movePawn(game.getMoveBufferColumn(), game.getMoveBufferRow(),
                         game.searchFirstFreeRow(whichPoint), whichPoint);
-                if (possible)
+                if (done)
                     game.victoryCheck();
                 break;
             case TUTORIAL_CALLED:
-                possible = tutorial.movePawn(tutorial.getMoveBufferColumn(), tutorial.getMoveBufferRow(),
+                done = tutorial.movePawn(tutorial.getMoveBufferColumn(), tutorial.getMoveBufferRow(),
                         tutorial.searchFirstFreeRow(whichPoint), whichPoint);
                 break;
         }
@@ -371,7 +376,7 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public boolean isPawnMovable(int col, int row, int whoCalled) {
+    public boolean isPawnMovable(int col, int row, boolean highlight, int whoCalled) {
         DynamicBoardLogic board = null;
         switch (whoCalled) {
             case GAME_CALLED:
@@ -381,7 +386,7 @@ public class Logic implements ILogic {
                 board = tutorial;
                 break;
         }
-        return board.isPawnMovable(col, row, false);
+        return board.isPawnMovable(col, row, highlight);
     }
 
     @Override
@@ -514,10 +519,7 @@ public class Logic implements ILogic {
 
     @Override
     public void completeMoves() {
-        /*TODO
-            - Il metodo deve andare in BoardLogic e controllare se ci sono dei dadi con used == false
-            - Se ci sono, il gioco deve tentare con la forza bruta di effettuare delle mosse
-         */
+        game.completeMoves();
     }
     @Override
     public boolean isParsable(String input) {
@@ -636,11 +638,22 @@ public class Logic implements ILogic {
     public void moveOpensBlackExit() {
         game.flagMoveOpensBlackExit();
     }
+    @Override
+    public String getString(String key) {
+        return strings.get(key);
+    }
 
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
 
+    @Override
+    public String getLanguage() {return settings.getLanguage();}
+
+    @Override
+    public void setLanguage(String value) {
+        settings.setLanguage(value);
+    }
     @Override
     public void setFullScreen(boolean value) {
         settings.setFullScreen(value);
@@ -684,7 +697,6 @@ public class Logic implements ILogic {
     @Override
     public void setMusicVolume(int value) {
         settings.setMusicVolume(value);
-        System.out.println(value + "LOGIC");
     }
 
     @Override

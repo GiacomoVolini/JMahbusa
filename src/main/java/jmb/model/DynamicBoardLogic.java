@@ -135,9 +135,13 @@ public class DynamicBoardLogic {
         return possible;
     }
     public boolean isPointUnlocked(int point) {
-        System.out.println((searchFirstFreeRow(point) == 0) + " punta libera");
-
-        return searchFirstFreeRow(point)==0 || (squares[searchTopOccupiedRow(point)][point] == WHITE && isWhiteTurn());
+        boolean out;
+        if (searchFirstFreeRow(point)<2)
+            out = true;
+        else {
+            out = (squares[searchTopOccupiedRow(point)][point]==WHITE)==isWhiteTurn();
+        }
+        return out;
     }
     protected boolean checkDiceSimple (int delta) {
         boolean out = false;
@@ -147,7 +151,8 @@ public class DynamicBoardLogic {
                 dice.setToBeUsed(i);
             }
         }
-        System.out.println("Dado libero che corrisponde a delta " + out);
+        if (logic.getBypassDice())
+            out = true;
         return out;
     }
     protected boolean checkDiceSum (int pointFrom, int delta) {
@@ -156,12 +161,9 @@ public class DynamicBoardLogic {
         if (isWhiteTurn())
             sign = 1;
         else sign = -1;
-        System.out.println("Direzione " + sign);
         if (dice.getDoubleNum()) {
-            System.out.println("Tiro doppio");
             int neededDice = 0;
             legal = delta % dice.getDiceValue(0) == 0;
-            System.out.println(delta + " raggiungibile con dadi da " + dice.getDiceValue(0));
             if (legal) {
                 legal = false;
                 for (int i = 0; i < 4 && !legal; i++) {
@@ -170,28 +172,23 @@ public class DynamicBoardLogic {
                     if (dice.getDiceValue(0) * neededDice == delta)
                         legal = true;
                 }
-                System.out.println("Mossa realizzabile con " + neededDice + " dadi");
                 if (legal) {
                     for (int i = 1; i <= neededDice; i++)
                         if (!isPointUnlocked(pointFrom + (dice.getDiceValue(0)*i*sign))) {
                             legal = false;
-                            System.out.println("La mossa intermedia numero " + i + " non è  realizzabile");
                         }
                 }
                 if (legal)
                     dice.setDoublesToBeUsed(neededDice);
             }
         } else {
-            System.out.println("Non tiro doppio");
             if (!dice.getUsed(0) && !dice.getUsed(1) && delta == dice.getDiceValue(0) + dice.getDiceValue(1)) {
-                System.out.println("Dadi non usati e delta raggiungibile con somma");
                 legal = isPointUnlocked(pointFrom + dice.getDiceValue(0)*sign) ||
                         isPointUnlocked(pointFrom + dice.getDiceValue(1)*sign);
                 if (legal) {
                     dice.setToBeUsed(0);
                     dice.setToBeUsed(1);
                 }
-                System.out.println("Almeno una mossa intermedia effettuabile "+ legal);
             }
         }
         return legal;
@@ -199,19 +196,15 @@ public class DynamicBoardLogic {
     public boolean possibleMove (int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         boolean possible = false;
         for (int i = 0; i<4 && !possible; i++) {
-            if (!dice.getUsed(i))
+            if (!dice.getUsed(i)) {
                 possible = true;
+            }
         }
-        System.out.println("Mossa da " + puntaInizC + " a "+ puntaFinC);
-        System.out.println("Ci soono dadi " + possible);
         possible = possible && puntaInizC!=puntaFinC && rightWay(puntaInizC, puntaInizR, puntaFinC) &&
-                isPointUnlocked(puntaFinC);
-        System.out.println("Direzione giusta e punta libera" + true);
+                isPointUnlocked(puntaFinC) && puntaFinC <=COL_WHITE_EXIT && puntaFinC>=COL_BLACK_EXIT;
         int delta = abs(puntaFinC - puntaInizC);
-        System.out.println("Delta " + delta);
         if (possible) {
             if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
-                System.out.println("Non è per uscire");
                 if(checkDiceSimple(delta)) {
                     possible = true;
                 } else {
@@ -219,10 +212,11 @@ public class DynamicBoardLogic {
                 }
             }
             else {
-                possible = delta <=6 && checkExitMove(delta, puntaInizC);
+                if (puntaFinC<= COL_BLACK_EXIT && getBlackExit() || puntaFinC >= COL_WHITE_EXIT && getWhiteExit()) {
+                    possible = delta <= 6 && checkExitMove(delta, puntaInizC);
+                } else possible= false;
             }
         }
-        System.out.println("Mossa possibile " + possible);
         return possible;
     }
     private boolean checkExitMove(int delta, int puntaIniz) {
@@ -281,30 +275,47 @@ public class DynamicBoardLogic {
         return whichRow;
     }
     public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
-        boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
-                (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
+        boolean right = (puntaInizR!= UNDEFINED && (squares[puntaInizR][puntaInizC] == WHITE || squares[puntaInizR][puntaInizC] == SELECTED_WHITE)
+                && (puntaFinC > puntaInizC)) ||
+                ((squares[puntaInizR][puntaInizC] == BLACK || squares[puntaInizR][puntaInizC] == SELECTED_BLACK) && (puntaFinC < puntaInizC));
         return right;
     }
     protected boolean isPawnMovable (int col, int row, boolean highlight) {
         boolean movable = false;
+        boolean whiteTurn = isWhiteTurn();
         int sign;
         int endCol;
-        if (isWhiteTurn())
+        if (whiteTurn)
             sign = 1;
         else sign = -1;
-        for (int i = 0; i<4 && !movable; i++) {
+        for (int i = 0; i<4 && (!movable|| highlight); i++) {
             endCol = max (0, min(col + dice.getDiceValue(i) * sign, 25));
             if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
                 movable = true;
+                if (highlight) {
+                    if (whiteTurn)
+                        view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                    else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                }
             }
         }
         endCol = max(0, min(25, col + (dice.getDiceValue(0) + dice.getDiceValue(1))*sign));
-        if (!movable && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+        if ((!movable||highlight) && possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
             movable = true;
-        for (int i =3; i<=4 && !movable; i++) {
+            if (highlight)
+                if (whiteTurn)
+                    view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+        }
+        for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
-            if (!movable && dice.getDoubleNum() && possibleMove(col, row, searchFirstFreeRow(endCol), endCol))
+            if ((!movable||highlight) && dice.getDoubleNum() && possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
                 movable = true;
+                if (highlight)
+                    if (whiteTurn)
+                        view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                    else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+            }
         }
         return movable;
     }

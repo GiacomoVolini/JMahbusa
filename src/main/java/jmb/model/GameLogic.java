@@ -54,7 +54,6 @@ public class GameLogic extends DynamicBoardLogic {
     //  METODI
 
     protected void setUp() {
-        System.out.println("Sono in setUp");
         setGameStart(false);
         setGameEndState(false);
         super.setUp();
@@ -92,6 +91,58 @@ public class GameLogic extends DynamicBoardLogic {
         return possible;
     }
 
+    protected void completeMoves() {
+        int availableDice = dice.countAvailableDice();
+        boolean atLeastOneMoveDone = true;
+        while (availableDice!=0 && atLeastOneMoveDone) {
+            atLeastOneMoveDone = false;
+            if (dice.getDoubleNum()) {
+                for (int i = availableDice; i>0 && availableDice!=0; i--) {
+                    boolean moveDone = tryToMove(dice.getDiceValue(0) * i);
+                    if (moveDone) {
+                        availableDice -= i;
+                        atLeastOneMoveDone = true;
+                    }
+                }
+            } else {
+                if (availableDice == 2) {
+                    if (tryToMove(dice.getDiceValue(0) + dice.getDiceValue(1))) {
+                        availableDice = 0;
+                        atLeastOneMoveDone = true;
+                    }
+                }
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(0))) {
+                    availableDice--;
+                    atLeastOneMoveDone = true;
+                }
+                if (availableDice!=0 &&tryToMove(dice.getDiceValue(1))) {
+                    availableDice--;
+                    atLeastOneMoveDone = true;
+                }
+            }
+        }
+    }
+
+    private boolean tryToMove(int delta) {
+        int sign, firstCol, lastCol;
+        if (isWhiteTurn()) {
+            sign = 1;
+            firstCol = COL_WHITE;
+            lastCol = COL_BLACK;
+        } else {
+            sign = -1;
+            firstCol = COL_BLACK;
+            lastCol = COL_WHITE;
+        }
+        boolean moveDone = false;
+        for (int i = firstCol; lastCol+sign!=i && !moveDone; i+=sign) {
+            int to = max(0, min(25, i+(delta*sign)));
+            if (searchTopOccupiedRow(i) != UNDEFINED)
+                moveDone = movePawn(i, to);
+        }
+        return moveDone;
+    }
+
     public int searchFirstFreeRow(int whichPoint) {
         // Data una colonna della matrice cerca la prima riga libera e la restituisce
         int whichRow = UNDEFINED;
@@ -109,17 +160,6 @@ public class GameLogic extends DynamicBoardLogic {
         }
 
         return whichRow;
-    }
-
-    /* Il metodo rightWay riceve delle informazioni su una mossa e controlla che questa sia effettuata nel verso giusto
-            Il bianco può andare "avanti", il nero "indietro", per quanto concerne il numero di punta
-     */
-
-    public boolean rightWay(int puntaInizC, int puntaInizR, int puntaFinC) {
-        boolean right = (squares[puntaInizR][puntaInizC] == WHITE && (puntaFinC > puntaInizC)) ||
-                (squares[puntaInizR][puntaInizC] == BLACK && (puntaFinC < puntaInizC));
-        return right;
-
     }
 
     protected void victoryCheck() {
@@ -175,23 +215,25 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     protected void revertMove() {
-        MoveRecord move = turnMoves.pop();
-        int from = move.getPointFin();
-        int to = move.getPointInit();
-        this.forceMovePawn(from, to);
-        for (int i = 0; i<4; i++) {
-            if (dice.getUsed(i) && move.getDiceUsed()[i])
-                dice.revertUsed(i);
+        if (!turnMoves.isEmpty()) {
+            MoveRecord move = turnMoves.pop();
+            int from = move.getPointFin();
+            int to = move.getPointInit();
+            this.forceMovePawn(from, to);
+            for (int i = 0; i < 4; i++) {
+                if (dice.getUsed(i) && move.getDiceUsed()[i])
+                    dice.revertUsed(i);
+            }
+            if (move.getOpensBlackExit()) {
+                view.closeBlackExit();
+                setBlackExit(false);
+            } else if (move.getOpensWhiteExit()) {
+                view.closeWhiteExit();
+                setWhiteExit(false);
+            }
+            dice.resetToBeUsed();
+            view.setDiceContrast(whoCalled);
         }
-        if (move.getOpensBlackExit()) {
-            view.closeBlackExit();
-            setBlackExit(false);
-        } else if (move.getOpensWhiteExit()) {
-            view.closeWhiteExit();
-            setWhiteExit(false);
-        }
-        dice.resetToBeUsed();
-        view.setDiceContrast(whoCalled);
         if (turnMoves.isEmpty())
             view.backBTNSetDisable(true);
     }

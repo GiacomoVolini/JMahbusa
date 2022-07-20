@@ -12,6 +12,5 @@ public class TutorialOverStage extends ComparableTutorialStage{
         view.tutorialTextBoxAnimation(0.1,0.1 );
     }
     public void action() {
-        System.out.println("Qualcosa non va");
     }
 }

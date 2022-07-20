@@ -133,6 +133,7 @@ public class LoadGameView extends GameBoard {
 
     protected void renderNoSelection() {
         String noSave = "---";
+        savesListView.getSelectionModel().clearSelection();
         LoadGameViewRedraw.setPawnsVisibility(this, false);
         loadSaveButton.setDisable(true);
         deleteSaveButton.setDisable(true);
@@ -214,7 +215,9 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void deleteSave(ActionEvent event) {
-        logic.deleteSaveFile(saveDetailTitledPane.getText());
+        String saveName = saveDetailTitledPane.getText();
+        renderNoSelection();
+        logic.deleteSaveFile(saveName);
         refreshSaveList();
     }
 

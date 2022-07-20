@@ -26,18 +26,18 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
             };
 
-    private String stageStringInitial = "Ora passeremo ad una fase più avanzata del gioco.";
-    private String stageStringInter = "Sei in una posizione molto favorevole, ma non puoi portare fuori ancora nessuna pedina: per farlo, infatti, un giocatore deve avere tutte le proprie pedine nella propria \"casa\", ovvero le ultime sei punte del proprio percorso.";
-    private String stageStringFinal = "Fai la tua mossa in modo da aprire la tua zona d'uscita.";
-    private String wrongMoveString = "No, hai mosso la pedina sbagliata. Tutte le tue pedine devono essere nelle ultime sei punte.\n Riprova!";
-    private String rightMoveString = "Ottimo! Ora puoi cominciare a portare fuori le tue pedine. Vediamo come...";
+    private String stageStringInitial = "exitZoneStageInitial";
+    private String stageStringInter = "exitZoneStageInter";
+    private String stageStringFinal = "exitZoneStageFinal";
+    private String wrongMoveString = "wrongMove";
+    private String rightMoveString = "rightMove";
     public ExitZoneExplanationStage() {
         super();
         setStageIndex(7);
     }
 
     public void start() {
-        view.setNextTutorialString(stageStringInitial, true);
+        view.setNextTutorialString(logic.getString(stageStringInitial), true);
         view.tutorialTextBoxAnimation(0.2,0.2 );
         view.allowTextBoxMouseInput(false);
         view.waitForRecall(whoCalled, 2.0);
@@ -49,7 +49,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 setBoardUp();
                 logic.setWhiteTurn(whoCalled, false);
                 view.closeDoubleDice(whoCalled);
-                view.setNextTutorialString(stageStringInter, true);
+                view.setNextTutorialString(logic.getString(stageStringInter), true);
                 view.tutorialTextBoxAnimation(0.55,0.4 );
                 view.waitForRecall(whoCalled, 1.5);
                 break;
@@ -61,15 +61,15 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 setBoardUp();
                 view.restoreBoardColors(whoCalled);
                 view.callRedraw(whoCalled);
-                view.setNextTutorialString(stageStringFinal, true);
+                view.setNextTutorialString(logic.getString(stageStringFinal), true);
                 view.tutorialTextBoxAnimation(0.52,0.2 );
                 break;
             case 8:
                 if (logic.getBoardMatrix(whoCalled)[2][20]==EMPTY) {
                     internalIndex-=2;
-                    view.setNextTutorialString(wrongMoveString, true);
+                    view.setNextTutorialString(logic.getString(wrongMoveString), true);
                 } else {
-                    view.setNextTutorialString(rightMoveString, true);
+                    view.setNextTutorialString(logic.getString(rightMoveString), true);
                 }
                 view.tutorialTextBoxAnimation(0.2,0.2 );
                 view.waitForRecall(whoCalled, 3);

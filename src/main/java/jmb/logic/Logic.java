@@ -337,13 +337,8 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public void setTimeRemaining(double value) {
-        game.setTimeRemaining(value);
-    }
-
-    @Override
-    public void saveGame(String saveName, WritableImage saveImage) {
-        SaveGameWriter.writeSaveFile(game, saveName, saveImage);
+    public void saveGame(String saveName) {
+        SaveGameWriter.writeSaveFile(game, saveName);
     }
 
     @Override
@@ -416,6 +411,15 @@ public class Logic implements ILogic {
                 break;
         }
         return out;
+    }
+
+    @Override
+    public void setCanRevert (boolean value) {
+        game.setCanRevert(value);
+    }
+    @Override
+    public boolean getCanRevert () {
+        return game.getCanRevert();
     }
 
     @Override
@@ -557,10 +561,6 @@ public class Logic implements ILogic {
     @Override
     public void tutorialStageAction() {
         tutorial.tutorialStageAction();
-    }
-    @Override
-    public void checkTutorialStageAdvancement() {
-        tutorial.checkTutorialStageAdvancement();
     }
     @Override
     public void forceMovePawn(int whoCalled, int from, int to) {

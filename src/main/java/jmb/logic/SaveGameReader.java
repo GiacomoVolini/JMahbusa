@@ -17,15 +17,12 @@ public class SaveGameReader {
     String whitePlayer;
     boolean blackExit;
     boolean whiteExit;
+    boolean canRevert;
     long turnDuration;
     int[][] squareMatrix;
     long tournamentPoints;
     long whitesWonPoints;
     long blacksWonPoints;
-
-    byte[] imageBytes;
-    long imageWidth;
-    long imageHeight;
 
     private SaveGameReader(String saveName) {
         try (FileReader reader = new FileReader("./saves/" + saveName + ".json")) {
@@ -38,6 +35,7 @@ public class SaveGameReader {
             whitePlayer = (String) save.get("whitePlayer");
             blackExit = (boolean) save.get("blackExit");
             whiteExit = (boolean) save.get("whiteExit");
+            canRevert = (boolean) save.get("canRevert");
             turnDuration = (long) save.get("turnDuration");
             squareMatrix = parseSquareMatrixString(squareMatrixString);
             tournamentPoints = (long) save.get("tournamentPoints");

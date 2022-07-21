@@ -144,7 +144,6 @@ public class GameView extends DynamicGameBoard {
     Rectangle victoryPanel;
     Circle victoryPawn;
     ImageView victoryCrown;
-
     ImageView tourmanentRibbon;
     Button victoryExit;
     Label victoryLabel;
@@ -188,8 +187,7 @@ public class GameView extends DynamicGameBoard {
             errorLabel.setText("Inserisci un nome per il salvataggio");
             errorLabel.setVisible(true);
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
-                WritableImage saveImage = this.saveBoardImage();
-                logic.saveGame(saveTextField.getText(), saveImage);
+                logic.saveGame(saveTextField.getText());
                 view.stopMusic();
                 vaialMainMenu();
             } else {
@@ -205,19 +203,6 @@ public class GameView extends DynamicGameBoard {
         saveDialogue.setVisible(false);
     }
 
-    private WritableImage saveBoardImage() {
-        SnapshotParameters param = new SnapshotParameters();
-        double minX = outerRect.getLayoutX() - max(whiteExitRegion.getWidth(), blackExitRegion.getWidth());
-        double minY = outerRect.getLayoutY();
-        double width = max(whiteExitRegion.getWidth(), blackExitRegion.getWidth()) + outerRect.getWidth();
-        double height = outerRect.getHeight();
-        saveDialogue.setVisible(false);
-        pauseMenu.setVisible(false);
-        timerIn.setVisible(false);
-        timerOut.setVisible(false);
-        param.setViewport(new Rectangle2D(minX, minY, width, height));
-        return window.snapshot(param, null);
-    }
     @FXML
     void openExitoption() {
         pauseMenu.setVisible(true);

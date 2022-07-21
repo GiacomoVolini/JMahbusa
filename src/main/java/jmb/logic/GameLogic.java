@@ -30,8 +30,7 @@ public class GameLogic extends DynamicBoardLogic {
     private boolean moveOpensBlackExit = false;
 
     private double turnDuration = 120;
-
-    private double timeRemaining;
+    private boolean canRevert = true;
     private boolean gameStart = false;
     private boolean gameEndState = false;
 
@@ -78,7 +77,7 @@ public class GameLogic extends DynamicBoardLogic {
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
-        if (possible) {
+        if (possible && canRevert) {
             turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
             if (moveOpensWhiteExit)
                 turnMoves.peek().moveOpensWhiteExit();
@@ -297,17 +296,15 @@ public class GameLogic extends DynamicBoardLogic {
     protected void setTurnDuration(double value) {
         this.turnDuration = value;
     }
+    protected void setCanRevert(boolean value) {
+        this.canRevert = value;
+    }
+    protected boolean getCanRevert() {
+        return this.canRevert;
+    }
 
     protected double getTurnDuration() {
         return this.turnDuration;
-    }
-
-    protected void setTimeRemaining(double value) {
-        this.timeRemaining = value;
-    }
-
-    protected double getTimeRemaining() {
-        return this.timeRemaining;
     }
     protected boolean getGameStart() {
         return this.gameStart;
@@ -320,9 +317,6 @@ public class GameLogic extends DynamicBoardLogic {
     }
     protected void setGameEndState(boolean value) {
         this.gameEndState = value;
-    }
-    protected ArrayDeque<MoveRecord> getTurnMoves () {
-        return turnMoves;
     }
     protected void flagMoveOpensWhiteExit() {
         moveOpensWhiteExit = true;

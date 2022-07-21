@@ -379,6 +379,7 @@ public class DynamicGameBoard extends GameBoard{
             logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
             logic.placePawnOnPoint(col2, whoCalled);
             view.restoreBoardColors(whoCalled);
+            colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
             DynamicGameBoardRedraw.redrawPawns(this);
             selected = false;
         }

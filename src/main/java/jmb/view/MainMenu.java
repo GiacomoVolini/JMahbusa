@@ -282,10 +282,10 @@ public class MainMenu {
 
             //  Ridimensiona il titolo
 
-                Text.setLayoutX(Window.getWidth()/2 - 170);
-                BGText.setLayoutX(Window.getWidth()/2 - 136);
+                Text.setLayoutX(Window.getWidth()/2 - Text.getWrappingWidth()/2);
+                BGText.setLayoutX(Window.getWidth()/2 - BGText.getWidth()/2);
 
-            // Ridimensiona il messaggio del tutorial
+            //  Ridimensiona il messaggio del tutorial
 
                 Ptutorial.setLayoutX(Window.getWidth()/2 + 153);
                 Ptutorial.setLayoutY(Window.getHeight()/2.5);
@@ -297,59 +297,25 @@ public class MainMenu {
                 notutorial.setLayoutY(Window.getHeight()/2.5 + 60);
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
-            // Largezza
+            //  Larghezza
 
-            NewGame.setLayoutX(Window.getWidth()/2 );
-            NewGame.setPrefWidth(Window.getWidth()*0.25);
-            NewGame.setMaxWidth(89);
-
-            tutorialButton.setLayoutX(Window.getWidth()/2 + 13);
-            tutorialButton.setPrefWidth(Window.getWidth()*0.25);
-            tutorialButton.setMaxWidth(64);
-
-            LoadGame.setLayoutX(Window.getWidth()/2 + 22);
-            LoadGame.setPrefWidth(Window.getWidth()*0.25);
-            LoadGame.setMaxWidth(49);
-
-            LDB.setLayoutX(Window.getWidth()/2 + 13);
-            LDB.setPrefWidth(Window.getWidth()*0.25);
-            LDB.setPrefWidth(64);
-
-            Settings.setLayoutX(Window.getWidth()/2 + 5);
-            Settings.setPrefWidth(Window.getWidth()*0.25);
-            Settings.setPrefWidth(84);
-
-            Exit.setLayoutX(Window.getWidth()/2 + 3);
-            Exit.setPrefWidth(Window.getWidth()*0.25);
-            Exit.setPrefWidth(88);
+            NewGame.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            tutorialButton.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            LoadGame.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            LDB.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            Settings.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            Exit.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
 
             // Altezza
             Text.setLayoutY(Window.getHeight()/3);
             BGText.setLayoutY(Window.getHeight()/3 - 71);
 
             NewGame.setLayoutY(Window.getHeight()/2.5);
-            NewGame.setPrefHeight(Window.getHeight()*0.25);
-            NewGame.setMaxHeight(25);
-
             tutorialButton.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
-            tutorialButton.setPrefHeight(Window.getHeight()*0.25);
-            tutorialButton.setMaxHeight(25);
-
             LoadGame.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16);
-            LoadGame.setPrefHeight(Window.getHeight()*0.25);
-            LoadGame.setMaxHeight(25);
-
             LDB.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
-            LDB.setPrefHeight(Window.getHeight()*0.25);
-            LDB.setPrefHeight(25);
-
             Settings.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
-            Settings.setPrefHeight(Window.getHeight()*0.25);
-            Settings.setPrefHeight(25);
-
             Exit.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
-            Exit.setPrefHeight(Window.getHeight()*0.25);
-            Exit.setPrefHeight(25);
 
 
             BackGround1.setFitWidth(Window.getWidth());

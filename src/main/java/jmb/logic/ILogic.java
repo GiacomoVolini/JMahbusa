@@ -1,7 +1,5 @@
 package jmb.logic;
 
-import javafx.scene.image.WritableImage;
-
 import java.util.List;
 
 public interface ILogic {
@@ -50,39 +48,26 @@ public interface ILogic {
     void saveGame(String saveName);
     List<String> getSaveList();
     SaveGameReader readSaveGame (String saveName);
-
     String[] getLoadViewData(String saveName);
-
     int searchTopOccupiedRow(int whoCalled, int col);
-
     boolean isPawnMovable(int col, int row,boolean highlight, int whoCalled);
-
     void deleteSaveFile(String fileName);
-
     boolean isSaveNamePresent(String saveName);
-
     int getTournamentPointsToWin();
-
     void setUpSavedGame(String saveName);
-
     int[][] getBoardMatrix(int whoCalled);
     void setCanRevert(boolean value);
     boolean getCanRevert();
-  
     void selectPawn(int whichPoint, int whichRow, int whoCalled);
     boolean movePawn(int whoCalled, int from, int to);
     boolean movePawn(int whoCalled, int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
-
     int[][] getSaveMatrix(String saveName);
-
-
     boolean getGameStart(int whoCalled);
     boolean getGameEndState();
     void setGameStart(boolean value);
     void setGameEndState(boolean value);
     boolean allDiceUsed(int whoCalled);
     void completeMoves();
-
     void deselectPawn(int col, int row, int whoCalled);
     void resetDefaultSettings();
     void applySettingsChanges();

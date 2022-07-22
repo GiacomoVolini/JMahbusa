@@ -33,7 +33,7 @@
       <Button fx:id="LoadGame" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" onAction="#openLoadGame" prefWidth="88.0" text="Carica" />
       <Button fx:id="LDB" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard" prefWidth="88.0" text="Classifica" />
       <Button fx:id="Settings" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" prefWidth="88.0" text="Impostazioni" />
-      <Button fx:id="Exit" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" text="Esci dal gioco" />
+      <Button fx:id="Exit" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" prefWidth="88.0" text="Esci dal gioco" />
       <Rectangle fx:id="Ptutorial" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="98.0" layoutX="429.0" layoutY="146.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="151.0" />
       <Text fx:id="Ttutorial" layoutX="424.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Non hai mai giocato a Jmahbusa, vuoi prima affrontare il tutorial?" textAlignment="CENTER" visible="false" wrappingWidth="159.353515625" />
       <Button fx:id="tutorialButton2" layoutX="464.0" layoutY="211.0" mnemonicParsing="false" onAction="#openTutorialdamessaggio" text="Si" visible="false" />

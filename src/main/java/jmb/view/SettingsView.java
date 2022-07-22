@@ -618,6 +618,13 @@ public class SettingsView {
                         applyButton.setDisable(false);
         }
 
+        @FXML
+        void selectedBackGroundColorChange(ActionEvent event) {
+                if(Color.web(logic.getBackgroundColor()) != selectedBackGroundColorPicker.getValue()) {
+                        applyButton.setDisable(false);
+                }
+        }
+
         //Comandi Action
         int IdiWaiting;
         @FXML

@@ -17,7 +17,7 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
-   <ImageView blendMode="MULTIPLY" fitHeight="847.0" fitWidth="1458.0" layoutX="-3.0" pickOnBounds="true">
+   <ImageView fx:id="feltImage" blendMode="MULTIPLY" fitHeight="847.0" fitWidth="1458.0" layoutX="-3.0" pickOnBounds="true">
       <image>
          <Image url="@WhiteFelt.png" />
       </image>

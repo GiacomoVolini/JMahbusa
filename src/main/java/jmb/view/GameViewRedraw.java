@@ -244,22 +244,19 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.saveDialogue.setLayoutY(board.window.getHeight() / 2 - board.saveDialogue.getPrefHeight() / 2);
     }
 
+    private static void resizeBackground(GameView board) {
+        board.feltImage.setFitWidth(board.window.getWidth());
+        board.feltImage.setFitHeight(board.window.getHeight());
+    }
+
 
     protected static void resizeAll(GameView board) {
         setWhoCalled(GAME_CALLED);
         DynamicGameBoardRedraw.resizeAll(board);
-        //resizeOuterRect(game);
-        //GameBoardRedraw.resizeInnerBoard(game);
-        //resizeExitRegions(game);
-        //calcTrayWidths(game);
+        resizeBackground(board);
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
-        //if (logic.getGameStart()) {
-        //    resizeDiceTray(game);
-        //    if (game.diceTrayOpen)
-        //        resizeDice(game);
-        //} else
         if (!logic.getGameStart(whoCalled))
             resizeStartDialogue(board);
         resizeButtons(board);

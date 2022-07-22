@@ -139,6 +139,8 @@ public class GameView extends DynamicGameBoard {
     Text readyText;
     @FXML
     Text pauseText;
+    @FXML
+    ImageView feltImage;
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;

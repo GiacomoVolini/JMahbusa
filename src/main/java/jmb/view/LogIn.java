@@ -1,22 +1,25 @@
 package jmb.view;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
-
-import java.io.IOException;
 
 public class LogIn {
 
@@ -90,12 +93,16 @@ public class LogIn {
     private Text hardText;
     @FXML
     private Text customText;
+    @FXML
+    private CheckBox revertCheckBox;
+
+    private boolean settingsPanelOpened = false;
 
     private int whoCalled = GAME_CALLED;
+    private static final double ANIMATION_DURATION = 0.35;
 
     @FXML
-    void savePlayer(ActionEvent event) throws IOException{
-
+    void savePlayer(ActionEvent event) {
         if(scelta.isSelected()){
             defficile.setSelected(false);
             media.setSelected(false);
@@ -130,9 +137,13 @@ public class LogIn {
                     break;
             }
     }
+    @FXML
+    void setCanRevert() {
+        logic.setCanRevert(revertCheckBox.isSelected());
+    }
 
     @FXML
-    void vaialMainMenu()  throws IOException {
+    void vaialMainMenu() {
         uscita.getScene().getWindow();
         App.changeRoot(MAIN_MENU);
     }
@@ -223,6 +234,10 @@ public class LogIn {
         tournamentCheckBox.setText(logic.getString("activate"));
         tournamentLabel.setText(logic.getString("target"));
 
+        GT.expandedProperty().addListener((obs, oldVal, newVal) -> {
+            titledPaneAnimation(newVal);
+        });
+
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -232,20 +247,54 @@ public class LogIn {
 
     }
 
+    private void titledPaneAnimation (boolean opens) {
+        if (opens)
+            lowerTournamentPanel();
+        else raiseTournamentPanel();
+    }
+
+    private void lowerTournamentPanel() {
+        double currentY = tournamentPanel.getLayoutY();
+        Timeline timeline = new Timeline (new KeyFrame(Duration.ZERO,
+                new KeyValue(tournamentPanel.layoutYProperty(), currentY)),
+                new KeyFrame(Duration.seconds(ANIMATION_DURATION),
+                        e -> settingsPanelOpened = true,
+                        new KeyValue(tournamentPanel.layoutYProperty(), currentY + 106)));
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
+    private void raiseTournamentPanel() {
+        double currentY = tournamentPanel.getLayoutY();
+        Timeline timeline = new Timeline (new KeyFrame(Duration.ZERO,
+                new KeyValue(tournamentPanel.layoutYProperty(), currentY)),
+                new KeyFrame(Duration.seconds(ANIMATION_DURATION),
+                        e -> settingsPanelOpened = false,
+                        new KeyValue(tournamentPanel.layoutYProperty(), currentY - 106)));
+        timeline.setCycleCount(1);
+        timeline.play();
+    }
+
     protected void changeDimensions() {
         double panelWidth = 383;
         double regHeight = 191;
-        double gtHeight = 97;
+        double gtMaxHeight = 132;
+        double gtMinHeight = 26;
         double tpHeight = 80;
+
 
         double panelX = window.getWidth()/2 - panelWidth/2;
 
         registrati.setLayoutX(panelX);
         GT.setLayoutX(panelX);
         tournamentPanel.setLayoutX(panelX);
-        double regY = (window.getHeight() - regHeight - gtHeight - tpHeight)/2;
+        double regY = (window.getHeight() - regHeight - gtMaxHeight - tpHeight)/2;
         registrati.setLayoutY(regY);
         GT.setLayoutY(regY + regHeight);
+        double gtHeight;
+        if (settingsPanelOpened)
+            gtHeight = gtMaxHeight;
+        else gtHeight = gtMinHeight;
         tournamentPanel.setLayoutY(regY + regHeight + gtHeight);
     }
 

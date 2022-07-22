@@ -15,9 +15,9 @@ public interface ILogic {
 
     boolean getWhichTurn(int whoCalled);
 
-    void nextTurn ();
+    void nextTurn();
 
-    void initializeBoardLogic ();
+    void initializeBoardLogic();
 
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
@@ -80,10 +80,7 @@ public interface ILogic {
     void setTurnDuration(double value);
 
     double getTurnDuration();
-
-    void setTimeRemaining (double value);
-
-    void saveGame(String saveName, WritableImage saveImage);
+    void saveGame(String saveName);
 
     List<String> getSaveList();
 
@@ -104,6 +101,8 @@ public interface ILogic {
     void setUpSavedGame(String saveName);
 
     int[][] getBoardMatrix(int whoCalled);
+    void setCanRevert(boolean value);
+    boolean getCanRevert();
   
     void selectPawn(int whichPoint, int whichRow, int whoCalled);
     boolean movePawn(int whoCalled, int from, int to);
@@ -126,7 +125,6 @@ public interface ILogic {
     void initializeSettingsLogic();
     void nextTutorialStage();
     void tutorialStageAction();
-    void checkTutorialStageAdvancement();
     void forceMovePawn(int whoCalled, int from, int to);
     void forceDice(int whoCalled, int value1, int value2);
     void forceDice(int whoCalled, int value);

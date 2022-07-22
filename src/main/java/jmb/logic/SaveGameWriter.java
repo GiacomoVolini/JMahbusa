@@ -9,13 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class SaveGameWriter {
-    protected static void writeSaveFile(GameLogic board, String fileName, WritableImage saveImage) {
+    protected static void writeSaveFile(GameLogic board, String fileName) {
         try {
             JSONObject saveContent = new JSONObject();
             saveContent.put("whitePlayer", board.getWhitePlayer());
             saveContent.put("blackPlayer", board.getBlackPlayer());
             saveContent.put("whiteExit", board.getWhiteExit());
             saveContent.put("blackExit", board.getBlackExit());
+            saveContent.put("canRevert", board.getCanRevert());
             saveContent.put("squareMatrix", generateSquareMatrixString(board));
             saveContent.put("isWhiteTurn", !board.isWhiteTurn());
             saveContent.put("tournamentPoints", board.getTournamentPoints());

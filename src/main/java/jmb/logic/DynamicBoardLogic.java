@@ -88,7 +88,7 @@ public class DynamicBoardLogic {
             if (!found){
                 open = true;
                 setWhiteExit(true);
-                Logic.view.openWhiteExit(whoCalled);
+                view.openWhiteExit(whoCalled);
                 if (whoCalled == GAME_CALLED)
                     logic.moveOpensWhiteExit();
             }

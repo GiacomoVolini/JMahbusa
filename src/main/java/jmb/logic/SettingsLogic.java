@@ -13,11 +13,6 @@ import static jmb.logic.Logic.logic;
 
 public class SettingsLogic {
 
-    /* TODO
-        METTERE IMPOSTAZIONE PER LINGUA
-        UTILIZZARE POI DEI FILE Strings_IT.ini e Strings_EN.ini DA CUI PESCARE LA LINGUA GIUSTA
-     */
-
     private boolean fullScreen = false;
     private boolean lockResolution = false;
     private int resolutionWidth = 640;

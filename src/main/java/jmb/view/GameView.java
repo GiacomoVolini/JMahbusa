@@ -635,11 +635,8 @@ public class GameView extends DynamicGameBoard {
 
             window.setStyle("-fx-background-color: " + logic.getBackgroundColor());
 
-
-
             //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
             window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
 
             //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
             window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

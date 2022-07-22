@@ -101,7 +101,7 @@
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione" visible="false">
+        <TitledPane fx:id="Tpersonalizzazione" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione">
             <content>
                 <AnchorPane fx:id="personalizzazione" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
                     <children>
@@ -210,11 +210,21 @@
                         <Color red="1.0" green="0.9843137264251709" />
                      </value>
                   </ColorPicker>
+                  <Text fx:id="TbackGround" layoutX="37.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sfondo:">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Text>
+                  <ColorPicker fx:id="selectedBackGroundColorPicker" editable="true" layoutX="94.0" layoutY="371.0" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
+                     <value>
+                        <Color green="0.501960813999176" />
+                     </value>
+                  </ColorPicker>
                     </children>
                 </AnchorPane>
             </content>
         </TitledPane>
-        <TitledPane fx:id="Tcomandi" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi">
+        <TitledPane fx:id="Tcomandi" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi" visible="false">
             <content>
                 <AnchorPane fx:id="comandi" prefHeight="440.0" prefWidth="494.0">
                     <children>

@@ -305,6 +305,12 @@ public class SettingsView {
         private ColorPicker selectedPointColorPicker;
 
         @FXML
+        private Text TbackGround;
+
+        @FXML
+        private ColorPicker selectedBackGroundColorPicker;
+
+        @FXML
         private TitledPane Pavvertimento;
 
         @FXML
@@ -739,6 +745,7 @@ public class SettingsView {
                 logic.setRevertMove(cacellareMo.getText());
                 logic.setFinishTurn(finitoT.getText());
                 logic.setOpenMenu(opUscita.getText());
+                logic.setBackgroundColor(colorStringFactory(selectedBackGroundColorPicker.getValue()));
                 logic.applySettingsChanges();
                 applyButton.setDisable(true);
         }

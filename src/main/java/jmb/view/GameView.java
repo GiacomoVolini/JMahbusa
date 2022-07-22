@@ -147,9 +147,7 @@ public class GameView extends DynamicGameBoard {
     ImageView tourmanentRibbon;
     Button victoryExit;
     Label victoryLabel;
-
     Label tournamentWhitePoints;
-
     Label tournamentBlackPoints;
     ImageView tournamentCup;
     Label tournamentPointsToWin;
@@ -634,6 +632,8 @@ public class GameView extends DynamicGameBoard {
                 tournamentPointsToWin.setVisible(false);
                 tournamentCup.setVisible(false);
             }
+
+            window.setStyle("-fx-background-color: " + logic.getBackgroundColor());
 
 
 

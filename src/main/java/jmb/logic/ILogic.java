@@ -6,84 +6,49 @@ import java.util.List;
 
 public interface ILogic {
 
-    //void placePawnOnTopPoints (int prevRegion, int prevPoint, int whichPoint);
-
-    //void placePawnOnBotPoints (int whichPoint);
     String getAppDirectory();
-
     void placePawnOnPoint (int whichPoint, int whoCalled);
-
     boolean getWhichTurn(int whoCalled);
-
     void nextTurn();
-
     void initializeBoardLogic();
-
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
     void initializeStringsReader();
-
     int getBoardPlaceState (int whichPoint, int whichRow, int whoCalled);
     //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
     //      Restituisce EMPTY (0) se la casella non contiene alcuna pedina
     //                  WHITE (1) se la casella contiene una pedina del bianco
     //                  BLACK (2) se la casella contiene una pedina del nero
-
     boolean isLastOnPoint (int whichPoint, int whichRow, int whoCalled);
     //  Metodo che restituisce true se non ci sono altre pedine al di sopra di essa in quella punta
-
     void createMoveBuffer (int whichPoint, int whoCalled);
-
     List<Player> getPlayerList ();
-
     boolean isRollDouble(int whoCalled);
-
     int[] getDiceValues(int whoCalled);
-
     void firstTurn(int whoCalled);
-
     List<String> getPlayerNameList();
-
     int compareNameLists(String newName1, String newName2);
-
     void addNewPlayersToList (String newName1, String newName2);
-
     boolean isDiceUsed (int i, int whoCalled);
-
     void writeLdbList();
-
     void addStatsToLeaderboard();
-
     void setUpNewBoard (int whoCalled);
-
     void revertMove();
     void setWhiteExit(int whoCalled, boolean value);
     void setBlackExit(int whoCalled, boolean value);
     boolean getBlackExit(int whoCalled);
-
     boolean getWhiteExit(int whoCalled);
-
     void setPlayersForGame(String whitePlayer, String blackPlayer);
-
     void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints);
-
     String getWhitePlayer();
-
     String getBlackPlayer();
-
     boolean isTournamentOngoing();
-
     int getWhiteTournamentPoints();
-
     int getBlackTournamentPoints();
-
     void setTurnDuration(double value);
-
     double getTurnDuration();
     void saveGame(String saveName);
-
     List<String> getSaveList();
-
     SaveGameReader readSaveGame (String saveName);
 
     String[] getLoadViewData(String saveName);
@@ -195,8 +160,6 @@ public interface ILogic {
     String getMoveDown ();
     void setSelect (String value);
     String getSelect ();
-    void setConfirm (String value);
-    String getConfirm ();
     void setRevertMove (String value);
     String getRevertMove ();
     void setFinishTurn (String value);
@@ -205,6 +168,8 @@ public interface ILogic {
     String getOpenMenu ();
     boolean getBypassDice ();
     boolean isParsable(String input);
+    void setBackgroundColor(String value);
+    String getBackgroundColor();
 
 
     //_________________________

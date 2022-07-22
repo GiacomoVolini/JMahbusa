@@ -920,17 +920,6 @@ public class Logic implements ILogic {
     public String getSelect() {
         return settings.getSelect();
     }
-
-    @Override
-    public void setConfirm(String value) {
-        settings.setConfirm(value);
-    }
-
-    @Override
-    public String getConfirm() {
-        return settings.getConfirm();
-    }
-
     @Override
     public void setRevertMove(String value) {
         settings.setRevertMove(value);
@@ -965,4 +954,12 @@ public class Logic implements ILogic {
     public boolean getBypassDice() {
         return settings.getBypassDice();
     }
+    @Override
+    public void setBackgroundColor(String value) {
+        settings.setBackgroundColor(value);
+    }
+    public String getBackgroundColor() {
+        return settings.getBackgroundColor();
+    }
+
 }

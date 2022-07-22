@@ -43,6 +43,7 @@ public class SettingsLogic {
     private String selectedPointColor = "#fffb00";
     private static final String SELECTED_POINT_LEFT_PRESET = "#6495ed";
     private static final String SELECTED_POINT_RIGHT_PRESET = "#fffb00";
+    private String backgroundColor = "#008000";
 
     private String moveRight = "D";
     private String moveLeft = "A";
@@ -450,5 +451,11 @@ public class SettingsLogic {
     }
     protected void setLanguage(String value) {
         this.language = value;
+    }
+    protected void setBackgroundColor(String value) {
+        this.backgroundColor = value;
+    }
+    protected String getBackgroundColor() {
+        return this.backgroundColor;
     }
 }

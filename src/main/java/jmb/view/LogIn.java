@@ -221,7 +221,7 @@ public class LogIn {
         scrivinomi1.setPromptText(logic.getString("player") + " 1");
         scrivinomi2.setPromptText(logic.getString("player") + " 2");
         registrati.setText(logic.getString("playerNames"));
-        GT.setText(logic.getString("turnTimer"));
+        GT.setText(logic.getString("gameSettings"));
         noT.setText(logic.getString("none"));
         media.setText("2 " + logic.getString("minutes"));
         defficile.setText("30 "+ logic.getString("seconds"));

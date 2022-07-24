@@ -4,85 +4,59 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-//import javafx.scene.media.AudioClip;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
+import static jmb.view.View.logic;
+import static jmb.view.View.view;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.*;
-
 
 public class MainMenu {
 
 
     @FXML
-    private AnchorPane Window;
-
+    private AnchorPane window;
     @FXML
-    private ImageView BackGround1;
-
+    private ImageView background1;
     @FXML
     private ImageView background2;
-
     @FXML
-    private Rectangle BGText;
-
+    private Rectangle gameTitleBackground;
     @FXML
-    private Text Text;
-
+    private Text gameTitle;
     @FXML
-    private Button NewGame;
-
+    private Button newGameButton;
     @FXML
     private Button tutorialButton;
-
     @FXML
-    private Button LoadGame;
-
+    private Button loadGameButton;
     @FXML
-    private Button LDB;
-
+    private Button leaderboardButton;
     @FXML
-    private Button Settings;
-
+    private Button settingsButton;
     @FXML
-    private Button Exit;
-
+    private Button exitButton;
     @FXML
-    private Rectangle Ptutorial;
-
+    private Rectangle tutorialPromptBackground;
     @FXML
-    private Text Ttutorial;
-
+    private Text tutorialPromptText;
     @FXML
-    private Button tutorialButton2;
-
+    private Button tutorialPromptYes;
     @FXML
-    private Button notutorial;
-
+    private Button tutorialPromptNo;
     @FXML
-    private ImageView imgItaliana;
-
-    @FXML
-    private ImageView imgEnglish;
-
-    @FXML
-    private ImageView imgPrencipale;
-
+    private ImageView mainLanguageImageView;
     private Path tutorialPath;
-    private static Image engBandiera;
-    private static Image itaBandiera;
+    private static Image englishFlag;
+    private static Image italianFlag;
     private static final String MAIN_MENU_KEY = "newGame";
     private static final String LOAD_KEY = "loadGame";
     private static final String LEADERBOARD_KEY = "leaderboards";
@@ -95,8 +69,8 @@ public class MainMenu {
     //image per le lingue
     static {
         try{
-            engBandiera = new Image(MainMenu.class.getResource("eng.jpg").toURI().toString());
-            itaBandiera = new Image(MainMenu.class.getResource("ita.jpg").toURI().toString());
+            englishFlag = new Image(MainMenu.class.getResource("eng.jpg").toURI().toString());
+            italianFlag = new Image(MainMenu.class.getResource("ita.jpg").toURI().toString());
         }catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -108,12 +82,12 @@ public class MainMenu {
     }
 
     @FXML
-    void newGameAction()  throws IOException {
+    void newGameAction() {
         if(!Files.exists(tutorialPath)) {
-            Ttutorial.setVisible(true);
-            Ptutorial.setVisible(true);
-            notutorial.setVisible(true);
-            tutorialButton2.setVisible(true);
+            tutorialPromptText.setVisible(true);
+            tutorialPromptBackground.setVisible(true);
+            tutorialPromptNo.setVisible(true);
+            tutorialPromptYes.setVisible(true);
             loadStrings();
         }else {
             App.changeRoot(LOG_IN);
@@ -122,7 +96,7 @@ public class MainMenu {
     }
 
     @FXML
-    void openlogin() throws IOException {
+    void openLogin() throws IOException {
         Files.createFile(tutorialPath);
         App.changeRoot(LOG_IN);
         View.sceneMusica.gameMusic.pause();
@@ -153,10 +127,12 @@ public class MainMenu {
 
     @FXML
     void openLoadGame() throws IOException {
-        App.changeRoot(LOAD_GAME);
+        App.changeRoot(LOAD_GAME); /*
         sceneLoadView.refreshSaveList();
         sceneLoadView.setBoardColors();
         sceneLoadView.renderNoSelection();
+        */
+
     }
 
     @FXML
@@ -164,23 +140,22 @@ public class MainMenu {
         App.changeRoot(TUTORIAL);
         logic.initializeTutorialLogic();
         view.playMusic(TUTORIAL_MUSIC);
-        //logic.setUpNewGame();
     }
 
     private void loadStrings() {
-        NewGame.setText(logic.getString(MAIN_MENU_KEY));
-        LoadGame.setText(logic.getString(LOAD_KEY));
-        Settings.setText(logic.getString(SETTINGS_KEY));
-        LDB.setText(logic.getString(LEADERBOARD_KEY));
-        Exit.setText(logic.getString(EXIT_KEY));
-        Ttutorial.setText(logic.getString(TUTORIAL_NEVER_PLAYED_KEY));
-        tutorialButton2.setText(logic.getString(YES_KEY));
-        notutorial.setText(logic.getString(NO_KEY));
+        newGameButton.setText(logic.getString(MAIN_MENU_KEY));
+        loadGameButton.setText(logic.getString(LOAD_KEY));
+        settingsButton.setText(logic.getString(SETTINGS_KEY));
+        leaderboardButton.setText(logic.getString(LEADERBOARD_KEY));
+        exitButton.setText(logic.getString(EXIT_KEY));
+        tutorialPromptText.setText(logic.getString(TUTORIAL_NEVER_PLAYED_KEY));
+        tutorialPromptYes.setText(logic.getString(YES_KEY));
+        tutorialPromptNo.setText(logic.getString(NO_KEY));
     }
 
     @FXML
     void linguaInglese(ActionEvent event) {
-        imgPrencipale.setImage(engBandiera);
+        mainLanguageImageView.setImage(englishFlag);
         logic.setLanguage("EN");
         logic.applySettingsChanges();
         this.loadStrings();
@@ -188,7 +163,7 @@ public class MainMenu {
 
     @FXML
     void linguaItaliana(ActionEvent event) {
-        imgPrencipale.setImage(itaBandiera);
+        mainLanguageImageView.setImage(italianFlag);
         logic.setLanguage("IT");
         logic.applySettingsChanges();
         this.loadStrings();
@@ -197,10 +172,10 @@ public class MainMenu {
     private void setCorrectFlag() {
         switch (logic.getLanguage()) {
             case "IT":
-                imgPrencipale.setImage(itaBandiera);
+                mainLanguageImageView.setImage(italianFlag);
                 break;
             case "EN":
-                imgPrencipale.setImage(engBandiera);
+                mainLanguageImageView.setImage(englishFlag);
                 break;
         }
 
@@ -211,11 +186,11 @@ public class MainMenu {
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));
 
-            NewGame.setText(logic.getString(MAIN_MENU_KEY));
-            LoadGame.setText(logic.getString(LOAD_KEY));
-            Settings.setText(logic.getString(SETTINGS_KEY));
-            LDB.setText(logic.getString(LEADERBOARD_KEY));
-            Exit.setText(logic.getString(EXIT_KEY));
+            newGameButton.setText(logic.getString(MAIN_MENU_KEY));
+            loadGameButton.setText(logic.getString(LOAD_KEY));
+            settingsButton.setText(logic.getString(SETTINGS_KEY));
+            leaderboardButton.setText(logic.getString(LEADERBOARD_KEY));
+            exitButton.setText(logic.getString(EXIT_KEY));
 
             Image im1 = new Image(this.getClass().getResource("background1.jpg").toURI().toString());
             Image im2 = new Image(this.getClass().getResource("background2.jpg").toURI().toString());
@@ -223,7 +198,7 @@ public class MainMenu {
             Image im4 = new Image(this.getClass().getResource("background4.jpg").toURI().toString());
             setCorrectFlag();
             //  BackGround.setImage(new Image("/jmb/view/background3.jpg"));
-            BackGround1.setPreserveRatio(false);
+            background1.setPreserveRatio(false);
             background2.setPreserveRatio(false);
 
             // musica
@@ -237,7 +212,7 @@ public class MainMenu {
                     new KeyFrame(Duration.seconds(5),
                             new KeyValue(background2.opacityProperty(), 0)),
                     new KeyFrame(Duration.seconds(6), e -> {
-                        BackGround1.setImage(im3);
+                        background1.setImage(im3);
                     },
                             new KeyValue(background2.opacityProperty(), 1)
                     ),
@@ -251,7 +226,7 @@ public class MainMenu {
                     new KeyFrame(Duration.seconds(17),
                             new KeyValue(background2.opacityProperty(), 0)),
                     new KeyFrame(Duration.seconds(18), e -> {
-                        BackGround1.setImage(im1);
+                        background1.setImage(im1);
                     },
                             new KeyValue(background2.opacityProperty(), 1)),
                     new KeyFrame(Duration.seconds(23),
@@ -266,11 +241,11 @@ public class MainMenu {
 
 
             //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-            Window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+            window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
             //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-            Window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+            window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -282,46 +257,46 @@ public class MainMenu {
 
             //  Ridimensiona il titolo
 
-                Text.setLayoutX(Window.getWidth()/2 - Text.getWrappingWidth()/2);
-                BGText.setLayoutX(Window.getWidth()/2 - BGText.getWidth()/2);
+                gameTitle.setLayoutX(window.getWidth()/2 - gameTitle.getWrappingWidth()/2);
+                gameTitleBackground.setLayoutX(window.getWidth()/2 - gameTitleBackground.getWidth()/2);
 
             //  Ridimensiona il messaggio del tutorial
 
-                Ptutorial.setLayoutX(Window.getWidth()/2 + 153);
-                Ptutorial.setLayoutY(Window.getHeight()/2.5);
-                Ttutorial.setLayoutX(Window.getWidth()/2 +151);
-                Ttutorial.setLayoutY(Window.getHeight()/2.5 +15);
-                tutorialButton2.setLayoutX(Window.getWidth()/2 + 178);
-                tutorialButton2.setLayoutY(Window.getHeight()/2.5 + 60);
-                notutorial.setLayoutX(Window.getWidth()/2 + 250);
-                notutorial.setLayoutY(Window.getHeight()/2.5 + 60);
+                tutorialPromptBackground.setLayoutX(window.getWidth()/2 + 153);
+                tutorialPromptBackground.setLayoutY(window.getHeight()/2.5);
+                tutorialPromptText.setLayoutX(window.getWidth()/2 +151);
+                tutorialPromptText.setLayoutY(window.getHeight()/2.5 +15);
+                tutorialPromptYes.setLayoutX(window.getWidth()/2 + 178);
+                tutorialPromptYes.setLayoutY(window.getHeight()/2.5 + 60);
+                tutorialPromptNo.setLayoutX(window.getWidth()/2 + 250);
+                tutorialPromptNo.setLayoutY(window.getHeight()/2.5 + 60);
 
             //  Ridimensiona i Buttoni rispetto alla finestra principale
             //  Larghezza
 
-            NewGame.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
-            tutorialButton.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
-            LoadGame.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
-            LDB.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
-            Settings.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
-            Exit.setLayoutX(Window.getWidth()/2 - NewGame.getWidth()/2);
+            newGameButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            tutorialButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            loadGameButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            leaderboardButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            settingsButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            exitButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
 
             // Altezza
-            Text.setLayoutY(Window.getHeight()/3);
-            BGText.setLayoutY(Window.getHeight()/3 - 71);
+            gameTitle.setLayoutY(window.getHeight()/3);
+            gameTitleBackground.setLayoutY(window.getHeight()/3 - 71);
 
-            NewGame.setLayoutY(Window.getHeight()/2.5);
-            tutorialButton.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16);
-            LoadGame.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16);
-            LDB.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
-            Settings.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
-            Exit.setLayoutY(Window.getHeight()/2.5 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16 + Window.getHeight()/16);
+            newGameButton.setLayoutY(window.getHeight()/2.5);
+            tutorialButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16);
+            loadGameButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16);
+            leaderboardButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
+            settingsButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
+            exitButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
 
 
-            BackGround1.setFitWidth(Window.getWidth());
-            BackGround1.setFitHeight(Window.getHeight());
-            background2.setFitWidth(Window.getWidth());
-            background2.setFitHeight(Window.getHeight());
+            background1.setFitWidth(window.getWidth());
+            background1.setFitHeight(window.getHeight());
+            background2.setFitWidth(window.getWidth());
+            background2.setFitHeight(window.getHeight());
 
 
     }

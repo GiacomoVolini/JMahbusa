@@ -2,7 +2,7 @@ package jmb.logic;
 
 import java.util.Random;
 
-import static jmb.logic.Logic.settings;
+import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
 /**
@@ -12,23 +12,20 @@ import static jmb.logic.Logic.view;
 public class DiceLogic{
 
     private int[] dice = new int[] {0, 0, 0, 0};            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
-    private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossa
-    private boolean doubleNum;                  //Variabile booleana per indicare lo stato di "tiro doppio"
+    private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossaprivate boolean[] toBeUsed = new boolean [4];//Array che memorizza quali dadi verranno utilizzati da un movimento
     private boolean[] toBeUsed = new boolean [4];//Array che memorizza quali dadi verranno utilizzati da un movimento
+    private boolean doubleNum;                  //Variabile booleana per indicare lo stato di "tiro doppio"
     Random rnd = new Random();
 
 
 
     public DiceLogic() {
-
         //  COSTRUTTORE -- inizializza i valori di array e variabili di istanza
-
         for (int i =0; i<4; i++) {
             this.dice[i]=0;
             this.used[i]=true;
         }
         this.doubleNum = false;
-
     }
 
     //---------------------------------------------
@@ -57,44 +54,38 @@ public class DiceLogic{
     }
 
     //METODI GETTER E SETTER
-
     public int getDiceValue (int i) {
         return this.dice[i];
     }
-
     public boolean getUsed (int i) {
         return this.used[i];
     }
-
     public int[] getDiceValues () {
         return this.dice;
     }
-
     public boolean getDoubleNum() {
         return this.doubleNum;
     }
-
     public boolean[] getToBeUsedArray() {
         return this.toBeUsed;
     }
-
     public boolean[] getUsedArray() {
         return this.used;
     }
+    protected void setToBeUsed(int i) {
+        this.toBeUsed[i] = true;
+    }
+
     //--------------------------------
 
     public boolean whoStarts() {
-
         //  Metodo che determina quale dei due giocatori effettuerà il primo turno
-
         do {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;
         } while (this.dice[0] == this.dice[1]);
         boolean whiteBegins = this.dice[0] > this.dice[1];
-
         return whiteBegins;
-
     }
 
     public int countAvailableDice() {
@@ -105,12 +96,6 @@ public class DiceLogic{
         }
         return availableDice;
     }
-
-
-    protected void setToBeUsed(int i) {
-        this.toBeUsed[i] = true;
-    }
-
     protected void setDoublesToBeUsed (int howManyDice) {
         int set = 0;
         for (int i = 0; i<4 && set< howManyDice; i++) {
@@ -120,7 +105,6 @@ public class DiceLogic{
             }
         }
     }
-
     public void setDiceToUsed() {
         // Il metodo, richiamato in seguito ad una mossa correttamente effettuata, imposta come usati i dadi
         //      indicati nell'array toBeUsed
@@ -133,12 +117,10 @@ public class DiceLogic{
             }
         }
     }
-
     public void resetToBeUsed() {
         for (int i = 0; i < toBeUsed.length; i++)
             toBeUsed[i] = false;
     }
-
     // checkExitDiceSimple controlla che ci sia un dado che permetta di muovere la pedina esattamente nella zona di uscita
     protected boolean checkExitDiceSimple (int delta) {
         boolean possible = false;
@@ -146,9 +128,10 @@ public class DiceLogic{
             if (dice[i] == delta && !used[i]) {
                 possible = true;
                 toBeUsed[i] = true;
+
             }
         }
-        if (settings.getBypassDice())
+        if (logic.getBypassDice())
             possible = true;
         return possible;
     }
@@ -161,7 +144,7 @@ public class DiceLogic{
                 toBeUsed[i] = true;
             }
         }
-        if (settings.getBypassDice())
+        if (logic.getBypassDice())
             possible = true;
         return possible;
     }

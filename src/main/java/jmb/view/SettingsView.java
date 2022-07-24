@@ -1,18 +1,12 @@
 package jmb.view;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -27,250 +21,163 @@ public class SettingsView {
 
         private final static int MUSIC_SLIDER = 0;
         private final static int SFX_SLIDER = 1;
-        private Stage stage;
         @FXML
-        private AnchorPane GBG;
+        private AnchorPane window;
 
         @FXML
-        private AnchorPane Sbackgraound;
+        private AnchorPane settingsAnchorPane;
 
         @FXML
-        private TitledPane Timpostazioni;
-
+        private TitledPane settingsTitlePane;
         @FXML
-        private ImageView bgsinistra;
-
+        private Button videoButton;
         @FXML
-        private Button Bvideo;
-
+        private Button audioButton;
         @FXML
-        private Button Baudio;
-
+        private Button customizationButton;
         @FXML
-        private Button Bpersonalizzazione;
-
-        @FXML
-        private Button Bcomandi;
-
+        private Button controlsButton;
         @FXML
         private Button mainMenuButton;
-
         @FXML
-        private AnchorPane video;
-
+        private AnchorPane videoAnchorPane;
         @FXML
-        private TitledPane Tvideo;
-
+        private TitledPane videoTitlePane;
         @FXML
-        private ImageView Vbg;
-
+        private CheckBox fullscreenCheck;
         @FXML
-        private CheckBox checkSI;
-
+        private CheckBox lockResolutionCheck;
         @FXML
-        private CheckBox checkBR;
-
+        private Text resolutionText;
         @FXML
-        private Text tResolution;
-
+        private Text resolutionWidthText;
         @FXML
-        private Text tLarghezza;
-
+        private Text resolutionHeightText;
         @FXML
-        private Text tAltezza;
-
+        private TextField resolutionWidthField;
         @FXML
-        private TextField fLarghezza;
-
+        private TextField resolutionHeightField;
         @FXML
-        private TextField fAltezza;
-
+        private AnchorPane audioAnchorPane;
         @FXML
-        private AnchorPane audio;
-
+        private TitledPane audioTitlePane;
         @FXML
-        private TitledPane Taudio;
-
+        private Text musicText;
         @FXML
-        private ImageView Abg;
-
+        private CheckBox musicCheck;
         @FXML
-        private Text Music;
-
+        private Slider musicSlider;
         @FXML
-        private CheckBox checkMusi;
-
+        private CheckBox sFXCheck;
         @FXML
-        private Slider SliderMusi;
-
+        private Text sFXText;
         @FXML
-        private CheckBox checkMES;
-
+        private Slider sFXSlider;
         @FXML
-        private Text Esonori;
-
+        private AnchorPane customizeAnchorPane;
         @FXML
-        private Slider SliderES;
-
-        @FXML
-        private AnchorPane personalizzazione;
-
-        @FXML
-        private TitledPane Tpersonalizzazione;
-
-        @FXML
-        private ImageView Ibg;
-
+        private TitledPane customizeTitlePane;
         @FXML
         private Button resetButton;
-
         @FXML
-        private ColorPicker Inpedina1;
-
+        private ColorPicker whitePawnFillColorPicker;
         @FXML
-        private Text Tpedgioc1;
-
+        private Text whitePawnText;
         @FXML
-        private Circle pedina1;
-
+        private Circle whitePawn;
         @FXML
-        private ColorPicker Inpedina2;
-
+        private ColorPicker blackPawnFillColorPicker;
         @FXML
-        private Text Tpedgioc2;
-
+        private Text blackPawnText;
         @FXML
-        private Circle pedina2;
-
+        private Circle blackPawn;
         @FXML
-        private ColorPicker Conpedina1;
-
+        private ColorPicker whitePawnStrokeColorPicker;
         @FXML
-        private ColorPicker Conpedina2;
-
+        private ColorPicker blackPawnStrokeColorPicker;
         @FXML
-        private Text Tint;
-
+        private Text pawnFillText;
         @FXML
-        private Text Tcont;
-
+        private Text pawnStrokeText;
         @FXML
-        private Text Ttav;
-
+        private Text tableText;
         @FXML
-        private Text Tpunt;
-
+        private Text pointText;
         @FXML
-        private Text Tcorn;
-
+        private Text frameText;
         @FXML
-        private ColorPicker Ctavolo;
-
+        private ColorPicker tableColorPicker;
         @FXML
-        private ColorPicker Cpunte;
-
+        private ColorPicker evenPointColorPicker;
         @FXML
-        private ColorPicker Cpunte2;
-
+        private ColorPicker oddPointColorPicker;
+        //TODO RIPRENDERE A RINOMINARE DA QUI
         @FXML
         private Rectangle cornice1;
-
         @FXML
         private Rectangle tavolo1;
-
         @FXML
         private Polygon punta11;
-
         @FXML
         private Polygon punta21;
-
         @FXML
         private Polygon punta31;
-
         @FXML
         private AnchorPane Ancormed;
-
         @FXML
         private Rectangle cornice11;
-
         @FXML
         private Rectangle tavolo11;
-
         @FXML
         private Polygon punta111;
-
         @FXML
         private Polygon punta211;
-
         @FXML
         private Polygon punta311;
-
         @FXML
         private AnchorPane Ancorsini;
-
         @FXML
         private ColorPicker Ccornice;
-
         @FXML
         private RadioButton Imdestra;
-
         @FXML
         private RadioButton Imsinistra;
-
         @FXML
         private Rectangle cornice;
-
         @FXML
         private Rectangle tavolo;
-
         @FXML
         private Polygon punta1;
-
         @FXML
         private Polygon punta2;
-
         @FXML
         private Polygon punta3;
-
         @FXML
         private AnchorPane Ancordes;
-
         @FXML
         private RadioButton TM;
-
         @FXML
         protected Button applyButton;
-
         @FXML
         private AnchorPane comandi;
-
         @FXML
         private TitledPane Tcomandi;
-
         @FXML
         private Text Tkeyboard;
-
         @FXML
         private Text Tmuov;
-
         @FXML
         private Text Tright;
-
         @FXML
         private Text Tleft;
-
         @FXML
         private Text Tup;
-
         @FXML
         private Text Tdown;
-
         @FXML
         private Text Tdese;
-
         @FXML
         private Text Tfinish;
-
         @FXML
         private Text Tcancellation;
 
@@ -356,7 +263,7 @@ public class SettingsView {
                 if(!applyButton.isDisable()){
                         Pavvertimento.setVisible(true);
                         Pavvertimento.setDisable(false);
-                        Sbackgraound.setDisable(true);
+                        settingsAnchorPane.setDisable(true);
                 }else {
                         App.changeRoot(MAIN_MENU);
                 }
@@ -366,23 +273,23 @@ public class SettingsView {
         void chiudiAttenzioni(ActionEvent event) {
                 Pavvertimento.setVisible(false);
                 Pavvertimento.setDisable(true);
-                Sbackgraound.setDisable(false);
+                settingsAnchorPane.setDisable(false);
         }
 
         @FXML
         void tornaMainMenu(ActionEvent event) {
-                Sbackgraound.setDisable(false);
+                settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
         }
 
         @FXML
         void openEditVideo() {
-                Tvideo.setVisible(true);
-                video.setMouseTransparent(false);
-                Taudio.setVisible(false);
-                audio.setMouseTransparent(true);
-                Tpersonalizzazione.setVisible(false);
-                personalizzazione.setMouseTransparent(true);
+                videoTitlePane.setVisible(true);
+                videoAnchorPane.setMouseTransparent(false);
+                audioTitlePane.setVisible(false);
+                audioAnchorPane.setMouseTransparent(true);
+                customizeTitlePane.setVisible(false);
+                customizeAnchorPane.setMouseTransparent(true);
                 Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
 
@@ -390,36 +297,36 @@ public class SettingsView {
 
         @FXML
         void openEditAudio() {
-                Tvideo.setVisible(false);
-                video.setMouseTransparent(true);
-                Taudio.setVisible(true);
-                audio.setMouseTransparent(false);
-                Tpersonalizzazione.setVisible(false);
-                personalizzazione.setMouseTransparent(true);
+                videoTitlePane.setVisible(false);
+                videoAnchorPane.setMouseTransparent(true);
+                audioTitlePane.setVisible(true);
+                audioAnchorPane.setMouseTransparent(false);
+                customizeTitlePane.setVisible(false);
+                customizeAnchorPane.setMouseTransparent(true);
                 Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
         }
 
         @FXML
         void openEditPersonalizzazione() {
-                Tvideo.setVisible(false);
-                video.setMouseTransparent(true);
-                Taudio.setVisible(false);
-                audio.setMouseTransparent(true);
-                Tpersonalizzazione.setVisible(true);
-                personalizzazione.setMouseTransparent(false);
+                videoTitlePane.setVisible(false);
+                videoAnchorPane.setMouseTransparent(true);
+                audioTitlePane.setVisible(false);
+                audioAnchorPane.setMouseTransparent(true);
+                customizeTitlePane.setVisible(true);
+                customizeAnchorPane.setMouseTransparent(false);
                 Tcomandi.setVisible(false);
                 comandi.setMouseTransparent(true);
         }
 
         @FXML
         void openEditComandi(ActionEvent event) {
-                Tvideo.setVisible(false);
-                video.setMouseTransparent(true);
-                Taudio.setVisible(false);
-                audio.setMouseTransparent(true);
-                Tpersonalizzazione.setVisible(false);
-                personalizzazione.setMouseTransparent(true);
+                videoTitlePane.setVisible(false);
+                videoAnchorPane.setMouseTransparent(true);
+                audioTitlePane.setVisible(false);
+                audioAnchorPane.setMouseTransparent(true);
+                customizeTitlePane.setVisible(false);
+                customizeAnchorPane.setMouseTransparent(true);
                 Tcomandi.setVisible(true);
                 comandi.setMouseTransparent(false);
         }
@@ -428,15 +335,15 @@ public class SettingsView {
         //schermo intero
         @FXML
         void fullscreen(ActionEvent event) {
-                Stage stage = (Stage)GBG.getScene().getWindow();
-                stage.setFullScreen(checkSI.isSelected());
+                Stage stage = (Stage) window.getScene().getWindow();
+                stage.setFullScreen(fullscreenCheck.isSelected());
                 applyButton.setDisable(false);
         }
 
         @FXML
         void blockresolution(ActionEvent event) {
-                Stage stage = (Stage)GBG.getScene().getWindow();
-                stage.setResizable(!checkBR.isSelected());
+                Stage stage = (Stage) window.getScene().getWindow();
+                stage.setResizable(!lockResolutionCheck.isSelected());
                 applyButton.setDisable(false);
         }
 
@@ -444,14 +351,14 @@ public class SettingsView {
 
         @FXML
         void mutaLAmusica(ActionEvent event) {
-                if (checkMusi.isSelected()){
-                        Sv = SliderMusi.getValue();
-                        SliderMusi.setValue(0);
-                        SliderMusi.setDisable(true);
+                if (musicCheck.isSelected()){
+                        Sv = musicSlider.getValue();
+                        musicSlider.setValue(0);
+                        musicSlider.setDisable(true);
                         view.pauseMusic();
                 }else{
-                        SliderMusi.setValue(Sv);
-                        SliderMusi.setDisable(false);
+                        musicSlider.setValue(Sv);
+                        musicSlider.setDisable(false);
                         view.playMusic(MENU_MUSIC);
                 }
                 applyButton.setDisable(false);
@@ -459,13 +366,13 @@ public class SettingsView {
 
         @FXML
         void mutaGLIeffetto(ActionEvent event) {
-                if (checkMES.isSelected()) {
-                        Sve = SliderES.getValue();
-                        SliderES.setValue(0);
-                        SliderES.setDisable(true);
+                if (sFXCheck.isSelected()) {
+                        Sve = sFXSlider.getValue();
+                        sFXSlider.setValue(0);
+                        sFXSlider.setDisable(true);
                 } else {
-                        SliderES.setValue(Sve);
-                        SliderES.setDisable(false);
+                        sFXSlider.setValue(Sve);
+                        sFXSlider.setDisable(false);
                 }
                 applyButton.setDisable(false);
         }
@@ -478,43 +385,43 @@ public class SettingsView {
         //Personalizzazione
         @FXML
         void coloreINpedina1(ActionEvent event) {
-                Color newValue = Inpedina1.getValue();
-                if (newValue!=pedina1.getFill()) {
-                        pedina1.setFill(newValue);
+                Color newValue = whitePawnFillColorPicker.getValue();
+                if (newValue!= whitePawn.getFill()) {
+                        whitePawn.setFill(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
         void coloreOUTpedina1(ActionEvent event) {
-                Color newValue = Conpedina1.getValue();
-                if (newValue!=pedina1.getStroke()) {
-                        pedina1.setStroke(newValue);
+                Color newValue = whitePawnStrokeColorPicker.getValue();
+                if (newValue!= whitePawn.getStroke()) {
+                        whitePawn.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
         void coloreINpedina2(ActionEvent event) {
-                Color newValue = Inpedina2.getValue();
-                if (newValue!=pedina2.getFill()) {
-                        pedina2.setFill(newValue);
+                Color newValue = blackPawnFillColorPicker.getValue();
+                if (newValue!= blackPawn.getFill()) {
+                        blackPawn.setFill(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
         void coloreOUTpedina2(ActionEvent event) {
-                Color newValue = Conpedina2.getValue();
-                if (newValue!=pedina2.getStroke()) {
-                        pedina2.setStroke(newValue);
+                Color newValue = blackPawnStrokeColorPicker.getValue();
+                if (newValue!= blackPawn.getStroke()) {
+                        blackPawn.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
         void coloreTavolo(ActionEvent event) {
-                Color newValue = Ctavolo.getValue();
+                Color newValue = tableColorPicker.getValue();
                 if (newValue!=tavolo.getFill()) {
                         tavolo.setFill(newValue);
                         tavolo.setStroke(newValue);
@@ -534,7 +441,7 @@ public class SettingsView {
 
         @FXML
         void colorePunte(ActionEvent event) {
-                Color newValue = Cpunte.getValue();
+                Color newValue = evenPointColorPicker.getValue();
                 if (newValue!=punta1.getFill()) {
                         punta1.setFill(newValue);
                         punta1.setStroke(newValue);
@@ -546,7 +453,7 @@ public class SettingsView {
 
         @FXML
         void colorePunte2(ActionEvent event) {
-                Color newValue = Cpunte2.getValue();
+                Color newValue = oddPointColorPicker.getValue();
                 if (newValue!=punta2.getFill()) {
                         punta2.setFill(newValue);
                         punta2.setStroke(newValue);
@@ -571,13 +478,13 @@ public class SettingsView {
                 selectedPointAnimation = new Timeline(
                         new KeyFrame(Duration.ZERO, e-> {
                                 punta3.setFill(selectedPointColor);
-                                punta1.setFill(Cpunte.getValue());
+                                punta1.setFill(evenPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(0.5), e-> {
                                 punta2.setFill(selectedPointColor);
-                                punta3.setFill(Cpunte.getValue());
+                                punta3.setFill(evenPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(1), e-> {
                                 punta1.setFill(selectedPointColor);
-                                punta2.setFill(Cpunte2.getValue());
+                                punta2.setFill(oddPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(1.5))
                 );
                 selectedPointAnimation.setCycleCount(Animation.INDEFINITE);
@@ -587,9 +494,9 @@ public class SettingsView {
 
         @FXML
         void sinistraAction(ActionEvent event) {
-                Ctavolo.setDisable(true);
-                Cpunte.setDisable(true);
-                Cpunte2.setDisable(true);
+                tableColorPicker.setDisable(true);
+                evenPointColorPicker.setDisable(true);
+                oddPointColorPicker.setDisable(true);
                 selectedPointColorPicker.setDisable(true);
                 Ccornice.setDisable(true);
                 if (logic.getBoardPreset()!=LEFT_PRESET)
@@ -598,9 +505,9 @@ public class SettingsView {
 
         @FXML
         void inMezzo(ActionEvent event) {
-                Ctavolo.setDisable(false);
-                Cpunte.setDisable(false);
-                Cpunte2.setDisable(false);
+                tableColorPicker.setDisable(false);
+                evenPointColorPicker.setDisable(false);
+                oddPointColorPicker.setDisable(false);
                 selectedPointColorPicker.setDisable(false);
                 Ccornice.setDisable(false);
                 if (logic.getBoardPreset()!=CUSTOM_BOARD)
@@ -609,9 +516,9 @@ public class SettingsView {
 
         @FXML
         void destraAction(ActionEvent event) {
-                Ctavolo.setDisable(true);
-                Cpunte.setDisable(true);
-                Cpunte2.setDisable(true);
+                tableColorPicker.setDisable(true);
+                evenPointColorPicker.setDisable(true);
+                oddPointColorPicker.setDisable(true);
                 selectedPointColorPicker.setDisable(true);
                 Ccornice.setDisable(true);
                 if (logic.getBoardPreset()!=RIGHT_PRESET)
@@ -692,9 +599,9 @@ public class SettingsView {
 
         @FXML
         void cambiaRisoluzione(KeyEvent event) {
-                if(logic.isParsable(fLarghezza.getText()) && logic.isParsable(fAltezza.getText())) {
-                        logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
-                        logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
+                if(logic.isParsable(resolutionWidthField.getText()) && logic.isParsable(resolutionHeightField.getText())) {
+                        logic.setResolutionWidth(Integer.parseInt(resolutionWidthField.getText()));
+                        logic.setResolutionHeight(Integer.parseInt(resolutionHeightField.getText()));
                         applyButton.setDisable(false);
                 }else{
                         applyButton.setDisable(true);
@@ -706,36 +613,36 @@ public class SettingsView {
         void applySettingsAndExit(ActionEvent event) {
                 applySettings(null);
                 applyButton.setDisable(true);
-                Sbackgraound.setDisable(false);
+                settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
         }
 
         @FXML
         void applySettings(ActionEvent event) {
-                Stage stage = (Stage) GBG.getScene().getWindow();
-                logic.setFullScreen(checkSI.isSelected());
-                logic.setLockResolution(checkBR.isSelected());
-                logic.setResolutionWidth(Integer.parseInt(fLarghezza.getText()));
+                Stage stage = (Stage) window.getScene().getWindow();
+                logic.setFullScreen(fullscreenCheck.isSelected());
+                logic.setLockResolution(lockResolutionCheck.isSelected());
+                logic.setResolutionWidth(Integer.parseInt(resolutionWidthField.getText()));
                 stage.setWidth(logic.getResolutionWidth());
-                logic.setResolutionHeight(Integer.parseInt(fAltezza.getText()));
+                logic.setResolutionHeight(Integer.parseInt(resolutionHeightField.getText()));
                 stage.setHeight(logic.getResolutionHeight());
-                logic.setMusicVolume((int)SliderMusi.getValue());
-                logic.setSFXVolume((int)SliderES.getValue());
-                logic.setMuteMusic(checkMusi.isSelected());
-                logic.setMuteSFX(checkMES.isSelected());
+                logic.setMusicVolume((int) musicSlider.getValue());
+                logic.setSFXVolume((int) sFXSlider.getValue());
+                logic.setMuteMusic(musicCheck.isSelected());
+                logic.setMuteSFX(sFXCheck.isSelected());
                 if(TM.isSelected())
                         logic.setBoardPreset(CUSTOM_BOARD);
                 else if (Imsinistra.isSelected())
                         logic.setBoardPreset(LEFT_PRESET);
                 else logic.setBoardPreset(RIGHT_PRESET);
-                logic.setWhitePawnStroke(colorStringFactory(Conpedina1.getValue()));
-                logic.setWhitePawnFill(colorStringFactory(Inpedina1.getValue()));
-                logic.setBlackPawnStroke(colorStringFactory(Conpedina2.getValue()));
-                logic.setBlackPawnFill(colorStringFactory(Inpedina2.getValue()));
+                logic.setWhitePawnStroke(colorStringFactory(whitePawnStrokeColorPicker.getValue()));
+                logic.setWhitePawnFill(colorStringFactory(whitePawnFillColorPicker.getValue()));
+                logic.setBlackPawnStroke(colorStringFactory(blackPawnStrokeColorPicker.getValue()));
+                logic.setBlackPawnFill(colorStringFactory(blackPawnFillColorPicker.getValue()));
                 logic.setBoardFrameColor(colorStringFactory(Ccornice.getValue()));
-                logic.setBoardInnerColor(colorStringFactory(Ctavolo.getValue()));
-                logic.setEvenPointsColor(colorStringFactory(Cpunte.getValue()));
-                logic.setOddPointsColor(colorStringFactory(Cpunte2.getValue()));
+                logic.setBoardInnerColor(colorStringFactory(tableColorPicker.getValue()));
+                logic.setEvenPointsColor(colorStringFactory(evenPointColorPicker.getValue()));
+                logic.setOddPointsColor(colorStringFactory(oddPointColorPicker.getValue()));
                 logic.setSelectedPointColor(colorStringFactory(selectedPointColorPicker.getValue()));
                 logic.setMoveRight(moDestra.getText());
                 logic.setMoveLeft(moSinistra.getText());
@@ -753,32 +660,32 @@ public class SettingsView {
         @FXML
         void resetToDefaults(ActionEvent event) {
                 logic.resetDefaultSettings();
-                checkSI.setSelected(logic.getFullScreen());
+                fullscreenCheck.setSelected(logic.getFullScreen());
                 fullscreen(null);
                 blockresolution(null);
-                checkBR.setSelected(logic.getLockResolution());
-                Stage stage = (Stage) GBG.getScene().getWindow();
+                lockResolutionCheck.setSelected(logic.getLockResolution());
+                Stage stage = (Stage) window.getScene().getWindow();
                 stage.setWidth(logic.getResolutionWidth());
                 stage.setHeight(logic.getResolutionHeight());
-                fLarghezza.setText(String.valueOf(logic.getResolutionWidth()));
-                fAltezza.setText(String.valueOf(logic.getResolutionHeight()));
-                SliderMusi.setValue(logic.getMusicVolume());
+                resolutionWidthField.setText(String.valueOf(logic.getResolutionWidth()));
+                resolutionHeightField.setText(String.valueOf(logic.getResolutionHeight()));
+                musicSlider.setValue(logic.getMusicVolume());
                 view.setMusicVolume(logic.getMusicVolume());
-                SliderES.setValue(logic.getSFXVolume());
+                sFXSlider.setValue(logic.getSFXVolume());
                 view.setSFXVolume(logic.getSFXVolume());
-                checkMusi.setSelected(logic.getMuteMusic());
-                checkMES.setSelected(logic.getMuteSFX());
-                SliderMusi.setDisable(logic.getMuteMusic());
-                SliderES.setDisable(logic.getMuteSFX());
+                musicCheck.setSelected(logic.getMuteMusic());
+                sFXCheck.setSelected(logic.getMuteSFX());
+                musicSlider.setDisable(logic.getMuteMusic());
+                sFXSlider.setDisable(logic.getMuteSFX());
                 if (logic.getMuteMusic())
                         view.pauseMusic();
                 else view.playMusic(MENU_MUSIC);
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
-                                Ctavolo.setDisable(false);
-                                Cpunte.setDisable(false);
-                                Cpunte2.setDisable(false);
+                                tableColorPicker.setDisable(false);
+                                evenPointColorPicker.setDisable(false);
+                                oddPointColorPicker.setDisable(false);
                                 selectedPointColorPicker.setDisable(false);
                                 Ccornice.setDisable(false);
                                 break;
@@ -789,18 +696,18 @@ public class SettingsView {
                                 Imdestra.setSelected(true);
                                 break;
                 }
-                Conpedina1.setValue(Color.web(logic.getWhitePawnStroke()));
-                Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
-                Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
-                Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
-                pedina1.setFill(Color.web(logic.getWhitePawnFill()));
-                pedina1.setStroke(Color.web(logic.getWhitePawnStroke()));
-                pedina2.setFill(Color.web(logic.getBlackPawnFill()));
-                pedina2.setStroke(Color.web(logic.getBlackPawnStroke()));
+                whitePawnStrokeColorPicker.setValue(Color.web(logic.getWhitePawnStroke()));
+                whitePawnFillColorPicker.setValue(Color.web(logic.getWhitePawnFill()));
+                blackPawnStrokeColorPicker.setValue(Color.web(logic.getBlackPawnStroke()));
+                blackPawnFillColorPicker.setValue(Color.web(logic.getBlackPawnFill()));
+                whitePawn.setFill(Color.web(logic.getWhitePawnFill()));
+                whitePawn.setStroke(Color.web(logic.getWhitePawnStroke()));
+                blackPawn.setFill(Color.web(logic.getBlackPawnFill()));
+                blackPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
                 Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
-                Ctavolo.setValue(Color.web(logic.getBoardInnerColor()));
-                Cpunte.setValue(Color.web(logic.getEvenPointsColor()));
-                Cpunte2.setValue(Color.web(logic.getOddPointsColor()));
+                tableColorPicker.setValue(Color.web(logic.getBoardInnerColor()));
+                evenPointColorPicker.setValue(Color.web(logic.getEvenPointsColor()));
+                oddPointColorPicker.setValue(Color.web(logic.getOddPointsColor()));
                 selectedPointColor = Color.web(logic.getSelectedPointColor());
                 selectedPointColorPicker.setValue(selectedPointColor);
                 cornice.setFill(Color.web(logic.getBoardFrameColor()));
@@ -826,131 +733,131 @@ public class SettingsView {
         }
 
         protected void changeDimensions() {
-                Stage stage = (Stage) GBG.getScene().getWindow();
+                Stage stage = (Stage) window.getScene().getWindow();
                 //bottoni sinistra
-                Bvideo.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Bvideo.setLayoutY(GBG.getHeight()*0.12);
-                Bvideo.setMaxWidth(133);
-                Baudio.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Baudio.setLayoutY(GBG.getHeight()*0.20);
-                Baudio.setMaxWidth(133);
-                Bpersonalizzazione.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Bpersonalizzazione.setLayoutY(GBG.getHeight()*0.28);
-                Bpersonalizzazione.setMaxWidth(133);
-                Bcomandi.setLayoutX(GBG.getWidth()/8 - Bvideo.getWidth()/2);
-                Bcomandi.setLayoutY(GBG.getHeight()*0.36);
-                Bcomandi.setMaxWidth(133);
-                mainMenuButton.setLayoutX(GBG.getWidth()/8 - mainMenuButton.getWidth()/2);
-                mainMenuButton.setLayoutY(GBG.getHeight()*0.86);
+                videoButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
+                videoButton.setLayoutY(window.getHeight()*0.12);
+                videoButton.setMaxWidth(133);
+                audioButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
+                audioButton.setLayoutY(window.getHeight()*0.20);
+                audioButton.setMaxWidth(133);
+                customizationButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
+                customizationButton.setLayoutY(window.getHeight()*0.28);
+                customizationButton.setMaxWidth(133);
+                controlsButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
+                controlsButton.setLayoutY(window.getHeight()*0.36);
+                controlsButton.setMaxWidth(133);
+                mainMenuButton.setLayoutX(window.getWidth()/8 - mainMenuButton.getWidth()/2);
+                mainMenuButton.setLayoutY(window.getHeight()*0.86);
                 mainMenuButton.setMaxWidth(133);
-                resetButton.setLayoutX(GBG.getWidth()/8 - mainMenuButton.getWidth()/2);
-                resetButton.setLayoutY(GBG.getHeight()*0.78);
+                resetButton.setLayoutX(window.getWidth()/8 - mainMenuButton.getWidth()/2);
+                resetButton.setLayoutY(window.getHeight()*0.78);
                 resetButton.setMaxWidth(133);
-                applyButton.setLayoutX(GBG.getWidth()/8 - applyButton.getWidth()/2);
-                applyButton.setLayoutY(GBG.getHeight()*0.70);
+                applyButton.setLayoutX(window.getWidth()/8 - applyButton.getWidth()/2);
+                applyButton.setLayoutY(window.getHeight()*0.70);
                 applyButton.setMaxWidth(133);
 
                 //bottoni destra
                 //Video
 
-                AnchorPane.setLeftAnchor(tResolution,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(tAltezza,GBG.getWidth() * 0.13);
-                AnchorPane.setLeftAnchor(tLarghezza,GBG.getWidth() * 0.13);
-                AnchorPane.setLeftAnchor(fAltezza,GBG.getWidth() * 0.28);
-                AnchorPane.setLeftAnchor(fLarghezza,GBG.getWidth() * 0.28);
-                AnchorPane.setLeftAnchor(checkSI,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(checkBR,GBG.getWidth() * 0.4);
-                fAltezza.setText(String.valueOf((int)stage.getHeight()));
-                fLarghezza.setText(String.valueOf((int)stage.getWidth()));
+                AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.13);
+                AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.13);
+                AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.28);
+                AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.28);
+                AnchorPane.setLeftAnchor(fullscreenCheck, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(lockResolutionCheck, window.getWidth() * 0.4);
+                resolutionHeightField.setText(String.valueOf((int)stage.getHeight()));
+                resolutionWidthField.setText(String.valueOf((int)stage.getWidth()));
 
                 //Audio
-                AnchorPane.setLeftAnchor(Music,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(SliderMusi,GBG.getWidth() * 0.4);
-                AnchorPane.setLeftAnchor(Esonori,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(SliderES,GBG.getWidth() * 0.4);
-                AnchorPane.setLeftAnchor(checkMusi,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(checkMES,GBG.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.4);
+                AnchorPane.setLeftAnchor(sFXText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.4);
+                AnchorPane.setLeftAnchor(musicCheck, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(sFXCheck, window.getWidth() * 0.10);
 
                 //Personalizzazioni
-                AnchorPane.setLeftAnchor(Tint,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Tcont,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Tpedgioc1,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Inpedina1,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Conpedina1,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(pedina1,GBG.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(Ttav,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Ancorsini,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Imsinistra,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Ancormed,GBG.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(TM,GBG.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(Ancordes,GBG.getWidth() * 0.50);
-                AnchorPane.setLeftAnchor(Imdestra,GBG.getWidth() * 0.50);
-                AnchorPane.setLeftAnchor(Ctavolo,GBG.getWidth() * 0.11);
-                AnchorPane.setLeftAnchor(Tpunt,GBG.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(Cpunte2,GBG.getWidth() * 0.30 + 7);
-                AnchorPane.setLeftAnchor(Cpunte,AnchorPane.getLeftAnchor(Cpunte2) - 56);
-                AnchorPane.setLeftAnchor(selectedPointColorPicker, AnchorPane.getLeftAnchor(Cpunte2) + 56);
-                AnchorPane.setLeftAnchor(Tcorn,GBG.getWidth() * 0.50);
-                AnchorPane.setLeftAnchor(Ccornice,GBG.getWidth() * 0.51);
-                AnchorPane.setLeftAnchor(Tpedgioc2,GBG.getWidth() * 0.40);
-                AnchorPane.setLeftAnchor(Inpedina2,GBG.getWidth() * 0.40);
-                AnchorPane.setLeftAnchor(Conpedina2,GBG.getWidth() * 0.40);
-                AnchorPane.setLeftAnchor(pedina2,GBG.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(pawnFillText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(whitePawnText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(whitePawnFillColorPicker, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(whitePawnStrokeColorPicker, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(tableText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Ancorsini, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Imsinistra, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Ancormed, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(TM, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(Ancordes, window.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Imdestra, window.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(tableColorPicker, window.getWidth() * 0.11);
+                AnchorPane.setLeftAnchor(pointText, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(oddPointColorPicker, window.getWidth() * 0.30 + 7);
+                AnchorPane.setLeftAnchor(evenPointColorPicker,AnchorPane.getLeftAnchor(oddPointColorPicker) - 56);
+                AnchorPane.setLeftAnchor(selectedPointColorPicker, AnchorPane.getLeftAnchor(oddPointColorPicker) + 56);
+                AnchorPane.setLeftAnchor(frameText, window.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(Ccornice, window.getWidth() * 0.51);
+                AnchorPane.setLeftAnchor(blackPawnText, window.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(blackPawnFillColorPicker, window.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(blackPawnStrokeColorPicker, window.getWidth() * 0.40);
+                AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.50);
 
                 //Comandi
-                AnchorPane.setLeftAnchor(Tkeyboard,GBG.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Tmuov,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tright,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tleft,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tup,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tdown,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(moDestra,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSinistra,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSopra,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSotto,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(Tdese,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tcancellation,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tfinish,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tmainmenu,GBG.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Selezionare,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(cacellareMo,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(finitoT,GBG.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(opUscita,GBG.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(Tkeyboard, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(Tmuov, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tright, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tleft, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tup, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tdown, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(moDestra, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSinistra, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSopra, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(moSotto, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(Tdese, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tcancellation, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tfinish, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Tmainmenu, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(Selezionare, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(cacellareMo, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(finitoT, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(opUscita, window.getWidth() * 0.45);
 
                 //schermi
-                Sbackgraound.setPrefWidth(GBG.getWidth()/4);
-                Timpostazioni.setPrefWidth(GBG.getWidth()/4);
-                Pavvertimento.setLayoutX(GBG.getWidth()/2 - 206);
-                Pavvertimento.setLayoutY(GBG.getHeight()/2 -103);
+                settingsAnchorPane.setPrefWidth(window.getWidth()/4);
+                settingsTitlePane.setPrefWidth(window.getWidth()/4);
+                Pavvertimento.setLayoutX(window.getWidth()/2 - 206);
+                Pavvertimento.setLayoutY(window.getHeight()/2 -103);
 
-                video.setLayoutX(GBG.getWidth()/4);
-                Tvideo.setLayoutX(GBG.getWidth()/4);
-                audio.setLayoutX(GBG.getWidth()/4);
-                Taudio.setLayoutX(GBG.getWidth()/4);
-                personalizzazione.setLayoutX(GBG.getWidth()/4);
-                Tpersonalizzazione.setLayoutX(GBG.getWidth()/4);
-                comandi.setLayoutX(GBG.getWidth()/4);
-                Tcomandi.setLayoutX(GBG.getWidth()/4);
+                videoAnchorPane.setLayoutX(window.getWidth()/4);
+                videoTitlePane.setLayoutX(window.getWidth()/4);
+                audioAnchorPane.setLayoutX(window.getWidth()/4);
+                audioTitlePane.setLayoutX(window.getWidth()/4);
+                customizeAnchorPane.setLayoutX(window.getWidth()/4);
+                customizeTitlePane.setLayoutX(window.getWidth()/4);
+                comandi.setLayoutX(window.getWidth()/4);
+                Tcomandi.setLayoutX(window.getWidth()/4);
 
-                video.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                Tvideo.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                audio.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                Taudio.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                personalizzazione.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                Tpersonalizzazione.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                comandi.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
-                Tcomandi.setPrefWidth(GBG.getWidth()/4 + GBG.getWidth()/4 + GBG.getWidth()/4);
+                videoAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                videoTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                audioAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                audioTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                customizeAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                customizeTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                comandi.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                Tcomandi.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
 
-                Sbackgraound.setPrefHeight(GBG.getWidth());
-                Timpostazioni.setPrefHeight(GBG.getWidth());
-                video.setPrefHeight(GBG.getHeight());
-                Tvideo.setPrefHeight(GBG.getHeight());
-                audio.setPrefHeight(GBG.getHeight());
-                Taudio.setPrefHeight(GBG.getHeight());
-                personalizzazione.setPrefHeight(GBG.getHeight());
-                Tpersonalizzazione.setPrefHeight(GBG.getHeight());
-                comandi.setPrefHeight(GBG.getHeight());
-                Tcomandi.setPrefHeight(GBG.getHeight());
+                settingsAnchorPane.setPrefHeight(window.getWidth());
+                settingsTitlePane.setPrefHeight(window.getWidth());
+                videoAnchorPane.setPrefHeight(window.getHeight());
+                videoTitlePane.setPrefHeight(window.getHeight());
+                audioAnchorPane.setPrefHeight(window.getHeight());
+                audioTitlePane.setPrefHeight(window.getHeight());
+                customizeAnchorPane.setPrefHeight(window.getHeight());
+                customizeTitlePane.setPrefHeight(window.getHeight());
+                comandi.setPrefHeight(window.getHeight());
+                Tcomandi.setPrefHeight(window.getHeight());
 
                 if (((int)stage.getHeight() != logic.getResolutionHeight() ||
                         (int)stage.getWidth() != logic.getResolutionWidth()) &&
@@ -962,37 +869,37 @@ public class SettingsView {
                  nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.cacellareMo, this.finitoT, this.opUscita};
 
                  //languages
-                Timpostazioni.setText(logic.getString("Settings"));
-                //video lang...
-                Bvideo.setText(logic.getString("Video"));
-                Tvideo.setText(logic.getString("Video"));
-                tResolution.setText(logic.getString("Resolution"));
-                tLarghezza.setText(logic.getString("Length"));
-                tAltezza.setText(logic.getString("Height"));
-                checkSI.setText(logic.getString("Fullscreen"));
-                checkBR.setText(logic.getString("BlockResolution"));
+                settingsTitlePane.setText(logic.getString("Settings"));
+                //videoAnchorPane lang...
+                videoButton.setText(logic.getString("Video"));
+                videoTitlePane.setText(logic.getString("Video"));
+                resolutionText.setText(logic.getString("Resolution"));
+                resolutionWidthText.setText(logic.getString("Length"));
+                resolutionHeightText.setText(logic.getString("Height"));
+                fullscreenCheck.setText(logic.getString("Fullscreen"));
+                lockResolutionCheck.setText(logic.getString("BlockResolution"));
                 //Audio lang...
-                Baudio.setText(logic.getString("Audio"));
-                Taudio.setText(logic.getString("Audio"));
-                Music.setText(logic.getString("Music"));
-                Esonori.setText(logic.getString("SoundEffects"));
-                checkMusi.setText(logic.getString("MuteMusic"));
-                checkMES.setText(logic.getString("MuteSoundEffects"));
+                audioButton.setText(logic.getString("Audio"));
+                audioTitlePane.setText(logic.getString("Audio"));
+                musicText.setText(logic.getString("musicText"));
+                sFXText.setText(logic.getString("SoundEffects"));
+                musicCheck.setText(logic.getString("MuteMusic"));
+                sFXCheck.setText(logic.getString("MuteSoundEffects"));
                 //Personalizzazione lang...
-                Bpersonalizzazione.setText(logic.getString("Customization"));
-                Tpersonalizzazione.setText(logic.getString("Customization"));
-                Tpedgioc1.setText(logic.getString("Player1Pawns"));
-                Tpedgioc2.setText(logic.getString("Player2Pawns"));
-                Tint.setText(logic.getString("Internal"));
-                Tcont.setText(logic.getString("Outline"));
-                Ttav.setText(logic.getString("Table"));
-                Tpunt.setText(logic.getString("Points"));
-                Tcorn.setText(logic.getString("Frame"));
+                customizationButton.setText(logic.getString("Customization"));
+                customizeTitlePane.setText(logic.getString("Customization"));
+                whitePawnText.setText(logic.getString("Player1Pawns"));
+                blackPawnText.setText(logic.getString("Player2Pawns"));
+                pawnFillText.setText(logic.getString("Internal"));
+                pawnStrokeText.setText(logic.getString("Outline"));
+                tableText.setText(logic.getString("Table"));
+                pointText.setText(logic.getString("Points"));
+                frameText.setText(logic.getString("Frame"));
                 Imsinistra.setText(logic.getString("Preset"));
                 TM.setText(logic.getString("Custom"));
                 Imdestra.setText(logic.getString("Preset"));
                 //Comandi lang...
-                Bcomandi.setText(logic.getString("Commands"));
+                controlsButton.setText(logic.getString("Commands"));
                 Tcomandi.setText(logic.getString("Commands"));
                 Tkeyboard.setText(logic.getString("Keyboard"));
                 Tmuov.setText(logic.getString("Move"));
@@ -1017,8 +924,8 @@ public class SettingsView {
 
 
                  //Video
-                checkSI.setSelected(logic.getFullScreen());
-                checkBR.setSelected(logic.getLockResolution());
+                fullscreenCheck.setSelected(logic.getFullScreen());
+                lockResolutionCheck.setSelected(logic.getLockResolution());
 
 
                 //Personalizzazione
@@ -1029,25 +936,25 @@ public class SettingsView {
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
                                 TM.setSelected(true);
-                                Ctavolo.setDisable(false);
-                                Cpunte.setDisable(false);
-                                Cpunte2.setDisable(false);
+                                tableColorPicker.setDisable(false);
+                                evenPointColorPicker.setDisable(false);
+                                oddPointColorPicker.setDisable(false);
                                 selectedPointColorPicker.setDisable(false);
                                 Ccornice.setDisable(false);
                                 break;
                         case LEFT_PRESET:
                                 Imsinistra.setSelected(true);
-                                Ctavolo.setDisable(true);
-                                Cpunte.setDisable(true);
-                                Cpunte2.setDisable(true);
+                                tableColorPicker.setDisable(true);
+                                evenPointColorPicker.setDisable(true);
+                                oddPointColorPicker.setDisable(true);
                                 selectedPointColorPicker.setDisable(true);
                                 Ccornice.setDisable(true);
                                 break;
                         case RIGHT_PRESET:
                                 Imdestra.setSelected(true);
-                                Ctavolo.setDisable(true);
-                                Cpunte.setDisable(true);
-                                Cpunte2.setDisable(true);
+                                tableColorPicker.setDisable(true);
+                                evenPointColorPicker.setDisable(true);
+                                oddPointColorPicker.setDisable(true);
                                 selectedPointColorPicker.setDisable(true);
                                 Ccornice.setDisable(true);
                                 break;
@@ -1056,45 +963,45 @@ public class SettingsView {
 
 
                 //color picker
-                Inpedina1.setValue(Color.web(logic.getWhitePawnFill()));
-                Conpedina1.setValue(Color.web(logic.getWhitePawnStroke()));
-                Inpedina2.setValue(Color.web(logic.getBlackPawnFill()));
-                Conpedina2.setValue(Color.web(logic.getBlackPawnStroke()));
-                Ctavolo.setValue(Color.web(logic.getBoardInnerColor(true)));
+                whitePawnFillColorPicker.setValue(Color.web(logic.getWhitePawnFill()));
+                whitePawnStrokeColorPicker.setValue(Color.web(logic.getWhitePawnStroke()));
+                blackPawnFillColorPicker.setValue(Color.web(logic.getBlackPawnFill()));
+                blackPawnStrokeColorPicker.setValue(Color.web(logic.getBlackPawnStroke()));
+                tableColorPicker.setValue(Color.web(logic.getBoardInnerColor(true)));
                 Ccornice.setValue(Color.web(logic.getBoardFrameColor(true)));
-                Cpunte.setValue(Color.web(logic.getEvenPointsColor(true)));
-                Cpunte2.setValue(Color.web(logic.getOddPointsColor(true)));
+                evenPointColorPicker.setValue(Color.web(logic.getEvenPointsColor(true)));
+                oddPointColorPicker.setValue(Color.web(logic.getOddPointsColor(true)));
                 selectedPointColor = Color.web(logic.getSelectedPointColor(true));
                 selectedPointColorPicker.setValue(selectedPointColor);
 
                 //Oggetti
-                pedina1.setFill(Inpedina1.getValue());
-                pedina1.setStroke(Conpedina1.getValue());
+                whitePawn.setFill(whitePawnFillColorPicker.getValue());
+                whitePawn.setStroke(whitePawnStrokeColorPicker.getValue());
 
-                pedina2.setFill(Inpedina2.getValue());
-                pedina2.setStroke(Conpedina2.getValue());
+                blackPawn.setFill(blackPawnFillColorPicker.getValue());
+                blackPawn.setStroke(blackPawnStrokeColorPicker.getValue());
 
-                tavolo.setFill(Ctavolo.getValue());
-                tavolo.setStroke(Ctavolo.getValue());
+                tavolo.setFill(tableColorPicker.getValue());
+                tavolo.setStroke(tableColorPicker.getValue());
 
                 cornice.setFill(Ccornice.getValue());
                 cornice.setStroke(Ccornice.getValue());
 
-                punta1.setFill(Cpunte.getValue());
-                punta1.setStroke(Cpunte.getValue());
-                punta2.setFill(Cpunte2.getValue());
-                punta2.setStroke(Cpunte2.getValue());
-                punta3.setFill(Cpunte.getValue());
-                punta3.setStroke(Cpunte.getValue());
+                punta1.setFill(evenPointColorPicker.getValue());
+                punta1.setStroke(evenPointColorPicker.getValue());
+                punta2.setFill(oddPointColorPicker.getValue());
+                punta2.setStroke(oddPointColorPicker.getValue());
+                punta3.setFill(evenPointColorPicker.getValue());
+                punta3.setStroke(evenPointColorPicker.getValue());
 
                 //musica
-                        checkMusi.setSelected(logic.getMuteMusic());
-                        checkMES.setSelected(logic.getMuteSFX());
-                        SliderMusi.setValue(logic.getMusicVolume());
-                        SliderMusi.setValue(logic.getMusicVolume());
-                        SliderES.setValue(logic.getSFXVolume());
-                        SliderMusi.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, MUSIC_SLIDER));
-                        SliderES.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, SFX_SLIDER));
+                        musicCheck.setSelected(logic.getMuteMusic());
+                        sFXCheck.setSelected(logic.getMuteSFX());
+                        musicSlider.setValue(logic.getMusicVolume());
+                        musicSlider.setValue(logic.getMusicVolume());
+                        sFXSlider.setValue(logic.getSFXVolume());
+                        musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, MUSIC_SLIDER));
+                        sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, SFX_SLIDER));
 
                 //Comandi
                         moDestra.setText(logic.getMoveRight());
@@ -1107,11 +1014,11 @@ public class SettingsView {
                         opUscita.setText(logic.getOpenMenu());
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-                GBG.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+                window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
                 //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-                GBG.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+                window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
                 openEditVideo();
                 selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);

@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class StringsReader {
 
-   private Ini strings;
-   private static final String SECTION = "Strings";
+    private Ini strings;
+    private static final String SECTION = "Strings";
 
     public StringsReader(String language) {
         try {

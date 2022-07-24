@@ -2,12 +2,10 @@ package jmb.logic;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.logic;
 
@@ -63,8 +61,9 @@ public class SettingsLogic {
     public SettingsLogic() {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
-            if (!Files.exists(Path.of(settingsDir)))
-                Files.createDirectory(Path.of(settingsDir));
+            Path settingsPath = Path.of(settingsDir);
+            if (!Files.exists(settingsPath))
+                Files.createDirectory(settingsPath);
             defaultsPath = Path.of (settingsDir.concat("/Defaults.ini"));
             currentPath = Path.of (settingsDir.concat("/Current.ini"));
             if (Files.exists(defaultsPath)) {
@@ -173,13 +172,6 @@ public class SettingsLogic {
         try {
             saveSettingsTo(currentPath);
             logic.initializeStringsReader();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-    protected void revertSettingsChanges() {
-        try {
-            loadSettingsFrom(currentPath);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -406,12 +398,6 @@ public class SettingsLogic {
     }
     protected String getSelect() {
         return this.select;
-    }
-    protected void setConfirm(String value) {
-        this.confirm = value;
-    }
-    protected String getConfirm() {
-        return this.confirm;
     }
     protected void setRevertMove(String value) {
         this.revertMove = value;

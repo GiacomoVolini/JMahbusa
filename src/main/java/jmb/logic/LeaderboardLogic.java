@@ -4,13 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.*;
 import static java.nio.file.StandardOpenOption.*;
 import static jmb.ConstantsShared.*;
-import static jmb.ConstantsShared.SUCCESS;
 import static jmb.logic.Logic.logic;
 
 public class LeaderboardLogic {
@@ -74,22 +70,20 @@ public class LeaderboardLogic {
         return list;
     }
 
-        public void ldbWriter (Path path) {
-            try {
-                Files.delete(path);
-
-                Iterator<Player> it = arrList.iterator();
-                while(it.hasNext()) {
-                    Files.writeString(path, it.next() + System.lineSeparator(), CREATE, WRITE, APPEND);
-                }
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
+    public void ldbWriter (Path path) {
+        try {
+            Files.delete(path);
+            Iterator<Player> it = arrList.iterator();
+            while(it.hasNext()) {
+                Files.writeString(path, it.next() + System.lineSeparator(), CREATE, WRITE, APPEND);
             }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
+    }
 
 
     protected void addStatsToList( String winner, String loser, int points) {
-
         Player winPlayer = arrList.stream().filter(input -> input.getName().contains(winner)).findFirst().get();
         Player lossPlayer = arrList.stream().filter(input -> input.getName().contains(loser)).findFirst().get();
         winPlayer.addWins(points);

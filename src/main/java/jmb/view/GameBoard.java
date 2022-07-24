@@ -1,14 +1,7 @@
 package jmb.view;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
+import javafx.scene.shape.*;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;

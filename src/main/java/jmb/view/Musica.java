@@ -1,18 +1,9 @@
 package jmb.view;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import java.time.Duration;
-
+import javafx.scene.media.*;
 import static jmb.ConstantsShared.*;
-import static jmb.view.View.logic;
 
 public class Musica {
-
-    //String gameMusicLocation = new File("/jmb/view/partita.mp3").toURI().toString();
-    //MediaPlayer gameMusic = new MediaPlayer( new Media(gameMusicLocation));
     String gameMusicLocation = getClass().getResource("/jmb/view/partita.mp3").toString();
     MediaPlayer gameMusic = new MediaPlayer (new Media (gameMusicLocation));
 
@@ -31,9 +22,6 @@ public class Musica {
     String applauseSFXLocation = getClass().getResource("/jmb/view/ApplauseSFX.mp3").toString();
     AudioClip applauseSFX = new AudioClip(applauseSFXLocation);
 
-
-  //  String pawnSFXLocation = new File("C:\\Users\\Ameen\\IdeaProjects\\JMahbusa\\src\\main\\resources\\jmb\\view\\Pawns.mp3").toURI().toString();
-  //  MediaPlayer pawnSFX = new MediaPlayer( new Media(pawnSFXLocation));
     protected void setMusicVolume (double value) {
         this.menuMusic.setVolume(value);
         this.gameMusic.setVolume(value);

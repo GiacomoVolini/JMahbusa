@@ -5,7 +5,6 @@ import javafx.animation.*;
 import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.*;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.*;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.*;
@@ -13,14 +12,12 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
 
 import java.net.URISyntaxException;
 
-import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
@@ -68,10 +65,10 @@ public class GameView extends DynamicGameBoard {
     TitledPane pauseMenu;
 
     @FXML
-    Button senzaSalvare;
+    Button exitWithoutSave;
 
     @FXML
-    Button annulla;
+    Button cancelButton;
 
     @FXML
     Rectangle plBLKInRect;
@@ -113,28 +110,28 @@ public class GameView extends DynamicGameBoard {
     TextField saveTextField;
 
     @FXML
-    Text LforBack;
+    Text backText;
 
     @FXML
-    Text LforFinishTurn;
+    Text finishTurnText;
 
     @FXML
-    Text LforMenu;
+    Text menuText;
 
     @FXML
-    Text TforRight;
+    Text rightText;
 
     @FXML
-    Text TforLeft;
+    Text leftText;
 
     @FXML
-    Text TforUp;
+    Text upText;
 
     @FXML
-    Text TforDown;
+    Text downText;
 
     @FXML
-    Text TforDese;
+    Text selectText;
     @FXML
     Text readyText;
     @FXML
@@ -146,7 +143,7 @@ public class GameView extends DynamicGameBoard {
     Rectangle victoryPanel;
     Circle victoryPawn;
     ImageView victoryCrown;
-    ImageView tourmanentRibbon;
+    ImageView tournamentRibbon;
     Button victoryExit;
     Label victoryLabel;
     Label tournamentWhitePoints;
@@ -181,17 +178,17 @@ public class GameView extends DynamicGameBoard {
     @FXML
     void saveGame(ActionEvent event) {
         if (!logic.allDiceUsed(whoCalled)) {
-            errorLabel.setText("Completa le tue mosse prima di salvare");
+            errorLabel.setText(logic.getString("saveErrorCompleteMoves"));
             errorLabel.setVisible(true);
         } else if (saveTextField.getText().equals("")) {
-            errorLabel.setText("Inserisci un nome per il salvataggio");
+            errorLabel.setText(logic.getString("saveErrorNoName"));
             errorLabel.setVisible(true);
         } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
                 logic.saveGame(saveTextField.getText());
                 view.stopMusic();
-                vaialMainMenu();
+                goToMainMenu();
             } else {
-                errorLabel.setText("Nome Salvataggio già presente");
+                errorLabel.setText(saveTextField.getText() + " " + logic.getString("errorAlreadyPresent"));
                 errorLabel.setVisible(true);
             }
     }
@@ -209,7 +206,7 @@ public class GameView extends DynamicGameBoard {
         if (logic.getTurnDuration()!=0)
             turnTimer.pause();
         GameViewRedraw.resizePauseMenu(this);
-        senzaSalvare.requestFocus();
+        exitWithoutSave.requestFocus();
     }
 
     @FXML
@@ -221,7 +218,7 @@ public class GameView extends DynamicGameBoard {
     }
 
     @FXML
-    void vaialMainMenu(){
+    void goToMainMenu(){
             App.changeRoot(MAIN_MENU);
         view.stopMusic();
         
@@ -264,7 +261,7 @@ public class GameView extends DynamicGameBoard {
     private void changeDimensions() {
         GameViewRedraw.resizeAll(this);
         if (pauseMenu.isVisible()) {
-            senzaSalvare.requestFocus();
+            exitWithoutSave.requestFocus();
         } else if (startDialogue.isVisible()) {
             startBTN.requestFocus();
         } else {
@@ -295,8 +292,6 @@ public class GameView extends DynamicGameBoard {
             plWHTOutRect.setFill(Color.RED);
         }
         GameViewRedraw.redrawPawns(this);
-
-        //window.getChildren().remove(startDialogue);
     }
 
     private void runTimer(){
@@ -321,7 +316,7 @@ public class GameView extends DynamicGameBoard {
         window.getChildren().remove(victoryLabel);
         window.getChildren().remove(victoryPanel);
         window.getChildren().remove(victoryPawn);
-        window.getChildren().remove(tourmanentRibbon);
+        window.getChildren().remove(tournamentRibbon);
         startDialogue.setVisible(true);
         menuBTN.setDisable(false);
         tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
@@ -380,7 +375,6 @@ public class GameView extends DynamicGameBoard {
         else
             victoryExit.setOnAction(event -> gameOver());
         victoryExit.setViewOrder(-16);
-
         return victoryExit;
     }
 
@@ -461,7 +455,7 @@ public class GameView extends DynamicGameBoard {
         victoryExit = createVictoryButton(tournamentStatus);    //  Crea il pulsante per il ritorno al menu principale
         victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
         if (tournamentStatus == TOURNAMENT_WON)
-            tourmanentRibbon = createTournamentRibbon();
+            tournamentRibbon = createTournamentRibbon();
         logic.setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);
         Timeline timeline = new Timeline(
@@ -477,9 +471,9 @@ public class GameView extends DynamicGameBoard {
         timeline.play();
     }
 
-    void comandaLAtastiera (KeyEvent event){
+    void handleKeyboard(KeyEvent event){
         String keyPressed = event.getCode().toString();
-        super.comandaLAtastiera(event);
+        super.handleKeyboard(event);
         if(keyPressed.equals(logic.getOpenMenu())){
             if (!menuBTN.isDisabled())
                 openExitoption();
@@ -515,14 +509,14 @@ public class GameView extends DynamicGameBoard {
 
         try {
 
-            LforBack.setText(logic.getRevertMove());
-            LforFinishTurn.setText(logic.getFinishTurn());
-            LforMenu.setText(logic.getOpenMenu());
-            TforUp.setText(logic.getString("moveUp")+"\n" + logic.getMoveUp());
-            TforDown.setText(logic.getString("moveDown")+"\n" + logic.getMoveDown());
-            TforRight.setText(logic.getString("moveRight")+"\n" + logic.getMoveRight());
-            TforLeft.setText(logic.getString("moveLeft")+"\n" +logic.getMoveLeft());
-            TforDese.setText(logic.getString("select")+"\n" + logic.getSelect());
+            backText.setText(logic.getRevertMove());
+            finishTurnText.setText(logic.getFinishTurn());
+            menuText.setText(logic.getOpenMenu());
+            upText.setText(logic.getString("moveUp")+"\n" + logic.getMoveUp());
+            downText.setText(logic.getString("moveDown")+"\n" + logic.getMoveDown());
+            rightText.setText(logic.getString("moveRight")+"\n" + logic.getMoveRight());
+            leftText.setText(logic.getString("moveLeft")+"\n" +logic.getMoveLeft());
+            selectText.setText(logic.getString("select")+"\n" + logic.getSelect());
             backBTN.setText(logic.getString("revertMove").toUpperCase());
             menuBTN.setText(logic.getString("menu").toUpperCase());
             finishBTN.setText(logic.getString("finishTurn").toUpperCase());
@@ -531,9 +525,9 @@ public class GameView extends DynamicGameBoard {
             startBTN.setText(logic.getString("yes").toUpperCase());
             pauseMenu.setText(logic.getString("pause"));
             pauseText.setText(logic.getString("pausePrompt"));
-            senzaSalvare.setText(logic.getString("exitNoSave"));
+            exitWithoutSave.setText(logic.getString("exitNoSave"));
             exitAndSave.setText(logic.getString("exitAndSave"));
-            annulla.setText(logic.getString("cancel"));
+            cancelButton.setText(logic.getString("cancel"));
             saveDialogue.setText(logic.getString("saveDialogueTitle"));
             saveLabel.setText(logic.getString("saveName"));
             errorLabel.setText(logic.getString("saveError"));
@@ -551,7 +545,7 @@ public class GameView extends DynamicGameBoard {
             this.boardAnchor = window;
             addChildrenToAnchor();
             window.setFocusTraversable(true);
-            window.setOnKeyPressed(this::comandaLAtastiera);
+            window.setOnKeyPressed(this::handleKeyboard);
             //backBTN.setFocusTraversable(false);
             //finishBTN.setFocusTraversable(false);
             //menuBTN.setFocusTraversable(false);

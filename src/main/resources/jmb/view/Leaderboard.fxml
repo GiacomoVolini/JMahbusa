@@ -17,7 +17,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="486.0" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+      <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="486.0" stylesheets="@style.css" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
         <columns>
           <TableColumn fx:id="name" prefWidth="133.0" text="Name" />
           <TableColumn fx:id="victories" minWidth="0.0" prefWidth="122.0" sortType="DESCENDING" text="Victories" />

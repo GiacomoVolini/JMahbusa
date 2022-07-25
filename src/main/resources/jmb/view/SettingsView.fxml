@@ -210,12 +210,12 @@
                         <Color red="1.0" green="0.9843137264251709" />
                      </value>
                   </ColorPicker>
-                  <Text fx:id="TbackGround" layoutX="37.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sfondo:">
+                  <Text fx:id="TbackGround" layoutX="37.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BackGround">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Text>
-                  <ColorPicker fx:id="selectedBackGroundColorPicker" editable="true" layoutX="94.0" layoutY="371.0" onAction="#selectedBackGroundColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
+                  <ColorPicker fx:id="selectedBackGroundColorPicker" editable="true" layoutX="125.0" layoutY="371.0" onAction="#selectedBackGroundColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                      <value>
                         <Color green="0.501960813999176" />
                      </value>

@@ -2,9 +2,7 @@ package jmb.logic;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.ConstantsShared.COL_BLACK;
-import static jmb.logic.ConstantsLogic.DESELECTED;
-import static jmb.logic.ConstantsLogic.SELECTED;
+import static jmb.logic.ConstantsLogic.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
@@ -21,12 +19,12 @@ public class DynamicBoardLogic {
     protected int[][] squares;
     protected boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     protected boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
+    protected boolean moveOpensWhiteExit = false;
+    protected boolean moveOpensBlackExit = false;
     protected int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
     //mentre si sta per effettuare una mossa
     //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
     protected DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
-
-
     protected void setWhiteExit (boolean value) {
         this.whiteExit = value;
     }
@@ -67,7 +65,7 @@ public class DynamicBoardLogic {
                 setBlackExit(true);
                 Logic.view.openBlackExit(whoCalled);
                 if (whoCalled == GAME_CALLED)
-                    logic.moveOpensBlackExit();
+                    moveOpensBlackExit = true;
             }
         }
         return open;
@@ -90,7 +88,7 @@ public class DynamicBoardLogic {
                 setWhiteExit(true);
                 view.openWhiteExit(whoCalled);
                 if (whoCalled == GAME_CALLED)
-                    logic.moveOpensWhiteExit();
+                    moveOpensWhiteExit = true;
             }
         }
         return open;
@@ -360,7 +358,5 @@ public class DynamicBoardLogic {
             }
         }
     }
-
-
-    public DiceLogic getDiceLogic () { return this.dice; }
+    public DiceLogic getDiceLogic() { return this.dice; }
 }

@@ -3,13 +3,9 @@ package jmb.view;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 
-import static jmb.ConstantsShared.COL_BLACK;
-import static jmb.ConstantsShared.COL_WHITE;
-import static jmb.view.ConstantsView.MOVABLE_PAWN_STROKE_WIDTH;
-import static jmb.view.ConstantsView.NORMAL_PAWN_STROKE_WIDTH;
-import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.logic;
 
 public class DynamicGameBoardRedraw extends GameBoardRedraw{
     protected static double maxDTWidth;

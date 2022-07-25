@@ -1,14 +1,7 @@
 package jmb.view;
-
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
+import javafx.scene.shape.*;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -84,41 +77,6 @@ public class GameBoard {
         for (int i = 0; i<15; i++)
             boardAnchor.getChildren().addAll(pawnArrayWHT[i], pawnArrayBLK[i]);
 
-    }
-
-    protected void setBoardColors() {
-        outerRect.setFill(Color.web(logic.getBoardFrameColor()));
-        boardRect.setFill(Color.web(logic.getBoardInnerColor()));
-        boardRect.setStroke(Color.web(logic.getBoardInnerColor()));
-        separator.setFill(Color.web(logic.getBoardFrameColor()));
-        separator.setStroke(Color.web(logic.getBoardFrameColor()));
-        whiteExitRegion.setFill(Color.web(logic.getWhitePawnFill()));
-        whiteExitRegion.setStroke(Color.BLACK);
-        whiteExitRegion.setEffect(LOW_CONTRAST);
-        blackExitRegion.setFill(Color.web(logic.getBlackPawnFill()));
-        blackExitRegion.setStroke(Color.BLACK);
-        blackExitRegion.setEffect(LOW_CONTRAST);
-        for (int i = 0; i<12; i++) {
-            if((i%2)==0){
-                this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
-                this.polArrayTop[i].setStroke(Color.web(logic.getEvenPointsColor()));
-                this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
-                this.polArrayBot[i].setStroke(Color.web(logic.getOddPointsColor()));
-            }else{
-                this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
-                this.polArrayTop[i].setStroke(Color.web(logic.getOddPointsColor()));
-                this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
-                this.polArrayBot[i].setStroke(Color.web(logic.getEvenPointsColor()));
-            }
-        }
-        for (int i = 0; i<15; i++) {
-            this.pawnArrayWHT[i].setFill(Color.web(logic.getWhitePawnFill()));
-            this.pawnArrayWHT[i].setStroke(Color.web(logic.getWhitePawnStroke()));
-            this.pawnArrayWHT[i].setDisable(true);
-            this.pawnArrayBLK[i].setFill(Color.web(logic.getBlackPawnFill()));
-            this.pawnArrayBLK[i].setStroke(Color.web(logic.getBlackPawnStroke()));
-            this.pawnArrayBLK[i].setDisable(true);
-        }
     }
 
     protected boolean blockResizeCondition() {

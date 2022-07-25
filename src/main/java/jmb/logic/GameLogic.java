@@ -13,22 +13,13 @@ import static jmb.logic.Logic.view;
 
 public class GameLogic extends DynamicBoardLogic {
 
-    //  VARIABILI D'ISTANZA
-
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
-                                                //  in un turno
-
+                                                                                  //  in un turno
     private String whitePlayer;
     private String blackPlayer;
-
     private int tournamentPoints = 0;
-
     private int blacksWonPoints;
-
     private int whitesWonPoints;
-    private boolean moveOpensWhiteExit = false;
-    private boolean moveOpensBlackExit = false;
-
     private double turnDuration = 120;
     private boolean canRevert = true;
     private boolean gameStart = false;
@@ -39,11 +30,9 @@ public class GameLogic extends DynamicBoardLogic {
     //  COSTRUTTORE
 
     public GameLogic(){
-
         //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
         dice = new DiceLogic();
         setWhoCalled(GAME_CALLED);
-
     }
 
     //  -------------------------------
@@ -156,12 +145,10 @@ public class GameLogic extends DynamicBoardLogic {
                 whichRow = 0;
             }
         }
-
         return whichRow;
     }
 
     protected void victoryCheck() {
-
         if (blackDoubleWinCondition())
             gameWon(BLACK_WINS, DOUBLE_WIN);
         else if (whiteDoubleWinCondition())
@@ -170,7 +157,6 @@ public class GameLogic extends DynamicBoardLogic {
             gameWon(BLACK_WINS, SINGLE_WIN);
         else if (whiteSingleWinCondition())
             gameWon(WHITE_WINS, SINGLE_WIN);
-
     }
 
     private boolean blackDoubleWinCondition() {
@@ -181,7 +167,6 @@ public class GameLogic extends DynamicBoardLogic {
     private boolean whiteDoubleWinCondition() {
         return (squares[0][COL_BLACK]==BLACK && squares[1][COL_BLACK]==WHITE) ||
                 (squares[14][COL_WHITE_EXIT]!=EMPTY && squares[0][COL_BLACK_EXIT]==EMPTY);
-
     }
 
     private boolean blackSingleWinCondition() {
@@ -317,11 +302,5 @@ public class GameLogic extends DynamicBoardLogic {
     }
     protected void setGameEndState(boolean value) {
         this.gameEndState = value;
-    }
-    protected void flagMoveOpensWhiteExit() {
-        moveOpensWhiteExit = true;
-    }
-    protected void flagMoveOpensBlackExit() {
-        moveOpensBlackExit = true;
     }
 }

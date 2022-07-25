@@ -3,15 +3,10 @@ package jmb.logic;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import java.util.*;
 public class SaveGameReader {
-
     boolean isWhiteTurn;
     String blackPlayer;
     String whitePlayer;
@@ -23,7 +18,6 @@ public class SaveGameReader {
     long tournamentPoints;
     long whitesWonPoints;
     long blacksWonPoints;
-
     private SaveGameReader(String saveName) {
         try (FileReader reader = new FileReader("./saves/" + saveName + ".json")) {
             JSONParser parser = new JSONParser();
@@ -49,19 +43,11 @@ public class SaveGameReader {
         return new SaveGameReader(saveName);
     }
 
-    /*TODO
-        https://www.geeksforgeeks.org/parse-json-java/
-        https://www.javaguides.net/2019/07/jsonsimple-tutorial-read-and-write-json-in-java.html
-        https://www.tutorialspoint.com/how-can-we-read-a-json-file-in-java
-
-     */
-
     private int[][] parseSquareMatrixString (String matrixString) {
         String[] stringArray = matrixString.split("\n");
         int[][] intMatrix = new int[16][26];
         for (int row = 0; row <16; row++){
             for (int col = 0; col<26; col++) {
-                //intMatrix[row][col] = Character.getNumericValue(stringArray[15-row].charAt(col));
                 intMatrix[row][col] = Character.getNumericValue(stringArray[row].charAt(col));
             }
         }

@@ -15,26 +15,26 @@ public class View implements IView {
 
     public static LogIn sceneLogIn;
 
-    public  static SettingsView sceneImpostazioni;
+    public  static SettingsView sceneSettings;
 
     public  static MainMenu sceneMainMenu;
 
     public static LoadGameView sceneLoadView;
     public static TutorialView sceneTutorial;
 
-    public static Musica sceneMusica;
+    public static MusicPlayer sceneMusic;
     public void setMusicVolume (double value) {
-        sceneMusica.setMusicVolume(value);
+        sceneMusic.setMusicVolume(value);
     }
     public void setSFXVolume (double value) {
-        sceneMusica.setSFXVolume(value);
+        sceneMusic.setSFXVolume(value);
     }
 
     @Override
     public void initializeMusic() {
-        sceneMusica = new Musica();
-        sceneMusica.setMusicVolume(logic.getMusicVolume()/100.0);
-        sceneMusica.setSFXVolume(logic.getSFXVolume()/100.0);
+        sceneMusic = new MusicPlayer();
+        sceneMusic.setMusicVolume(logic.getMusicVolume()/100.0);
+        sceneMusic.setSFXVolume(logic.getSFXVolume()/100.0);
     }
     @Override
     public void openBlackExit(int whoCalled){
@@ -198,19 +198,19 @@ public class View implements IView {
     }
     @Override
     public void playMusic(int which) {
-        sceneMusica.playMusic(which);
+        sceneMusic.playMusic(which);
     }
     @Override
     public void playSFX(int which) {
-        sceneMusica.playSFX(which);
+        sceneMusic.playSFX(which);
     }
     @Override
     public void pauseMusic() {
-        sceneMusica.pauseMusic();
+        sceneMusic.pauseMusic();
     }
     @Override
     public void stopMusic() {
-        sceneMusica.stopMusic();
+        sceneMusic.stopMusic();
     }
     @Override
     public void highlightPointsToOpenExit(int stage) {

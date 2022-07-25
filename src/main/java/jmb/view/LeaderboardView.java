@@ -5,11 +5,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import jmb.logic.Player;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +17,13 @@ import static jmb.view.ConstantsView.*;
 public class LeaderboardView {
 
     @FXML
-    private AnchorPane Window;
+    private AnchorPane window;
 
     @FXML
-    private Label lTesto;
+    private Label titleLabel;
 
     @FXML
-    private AnchorPane smallAncor;
+    private AnchorPane smallAnchor;
 
     @FXML
     protected TableView<Player> table;
@@ -43,52 +41,37 @@ public class LeaderboardView {
     private TableColumn<Player, Double> rate;
 
     @FXML
-    private ImageView search_icon;
+    private TextField searchTextField;
 
     @FXML
-    private TextField cerca;
+    private Button exitButton;
 
     @FXML
-    private Button uscita;
-
-    @FXML
-    private Button searchBTN;
-
-    @FXML
-    void vaialMainMenu()  throws IOException {
-        uscita.getScene().getWindow();
+    void goToMainMenu(){
         App.changeRoot(MAIN_MENU);
     }
 
     @FXML
-    void cercaNomi(ActionEvent event) {
+    void searchNames(ActionEvent event) {
         table.setItems(FXCollections.observableList(searchList()));
     }
 
     private List<Player> searchList() {
         return logic.getPlayerList().stream().filter(input ->
-        {return input.getName().toLowerCase().contains(cerca.getText().toLowerCase());}).collect(Collectors.toList());
+        {return input.getName().toLowerCase().contains(searchTextField.getText().toLowerCase());}).collect(Collectors.toList());
     }
 
     protected void changeDimensions() {
-        double quarterWidth = Window.getWidth()/4;
+        double quarterWidth = window.getWidth()/4;
 
         name.setPrefWidth(quarterWidth);
         victories.setPrefWidth(quarterWidth);
         defeats.setPrefWidth(quarterWidth);
         rate.setPrefWidth(quarterWidth);
 
-        smallAncor.setPrefWidth(quarterWidth);
+        smallAnchor.setPrefWidth(quarterWidth);
 
-        uscita.setPrefWidth(Window.getWidth()/6);
-
-
-
-
-        /*uscita.setLayoutX(table.getLayoutX() + (table.getWidth() * 0.15) + table.getWidth());
-        uscita.setLayoutY(Window.getHeight()/2 );
-        smallAncor.setLayoutX(table.getLayoutX() + (table.getWidth() * 0.05) + table.getWidth());
-        smallAncor.setLayoutY(Window.getHeight()/2 - table.getHeight()/5);*/
+        exitButton.setPrefWidth(window.getWidth()/6);
 
     }
 
@@ -100,20 +83,20 @@ public class LeaderboardView {
         rate.setCellValueFactory(new PropertyValueFactory<Player, Double>("winRate"));
 
         //Languages
-        lTesto.setText(logic.getString("leaderboard"));
+        titleLabel.setText(logic.getString("leaderboard"));
         name.setText(logic.getString("Name"));
         victories.setText(logic.getString("Victories"));
         defeats.setText(logic.getString("Defeats"));
         rate.setText(logic.getString("Winrate"));
-        cerca.setPromptText(logic.getString("Search"));
-        uscita.setText(logic.getString("Exit"));
+        searchTextField.setPromptText(logic.getString("Search"));
+        exitButton.setText(logic.getString("Exit"));
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        Window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        Window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
     }
 }

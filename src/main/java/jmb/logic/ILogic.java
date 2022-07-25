@@ -28,7 +28,6 @@ public interface ILogic {
     int compareNameLists(String newName1, String newName2);
     void addNewPlayersToList (String newName1, String newName2);
     boolean isDiceUsed (int i, int whoCalled);
-    void writeLdbList();
     void addStatsToLeaderboard();
     void setUpNewBoard (int whoCalled);
     void revertMove();
@@ -57,10 +56,8 @@ public interface ILogic {
     void setUpSavedGame(String saveName);
     int[][] getBoardMatrix(int whoCalled);
     void setCanRevert(boolean value);
-    boolean getCanRevert();
     void selectPawn(int whichPoint, int whichRow, int whoCalled);
     boolean movePawn(int whoCalled, int from, int to);
-    boolean movePawn(int whoCalled, int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC);
     int[][] getSaveMatrix(String saveName);
     boolean getGameStart(int whoCalled);
     boolean getGameEndState();
@@ -71,7 +68,6 @@ public interface ILogic {
     void deselectPawn(int col, int row, int whoCalled);
     void resetDefaultSettings();
     void applySettingsChanges();
-    void revertSettingsChanges();
     void initializeSettingsLogic();
     void nextTutorialStage();
     void tutorialStageAction();
@@ -81,8 +77,6 @@ public interface ILogic {
     void setWhiteTurn(int whoCalled, boolean value);
     boolean[] getUsedArray(int whoCalled);
     void setUpSavedBoard(int whoCalled, int[][]matrix);
-    void moveOpensWhiteExit();
-    void moveOpensBlackExit();
     String getString(String key);
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI

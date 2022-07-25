@@ -1,11 +1,8 @@
 package jmb.logic;
 
-import javafx.scene.image.WritableImage;
 import jmb.view.IView;
-
 import java.io.IOException;
 import java.util.List;
-
 import static jmb.ConstantsShared.*;
 
 public class Logic implements ILogic {
@@ -199,11 +196,6 @@ public class Logic implements ILogic {
                 break;
         }
         return dice.getUsed(i);
-    }
-
-    @Override
-    public void writeLdbList() {
-        ldb.ldbWriter(ldb.path);
     }
 
     @Override
@@ -418,11 +410,6 @@ public class Logic implements ILogic {
         game.setCanRevert(value);
     }
     @Override
-    public boolean getCanRevert () {
-        return game.getCanRevert();
-    }
-
-    @Override
     public void selectPawn(int whichPoint, int whichRow, int whoCalled) {
         DynamicBoardLogic board = null;
         switch (whoCalled) {
@@ -459,20 +446,6 @@ public class Logic implements ILogic {
                 break;
             case TUTORIAL_CALLED:
                 possible = tutorial.movePawn(from, to);
-                break;
-        }
-        return possible;
-    }
-
-    @Override
-    public boolean movePawn(int whoCalled, int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-        boolean possible = false;
-        switch (whoCalled) {
-            case GAME_CALLED:
-                possible =game.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
-                break;
-            case TUTORIAL_CALLED:
-                possible = tutorial.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
                 break;
         }
         return possible;
@@ -543,11 +516,6 @@ public class Logic implements ILogic {
     @Override
     public void applySettingsChanges() {
         settings.applySettingsChanges();
-    }
-
-    @Override
-    public void revertSettingsChanges() {
-        settings.revertSettingsChanges();
     }
 
     @Override
@@ -631,14 +599,6 @@ public class Logic implements ILogic {
         board.setUpSavedBoard(matrix);
     }
     @Override
-    public void moveOpensWhiteExit() {
-        game.flagMoveOpensWhiteExit();
-    }
-    @Override
-    public void moveOpensBlackExit() {
-        game.flagMoveOpensBlackExit();
-    }
-    @Override
     public String getString(String key) {
         return strings.get(key);
     }
@@ -649,7 +609,6 @@ public class Logic implements ILogic {
 
     @Override
     public String getLanguage() {return settings.getLanguage();}
-
     @Override
     public void setLanguage(String value) {
         settings.setLanguage(value);

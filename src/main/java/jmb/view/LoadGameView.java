@@ -1,7 +1,6 @@
 package jmb.view;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -39,8 +38,6 @@ public class LoadGameView extends GameBoard {
     @FXML
     private AnchorPane saveDetailView;
     @FXML
-    private AnchorPane savesAnchorPane;
-    @FXML
     private ListView<?> savesListView;
     @FXML
     private TitledPane savesTitlePane;
@@ -77,14 +74,12 @@ public class LoadGameView extends GameBoard {
         addChildrenToAnchor();
 
         refreshSaveList();
+        renderNoSelection();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
         whitePlayerPawn.setFill(Color.web(logic.getWhitePawnFill()));
         whitePlayerPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
         blackPlayerPawn.setFill(Color.web(logic.getBlackPawnFill()));
         blackPlayerPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
-        //Si impedisce all'utente di muovere il divisore dello SplitPane
-        window.lookupAll(".split-pane-divider").stream()
-                .forEach(div ->  div.setMouseTransparent(true) );
 
         //languages
         loadStrings();
@@ -161,8 +156,6 @@ public class LoadGameView extends GameBoard {
         saveListAnchor.setPrefWidth(listWidth);
         saveDetailAnchor.setPrefWidth(detailWidth);
         saveDetailView.setLayoutX(listWidth);
-        double imageWidth = window.getWidth()*(1-SEPARATOR_RATIO)*0.5;
-        double imageHeight = window.getHeight()*0.5;
         double xAnchor = 15;
         double yAnchor = 10;
         AnchorPane.setLeftAnchor(whitePlayerPawn, xAnchor);

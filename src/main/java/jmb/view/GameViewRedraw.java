@@ -43,14 +43,14 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setPrefWidth(board.window.getWidth() * 0.15);
         board.finishBTN.setPrefWidth(board.backBTN.getPrefWidth());
         board.menuBTN.setPrefWidth(board.backBTN.getPrefWidth());
-        board.LforBack.setLayoutX(board.backBTN.getLayoutX() +1);
-        board.LforFinishTurn.setLayoutX(board.finishBTN.getLayoutX() +1);
-        board.LforMenu.setLayoutX(board.menuBTN.getLayoutX() +1);
-        board.TforUp.setLayoutX(board.outerRect.getLayoutX());
-        board.TforDown.setLayoutX(board.outerRect.getLayoutX() +64);
-        board.TforRight.setLayoutX(board.outerRect.getLayoutX()+128);
-        board.TforLeft.setLayoutX(board.outerRect.getLayoutX() +192);
-        board.TforDese.setLayoutX(board.outerRect.getLayoutX() +256);
+        board.backText.setLayoutX(board.backBTN.getLayoutX() +1);
+        board.finishTurnText.setLayoutX(board.finishBTN.getLayoutX() +1);
+        board.menuText.setLayoutX(board.menuBTN.getLayoutX() +1);
+        board.upText.setLayoutX(board.outerRect.getLayoutX());
+        board.downText.setLayoutX(board.outerRect.getLayoutX() +64);
+        board.rightText.setLayoutX(board.outerRect.getLayoutX()+128);
+        board.leftText.setLayoutX(board.outerRect.getLayoutX() +192);
+        board.selectText.setLayoutX(board.outerRect.getLayoutX() +256);
         // Altezza
         board.backBTN.setMaxHeight(MAX_BTN_HEIGHT);
         board.finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
@@ -61,14 +61,14 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2);
         board.finishBTN.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2);
         board.menuBTN.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2);
-        board.LforBack.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2 +11);
-        board.LforFinishTurn.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2 +11);
-        board.LforMenu.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2 +11);
-        board.TforUp.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.TforDown.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.TforRight.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.TforLeft.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.TforDese.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.backText.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2 +11);
+        board.finishTurnText.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2 +11);
+        board.menuText.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2 +11);
+        board.upText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.downText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.rightText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.leftText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.selectText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
     }
 
     // Metodo per rimposizionamento dinamico della pagina Pausa
@@ -122,9 +122,9 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
     }
 
     private static void resizeTournamentRibbon(GameView board) {
-        board.tourmanentRibbon.setLayoutX(board.victoryPawn.getLayoutX() + board.victoryPawn.getRadius() * 0.10);
-        board.tourmanentRibbon.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius() * 0.20);
-        board.tourmanentRibbon.setFitWidth(board.victoryPawn.getRadius());
+        board.tournamentRibbon.setLayoutX(board.victoryPawn.getLayoutX() + board.victoryPawn.getRadius() * 0.10);
+        board.tournamentRibbon.setLayoutY(board.victoryPawn.getLayoutY() - board.victoryPawn.getRadius() * 0.20);
+        board.tournamentRibbon.setFitWidth(board.victoryPawn.getRadius());
     }
 
 
@@ -135,7 +135,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         resizeVictoryLabel(board);
         resizeVictoryExit(board);
         resizeVictoryCrown(board);
-        if (board.tourmanentRibbon != null)
+        if (board.tournamentRibbon != null)
             resizeTournamentRibbon(board);
 
     }

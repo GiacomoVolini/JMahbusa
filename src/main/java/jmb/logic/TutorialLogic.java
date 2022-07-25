@@ -4,24 +4,20 @@ import jmb.logic.tutorial.ComparableTutorialStage;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 import static jmb.ConstantsShared.*;
 import static org.reflections.scanners.Scanners.*;
 
 public class TutorialLogic extends DynamicBoardLogic {
-    private ArrayList<ComparableTutorialStage> stageArrayList;
     private Iterator<ComparableTutorialStage> stageArrayIterator;
     private ComparableTutorialStage currentStage;
-public TutorialLogic() {
+    public TutorialLogic() {
         try {
             setWhoCalled(TUTORIAL_CALLED);
             dice = new DiceLogic();
             squares = new int[16][26];
-            stageArrayList = stageArrayListConstructor();
+            ArrayList<ComparableTutorialStage> stageArrayList = stageArrayListConstructor();
             stageArrayIterator = stageArrayList.iterator();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,9 +37,7 @@ public TutorialLogic() {
             Reflections reflections = new Reflections("jmb.logic.tutorial");
             Set<Class<?>> set = reflections.get(SubTypes.of(ComparableTutorialStage.class).asClass());
             ArrayList<ComparableTutorialStage> out = new ArrayList<>();
-            Iterator<Class<?>> iterator = set.iterator();
-            while (iterator.hasNext()) {
-                Class c = iterator.next();
+            for (Class c : set) {
                 out.add((ComparableTutorialStage) c.getConstructor().newInstance());
             }
             Collections.sort(out);

@@ -3,16 +3,12 @@ package jmb;
 public class ConstantsShared {
 
     public static final int UNDEFINED = -1;
-
     public static final int COL_WHITE = 1;
     public static final int LAST_COL_TOP = 12;
     public static final int FIRST_COL_BOT = LAST_COL_TOP + 1;
     public static final int COL_BLACK = 24;
     public static final int COL_WHITE_EXIT = 25;
-    public static final int LAST_BOARD_COLUMN = COL_WHITE_EXIT;
     public static final int COL_BLACK_EXIT = 0;
-    public static final int FIRST_BOARD_COLUMN = COL_BLACK_EXIT;
-
     public static final int PAWNS_PER_PLAYER = 15;
 
     //  Costanti per i metodi di scansione tabellone
@@ -41,8 +37,7 @@ public class ConstantsShared {
     public static final int TOURNAMENT_CONTINUES = 1;
     public static final int TOURNAMENT_WON = 2;
 
-    public static final int WIDTH = 0;
-    public static final int HEIGHT = 1;
+    //Costanti per l'array passato da SaveGameReader a LoadGameView, per associare la posizione dell'array all'informazione che contiene
     public static final int WHITE_NAME = 0;
     public static final int BLACK_NAME = 1;
     public static final int TIME = 2;
@@ -67,7 +62,5 @@ public class ConstantsShared {
     public static final int MENU_MUSIC = 0;
     public static final int GAME_MUSIC = 1;
     public static final int TUTORIAL_MUSIC = 2;
-
-    public static final String ARRAY_ENDED = "\u2204";
 
 }

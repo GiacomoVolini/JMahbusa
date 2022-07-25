@@ -1,7 +1,6 @@
 package jmb.logic.tutorial;
 
-import static jmb.ConstantsShared.COL_BLACK;
-import static jmb.ConstantsShared.WHITE;
+import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 

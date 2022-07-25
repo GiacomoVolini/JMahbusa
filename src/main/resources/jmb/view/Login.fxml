@@ -18,38 +18,38 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
-   <TitledPane fx:id="registrati" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0" layoutY="39.0" prefHeight="191.0" prefWidth="383.0" text="log in / sign up">
+   <TitledPane fx:id="playerNamesTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0" layoutY="39.0" prefHeight="191.0" prefWidth="383.0" text="log in / sign up">
       <content>
          <AnchorPane fx:id="registrati2" minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="381.0">
             <children>
-               <Button fx:id="salvag" layoutX="94.0" layoutY="88.0" mnemonicParsing="false" onAction="#savePlayer" prefHeight="27.0" prefWidth="186.0" text="Salva">
+               <Button fx:id="confirmButton" layoutX="94.0" layoutY="88.0" mnemonicParsing="false" onAction="#savePlayer" prefHeight="27.0" prefWidth="186.0" text="Salva">
                   <font>
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button fx:id="uscita" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="25.0" prefWidth="186.0" text="Esci">
+               <Button fx:id="exitButton" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="186.0" text="Esci">
                   <font>
                      <Font size="14.0" />
                   </font>
                </Button>
-               <ComboBox fx:id="scrivinomi1" editable="true" layoutX="130.0" layoutY="17.0" prefWidth="150.0" promptText="Giocatore 1" />
-               <ComboBox fx:id="scrivinomi2" editable="true" layoutX="130.0" layoutY="52.0" prefWidth="150.0" promptText="Giocatore 2" />
-               <Circle fx:id="nome1" fill="WHITE" layoutX="105.0" layoutY="30.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
-               <Circle fx:id="nome2" layoutX="105.0" layoutY="65.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
+               <ComboBox fx:id="whitePlayerNameBox" editable="true" layoutX="130.0" layoutY="17.0" prefWidth="150.0" promptText="Giocatore 1" />
+               <ComboBox fx:id="blackPlayerNameBox" editable="true" layoutX="130.0" layoutY="52.0" prefWidth="150.0" promptText="Giocatore 2" />
+               <Circle fx:id="whitePlayerPawn" fill="WHITE" layoutX="105.0" layoutY="30.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+               <Circle fx:id="blackPlayerPawn" layoutX="105.0" layoutY="65.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
                <Label fx:id="errorLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false" />
             </children>
          </AnchorPane>
       </content>
    </TitledPane>
-   <TitledPane fx:id="GT" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" text="Game Settings" textAlignment="CENTER">
+   <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" text="Game Settings" textAlignment="CENTER">
      <content>
        <AnchorPane fx:id="GT2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <children>
-               <RadioButton fx:id="noT" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyChance" text="No Taimer" />
-               <RadioButton fx:id="media" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#medioChance" text="2 minute" />
-               <RadioButton fx:id="defficile" layoutX="192.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardChance" text="30 seconds" />
-               <RadioButton fx:id="scelta" layoutX="286.0" layoutY="39.0" mnemonicParsing="false" onAction="#chanCe" />
-               <TextField fx:id="oPt" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" />
+               <RadioButton fx:id="noTimerRadio" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer" text="No Taimer" />
+               <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" text="2 minute" />
+               <RadioButton fx:id="hardTimerRadio" layoutX="192.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardTimer" text="30 seconds" />
+               <RadioButton fx:id="customTimerRadio" layoutX="286.0" layoutY="39.0" mnemonicParsing="false" onAction="#customTimer" />
+               <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" />
                <Text fx:id="easyText" layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
                <Text fx:id="mediumText" layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
                <Text fx:id="hardText" layoutX="195.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />

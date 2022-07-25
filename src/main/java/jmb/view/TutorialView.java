@@ -103,7 +103,7 @@ public class TutorialView extends DynamicGameBoard{
         textBox1.setOnMouseClicked(e ->logic.nextTutorialStage());
         textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
         windowPane.setFocusTraversable(true);
-        windowPane.setOnKeyPressed(this::comandaLAtastiera);
+        windowPane.setOnKeyPressed(this::handleKeyboard);
         tutorialOverLabel.setText(logic.getString("tutorialOver"));
         mainMenuButton.setText(logic.getString("backToMenu"));
         newGameButton.setText(logic.getString("newGame"));
@@ -187,13 +187,13 @@ public class TutorialView extends DynamicGameBoard{
         TutorialViewRedraw.resizeAll(this);
         windowPane.requestFocus();
     }
-    void comandaLAtastiera(KeyEvent event) {
+    void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
         if (logic.getWhichTurn(whoCalled)) {
             boolean pawnMoved = false;
             if (keyPressed.equals(logic.getSelect()) && selected)
                 pawnMoved = true;
-            super.comandaLAtastiera(event);
+            super.handleKeyboard(event);
             if (keyPressed.equals(logic.getSelect()) && pawnMoved)
                 logic.tutorialStageAction();
         }

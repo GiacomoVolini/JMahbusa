@@ -2,8 +2,6 @@ package jmb.view;
 
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
-import static jmb.view.ConstantsView.*;
-import static jmb.ConstantsShared.*;
 
 /*
 La classe PawnView estende la classe Circle aggiungendogli tre metodi utili per determinare

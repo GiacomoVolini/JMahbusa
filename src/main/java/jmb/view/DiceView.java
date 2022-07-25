@@ -1,10 +1,8 @@
 package jmb.view;
 
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
-import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.View.logic;
 
 import java.net.URISyntaxException;
@@ -24,7 +22,6 @@ public class DiceView {
             e.printStackTrace();
         }
     }
-
     private static Image[] invDiceImgs;
 
     static {

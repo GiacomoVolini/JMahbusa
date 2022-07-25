@@ -62,7 +62,7 @@
       <content>
          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
             <children>
-               <Button fx:id="senzaSalvare" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
+               <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
                   <font>
                      <Font size="14.0" />
                   </font>
@@ -72,7 +72,7 @@
                      <Font size="14.0" />
                   </font>
                </Button>
-               <Button fx:id="annulla" layoutX="94.0" layoutY="151.0" mnemonicParsing="false" onAction="#closeExitoption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
+               <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false" onAction="#closeExitoption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
                   <font>
                      <Font size="14.0" />
                   </font>
@@ -119,39 +119,39 @@
          </AnchorPane>
       </content>
    </TitledPane>
-   <Text fx:id="LforBack" layoutX="1348.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="backText" layoutX="1348.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
       <font>
          <Font size="12.0" />
       </font></Text>
-   <Text fx:id="LforFinishTurn" layoutX="1348.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="finishTurnText" layoutX="1348.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
       <font>
          <Font size="12.0" />
       </font></Text>
-   <Text fx:id="LforMenu" layoutX="1348.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="menuText" layoutX="1348.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
       <font>
          <Font size="12.0" />
       </font></Text>
-   <Text fx:id="TforRight" layoutX="555.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="62.13671874999994">
+   <Text fx:id="rightText" layoutX="555.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="62.13671874999994">
       <font>
          <Font size="15.0" />
       </font>
    </Text>
-   <Text fx:id="TforLeft" layoutX="656.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="62.13671875">
+   <Text fx:id="leftText" layoutX="656.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="62.13671875">
       <font>
          <Font size="15.0" />
       </font>
    </Text>
-   <Text fx:id="TforUp" layoutX="356.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="62.13671874999994">
+   <Text fx:id="upText" layoutX="356.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="62.13671874999994">
       <font>
          <Font size="15.0" />
       </font>
    </Text>
-   <Text fx:id="TforDown" layoutX="459.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="49.99999999999994">
+   <Text fx:id="downText" layoutX="459.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="49.99999999999994">
       <font>
          <Font size="15.0" />
       </font>
    </Text>
-   <Text fx:id="TforDese" layoutX="768.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare:" wrappingWidth="124.0">
+   <Text fx:id="selectText" layoutX="768.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare:" wrappingWidth="124.0">
       <font>
          <Font size="15.0" />
       </font>

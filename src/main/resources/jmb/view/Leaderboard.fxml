@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+<AnchorPane fx:id="window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
    <children>
-      <Label fx:id="lTesto" alignment="CENTER" focusTraversable="false" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Leaderboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="titleLabel" alignment="CENTER" focusTraversable="false" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Leaderboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="14.0" />
          </font>
@@ -25,10 +25,10 @@
             <TableColumn fx:id="rate" minWidth="0.0" prefWidth="117.0" sortType="DESCENDING" text="Winrate" />
         </columns>
       </TableView>
-      <AnchorPane fx:id="smallAncor" layoutX="476.0" layoutY="119.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="smallAnchor" layoutX="476.0" layoutY="119.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="cerca" prefHeight="26.0" prefWidth="83.0" promptText="Search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
-            <Button fx:id="searchBTN" layoutX="73.0" maxHeight="26.0" maxWidth="50.0" mnemonicParsing="false" onAction="#cercaNomi" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="0.0">
+            <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="83.0" promptText="Search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="searchBTN" layoutX="73.0" maxHeight="26.0" maxWidth="50.0" mnemonicParsing="false" onAction="#searchNames" prefHeight="26.0" prefWidth="50.0" AnchorPane.rightAnchor="0.0">
                <graphic>
                   <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,6 +39,6 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="uscita" layoutX="513.0" layoutY="220.0" mnemonicParsing="false" onAction="#vaialMainMenu" prefHeight="26.0" prefWidth="145.0" text="Exit" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="exitButton" layoutX="513.0" layoutY="220.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="26.0" prefWidth="145.0" text="Exit" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

@@ -1,16 +1,11 @@
 package jmb.view;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -95,7 +90,6 @@ public class DynamicGameBoard extends GameBoard{
     }
     protected int searchPawnPlace(PawnView node) {
         //Il metodo cerca a quale zona del tabellone appartiene la pedina
-
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
         Region[] array;
         boolean top, found, left;
@@ -279,24 +273,6 @@ public class DynamicGameBoard extends GameBoard{
         timeline.setCycleCount(1);
         timeline.play();
     }
-    protected void closeDiceTray() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO,
-                        e -> {
-                            this.diceTrayOpen = false;
-                            diceArray[UPPER_DICE].setVisible(false);
-                            diceArray[LOWER_DICE].setVisible(false);
-                        },
-                        new KeyValue(diceTray.widthProperty(), GameViewRedraw.getMaxDTWidth())),
-                new KeyFrame(Duration.seconds(1),
-                        new KeyValue(diceTray.widthProperty() , 0 )
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
-    }
 
     protected void setPawnsVisible (boolean set) {
         for (int i = 0; i < PAWNS_PER_PLAYER; i++){
@@ -319,7 +295,7 @@ public class DynamicGameBoard extends GameBoard{
     }
     protected int moveHorizontally(int selectedIndex, String keyPressed) {
         int out;
-        if (selectedIndex <13) { // La punta selezionata è sopra
+        if (selectedIndex <13) { // La punta selectKeyBind è sopra
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = (selectedIndex + 13 + 1) % 13;
                 if (!logic.getWhiteExit(whoCalled))
@@ -330,7 +306,7 @@ public class DynamicGameBoard extends GameBoard{
                 if (!logic.getBlackExit(whoCalled) && out == COL_BLACK_EXIT)
                     out = 12;
             }
-        } else { // La punta selezionata è sotto
+        } else { // La punta selectKeyBind è sotto
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = ((selectedIndex - 1) % 13) + 13;
                 if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)
@@ -345,7 +321,7 @@ public class DynamicGameBoard extends GameBoard{
         return out;
     }
     @FXML
-    void comandaLAtastiera(KeyEvent event) {
+    void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
         if (isMovementKey(keyPressed)) {
             if (selectedIndex==UNDEFINED)
@@ -364,7 +340,7 @@ public class DynamicGameBoard extends GameBoard{
             }
         }
         else if (keyPressed.equals(logic.getSelect()) && selectedIndex!= UNDEFINED && !selected){
-            col = trovaColonna();
+            col = findColumn();
             System.out.println(col);
             if(logic.searchTopOccupiedRow(whoCalled, col)!=UNDEFINED &&
                     (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE)
@@ -375,7 +351,7 @@ public class DynamicGameBoard extends GameBoard{
                 DynamicGameBoardRedraw.redrawPawns(this);
             }
         } else if (keyPressed.equals(logic.getSelect()) && selected){
-            int col2 = trovaColonna();
+            int col2 = findColumn();
             logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
             logic.placePawnOnPoint(col2, whoCalled);
             view.restoreBoardColors(whoCalled);
@@ -411,7 +387,7 @@ public class DynamicGameBoard extends GameBoard{
         }
     }
 
-    private int trovaColonna(){
+    private int findColumn(){
         int col = UNDEFINED;
         for (int i = 0; i < 12; i++) {
             if (polArrayTop[i].getFill().equals(Paint.valueOf(logic.getSelectedPointColor()))) {

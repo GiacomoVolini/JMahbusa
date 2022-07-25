@@ -63,7 +63,7 @@ public class App extends Application {
                 View.sceneLogIn = fxmlLoader.getController();
                 break;
             case SETTINGS:
-                View.sceneImpostazioni = fxmlLoader.getController();
+                View.sceneSettings = fxmlLoader.getController();
                 break;
             case MAIN_MENU:
                 View.sceneMainMenu = fxmlLoader.getController();

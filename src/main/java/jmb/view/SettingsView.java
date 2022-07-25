@@ -998,6 +998,8 @@ public class SettingsView {
                 Imsinistra.setText(logic.getString("Preset"));
                 TM.setText(logic.getString("Custom"));
                 Imdestra.setText(logic.getString("Preset"));
+                TbackGround.setText(logic.getString("BackGround"));
+
                 //Comandi lang...
                 Bcomandi.setText(logic.getString("Commands"));
                 Tcomandi.setText(logic.getString("Commands"));
@@ -1010,7 +1012,7 @@ public class SettingsView {
                 Tdese.setText(logic.getString("Select"));
                 Tcancellation.setText(logic.getString("DeleteMove"));
                 Tfinish.setText(logic.getString("FinishTurn"));
-                Tmainmenu.setText(logic.getString("TmainMenu"));
+                Tmainmenu.setText(logic.getString("MainMenu"));
                 //Attention page lang...
                 Pavvertimento.setText(logic.getString("Attention"));
                 Tattenzione.setText(logic.getString("AttentionText"));

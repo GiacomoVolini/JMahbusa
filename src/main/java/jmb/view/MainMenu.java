@@ -84,6 +84,7 @@ public class MainMenu {
     private static Image engBandiera;
     private static Image itaBandiera;
     private static final String MAIN_MENU_KEY = "newGame";
+    private static final String TUTORIAL_KEY = "Tutorial";
     private static final String LOAD_KEY = "loadGame";
     private static final String LEADERBOARD_KEY = "leaderboards";
     private static final String SETTINGS_KEY = "settings";
@@ -169,6 +170,7 @@ public class MainMenu {
 
     private void loadStrings() {
         NewGame.setText(logic.getString(MAIN_MENU_KEY));
+        tutorialButton.setText(logic.getString(TUTORIAL_KEY));
         LoadGame.setText(logic.getString(LOAD_KEY));
         Settings.setText(logic.getString(SETTINGS_KEY));
         LDB.setText(logic.getString(LEADERBOARD_KEY));
@@ -208,14 +210,9 @@ public class MainMenu {
 
         public void initialize() {
         try {
+            this.loadStrings();
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));
-
-            NewGame.setText(logic.getString(MAIN_MENU_KEY));
-            LoadGame.setText(logic.getString(LOAD_KEY));
-            Settings.setText(logic.getString(SETTINGS_KEY));
-            LDB.setText(logic.getString(LEADERBOARD_KEY));
-            Exit.setText(logic.getString(EXIT_KEY));
 
             Image im1 = new Image(this.getClass().getResource("background1.jpg").toURI().toString());
             Image im2 = new Image(this.getClass().getResource("background2.jpg").toURI().toString());

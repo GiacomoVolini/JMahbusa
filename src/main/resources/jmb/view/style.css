@@ -1,10 +1,12 @@
 .color-picker:editable .color-picker-label .text {
 visibility: false;
 }
+
 .titled-pane:expanded .title {
 fx-background-radius: 0;
 fx-border-radius: 0;
 }
+
 .titled-pane:expanded {
 fx-background-radius: 0;
 fx-border-radius: 0;
@@ -15,5 +17,9 @@ fx-border-radius: 0;
 }
   
 .menu-button:openvertically .label{
+visibility: false;
+}
+
+.table-view:row-selection .placeholder .label .text{
 visibility: false;
 }

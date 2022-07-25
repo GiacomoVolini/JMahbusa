@@ -516,11 +516,11 @@ public class GameView extends DynamicGameBoard {
             LforBack.setText(logic.getRevertMove());
             LforFinishTurn.setText(logic.getFinishTurn());
             LforMenu.setText(logic.getOpenMenu());
-            TforUp.setText(logic.getString("moveUp")+"\n" + logic.getMoveUp());
-            TforDown.setText(logic.getString("moveDown")+"\n" + logic.getMoveDown());
-            TforRight.setText(logic.getString("moveRight")+"\n" + logic.getMoveRight());
-            TforLeft.setText(logic.getString("moveLeft")+"\n" +logic.getMoveLeft());
-            TforDese.setText(logic.getString("select")+"\n" + logic.getSelect());
+            TforUp.setText(logic.getString("Up")+"\n" + logic.getMoveUp());
+            TforDown.setText(logic.getString("Down")+"\n" + logic.getMoveDown());
+            TforRight.setText(logic.getString("Right")+"\n" + logic.getMoveRight());
+            TforLeft.setText(logic.getString("Left")+"\n" +logic.getMoveLeft());
+            TforDese.setText(logic.getString("Select")+"\n" + logic.getSelect());
             backBTN.setText(logic.getString("revertMove").toUpperCase());
             menuBTN.setText(logic.getString("menu").toUpperCase());
             finishBTN.setText(logic.getString("finishTurn").toUpperCase());

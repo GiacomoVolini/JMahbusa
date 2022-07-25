@@ -111,127 +111,100 @@ public class SettingsView {
         private ColorPicker evenPointColorPicker;
         @FXML
         private ColorPicker oddPointColorPicker;
-        //TODO RIPRENDERE A RINOMINARE DA QUI
         @FXML
-        private Rectangle cornice1;
+        private Polygon leftPresetPoint1;
         @FXML
-        private Rectangle tavolo1;
+        private Polygon leftPresetPoint2;
         @FXML
-        private Polygon punta11;
+        private Polygon leftPresetPoint3;
         @FXML
-        private Polygon punta21;
+        private AnchorPane customPane;
         @FXML
-        private Polygon punta31;
+        private Polygon rightPresetPoint1;
         @FXML
-        private AnchorPane Ancormed;
+        private Polygon rightPresetPoint2;
         @FXML
-        private Rectangle cornice11;
+        private Polygon rightPresetPoint3;
         @FXML
-        private Rectangle tavolo11;
+        private AnchorPane leftPresetPane;
         @FXML
-        private Polygon punta111;
+        private ColorPicker frameColorPicker;
         @FXML
-        private Polygon punta211;
+        private RadioButton rightPresetRadio;
         @FXML
-        private Polygon punta311;
+        private RadioButton leftPresetRadio;
         @FXML
-        private AnchorPane Ancorsini;
+        private Rectangle customFrame;
         @FXML
-        private ColorPicker Ccornice;
+        private Rectangle customBoard;
         @FXML
-        private RadioButton Imdestra;
+        private Polygon customPoint1;
         @FXML
-        private RadioButton Imsinistra;
+        private Polygon customPoint2;
         @FXML
-        private Rectangle cornice;
+        private Polygon customPoint3;
         @FXML
-        private Rectangle tavolo;
+        private AnchorPane rightPresetPane;
         @FXML
-        private Polygon punta1;
-        @FXML
-        private Polygon punta2;
-        @FXML
-        private Polygon punta3;
-        @FXML
-        private AnchorPane Ancordes;
-        @FXML
-        private RadioButton TM;
+        private RadioButton customRadio;
         @FXML
         protected Button applyButton;
         @FXML
-        private AnchorPane comandi;
+        private AnchorPane controlsAnchorPane;
         @FXML
-        private TitledPane Tcomandi;
+        private TitledPane controlsTitlePane;
         @FXML
-        private Text Tkeyboard;
+        private Text keyboardText;
         @FXML
-        private Text Tmuov;
+        private Text movementText;
         @FXML
-        private Text Tright;
+        private Text rightText;
         @FXML
-        private Text Tleft;
+        private Text leftText;
         @FXML
-        private Text Tup;
+        private Text upText;
         @FXML
-        private Text Tdown;
+        private Text downText;
         @FXML
-        private Text Tdese;
+        private Text selectText;
         @FXML
-        private Text Tfinish;
+        private Text finishTurnText;
         @FXML
-        private Text Tcancellation;
-
+        private Text revertMoveText;
         @FXML
-        private Text Tmainmenu;
-
+        private Text openMenuText;
         @FXML
-        private TextField moDestra;
-
+        private TextField rightTextField;
         @FXML
-        private TextField moSinistra;
-
+        private TextField leftTextField;
         @FXML
-        private TextField moSopra;
-
+        private TextField upTextField;
         @FXML
-        private TextField moSotto;
-
+        private TextField downTextField;
         @FXML
-        private TextField Selezionare;
-
+        private TextField selectTextField;
         @FXML
-        private TextField cacellareMo;
-
+        private TextField revertMoveTextField;
         @FXML
-        private TextField finitoT;
-
+        private TextField finishTurnTextField;
         @FXML
-        private TextField opUscita;
-
+        private TextField openMenuTextField;
         @FXML
         private ColorPicker selectedPointColorPicker;
-
         @FXML
-        private Text TbackGround;
-
+        private Text backgroundText;
         @FXML
-        private ColorPicker selectedBackGroundColorPicker;
-
+        private ColorPicker backGroundColorPicker;
         @FXML
-        private TitledPane Pavvertimento;
-
+        private TitledPane warningTitlePane;
         @FXML
-        private Text Tattenzione;
-
+        private Text warningText;
         @FXML
-        private Button applyButton2;
-
+        private Button exitAndSaveButton;
         @FXML
-        private Button nonsalvaBTN;
-
+        private Button exitNoSaveButton;
         @FXML
-        private Button annullareBTN;
-
+        private Button cancelButton;
         double Sv, Sve;
         ToggleGroup group = new ToggleGroup();
         private static final boolean LEFT = true;
@@ -241,28 +214,28 @@ public class SettingsView {
         private Timeline selectedPointAnimation;
         private Timeline selectedPointPresetsAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, e-> {
-                        punta11.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
-                        punta311.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
-                        punta31.setFill(Color.web(logic.getEvenPointsLeftPreset()));
-                        punta111.setFill(Color.web(logic.getEvenPointsRightPreset()));
+                        leftPresetPoint1.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        rightPresetPoint3.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
+                        leftPresetPoint3.setFill(Color.web(logic.getEvenPointsLeftPreset()));
+                        rightPresetPoint1.setFill(Color.web(logic.getEvenPointsRightPreset()));
                 }), new KeyFrame(Duration.seconds(0.5), e-> {
-                        punta21.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
-                        punta211.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
-                        punta11.setFill(Color.web(logic.getEvenPointsLeftPreset()));
-                        punta311.setFill(Color.web(logic.getEvenPointsRightPreset()));
+                        leftPresetPoint2.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        rightPresetPoint2.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
+                        leftPresetPoint1.setFill(Color.web(logic.getEvenPointsLeftPreset()));
+                        rightPresetPoint3.setFill(Color.web(logic.getEvenPointsRightPreset()));
                 }), new KeyFrame(Duration.seconds(1), e-> {
-                        punta31.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
-                        punta111.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
-                        punta21.setFill(Color.web(logic.getOddPointsLeftPreset()));
-                        punta211.setFill(Color.web(logic.getOddPointsRightPreset()));
+                        leftPresetPoint3.setFill(Color.web(logic.getSelectedPointPreset(LEFT)));
+                        rightPresetPoint1.setFill(Color.web(logic.getSelectedPointPreset(RIGHT)));
+                        leftPresetPoint2.setFill(Color.web(logic.getOddPointsLeftPreset()));
+                        rightPresetPoint2.setFill(Color.web(logic.getOddPointsRightPreset()));
                 }), new KeyFrame(Duration.seconds(1.5))
         );
 
         @FXML
         void goToMainMenu()  throws IOException {
                 if(!applyButton.isDisable()){
-                        Pavvertimento.setVisible(true);
-                        Pavvertimento.setDisable(false);
+                        warningTitlePane.setVisible(true);
+                        warningTitlePane.setDisable(false);
                         settingsAnchorPane.setDisable(true);
                 }else {
                         App.changeRoot(MAIN_MENU);
@@ -270,14 +243,18 @@ public class SettingsView {
         }
 
         @FXML
-        void chiudiAttenzioni(ActionEvent event) {
-                Pavvertimento.setVisible(false);
-                Pavvertimento.setDisable(true);
+        void closeWarning(ActionEvent event) {
+                warningTitlePane.setVisible(false);
+                warningTitlePane.setDisable(true);
                 settingsAnchorPane.setDisable(false);
+                videoAnchorPane.setDisable(false);
+                audioAnchorPane.setDisable(false);
+                controlsAnchorPane.setDisable(false);
+                customizeAnchorPane.setDisable(false);
         }
 
         @FXML
-        void tornaMainMenu(ActionEvent event) {
+        void goToMainMenu(ActionEvent event) {
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
         }
@@ -290,8 +267,8 @@ public class SettingsView {
                 audioAnchorPane.setMouseTransparent(true);
                 customizeTitlePane.setVisible(false);
                 customizeAnchorPane.setMouseTransparent(true);
-                Tcomandi.setVisible(false);
-                comandi.setMouseTransparent(true);
+                controlsTitlePane.setVisible(false);
+                controlsAnchorPane.setMouseTransparent(true);
 
         }
 
@@ -303,32 +280,32 @@ public class SettingsView {
                 audioAnchorPane.setMouseTransparent(false);
                 customizeTitlePane.setVisible(false);
                 customizeAnchorPane.setMouseTransparent(true);
-                Tcomandi.setVisible(false);
-                comandi.setMouseTransparent(true);
+                controlsTitlePane.setVisible(false);
+                controlsAnchorPane.setMouseTransparent(true);
         }
 
         @FXML
-        void openEditPersonalizzazione() {
+        void openEditCustomize() {
                 videoTitlePane.setVisible(false);
                 videoAnchorPane.setMouseTransparent(true);
                 audioTitlePane.setVisible(false);
                 audioAnchorPane.setMouseTransparent(true);
                 customizeTitlePane.setVisible(true);
                 customizeAnchorPane.setMouseTransparent(false);
-                Tcomandi.setVisible(false);
-                comandi.setMouseTransparent(true);
+                controlsTitlePane.setVisible(false);
+                controlsAnchorPane.setMouseTransparent(true);
         }
 
         @FXML
-        void openEditComandi(ActionEvent event) {
+        void openEditControls(ActionEvent event) {
                 videoTitlePane.setVisible(false);
                 videoAnchorPane.setMouseTransparent(true);
                 audioTitlePane.setVisible(false);
                 audioAnchorPane.setMouseTransparent(true);
                 customizeTitlePane.setVisible(false);
                 customizeAnchorPane.setMouseTransparent(true);
-                Tcomandi.setVisible(true);
-                comandi.setMouseTransparent(false);
+                controlsTitlePane.setVisible(true);
+                controlsAnchorPane.setMouseTransparent(false);
         }
 
         //Video
@@ -341,7 +318,7 @@ public class SettingsView {
         }
 
         @FXML
-        void blockresolution(ActionEvent event) {
+        void lockResolution(ActionEvent event) {
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setResizable(!lockResolutionCheck.isSelected());
                 applyButton.setDisable(false);
@@ -350,7 +327,7 @@ public class SettingsView {
         //Audio
 
         @FXML
-        void mutaLAmusica(ActionEvent event) {
+        void muteMusic(ActionEvent event) {
                 if (musicCheck.isSelected()){
                         Sv = musicSlider.getValue();
                         musicSlider.setValue(0);
@@ -365,7 +342,7 @@ public class SettingsView {
         }
 
         @FXML
-        void mutaGLIeffetto(ActionEvent event) {
+        void muteSFX(ActionEvent event) {
                 if (sFXCheck.isSelected()) {
                         Sve = sFXSlider.getValue();
                         sFXSlider.setValue(0);
@@ -378,13 +355,13 @@ public class SettingsView {
         }
 
         @FXML
-        void soundProva(MouseEvent event) {
+        void playSound(MouseEvent event) {
                 view.playSFX(PAWN_SFX);
         }
 
         //Personalizzazione
         @FXML
-        void coloreINpedina1(ActionEvent event) {
+        void whitePawnFillChange(ActionEvent event) {
                 Color newValue = whitePawnFillColorPicker.getValue();
                 if (newValue!= whitePawn.getFill()) {
                         whitePawn.setFill(newValue);
@@ -393,7 +370,7 @@ public class SettingsView {
         }
 
         @FXML
-        void coloreOUTpedina1(ActionEvent event) {
+        void whitePawnStrokeChange(ActionEvent event) {
                 Color newValue = whitePawnStrokeColorPicker.getValue();
                 if (newValue!= whitePawn.getStroke()) {
                         whitePawn.setStroke(newValue);
@@ -402,7 +379,7 @@ public class SettingsView {
         }
 
         @FXML
-        void coloreINpedina2(ActionEvent event) {
+        void blackPawnFillChange(ActionEvent event) {
                 Color newValue = blackPawnFillColorPicker.getValue();
                 if (newValue!= blackPawn.getFill()) {
                         blackPawn.setFill(newValue);
@@ -411,7 +388,7 @@ public class SettingsView {
         }
 
         @FXML
-        void coloreOUTpedina2(ActionEvent event) {
+        void blackPawnStrokeChange(ActionEvent event) {
                 Color newValue = blackPawnStrokeColorPicker.getValue();
                 if (newValue!= blackPawn.getStroke()) {
                         blackPawn.setStroke(newValue);
@@ -420,43 +397,43 @@ public class SettingsView {
         }
 
         @FXML
-        void coloreTavolo(ActionEvent event) {
+        void frameColorChange(ActionEvent event) {
                 Color newValue = tableColorPicker.getValue();
-                if (newValue!=tavolo.getFill()) {
-                        tavolo.setFill(newValue);
-                        tavolo.setStroke(newValue);
+                if (newValue!= customBoard.getFill()) {
+                        customBoard.setFill(newValue);
+                        customBoard.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
-        void coloreCornice(ActionEvent event) {
-                Color newValue = Ccornice.getValue();
-                if (newValue!= cornice.getFill()) {
-                        cornice.setFill(newValue);
-                        cornice.setStroke(newValue);
+        void boardColorChange(ActionEvent event) {
+                Color newValue = frameColorPicker.getValue();
+                if (newValue!= customFrame.getFill()) {
+                        customFrame.setFill(newValue);
+                        customFrame.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
-        void colorePunte(ActionEvent event) {
+        void evenPointColorChange(ActionEvent event) {
                 Color newValue = evenPointColorPicker.getValue();
-                if (newValue!=punta1.getFill()) {
-                        punta1.setFill(newValue);
-                        punta1.setStroke(newValue);
-                        punta3.setFill(newValue);
-                        punta3.setStroke(newValue);
+                if (newValue!= customPoint1.getFill()) {
+                        customPoint1.setFill(newValue);
+                        customPoint1.setStroke(newValue);
+                        customPoint3.setFill(newValue);
+                        customPoint3.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
 
         @FXML
-        void colorePunte2(ActionEvent event) {
+        void oddPointColorChange(ActionEvent event) {
                 Color newValue = oddPointColorPicker.getValue();
-                if (newValue!=punta2.getFill()) {
-                        punta2.setFill(newValue);
-                        punta2.setStroke(newValue);
+                if (newValue!= customPoint2.getFill()) {
+                        customPoint2.setFill(newValue);
+                        customPoint2.setStroke(newValue);
                         applyButton.setDisable(false);
                 }
         }
@@ -477,14 +454,14 @@ public class SettingsView {
                 selectedPointPresetsAnimation.stop();
                 selectedPointAnimation = new Timeline(
                         new KeyFrame(Duration.ZERO, e-> {
-                                punta3.setFill(selectedPointColor);
-                                punta1.setFill(evenPointColorPicker.getValue());
+                                customPoint3.setFill(selectedPointColor);
+                                customPoint1.setFill(evenPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(0.5), e-> {
-                                punta2.setFill(selectedPointColor);
-                                punta3.setFill(evenPointColorPicker.getValue());
+                                customPoint2.setFill(selectedPointColor);
+                                customPoint3.setFill(evenPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(1), e-> {
-                                punta1.setFill(selectedPointColor);
-                                punta2.setFill(oddPointColorPicker.getValue());
+                                customPoint1.setFill(selectedPointColor);
+                                customPoint2.setFill(oddPointColorPicker.getValue());
                         }), new KeyFrame(Duration.seconds(1.5))
                 );
                 selectedPointAnimation.setCycleCount(Animation.INDEFINITE);
@@ -493,51 +470,51 @@ public class SettingsView {
         }
 
         @FXML
-        void sinistraAction(ActionEvent event) {
+        void leftPresetAction(ActionEvent event) {
                 tableColorPicker.setDisable(true);
                 evenPointColorPicker.setDisable(true);
                 oddPointColorPicker.setDisable(true);
                 selectedPointColorPicker.setDisable(true);
-                Ccornice.setDisable(true);
+                frameColorPicker.setDisable(true);
                 if (logic.getBoardPreset()!=LEFT_PRESET)
                         applyButton.setDisable(false);
         }
 
         @FXML
-        void inMezzo(ActionEvent event) {
+        void customPresetAction(ActionEvent event) {
                 tableColorPicker.setDisable(false);
                 evenPointColorPicker.setDisable(false);
                 oddPointColorPicker.setDisable(false);
                 selectedPointColorPicker.setDisable(false);
-                Ccornice.setDisable(false);
+                frameColorPicker.setDisable(false);
                 if (logic.getBoardPreset()!=CUSTOM_BOARD)
                         applyButton.setDisable(false);
         }
 
         @FXML
-        void destraAction(ActionEvent event) {
+        void rightPresetAction(ActionEvent event) {
                 tableColorPicker.setDisable(true);
                 evenPointColorPicker.setDisable(true);
                 oddPointColorPicker.setDisable(true);
                 selectedPointColorPicker.setDisable(true);
-                Ccornice.setDisable(true);
+                frameColorPicker.setDisable(true);
                 if (logic.getBoardPreset()!=RIGHT_PRESET)
                         applyButton.setDisable(false);
         }
 
         //Comandi Action
-        int IdiWaiting;
+        int waitingBinding;
         @FXML
-        void selezionata(MouseEvent event) {
+        void selectKeyBind(MouseEvent event) {
                 TextField b = (TextField) event.getSource();
                 bindingBefore = b.getText();
                 b.setText(logic.getString("Waiting"));
                 for(int i=0; i<8; i++){
-                        if(nomiDiPulsanti[i].getText().equals(logic.getString("Waiting"))){
-                                nomiDiPulsanti[i].setDisable(false);
-                                IdiWaiting = i;
+                        if(keyBinds[i].getText().equals(logic.getString("Waiting"))){
+                                keyBinds[i].setDisable(false);
+                                waitingBinding = i;
                         }else{
-                                nomiDiPulsanti[i].setDisable(true);
+                                keyBinds[i].setDisable(true);
                         }
                 }
                 applyButton.setDisable(true);
@@ -545,12 +522,12 @@ public class SettingsView {
                 mainMenuButton.setDisable(true);
         }
 
-        protected TextField[] nomiDiPulsanti;
+        protected TextField[] keyBinds;
         @FXML
-        void stampa(KeyEvent event) {
+        void changeKeyBind(KeyEvent event) {
                 TextField b = (TextField) event.getSource();
                 for(int i=0; i<8; i++){
-                        if(nomiDiPulsanti[i].getText().equals(event.getCode().toString()) && i != IdiWaiting){
+                        if(keyBinds[i].getText().equals(event.getCode().toString()) && i != waitingBinding){
                                 b.setText(bindingBefore);
                                 i=9;
                         }else{
@@ -558,7 +535,7 @@ public class SettingsView {
                         }
                 }
                 for(int i=0; i<8; i++){
-                        nomiDiPulsanti[i].setDisable(false);
+                        keyBinds[i].setDisable(false);
                 }
                 if (!b.getText().equals(bindingBefore))
                         applyButton.setDisable(false);
@@ -598,7 +575,7 @@ public class SettingsView {
         }
 
         @FXML
-        void cambiaRisoluzione(KeyEvent event) {
+        void changeResolution(KeyEvent event) {
                 if(logic.isParsable(resolutionWidthField.getText()) && logic.isParsable(resolutionHeightField.getText())) {
                         logic.setResolutionWidth(Integer.parseInt(resolutionWidthField.getText()));
                         logic.setResolutionHeight(Integer.parseInt(resolutionHeightField.getText()));
@@ -630,29 +607,29 @@ public class SettingsView {
                 logic.setSFXVolume((int) sFXSlider.getValue());
                 logic.setMuteMusic(musicCheck.isSelected());
                 logic.setMuteSFX(sFXCheck.isSelected());
-                if(TM.isSelected())
+                if(customRadio.isSelected())
                         logic.setBoardPreset(CUSTOM_BOARD);
-                else if (Imsinistra.isSelected())
+                else if (leftPresetRadio.isSelected())
                         logic.setBoardPreset(LEFT_PRESET);
                 else logic.setBoardPreset(RIGHT_PRESET);
                 logic.setWhitePawnStroke(colorStringFactory(whitePawnStrokeColorPicker.getValue()));
                 logic.setWhitePawnFill(colorStringFactory(whitePawnFillColorPicker.getValue()));
                 logic.setBlackPawnStroke(colorStringFactory(blackPawnStrokeColorPicker.getValue()));
                 logic.setBlackPawnFill(colorStringFactory(blackPawnFillColorPicker.getValue()));
-                logic.setBoardFrameColor(colorStringFactory(Ccornice.getValue()));
+                logic.setBoardFrameColor(colorStringFactory(frameColorPicker.getValue()));
                 logic.setBoardInnerColor(colorStringFactory(tableColorPicker.getValue()));
                 logic.setEvenPointsColor(colorStringFactory(evenPointColorPicker.getValue()));
                 logic.setOddPointsColor(colorStringFactory(oddPointColorPicker.getValue()));
                 logic.setSelectedPointColor(colorStringFactory(selectedPointColorPicker.getValue()));
-                logic.setMoveRight(moDestra.getText());
-                logic.setMoveLeft(moSinistra.getText());
-                logic.setMoveUp(moSopra.getText());
-                logic.setMoveDown(moSotto.getText());
-                logic.setSelect(Selezionare.getText());
-                logic.setRevertMove(cacellareMo.getText());
-                logic.setFinishTurn(finitoT.getText());
-                logic.setOpenMenu(opUscita.getText());
-                logic.setBackgroundColor(colorStringFactory(selectedBackGroundColorPicker.getValue()));
+                logic.setMoveRight(rightTextField.getText());
+                logic.setMoveLeft(leftTextField.getText());
+                logic.setMoveUp(upTextField.getText());
+                logic.setMoveDown(downTextField.getText());
+                logic.setSelect(selectTextField.getText());
+                logic.setRevertMove(revertMoveTextField.getText());
+                logic.setFinishTurn(finishTurnTextField.getText());
+                logic.setOpenMenu(openMenuTextField.getText());
+                logic.setBackgroundColor(colorStringFactory(backGroundColorPicker.getValue()));
                 logic.applySettingsChanges();
                 applyButton.setDisable(true);
         }
@@ -662,7 +639,7 @@ public class SettingsView {
                 logic.resetDefaultSettings();
                 fullscreenCheck.setSelected(logic.getFullScreen());
                 fullscreen(null);
-                blockresolution(null);
+                lockResolution(null);
                 lockResolutionCheck.setSelected(logic.getLockResolution());
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setWidth(logic.getResolutionWidth());
@@ -682,18 +659,18 @@ public class SettingsView {
                 else view.playMusic(MENU_MUSIC);
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
-                                TM.setSelected(true);
+                                customRadio.setSelected(true);
                                 tableColorPicker.setDisable(false);
                                 evenPointColorPicker.setDisable(false);
                                 oddPointColorPicker.setDisable(false);
                                 selectedPointColorPicker.setDisable(false);
-                                Ccornice.setDisable(false);
+                                frameColorPicker.setDisable(false);
                                 break;
                         case LEFT_PRESET:
-                                Imsinistra.setSelected(true);
+                                leftPresetRadio.setSelected(true);
                                 break;
                         case RIGHT_PRESET:
-                                Imdestra.setSelected(true);
+                                rightPresetRadio.setSelected(true);
                                 break;
                 }
                 whitePawnStrokeColorPicker.setValue(Color.web(logic.getWhitePawnStroke()));
@@ -704,30 +681,30 @@ public class SettingsView {
                 whitePawn.setStroke(Color.web(logic.getWhitePawnStroke()));
                 blackPawn.setFill(Color.web(logic.getBlackPawnFill()));
                 blackPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
-                Ccornice.setValue(Color.web(logic.getBoardFrameColor()));
+                frameColorPicker.setValue(Color.web(logic.getBoardFrameColor()));
                 tableColorPicker.setValue(Color.web(logic.getBoardInnerColor()));
                 evenPointColorPicker.setValue(Color.web(logic.getEvenPointsColor()));
                 oddPointColorPicker.setValue(Color.web(logic.getOddPointsColor()));
                 selectedPointColor = Color.web(logic.getSelectedPointColor());
                 selectedPointColorPicker.setValue(selectedPointColor);
-                cornice.setFill(Color.web(logic.getBoardFrameColor()));
-                cornice.setStroke(Color.web(logic.getBoardFrameColor()));
-                tavolo.setFill(Color.web(logic.getBoardInnerColor()));
-                tavolo.setStroke(Color.web(logic.getBoardInnerColor()));
-                punta1.setFill(Color.web(logic.getEvenPointsColor()));
-                punta1.setStroke(Color.web(logic.getEvenPointsColor()));
-                punta2.setFill(Color.web(logic.getOddPointsColor()));
-                punta2.setStroke(Color.web(logic.getOddPointsColor()));
-                punta3.setFill(Color.web(logic.getEvenPointsColor()));
-                punta3.setStroke(Color.web(logic.getEvenPointsColor()));
-                moDestra.setText(logic.getMoveRight());
-                moSinistra.setText(logic.getMoveLeft());
-                moSopra.setText(logic.getMoveUp());
-                moSotto.setText(logic.getMoveDown());
-                Selezionare.setText(logic.getSelect());
-                cacellareMo.setText(logic.getRevertMove());
-                finitoT.setText(logic.getFinishTurn());
-                opUscita.setText(logic.getOpenMenu());
+                customFrame.setFill(Color.web(logic.getBoardFrameColor()));
+                customFrame.setStroke(Color.web(logic.getBoardFrameColor()));
+                customBoard.setFill(Color.web(logic.getBoardInnerColor()));
+                customBoard.setStroke(Color.web(logic.getBoardInnerColor()));
+                customPoint1.setFill(Color.web(logic.getEvenPointsColor()));
+                customPoint1.setStroke(Color.web(logic.getEvenPointsColor()));
+                customPoint2.setFill(Color.web(logic.getOddPointsColor()));
+                customPoint2.setStroke(Color.web(logic.getOddPointsColor()));
+                customPoint3.setFill(Color.web(logic.getEvenPointsColor()));
+                customPoint3.setStroke(Color.web(logic.getEvenPointsColor()));
+                rightTextField.setText(logic.getMoveRight());
+                leftTextField.setText(logic.getMoveLeft());
+                upTextField.setText(logic.getMoveUp());
+                downTextField.setText(logic.getMoveDown());
+                selectTextField.setText(logic.getSelect());
+                revertMoveTextField.setText(logic.getRevertMove());
+                finishTurnTextField.setText(logic.getFinishTurn());
+                openMenuTextField.setText(logic.getOpenMenu());
                 regeneratePointAnimation();
                 applyButton.setDisable(true);
         }
@@ -786,49 +763,49 @@ public class SettingsView {
                 AnchorPane.setLeftAnchor(whitePawnStrokeColorPicker, window.getWidth() * 0.20);
                 AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.30);
                 AnchorPane.setLeftAnchor(tableText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Ancorsini, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Imsinistra, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Ancormed, window.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(TM, window.getWidth() * 0.30);
-                AnchorPane.setLeftAnchor(Ancordes, window.getWidth() * 0.50);
-                AnchorPane.setLeftAnchor(Imdestra, window.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(leftPresetPane, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(leftPresetRadio, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(customPane, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(customRadio, window.getWidth() * 0.30);
+                AnchorPane.setLeftAnchor(rightPresetPane, window.getWidth() * 0.50);
+                AnchorPane.setLeftAnchor(rightPresetRadio, window.getWidth() * 0.50);
                 AnchorPane.setLeftAnchor(tableColorPicker, window.getWidth() * 0.11);
                 AnchorPane.setLeftAnchor(pointText, window.getWidth() * 0.30);
                 AnchorPane.setLeftAnchor(oddPointColorPicker, window.getWidth() * 0.30 + 7);
                 AnchorPane.setLeftAnchor(evenPointColorPicker,AnchorPane.getLeftAnchor(oddPointColorPicker) - 56);
                 AnchorPane.setLeftAnchor(selectedPointColorPicker, AnchorPane.getLeftAnchor(oddPointColorPicker) + 56);
                 AnchorPane.setLeftAnchor(frameText, window.getWidth() * 0.50);
-                AnchorPane.setLeftAnchor(Ccornice, window.getWidth() * 0.51);
+                AnchorPane.setLeftAnchor(frameColorPicker, window.getWidth() * 0.51);
                 AnchorPane.setLeftAnchor(blackPawnText, window.getWidth() * 0.40);
                 AnchorPane.setLeftAnchor(blackPawnFillColorPicker, window.getWidth() * 0.40);
                 AnchorPane.setLeftAnchor(blackPawnStrokeColorPicker, window.getWidth() * 0.40);
                 AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.50);
 
                 //Comandi
-                AnchorPane.setLeftAnchor(Tkeyboard, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(Tmuov, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tright, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tleft, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tup, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tdown, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(moDestra, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSinistra, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSopra, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(moSotto, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(Tdese, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tcancellation, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tfinish, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Tmainmenu, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(Selezionare, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(cacellareMo, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(finitoT, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(opUscita, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.10);
+                AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(leftText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(upText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(downText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(rightTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(leftTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(upTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(downTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(selectText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(revertMoveText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(finishTurnText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(openMenuText, window.getWidth() * 0.20);
+                AnchorPane.setLeftAnchor(selectTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(revertMoveTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(finishTurnTextField, window.getWidth() * 0.45);
+                AnchorPane.setLeftAnchor(openMenuTextField, window.getWidth() * 0.45);
 
                 //schermi
                 settingsAnchorPane.setPrefWidth(window.getWidth()/4);
                 settingsTitlePane.setPrefWidth(window.getWidth()/4);
-                Pavvertimento.setLayoutX(window.getWidth()/2 - 206);
-                Pavvertimento.setLayoutY(window.getHeight()/2 -103);
+                warningTitlePane.setLayoutX(window.getWidth()/2 - 206);
+                warningTitlePane.setLayoutY(window.getHeight()/2 -103);
 
                 videoAnchorPane.setLayoutX(window.getWidth()/4);
                 videoTitlePane.setLayoutX(window.getWidth()/4);
@@ -836,8 +813,8 @@ public class SettingsView {
                 audioTitlePane.setLayoutX(window.getWidth()/4);
                 customizeAnchorPane.setLayoutX(window.getWidth()/4);
                 customizeTitlePane.setLayoutX(window.getWidth()/4);
-                comandi.setLayoutX(window.getWidth()/4);
-                Tcomandi.setLayoutX(window.getWidth()/4);
+                controlsAnchorPane.setLayoutX(window.getWidth()/4);
+                controlsTitlePane.setLayoutX(window.getWidth()/4);
 
                 videoAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
                 videoTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
@@ -845,8 +822,8 @@ public class SettingsView {
                 audioTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
                 customizeAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
                 customizeTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
-                comandi.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
-                Tcomandi.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                controlsAnchorPane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
+                controlsTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
 
                 settingsAnchorPane.setPrefHeight(window.getWidth());
                 settingsTitlePane.setPrefHeight(window.getWidth());
@@ -856,8 +833,8 @@ public class SettingsView {
                 audioTitlePane.setPrefHeight(window.getHeight());
                 customizeAnchorPane.setPrefHeight(window.getHeight());
                 customizeTitlePane.setPrefHeight(window.getHeight());
-                comandi.setPrefHeight(window.getHeight());
-                Tcomandi.setPrefHeight(window.getHeight());
+                controlsAnchorPane.setPrefHeight(window.getHeight());
+                controlsTitlePane.setPrefHeight(window.getHeight());
 
                 if (((int)stage.getHeight() != logic.getResolutionHeight() ||
                         (int)stage.getWidth() != logic.getResolutionWidth()) &&
@@ -866,7 +843,7 @@ public class SettingsView {
                 }
         }
         public void initialize() {
-                 nomiDiPulsanti = new TextField[] {this.moDestra, this.moSinistra, this.moSopra, this.moSotto, this.Selezionare, this.cacellareMo, this.finitoT, this.opUscita};
+                 keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
 
                  //languages
                 settingsTitlePane.setText(logic.getString("Settings"));
@@ -895,28 +872,28 @@ public class SettingsView {
                 tableText.setText(logic.getString("Table"));
                 pointText.setText(logic.getString("Points"));
                 frameText.setText(logic.getString("Frame"));
-                Imsinistra.setText(logic.getString("Preset"));
-                TM.setText(logic.getString("Custom"));
-                Imdestra.setText(logic.getString("Preset"));
+                leftPresetRadio.setText(logic.getString("Preset"));
+                customRadio.setText(logic.getString("Custom"));
+                rightPresetRadio.setText(logic.getString("Preset"));
                 //Comandi lang...
                 controlsButton.setText(logic.getString("Commands"));
-                Tcomandi.setText(logic.getString("Commands"));
-                Tkeyboard.setText(logic.getString("Keyboard"));
-                Tmuov.setText(logic.getString("Move"));
-                Tright.setText(logic.getString("Right"));
-                Tleft.setText(logic.getString("Left"));
-                Tup.setText(logic.getString("Up"));
-                Tdown.setText(logic.getString("Down"));
-                Tdese.setText(logic.getString("Select"));
-                Tcancellation.setText(logic.getString("DeleteMove"));
-                Tfinish.setText(logic.getString("FinishTurn"));
-                Tmainmenu.setText(logic.getString("TmainMenu"));
+                controlsTitlePane.setText(logic.getString("Commands"));
+                keyboardText.setText(logic.getString("Keyboard"));
+                movementText.setText(logic.getString("Move"));
+                rightText.setText(logic.getString("Right"));
+                leftText.setText(logic.getString("Left"));
+                upText.setText(logic.getString("Up"));
+                downText.setText(logic.getString("Down"));
+                selectText.setText(logic.getString("Select"));
+                revertMoveText.setText(logic.getString("DeleteMove"));
+                finishTurnText.setText(logic.getString("FinishTurn"));
+                openMenuText.setText(logic.getString("TmainMenu"));
                 //Attention page lang...
-                Pavvertimento.setText(logic.getString("Attention"));
-                Tattenzione.setText(logic.getString("AttentionText"));
-                applyButton2.setText(logic.getString("Save"));
-                nonsalvaBTN.setText(logic.getString("Don'tSave"));
-                annullareBTN.setText(logic.getString("Cancel"));
+                warningTitlePane.setText(logic.getString("Attention"));
+                warningText.setText(logic.getString("AttentionText"));
+                exitAndSaveButton.setText(logic.getString("Save"));
+                exitNoSaveButton.setText(logic.getString("Don'tSave"));
+                cancelButton.setText(logic.getString("Cancel"));
                 //BTN Prencipali
                 applyButton.setText(logic.getString("Apply"));
                 resetButton.setText(logic.getString("Reset"));
@@ -930,33 +907,33 @@ public class SettingsView {
 
                 //Personalizzazione
                 group = new ToggleGroup();
-                Imsinistra.setToggleGroup(group);
-                TM.setToggleGroup(group);
-                Imdestra.setToggleGroup(group);
+                leftPresetRadio.setToggleGroup(group);
+                customRadio.setToggleGroup(group);
+                rightPresetRadio.setToggleGroup(group);
                 switch (logic.getBoardPreset()) {
                         case CUSTOM_BOARD:
-                                TM.setSelected(true);
+                                customRadio.setSelected(true);
                                 tableColorPicker.setDisable(false);
                                 evenPointColorPicker.setDisable(false);
                                 oddPointColorPicker.setDisable(false);
                                 selectedPointColorPicker.setDisable(false);
-                                Ccornice.setDisable(false);
+                                frameColorPicker.setDisable(false);
                                 break;
                         case LEFT_PRESET:
-                                Imsinistra.setSelected(true);
+                                leftPresetRadio.setSelected(true);
                                 tableColorPicker.setDisable(true);
                                 evenPointColorPicker.setDisable(true);
                                 oddPointColorPicker.setDisable(true);
                                 selectedPointColorPicker.setDisable(true);
-                                Ccornice.setDisable(true);
+                                frameColorPicker.setDisable(true);
                                 break;
                         case RIGHT_PRESET:
-                                Imdestra.setSelected(true);
+                                rightPresetRadio.setSelected(true);
                                 tableColorPicker.setDisable(true);
                                 evenPointColorPicker.setDisable(true);
                                 oddPointColorPicker.setDisable(true);
                                 selectedPointColorPicker.setDisable(true);
-                                Ccornice.setDisable(true);
+                                frameColorPicker.setDisable(true);
                                 break;
                 }
 
@@ -968,7 +945,7 @@ public class SettingsView {
                 blackPawnFillColorPicker.setValue(Color.web(logic.getBlackPawnFill()));
                 blackPawnStrokeColorPicker.setValue(Color.web(logic.getBlackPawnStroke()));
                 tableColorPicker.setValue(Color.web(logic.getBoardInnerColor(true)));
-                Ccornice.setValue(Color.web(logic.getBoardFrameColor(true)));
+                frameColorPicker.setValue(Color.web(logic.getBoardFrameColor(true)));
                 evenPointColorPicker.setValue(Color.web(logic.getEvenPointsColor(true)));
                 oddPointColorPicker.setValue(Color.web(logic.getOddPointsColor(true)));
                 selectedPointColor = Color.web(logic.getSelectedPointColor(true));
@@ -981,18 +958,18 @@ public class SettingsView {
                 blackPawn.setFill(blackPawnFillColorPicker.getValue());
                 blackPawn.setStroke(blackPawnStrokeColorPicker.getValue());
 
-                tavolo.setFill(tableColorPicker.getValue());
-                tavolo.setStroke(tableColorPicker.getValue());
+                customBoard.setFill(tableColorPicker.getValue());
+                customBoard.setStroke(tableColorPicker.getValue());
 
-                cornice.setFill(Ccornice.getValue());
-                cornice.setStroke(Ccornice.getValue());
+                customFrame.setFill(frameColorPicker.getValue());
+                customFrame.setStroke(frameColorPicker.getValue());
 
-                punta1.setFill(evenPointColorPicker.getValue());
-                punta1.setStroke(evenPointColorPicker.getValue());
-                punta2.setFill(oddPointColorPicker.getValue());
-                punta2.setStroke(oddPointColorPicker.getValue());
-                punta3.setFill(evenPointColorPicker.getValue());
-                punta3.setStroke(evenPointColorPicker.getValue());
+                customPoint1.setFill(evenPointColorPicker.getValue());
+                customPoint1.setStroke(evenPointColorPicker.getValue());
+                customPoint2.setFill(oddPointColorPicker.getValue());
+                customPoint2.setStroke(oddPointColorPicker.getValue());
+                customPoint3.setFill(evenPointColorPicker.getValue());
+                customPoint3.setStroke(evenPointColorPicker.getValue());
 
                 //musica
                         musicCheck.setSelected(logic.getMuteMusic());
@@ -1004,14 +981,14 @@ public class SettingsView {
                         sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, SFX_SLIDER));
 
                 //Comandi
-                        moDestra.setText(logic.getMoveRight());
-                        moSinistra.setText(logic.getMoveLeft());
-                        moSopra.setText(logic.getMoveUp());
-                        moSotto.setText(logic.getMoveDown());
-                        Selezionare.setText(logic.getSelect());
-                        cacellareMo.setText(logic.getRevertMove());
-                        finitoT.setText(logic.getFinishTurn());
-                        opUscita.setText(logic.getOpenMenu());
+                        rightTextField.setText(logic.getMoveRight());
+                        leftTextField.setText(logic.getMoveLeft());
+                        upTextField.setText(logic.getMoveUp());
+                        downTextField.setText(logic.getMoveDown());
+                        selectTextField.setText(logic.getSelect());
+                        revertMoveTextField.setText(logic.getRevertMove());
+                        finishTurnTextField.setText(logic.getFinishTurn());
+                        openMenuTextField.setText(logic.getOpenMenu());
 
                 //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
                 window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

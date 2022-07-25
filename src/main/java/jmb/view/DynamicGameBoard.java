@@ -295,7 +295,7 @@ public class DynamicGameBoard extends GameBoard{
     }
     protected int moveHorizontally(int selectedIndex, String keyPressed) {
         int out;
-        if (selectedIndex <13) { // La punta selezionata è sopra
+        if (selectedIndex <13) { // La punta selectKeyBind è sopra
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = (selectedIndex + 13 + 1) % 13;
                 if (!logic.getWhiteExit(whoCalled))
@@ -306,7 +306,7 @@ public class DynamicGameBoard extends GameBoard{
                 if (!logic.getBlackExit(whoCalled) && out == COL_BLACK_EXIT)
                     out = 12;
             }
-        } else { // La punta selezionata è sotto
+        } else { // La punta selectKeyBind è sotto
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = ((selectedIndex - 1) % 13) + 13;
                 if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)

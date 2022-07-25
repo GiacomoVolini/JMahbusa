@@ -99,16 +99,14 @@ public class MainMenu {
     void openLogin() throws IOException {
         Files.createFile(tutorialPath);
         App.changeRoot(LOG_IN);
-        View.sceneMusica.gameMusic.pause();
+        View.sceneMusic.gameMusic.pause();
         View.sceneLogIn.changeDimensions();
     }
 
     @FXML
-    void openTutorialdamessaggio() throws IOException {
+    void openTutorialFromPrompt() throws IOException {
         Files.createFile(tutorialPath);
-        App.changeRoot(TUTORIAL);
-        logic.initializeTutorialLogic();
-        view.playMusic(TUTORIAL_MUSIC);
+        openTutorial();
     }
 
     @FXML
@@ -121,18 +119,13 @@ public class MainMenu {
     @FXML
     void openMenuImpostazioni()  throws IOException {
         App.changeRoot(SETTINGS);
-        View.sceneImpostazioni.applyButton.setDisable(true);
-        View.sceneImpostazioni.changeDimensions();
+        View.sceneSettings.applyButton.setDisable(true);
+        View.sceneSettings.changeDimensions();
     }
 
     @FXML
     void openLoadGame() throws IOException {
-        App.changeRoot(LOAD_GAME); /*
-        sceneLoadView.refreshSaveList();
-        sceneLoadView.setBoardColors();
-        sceneLoadView.renderNoSelection();
-        */
-
+        App.changeRoot(LOAD_GAME);
     }
 
     @FXML
@@ -154,7 +147,7 @@ public class MainMenu {
     }
 
     @FXML
-    void linguaInglese(ActionEvent event) {
+    void englishLanguage(ActionEvent event) {
         mainLanguageImageView.setImage(englishFlag);
         logic.setLanguage("EN");
         logic.applySettingsChanges();
@@ -162,7 +155,7 @@ public class MainMenu {
     }
 
     @FXML
-    void linguaItaliana(ActionEvent event) {
+    void italianLanguage(ActionEvent event) {
         mainLanguageImageView.setImage(italianFlag);
         logic.setLanguage("IT");
         logic.applySettingsChanges();
@@ -181,7 +174,7 @@ public class MainMenu {
 
     }
 
-        public void initialize() {
+    public void initialize() {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));
@@ -301,4 +294,4 @@ public class MainMenu {
 
     }
 
-    }
+}

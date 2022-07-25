@@ -3,7 +3,7 @@ package jmb.view;
 import javafx.scene.media.*;
 import static jmb.ConstantsShared.*;
 
-public class Musica {
+public class MusicPlayer {
     String gameMusicLocation = getClass().getResource("/jmb/view/partita.mp3").toString();
     MediaPlayer gameMusic = new MediaPlayer (new Media (gameMusicLocation));
 

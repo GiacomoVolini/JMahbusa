@@ -502,6 +502,13 @@ public class SettingsView {
                         applyButton.setDisable(false);
         }
 
+        @FXML
+        void selectedBackGroundColorChange(ActionEvent event) {
+                if(Color.web(logic.getBackgroundColor()) != selectedBackGroundColorPicker.getValue()) {
+                        applyButton.setDisable(false);
+                }
+        }
+
         //Comandi Action
         int waitingBinding;
         @FXML
@@ -887,7 +894,7 @@ public class SettingsView {
                 selectText.setText(logic.getString("Select"));
                 revertMoveText.setText(logic.getString("DeleteMove"));
                 finishTurnText.setText(logic.getString("FinishTurn"));
-                openMenuText.setText(logic.getString("TmainMenu"));
+                openMenuText.setText(logic.getString("MainMenu"));
                 //Attention page lang...
                 warningTitlePane.setText(logic.getString("Attention"));
                 warningText.setText(logic.getString("AttentionText"));

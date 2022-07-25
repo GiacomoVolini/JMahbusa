@@ -58,6 +58,7 @@ public class MainMenu {
     private static Image englishFlag;
     private static Image italianFlag;
     private static final String MAIN_MENU_KEY = "newGame";
+    private static final String TUTORIAL_KEY = "Tutorial";
     private static final String LOAD_KEY = "loadGame";
     private static final String LEADERBOARD_KEY = "leaderboards";
     private static final String SETTINGS_KEY = "settings";
@@ -144,6 +145,8 @@ public class MainMenu {
         tutorialPromptText.setText(logic.getString(TUTORIAL_NEVER_PLAYED_KEY));
         tutorialPromptYes.setText(logic.getString(YES_KEY));
         tutorialPromptNo.setText(logic.getString(NO_KEY));
+        tutorialButton.setText(logic.getString(TUTORIAL_KEY));
+       
     }
 
     @FXML
@@ -176,14 +179,9 @@ public class MainMenu {
 
     public void initialize() {
         try {
+            this.loadStrings();
             String settingsDir = logic.getAppDirectory() + "/settings";
             tutorialPath = Path.of (settingsDir.concat("/played.ini"));
-
-            newGameButton.setText(logic.getString(MAIN_MENU_KEY));
-            loadGameButton.setText(logic.getString(LOAD_KEY));
-            settingsButton.setText(logic.getString(SETTINGS_KEY));
-            leaderboardButton.setText(logic.getString(LEADERBOARD_KEY));
-            exitButton.setText(logic.getString(EXIT_KEY));
 
             Image im1 = new Image(this.getClass().getResource("background1.jpg").toURI().toString());
             Image im2 = new Image(this.getClass().getResource("background2.jpg").toURI().toString());

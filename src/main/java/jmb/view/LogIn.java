@@ -188,7 +188,7 @@ public class LogIn {
         easyText.setText(logic.getString("easy"));
         mediumText.setText(logic.getString("medium"));
         hardText.setText(logic.getString("hard"));
-        customText.setText(logic.getString("custom"));
+        customText.setText(logic.getString("Custom"));
         tournamentPanel.setText(logic.getString("tournament"));
         tournamentCheckBox.setText(logic.getString("activate"));
         tournamentLabel.setText(logic.getString("target"));

@@ -74,14 +74,12 @@ public class LoadGameView extends GameBoard {
         addChildrenToAnchor();
 
         refreshSaveList();
+        renderNoSelection();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
         whitePlayerPawn.setFill(Color.web(logic.getWhitePawnFill()));
         whitePlayerPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
         blackPlayerPawn.setFill(Color.web(logic.getBlackPawnFill()));
         blackPlayerPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
-        //Si impedisce all'utente di muovere il divisore dello SplitPane
-        window.lookupAll(".split-pane-divider").stream()
-                .forEach(div ->  div.setMouseTransparent(true) );
 
         //languages
         loadStrings();

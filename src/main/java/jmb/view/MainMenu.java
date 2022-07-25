@@ -267,12 +267,12 @@ public class MainMenu {
             //  Ridimensiona i Buttoni rispetto alla finestra principale
             //  Larghezza
 
-            newGameButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
-            tutorialButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
-            loadGameButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
-            leaderboardButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
-            settingsButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
-            exitButton.setLayoutX(window.getWidth()/2 - newGameButton.getWidth()/2);
+            newGameButton.setLayoutX(window.getWidth()/2 - 44);
+            tutorialButton.setLayoutX(window.getWidth()/2 - 44);
+            loadGameButton.setLayoutX(window.getWidth()/2 - 44);
+            leaderboardButton.setLayoutX(window.getWidth()/2 - 44);
+            settingsButton.setLayoutX(window.getWidth()/2 - 44);
+            exitButton.setLayoutX(window.getWidth()/2 - 44);
 
             // Altezza
             gameTitle.setLayoutY(window.getHeight()/3);

@@ -504,7 +504,7 @@ public class SettingsView {
 
         @FXML
         void selectedBackGroundColorChange(ActionEvent event) {
-                if(Color.web(logic.getBackgroundColor()) != selectedBackGroundColorPicker.getValue()) {
+                if(Color.web(logic.getBackgroundColor()) != backGroundColorPicker.getValue()) {
                         applyButton.setDisable(false);
                 }
         }
@@ -865,7 +865,7 @@ public class SettingsView {
                 //Audio lang...
                 audioButton.setText(logic.getString("Audio"));
                 audioTitlePane.setText(logic.getString("Audio"));
-                musicText.setText(logic.getString("musicText"));
+                musicText.setText(logic.getString("Music"));
                 sFXText.setText(logic.getString("SoundEffects"));
                 musicCheck.setText(logic.getString("MuteMusic"));
                 sFXCheck.setText(logic.getString("MuteSoundEffects"));

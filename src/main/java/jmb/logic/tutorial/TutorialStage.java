@@ -9,5 +9,4 @@ public interface TutorialStage {
     void start();
     void action();
 
-    int compareTo(ComparableTutorialStage obj);
 }

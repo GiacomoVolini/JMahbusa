@@ -192,6 +192,7 @@ public class LogIn {
         tournamentPanel.setText(logic.getString("tournament"));
         tournamentCheckBox.setText(logic.getString("activate"));
         tournamentLabel.setText(logic.getString("target"));
+        revertCheckBox.setText(logic.getString("revertMove"));
 
         gameSettingsTitlePane.expandedProperty().addListener((obs, oldVal, newVal) -> {
             titledPaneAnimation(newVal);

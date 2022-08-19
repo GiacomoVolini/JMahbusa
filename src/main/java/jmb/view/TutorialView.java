@@ -197,6 +197,11 @@ public class TutorialView extends DynamicGameBoard{
             if (keyPressed.equals(logic.getSelect()) && pawnMoved)
                 logic.tutorialStageAction();
         }
+        /*
+        if (keyPressed.equals(logic.getOpenMenu())) {
+
+        }
+         */
     }
 
     @FXML

@@ -108,6 +108,7 @@ public class GameLogic extends DynamicBoardLogic {
                 }
             }
         }
+        victoryCheck();
     }
 
     private boolean tryToMove(int delta) {

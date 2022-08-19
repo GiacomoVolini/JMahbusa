@@ -70,8 +70,8 @@ public class MainMenu {
     //image per le lingue
     static {
         try{
-            englishFlag = new Image(MainMenu.class.getResource("eng.jpg").toURI().toString());
-            italianFlag = new Image(MainMenu.class.getResource("ita.jpg").toURI().toString());
+            englishFlag = new Image(MainMenu.class.getResource("flags/flag_EN.png").toURI().toString());
+            italianFlag = new Image(MainMenu.class.getResource("flags/flag_IT.png").toURI().toString());
         }catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -155,6 +155,18 @@ public class MainMenu {
         logic.setLanguage("EN");
         logic.applySettingsChanges();
         this.loadStrings();
+    }
+    /*
+    TODO - Costruzione menu lingua dinamica
+         - Controllare cartella flags
+         - Per ogni png creare un menuItem con:
+            - ImageView con quell'immagine
+            - id con le lettere dopo l'underscore del nome dell'immagine
+            - onAction setlanguage con l'id
+     */
+
+    private void addLanguagesToMenu() {
+
     }
 
     @FXML
@@ -265,12 +277,12 @@ public class MainMenu {
             //  Ridimensiona i Buttoni rispetto alla finestra principale
             //  Larghezza
 
-            newGameButton.setLayoutX(window.getWidth()/2 - 44);
-            tutorialButton.setLayoutX(window.getWidth()/2 - 44);
-            loadGameButton.setLayoutX(window.getWidth()/2 - 44);
-            leaderboardButton.setLayoutX(window.getWidth()/2 - 44);
-            settingsButton.setLayoutX(window.getWidth()/2 - 44);
-            exitButton.setLayoutX(window.getWidth()/2 - 44);
+            newGameButton.setLayoutX(window.getWidth()/2 - 50);
+            tutorialButton.setLayoutX(window.getWidth()/2 - 50);
+            loadGameButton.setLayoutX(window.getWidth()/2 - 50);
+            leaderboardButton.setLayoutX(window.getWidth()/2 - 50);
+            settingsButton.setLayoutX(window.getWidth()/2 - 50);
+            exitButton.setLayoutX(window.getWidth()/2 - 50);
 
             // Altezza
             gameTitle.setLayoutY(window.getHeight()/3);

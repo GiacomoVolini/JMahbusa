@@ -2,6 +2,7 @@ package jmb.view;
 
 import javafx.scene.media.*;
 import static jmb.ConstantsShared.*;
+import static jmb.view.View.logic;
 
 public class MusicPlayer {
     String gameMusicLocation = getClass().getResource("/jmb/view/partita.mp3").toString();
@@ -32,41 +33,45 @@ public class MusicPlayer {
         this.errorSFX.setVolume(value);
     }
     protected void playMusic(int which) {
-        switch (which) {
-            case MENU_MUSIC:
-                this.menuMusic.setCycleCount(Integer.MAX_VALUE);
-                this.menuMusic.play();
-                this.tutorialMusic.stop();
-                this.gameMusic.stop();
-                break;
-            case TUTORIAL_MUSIC:
-                this.tutorialMusic.setCycleCount(Integer.MAX_VALUE);
-                this.tutorialMusic.play();
-                this.menuMusic.stop();
-                this.gameMusic.stop();
-                break;
-            case GAME_MUSIC:
-                this.gameMusic.setCycleCount(Integer.MAX_VALUE);
-                this.gameMusic.play();
-                this.menuMusic.stop();
-                this.tutorialMusic.stop();
-                break;
+        if (!logic.getMuteMusic()) {
+            switch (which) {
+                case MENU_MUSIC:
+                    this.menuMusic.setCycleCount(Integer.MAX_VALUE);
+                    this.menuMusic.play();
+                    this.tutorialMusic.stop();
+                    this.gameMusic.stop();
+                    break;
+                case TUTORIAL_MUSIC:
+                    this.tutorialMusic.setCycleCount(Integer.MAX_VALUE);
+                    this.tutorialMusic.play();
+                    this.menuMusic.stop();
+                    this.gameMusic.stop();
+                    break;
+                case GAME_MUSIC:
+                    this.gameMusic.setCycleCount(Integer.MAX_VALUE);
+                    this.gameMusic.play();
+                    this.menuMusic.stop();
+                    this.tutorialMusic.stop();
+                    break;
+            }
         }
     }
 
     protected void playSFX(int which) {
-        switch (which) {
-            case ERROR_SFX:
-                this.errorSFX.play();
-                break;
-            case PAWN_SFX:
-                this.pawnSFX.play();
-                break;
-            case DOUBLE_WIN_SFX:
-                this.applauseSFX.play();
-            case SINGLE_WIN_SFX:
-                this.winSFX.play();
-                break;
+        if (!logic.getMuteSFX()) {
+            switch (which) {
+                case ERROR_SFX:
+                    this.errorSFX.play();
+                    break;
+                case PAWN_SFX:
+                    this.pawnSFX.play();
+                    break;
+                case DOUBLE_WIN_SFX:
+                    this.applauseSFX.play();
+                case SINGLE_WIN_SFX:
+                    this.winSFX.play();
+                    break;
+            }
         }
     }
     protected void pauseMusic() {

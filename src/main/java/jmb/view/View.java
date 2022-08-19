@@ -15,9 +15,9 @@ public class View implements IView {
 
     public static LogIn sceneLogIn;
 
-    public  static SettingsView sceneSettings;
+    public static SettingsView sceneSettings;
 
-    public  static MainMenu sceneMainMenu;
+    public static MainMenu sceneMainMenu;
 
     public static LoadGameView sceneLoadView;
     public static TutorialView sceneTutorial;

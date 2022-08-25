@@ -48,20 +48,20 @@ public class DiceView {
     }
 
     public static void setDiceValues (ImageView[] diceArr, int whoCalled) {
-        int[] values = logic.getDiceValues(whoCalled);
+        int[] values = logic.getDiceValues();
         if(values[0]!=0) {
             diceArr[0].setImage(diceImgs[values[0] - 1]);
             diceArr[1].setImage(diceImgs[values[1] - 1]);
-            if (logic.isRollDouble(whoCalled)) {
+            if (logic.isRollDouble()) {
                 diceArr[2].setImage(invDiceImgs[values[2] - 1]);
                 diceArr[3].setImage(invDiceImgs[values[3] - 1]);
             }
         }
     }
 
-    public static void setDiceContrast (ImageView[] diceArr, int whoCalled) {
+    public static void setDiceContrast (ImageView[] diceArr) {
         for (int i = 0; i<4; i++) {
-            if (logic.isDiceUsed(i, whoCalled))
+            if (logic.isDiceUsed(i))
                 diceArr[i].setEffect(lowContrast);
             else
                 diceArr[i].setEffect(normalContrast);

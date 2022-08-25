@@ -5,36 +5,32 @@ import java.util.List;
 public interface ILogic {
 
     String getAppDirectory();
-    void placePawnOnPoint (int whichPoint, int whoCalled);
-    boolean getWhichTurn(int whoCalled);
+    void placePawnOnPoint (int whichPoint);
+    boolean getWhichTurn();
     void nextTurn();
     void initializeBoardLogic();
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
+    void initializeProgramLogic();
     void initializeStringsReader();
-    int getBoardPlaceState (int whichPoint, int whichRow, int whoCalled);
-    //  Metodo che restituisce tre valori a seconda dello stato della casella corrispondente di BoardLogic
-    //      Restituisce EMPTY (0) se la casella non contiene alcuna pedina
-    //                  WHITE (1) se la casella contiene una pedina del bianco
-    //                  BLACK (2) se la casella contiene una pedina del nero
-    boolean isLastOnPoint (int whichPoint, int whichRow, int whoCalled);
-    //  Metodo che restituisce true se non ci sono altre pedine al di sopra di essa in quella punta
-    void createMoveBuffer (int whichPoint, int whoCalled);
+    int getBoardPlaceState (int whichPoint, int whichRow);
+    boolean isLastOnPoint (int whichPoint, int whichRow);
+    void createMoveBuffer (int whichPoint);
     List<Player> getPlayerList ();
-    boolean isRollDouble(int whoCalled);
-    int[] getDiceValues(int whoCalled);
-    void firstTurn(int whoCalled);
+    boolean isRollDouble();
+    int[] getDiceValues();
+    void firstTurn();
     List<String> getPlayerNameList();
     int compareNameLists(String newName1, String newName2);
     void addNewPlayersToList (String newName1, String newName2);
-    boolean isDiceUsed (int i, int whoCalled);
+    boolean isDiceUsed (int i);
     void addStatsToLeaderboard();
-    void setUpNewBoard (int whoCalled);
+    void setUpNewBoard ();
     void revertMove();
-    void setWhiteExit(int whoCalled, boolean value);
-    void setBlackExit(int whoCalled, boolean value);
-    boolean getBlackExit(int whoCalled);
-    boolean getWhiteExit(int whoCalled);
+    void setWhiteExit(boolean value);
+    void setBlackExit(boolean value);
+    boolean getBlackExit();
+    boolean getWhiteExit();
     void setPlayersForGame(String whitePlayer, String blackPlayer);
     void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints);
     String getWhitePlayer();
@@ -48,36 +44,37 @@ public interface ILogic {
     List<String> getSaveList();
     SaveGameReader readSaveGame (String saveName);
     String[] getLoadViewData(String saveName);
-    int searchTopOccupiedRow(int whoCalled, int col);
-    boolean isPawnMovable(int col, int row,boolean highlight, int whoCalled);
+    int searchTopOccupiedRow(int col);
+    boolean isPawnMovable(int col, int row,boolean highlight);
     void deleteSaveFile(String fileName);
     boolean isSaveNamePresent(String saveName);
     int getTournamentPointsToWin();
     void setUpSavedGame(String saveName);
-    int[][] getBoardMatrix(int whoCalled);
+    int[][] getBoardMatrix();
     void setCanRevert(boolean value);
-    void selectPawn(int whichPoint, int whichRow, int whoCalled);
-    boolean movePawn(int whoCalled, int from, int to);
+    void selectPawn(int whichPoint, int whichRow);
+    boolean movePawn(int from, int to);
     int[][] getSaveMatrix(String saveName);
-    boolean getGameStart(int whoCalled);
+    boolean getGameStart();
     boolean getGameEndState();
     void setGameStart(boolean value);
     void setGameEndState(boolean value);
-    boolean allDiceUsed(int whoCalled);
+    boolean allDiceUsed();
     void completeMoves();
-    void deselectPawn(int col, int row, int whoCalled);
+    void deselectPawn(int col, int row);
     void resetDefaultSettings();
     void applySettingsChanges();
-    void initializeSettingsLogic();
     void nextTutorialStage();
     void tutorialStageAction();
-    void forceMovePawn(int whoCalled, int from, int to);
-    void forceDice(int whoCalled, int value1, int value2);
-    void forceDice(int whoCalled, int value);
-    void setWhiteTurn(int whoCalled, boolean value);
-    boolean[] getUsedArray(int whoCalled);
-    void setUpSavedBoard(int whoCalled, int[][]matrix);
+    void forceMovePawn(int from, int to);
+    void forceDice(int value1, int value2);
+    void forceDice(int value);
+    void setWhiteTurn(boolean value);
+    boolean[] getUsedArray();
+    void setUpSavedBoard(int[][]matrix);
     String getString(String key);
+    boolean shouldPlayTutorial();
+    void flagTutorialPlayed();
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
@@ -149,6 +146,7 @@ public interface ILogic {
     boolean isParsable(String input);
     void setBackgroundColor(String value);
     String getBackgroundColor();
+    String[] getSupportedLanguages();
 
 
     //_________________________

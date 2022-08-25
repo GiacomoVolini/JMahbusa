@@ -86,11 +86,11 @@ public class GameBoard {
     protected void setWhoCalled(int value) {
         whoCalled = value;
     }
-    protected void colorPoint (int index, Color color) {
+    public void colorPoint (int index, Color color) {
         colorPoint(index, color, color);
     }
     //La variabile index dei due colorPoint deve essere compresa tra 1 e 24
-    protected void colorPoint(int index, Color colorFill, Color colorStroke) {
+    public void colorPoint(int index, Color colorFill, Color colorStroke) {
         switch (index) {
             default:
                 if (index<13) {

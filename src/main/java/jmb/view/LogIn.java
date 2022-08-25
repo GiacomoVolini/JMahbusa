@@ -16,7 +16,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class LogIn {
+public class LogIn implements GenericGUI{
 
     @FXML
     private AnchorPane window;
@@ -84,7 +84,7 @@ public class LogIn {
                 logic.setTurnDuration(Integer.parseInt(customTimerField.getText()));
             switch (logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue())) {
                 case SUCCESS:
-                    logic.setUpNewBoard(whoCalled);
+                    logic.setUpNewBoard();
                     if (tournamentCheckBox.isSelected())
                         logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
                     else
@@ -235,7 +235,7 @@ public class LogIn {
         timeline.play();
     }
 
-    protected void changeDimensions() {
+    public void changeDimensions() {
         double panelWidth = 383;
         double regHeight = 191;
         double gtMaxHeight = 132;

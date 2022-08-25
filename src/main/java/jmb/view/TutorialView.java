@@ -21,7 +21,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class TutorialView extends DynamicGameBoard{
+public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
     private final static double VERTICAL_RESIZE_FACTOR = 0.8;
@@ -183,13 +183,13 @@ public class TutorialView extends DynamicGameBoard{
         tutorialOver = true;
     }
 
-    private void changeDimensions() {
+    public void changeDimensions() {
         TutorialViewRedraw.resizeAll(this);
         windowPane.requestFocus();
     }
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
-        if (logic.getWhichTurn(whoCalled)) {
+        if (logic.getWhichTurn()) {
             boolean pawnMoved = false;
             if (keyPressed.equals(logic.getSelect()) && selected)
                 pawnMoved = true;
@@ -280,7 +280,7 @@ public class TutorialView extends DynamicGameBoard{
                 diceRollAnimation.setCycleCount(cycles);
                 diceRollAnimation.setOnFinished(e -> {
                     logic.tutorialStageAction();
-                    if (logic.isRollDouble(whoCalled)) {
+                    if (logic.isRollDouble()) {
                         openDoubleDice();
                     }
                     DiceView.setDiceValues(diceArray, whoCalled);

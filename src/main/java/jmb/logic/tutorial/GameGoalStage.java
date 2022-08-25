@@ -12,10 +12,10 @@ public class GameGoalStage extends ComparableTutorialStage{
     }
 
     public void start() {
-        logic.setWhiteTurn(whoCalled, false);
+        logic.setWhiteTurn(false);
         view.tutorialPointAnimation(false);
-        logic.setWhiteExit(whoCalled,true);
-        logic.setBlackExit(whoCalled,true);
+        logic.setWhiteExit(true);
+        logic.setBlackExit(true);
         view.tutorialExitZoneAnimation(true);
         view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.6,0.3);
@@ -24,8 +24,8 @@ public class GameGoalStage extends ComparableTutorialStage{
     public void action() {
         if (internalIndex < 30) {
             if (internalIndex%2==0)
-                logic.forceMovePawn(whoCalled, COL_WHITE, COL_WHITE_EXIT);
-            else logic.forceMovePawn(whoCalled, COL_BLACK, COL_BLACK_EXIT);
+                logic.forceMovePawn(COL_WHITE, COL_WHITE_EXIT);
+            else logic.forceMovePawn(COL_BLACK, COL_BLACK_EXIT);
             internalIndex++;
         }
     }

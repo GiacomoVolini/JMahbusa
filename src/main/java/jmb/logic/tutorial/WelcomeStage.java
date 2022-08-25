@@ -12,7 +12,7 @@ public class WelcomeStage extends ComparableTutorialStage{
     private String stageString = "tutorialWelcome";
 
     public void start() {
-        logic.setWhiteTurn(whoCalled, false);
+        logic.setWhiteTurn(false);
         view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.1,0.2);
 

@@ -1,5 +1,6 @@
 package jmb.logic.tutorial;
 
+import static jmb.ConstantsShared.PAWN_SFX;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
@@ -11,13 +12,13 @@ public class PawnDirectionStage extends ComparableTutorialStage{
     }
 
     public void start() {
-        logic.setWhiteTurn(whoCalled, false);
-        logic.setUpNewBoard(whoCalled);
-        view.setPawnsVisible(true, whoCalled);
-        view.callRedraw(whoCalled);
+        logic.setWhiteTurn(false);
+        logic.setUpNewBoard();
+        view.setPawnsVisible(true);
+        view.callRedraw();
         view.setNextTutorialString(logic.getString(stageString), true);
-        view.playPawnSFX();
-        view.waitForRecall(whoCalled, 0.5);
+        view.playSFX(PAWN_SFX);
+        view.waitForRecall(0.5);
         view.tutorialTextBoxAnimation(0.4,0.4);
     }
 

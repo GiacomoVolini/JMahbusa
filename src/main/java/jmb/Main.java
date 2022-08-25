@@ -14,10 +14,6 @@ public class Main {
         View.logic = Logic.logic;
         View.view = new jmb.view.View();
         Logic.view = View.view;
-        Logic.logic.initializeTutorialLogic();
-        Logic.logic.initializeBoardLogic();
-        Logic.logic.initializeLeaderboardLogic();
-        Logic.logic.initializeSettingsLogic();
-        Logic.logic.initializeStringsReader();
+        Logic.logic.initializeProgramLogic();
     }
 }

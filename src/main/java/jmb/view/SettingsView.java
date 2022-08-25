@@ -17,10 +17,8 @@ import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
 import java.io.IOException;
-public class SettingsView {
+public class SettingsView implements GenericGUI{
 
-        private final static int MUSIC_SLIDER = 0;
-        private final static int SFX_SLIDER = 1;
         @FXML
         private AnchorPane window;
 
@@ -654,9 +652,9 @@ public class SettingsView {
                 resolutionWidthField.setText(String.valueOf(logic.getResolutionWidth()));
                 resolutionHeightField.setText(String.valueOf(logic.getResolutionHeight()));
                 musicSlider.setValue(logic.getMusicVolume());
-                view.setMusicVolume(logic.getMusicVolume());
+                view.setVolume(MUSIC_VOLUME, logic.getMusicVolume());
                 sFXSlider.setValue(logic.getSFXVolume());
-                view.setSFXVolume(logic.getSFXVolume());
+                view.setVolume(SFX_VOLUME, logic.getSFXVolume());
                 musicCheck.setSelected(logic.getMuteMusic());
                 sFXCheck.setSelected(logic.getMuteSFX());
                 musicSlider.setDisable(logic.getMuteMusic());
@@ -716,7 +714,7 @@ public class SettingsView {
                 applyButton.setDisable(true);
         }
 
-        protected void changeDimensions() {
+        public void changeDimensions() {
                 Stage stage = (Stage) window.getScene().getWindow();
                 //bottoni sinistra
                 videoButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
@@ -984,8 +982,8 @@ public class SettingsView {
                         musicSlider.setValue(logic.getMusicVolume());
                         musicSlider.setValue(logic.getMusicVolume());
                         sFXSlider.setValue(logic.getSFXVolume());
-                        musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, MUSIC_SLIDER));
-                        sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkSliderChanges(newVal, SFX_SLIDER));
+                        musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
+                        sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
 
                 //Comandi
                         rightTextField.setText(logic.getMoveRight());
@@ -1010,17 +1008,17 @@ public class SettingsView {
 
         }
 
-        private void checkSliderChanges (Number value, int whichSlider) {
+        private void checkVolumeChanges(Number value, int whichSlider) {
                 int savedValue = 0;
                 int sliderValue = (int)(value.doubleValue());
                 switch (whichSlider) {
-                        case MUSIC_SLIDER:
+                        case MUSIC_VOLUME:
                                 savedValue = logic.getMusicVolume();
-                                view.setMusicVolume(value.doubleValue()/100);
+                                view.setVolume(MUSIC_VOLUME, value.doubleValue()/100);
                                 break;
-                        case SFX_SLIDER:
+                        case SFX_VOLUME:
                                 savedValue = logic.getSFXVolume();
-                                view.setSFXVolume(value.doubleValue()/100);
+                                view.setVolume(SFX_VOLUME,value.doubleValue()/100);
                                 break;
                 }
                 if (savedValue != sliderValue)

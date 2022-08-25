@@ -15,22 +15,22 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
         setStageIndex(6);
     }
     public void start() {
-        logic.setWhiteTurn(whoCalled, false);
+        logic.setWhiteTurn(false);
         String stageStringMiddlePart;
-        if (logic.getBoardMatrix(whoCalled)[0][12]==WHITE)
+        if (logic.getBoardMatrix()[0][12]==WHITE)
             stageStringMiddlePart = " 12";
         else stageStringMiddlePart = " 6";
         stringToPass = logic.getString(stageStringFirstPart)+stageStringMiddlePart+logic.getString(stageStringLastPart);
         view.setNextTutorialString(stringToPass, true);
         view.tutorialTextBoxAnimation(0.6,0.5);
         view.allowTextBoxMouseInput(false);
-        view.waitForRecall(whoCalled, 1.5);
+        view.waitForRecall(1.5);
     }
 
     public void action() {
         if (internalIndex < 11) {
             boardMoves();
-            view.callRedraw(whoCalled);
+            view.callRedraw();
         } else {
             view.allowTextBoxMouseInput(false);
             logic.nextTutorialStage();
@@ -40,33 +40,33 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
     private void boardMoves() {
         switch (internalIndex) {
             case 0: case 1: case 2: case 3:
-                if (logic.getBoardMatrix(whoCalled)[0][12]==WHITE)
+                if (logic.getBoardMatrix()[0][12]==WHITE)
                     to = 12;
                 else to = 6;
-                logic.forceMovePawn(whoCalled, COL_BLACK, to);
+                logic.forceMovePawn(COL_BLACK, to);
                 view.playSFX(PAWN_SFX);
-                view.waitForRecall(whoCalled, 1.5);
+                view.waitForRecall(1.5);
                 break;
             case 4:
                 for (int i = 0; i<4; i++)
-                    logic.forceMovePawn(whoCalled, to, COL_BLACK);
-                view.playPawnSFX();
-                view.waitForRecall(whoCalled, 1.5);
+                    logic.forceMovePawn(to, COL_BLACK);
+                view.playSFX(PAWN_SFX);
+                view.waitForRecall(1.5);
                 break;
             case 5:
-                logic.forceMovePawn(whoCalled, COL_WHITE, to);
+                logic.forceMovePawn(COL_WHITE, to);
                 view.playSFX(ERROR_SFX);
-                view.waitForRecall(whoCalled, 0.5);
+                view.waitForRecall(0.5);
                 break;
             case 6: case 7: case 8: case 9:
                 if (internalIndex%2 == 0)
-                    logic.getBoardMatrix(whoCalled)[logic.searchTopOccupiedRow(whoCalled, to)][to]= WRONG_WHITE;
-                else logic.getBoardMatrix(whoCalled)[logic.searchTopOccupiedRow(whoCalled, to)][to] = WHITE;
-                view.waitForRecall(whoCalled, 0.5);
+                    logic.getBoardMatrix()[logic.searchTopOccupiedRow(to)][to]= WRONG_WHITE;
+                else logic.getBoardMatrix()[logic.searchTopOccupiedRow(to)][to] = WHITE;
+                view.waitForRecall(0.5);
                 break;
             case 10:
-                logic.forceMovePawn(whoCalled, to, COL_WHITE);
-                view.waitForRecall(whoCalled, 1);
+                logic.forceMovePawn(to, COL_WHITE);
+                view.waitForRecall(1);
                 break;
 
         }

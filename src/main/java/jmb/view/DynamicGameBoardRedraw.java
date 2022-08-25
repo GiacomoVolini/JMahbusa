@@ -18,7 +18,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     public static void redrawPawns(DynamicGameBoard board) {
-        redrawPawns(board, logic.getBoardMatrix(whoCalled));
+        redrawPawns(board, logic.getBoardMatrix());
     }
 
     protected static void redrawPawns (DynamicGameBoard board, int[][] matrix) {
@@ -47,13 +47,13 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
                         blacksPlaced++;
                         break;
                     case SELECTED_WHITE:
-                        logic.isPawnMovable(col, row, true, board.whoCalled);
+                        logic.isPawnMovable(col, row, true);
                         board.pawnArrayWHT[whitesPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayWHT[whitesPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         whitesPlaced++;
                         break;
                     case SELECTED_BLACK:
-                        logic.isPawnMovable(col, row, true, board.whoCalled);
+                        logic.isPawnMovable(col, row, true);
                         board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         blacksPlaced++;
@@ -69,7 +69,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row, whoCalled) && logic.isPawnMovable(col, row, false, whoCalled)) {
+        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row, false)) {
             pawnArray[pawnIndex].setViewOrder(-2.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
@@ -110,11 +110,11 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
 
     }
     public static void resizeExitRegions(DynamicGameBoard board) {
-        if (logic.getBlackExit(whoCalled)) {
+        if (logic.getBlackExit()) {
             board.blackExitRegion.setWidth(maxExitWidth);
             board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
-        if (logic.getWhiteExit(whoCalled)) {
+        if (logic.getWhiteExit()) {
             board.whiteExitRegion.setWidth(maxExitWidth);
             board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
@@ -125,7 +125,7 @@ public class DynamicGameBoardRedraw extends GameBoardRedraw{
         GameBoardRedraw.resizeInnerBoard(board);
         resizeExitRegions(board);
         calcTrayWidths(board);
-        if (logic.getGameStart(whoCalled)) {
+        if (logic.getGameStart()) {
             resizeDiceTray(board);
             if (board.diceTrayOpen)
                 resizeDice(board);

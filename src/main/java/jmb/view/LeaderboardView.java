@@ -84,11 +84,7 @@ public class LeaderboardView implements GenericGUI{
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-        /*TODO
-            Aggiungere controllo vittoria al completamento mosse del computer. - FATTO
-            Vedere se si può gestire la lista delle lingue su MainMenu in maniera dinamica, aggiungendo un'opzione per ogni bandiera tra i file
-            Aggiungere stringa per revert moves in LogIn - FATTO
-         */
+
 
     }
     public void changeDimensions() {

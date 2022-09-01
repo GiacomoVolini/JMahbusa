@@ -13,11 +13,11 @@ public class Logic implements ILogic {
 
     public static IView view;
     public static ILogic logic;
-    public static GenericBoard board;
-    public static LeaderboardLogic ldb;
-    public static SettingsLogic settings;
-    public static String appDirectory;
-    public static StringsReader strings;
+    public GenericBoard board;
+    public LeaderboardLogic ldb;
+    public SettingsLogic settings;
+    public String appDirectory;
+    public StringsReader strings;
 
     @Override
     public void initializeBoardLogic() {

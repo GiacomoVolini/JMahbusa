@@ -78,6 +78,9 @@ public interface ILogic {
     //------------------------------
     //GETTER E SETTER DELLE IMPOSTAZIONI
     //------------------------------
+    //TODO
+    //  Sostituire tutte questi metodi con un getSetting e un setSetting, che poi va a modificare l'impostazione scelta, in maniera
+    //  simile a getString sopra
     String getLanguage();
     void setLanguage(String value);
     void setFullScreen(boolean value);

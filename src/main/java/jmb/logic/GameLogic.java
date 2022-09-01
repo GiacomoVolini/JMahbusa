@@ -40,7 +40,7 @@ public class GameLogic extends DynamicBoardLogic {
 
     //  METODI
 
-    protected void setUp() {
+    public void setUp() {
         setGameStart(false);
         setGameEndState(false);
         super.setUp();
@@ -55,13 +55,16 @@ public class GameLogic extends DynamicBoardLogic {
         view.backBTNSetDisable(true);
     }
 
-    protected void runTurn() {
+    public void runTurn() {
         dice.tossDice();
         view.rollDice();
     }
 
     public boolean movePawn(int from, int to) {
-        return this.movePawn(from, searchTopOccupiedRow(from), searchFirstFreeRow(to), to);
+        boolean out = this.movePawn(from, searchTopOccupiedRow(from), searchFirstFreeRow(to), to);
+        if (out)
+            this.victoryCheck();
+        return out;
     }
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
@@ -108,6 +111,7 @@ public class GameLogic extends DynamicBoardLogic {
                 }
             }
         }
+        victoryCheck();
     }
 
     private boolean tryToMove(int delta) {
@@ -215,7 +219,7 @@ public class GameLogic extends DynamicBoardLogic {
                 setWhiteExit(false);
             }
             dice.resetToBeUsed();
-            view.setDiceContrast(whoCalled);
+            view.setDiceContrast();
         }
         if (turnMoves.isEmpty())
             view.backBTNSetDisable(true);
@@ -291,7 +295,7 @@ public class GameLogic extends DynamicBoardLogic {
     protected double getTurnDuration() {
         return this.turnDuration;
     }
-    protected boolean getGameStart() {
+    public boolean getGameStart() {
         return this.gameStart;
     }
     protected void setGameStart(boolean value) {

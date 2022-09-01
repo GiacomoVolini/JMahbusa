@@ -6,7 +6,7 @@ import static jmb.logic.ConstantsLogic.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
-public class DynamicBoardLogic {
+public class DynamicBoardLogic implements GenericBoard{
 
     protected int whoCalled;
     protected void setWhoCalled(int whoCalled) {
@@ -24,21 +24,24 @@ public class DynamicBoardLogic {
     protected int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
     //mentre si sta per effettuare una mossa
     //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
-    protected DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
-    protected void setWhiteExit (boolean value) {
+    protected BoardDice dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
+    public void setWhiteExit (boolean value) {
         this.whiteExit = value;
     }
-    protected void setBlackExit (boolean value) {
+    public void setBlackExit (boolean value) {
         this.blackExit = value;
     }
-    protected boolean getWhiteExit() {
+    public boolean getWhiteExit() {
         return whiteExit;
     }
-    protected boolean getBlackExit() {
+    public boolean getBlackExit() {
         return blackExit;
     }
-    protected int[][] getSquares() {
+    public int[][] getSquares() {
             return squares;
+    }
+    public BoardDice getDice() {
+        return dice;
     }
 
     /** I metodi checkBlackExit e checkWhiteExit controllano rispettivamente per il nero e per il bianco che lo stato
@@ -63,7 +66,7 @@ public class DynamicBoardLogic {
             if (!found){
                 open = true;
                 setBlackExit(true);
-                Logic.view.openBlackExit(whoCalled);
+                Logic.view.openBlackExit();
                 if (whoCalled == GAME_CALLED)
                     moveOpensBlackExit = true;
             }
@@ -86,7 +89,7 @@ public class DynamicBoardLogic {
             if (!found){
                 open = true;
                 setWhiteExit(true);
-                view.openWhiteExit(whoCalled);
+                view.openWhiteExit();
                 if (whoCalled == GAME_CALLED)
                     moveOpensWhiteExit = true;
             }
@@ -94,7 +97,7 @@ public class DynamicBoardLogic {
         return open;
     }
 
-    protected void setUp() {
+    public void setUp() {
         setBlackExit(false);
         setWhiteExit(false);
 
@@ -114,12 +117,12 @@ public class DynamicBoardLogic {
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
-            view.playPawnSFX();
+            view.playSFX(PAWN_SFX);
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
             dice.setDiceToUsed();
-            view.setDiceContrast(whoCalled);
+            view.setDiceContrast();
             //  Controlla se il giocatore di turno può far uscire le proprie
             //  pedine e aggiorna di conseguenza la variabile relativa
             if (whiteTurn) {
@@ -278,7 +281,7 @@ public class DynamicBoardLogic {
                 ((squares[puntaInizR][puntaInizC] == BLACK || squares[puntaInizR][puntaInizC] == SELECTED_BLACK) && (puntaFinC < puntaInizC));
         return right;
     }
-    protected boolean isPawnMovable (int col, int row, boolean highlight) {
+    public boolean isPawnMovable (int col, int row, boolean highlight) {
         boolean movable = false;
         boolean whiteTurn = isWhiteTurn();
         int sign;
@@ -292,8 +295,8 @@ public class DynamicBoardLogic {
                 movable = true;
                 if (highlight) {
                     if (whiteTurn)
-                        view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                    else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                        view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                    else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
                 }
             }
         }
@@ -302,8 +305,8 @@ public class DynamicBoardLogic {
             movable = true;
             if (highlight)
                 if (whiteTurn)
-                    view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                    view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
         }
         for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
@@ -311,16 +314,16 @@ public class DynamicBoardLogic {
                 movable = true;
                 if (highlight)
                     if (whiteTurn)
-                        view.colorPoint(whoCalled, endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                    else view.colorPoint(whoCalled, endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                        view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
+                    else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
             }
         }
         return movable;
     }
-    protected void selectPawn(int col, int row){
+    public void selectPawn(int col, int row){
         squares[row][col] += SELECTED;
     }
-    protected void deselectPawn(int col, int row) {
+    public void deselectPawn(int col, int row) {
         squares[row][col] += DESELECTED;
     }
     public void setMoveBuffer (int col, int row) {
@@ -334,21 +337,21 @@ public class DynamicBoardLogic {
     public int getMoveBufferRow () {
         return this.moveBuffer[1];
     }
-    protected int getBoardPlaceState (int whichPoint, int whichRow) {
+    public int getBoardPlaceState (int whichPoint, int whichRow) {
         return squares[whichRow][whichPoint];
     }
-    protected void forceMovePawn(int from, int to) {
-        view.playPawnSFX();
+    public void forceMovePawn(int from, int to) {
+        view.playSFX(PAWN_SFX);
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];
         squares[fromRow][from] = EMPTY;
     }
-    protected void setWhiteTurn(boolean value) {
+    public void setWhiteTurn(boolean value) {
         whiteTurn = value;
     }
 
-    protected void setUpSavedBoard(int[][] squareMatrix) {
+    public void setUpSavedBoard(int[][] squareMatrix) {
         if (squares == null) {
             squares = new int[16][26];
         }
@@ -358,5 +361,9 @@ public class DynamicBoardLogic {
             }
         }
     }
-    public DiceLogic getDiceLogic() { return this.dice; }
+    public boolean getGameStart() {
+        return true;
+    }
+
+    public void runTurn() {}
 }

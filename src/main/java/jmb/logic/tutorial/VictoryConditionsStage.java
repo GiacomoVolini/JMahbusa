@@ -56,25 +56,25 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
     public void start() {
         view.setNextTutorialString(logic.getString(initialString), true);
         view.tutorialTextBoxAnimation(0.5, 0.4);
-        view.waitForRecall(whoCalled, 3.0);
+        view.waitForRecall(3.0);
     }
     public void action() {
         switch (internalIndex) {
             case 0:
-                if (!logic.getWhiteExit(whoCalled)) {
-                    view.openWhiteExit(whoCalled);
-                    logic.setWhiteExit(whoCalled, true);
+                if (!logic.getWhiteExit()) {
+                    view.openWhiteExit();
+                    logic.setWhiteExit(true);
                 }
-                if (!logic.getBlackExit(whoCalled)) {
-                    view.openBlackExit(whoCalled);
-                    logic.setBlackExit(whoCalled, true);
+                if (!logic.getBlackExit()) {
+                    view.openBlackExit();
+                    logic.setBlackExit(true);
                 }
-                view.closeDoubleDice(whoCalled);
+                view.closeDoubleDice();
                 view.tutorialDiceAnimation(true,20);
                 break;
             case 1:
                 setBoardUp(startingMatrix, 19, 24);
-                view.restoreBoardColors(whoCalled);
+                view.restoreBoardColors();
                 view.setNextTutorialString(logic.getString(singleWinString), true);
                 view.tutorialTextBoxAnimation(0.5,0.45 );
                 break;
@@ -82,11 +82,11 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 view.playSFX(SINGLE_WIN_SFX);
                 view.setNextTutorialString(logic.getString(afterSingleWinString), true);
                 view.tutorialTextBoxAnimation(0.2,0.4 );
-                view.waitForRecall(whoCalled, 3.0);
+                view.waitForRecall(3.0);
                 break;
             case 3:
                 setBoardUp(doubleWinMatrix, 4, 10);
-                view.restoreBoardColors(whoCalled);
+                view.restoreBoardColors();
                 view.setNextTutorialString(logic.getString(doubleWinString), true);
                 view.tutorialTextBoxAnimation(0.55,0.57 );
                 break;
@@ -97,10 +97,10 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
         internalIndex++;
     }
     private void setBoardUp(int[][] matrix, int from, int to) {
-        logic.forceDice(whoCalled, 5, 6);
-        logic.setWhiteTurn(whoCalled, true);
-        logic.setUpSavedBoard(whoCalled, matrix);
-        logic.movePawn(whoCalled, from, to);
-        view.callRedraw(whoCalled);
+        logic.forceDice(5, 6);
+        logic.setWhiteTurn(true);
+        logic.setUpSavedBoard(matrix);
+        logic.movePawn(from, to);
+        view.callRedraw();
     }
 }

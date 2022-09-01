@@ -1,7 +1,6 @@
 package jmb.view;
 
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.paint.Color;
 
 public class ConstantsView {
 
@@ -29,6 +28,9 @@ public class ConstantsView {
     public static final double NORMAL_PAWN_STROKE_WIDTH= 2;
     public static final double SELECTED_PAWN_STROKE_WIDTH = 4;
     public static final double MOVABLE_PAWN_STROKE_WIDTH = 3.5;
+
+    public final static int MUSIC_VOLUME = 0;
+    public final static int SFX_VOLUME = 1;
 
 
     private ConstantsView() {

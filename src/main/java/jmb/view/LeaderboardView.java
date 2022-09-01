@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static jmb.view.View.logic;
 import static jmb.view.ConstantsView.*;
 
-public class LeaderboardView {
+public class LeaderboardView implements GenericGUI{
 
     @FXML
     private AnchorPane window;
@@ -61,20 +61,6 @@ public class LeaderboardView {
         {return input.getName().toLowerCase().contains(searchTextField.getText().toLowerCase());}).collect(Collectors.toList());
     }
 
-    protected void changeDimensions() {
-        double quarterWidth = window.getWidth()/4;
-
-        name.setPrefWidth(quarterWidth);
-        victories.setPrefWidth(quarterWidth);
-        defeats.setPrefWidth(quarterWidth);
-        rate.setPrefWidth(quarterWidth);
-
-        smallAnchor.setPrefWidth(quarterWidth);
-
-        exitButton.setPrefWidth(window.getWidth()/6);
-
-    }
-
     public void initialize() {
         table.setItems(FXCollections.observableList(logic.getPlayerList()));
         name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
@@ -97,6 +83,20 @@ public class LeaderboardView {
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+
+
+    }
+    public void changeDimensions() {
+        double quarterWidth = window.getWidth()/4;
+
+        name.setPrefWidth(quarterWidth);
+        victories.setPrefWidth(quarterWidth);
+        defeats.setPrefWidth(quarterWidth);
+        rate.setPrefWidth(quarterWidth);
+
+        smallAnchor.setPrefWidth(quarterWidth);
+        exitButton.setPrefWidth(window.getWidth()/6);
 
     }
 }

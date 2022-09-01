@@ -28,6 +28,11 @@ public class Player {
         this.setWinRate();
     }
 
+    @Override
+    public String toString() {
+        String out = getName() + ";" + getWins() + ";" + getLosses();
+        return out;
+    }
 
     //----------------------
     //METODI GETTER E SETTER

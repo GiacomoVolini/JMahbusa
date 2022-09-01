@@ -85,6 +85,24 @@ public class SettingsLogic {
         }
     }
 
+    protected static void flagTutorialPlayed() {
+        try {
+            String fileLocation = logic.getAppDirectory() + "/settings/played.tut";
+            Path filePath = Path.of(fileLocation);
+            if (!Files.exists(filePath))
+                Files.createFile(filePath);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    protected static boolean shouldPlayTutorial() {
+        String fileLocation = logic.getAppDirectory() + "/settings/played.tut";
+        Path filePath = Path.of (fileLocation);
+        System.out.println(Files.exists(filePath));
+        return !Files.exists(filePath);
+    }
+
     //private void loadSettingsFrom(Ini ini) {
     private void loadSettingsFrom(Path path) throws IOException {
         Ini ini = new Ini(path.toFile());

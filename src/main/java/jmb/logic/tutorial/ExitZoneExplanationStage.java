@@ -39,18 +39,18 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
         view.setNextTutorialString(logic.getString(stageStringInitial), true);
         view.tutorialTextBoxAnimation(0.2,0.2 );
         view.allowTextBoxMouseInput(false);
-        view.waitForRecall(whoCalled, 2.0);
+        view.waitForRecall(2.0);
     }
 
     public void action() {
         switch (internalIndex) {
             case 0:
                 setBoardUp();
-                logic.setWhiteTurn(whoCalled, false);
-                view.closeDoubleDice(whoCalled);
+                logic.setWhiteTurn(false);
+                view.closeDoubleDice();
                 view.setNextTutorialString(logic.getString(stageStringInter), true);
                 view.tutorialTextBoxAnimation(0.55,0.4 );
-                view.waitForRecall(whoCalled, 1.5);
+                view.waitForRecall(1.5);
                 break;
             case 1: case 2: case 3: case 4: case 5: case 6:
                 view.highlightPointsToOpenExit(internalIndex);
@@ -58,23 +58,24 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 break;
             case 7:
                 setBoardUp();
-                view.restoreBoardColors(whoCalled);
-                view.callRedraw(whoCalled);
+                view.restoreBoardColors();
+                view.callRedraw();
                 view.setNextTutorialString(logic.getString(stageStringFinal), true);
                 view.tutorialTextBoxAnimation(0.52,0.2 );
                 break;
             case 8:
-                if (logic.getBoardMatrix(whoCalled)[2][20]==EMPTY) {
+                System.out.println(logic.getBoardMatrix()[2][20]);
+                if (logic.getBoardMatrix()[2][20]==EMPTY) {
                     internalIndex-=2;
                     view.setNextTutorialString(logic.getString(wrongMoveString), true);
                 } else {
                     view.setNextTutorialString(logic.getString(rightMoveString), true);
                 }
                 view.tutorialTextBoxAnimation(0.2,0.2 );
-                view.waitForRecall(whoCalled, 3);
+                view.waitForRecall(3);
                 break;
             case 9:
-                view.restoreBoardColors(whoCalled);
+                view.restoreBoardColors();
                 logic.nextTutorialStage();
                 break;
         }
@@ -82,10 +83,10 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
     }
 
     private void setBoardUp() {
-        logic.setUpSavedBoard(whoCalled, startingMatrix);
-        logic.setWhiteTurn(whoCalled, true);
-        logic.forceDice(whoCalled, 3, 4);
-        logic.movePawn(whoCalled, COL_BLACK -4, COL_BLACK);
-        view.callRedraw(whoCalled);
+        logic.setUpSavedBoard(startingMatrix);
+        logic.setWhiteTurn(true);
+        logic.forceDice(3, 4);
+        logic.movePawn(COL_BLACK -4, COL_BLACK);
+        view.callRedraw();
     }
 }

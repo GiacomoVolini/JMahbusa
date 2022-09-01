@@ -17,7 +17,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class DynamicGameBoard extends GameBoard{
+public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
     protected Rectangle diceTray;
 
@@ -68,8 +68,8 @@ public class DynamicGameBoard extends GameBoard{
     private void savePosition (MouseEvent event) {
         PawnView node = (PawnView)event.getSource();
         int col = searchPawnPlace(node);
-        logic.createMoveBuffer(col, whoCalled);
-        logic.isPawnMovable(col, logic.searchTopOccupiedRow(whoCalled, col), true, whoCalled);
+        logic.createMoveBuffer(col);
+        logic.isPawnMovable(col, logic.searchTopOccupiedRow(col), true);
     }
 
     //  Metodo per il trascinamento della pedina
@@ -82,9 +82,9 @@ public class DynamicGameBoard extends GameBoard{
         PawnView node = (PawnView)event.getSource();
         int col = this.searchPawnPlace(node);
         if (col != UNDEFINED) {
-            logic.placePawnOnPoint(col, whoCalled);
+            logic.placePawnOnPoint(col);
         }
-        view.restoreBoardColors(whoCalled);
+        view.restoreBoardColors();
         GameViewRedraw.redrawPawns(this);
 
     }
@@ -140,7 +140,7 @@ public class DynamicGameBoard extends GameBoard{
         }
         return out;
     }
-    protected void openDoubleDice() {
+    public void openDoubleDice() {
         if (!diceArray[UPPER_DOUBLE_DICE].isVisible()) {
             App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -162,7 +162,7 @@ public class DynamicGameBoard extends GameBoard{
             timeline.play();
         }
     }
-    protected void closeDoubleDice() {
+    public void closeDoubleDice() {
         if (diceArray[UPPER_DOUBLE_DICE].isVisible()) {
             App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
@@ -185,7 +185,7 @@ public class DynamicGameBoard extends GameBoard{
         }
     }
 
-    protected void openBlackExit() {
+    public void openBlackExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         blackExitRegion.setVisible(true);
@@ -202,7 +202,7 @@ public class DynamicGameBoard extends GameBoard{
         timeline.setCycleCount(1);
         timeline.play();
     }
-    protected void openWhiteExit() {
+    public void openWhiteExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         whiteExitRegion.setVisible(true);
@@ -266,7 +266,7 @@ public class DynamicGameBoard extends GameBoard{
                     diceArray[UPPER_DICE].setVisible(true);
                     diceArray[LOWER_DICE].setVisible(true);
                     DynamicGameBoardRedraw.resizeDice(this);
-                    logic.firstTurn(whoCalled);
+                    logic.firstTurn();
                 }, new KeyValue(diceTray.widthProperty() , GameViewRedraw.getMaxDTWidth() )
                 )
         );
@@ -274,7 +274,7 @@ public class DynamicGameBoard extends GameBoard{
         timeline.play();
     }
 
-    protected void setPawnsVisible (boolean set) {
+    public void setPawnsVisible (boolean set) {
         for (int i = 0; i < PAWNS_PER_PLAYER; i++){
             pawnArrayWHT[i].setVisible(set);
             pawnArrayBLK[i].setVisible(set);
@@ -288,7 +288,7 @@ public class DynamicGameBoard extends GameBoard{
     }
 
     protected void selectInitialPoint() {
-        if (logic.getWhichTurn(whoCalled))
+        if (logic.getWhichTurn())
             selectedIndex = COL_WHITE;
         else selectedIndex = COL_BLACK;
         colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
@@ -298,23 +298,23 @@ public class DynamicGameBoard extends GameBoard{
         if (selectedIndex <13) { // La punta selectKeyBind è sopra
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = (selectedIndex + 13 + 1) % 13;
-                if (!logic.getWhiteExit(whoCalled))
+                if (!logic.getWhiteExit())
                     out = max(1, out);
             }
             else {
                 out = (selectedIndex+13-1)%13;
-                if (!logic.getBlackExit(whoCalled) && out == COL_BLACK_EXIT)
+                if (!logic.getBlackExit() && out == COL_BLACK_EXIT)
                     out = 12;
             }
         } else { // La punta selectKeyBind è sotto
             if (keyPressed.equals(logic.getMoveRight())) {
                 out = ((selectedIndex - 1) % 13) + 13;
-                if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)
+                if (!logic.getWhiteExit() && out == COL_WHITE_EXIT)
                     out = 24;
             }
             else {
                 out = ((selectedIndex+1)%13)+13;
-                if (!logic.getWhiteExit(whoCalled) && out == COL_WHITE_EXIT)
+                if (!logic.getWhiteExit() && out == COL_WHITE_EXIT)
                     out = 13;
             }
         }
@@ -330,9 +330,9 @@ public class DynamicGameBoard extends GameBoard{
                 restoreColorToPoint(selectedIndex);
                 if (keyPressed.equals(logic.getMoveUp())||keyPressed.equals(logic.getMoveDown())) {
                     selectedIndex = 25 - selectedIndex;
-                    if (selectedIndex == COL_WHITE_EXIT && !logic.getWhiteExit(whoCalled))
+                    if (selectedIndex == COL_WHITE_EXIT && !logic.getWhiteExit())
                         selectedIndex = COL_BLACK;
-                    else if (selectedIndex == COL_BLACK_EXIT &&!logic.getBlackExit(whoCalled))
+                    else if (selectedIndex == COL_BLACK_EXIT &&!logic.getBlackExit())
                         selectedIndex = COL_WHITE;
                 }
                 else selectedIndex = moveHorizontally(selectedIndex, keyPressed);
@@ -342,19 +342,19 @@ public class DynamicGameBoard extends GameBoard{
         else if (keyPressed.equals(logic.getSelect()) && selectedIndex!= UNDEFINED && !selected){
             col = findColumn();
             System.out.println(col);
-            if(logic.searchTopOccupiedRow(whoCalled, col)!=UNDEFINED &&
-                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled)==WHITE)
-                            == logic.getWhichTurn(whoCalled)) {
-                logic.selectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
+            if(logic.searchTopOccupiedRow(col)!=UNDEFINED &&
+                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE)
+                            == logic.getWhichTurn()) {
+                logic.selectPawn(col, logic.searchTopOccupiedRow(col));
                 selected = true;
-                logic.createMoveBuffer(col, whoCalled);
+                logic.createMoveBuffer(col);
                 DynamicGameBoardRedraw.redrawPawns(this);
             }
         } else if (keyPressed.equals(logic.getSelect()) && selected){
             int col2 = findColumn();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(whoCalled, col), whoCalled);
-            logic.placePawnOnPoint(col2, whoCalled);
-            view.restoreBoardColors(whoCalled);
+            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
+            logic.placePawnOnPoint(col2);
+            view.restoreBoardColors();
             colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
             DynamicGameBoardRedraw.redrawPawns(this);
             selected = false;
@@ -363,7 +363,7 @@ public class DynamicGameBoard extends GameBoard{
     boolean selected = false;
     int col;
 
-    protected void restoreColorToPoint(int restoreIndex) {
+    public void restoreColorToPoint(int restoreIndex) {
         Color color;
         switch (restoreIndex){
             default:
@@ -403,6 +403,10 @@ public class DynamicGameBoard extends GameBoard{
                 col = COL_BLACK_EXIT;
         }
         return col;
+    }
+
+    public ImageView[] getDiceArray() {
+        return this.diceArray;
     }
 
 

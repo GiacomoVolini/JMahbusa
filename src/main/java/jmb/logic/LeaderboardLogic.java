@@ -48,12 +48,14 @@ public class LeaderboardLogic {
                 String[] lineValues = line.trim().split(";");
                 lineValues[0] = lineValues[0].concat("\u2001");
                 arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
+                System.out.println(lineValues[0] + " " + lineValues[1] + " " + lineValues[2]);
             }
     }
 
     protected void addNewPlayer (String name) {
         if (!name.contains("\u2001")) {
             arrList.add(new Player(name.concat("\u2001")));
+            System.out.println("Aggiungo "+name);
         }
     }
 

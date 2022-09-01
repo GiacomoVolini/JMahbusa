@@ -23,7 +23,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class GameView extends DynamicGameBoard {
+public class GameView extends DynamicGameBoard implements GenericGUI{
 
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
@@ -162,7 +162,7 @@ public class GameView extends DynamicGameBoard {
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
-        if (logic.getWhichTurn(whoCalled)){
+        if (logic.getWhichTurn()){
             plWHTOutRect.setFill(Color.GREEN);
             plBLKOutRect.setFill(Color.RED);
         }else {
@@ -177,7 +177,7 @@ public class GameView extends DynamicGameBoard {
 
     @FXML
     void saveGame(ActionEvent event) {
-        if (!logic.allDiceUsed(whoCalled)) {
+        if (!logic.allDiceUsed()) {
             errorLabel.setText(logic.getString("saveErrorCompleteMoves"));
             errorLabel.setVisible(true);
         } else if (saveTextField.getText().equals("")) {
@@ -239,15 +239,15 @@ public class GameView extends DynamicGameBoard {
     }
 
     protected void rollDice() {
-        DiceView.setDiceContrast(diceArray, whoCalled);
+        DiceView.setDiceContrast(diceArray);
         finishBTN.setDisable(true);
-        if (!logic.isRollDouble(whoCalled))
+        if (!logic.isRollDouble())
             closeDoubleDice();
         diceRollAnimation.setCycleCount(10);
         diceRollAnimation.setOnFinished(e -> {
-            DiceView.setDiceValues(diceArray, whoCalled);
+            DiceView.setDiceValues(diceArray);
             finishBTN.setDisable(false);
-            if (logic.isRollDouble(whoCalled)) {
+            if (logic.isRollDouble()) {
                 openDoubleDice();
             }
             if (logic.getTurnDuration() != 0)
@@ -258,7 +258,7 @@ public class GameView extends DynamicGameBoard {
     }
 
 
-    private void changeDimensions() {
+    public void changeDimensions() {
         GameViewRedraw.resizeAll(this);
         if (pauseMenu.isVisible()) {
             exitWithoutSave.requestFocus();
@@ -284,7 +284,7 @@ public class GameView extends DynamicGameBoard {
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }
-        if (logic.getWhichTurn(whoCalled)){
+        if (logic.getWhichTurn()){
             plWHTOutRect.setFill(Color.GREEN);
             plBLKOutRect.setFill(Color.RED);
         }else {
@@ -321,7 +321,7 @@ public class GameView extends DynamicGameBoard {
         menuBTN.setDisable(false);
         tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
         tournamentBlackPoints.setText(String.valueOf(logic.getBlackTournamentPoints()));
-        logic.setUpNewBoard(whoCalled);
+        logic.setUpNewBoard();
 
         this.changeDimensions();
     }
@@ -615,12 +615,12 @@ public class GameView extends DynamicGameBoard {
             window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
             tournamentWhitePoints.setTextFill(Color.web(logic.getWhitePawnStroke()));
             tournamentBlackPoints.setTextFill(Color.web(logic.getBlackPawnStroke()));
-            tournamentCup.setBlendMode(BlendMode.DARKEN);
 
             if (logic.isTournamentOngoing()) {
                 tournamentWhitePoints.setVisible(true);
                 tournamentBlackPoints.setVisible(true);
                 tournamentPointsToWin.setVisible(true);
+                tournamentPointsToWin.setViewOrder(-10);
                 tournamentCup.setVisible(true);
             } else {
                 tournamentWhitePoints.setVisible(false);

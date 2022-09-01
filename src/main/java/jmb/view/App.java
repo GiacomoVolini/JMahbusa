@@ -52,29 +52,7 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         Parent out = fxmlLoader.load();
-        switch (fxml) {
-            case PLAY_GAME:
-                View.sceneGame = fxmlLoader.getController();
-                break;
-            case LEADERBOARDS:
-                View.sceneLeaderboard = fxmlLoader.getController();
-                break;
-            case LOG_IN:
-                View.sceneLogIn = fxmlLoader.getController();
-                break;
-            case SETTINGS:
-                View.sceneSettings = fxmlLoader.getController();
-                break;
-            case MAIN_MENU:
-                View.sceneMainMenu = fxmlLoader.getController();
-                break;
-            case LOAD_GAME:
-                View.sceneLoadView = fxmlLoader.getController();
-                break;
-            case TUTORIAL:
-                View.sceneTutorial = fxmlLoader.getController();
-                break;
-        }
+        view.setCurrentScene(fxmlLoader.getController());
         return out;
     }
 

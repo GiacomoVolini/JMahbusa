@@ -13,14 +13,14 @@ public class GetPawnsOutStage extends ComparableTutorialStage {
 
     public void start() {
         view.tutorialDiceAnimation(true);
-        logic.forceDice(whoCalled, 5);
-        view.callRedraw(whoCalled);
+        logic.forceDice(5);
+        view.callRedraw();
         view.setNextTutorialString(logic.getString(stageStringInitial), true);
         view.tutorialTextBoxAnimation(0.6,0.35 );
     }
     public void action() {
         boolean allUsed = true;
-        for (boolean used: logic.getUsedArray(whoCalled))
+        for (boolean used: logic.getUsedArray())
             if (!used)
                 allUsed = false;
         if (allUsed)

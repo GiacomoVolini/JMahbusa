@@ -4,7 +4,6 @@ public abstract class ComparableTutorialStage implements TutorialStage, Comparab
 
     protected int stageIndex;
     protected int internalIndex = 0;
-    @Override
     public int compareTo(ComparableTutorialStage obj) {
     return this.stageIndex - obj.stageIndex;
     }

@@ -13,7 +13,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.ConstantsShared.*;
 
-public class LoadGameView extends GameBoard {
+public class LoadGameView extends GameBoard implements GenericGUI{
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.45;
     private final static double VERTICAL_RESIZE_FACTOR = 0.55;
@@ -150,7 +150,7 @@ public class LoadGameView extends GameBoard {
         whitePoints.setVisible(false);
     }
 
-    private void changeDimensions() {
+    public void changeDimensions() {
         double listWidth = window.getWidth()*SEPARATOR_RATIO;
         double detailWidth = window.getWidth()*(1- SEPARATOR_RATIO);
         saveListAnchor.setPrefWidth(listWidth);
@@ -211,6 +211,8 @@ public class LoadGameView extends GameBoard {
 
     @FXML
     void loadGame(ActionEvent event) {
+        logic.initializeLeaderboardLogic();
+        logic.initializeBoardLogic();
         logic.setUpSavedGame(saveName);
         App.changeRoot(PLAY_GAME);
     }

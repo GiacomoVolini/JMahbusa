@@ -10,22 +10,22 @@ public class TurnTrialStage extends ComparableTutorialStage{
         setStageIndex(4);
     }
     public void start() {
-        logic.setWhiteTurn(whoCalled, true);
+        logic.setWhiteTurn(true);
         view.allowTextBoxMouseInput(false);
+        logic.forceDice(6, 5);
         view.tutorialDiceAnimation(false);
-        logic.forceDice(whoCalled, 5, 6);
-        view.callRedraw(whoCalled);
+        view.callRedraw();
         view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.4,0.55);
     }
     public void action() {
         boolean allUsed = true;
-        for (boolean used: logic.getUsedArray(whoCalled))
+        for (boolean used: logic.getUsedArray())
             if (!used)
                 allUsed = false;
         if (allUsed) {
             logic.nextTutorialStage();
-            view.restoreBoardColors(whoCalled);
+            view.restoreBoardColors();
         }
     }
 }

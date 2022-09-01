@@ -18,6 +18,12 @@ import static jmb.view.View.logic;
 import static jmb.view.View.view;
 import static jmb.view.ConstantsView.*;
 
+/*DOC
+    In questa classe c'era memory leak, oggetti MainMenu rimanevano in memoria anche dopo essere passati a
+    un'altra finestra. Risolto smettendo di usare MenuItem e passando a ComboBox
+    Alternativamente risolto cambiando il sistema per l'animazione dello sfondo
+ */
+
 public class MainMenu implements GenericGUI{
 
     @FXML
@@ -117,8 +123,8 @@ public class MainMenu implements GenericGUI{
     @FXML
     void openTutorial(){
         animationToContinue = false;
-        App.changeRoot(TUTORIAL);
         logic.initializeTutorialLogic();
+        App.changeRoot(TUTORIAL);
         view.playMusic(TUTORIAL_MUSIC);
     }
 

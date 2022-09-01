@@ -283,7 +283,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
                     if (logic.isRollDouble()) {
                         openDoubleDice();
                     }
-                    DiceView.setDiceValues(diceArray, whoCalled);
+                    DiceView.setDiceValues(diceArray);
                 });
             }
             if (!diceTrayOpen) {
@@ -298,6 +298,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         }
         else {
             diceRollAnimation.stop();
+            DiceView.setDiceValues(diceArray);
             if (diceArray[UPPER_DOUBLE_DICE].isVisible())
                 closeDoubleDice();
         }

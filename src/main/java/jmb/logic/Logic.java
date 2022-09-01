@@ -105,7 +105,7 @@ public class Logic implements ILogic {
 
     @Override
     public void firstTurn() {
-        ((GameLogic)board).runTurn();
+        board.runTurn();
     }
 
     @Override

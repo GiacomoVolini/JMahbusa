@@ -97,7 +97,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
         internalIndex++;
     }
     private void setBoardUp(int[][] matrix, int from, int to) {
-        logic.forceDice(6);
+        logic.forceDice(5, 6);
         logic.setWhiteTurn(true);
         logic.setUpSavedBoard(matrix);
         logic.movePawn(from, to);

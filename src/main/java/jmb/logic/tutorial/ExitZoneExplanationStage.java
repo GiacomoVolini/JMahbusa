@@ -64,6 +64,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 view.tutorialTextBoxAnimation(0.52,0.2 );
                 break;
             case 8:
+                System.out.println(logic.getBoardMatrix()[2][20]);
                 if (logic.getBoardMatrix()[2][20]==EMPTY) {
                     internalIndex-=2;
                     view.setNextTutorialString(logic.getString(wrongMoveString), true);
@@ -84,7 +85,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
     private void setBoardUp() {
         logic.setUpSavedBoard(startingMatrix);
         logic.setWhiteTurn(true);
-        logic.forceDice(4);
+        logic.forceDice(3, 4);
         logic.movePawn(COL_BLACK -4, COL_BLACK);
         view.callRedraw();
     }

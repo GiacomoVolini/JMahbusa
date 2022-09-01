@@ -364,4 +364,6 @@ public class DynamicBoardLogic implements GenericBoard{
     public boolean getGameStart() {
         return true;
     }
+
+    public void runTurn() {}
 }

@@ -23,4 +23,5 @@ public interface GenericBoard {
     void setUpSavedBoard(int[][] matrix);
     int getMoveBufferColumn();
     int getMoveBufferRow();
+    void runTurn();
 }

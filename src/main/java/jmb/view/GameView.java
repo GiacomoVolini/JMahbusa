@@ -245,7 +245,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             closeDoubleDice();
         diceRollAnimation.setCycleCount(10);
         diceRollAnimation.setOnFinished(e -> {
-            DiceView.setDiceValues(diceArray, whoCalled);
+            DiceView.setDiceValues(diceArray);
             finishBTN.setDisable(false);
             if (logic.isRollDouble()) {
                 openDoubleDice();

@@ -47,7 +47,7 @@ public class DiceView {
         dice.setImage(diceImgs[i]);
     }
 
-    public static void setDiceValues (ImageView[] diceArr, int whoCalled) {
+    public static void setDiceValues (ImageView[] diceArr) {
         int[] values = logic.getDiceValues();
         if(values[0]!=0) {
             diceArr[0].setImage(diceImgs[values[0] - 1]);

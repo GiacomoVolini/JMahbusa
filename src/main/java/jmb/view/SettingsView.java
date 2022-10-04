@@ -237,6 +237,8 @@ public class SettingsView implements GenericGUI{
                         settingsAnchorPane.setDisable(true);
                 }else {
                         App.changeRoot(MAIN_MENU);
+                        selectedPointAnimation.stop();
+                        selectedPointPresetsAnimation.stop();
                 }
         }
 
@@ -252,10 +254,13 @@ public class SettingsView implements GenericGUI{
         }
 
         @FXML
-        void goToMainMenu(ActionEvent event) {
+        void forceMainMenu(ActionEvent event) {
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
+                selectedPointAnimation.stop();
+                selectedPointPresetsAnimation.stop();
         }
+
 
         @FXML
         void openEditVideo() {
@@ -597,6 +602,8 @@ public class SettingsView implements GenericGUI{
                 applyButton.setDisable(true);
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
+                selectedPointAnimation.stop();
+                selectedPointPresetsAnimation.stop();
         }
 
         @FXML

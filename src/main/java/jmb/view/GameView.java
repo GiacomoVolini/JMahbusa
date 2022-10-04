@@ -6,7 +6,6 @@ import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlendMode;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -136,8 +135,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     Text readyText;
     @FXML
     Text pauseText;
-    @FXML
-    ImageView feltImage;
+
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
@@ -219,7 +217,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     void goToMainMenu(){
-            App.changeRoot(MAIN_MENU);
+        App.changeRoot(MAIN_MENU);
         view.stopMusic();
         
         if (!logic.getMuteMusic())
@@ -546,11 +544,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             addChildrenToAnchor();
             window.setFocusTraversable(true);
             window.setOnKeyPressed(this::handleKeyboard);
-            //backBTN.setFocusTraversable(false);
-            //finishBTN.setFocusTraversable(false);
-            //menuBTN.setFocusTraversable(false);
-            //startBTN.setFocusTraversable(false);
-            //startDialogue.setFocusTraversable(false);
 
             GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
             GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
@@ -628,8 +621,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
                 tournamentPointsToWin.setVisible(false);
                 tournamentCup.setVisible(false);
             }
-
-            window.setStyle("-fx-background-color: " + logic.getBackgroundColor());
 
             //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
             window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());

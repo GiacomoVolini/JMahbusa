@@ -31,6 +31,6 @@
             </AnchorPane>
         </content>
       </TitledPane>
-      <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" text="Menu Principale" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
+      <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" text="menuPrincipaleee" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
    </children>
 </AnchorPane>

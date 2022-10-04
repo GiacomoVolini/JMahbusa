@@ -9,7 +9,7 @@ public class Logic implements ILogic {
 
     /*TODO
         Sostituire metodi delle impostazioni con un unico getSetting e un unico setSetting
-         */
+     */
 
     public static IView view;
     public static ILogic logic;
@@ -47,7 +47,7 @@ public class Logic implements ILogic {
 
     @Override
     public void initializeStringsReader() {
-        strings = new StringsReader(this.getLanguage());
+        strings = new StringsReader(settings.getLanguage());
     }
 
     public String getAppDirectory() {

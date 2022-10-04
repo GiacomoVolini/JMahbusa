@@ -19,6 +19,12 @@ import static jmb.view.View.view;
 import java.io.IOException;
 public class SettingsView implements GenericGUI{
 
+        /* DOC
+              In questa classe c'era un memory leak dovuto alle animazioni delle punte nel tab di personalizzazione
+              Le Timeline non venivano mai fermate, e rimanevano quindi in memoria in perpetuo
+              Risolto mettendo dei richiami al metodo stop dovunque si tornasse al menu principale
+         */
+
         @FXML
         private AnchorPane window;
 

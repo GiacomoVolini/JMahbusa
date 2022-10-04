@@ -9,6 +9,15 @@ import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.logic;
 
+/*TODO
+    Forse non servono tutte le singole variabili per ogni impostazione, l'oggetto INI crea comunque una mappa
+    O si utilizza quella salvandola permanentemente in SettingsLogic, o si crea una Map apposita (magari è più leggera)
+    e si continua a caricare come sempre fatto buttandola però nella Map
+    In caso valutare quale implementazione di Map conviene usare
+    Questo dovrebbe permettere di semplificare enormemente Logic
+
+ */
+
 public class SettingsLogic {
 
     private boolean fullScreen = false;

@@ -2,6 +2,8 @@ package jmb.view;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Region;
@@ -10,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 import static java.lang.Math.max;
 import static jmb.ConstantsShared.*;
@@ -22,6 +25,7 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
     protected Rectangle diceTray;
 
     protected ImageView[] diceArray = new ImageView[4];
+    protected ImageView feltImage = new ImageView();
 
     protected boolean diceTrayOpen = false;
     protected Timeline diceRollAnimation = new Timeline(
@@ -31,6 +35,9 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
     public DynamicGameBoard() {
         try {
+
+            feltImage.setImage(new Image (Objects.requireNonNull(this.getClass().getResource("WhiteFelt.png")).toString()));
+            feltImage.setBlendMode(BlendMode.MULTIPLY);
             Image[] imgArray = new Image[] {
                     new Image(this.getClass().getResource("diceImg/Dado1.png").toURI().toString()),
                     new Image(this.getClass().getResource("diceImg/Dado1INV.png").toURI().toString()),
@@ -58,11 +65,15 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
     protected void addChildrenToAnchor() {
         super.addChildrenToAnchor();
-        boardAnchor.getChildren().add(diceTray);
+        boardAnchor.getChildren().addAll(diceTray, feltImage);
         for (ImageView dice : diceArray) {
             boardAnchor.getChildren().add(dice);
             dice.setVisible(false);
         }
+        feltImage.fitHeightProperty().bind(boardAnchor.heightProperty());
+        feltImage.fitWidthProperty().bind(boardAnchor.widthProperty());
+        feltImage.setViewOrder(50);
+        boardAnchor.setStyle("-fx-background-color: " + logic.getBackgroundColor());
     }
 
     private void savePosition (MouseEvent event) {

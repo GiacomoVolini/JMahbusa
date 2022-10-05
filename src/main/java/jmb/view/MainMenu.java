@@ -150,7 +150,20 @@ public class MainMenu implements GenericGUI{
         }
         languageMenu.setButtonCell(new ImageListCell());
         languageMenu.setCellFactory(listView -> new ImageListCell());
-        languageMenu.getSelectionModel().select(0);
+        languageMenu.getSelectionModel().select(getSelectionIndex(supportedLanguages));
+    }
+
+    private int getSelectionIndex(String[] languages) {
+        String currentLanguage = logic.getLanguage();
+        boolean found = false;
+        int out = UNDEFINED;
+        for (int i = 0; !found && i < languages.length; i++) {
+            if (currentLanguage.equals(languages[i])) {
+                out = i;
+                found = true;
+            }
+        }
+        return out;
     }
 
     @FXML

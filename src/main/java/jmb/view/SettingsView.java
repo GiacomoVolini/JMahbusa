@@ -19,6 +19,12 @@ import static jmb.view.View.view;
 import java.io.IOException;
 public class SettingsView implements GenericGUI{
 
+        /* DOC
+              In questa classe c'era un memory leak dovuto alle animazioni delle punte nel tab di personalizzazione
+              Le Timeline non venivano mai fermate, e rimanevano quindi in memoria in perpetuo
+              Risolto mettendo dei richiami al metodo stop dovunque si tornasse al menu principale
+         */
+
         @FXML
         private AnchorPane window;
 
@@ -237,6 +243,8 @@ public class SettingsView implements GenericGUI{
                         settingsAnchorPane.setDisable(true);
                 }else {
                         App.changeRoot(MAIN_MENU);
+                        selectedPointAnimation.stop();
+                        selectedPointPresetsAnimation.stop();
                 }
         }
 
@@ -252,10 +260,13 @@ public class SettingsView implements GenericGUI{
         }
 
         @FXML
-        void goToMainMenu(ActionEvent event) {
+        void forceMainMenu(ActionEvent event) {
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
+                selectedPointAnimation.stop();
+                selectedPointPresetsAnimation.stop();
         }
+
 
         @FXML
         void openEditVideo() {
@@ -597,6 +608,8 @@ public class SettingsView implements GenericGUI{
                 applyButton.setDisable(true);
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
+                selectedPointAnimation.stop();
+                selectedPointPresetsAnimation.stop();
         }
 
         @FXML

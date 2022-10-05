@@ -53,6 +53,8 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     Button mainMenuButton;
     @FXML
     Button newGameButton;
+    @FXML
+    Button windowMenuButton;
 
     private int pointAnimationIndex = 2;
     private int pointAnimationIndexIncrement = 1;
@@ -104,6 +106,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
         windowPane.setFocusTraversable(true);
         windowPane.setOnKeyPressed(this::handleKeyboard);
+        windowMenuButton.setText(logic.getString("MainMenu"));
         tutorialOverLabel.setText(logic.getString("tutorialOver"));
         mainMenuButton.setText(logic.getString("backToMenu"));
         newGameButton.setText(logic.getString("newGame"));

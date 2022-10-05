@@ -22,8 +22,8 @@ public class View implements IView {
     @Override
     public void initializeMusic() {
         musicController = new MusicPlayer();
-        musicController.setMusicVolume(logic.getMusicVolume()/100.0);
-        musicController.setSFXVolume(logic.getSFXVolume()/100.0);
+        musicController.setMusicVolume(logic.getSetting("Audio", "musicVolume", int.class)/100.0);
+        musicController.setSFXVolume(logic.getSetting("Audio", "soundFXVolume", int.class)/100.0);
     }
     public void setVolume (int whichVolume, double value) {
         switch(whichVolume) {

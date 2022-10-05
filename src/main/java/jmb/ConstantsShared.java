@@ -50,6 +50,15 @@ public class ConstantsShared {
     public static final int LEFT_PRESET = 1;
     public static final int RIGHT_PRESET = 2;
 
+    //Costanti per le posizioni degli array preset
+    public enum Preset {
+        BOARD_FRAME,
+        BOARD_INNER,
+        EVEN_POINTS,
+        ODD_POINTS,
+        SELECTED_POINT
+    };
+
     //Costanti per la variabile whoCalled per alcuni metodi del View
     public static final int GAME_CALLED = 0;
     public static final int TUTORIAL_CALLED = 1;

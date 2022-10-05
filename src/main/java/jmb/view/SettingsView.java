@@ -172,6 +172,8 @@ public class SettingsView implements GenericGUI{
         @FXML
         private Text openMenuText;
         @FXML
+        private Text backgroundText;
+        @FXML
         private TextField rightTextField;
         @FXML
         private TextField leftTextField;
@@ -189,8 +191,6 @@ public class SettingsView implements GenericGUI{
         private TextField openMenuTextField;
         @FXML
         private ColorPicker selectedPointColorPicker;
-        @FXML
-        private Text backgroundText;
         @FXML
         private ColorPicker backGroundColorPicker;
         @FXML
@@ -740,33 +740,105 @@ public class SettingsView implements GenericGUI{
                 applyButton.setMaxWidth(133);
 
                 //bottoni destra
-                //Video
+                if(logic.getLanguage().equals("AR")){
+                        //Video
+                        AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
+                        AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.35);
+                        AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.35);
 
-                AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.13);
-                AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.13);
-                AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.28);
-                AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.28);
+                        //Audio
+                        AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.4);
+                        AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(sFXText, window.getWidth() * 0.4);
+                        AnchorPane.setLeftAnchor(musicCheck, window.getWidth() * 0.25);
+                        AnchorPane.setLeftAnchor(sFXCheck, window.getWidth() * 0.25);
+
+                        //Personalizzazioni
+                        AnchorPane.setLeftAnchor(pawnFillText, window.getWidth() * 0.50);
+                        AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.50);
+                        AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.30);
+                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(backgroundText,window.getWidth() * 0.50);
+
+                        //Comandi
+                        AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.50);
+                        AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(leftText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(upText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(downText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(rightTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(leftTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(upTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(downTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(selectText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(revertMoveText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(finishTurnText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(openMenuText, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(selectTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(revertMoveTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(finishTurnTextField, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(openMenuTextField, window.getWidth() * 0.20);
+                }else {
+                        //Video
+                        AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.13);
+                        AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.13);
+                        AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.28);
+                        AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.28);
+
+                        //Audio
+                        AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.4);
+                        AnchorPane.setLeftAnchor(sFXText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.4);
+                        AnchorPane.setLeftAnchor(musicCheck, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(sFXCheck, window.getWidth() * 0.10);
+
+                        //Personalizzazioni
+                        AnchorPane.setLeftAnchor(pawnFillText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.30);
+                        AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.50);
+                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.17);
+                        AnchorPane.setLeftAnchor(backgroundText,window.getWidth() * 0.10);
+
+                        //Comandi
+                        AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(leftText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(upText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(downText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(rightTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(leftTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(upTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(downTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(selectText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(revertMoveText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(finishTurnText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(openMenuText, window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(selectTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(revertMoveTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(finishTurnTextField, window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(openMenuTextField, window.getWidth() * 0.45);
+                }
+
+                //in comune
+                //video
                 AnchorPane.setLeftAnchor(fullscreenCheck, window.getWidth() * 0.10);
                 AnchorPane.setLeftAnchor(lockResolutionCheck, window.getWidth() * 0.4);
-                resolutionHeightField.setText(String.valueOf((int)stage.getHeight()));
-                resolutionWidthField.setText(String.valueOf((int)stage.getWidth()));
+                resolutionHeightField.setText(String.valueOf((int) stage.getHeight()));
+                resolutionWidthField.setText(String.valueOf((int) stage.getWidth()));
 
-                //Audio
-                AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.4);
-                AnchorPane.setLeftAnchor(sFXText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.4);
-                AnchorPane.setLeftAnchor(musicCheck, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(sFXCheck, window.getWidth() * 0.10);
-
-                //Personalizzazioni
-                AnchorPane.setLeftAnchor(pawnFillText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.10);
+                //personalizzazione
                 AnchorPane.setLeftAnchor(whitePawnText, window.getWidth() * 0.20);
                 AnchorPane.setLeftAnchor(whitePawnFillColorPicker, window.getWidth() * 0.20);
                 AnchorPane.setLeftAnchor(whitePawnStrokeColorPicker, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.30);
                 AnchorPane.setLeftAnchor(tableText, window.getWidth() * 0.10);
                 AnchorPane.setLeftAnchor(leftPresetPane, window.getWidth() * 0.10);
                 AnchorPane.setLeftAnchor(leftPresetRadio, window.getWidth() * 0.10);
@@ -777,34 +849,13 @@ public class SettingsView implements GenericGUI{
                 AnchorPane.setLeftAnchor(tableColorPicker, window.getWidth() * 0.11);
                 AnchorPane.setLeftAnchor(pointText, window.getWidth() * 0.30);
                 AnchorPane.setLeftAnchor(oddPointColorPicker, window.getWidth() * 0.30 + 7);
-                AnchorPane.setLeftAnchor(evenPointColorPicker,AnchorPane.getLeftAnchor(oddPointColorPicker) - 56);
+                AnchorPane.setLeftAnchor(evenPointColorPicker, AnchorPane.getLeftAnchor(oddPointColorPicker) - 56);
                 AnchorPane.setLeftAnchor(selectedPointColorPicker, AnchorPane.getLeftAnchor(oddPointColorPicker) + 56);
                 AnchorPane.setLeftAnchor(frameText, window.getWidth() * 0.50);
                 AnchorPane.setLeftAnchor(frameColorPicker, window.getWidth() * 0.51);
                 AnchorPane.setLeftAnchor(blackPawnText, window.getWidth() * 0.40);
                 AnchorPane.setLeftAnchor(blackPawnFillColorPicker, window.getWidth() * 0.40);
                 AnchorPane.setLeftAnchor(blackPawnStrokeColorPicker, window.getWidth() * 0.40);
-                AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.50);
-
-                //Comandi
-                AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.10);
-                AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(leftText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(upText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(downText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(rightTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(leftTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(upTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(downTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(selectText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(revertMoveText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(finishTurnText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(openMenuText, window.getWidth() * 0.20);
-                AnchorPane.setLeftAnchor(selectTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(revertMoveTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(finishTurnTextField, window.getWidth() * 0.45);
-                AnchorPane.setLeftAnchor(openMenuTextField, window.getWidth() * 0.45);
 
                 //schermi
                 settingsAnchorPane.setPrefWidth(window.getWidth()/4);
@@ -846,6 +897,7 @@ public class SettingsView implements GenericGUI{
                         (int)stage.getWidth()!= 0 && (int)stage.getHeight() != 0) {
                         applyButton.setDisable(false);
                 }
+
         }
         public void initialize() {
                  keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
@@ -880,6 +932,7 @@ public class SettingsView implements GenericGUI{
                 leftPresetRadio.setText(logic.getString("Preset"));
                 customRadio.setText(logic.getString("Custom"));
                 rightPresetRadio.setText(logic.getString("Preset"));
+                backgroundText.setText(logic.getString("BackGround"));
                 //Comandi lang...
                 controlsButton.setText(logic.getString("Commands"));
                 controlsTitlePane.setText(logic.getString("Commands"));
@@ -892,7 +945,7 @@ public class SettingsView implements GenericGUI{
                 selectText.setText(logic.getString("Select"));
                 revertMoveText.setText(logic.getString("DeleteMove"));
                 finishTurnText.setText(logic.getString("FinishTurn"));
-                openMenuText.setText(logic.getString("MainMenu"));
+                openMenuText.setText(logic.getString("TMainMenu"));
                 //Attention page lang...
                 warningTitlePane.setText(logic.getString("Attention"));
                 warningText.setText(logic.getString("AttentionText"));

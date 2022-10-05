@@ -16,7 +16,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class LogIn implements GenericGUI{
+public class LogIn implements GenericGUI {
 
     @FXML
     private AnchorPane window;
@@ -54,7 +54,8 @@ public class LogIn implements GenericGUI{
     private Label tournamentLabel;
     @FXML
     private TitledPane tournamentPanel;
-
+    @FXML
+    private AnchorPane GTT;
     @FXML
     private Spinner<Integer> tournamentSpinner;
     @FXML
@@ -79,7 +80,7 @@ public class LogIn implements GenericGUI{
             view.playSFX(ERROR_SFX);
             errorLabel.setText(logic.getString("errorWrongTimerFormat"));
             errorLabel.setVisible(true);
-        }else {
+        } else {
             if (!customTimerField.isDisable())
                 logic.setTurnDuration(Integer.parseInt(customTimerField.getText()));
             switch (logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue())) {
@@ -114,6 +115,7 @@ public class LogIn implements GenericGUI{
             }
         }
     }
+
     @FXML
     void setCanRevert() {
         logic.setCanRevert(revertCheckBox.isSelected());
@@ -156,6 +158,8 @@ public class LogIn implements GenericGUI{
     ToggleGroup group = new ToggleGroup();
 
     public void initialize() {
+        double xdispinner = tournamentSpinner.getLayoutX();
+        double xditlb = tournamentLabel.getLayoutX();
 
         group = new ToggleGroup();
         noTimerRadio.setToggleGroup(group);
@@ -183,7 +187,7 @@ public class LogIn implements GenericGUI{
         gameSettingsTitlePane.setText(logic.getString("gameSettings"));
         noTimerRadio.setText(logic.getString("none"));
         mediumTimerRadio.setText("2 " + logic.getString("minutes"));
-        hardTimerRadio.setText("30 "+ logic.getString("seconds"));
+        hardTimerRadio.setText("30 " + logic.getString("seconds"));
         customTimerField.setPromptText(logic.getString("seconds"));
         easyText.setText(logic.getString("easy"));
         mediumText.setText(logic.getString("medium"));
@@ -198,6 +202,11 @@ public class LogIn implements GenericGUI{
             titledPaneAnimation(newVal);
         });
 
+        if (logic.getLanguage().equals("AR")) {
+            tournamentLabel.setLayoutX(xdispinner);
+            tournamentSpinner.setLayoutX(xditlb);
+        }
+
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
@@ -207,7 +216,7 @@ public class LogIn implements GenericGUI{
 
     }
 
-    private void titledPaneAnimation (boolean opens) {
+    private void titledPaneAnimation(boolean opens) {
         if (opens)
             lowerTournamentPanel();
         else raiseTournamentPanel();
@@ -215,7 +224,7 @@ public class LogIn implements GenericGUI{
 
     private void lowerTournamentPanel() {
         double currentY = tournamentPanel.getLayoutY();
-        Timeline timeline = new Timeline (new KeyFrame(Duration.ZERO,
+        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
                 new KeyValue(tournamentPanel.layoutYProperty(), currentY)),
                 new KeyFrame(Duration.seconds(ANIMATION_DURATION),
                         e -> settingsPanelOpened = true,
@@ -226,7 +235,7 @@ public class LogIn implements GenericGUI{
 
     private void raiseTournamentPanel() {
         double currentY = tournamentPanel.getLayoutY();
-        Timeline timeline = new Timeline (new KeyFrame(Duration.ZERO,
+        Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
                 new KeyValue(tournamentPanel.layoutYProperty(), currentY)),
                 new KeyFrame(Duration.seconds(ANIMATION_DURATION),
                         e -> settingsPanelOpened = false,
@@ -242,13 +251,12 @@ public class LogIn implements GenericGUI{
         double gtMinHeight = 26;
         double tpHeight = 80;
 
-
-        double panelX = window.getWidth()/2 - panelWidth/2;
+        double panelX = window.getWidth() / 2 - panelWidth / 2;
 
         playerNamesTitlePane.setLayoutX(panelX);
         gameSettingsTitlePane.setLayoutX(panelX);
         tournamentPanel.setLayoutX(panelX);
-        double regY = (window.getHeight() - regHeight - gtMaxHeight - tpHeight)/2;
+        double regY = (window.getHeight() - regHeight - gtMaxHeight - tpHeight) / 2;
         playerNamesTitlePane.setLayoutY(regY);
         gameSettingsTitlePane.setLayoutY(regY + regHeight);
         double gtHeight;
@@ -256,8 +264,8 @@ public class LogIn implements GenericGUI{
             gtHeight = gtMaxHeight;
         else gtHeight = gtMinHeight;
         tournamentPanel.setLayoutY(regY + regHeight + gtHeight);
-    }
 
+    }
 }
 
 

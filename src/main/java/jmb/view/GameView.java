@@ -512,11 +512,11 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             backText.setText(logic.getRevertMove());
             finishTurnText.setText(logic.getFinishTurn());
             menuText.setText(logic.getOpenMenu());
-            upText.setText(logic.getString("moveUp")+"\n" + logic.getMoveUp());
-            downText.setText(logic.getString("moveDown")+"\n" + logic.getMoveDown());
-            rightText.setText(logic.getString("moveRight")+"\n" + logic.getMoveRight());
-            leftText.setText(logic.getString("moveLeft")+"\n" +logic.getMoveLeft());
-            selectText.setText(logic.getString("select")+"\n" + logic.getSelect());
+            upText.setText(logic.getString("Up")+"\n" + logic.getMoveUp());
+            downText.setText(logic.getString("Down")+"\n" + logic.getMoveDown());
+            rightText.setText(logic.getString("Right")+"\n" + logic.getMoveRight());
+            leftText.setText(logic.getString("Left")+"\n" +logic.getMoveLeft());
+            selectText.setText(logic.getString("Select")+"\n" + logic.getSelect());
             backBTN.setText(logic.getString("revertMove").toUpperCase());
             menuBTN.setText(logic.getString("menu").toUpperCase());
             finishBTN.setText(logic.getString("finishTurn").toUpperCase());

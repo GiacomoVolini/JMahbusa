@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
     <children>
         <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
@@ -130,12 +130,12 @@
                             </value>
                         </ColorPicker>
                         <ColorPicker fx:id="blackPawnStrokeColorPicker" editable="true" layoutX="266.0" layoutY="105.0" onAction="#blackPawnStrokeChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
-                        <Text fx:id="pawnFillText" layoutX="12.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal" wrappingWidth="73.0">
+                        <Text fx:id="pawnFillText" layoutX="12.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal" wrappingWidth="83.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Text>
-                        <Text fx:id="pawnStrokeText" layoutX="12.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outline" wrappingWidth="73.0">
+                        <Text fx:id="pawnStrokeText" layoutX="12.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outline" wrappingWidth="90.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -228,7 +228,7 @@
             <content>
                 <AnchorPane fx:id="controlsAnchorPane" prefHeight="440.0" prefWidth="494.0">
                     <children>
-                  <Text fx:id="keyboardText" layoutX="101.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="82.0">
+                  <Text fx:id="keyboardText" layoutX="72.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="107.0">
                      <font>
                         <Font size="18.0" />
                      </font>

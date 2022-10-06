@@ -33,7 +33,7 @@ public class MusicPlayer {
         this.errorSFX.setVolume(value);
     }
     protected void playMusic(int which) {
-        if (!logic.getMuteMusic()) {
+        if (!logic.getSetting("Audio","muteMusic",boolean.class)){
             switch (which) {
                 case MENU_MUSIC:
                     this.menuMusic.setCycleCount(Integer.MAX_VALUE);
@@ -58,7 +58,7 @@ public class MusicPlayer {
     }
 
     protected void playSFX(int which) {
-        if (!logic.getMuteSFX()) {
+        if (!logic.getSetting("Audio","muteSFX",boolean.class)) {
             switch (which) {
                 case ERROR_SFX:
                     this.errorSFX.play();

@@ -31,13 +31,12 @@ public class App extends Application {
         this.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
-        scene = new Scene (loadFXML(MAIN_MENU), logic.getSetting("Video", "resolutionWidth", int.class),
-                logic.getSetting("Video", "resolutionHeight", int.class));
+        scene = new Scene (loadFXML(MAIN_MENU), logic.getSetting("Video","resolutionWidth",int.class), logic.getSetting("Video","resolutionHeight",int.class));
         setStageOptions();
         stage.setTitle("JMahbusa");
         stage.setScene(scene);
-        stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
-        stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
+        stage.setWidth(logic.getSetting("Video","resolutionWidth",int.class));
+        stage.setHeight(logic.getSetting("Video","resolutionHeight",int.class));
         stage.show();
     }
 

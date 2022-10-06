@@ -154,7 +154,7 @@ public class MainMenu implements GenericGUI{
     }
 
     private int getSelectionIndex(String[] languages) {
-        String currentLanguage = logic.getLanguage();
+        String currentLanguage = logic.getSetting("General", "language", String.class);
         boolean found = false;
         int out = UNDEFINED;
         for (int i = 0; !found && i < languages.length; i++) {
@@ -168,7 +168,7 @@ public class MainMenu implements GenericGUI{
 
     @FXML
     private void setLanguage(Event event) {
-        logic.setLanguage(logic.getSupportedLanguages()[((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex()]);
+        logic.setSetting("General", "language",logic.getSupportedLanguages()[((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex()]);
         logic.applySettingsChanges();
         loadStrings();
     }
@@ -176,8 +176,7 @@ public class MainMenu implements GenericGUI{
     public void initialize() {
 
         loadLanguages();
-
-            loadStrings();
+        loadStrings();
         background1.fitHeightProperty().bind(window.heightProperty());
         background1.fitWidthProperty().bind(window.widthProperty());
         background2.fitWidthProperty().bind(window.widthProperty());
@@ -193,7 +192,7 @@ public class MainMenu implements GenericGUI{
             background2.setImage(backgroundImages[1]);
 
             // musica
-            if (!logic.getMuteMusic()) {
+            if (!logic.getSetting("Audio", "muteMusic", boolean.class)) {
                 view.playMusic(MENU_MUSIC);
             }
 

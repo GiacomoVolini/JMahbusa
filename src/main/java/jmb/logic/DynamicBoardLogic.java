@@ -152,7 +152,7 @@ public class DynamicBoardLogic implements GenericBoard{
                 dice.setToBeUsed(i);
             }
         }
-        if (logic.getBypassDice())
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
             out = true;
         return out;
     }
@@ -295,8 +295,8 @@ public class DynamicBoardLogic implements GenericBoard{
                 movable = true;
                 if (highlight) {
                     if (whiteTurn)
-                        view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                    else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                        view.colorPoint(endCol, logic.getSetting("Customization", "whitePawnFill", String.class), logic.getSetting("Customization", "whitePawnStroke", String.class));
+                    else view.colorPoint(endCol, logic.getSetting("Customization", "blackPawnFill", String.class), logic.getSetting("Customization", "blackPawnStroke", String.class));
                 }
             }
         }
@@ -305,8 +305,8 @@ public class DynamicBoardLogic implements GenericBoard{
             movable = true;
             if (highlight)
                 if (whiteTurn)
-                    view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                    view.colorPoint(endCol, logic.getSetting("Customization", "whitePawnFill", String.class), logic.getSetting("Customization", "whitePawnStroke", String.class));
+                else view.colorPoint(endCol, logic.getSetting("Customization", "blackPawnFill", String.class), logic.getSetting("Customization", "blackPawnStroke", String.class));
         }
         for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
@@ -314,8 +314,8 @@ public class DynamicBoardLogic implements GenericBoard{
                 movable = true;
                 if (highlight)
                     if (whiteTurn)
-                        view.colorPoint(endCol, logic.getWhitePawnFill(), logic.getWhitePawnStroke());
-                    else view.colorPoint(endCol, logic.getBlackPawnFill(), logic.getBlackPawnStroke());
+                        view.colorPoint(endCol, logic.getSetting("Customization", "whitePawnFill", String.class), logic.getSetting("Customization", "whitePawnStroke", String.class));
+                    else view.colorPoint(endCol, logic.getSetting("Customization", "blackPawnFill", String.class), logic.getSetting("Customization", "blackPawnStroke", String.class));
             }
         }
         return movable;

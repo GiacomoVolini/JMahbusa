@@ -194,17 +194,12 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         String keyPressed = event.getCode().toString();
         if (logic.getWhichTurn()) {
             boolean pawnMoved = false;
-            if (keyPressed.equals(logic.getSelect()) && selected)
+            if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && selected)
                 pawnMoved = true;
             super.handleKeyboard(event);
-            if (keyPressed.equals(logic.getSelect()) && pawnMoved)
+            if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && pawnMoved)
                 logic.tutorialStageAction();
         }
-        /*
-        if (keyPressed.equals(logic.getOpenMenu())) {
-
-        }
-         */
     }
 
     @FXML
@@ -222,9 +217,9 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         if (stage%2==1) {
             //COLORA DEL COLORE DEI GIOCATORI
             for (int i = COL_WHITE; i<=6; i++)
-                colorPoint(i, Color.web(logic.getBlackPawnFill()), Color.web(logic.getBlackPawnStroke()));
+                colorPoint(i, Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)), Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
             for (int i = COL_BLACK; i > 18; i--)
-                colorPoint(i, Color.web(logic.getWhitePawnFill()), Color.web(logic.getWhitePawnStroke()));
+                colorPoint(i, Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)), Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
         } else
         {
             for (int i = COL_WHITE; i<=6; i++)
@@ -249,9 +244,9 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         int restoreIndex = pointAnimationIndex - pointAnimationIndexIncrement;
         Color color = Color.RED;
         if (pointAnimationIndexIncrement == 1) {
-            color = Color.web(logic.getWhitePawnFill());
+            color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
         } else if (pointAnimationIndexIncrement == -1) {
-            color = Color.web(logic.getBlackPawnFill());
+            color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
         }
         colorPoint(pointAnimationIndex, color);
         restoreColorToPoint(restoreIndex);

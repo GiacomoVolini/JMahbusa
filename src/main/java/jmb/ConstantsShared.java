@@ -50,6 +50,9 @@ public class ConstantsShared {
     public static final int LEFT_PRESET = 1;
     public static final int RIGHT_PRESET = 2;
 
+    public static final boolean LEFT = true;
+    public static final boolean RIGHT = false;
+
     //Costanti per le posizioni degli array preset
     public enum Preset {
         BOARD_FRAME,

@@ -76,10 +76,10 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         refreshSaveList();
         renderNoSelection();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
-        whitePlayerPawn.setFill(Color.web(logic.getWhitePawnFill()));
-        whitePlayerPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
-        blackPlayerPawn.setFill(Color.web(logic.getBlackPawnFill()));
-        blackPlayerPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
+        whitePlayerPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
+        whitePlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+        blackPlayerPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
+        blackPlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
 
         //languages
         loadStrings();

@@ -31,12 +31,13 @@ public class App extends Application {
         this.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
-        scene = new Scene (loadFXML(MAIN_MENU), logic.getResolutionWidth(), logic.getResolutionHeight());
+        scene = new Scene (loadFXML(MAIN_MENU), logic.getSetting("Video", "resolutionWidth", int.class),
+                logic.getSetting("Video", "resolutionHeight", int.class));
         setStageOptions();
         stage.setTitle("JMahbusa");
         stage.setScene(scene);
-        stage.setWidth(logic.getResolutionWidth());
-        stage.setHeight(logic.getResolutionHeight());
+        stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
+        stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
         stage.show();
     }
 
@@ -57,8 +58,8 @@ public class App extends Application {
     }
 
     private static void setStageOptions() {
-        stage.setFullScreen(logic.getFullScreen());
-        stage.setResizable(!logic.getLockResolution());
+        stage.setFullScreen(logic.getSetting("Video", "fullScreen", boolean.class));
+        stage.setResizable(!logic.getSetting("Video", "lockResolution", boolean.class));
     }
 
     public static void main(String[] args) {

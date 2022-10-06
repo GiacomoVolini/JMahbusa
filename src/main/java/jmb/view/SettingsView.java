@@ -513,7 +513,7 @@ public class SettingsView implements GenericGUI{
 
         @FXML
         void selectedBackGroundColorChange(ActionEvent event) {
-                if(Color.web(logic.getBackgroundColor()) != backGroundColorPicker.getValue()) {
+                if(Color.web(logic.getSetting("Customization","backgroundColor",String.class)) != backGroundColorPicker.getValue()) {
                         applyButton.setDisable(false);
                 }
         }
@@ -593,8 +593,8 @@ public class SettingsView implements GenericGUI{
         @FXML
         void changeResolution(KeyEvent event) {
                 if(logic.isParsable(resolutionWidthField.getText()) && logic.isParsable(resolutionHeightField.getText())) {
-                        logic.setResolutionWidth(Integer.parseInt(resolutionWidthField.getText()));
-                        logic.setResolutionHeight(Integer.parseInt(resolutionHeightField.getText()));
+                        logic.setSetting("Video","resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
+                        logic.setSetting("Video","resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
                         applyButton.setDisable(false);
                 }else{
                         applyButton.setDisable(true);
@@ -615,39 +615,39 @@ public class SettingsView implements GenericGUI{
         @FXML
         void applySettings(ActionEvent event) {
                 Stage stage = (Stage) window.getScene().getWindow();
-                logic.setFullScreen(fullscreenCheck.isSelected());
-                logic.setLockResolution(lockResolutionCheck.isSelected());
-                logic.setResolutionWidth(Integer.parseInt(resolutionWidthField.getText()));
-                stage.setWidth(logic.getResolutionWidth());
-                logic.setResolutionHeight(Integer.parseInt(resolutionHeightField.getText()));
-                stage.setHeight(logic.getResolutionHeight());
-                logic.setMusicVolume((int) musicSlider.getValue());
-                logic.setSFXVolume((int) sFXSlider.getValue());
-                logic.setMuteMusic(musicCheck.isSelected());
-                logic.setMuteSFX(sFXCheck.isSelected());
+                logic.setSetting("Video","fullScreen",boolean.class);
+                logic.setSetting("Video","lockResolution",boolean.class);
+                logic.setSetting("Video","resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
+                stage.setWidth(logic.getSetting("Video","resolutionWidth",int.class));
+                logic.setSetting("Video","resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
+                stage.setHeight(logic.getSetting("Video","resolutionHeight",int.class));
+                logic.setSetting("Audio","musicVolume",(int) musicSlider.getValue());
+                logic.setSetting("Audio","soundFXVolume",(int) sFXSlider.getValue());
+                logic.setSetting("Audio","muteMusic",boolean.class);
+                logic.setSetting("Audio","muteSFX",boolean.class);
                 if(customRadio.isSelected())
                         logic.setBoardPreset(CUSTOM_BOARD);
                 else if (leftPresetRadio.isSelected())
                         logic.setBoardPreset(LEFT_PRESET);
                 else logic.setBoardPreset(RIGHT_PRESET);
-                logic.setWhitePawnStroke(colorStringFactory(whitePawnStrokeColorPicker.getValue()));
-                logic.setWhitePawnFill(colorStringFactory(whitePawnFillColorPicker.getValue()));
-                logic.setBlackPawnStroke(colorStringFactory(blackPawnStrokeColorPicker.getValue()));
-                logic.setBlackPawnFill(colorStringFactory(blackPawnFillColorPicker.getValue()));
-                logic.setBoardFrameColor(colorStringFactory(frameColorPicker.getValue()));
-                logic.setBoardInnerColor(colorStringFactory(tableColorPicker.getValue()));
-                logic.setEvenPointsColor(colorStringFactory(evenPointColorPicker.getValue()));
-                logic.setOddPointsColor(colorStringFactory(oddPointColorPicker.getValue()));
-                logic.setSelectedPointColor(colorStringFactory(selectedPointColorPicker.getValue()));
-                logic.setMoveRight(rightTextField.getText());
-                logic.setMoveLeft(leftTextField.getText());
-                logic.setMoveUp(upTextField.getText());
-                logic.setMoveDown(downTextField.getText());
-                logic.setSelect(selectTextField.getText());
-                logic.setRevertMove(revertMoveTextField.getText());
-                logic.setFinishTurn(finishTurnTextField.getText());
-                logic.setOpenMenu(openMenuTextField.getText());
-                logic.setBackgroundColor(colorStringFactory(backGroundColorPicker.getValue()));
+                logic.setSetting("Customization","whitePawnStroke",colorStringFactory(whitePawnStrokeColorPicker.getValue()));
+                logic.setSetting("Customization","whitePawnFill",colorStringFactory(whitePawnFillColorPicker.getValue()));
+                logic.setSetting("Customization","blackPawnStroke",colorStringFactory(blackPawnStrokeColorPicker.getValue()));
+                logic.setSetting("Customization","blackPawnFill",colorStringFactory(blackPawnFillColorPicker.getValue()));
+                logic.setSetting("Customization","boardFrameColor",colorStringFactory(frameColorPicker.getValue()));
+                logic.setSetting("Customization","boardInnerColor",colorStringFactory(tableColorPicker.getValue()));
+                logic.setSetting("Customization","evenPointsColor",colorStringFactory(evenPointColorPicker.getValue()));
+                logic.setSetting("Customization","oddPointsColor",colorStringFactory(oddPointColorPicker.getValue()));
+                logic.setSetting("Customization","selectedPointColor",colorStringFactory(selectedPointColorPicker.getValue()));
+                logic.setSetting("Controls","moveRight",(rightTextField.getText()));
+                logic.setSetting("Controls","moveLeft",(leftTextField.getText()));
+                logic.setSetting("Controls","moveUp",(upTextField.getText()));
+                logic.setSetting("Controls","moveDown",(downTextField.getText()));
+                logic.setSetting("Controls","select",(selectTextField.getText());
+                logic.setSetting("Controls","revertMove",(revertMoveTextField.getText()));
+                logic.setSetting("Controls","finishTurn",(finishTurnTextField.getText()));
+                logic.setSetting("Controls","openMenu",(openMenuTextField.getText()));
+                logic.setSetting("Customization","backgroundColor",(colorStringFactory(backGroundColorPicker.getValue())));
                 logic.applySettingsChanges();
                 applyButton.setDisable(true);
         }
@@ -660,10 +660,10 @@ public class SettingsView implements GenericGUI{
                 lockResolution(null);
                 lockResolutionCheck.setSelected(logic.getLockResolution());
                 Stage stage = (Stage) window.getScene().getWindow();
-                stage.setWidth(logic.getResolutionWidth());
-                stage.setHeight(logic.getResolutionHeight());
-                resolutionWidthField.setText(String.valueOf(logic.getResolutionWidth()));
-                resolutionHeightField.setText(String.valueOf(logic.getResolutionHeight()));
+                stage.setWidth(logic.getSetting("Video","resolutionWidth",int.class));
+                stage.setHeight(logic.getSetting("Video","resolutionHeight",int.class));
+                resolutionWidthField.setText(String.valueOf(logic.getSetting("Video","resolutionWidth",int.class)));
+                resolutionHeightField.setText(String.valueOf(logic.getSetting("Video","resolutionHeight",int.class)));
                 musicSlider.setValue(logic.getMusicVolume());
                 view.setVolume(MUSIC_VOLUME, logic.getMusicVolume());
                 sFXSlider.setValue(logic.getSFXVolume());
@@ -905,8 +905,8 @@ public class SettingsView implements GenericGUI{
                 controlsAnchorPane.setPrefHeight(window.getHeight());
                 controlsTitlePane.setPrefHeight(window.getHeight());
 
-                if (((int)stage.getHeight() != logic.getResolutionHeight() ||
-                        (int)stage.getWidth() != logic.getResolutionWidth()) &&
+                if (((int)stage.getHeight() != logic.getSetting("Video","resolutionHeight",int.class) ||
+                        (int)stage.getWidth() != logic.getSetting("Video","resolutionWidth",int.class)) &&
                         (int)stage.getWidth()!= 0 && (int)stage.getHeight() != 0) {
                         applyButton.setDisable(false);
                 }

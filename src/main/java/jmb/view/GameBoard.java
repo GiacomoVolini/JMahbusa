@@ -64,25 +64,59 @@ public class GameBoard {
                 boardRect.setStroke(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
                 separator.setFill(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
                 separator.setStroke(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-                for (int i = 0; i<12; i++) {
+                for (int i = 0; i < 12; i++) {
                     if ((i % 2) == 0) {
-                        this.polArrayTop[i].setFill(Color.web(logic.getEvenPointsColor()));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getEvenPointsColor()));
-                        this.polArrayBot[i].setFill(Color.web(logic.getOddPointsColor()));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getOddPointsColor()));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
                     } else {
-                        this.polArrayTop[i].setFill(Color.web(logic.getOddPointsColor()));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getOddPointsColor()));
-                        this.polArrayBot[i].setFill(Color.web(logic.getEvenPointsColor()));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getEvenPointsColor()));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
                     }
                 }
                 break;
             case LEFT_PRESET:
-                //TODO
+                outerRect.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
+                boardRect.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
+                boardRect.setStroke(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
+                separator.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
+                separator.setStroke(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
+                for (int i = 0; i < 12; i++) {
+                    if ((i % 2) == 0) {
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
+                    } else {
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
+                    }
+                }
                 break;
             case RIGHT_PRESET:
-                //TODO
+                outerRect.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
+                boardRect.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
+                boardRect.setStroke(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
+                separator.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
+                separator.setStroke(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
+                for (int i = 0; i < 12; i++) {
+                    if ((i % 2) == 0) {
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                    } else {
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                    }
+                }
                 break;
         }
 
@@ -98,7 +132,7 @@ public class GameBoard {
     }
 
     protected boolean blockResizeCondition() {
-        return (!logic.getFullScreen() && !logic.getLockResolution());
+        return (!logic.getSetting("Video", "fullScreen", boolean.class) && !logic.getSetting("Video", "lockResolution", boolean.class));
     }
 
     protected void setWhoCalled(int value) {

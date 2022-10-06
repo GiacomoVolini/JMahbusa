@@ -43,7 +43,17 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
                     new Image(this.getClass().getResource("diceImg/Dado1INV.png").toURI().toString()),
             };
             diceTray = new Rectangle();
-            diceTray.setFill(Color.web(logic.getBoardInnerColor()));
+            switch (logic.getSetting("Customization", "boardPreset", int.class)) {
+                case CUSTOM_BOARD:
+                    diceTray.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
+                    break;
+                case LEFT_PRESET:
+                    diceTray.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
+                    break;
+                case RIGHT_PRESET:
+                    diceTray.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
+                    break;
+            }
             diceTray.setStroke(Color.BLACK);
             for (int i = 0; i < 4; i++) {
                 diceArray[i] = new ImageView(imgArray[i/2]);
@@ -73,7 +83,7 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
         feltImage.fitHeightProperty().bind(boardAnchor.heightProperty());
         feltImage.fitWidthProperty().bind(boardAnchor.widthProperty());
         feltImage.setViewOrder(50);
-        boardAnchor.setStyle("-fx-background-color: " + logic.getBackgroundColor());
+        boardAnchor.setStyle("-fx-background-color: " + logic.getSetting("Customization", "backgroundColor", String.class));
     }
 
     private void savePosition (MouseEvent event) {
@@ -294,20 +304,22 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
     protected int selectedIndex = UNDEFINED;
     protected boolean isMovementKey (String keyPressed) {
-        return keyPressed.equals(logic.getMoveRight()) || keyPressed.equals(logic.getMoveLeft())
-                || keyPressed.equals(logic.getMoveUp()) || keyPressed.equals(logic.getMoveDown());
+        return keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class)) ||
+                keyPressed.equals(logic.getSetting("Controls", "moveLeft", String.class)) ||
+                keyPressed.equals(logic.getSetting("Controls", "moveUp", String.class))   ||
+                keyPressed.equals(logic.getSetting("Controls", "moveDown", String.class));
     }
 
     protected void selectInitialPoint() {
         if (logic.getWhichTurn())
             selectedIndex = COL_WHITE;
         else selectedIndex = COL_BLACK;
-        colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
+        colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
     }
     protected int moveHorizontally(int selectedIndex, String keyPressed) {
         int out;
         if (selectedIndex <13) { // La punta selectKeyBind è sopra
-            if (keyPressed.equals(logic.getMoveRight())) {
+            if (keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class))) {
                 out = (selectedIndex + 13 + 1) % 13;
                 if (!logic.getWhiteExit())
                     out = max(1, out);
@@ -318,7 +330,7 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
                     out = 12;
             }
         } else { // La punta selectKeyBind è sotto
-            if (keyPressed.equals(logic.getMoveRight())) {
+            if (keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class))) {
                 out = ((selectedIndex - 1) % 13) + 13;
                 if (!logic.getWhiteExit() && out == COL_WHITE_EXIT)
                     out = 24;
@@ -334,12 +346,18 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
     @FXML
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
+        System.out.println(keyPressed);
+        System.out.println(logic.getSetting("Controls", "moveDown", String.class));
+        System.out.println(logic.getSetting("Controls", "moveDown", String.class).equals(keyPressed));
         if (isMovementKey(keyPressed)) {
             if (selectedIndex==UNDEFINED)
                 selectInitialPoint();
             else {
                 restoreColorToPoint(selectedIndex);
-                if (keyPressed.equals(logic.getMoveUp())||keyPressed.equals(logic.getMoveDown())) {
+                if (keyPressed.equals(logic.getSetting("Controls", "moveUp", String.class)) ||
+                        keyPressed.equals(logic.getSetting("Controls", "moveDown", String.class)))
+                {
+                    System.out.println("ENTRO , PIGI O SU O GIU");
                     selectedIndex = 25 - selectedIndex;
                     if (selectedIndex == COL_WHITE_EXIT && !logic.getWhiteExit())
                         selectedIndex = COL_BLACK;
@@ -347,10 +365,11 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
                         selectedIndex = COL_WHITE;
                 }
                 else selectedIndex = moveHorizontally(selectedIndex, keyPressed);
-                colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
+                colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
             }
         }
-        else if (keyPressed.equals(logic.getSelect()) && selectedIndex!= UNDEFINED && !selected){
+        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class))&&
+                selectedIndex!= UNDEFINED && !selected){
             col = findColumn();
             System.out.println(col);
             if(logic.searchTopOccupiedRow(col)!=UNDEFINED &&
@@ -361,12 +380,12 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
                 logic.createMoveBuffer(col);
                 DynamicGameBoardRedraw.redrawPawns(this);
             }
-        } else if (keyPressed.equals(logic.getSelect()) && selected){
+        } else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && selected){
             int col2 = findColumn();
             logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
             logic.placePawnOnPoint(col2);
             view.restoreBoardColors();
-            colorPoint(selectedIndex, Color.web(logic.getSelectedPointColor()));
+            colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
             DynamicGameBoardRedraw.redrawPawns(this);
             selected = false;
         }
@@ -375,21 +394,41 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
     int col;
 
     public void restoreColorToPoint(int restoreIndex) {
-        Color color;
+        Color color = Color.RED;
         switch (restoreIndex){
             default:
                 if (restoreIndex % 2 == 1) {
-                    color = Color.web(logic.getEvenPointsColor());
-                }
+                    switch(logic.getSetting("Customization", "boardPreset", int.class)) {
+                        case CUSTOM_BOARD:
+                            color = Color.web(logic.getSetting("Customization", "evenPointsColor", String.class));
+                            break;
+                        case LEFT_PRESET:
+                            color = Color.web (logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal()));
+                            break;
+                        case RIGHT_PRESET:
+                            color = Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal()));
+                            break;
+                    }
+                    }
                 else {
-                    color = Color.web(logic.getOddPointsColor());
+                    switch (logic.getSetting("Customization", "boardPreset", int.class)) {
+                        case CUSTOM_BOARD:
+                            color = Color.web(logic.getSetting("Customization", "oddPointsColor", String.class));
+                            break;
+                        case LEFT_PRESET:
+                            color = Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal()));
+                            break;
+                        case RIGHT_PRESET:
+                            color = Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal()));
+                            break;
+                    }
                 }
                 break;
             case COL_WHITE_EXIT:
-                color = Color.web(logic.getWhitePawnFill());
+                color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
                 break;
             case COL_BLACK_EXIT:
-                color = Color.web(logic.getBlackPawnFill());
+                color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
                 break;
         }
         colorPoint(restoreIndex, color);
@@ -401,16 +440,16 @@ public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
     private int findColumn(){
         int col = UNDEFINED;
         for (int i = 0; i < 12; i++) {
-            if (polArrayTop[i].getFill().equals(Paint.valueOf(logic.getSelectedPointColor()))) {
+            if (polArrayTop[i].getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class)))) {
                 col = i + 1;
-            } else if (polArrayBot[i].getFill().equals(Paint.valueOf(logic.getSelectedPointColor()))) {
+            } else if (polArrayBot[i].getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class)))) {
                 col = (24-i);
             }
         }
         if (col == UNDEFINED) {
-            if (whiteExitRegion.getFill().equals(Paint.valueOf(logic.getSelectedPointColor())))
+            if (whiteExitRegion.getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
                 col = COL_WHITE_EXIT;
-            else if (blackExitRegion.getFill().equals(Paint.valueOf(logic.getSelectedPointColor())))
+            else if (blackExitRegion.getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
                 col = COL_BLACK_EXIT;
         }
         return col;

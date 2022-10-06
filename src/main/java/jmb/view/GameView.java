@@ -220,7 +220,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         App.changeRoot(MAIN_MENU);
         view.stopMusic();
         
-        if (!logic.getMuteMusic())
+        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
             view.playMusic(MENU_MUSIC);
     }
 
@@ -348,11 +348,11 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         window.getChildren().add(pawn);
         pawn.setViewOrder(-15);
         if (whiteWon) {
-            pawn.setFill(Color.web(logic.getWhitePawnFill()));
-            pawn.setStroke(Color.web(logic.getWhitePawnStroke()));
+            pawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
+            pawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
         } else {
-            pawn.setFill(Color.web(logic.getBlackPawnFill()));
-            pawn.setStroke(Color.web(logic.getBlackPawnStroke()));
+            pawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
+            pawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
         }
         pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
@@ -472,19 +472,19 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     void handleKeyboard(KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.handleKeyboard(event);
-        if(keyPressed.equals(logic.getOpenMenu())){
+        if(keyPressed.equals(logic.getSetting("Controls", "openMenu", String.class))){
             if (!menuBTN.isDisabled())
                 openExitoption();
         }
-        else if(keyPressed.equals(logic.getFinishTurn())){
+        else if(keyPressed.equals(logic.getSetting("Controls", "finishTurn", String.class))){
             if (!finishBTN.isDisabled())
                 nextTurn(null);
         }
-        else if (keyPressed.equals(logic.getRevertMove())) {
+        else if (keyPressed.equals(logic.getSetting("Controls", "revertMove", String.class))) {
             if(!backBTN.isDisabled())
                 revertMove();
         }
-        else if (keyPressed.equals(logic.getSelect()))
+        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)))
             if (selected) {
                 finishBTN.setDisable(true);
                 wasBackBTNDisabled = backBTN.isDisabled();
@@ -509,14 +509,14 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
         try {
 
-            backText.setText(logic.getRevertMove());
-            finishTurnText.setText(logic.getFinishTurn());
-            menuText.setText(logic.getOpenMenu());
-            upText.setText(logic.getString("Up")+"\n" + logic.getMoveUp());
-            downText.setText(logic.getString("Down")+"\n" + logic.getMoveDown());
-            rightText.setText(logic.getString("Right")+"\n" + logic.getMoveRight());
-            leftText.setText(logic.getString("Left")+"\n" +logic.getMoveLeft());
-            selectText.setText(logic.getString("Select")+"\n" + logic.getSelect());
+            backText.setText(logic.getSetting("Controls", "revertMove", String.class));
+            finishTurnText.setText(logic.getSetting("Controls", "finishTurn", String.class));
+            menuText.setText(logic.getSetting("Controls", "openMenu", String.class));
+            upText.setText(logic.getString("Up")+"\n" + logic.getSetting("Controls", "moveUp", String.class));
+            downText.setText(logic.getString("Down")+"\n" + logic.getSetting("Controls", "moveDown", String.class));
+            rightText.setText(logic.getString("Right")+"\n" + logic.getSetting("Controls", "moveRight", String.class));
+            leftText.setText(logic.getString("Left")+"\n" +logic.getSetting("Controls", "moveLeft", String.class));
+            selectText.setText(logic.getString("Select")+"\n" + logic.getSetting("Controls", "select", String.class));
             backBTN.setText(logic.getString("revertMove").toUpperCase());
             menuBTN.setText(logic.getString("menu").toUpperCase());
             finishBTN.setText(logic.getString("finishTurn").toUpperCase());
@@ -542,7 +542,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
             setWhoCalled(GAME_CALLED);
             view.stopMusic();
-            if (!logic.getMuteMusic())
+            if (!logic.getSetting("Audio", "muteMusic", boolean.class))
                 view.playMusic(GAME_MUSIC);
 
             this.boardAnchor = window;
@@ -556,7 +556,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             timerOut.setViewOrder(-1.999);
 
             //musica
-            if (logic.getMuteMusic()) {
+            if (logic.getSetting("Audio", "muteMusic", boolean.class)) {
                 view.pauseMusic();
             } else {
                 view.playMusic(GAME_MUSIC);
@@ -569,11 +569,11 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             plWHTText.setText(logic.getWhitePlayer().stripTrailing());
             plBLKText.setText(logic.getBlackPlayer().stripTrailing());
             //colori
-            plWHTPawn.setFill(Color.web(logic.getWhitePawnFill()));
-            plWHTPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
-            plBLKPawn.setFill(Color.web(logic.getBlackPawnFill()));
-            plBLKPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
-            diceTray.setFill(Color.web(logic.getBoardInnerColor()));
+            plWHTPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
+            plWHTPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+            plBLKPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
+            plBLKPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+
             //turni
             plBLKOutRect.setFill(Color.GRAY);
             plWHTOutRect.setFill(Color.GRAY);
@@ -611,8 +611,8 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             tournamentWhitePoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
             tournamentBlackPoints.setFont(Font.font("calibri", FontWeight.BOLD, 16));
             window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
-            tournamentWhitePoints.setTextFill(Color.web(logic.getWhitePawnStroke()));
-            tournamentBlackPoints.setTextFill(Color.web(logic.getBlackPawnStroke()));
+            tournamentWhitePoints.setTextFill(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+            tournamentBlackPoints.setTextFill(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
 
             if (logic.isTournamentOngoing()) {
                 tournamentWhitePoints.setVisible(true);

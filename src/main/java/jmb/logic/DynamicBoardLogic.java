@@ -154,6 +154,7 @@ public class DynamicBoardLogic implements GenericBoard{
                 dice.setToBeUsed(i);
             }
         }
+
         if (logic.getSetting("DEBUG","bypassDice",boolean.class))
             out = true;
         return out;

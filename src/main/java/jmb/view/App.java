@@ -57,8 +57,8 @@ public class App extends Application {
     }
 
     private static void setStageOptions() {
-        stage.setFullScreen(logic.getFullScreen());
-        stage.setResizable(!logic.getLockResolution());
+        stage.setFullScreen(logic.getSetting("Video", "fullScreen", boolean.class));
+        stage.setResizable(!logic.getSetting("Video", "lockResolution", boolean.class));
     }
 
     public static void main(String[] args) {

@@ -78,9 +78,7 @@ public interface ILogic {
 
     void setSetting (String section, String setting, Object value);
     <T> T getSetting (String section, String setting, Class<T> whichClass);
-    //TODO
-    //  Sostituire tutte questi metodi con un getSetting e un setSetting, che poi va a modificare l'impostazione scelta, in maniera
-    //  simile a getString sopra
+    String getSetting (boolean leftPreset, int presetEnum);
     boolean isParsable(String input);
     String[] getSupportedLanguages();
 }

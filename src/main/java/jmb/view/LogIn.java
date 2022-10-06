@@ -168,10 +168,10 @@ public class LogIn implements GenericGUI {
         mediumTimerRadio.setToggleGroup(group);
         customTimerRadio.setToggleGroup(group);
 
-        whitePlayerPawn.setFill(Color.web(logic.getWhitePawnFill()));
-        whitePlayerPawn.setStroke(Color.web(logic.getWhitePawnStroke()));
-        blackPlayerPawn.setFill(Color.web(logic.getBlackPawnFill()));
-        blackPlayerPawn.setStroke(Color.web(logic.getBlackPawnStroke()));
+        whitePlayerPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
+        whitePlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+        blackPlayerPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
+        blackPlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
 
         ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
         whitePlayerNameBox.setItems(nameList);
@@ -202,7 +202,7 @@ public class LogIn implements GenericGUI {
             titledPaneAnimation(newVal);
         });
 
-        if (logic.getLanguage().equals("AR")) {
+        if (logic.getSetting("General", "language", String.class).equals("AR")) {
             tournamentLabel.setLayoutX(xdispinner);
             tournamentSpinner.setLayoutX(xditlb);
         }

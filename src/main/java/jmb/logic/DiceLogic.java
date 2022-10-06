@@ -145,7 +145,7 @@ public class DiceLogic implements BoardDice {
 
             }
         }
-        if (logic.getBypassDice())
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
             possible = true;
         return possible;
     }
@@ -159,7 +159,7 @@ public class DiceLogic implements BoardDice {
                 toBeUsed[i] = true;
             }
         }
-        if (logic.getBypassDice())
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
             possible = true;
         return possible;
     }

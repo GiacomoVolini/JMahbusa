@@ -9,10 +9,6 @@ import static jmb.ConstantsShared.EMPTY;
 
 public class Logic implements ILogic {
 
-    /*TODO
-        Sostituire metodi delle impostazioni con un unico getSetting e un unico setSetting
-     */
-
     public static IView view;
     public static ILogic logic;
     public GenericBoard board;
@@ -352,6 +348,7 @@ public class Logic implements ILogic {
     @Override
     public void resetDefaultSettings() {
         settings.getDefaultSettings();
+        settings.restoreCurrent();
     }
 
     @Override
@@ -414,6 +411,10 @@ public class Logic implements ILogic {
     @Override
     public <T> T getSetting (String section, String setting, Class<T> whichClass) {
         return settings.getSetting(section, setting, whichClass);
+    }
+    @Override
+    public String getSetting (boolean leftPreset, int presetEnum) {
+        return settings.getSetting(leftPreset, presetEnum);
     }
 
 }

@@ -504,6 +504,8 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     //--------------------------------------------
 
     public void initialize() {
+            double xditextfield = saveTextField.getLayoutX() + 40;
+            double xdilabel = saveLabel.getLayoutX() + 50;
 
         try {
 
@@ -533,7 +535,10 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             closeSaveButton.setText(logic.getString("cancel"));
             saveTextField.setPromptText(logic.getString("savePrompt"));
 
-
+            if (logic.getLanguage().equals("AR")) {
+                saveLabel.setLayoutX(xditextfield);
+                saveTextField.setLayoutX(xdilabel);
+            }
 
             setWhoCalled(GAME_CALLED);
             view.stopMusic();

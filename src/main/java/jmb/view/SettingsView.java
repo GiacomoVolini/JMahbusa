@@ -512,7 +512,7 @@ public class SettingsView implements GenericGUI{
 
         @FXML
         void selectedBackGroundColorChange(ActionEvent event) {
-                if(Color.web(logic.getSetting("Customization", "backgroundColor", String.class)) != backGroundColorPicker.getValue()) {
+                if(Color.web(logic.getSetting("Customization","backgroundColor",String.class)) != backGroundColorPicker.getValue()) {
                         applyButton.setDisable(false);
                 }
         }
@@ -573,8 +573,8 @@ public class SettingsView implements GenericGUI{
         @FXML
         void changeResolution(KeyEvent event) {
                 if(logic.isParsable(resolutionWidthField.getText()) && logic.isParsable(resolutionHeightField.getText())) {
-                        logic.setSetting("Video", "resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
-                        logic.setSetting("Video", "resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
+                        logic.setSetting("Video","resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
+                        logic.setSetting("Video","resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
                         applyButton.setDisable(false);
                 }else{
                         applyButton.setDisable(true);
@@ -885,8 +885,8 @@ public class SettingsView implements GenericGUI{
                 controlsAnchorPane.setPrefHeight(window.getHeight());
                 controlsTitlePane.setPrefHeight(window.getHeight());
 
-                if (((int)stage.getHeight() != logic.getSetting("Video", "resolutionHeight", int.class) ||
-                        (int)stage.getWidth() != logic.getSetting("Video", "resolutionWidth", int.class)) &&
+                if (((int)stage.getHeight() != logic.getSetting("Video","resolutionHeight",int.class) ||
+                        (int)stage.getWidth() != logic.getSetting("Video","resolutionWidth",int.class)) &&
                         (int)stage.getWidth()!= 0 && (int)stage.getHeight() != 0) {
                         applyButton.setDisable(false);
                 }

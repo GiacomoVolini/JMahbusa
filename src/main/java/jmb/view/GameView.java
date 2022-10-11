@@ -535,7 +535,8 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             closeSaveButton.setText(logic.getString("cancel"));
             saveTextField.setPromptText(logic.getString("savePrompt"));
 
-            if (logic.getSetting("General", "language", String.class).equals("AR")) {
+            //if (logic.getSetting("General", "language", String.class).equals("AR")) {
+            if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
                 saveLabel.setLayoutX(xditextfield);
                 saveTextField.setLayoutX(xdilabel);
             }

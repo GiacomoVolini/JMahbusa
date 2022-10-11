@@ -397,6 +397,10 @@ public class Logic implements ILogic {
         return StringsReader.getSupportedLanguages();
     }
     @Override
+    public boolean isLanguageRightToLeft(String language) {
+        return StringsReader.isLanguageRightToLeft(language);
+    }
+    @Override
     public boolean shouldPlayTutorial() {
         return SettingsLogic.shouldPlayTutorial();
     }

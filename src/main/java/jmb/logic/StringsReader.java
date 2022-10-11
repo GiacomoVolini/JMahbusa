@@ -21,6 +21,23 @@ public class StringsReader {
         return out;
     }
 
+    protected static boolean isLanguageRightToLeft(String language) {
+        boolean out = false;
+        try {
+            Ini ini = new Ini(StringsReader.class.getResource("supportedLanguages.ini"));
+            Profile.Section rightToLeftLanguages = ini.get("RightToLeft");
+            String[] rTLArray = rightToLeftLanguages.getAll("language", String[].class);
+            for (int i = 0; i<rTLArray.length && !out; i++) {
+                if (language.equals(rTLArray[i])) {
+                    out = true;
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        return out;
+    }
+
     public StringsReader(String language) {
         try {
             String name = "STRINGS_"+language+".ini";

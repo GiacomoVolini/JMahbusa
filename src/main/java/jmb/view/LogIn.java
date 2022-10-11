@@ -201,7 +201,8 @@ public class LogIn implements GenericGUI {
             titledPaneAnimation(newVal);
         });
 
-        if (logic.getSetting("General", "language", String.class).equals("AR")) {
+        //if (logic.getSetting("General", "language", String.class).equals("AR")) {
+        if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
             tournamentLabel.setLayoutX(xdispinner);
             tournamentSpinner.setLayoutX(xditlb);
         }

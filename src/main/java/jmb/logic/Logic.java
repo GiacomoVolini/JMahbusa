@@ -11,7 +11,7 @@ public class Logic implements ILogic {
 
     public static IView view;
     public static ILogic logic;
-    public GenericBoard board;
+    public DynamicBoardLogic board;
     public LeaderboardLogic ldb;
     public SettingsLogic settings;
     public String appDirectory;

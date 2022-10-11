@@ -62,10 +62,6 @@ public class ConstantsShared {
         SELECTED_POINT
     };
 
-    //Costanti per la variabile whoCalled per alcuni metodi del View
-    public static final int GAME_CALLED = 0;
-    public static final int TUTORIAL_CALLED = 1;
-
     public static final int PAWN_SFX = 0;
     public static final int ERROR_SFX = 1;
     public static final int SINGLE_WIN_SFX = 2;
@@ -75,4 +71,7 @@ public class ConstantsShared {
     public static final int GAME_MUSIC = 1;
     public static final int TUTORIAL_MUSIC = 2;
 
+    private ConstantsShared() {
+        throw new AssertionError();
+    }
 }

@@ -82,7 +82,6 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
     public void initialize() {
         this.boardAnchor = windowPane;
-        setWhoCalled(TUTORIAL_CALLED);
 
         addChildrenToAnchor();
         TutorialViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);

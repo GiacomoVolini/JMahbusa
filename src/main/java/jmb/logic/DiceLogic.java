@@ -9,7 +9,7 @@ import static jmb.logic.Logic.view;
  * La classe DiceLogic modella e gestisce la logica dei dadi
  */
 
-public class DiceLogic implements BoardDice {
+public class DiceLogic {
 
     private int[] dice = new int[] {0, 0, 0, 0};            //Array per il valore dei dadi, le posizioni 2 e 3 dell'array sono utilizzate nel caso di tiro doppio
     private boolean[] used = new boolean [4];   //Array che determina se il dado in posizione i è stato o meno usato per una mossaprivate boolean[] toBeUsed = new boolean [4];//Array che memorizza quali dadi verranno utilizzati da un movimento
@@ -28,9 +28,7 @@ public class DiceLogic implements BoardDice {
         this.doubleNum = false;
     }
 
-    //---------------------------------------------
-
-    @Override
+    
     public void tossDice() {
 
         /* Assegna un valore da 1 a 6 ai dadi 0 e 1, controlla se i risultati sono uguali e assegna
@@ -53,42 +51,8 @@ public class DiceLogic implements BoardDice {
         }
 
     }
-
-    //METODI GETTER E SETTER
-    @Override
-    public int getDiceValue(int i) {
-        return this.dice[i];
-    }
-    @Override
-    public boolean getUsed(int i) {
-        return this.used[i];
-    }
-    @Override
-    public int[] getDiceValues() {
-        return this.dice;
-    }
-    @Override
-    public boolean getDoubleNum() {
-        return this.doubleNum;
-    }
-    @Override
-    public boolean[] getToBeUsedArray() {
-        return this.toBeUsed;
-    }
-    @Override
-    public boolean[] getUsedArray() {
-        return this.used;
-    }
-    @Override
-    public void setToBeUsed(int i) {
-        this.toBeUsed[i] = true;
-    }
-
-    //--------------------------------
-
-    @Override
-    public boolean whoStarts() {
-        //  Metodo che determina quale dei due giocatori effettuerà il primo turno
+    
+    public boolean doesWhiteStart() {
         do {
             this.dice[0] = rnd.nextInt(6) + 1;
             this.dice[1] = rnd.nextInt(6) + 1;
@@ -97,7 +61,7 @@ public class DiceLogic implements BoardDice {
         return whiteBegins;
     }
 
-    @Override
+    
     public int countAvailableDice() {
         int availableDice = 0;
         for (int i = 0; i<used.length; i++) {
@@ -106,7 +70,7 @@ public class DiceLogic implements BoardDice {
         }
         return availableDice;
     }
-    @Override
+    
     public void setDoublesToBeUsed(int howManyDice) {
         int set = 0;
         for (int i = 0; i<4 && set< howManyDice; i++) {
@@ -116,7 +80,7 @@ public class DiceLogic implements BoardDice {
             }
         }
     }
-    @Override
+    
     public void setDiceToUsed() {
         // Il metodo, richiamato in seguito ad una mossa correttamente effettuata, imposta come usati i dadi
         //      indicati nell'array toBeUsed
@@ -129,13 +93,13 @@ public class DiceLogic implements BoardDice {
             }
         }
     }
-    @Override
+    
     public void resetToBeUsed() {
         for (int i = 0; i < toBeUsed.length; i++)
             toBeUsed[i] = false;
     }
     // checkExitDiceSimple controlla che ci sia un dado che permetta di muovere la pedina esattamente nella zona di uscita
-    @Override
+    
     public boolean checkExitDiceSimple(int delta) {
         boolean possible = false;
         for (int i = 0; i < 4 && !possible; i++) {
@@ -150,7 +114,7 @@ public class DiceLogic implements BoardDice {
         return possible;
     }
 
-    @Override
+    
     public boolean checkExitDiceGreaterThan(int delta) {
         boolean possible = false;
         for (int i = 0; i<4 && !possible; i++)  {
@@ -164,12 +128,12 @@ public class DiceLogic implements BoardDice {
         return possible;
     }
 
-    @Override
+    
     public void revertUsed(int i) {
         this.used[i]= false;
     }
 
-    @Override
+    
     public void forceDice(int dice0, int dice1) {
         this.dice[0]=dice0;
         this.dice[1]=dice1;
@@ -181,7 +145,7 @@ public class DiceLogic implements BoardDice {
         view.setDiceContrast();
     }
 
-    @Override
+    
     public void forceDice(int value) {
         this.doubleNum = true;
         for (int i = 0; i<4; i++) {
@@ -191,6 +155,40 @@ public class DiceLogic implements BoardDice {
         }
         view.setDiceContrast();
     }
+
+    //METODI GETTER E SETTER
+    
+    public int getDiceValue(int i) {
+        return this.dice[i];
+    }
+    
+    public boolean getUsed(int i) {
+        return this.used[i];
+    }
+    
+    public int[] getDiceValues() {
+        return this.dice;
+    }
+    
+    public boolean getDoubleNum() {
+        return this.doubleNum;
+    }
+    
+    public boolean[] getToBeUsedArray() {
+        return this.toBeUsed;
+    }
+    
+    public boolean[] getUsedArray() {
+        return this.used;
+    }
+    
+    public void setToBeUsed(int i) {
+        this.toBeUsed[i] = true;
+    }
+
+    //--------------------------------
+
+
 
 
 }

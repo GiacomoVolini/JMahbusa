@@ -14,7 +14,6 @@ public class TutorialLogic extends DynamicBoardLogic {
     private ComparableTutorialStage currentStage;
     public TutorialLogic() {
         try {
-            setWhoCalled(TUTORIAL_CALLED);
             dice = new DiceLogic();
             squares = new int[16][26];
             ArrayList<ComparableTutorialStage> stageArrayList = stageArrayListConstructor();

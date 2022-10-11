@@ -245,7 +245,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
     }
 
     protected static void resizeAll(GameView board) {
-        setWhoCalled(GAME_CALLED);
         DynamicGameBoardRedraw.resizeAll(board);
         resizePlsPawns(board);
         resizePlsRects(board);

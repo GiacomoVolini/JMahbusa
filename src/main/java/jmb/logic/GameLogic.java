@@ -32,7 +32,6 @@ public class GameLogic extends DynamicBoardLogic {
     public GameLogic(){
         //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
         dice = new DiceLogic();
-        setWhoCalled(GAME_CALLED);
     }
 
     //  -------------------------------
@@ -44,7 +43,7 @@ public class GameLogic extends DynamicBoardLogic {
         setGameStart(false);
         setGameEndState(false);
         super.setUp();
-        whiteTurn = dice.whoStarts();
+        whiteTurn = dice.doesWhiteStart();
     }
 
     public void changeTurn() {

@@ -8,16 +8,9 @@ import static jmb.logic.ConstantsLogic.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
-public class DynamicBoardLogic implements GenericBoard{
+public abstract class DynamicBoardLogic {
 
-    protected int whoCalled;
-    protected void setWhoCalled(int whoCalled) {
-        this.whoCalled = whoCalled;
-    }
     protected boolean whiteTurn = true;              //variabile booleana per indicare il giocatore di turno. Se true è il turno del bianco
-    public boolean isWhiteTurn() {
-        return whiteTurn;
-    }
     protected int[][] squares;
     protected boolean whiteExit;              //variabile booleana per indicare se il bianco può portare fuori le sue pedine
     protected boolean blackExit;              //variabile booleana per indicare se il nero può portare fuori le sue pedine
@@ -26,7 +19,7 @@ public class DynamicBoardLogic implements GenericBoard{
     protected int[] moveBuffer = {UNDEFINED, UNDEFINED};    //array di interi che memorizza la posizione di partenza nella matrice squares di una pedina
     //mentre si sta per effettuare una mossa
     //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
-    protected BoardDice dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
+    protected DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
     public void setWhiteExit (boolean value) {
         this.whiteExit = value;
     }
@@ -42,7 +35,10 @@ public class DynamicBoardLogic implements GenericBoard{
     public int[][] getSquares() {
             return squares;
     }
-    public BoardDice getDice() {
+    public boolean isWhiteTurn() {
+        return whiteTurn;
+    }
+    public DiceLogic getDice() {
         return dice;
     }
 
@@ -69,8 +65,7 @@ public class DynamicBoardLogic implements GenericBoard{
                 open = true;
                 setBlackExit(true);
                 Logic.view.openBlackExit();
-                if (whoCalled == GAME_CALLED)
-                    moveOpensBlackExit = true;
+                moveOpensBlackExit = true;
             }
         }
         return open;
@@ -92,8 +87,7 @@ public class DynamicBoardLogic implements GenericBoard{
                 open = true;
                 setWhiteExit(true);
                 view.openWhiteExit();
-                if (whoCalled == GAME_CALLED)
-                    moveOpensWhiteExit = true;
+                moveOpensWhiteExit = true;
             }
         }
         return open;
@@ -107,6 +101,17 @@ public class DynamicBoardLogic implements GenericBoard{
         for (int i=0; i<=14;i++){
             squares[i][COL_WHITE]= WHITE;
             squares[i][COL_BLACK]= BLACK;
+        }
+    }
+
+    public void setUpSavedBoard(int[][] squareMatrix) {
+        if (squares == null) {
+            squares = new int[16][26];
+        }
+        for (int row =0; row<16; row++) {
+            for (int col = 0; col < 26; col++) {
+                squares[row][col] = squareMatrix[row][col];
+            }
         }
     }
 
@@ -354,16 +359,6 @@ public class DynamicBoardLogic implements GenericBoard{
         whiteTurn = value;
     }
 
-    public void setUpSavedBoard(int[][] squareMatrix) {
-        if (squares == null) {
-            squares = new int[16][26];
-        }
-        for (int row =0; row<16; row++) {
-            for (int col = 0; col < 26; col++) {
-                squares[row][col] = squareMatrix[row][col];
-            }
-        }
-    }
     public boolean getGameStart() {
         return true;
     }

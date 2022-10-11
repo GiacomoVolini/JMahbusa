@@ -71,7 +71,6 @@ public class LogIn implements GenericGUI {
 
     private boolean settingsPanelOpened = false;
 
-    private int whoCalled = GAME_CALLED;
     private static final double ANIMATION_DURATION = 0.35;
 
     @FXML

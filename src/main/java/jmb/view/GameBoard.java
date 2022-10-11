@@ -21,7 +21,7 @@ public class GameBoard {
     protected PawnView[] pawnArrayBLK = new PawnView[15];
     protected Rectangle whiteExitRegion;
     protected Rectangle blackExitRegion;
-    protected int whoCalled;
+
 
     public GameBoard() {
         outerRect = new Rectangle();
@@ -135,9 +135,6 @@ public class GameBoard {
         return (!logic.getSetting("Video", "fullScreen", boolean.class) && !logic.getSetting("Video", "lockResolution", boolean.class));
     }
 
-    protected void setWhoCalled(int value) {
-        whoCalled = value;
-    }
     public void colorPoint (int index, Color color) {
         colorPoint(index, color, color);
     }

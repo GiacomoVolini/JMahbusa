@@ -4,6 +4,8 @@ import org.ini4j.Ini;
 import org.ini4j.Profile;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import static jmb.logic.Logic.logic;
 
 public class StringsReader {
 
@@ -13,7 +15,7 @@ public class StringsReader {
     protected static String[] getSupportedLanguages() {
         String[] out = null;
         try {
-            Ini ini = new Ini(StringsReader.class.getResource("supportedLanguages.ini"));
+            Ini ini = new Ini(Path.of(logic.getAppDirectory()+"/languages/supportedLanguages.ini").toFile());
             Profile.Section section = ini.get("Languages");
             out = section.getAll("supportedLanguage", String[].class);
         } catch (IOException ioe) {
@@ -42,7 +44,7 @@ public class StringsReader {
     public StringsReader(String language) {
         try {
             String name = "STRINGS_"+language+".ini";
-            strings = new Ini(this.getClass().getResource(name));
+            strings = new Ini(Path.of(logic.getAppDirectory(), "languages", "strings", name).toFile());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

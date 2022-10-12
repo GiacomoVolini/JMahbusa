@@ -22,34 +22,43 @@ public class Logic implements ILogic {
 
     private void createApplicationFolders() {
         try {
-            Files.createDirectory(Path.of(getAppDirectory() + "/flags" ));
-            Files.createDirectory(Path.of(getAppDirectory() + "/leaderboard"));
-            Files.createDirectory(Path.of(getAppDirectory() + "/saves"));
-            Files.createDirectory(Path.of(getAppDirectory() + "/settings"));
-            Files.createDirectory(Path.of(getAppDirectory() + "/strings" ));
+
+            Files.createDirectories(Path.of(getAppDirectory() + "/leaderboard"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/saves"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/settings"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/languages/strings"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/languages/flags"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
 
     private void placeLanguageFiles() {
+        System.out.println("PRIMA DEL RTY");
         try {
-            Path supportedPath = Path.of(getAppDirectory() + "/strings/supportedLanguages.ini")
+            System.out.println("SON QUI, DENTRO TRY");
+            Path supportedPath = Path.of(getAppDirectory(), "languages","supportedLanguages.ini");
             if (!Files.exists(supportedPath)) {
                 Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("supportedLanguages.ini")), supportedPath);
                 for (String lang : StringsReader.getSupportedLanguages()) {
-                    Path langPath = Path.of(getAppDirectory() + "/strings/STRINGS_" + lang + ".ini");
-                    Path flagPath = Path.of(getAppDirectory() + "/flags/flag_"+lang+".png");
+                    System.out.println(lang);
+                    Path langPath = Path.of(getAppDirectory() , "languages","strings","STRINGS_" + lang + ".ini");
+                    Path flagPath = Path.of(getAppDirectory() , "languages","flags","flag_" + lang + ".png");
                     if (!Files.exists(langPath)) {
+                        System.out.println("DOVREI COPIARE STRING");
                         Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("STRINGS_"+lang+".ini")), langPath);
+                    } else {
+                        System.out.println("IL FILE ESISTE?");
                     }
                     if (!Files.exists(flagPath)) {
-                        Files.copy(Objects.requireNonNull(view.getClass().getResourceAsStream("/flags/flag_"+lang+".png")), flagPath);
+                        System.out.println("DOVREI COPIARE FLAG");
+                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("flags/flag_"+lang+".png")), flagPath);
                     }
                     //TODO CONTROLLARE SE BASTA O VA AGGIUNTO ALTRO
                 }
             }
         } catch (IOException ioe) {
+            System.out.println("OH NO");
             ioe.printStackTrace();
         }
     }
@@ -76,9 +85,10 @@ public class Logic implements ILogic {
     @Override
     public void initializeProgramLogic() {
         appDirectory = System.getProperty("user.dir");
-        settings = new SettingsLogic();
+        System.out.println(appDirectory);
         createApplicationFolders();
         placeLanguageFiles();
+        settings = new SettingsLogic();
         initializeStringsReader();
     }
 

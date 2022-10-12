@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
@@ -145,8 +146,9 @@ public class MainMenu implements GenericGUI{
     private void loadLanguages() {
         String[] supportedLanguages = logic.getSupportedLanguages();
         for (String language: supportedLanguages) {
-            languageMenu.getItems().add(new Image(Objects.requireNonNull(
-                    this.getClass().getResource("flags/flag_" + language + ".png")).toString()));
+            System.out.println(Path.of(logic.getAppDirectory(), "languages", "flags", "flag_"+language+".png").toString());
+            languageMenu.getItems().add(
+                    new Image(Path.of(logic.getAppDirectory(), "languages", "flags", "flag_"+language+".png").toString()));
         }
         languageMenu.setButtonCell(new ImageListCell());
         languageMenu.setCellFactory(listView -> new ImageListCell());

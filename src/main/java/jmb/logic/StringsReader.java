@@ -8,6 +8,7 @@ import java.io.IOException;
 public class StringsReader {
 
     private Ini strings;
+    //TODO Cambiare gestione dei file STRINGS e supportedLanguages per permettere dinamicità ed estendibilità
     private static final String SECTION = "Strings";
     protected static String[] getSupportedLanguages() {
         String[] out = null;

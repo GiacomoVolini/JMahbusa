@@ -3,6 +3,9 @@ package jmb;
 import jmb.logic.Logic;
 import jmb.view.View;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -15,5 +18,6 @@ public class Main {
         View.view = new jmb.view.View();
         Logic.view = View.view;
         Logic.logic.initializeProgramLogic();
+
     }
 }

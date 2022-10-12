@@ -23,7 +23,8 @@ public class SaveGameWriter {
             saveContent.put("whitesWonPoints", board.getWhitesWonPoints());
             saveContent.put("blacksWonPoints", board.getBlacksWonPoints());
             saveContent.put("turnDuration", board.getTurnDuration());
-            Files.createDirectories(Path.of("./saves/"));
+            //TODO Forse spostare blocco sotto in un'unica istruzione di inizializzazione
+            Files.createDirectory(Path.of("./saves/"));
             String savePath = "./saves/" + fileName + ".json";
             Files.writeString(Path.of(savePath), saveContent.toString());
         } catch (IOException ioe) {

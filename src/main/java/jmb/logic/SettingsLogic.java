@@ -25,6 +25,7 @@ public class SettingsLogic {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
             Path settingsPath = Path.of(settingsDir);
+            //TODO Forse spostare blocco sotto in un'unica istruzione di inizializzazione
             if (!Files.exists(settingsPath))
                 Files.createDirectory(settingsPath);
             currentPath = Path.of (settingsDir.concat("/Current.ini"));

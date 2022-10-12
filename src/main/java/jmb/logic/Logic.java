@@ -3,7 +3,10 @@ package jmb.logic;
 import jmb.view.IView;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 import static jmb.ConstantsShared.EMPTY;
 
@@ -16,6 +19,40 @@ public class Logic implements ILogic {
     public SettingsLogic settings;
     public String appDirectory;
     public StringsReader strings;
+
+    private void createApplicationFolders() {
+        try {
+            Files.createDirectory(Path.of(getAppDirectory() + "/flags" ));
+            Files.createDirectory(Path.of(getAppDirectory() + "/leaderboard"));
+            Files.createDirectory(Path.of(getAppDirectory() + "/saves"));
+            Files.createDirectory(Path.of(getAppDirectory() + "/settings"));
+            Files.createDirectory(Path.of(getAppDirectory() + "/strings" ));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private void placeLanguageFiles() {
+        try {
+            Path supportedPath = Path.of(getAppDirectory() + "/strings/supportedLanguages.ini")
+            if (!Files.exists(supportedPath)) {
+                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("supportedLanguages.ini")), supportedPath);
+                for (String lang : StringsReader.getSupportedLanguages()) {
+                    Path langPath = Path.of(getAppDirectory() + "/strings/STRINGS_" + lang + ".ini");
+                    Path flagPath = Path.of(getAppDirectory() + "/flags/flag_"+lang+".png");
+                    if (!Files.exists(langPath)) {
+                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("STRINGS_"+lang+".ini")), langPath);
+                    }
+                    if (!Files.exists(flagPath)) {
+                        Files.copy(Objects.requireNonNull(view.getClass().getResourceAsStream("/flags/flag_"+lang+".png")), flagPath);
+                    }
+                    //TODO CONTROLLARE SE BASTA O VA AGGIUNTO ALTRO
+                }
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 
     @Override
     public void initializeBoardLogic() {
@@ -40,6 +77,8 @@ public class Logic implements ILogic {
     public void initializeProgramLogic() {
         appDirectory = System.getProperty("user.dir");
         settings = new SettingsLogic();
+        createApplicationFolders();
+        placeLanguageFiles();
         initializeStringsReader();
     }
 

@@ -12,6 +12,7 @@ public class View implements IView {
     public static IView view;
 
     public static GenericGUI currentScene;
+
     public static MusicPlayer musicController;
 
     @Override

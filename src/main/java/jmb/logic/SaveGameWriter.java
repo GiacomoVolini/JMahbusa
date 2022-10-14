@@ -1,7 +1,6 @@
 package jmb.logic;
 
 
-import javafx.scene.image.WritableImage;
 import org.json.*;
 
 import java.io.IOException;

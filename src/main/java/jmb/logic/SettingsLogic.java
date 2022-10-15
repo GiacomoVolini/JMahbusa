@@ -24,9 +24,6 @@ public class SettingsLogic {
     public SettingsLogic() {
         try {
             String settingsDir = logic.getAppDirectory() + "/settings";
-            Path settingsPath = Path.of(settingsDir);
-            if (!Files.exists(settingsPath))
-                Files.createDirectory(settingsPath);
             currentPath = Path.of (settingsDir.concat("/Current.ini"));
             if (!Files.exists(currentPath)) {
                 Files.createFile(currentPath);

@@ -3,7 +3,10 @@ package jmb.logic;
 import jmb.view.IView;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 import static jmb.ConstantsShared.EMPTY;
 
@@ -16,6 +19,49 @@ public class Logic implements ILogic {
     public SettingsLogic settings;
     public String appDirectory;
     public StringsReader strings;
+
+    private void createApplicationFolders() {
+        try {
+
+            Files.createDirectories(Path.of(getAppDirectory() + "/leaderboard"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/saves"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/settings"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/languages/strings"));
+            Files.createDirectories(Path.of(getAppDirectory() + "/languages/flags"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private void placeLanguageFiles() {
+        System.out.println("PRIMA DEL RTY");
+        try {
+            System.out.println("SON QUI, DENTRO TRY");
+            Path supportedPath = Path.of(getAppDirectory(), "languages","supportedLanguages.ini");
+            if (!Files.exists(supportedPath)) {
+                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("supportedLanguages.ini")), supportedPath);
+                for (String lang : StringsReader.getSupportedLanguages()) {
+                    System.out.println(lang);
+                    Path langPath = Path.of(getAppDirectory() , "languages","strings","STRINGS_" + lang + ".ini");
+                    Path flagPath = Path.of(getAppDirectory() , "languages","flags","flag_" + lang + ".png");
+                    if (!Files.exists(langPath)) {
+                        System.out.println("DOVREI COPIARE STRING");
+                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("STRINGS_"+lang+".ini")), langPath);
+                    } else {
+                        System.out.println("IL FILE ESISTE?");
+                    }
+                    if (!Files.exists(flagPath)) {
+                        System.out.println("DOVREI COPIARE FLAG");
+                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("flags/flag_"+lang+".png")), flagPath);
+                    }
+                    //TODO CONTROLLARE SE BASTA O VA AGGIUNTO ALTRO
+                }
+            }
+        } catch (IOException ioe) {
+            System.out.println("OH NO");
+            ioe.printStackTrace();
+        }
+    }
 
     @Override
     public void initializeBoardLogic() {
@@ -39,6 +85,9 @@ public class Logic implements ILogic {
     @Override
     public void initializeProgramLogic() {
         appDirectory = System.getProperty("user.dir");
+        System.out.println(appDirectory);
+        createApplicationFolders();
+        placeLanguageFiles();
         settings = new SettingsLogic();
         initializeStringsReader();
     }
@@ -395,6 +444,10 @@ public class Logic implements ILogic {
     @Override
     public String[] getSupportedLanguages() {
         return StringsReader.getSupportedLanguages();
+    }
+    @Override
+    public boolean isLanguageRightToLeft(String language) {
+        return StringsReader.isLanguageRightToLeft(language);
     }
     @Override
     public boolean shouldPlayTutorial() {

@@ -81,4 +81,5 @@ public interface ILogic {
     String getSetting (boolean leftPreset, int presetEnum);
     boolean isParsable(String input);
     String[] getSupportedLanguages();
+    boolean isLanguageRightToLeft(String language);
 }

@@ -733,7 +733,8 @@ public class SettingsView implements GenericGUI{
                 applyButton.setMaxWidth(133);
 
                 //bottoni destra
-                if(logic.getSetting("General", "language", String.class).equals("AR")){
+                //if (logic.getSetting("General", "language", String.class).equals("AR")) {
+                if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
                         //Video
                         AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
                         AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);

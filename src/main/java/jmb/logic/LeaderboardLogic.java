@@ -22,8 +22,6 @@ public class LeaderboardLogic {
     public LeaderboardLogic() throws IOException{
         try {
             String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
-            if (!Files.exists(Path.of(ldbDirectory)))
-                Files.createDirectory(Path.of(ldbDirectory));
             String ldbPath = ldbDirectory + "/Leaderboards.csv";
             path = Path.of(ldbPath);
             if (!Files.exists(path)) {

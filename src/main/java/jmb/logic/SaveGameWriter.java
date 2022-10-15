@@ -1,7 +1,6 @@
 package jmb.logic;
 
 
-import javafx.scene.image.WritableImage;
 import org.json.*;
 
 import java.io.IOException;
@@ -23,7 +22,6 @@ public class SaveGameWriter {
             saveContent.put("whitesWonPoints", board.getWhitesWonPoints());
             saveContent.put("blacksWonPoints", board.getBlacksWonPoints());
             saveContent.put("turnDuration", board.getTurnDuration());
-            Files.createDirectories(Path.of("./saves/"));
             String savePath = "./saves/" + fileName + ".json";
             Files.writeString(Path.of(savePath), saveContent.toString());
         } catch (IOException ioe) {

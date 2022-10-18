@@ -7,7 +7,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class DynamicGameBoardRedraw extends GameBoardRedraw{
+public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
     protected static double maxDTWidth;
     public static double getMaxDTWidth() {
         return maxDTWidth;

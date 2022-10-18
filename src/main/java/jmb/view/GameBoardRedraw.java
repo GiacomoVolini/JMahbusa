@@ -3,7 +3,7 @@ package jmb.view;
 import static java.lang.Math.min;
 import static jmb.ConstantsShared.*;
 
-public class GameBoardRedraw {
+public abstract class GameBoardRedraw {
 
     protected static double maxExitWidth;
     protected static double hResizeFactor;

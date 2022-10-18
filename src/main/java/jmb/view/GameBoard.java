@@ -7,7 +7,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class GameBoard {
+public abstract class GameBoard {
 
     protected AnchorPane boardAnchor;
     protected Rectangle outerRect;
@@ -15,8 +15,10 @@ public class GameBoard {
     protected Rectangle separator;
     protected Polygon[] polArrayTop = new Polygon[12];
     protected Polygon[] polArrayBot = new Polygon[12];
+    //TODO FORSE LE REGION POSSONO ESSERE SPOSTATE A DYNAMICGAMEBOARD?
     protected Region[] regArrayTop = new Region[12];
     protected Region[] regArrayBot = new Region[12];
+    //TODO ^^^^^^
     protected PawnView[] pawnArrayWHT = new PawnView[15];
     protected PawnView[] pawnArrayBLK = new PawnView[15];
     protected Rectangle whiteExitRegion;
@@ -131,9 +133,11 @@ public class GameBoard {
 
     }
 
+    //TODO FORSE QUESTO METODO VA IN DYNAMICGAMEBOARD??
     protected boolean blockResizeCondition() {
         return (!logic.getSetting("Video", "fullScreen", boolean.class) && !logic.getSetting("Video", "lockResolution", boolean.class));
     }
+    //TODO ^^^^^^^^
 
     public void colorPoint (int index, Color color) {
         colorPoint(index, color, color);

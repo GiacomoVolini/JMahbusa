@@ -54,7 +54,6 @@ public class Logic implements ILogic {
                         System.out.println("DOVREI COPIARE FLAG");
                         Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("flags/flag_"+lang+".png")), flagPath);
                     }
-                    //TODO CONTROLLARE SE BASTA O VA AGGIUNTO ALTRO
                 }
             }
         } catch (IOException ioe) {

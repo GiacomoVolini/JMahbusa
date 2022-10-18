@@ -15,10 +15,8 @@ public abstract class GameBoard {
     protected Rectangle separator;
     protected Polygon[] polArrayTop = new Polygon[12];
     protected Polygon[] polArrayBot = new Polygon[12];
-    //TODO FORSE LE REGION POSSONO ESSERE SPOSTATE A DYNAMICGAMEBOARD?
     protected Region[] regArrayTop = new Region[12];
     protected Region[] regArrayBot = new Region[12];
-    //TODO ^^^^^^
     protected PawnView[] pawnArrayWHT = new PawnView[15];
     protected PawnView[] pawnArrayBLK = new PawnView[15];
     protected Rectangle whiteExitRegion;

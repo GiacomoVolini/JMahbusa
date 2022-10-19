@@ -97,13 +97,6 @@ public class MainMenu implements GenericGUI{
     }
 
     @FXML
-    void openTutorialFromPrompt() throws IOException {
-        logic.flagTutorialPlayed();
-        animationToContinue = false;
-        openTutorial();
-    }
-
-    @FXML
     void openLeaderBoard() {
         animationToContinue = false;
         logic.initializeLeaderboardLogic();

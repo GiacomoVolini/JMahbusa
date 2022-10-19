@@ -2,7 +2,6 @@ package jmb.view;
 
 import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.image.*;
 import javafx.scene.input.*;

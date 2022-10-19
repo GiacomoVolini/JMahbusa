@@ -6,7 +6,6 @@ import org.reflections.Reflections;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-import static jmb.ConstantsShared.*;
 import static org.reflections.scanners.Scanners.*;
 
 public class TutorialLogic extends DynamicBoardLogic {

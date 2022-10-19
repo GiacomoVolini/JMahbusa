@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 import static jmb.logic.Logic.logic;
 
 

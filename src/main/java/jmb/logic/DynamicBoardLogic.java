@@ -1,7 +1,5 @@
 package jmb.logic;
 
-import javafx.scene.paint.Color;
-
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.ConstantsLogic.*;

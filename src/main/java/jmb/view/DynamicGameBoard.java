@@ -20,7 +20,7 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-public class DynamicGameBoard extends GameBoard implements AnimatedBoard{
+public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
     protected Rectangle diceTray;
 

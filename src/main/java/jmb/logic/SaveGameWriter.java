@@ -1,7 +1,8 @@
 package jmb.logic;
 
 
-import org.json.*;
+
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,7 +22,7 @@ public class SaveGameWriter {
             saveContent.put("tournamentPoints", board.getTournamentPoints());
             saveContent.put("whitesWonPoints", board.getWhitesWonPoints());
             saveContent.put("blacksWonPoints", board.getBlacksWonPoints());
-            saveContent.put("turnDuration", board.getTurnDuration());
+            saveContent.put("turnDuration", ((long) board.getTurnDuration()));
             String savePath = "./saves/" + fileName + ".json";
             Files.writeString(Path.of(savePath), saveContent.toString());
         } catch (IOException ioe) {

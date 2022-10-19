@@ -1,7 +1,5 @@
 package jmb.logic;
 
-import javafx.scene.paint.Color;
-
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.ConstantsLogic.*;
@@ -124,7 +122,7 @@ public abstract class DynamicBoardLogic {
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
-            view.playSFX(PAWN_SFX);
+            view.playSFX(SFX.PAWN_DROP);
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
@@ -349,7 +347,7 @@ public abstract class DynamicBoardLogic {
         return squares[whichRow][whichPoint];
     }
     public void forceMovePawn(int from, int to) {
-        view.playSFX(PAWN_SFX);
+        view.playSFX(SFX.PAWN_DROP);
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];

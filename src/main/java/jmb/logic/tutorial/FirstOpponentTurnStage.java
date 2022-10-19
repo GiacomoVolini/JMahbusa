@@ -15,7 +15,7 @@ public class FirstOpponentTurnStage extends ComparableTutorialStage{
     public void start() {
         view.restoreBoardColors();
         logic.setWhiteTurn(false);
-        view.tutorialDiceAnimation(true, 20);
+        view.tutorialDiceAnimation(true, 100);
         logic.forceDice(6);
         view.callRedraw();
         view.setNextTutorialString(logic.getString(stageString), true);

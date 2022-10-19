@@ -17,6 +17,16 @@ public class LoadGameView extends GameBoard implements GenericGUI{
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.45;
     private final static double VERTICAL_RESIZE_FACTOR = 0.55;
+
+    //Costanti per l'array passato da SaveGameReader a LoadGameView, per associare la posizione dell'array all'informazione che contiene
+    private static final int WHITE_NAME = 0;
+    private static final int BLACK_NAME = 1;
+    private static final int TIME = 2;
+    private static final int TOURNAMENT_POINTS = 3;
+    private static final int WHITE_WON_POINTS = 4;
+    private static final int BLACK_WON_POINTS = 5;
+
+
     @FXML
     private Label blackPlayerName;
     @FXML

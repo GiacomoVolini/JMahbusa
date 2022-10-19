@@ -5,6 +5,7 @@ import jmb.logic.ILogic;
 
 import static jmb.view.ConstantsView.MUSIC_VOLUME;
 import static jmb.view.ConstantsView.SFX_VOLUME;
+import static jmb.ConstantsShared.*;
 
 public class View implements IView {
 
@@ -37,12 +38,12 @@ public class View implements IView {
         }
     }
     @Override
-    public void playMusic(int which) {
-        musicController.playMusic(which);
+    public void playMusic(Music music) {
+        musicController.playMusic(music);
     }
     @Override
-    public void playSFX(int which) {
-        musicController.playSFX(which);
+    public void playSFX(SFX sound) {
+        musicController.playSFX(sound);
     }
     @Override
     public void pauseMusic() {
@@ -54,86 +55,109 @@ public class View implements IView {
     }
     @Override
     public void openBlackExit(){
-        ((AnimatedBoard)currentScene).openBlackExit();
+        if(currentScene instanceof AnimatedBoard)
+            ((AnimatedBoard)currentScene).openBlackExit();
     }
 
     @Override
     public void openWhiteExit() {
-        ((AnimatedBoard)currentScene).openWhiteExit();
+        if(currentScene instanceof AnimatedBoard)
+                ((AnimatedBoard)currentScene).openWhiteExit();
     }
     @Override
     public void closeBlackExit () {
-        ((GameView)currentScene).closeBlackExit();
+        if (currentScene instanceof GameView)
+            ((GameView)currentScene).closeBlackExit();
     }
 
     @Override
     public void closeWhiteExit() {
-        ((GameView)currentScene).closeWhiteExit();
+        if (currentScene instanceof GameView)
+                ((GameView)currentScene).closeWhiteExit();
     }
     @Override
     public void openDoubleDice() {
-        ((AnimatedBoard)currentScene).openDoubleDice();
+        if (currentScene instanceof AnimatedBoard)
+                ((AnimatedBoard)currentScene).openDoubleDice();
     }
     @Override
     public void closeDoubleDice() {
-        ((AnimatedBoard)currentScene).closeDoubleDice();
+
+        if (currentScene instanceof AnimatedBoard)
+                ((AnimatedBoard)currentScene).closeDoubleDice();
     }
 
     @Override
     public void rollDice() {
-        ((GameView)currentScene).rollDice();
+        if (currentScene instanceof GameView)
+            ((GameView)currentScene).rollDice();
     }
 
     @Override
     public void setDiceContrast() {
-        DiceView.setDiceContrast(((AnimatedBoard)currentScene).getDiceArray());
+        if (currentScene instanceof AnimatedBoard)
+            DiceView.setDiceContrast(((AnimatedBoard)currentScene).getDiceArray());
     }
 
     @Override
     public void setPawnsForTurn() {
-        GameViewRedraw.redrawPawns((GameView)currentScene);
+        if(currentScene instanceof GameView)
+                GameViewRedraw.redrawPawns((GameView)currentScene);
     }
 
     @Override
     public void backBTNSetDisable (boolean disable) {
-        ((GameView)currentScene).backBTN.setDisable(disable);
+        if(currentScene instanceof GameView)
+                ((GameView)currentScene).backBTN.setDisable(disable);
     }
 
     @Override
-    public void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
-        ((GameView)currentScene).gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, tournamentStatus);
+    public void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status) {
+        if(currentScene instanceof GameView)
+                ((GameView)currentScene).gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, status);
     }
     @Override
     public void setNextTutorialString(String text, boolean changeTextBox) {
-        ((TutorialView)currentScene).setNextTutorialString(text, changeTextBox);
+        if (currentScene instanceof TutorialView)
+                ((TutorialView)currentScene).setNextTutorialString(text, changeTextBox);
     }
     @Override
     public void setTutorialOver(){
-        ((TutorialView)currentScene).setTutorialOver();
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).setTutorialOver();
     }
     @Override
     public void setPawnsVisible(boolean set) {
-        ((AnimatedBoard)currentScene).setPawnsVisible(set);
+        if (currentScene instanceof AnimatedBoard)
+            ((AnimatedBoard)currentScene).setPawnsVisible(set);
     }
     @Override
-    public void tutorialTextBoxAnimation(double tbx, double tby) {((TutorialView)currentScene).textBoxAnimation(tbx, tby);}
+    public void tutorialTextBoxAnimation(double tbx, double tby) {
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).textBoxAnimation(tbx, tby);}
     @Override
     public void tutorialPointAnimation(boolean set) {
-        ((TutorialView)currentScene).pointAnimation(set);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).pointAnimation(set);
     }
     @Override
     public void tutorialExitZoneAnimation(boolean set) {
-        ((TutorialView)currentScene).exitZoneAnimation(set);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).exitZoneAnimation(set);
     }
     @Override
     public void tutorialDiceAnimation(boolean set, boolean infinite) {
-        ((TutorialView)currentScene).diceAnimation(set, infinite, 10);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).diceAnimation(set, infinite, 10);
     }
     @Override
-    public void tutorialDiceAnimation(boolean set) { ((TutorialView)currentScene).diceAnimation(set, false, 10);}
+    public void tutorialDiceAnimation(boolean set) {
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).diceAnimation(set, false, 10);}
     @Override
     public void tutorialDiceAnimation(boolean set, int cycles) {
-        ((TutorialView)currentScene).diceAnimation(set, false, cycles);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).diceAnimation(set, false, cycles);
     }
     @Override
     public void callRedraw() {
@@ -141,25 +165,30 @@ public class View implements IView {
     }
     @Override
     public void allowTextBoxMouseInput(boolean allow) {
-        ((TutorialView)currentScene).allowTextBoxMouseInput(allow);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).allowTextBoxMouseInput(allow);
     }
     @Override
     public void waitForRecall(double seconds) {
-        ((TutorialView)currentScene).waitForRecall(seconds);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).waitForRecall(seconds);
     }
     @Override
     public void restoreBoardColors() {
-        for (int i = 0; i < 26; i++)
-            ((AnimatedBoard)currentScene).restoreColorToPoint(i);
+        if (currentScene instanceof AnimatedBoard)
+            for (int i = 0; i < 26; i++)
+                ((AnimatedBoard)currentScene).restoreColorToPoint(i);
     }
 
     @Override
     public void highlightPointsToOpenExit(int stage) {
-        ((TutorialView)currentScene).highlightPointsToOpenExit(stage);
+        if (currentScene instanceof TutorialView)
+            ((TutorialView)currentScene).highlightPointsToOpenExit(stage);
     }
     @Override
     public void colorPoint (int index, String colorFill, String colorStroke) {
-        ((AnimatedBoard)currentScene).colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
+        if (currentScene instanceof AnimatedBoard)
+            ((AnimatedBoard)currentScene).colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
     }
 
 }

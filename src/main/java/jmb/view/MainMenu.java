@@ -10,8 +10,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
@@ -120,7 +118,7 @@ public class MainMenu implements GenericGUI{
         animationToContinue = false;
         logic.initializeTutorialLogic();
         App.changeRoot(TUTORIAL);
-        view.playMusic(TUTORIAL_MUSIC);
+        view.playMusic(Music.TUTORIAL);
     }
 
     private void loadStrings() {
@@ -188,7 +186,7 @@ public class MainMenu implements GenericGUI{
 
             // musica
             if (!logic.getSetting("Audio", "muteMusic", boolean.class)) {
-                view.playMusic(MENU_MUSIC);
+                view.playMusic(Music.MENU);
             }
 
             backgroundAnimationTimer(backgroundImages);

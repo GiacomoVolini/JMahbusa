@@ -221,7 +221,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         view.stopMusic();
         
         if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(MENU_MUSIC);
+            view.playMusic(Music.MENU);
     }
 
     @FXML 
@@ -360,9 +360,9 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     }
 
-    private Button createVictoryButton(int tournamentStatus) {
+    private Button createVictoryButton(TournamentStatus status) {
         String label;
-        boolean tournamentContinues = tournamentStatus == TOURNAMENT_CONTINUES;
+        boolean tournamentContinues = status.equals(TournamentStatus.TOURNAMENT_CONTINUES);
         if (tournamentContinues)
             label = logic.getString("continueTournament");
         else label = logic.getString("backToMenu");
@@ -396,13 +396,13 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         }
     }
 
-    private Label createVictoryLabel(String winner, boolean doubleWin, int tournamentStatus) {
+    private Label createVictoryLabel(String winner, boolean doubleWin, TournamentStatus status) {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         victoryLabel.setWrapText(true);
         String victoryString = logic.getString("congratulations") + " ";
         victoryString = victoryString.concat(winner.stripTrailing());
-        if (tournamentStatus == TOURNAMENT_WON)
+        if (status.equals(TOURNAMENT_WON))
             victoryString = victoryString.concat(logic.getString("tournamentWon"));
         else if (doubleWin)
                 victoryString = victoryString.concat(logic.getString("doubleVictory"));
@@ -434,7 +434,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     private void removeVictoryPanel() {
         logic.setGameEndState(false);
     }
-    protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus) {
+    protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status) {
         gameEndDisable();
         if (logic.getTurnDuration()!=0)
             turnTimer.stop();
@@ -445,14 +445,14 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             winner = whitePlayer;
         else winner = blackPlayer;
         if (doubleWin)
-            view.playSFX(DOUBLE_WIN_SFX);
-        else view.playSFX(SINGLE_WIN_SFX);
+            view.playSFX(SFX.DOUBLE_WIN);
+        else view.playSFX(SFX.SINGLE_WIN);
         victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
         victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
-        victoryLabel = createVictoryLabel(winner, doubleWin, tournamentStatus);    //  Crea la Label del pannello vittoria con il nome del vincitore
-        victoryExit = createVictoryButton(tournamentStatus);    //  Crea il pulsante per il ritorno al menu principale
+        victoryLabel = createVictoryLabel(winner, doubleWin, status);    //  Crea la Label del pannello vittoria con il nome del vincitore
+        victoryExit = createVictoryButton(status);    //  Crea il pulsante per il ritorno al menu principale
         victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
-        if (tournamentStatus == TOURNAMENT_WON)
+        if (status.equals(TournamentStatus.TOURNAMENT_WON))
             tournamentRibbon = createTournamentRibbon();
         logic.setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);
@@ -543,7 +543,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
             view.stopMusic();
             if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-                view.playMusic(GAME_MUSIC);
+                view.playMusic(Music.GAME);
 
             this.boardAnchor = window;
             addChildrenToAnchor();
@@ -559,7 +559,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             if (logic.getSetting("Audio", "muteMusic", boolean.class)) {
                 view.pauseMusic();
             } else {
-                view.playMusic(GAME_MUSIC);
+                view.playMusic(Music.GAME);
             }
 
             window.getStylesheets().add(this.getClass().getResource("style.css").toURI().toString());

@@ -217,20 +217,20 @@ public class SettingsView implements GenericGUI{
         private Timeline selectedPointAnimation;
         private Timeline selectedPointPresetsAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, e-> {
-                        leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, Preset.SELECTED_POINT.ordinal())));
-                        rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, Preset.SELECTED_POINT.ordinal())));
-                        leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
-                        rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
+                        rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
+                        leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                        rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
                 }), new KeyFrame(Duration.seconds(0.5), e-> {
-                        leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, Preset.SELECTED_POINT.ordinal())));
-                        rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, Preset.SELECTED_POINT.ordinal())));
-                        leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
-                        rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
+                        rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
+                        leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                        rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
                 }), new KeyFrame(Duration.seconds(1), e-> {
-                        leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, Preset.SELECTED_POINT.ordinal())));
-                        rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, Preset.SELECTED_POINT.ordinal())));
-                        leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
-                        rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                        leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
+                        rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
+                        leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
+                        rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
                 }), new KeyFrame(Duration.seconds(1.5))
         );
 
@@ -344,7 +344,7 @@ public class SettingsView implements GenericGUI{
                 }else{
                         musicSlider.setValue(Sv);
                         musicSlider.setDisable(false);
-                        view.playMusic(MENU_MUSIC);
+                        view.playMusic(Music.MENU);
                 }
                 applyButton.setDisable(false);
         }
@@ -364,7 +364,7 @@ public class SettingsView implements GenericGUI{
 
         @FXML
         void playSound(MouseEvent event) {
-                view.playSFX(PAWN_SFX);
+                view.playSFX(SFX.PAWN_DROP);
         }
 
         //Personalizzazione
@@ -654,7 +654,7 @@ public class SettingsView implements GenericGUI{
                 sFXSlider.setDisable(logic.getSetting("Audio", "muteSFX", boolean.class));
                 if (logic.getSetting("Audio", "muteMusic", boolean.class))
                         view.pauseMusic();
-                else view.playMusic(MENU_MUSIC);
+                else view.playMusic(Music.MENU);
                 switch (logic.getSetting("Customization", "boardPreset", int.class)) {
                         case CUSTOM_BOARD:
                                 customRadio.setSelected(true);

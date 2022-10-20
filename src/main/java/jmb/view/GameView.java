@@ -201,6 +201,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     @FXML
     void openExitoption() {
         pauseMenu.setVisible(true);
+        finishBTN.setDisable(true);
         if (logic.getTurnDuration()!=0)
             turnTimer.pause();
         GameViewRedraw.resizePauseMenu(this);
@@ -210,6 +211,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     @FXML
     void closeExitoption(ActionEvent event) {
         pauseMenu.setVisible(false);
+        finishBTN.setDisable(false);
         if (logic.getTurnDuration()!=0)
             turnTimer.play();
         window.requestFocus();

@@ -746,8 +746,8 @@ public class SettingsView implements GenericGUI{
                         AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
                         AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);
                         AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.20);
-                        AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.35);
-                        AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.35);
+                        AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.40);
+                        AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.40);
 
                         //Audio
                         AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.10);
@@ -762,7 +762,7 @@ public class SettingsView implements GenericGUI{
                         AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.50);
                         AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.10);
                         AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.30);
-                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.45);
+                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.40);
                         AnchorPane.setLeftAnchor(backgroundText,window.getWidth() * 0.50);
 
                         //Comandi
@@ -805,8 +805,8 @@ public class SettingsView implements GenericGUI{
                         AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.10);
                         AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.30);
                         AnchorPane.setLeftAnchor(blackPawn, window.getWidth() * 0.50);
-                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.17);
-                        AnchorPane.setLeftAnchor(backgroundText,window.getWidth() * 0.10);
+                        AnchorPane.setLeftAnchor(backGroundColorPicker,window.getWidth() * 0.20);
+                        AnchorPane.setLeftAnchor(backgroundText,window.getWidth() * 0.06);
 
                         //Comandi
                         AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.10);

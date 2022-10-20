@@ -1038,11 +1038,14 @@ public class SettingsView implements GenericGUI{
                 customPoint3.setStroke(evenPointColorPicker.getValue());
 
                 //musica
-                        musicCheck.setSelected(logic.getSetting("Audio", "muteMusic", boolean.class));
-                        sFXCheck.setSelected(logic.getSetting("Audio", "muteSFX", boolean.class));
+                        boolean muteMusic = logic.getSetting("Audio", "muteMusic", boolean.class);
+                        boolean muteSFX = logic.getSetting("Audio", "muteSFX", boolean.class);
+                        musicCheck.setSelected(muteMusic);
+                        sFXCheck.setSelected(muteSFX);
                         musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
-                        musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
+                        musicSlider.setDisable(muteMusic);
                         sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
+                        sFXSlider.setDisable(muteSFX);
                         musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
                         sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
 

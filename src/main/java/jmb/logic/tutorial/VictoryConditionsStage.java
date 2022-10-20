@@ -70,6 +70,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                     logic.setBlackExit(true);
                 }
                 view.closeDoubleDice();
+                view.playSFX(SFX.DICE_ROLL);
                 view.tutorialDiceAnimation(true,20);
                 break;
             case 1:

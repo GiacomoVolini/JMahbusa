@@ -8,7 +8,7 @@ public interface ILogic {
     void placePawnOnPoint (int whichPoint);
     boolean getWhichTurn();
     void nextTurn();
-    void initializeBoardLogic();
+    void initializeGameLogic();
     void initializeLeaderboardLogic();
     void initializeTutorialLogic();
     void initializeProgramLogic();

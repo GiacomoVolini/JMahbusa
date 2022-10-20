@@ -1,5 +1,6 @@
 package jmb.logic.tutorial;
 
+import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
@@ -12,6 +13,7 @@ public class GetPawnsOutStage extends ComparableTutorialStage {
     }
 
     public void start() {
+        view.playSFX(SFX.DICE_ROLL);
         view.tutorialDiceAnimation(true);
         logic.forceDice(5);
         view.callRedraw();

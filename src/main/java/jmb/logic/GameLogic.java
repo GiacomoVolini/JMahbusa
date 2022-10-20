@@ -191,6 +191,7 @@ public class GameLogic extends DynamicBoardLogic {
             else blacksWonPoints +=1;
         }
 
+
         if (tournamentPoints == 0)
             view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
         else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)

@@ -238,6 +238,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
+        view.playSFX(SFX.DICE_ROLL);
         finishBTN.setDisable(true);
         if (!logic.isRollDouble())
             closeDoubleDice();
@@ -298,6 +299,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     private void gameEndDisable() {
+        turnTimer.stop();
         backBTN.setDisable(true);
         finishBTN.setDisable(true);
         menuBTN.setDisable(true);
@@ -402,7 +404,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         victoryLabel.setWrapText(true);
         String victoryString = logic.getString("congratulations") + " ";
         victoryString = victoryString.concat(winner.stripTrailing());
-        if (status.equals(TOURNAMENT_WON))
+        if (status.equals(TournamentStatus.TOURNAMENT_WON))
             victoryString = victoryString.concat(logic.getString("tournamentWon"));
         else if (doubleWin)
                 victoryString = victoryString.concat(logic.getString("doubleVictory"));
@@ -422,7 +424,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         try {
             ImageView tournamentRibbon = new ImageView(new Image(this.getClass().getResource("victory/tournamentRibbon.png").toURI().toString()));
             tournamentRibbon.setPreserveRatio(true);
-            tournamentRibbon.setViewOrder(-15);
+            tournamentRibbon.setViewOrder(-16);
             window.getChildren().add(tournamentRibbon);
             return tournamentRibbon;
         } catch (URISyntaxException use) {

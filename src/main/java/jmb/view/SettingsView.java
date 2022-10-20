@@ -321,8 +321,11 @@ public class SettingsView implements GenericGUI{
         @FXML
         void fullscreen(ActionEvent event) {
                 Stage stage = (Stage) window.getScene().getWindow();
-                stage.setFullScreen(fullscreenCheck.isSelected());
+                boolean fullScreen = fullscreenCheck.isSelected();
+                stage.setFullScreen(fullScreen);
                 applyButton.setDisable(false);
+                resolutionWidthField.setDisable(fullScreen);
+                resolutionHeightField.setDisable(fullScreen);
         }
 
         @FXML
@@ -634,7 +637,7 @@ public class SettingsView implements GenericGUI{
                 logic.setSetting("Controls", "revertMove",revertMoveTextField.getText());
                 logic.setSetting("Controls", "finishTurn",finishTurnTextField.getText());
                 logic.setSetting("Controls", "openMenu",openMenuTextField.getText());
-                logic.setSetting("Customization", "backgroundColor",colorStringFactory(backGroundColorPicker.getValue()));
+                logic.setSetting("Customization", "backgroundColor", colorStringFactory(backGroundColorPicker.getValue()));
                 logic.applySettingsChanges();
                 applyButton.setDisable(true);
         }
@@ -642,15 +645,17 @@ public class SettingsView implements GenericGUI{
         @FXML
         void resetToDefaults(ActionEvent event) {
                 logic.resetDefaultSettings();
-                fullscreenCheck.setSelected(logic.getSetting("Video", "fullScreen", boolean.class));
+                boolean lockResolution = logic.getSetting("Video", "lockResolution", boolean.class);
+                boolean fullScreen = logic.getSetting("Video", "fullScreen", boolean.class);
+                fullscreenCheck.setSelected(fullScreen);
                 fullscreen(null);
                 lockResolution(null);
-                lockResolutionCheck.setSelected(logic.getSetting("Video", "lockResolution", boolean.class));
+                resolutionWidthField.setDisable(lockResolution || fullScreen);
+                resolutionHeightField.setDisable(lockResolution || fullScreen);
+                lockResolutionCheck.setSelected(lockResolution);
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
                 stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
-                resolutionWidthField.setText(String.valueOf(logic.getSetting("Video", "resolutionWidth", int.class)));
-                resolutionHeightField.setText(String.valueOf(logic.getSetting("Video", "resolutionHeight", int.class)));
                 musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
                 view.setVolume(MUSIC_VOLUME, logic.getSetting("Audio", "musicVolume", int.class));
                 sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
@@ -692,6 +697,7 @@ public class SettingsView implements GenericGUI{
                 oddPointColorPicker.setValue(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
                 selectedPointColor = Color.web(logic.getSetting("Customization", "selectedPointColor", String.class));
                 selectedPointColorPicker.setValue(selectedPointColor);
+                backGroundColorPicker.setValue(Color.web(logic.getSetting("Customization", "backgroundColor", String.class)));
                 customFrame.setFill(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
                 customFrame.setStroke(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
                 customBoard.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
@@ -710,6 +716,8 @@ public class SettingsView implements GenericGUI{
                 revertMoveTextField.setText(logic.getSetting("Controls", "revertMove", String.class));
                 finishTurnTextField.setText(logic.getSetting("Controls", "finishTurn", String.class));
                 openMenuTextField.setText(logic.getSetting("Controls", "openMenu", String.class));
+                resolutionWidthField.setText(String.valueOf(logic.getSetting("Video", "resolutionWidth", int.class)));
+                resolutionHeightField.setText(String.valueOf(logic.getSetting("Video", "resolutionHeight", int.class)));
                 regeneratePointAnimation();
                 applyButton.setDisable(true);
         }
@@ -833,8 +841,6 @@ public class SettingsView implements GenericGUI{
                 //video
                 AnchorPane.setLeftAnchor(fullscreenCheck, window.getWidth() * 0.10);
                 AnchorPane.setLeftAnchor(lockResolutionCheck, window.getWidth() * 0.4);
-                resolutionHeightField.setText(String.valueOf((int) stage.getHeight()));
-                resolutionWidthField.setText(String.valueOf((int) stage.getWidth()));
 
                 //personalizzazione
                 AnchorPane.setLeftAnchor(whitePawnText, window.getWidth() * 0.20);
@@ -892,6 +898,10 @@ public class SettingsView implements GenericGUI{
                 customizeTitlePane.setPrefHeight(window.getHeight());
                 controlsAnchorPane.setPrefHeight(window.getHeight());
                 controlsTitlePane.setPrefHeight(window.getHeight());
+
+                //Risoluzione
+                resolutionHeightField.setText(String.valueOf((int) stage.getHeight()));
+                resolutionWidthField.setText(String.valueOf((int) stage.getWidth()));
 
                 if (((int)stage.getHeight() != logic.getSetting("Video","resolutionHeight",int.class) ||
                         (int)stage.getWidth() != logic.getSetting("Video","resolutionWidth",int.class)) &&
@@ -1016,6 +1026,7 @@ public class SettingsView implements GenericGUI{
                 oddPointColorPicker.setValue(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
                 selectedPointColor = Color.web(logic.getSetting("Customization", "selectedPointColor", String.class));
                 selectedPointColorPicker.setValue(selectedPointColor);
+                backGroundColorPicker.setValue(Color.web(logic.getSetting("Customization", "backgroundColor", String.class)));
 
                 //Oggetti
                 whitePawn.setFill(whitePawnFillColorPicker.getValue());
@@ -1038,11 +1049,14 @@ public class SettingsView implements GenericGUI{
                 customPoint3.setStroke(evenPointColorPicker.getValue());
 
                 //musica
-                        musicCheck.setSelected(logic.getSetting("Audio", "muteMusic", boolean.class));
-                        sFXCheck.setSelected(logic.getSetting("Audio", "muteSFX", boolean.class));
+                        boolean muteMusic = logic.getSetting("Audio", "muteMusic", boolean.class);
+                        boolean muteSFX = logic.getSetting("Audio", "muteSFX", boolean.class);
+                        musicCheck.setSelected(muteMusic);
+                        sFXCheck.setSelected(muteSFX);
                         musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
-                        musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
+                        musicSlider.setDisable(muteMusic);
                         sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
+                        sFXSlider.setDisable(muteSFX);
                         musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
                         sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
 

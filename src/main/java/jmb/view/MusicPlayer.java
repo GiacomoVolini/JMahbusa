@@ -4,6 +4,9 @@ import javafx.scene.media.*;
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
+//TODO AGGIUNGERE DOVE NECESSARIO UN RIFERIMENTO A DICE_ROLL PER FAR PARTIRE L'EFFETTO SONORO
+
+
 public class MusicPlayer {
     String gameMusicLocation = getClass().getResource("/jmb/view/music/game.mp3").toString();
     MediaPlayer gameMusic = new MediaPlayer (new Media (gameMusicLocation));

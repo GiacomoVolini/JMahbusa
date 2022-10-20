@@ -64,20 +64,20 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
             to = 12;
         else to = 6;
         logic.forceMovePawn(COL_BLACK, to);
-        view.playSFX(PAWN_SFX);
+        view.playSFX(SFX.PAWN_DROP);
         view.waitForRecall(1.5);
     }
 
     private void removeExcessBlockingPawns() {
         for (int i = 0; i<4; i++)
             logic.forceMovePawn(to, COL_BLACK);
-        view.playSFX(PAWN_SFX);
+        view.playSFX(SFX.PAWN_DROP);
         view.waitForRecall(1.5);
     }
 
     private void makeWrongMove() {
         logic.forceMovePawn(COL_WHITE, to);
-        view.playSFX(ERROR_SFX);
+        view.playSFX(SFX.ERROR);
         view.waitForRecall(0.5);
     }
 

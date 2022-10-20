@@ -76,7 +76,7 @@ public class LogIn implements GenericGUI {
     @FXML
     void savePlayer(ActionEvent event) {
         if (!customTimerField.isDisable() && !logic.isParsable(customTimerField.getText())) {
-            view.playSFX(ERROR_SFX);
+            view.playSFX(SFX.ERROR);
             errorLabel.setText(logic.getString("errorWrongTimerFormat"));
             errorLabel.setVisible(true);
         } else {
@@ -92,22 +92,22 @@ public class LogIn implements GenericGUI {
                     App.changeRoot(PLAY_GAME);
                     break;
                 case SAME_NAME_ERROR:
-                    view.playSFX(ERROR_SFX);
+                    view.playSFX(SFX.ERROR);
                     errorLabel.setText(logic.getString("errorSameName"));
                     errorLabel.setVisible(true);
                     break;
                 case EMPTY_NAMES_ERROR:
-                    view.playSFX(ERROR_SFX);
+                    view.playSFX(SFX.ERROR);
                     errorLabel.setText(logic.getString("errorEmptyName"));
                     errorLabel.setVisible(true);
                     break;
                 case NAME1_ALREADY_PRESENT:
-                    view.playSFX(ERROR_SFX);
+                    view.playSFX(SFX.ERROR);
                     errorLabel.setText(logic.getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
                     errorLabel.setVisible(true);
                     break;
                 case NAME2_ALREADY_PRESENT:
-                    view.playSFX(ERROR_SFX);
+                    view.playSFX(SFX.ERROR);
                     errorLabel.setText(logic.getString("error") + " " + blackPlayerNameBox.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
                     errorLabel.setVisible(true);
                     break;

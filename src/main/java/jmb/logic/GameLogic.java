@@ -192,11 +192,11 @@ public class GameLogic extends DynamicBoardLogic {
         }
 
         if (tournamentPoints == 0)
-            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, NO_TOURNAMENT);
+            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
         else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)
-            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TOURNAMENT_WON);
+            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.TOURNAMENT_WON);
         else
-            view.gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin,TOURNAMENT_CONTINUES);
+            view.gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin, TournamentStatus.TOURNAMENT_CONTINUES);
 
     }
 

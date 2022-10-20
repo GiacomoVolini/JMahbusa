@@ -33,19 +33,19 @@ public class ConstantsShared {
     public static final boolean SINGLE_WIN = false;
     public static final boolean DOUBLE_WIN = true;
 
+    public enum TournamentStatus {
+        NO_TOURNAMENT,
+        TOURNAMENT_CONTINUES,
+        TOURNAMENT_WON
+    }
     public static final int NO_TOURNAMENT = 0;
     public static final int TOURNAMENT_CONTINUES = 1;
     public static final int TOURNAMENT_WON = 2;
 
-    //Costanti per l'array passato da SaveGameReader a LoadGameView, per associare la posizione dell'array all'informazione che contiene
-    public static final int WHITE_NAME = 0;
-    public static final int BLACK_NAME = 1;
-    public static final int TIME = 2;
-    public static final int TOURNAMENT_POINTS = 3;
-    public static final int WHITE_WON_POINTS = 4;
-    public static final int BLACK_WON_POINTS = 5;
 
     //Costanti per il valore di boardPreset delle impostazioni
+    //Si utilizzano queste tre costanti e non un Enum per l'associazione tra questi valori e la chiave boardPreset
+    //  del file di impostazioni
     public static final int CUSTOM_BOARD = 0;
     public static final int LEFT_PRESET = 1;
     public static final int RIGHT_PRESET = 2;
@@ -54,22 +54,26 @@ public class ConstantsShared {
     public static final boolean RIGHT = false;
 
     //Costanti per le posizioni degli array preset
-    public enum Preset {
-        BOARD_FRAME,
-        BOARD_INNER,
-        EVEN_POINTS,
-        ODD_POINTS,
-        SELECTED_POINT
-    };
+        public static final int BOARD_FRAME = 0;
+        public static final int BOARD_INNER = 1;
+        public static final int EVEN_POINTS = 2;
+        public static final int ODD_POINTS = 3;
+        public static final int SELECTED_POINT = 4;
 
-    public static final int PAWN_SFX = 0;
-    public static final int ERROR_SFX = 1;
-    public static final int SINGLE_WIN_SFX = 2;
-    public static final int DOUBLE_WIN_SFX = 3;
 
-    public static final int MENU_MUSIC = 0;
-    public static final int GAME_MUSIC = 1;
-    public static final int TUTORIAL_MUSIC = 2;
+    public enum SFX {
+        PAWN_DROP,
+        ERROR,
+        SINGLE_WIN,
+        DOUBLE_WIN,
+        DICE_ROLL
+    }
+    
+    public enum Music {
+        MENU,
+        GAME,
+        TUTORIAL
+    }
 
     private ConstantsShared() {
         throw new AssertionError();

@@ -79,7 +79,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 view.tutorialTextBoxAnimation(0.5,0.45 );
                 break;
             case 2:
-                view.playSFX(SINGLE_WIN_SFX);
+                view.playSFX(SFX.SINGLE_WIN);
                 view.setNextTutorialString(logic.getString(afterSingleWinString), true);
                 view.tutorialTextBoxAnimation(0.2,0.4 );
                 view.waitForRecall(3.0);
@@ -91,7 +91,7 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 view.tutorialTextBoxAnimation(0.55,0.57 );
                 break;
             case 4:
-                view.playSFX(DOUBLE_WIN_SFX);
+                view.playSFX(SFX.DOUBLE_WIN);
                 logic.nextTutorialStage();
         }
         internalIndex++;

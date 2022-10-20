@@ -79,42 +79,42 @@ public abstract class GameBoard {
                 }
                 break;
             case LEFT_PRESET:
-                outerRect.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
-                boardRect.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
-                boardRect.setStroke(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
-                separator.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
-                separator.setStroke(Color.web(logic.getSetting(LEFT, Preset.BOARD_FRAME.ordinal())));
+                outerRect.setFill(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
+                boardRect.setFill(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
+                boardRect.setStroke(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
+                separator.setFill(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
+                separator.setStroke(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
                 for (int i = 0; i < 12; i++) {
                     if ((i % 2) == 0) {
-                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
                     } else {
-                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
                     }
                 }
                 break;
             case RIGHT_PRESET:
-                outerRect.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
-                boardRect.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
-                boardRect.setStroke(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
-                separator.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
-                separator.setStroke(Color.web(logic.getSetting(RIGHT, Preset.BOARD_FRAME.ordinal())));
+                outerRect.setFill(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
+                boardRect.setFill(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
+                boardRect.setStroke(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
+                separator.setFill(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
+                separator.setStroke(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
                 for (int i = 0; i < 12; i++) {
                     if ((i % 2) == 0) {
-                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
                     } else {
-                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal())));
-                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
-                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal())));
+                        this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
+                        this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
+                        this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                        this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
                     }
                 }
                 break;

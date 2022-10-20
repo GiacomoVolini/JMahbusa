@@ -1,5 +1,7 @@
 package jmb.view;
 
+import jmb.ConstantsShared.*;
+
 public interface IView {
 
     void setCurrentScene (GenericGUI scene);
@@ -22,7 +24,7 @@ public interface IView {
 
     void closeWhiteExit();
 
-    void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, int tournamentStatus);
+    void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status);
     void setNextTutorialString(String text, boolean changeTextBox);
     void setTutorialOver();
     void setPawnsVisible(boolean set);
@@ -36,8 +38,8 @@ public interface IView {
     void allowTextBoxMouseInput (boolean allow);
     void waitForRecall(double seconds);
     void restoreBoardColors();
-    void playMusic(int which);
-    void playSFX(int which);
+    void playMusic(Music music);
+    void playSFX(SFX sound);
     void pauseMusic();
     void stopMusic();
     void highlightPointsToOpenExit(int stage);

@@ -47,10 +47,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                     diceTray.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
                     break;
                 case LEFT_PRESET:
-                    diceTray.setFill(Color.web(logic.getSetting(LEFT, Preset.BOARD_INNER.ordinal())));
+                    diceTray.setFill(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
                     break;
                 case RIGHT_PRESET:
-                    diceTray.setFill(Color.web(logic.getSetting(RIGHT, Preset.BOARD_INNER.ordinal())));
+                    diceTray.setFill(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
                     break;
             }
             diceTray.setStroke(Color.BLACK);
@@ -402,10 +402,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                             color = Color.web(logic.getSetting("Customization", "evenPointsColor", String.class));
                             break;
                         case LEFT_PRESET:
-                            color = Color.web (logic.getSetting(LEFT, Preset.EVEN_POINTS.ordinal()));
+                            color = Color.web (logic.getSetting(LEFT, EVEN_POINTS));
                             break;
                         case RIGHT_PRESET:
-                            color = Color.web(logic.getSetting(RIGHT, Preset.EVEN_POINTS.ordinal()));
+                            color = Color.web(logic.getSetting(RIGHT, EVEN_POINTS));
                             break;
                     }
                     }
@@ -415,10 +415,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                             color = Color.web(logic.getSetting("Customization", "oddPointsColor", String.class));
                             break;
                         case LEFT_PRESET:
-                            color = Color.web(logic.getSetting(LEFT, Preset.ODD_POINTS.ordinal()));
+                            color = Color.web(logic.getSetting(LEFT, ODD_POINTS));
                             break;
                         case RIGHT_PRESET:
-                            color = Color.web(logic.getSetting(RIGHT, Preset.ODD_POINTS.ordinal()));
+                            color = Color.web(logic.getSetting(RIGHT, ODD_POINTS));
                             break;
                     }
                 }

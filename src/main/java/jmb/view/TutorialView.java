@@ -204,13 +204,13 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeRoot(MAIN_MENU);
-        view.playMusic(MENU_MUSIC);
+        view.playMusic(Music.MENU);
     }
 
     @FXML
     void startNewGame(ActionEvent event) {
         App.changeRoot(LOG_IN);
-        view.playMusic(MENU_MUSIC);
+        view.playMusic(Music.MENU);
     }
     protected void highlightPointsToOpenExit(int stage) {
         if (stage%2==1) {

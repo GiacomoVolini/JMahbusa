@@ -38,9 +38,6 @@ public class ConstantsShared {
         TOURNAMENT_CONTINUES,
         TOURNAMENT_WON
     }
-    public static final int NO_TOURNAMENT = 0;
-    public static final int TOURNAMENT_CONTINUES = 1;
-    public static final int TOURNAMENT_WON = 2;
 
 
     //Costanti per il valore di boardPreset delle impostazioni

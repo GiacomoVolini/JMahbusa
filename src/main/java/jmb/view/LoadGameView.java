@@ -11,7 +11,6 @@ import javafx.scene.shape.Circle;
 
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
-import static jmb.ConstantsShared.*;
 
 public class LoadGameView extends GameBoard implements GenericGUI{
 
@@ -222,7 +221,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
     @FXML
     void loadGame(ActionEvent event) {
         logic.initializeLeaderboardLogic();
-        logic.initializeBoardLogic();
+        logic.initializeGameLogic();
         logic.setUpSavedGame(saveName);
         App.changeRoot(PLAY_GAME);
     }

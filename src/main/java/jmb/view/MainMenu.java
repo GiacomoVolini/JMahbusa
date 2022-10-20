@@ -88,7 +88,7 @@ public class MainMenu implements GenericGUI{
     @FXML
     void openLogin() {
         logic.initializeLeaderboardLogic();
-        logic.initializeBoardLogic();
+        logic.initializeGameLogic();
         logic.flagTutorialPlayed();
         animationToContinue = false;
         App.changeRoot(LOG_IN);

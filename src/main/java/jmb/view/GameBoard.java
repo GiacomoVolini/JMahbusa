@@ -131,11 +131,9 @@ public abstract class GameBoard {
 
     }
 
-    //TODO FORSE QUESTO METODO VA IN DYNAMICGAMEBOARD??
     protected boolean blockResizeCondition() {
         return (!logic.getSetting("Video", "fullScreen", boolean.class) && !logic.getSetting("Video", "lockResolution", boolean.class));
     }
-    //TODO ^^^^^^^^
 
     public void colorPoint (int index, Color color) {
         colorPoint(index, color, color);

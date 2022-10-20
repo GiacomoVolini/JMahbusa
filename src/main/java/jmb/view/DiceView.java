@@ -4,6 +4,8 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
 
 import static jmb.view.View.logic;
+import static jmb.view.View.view;
+import static jmb.ConstantsShared.*;
 
 import java.net.URISyntaxException;
 import java.util.Random;

@@ -64,7 +64,7 @@ public class Logic implements ILogic {
     }
 
     @Override
-    public void initializeBoardLogic() {
+    public void initializeGameLogic() {
         board = new GameLogic();
     }
 

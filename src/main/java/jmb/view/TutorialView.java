@@ -209,6 +209,8 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     void startNewGame(ActionEvent event) {
+        logic.initializeGameLogic();
+        logic.initializeLeaderboardLogic();
         App.changeRoot(LOG_IN);
         view.playMusic(Music.MENU);
     }

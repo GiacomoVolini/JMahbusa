@@ -3,6 +3,7 @@ package jmb.logic;
 import jmb.view.IView;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -37,9 +38,9 @@ public class Logic implements ILogic {
         System.out.println("PRIMA DEL RTY");
         try {
             System.out.println("SON QUI, DENTRO TRY");
-            Path supportedPath = Path.of(getAppDirectory(), "languages","supportedLanguages.ini");
+            Path supportedPath = Path.of(getAppDirectory(), "languages","languages.ini");
             if (!Files.exists(supportedPath)) {
-                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("supportedLanguages.ini")), supportedPath);
+                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("languages.ini")), supportedPath);
                 for (String lang : StringsReader.getSupportedLanguages()) {
                     System.out.println(lang);
                     Path langPath = Path.of(getAppDirectory() , "languages","strings","STRINGS_" + lang + ".ini");
@@ -93,7 +94,7 @@ public class Logic implements ILogic {
 
     @Override
     public void initializeStringsReader() {
-        strings = new StringsReader(settings.getSetting("General", "language", String.class));
+        strings = new StringsReader();
     }
 
     public String getAppDirectory() {
@@ -467,6 +468,14 @@ public class Logic implements ILogic {
     @Override
     public String getSetting (boolean leftPreset, int presetEnum) {
         return settings.getSetting(leftPreset, presetEnum);
+    }
+    @Override
+    public String getcurrentlanguage (){
+        return StringsReader.getcurrentlanguage();
+    }
+    @Override
+    public void setcurrentlanguage(int num){
+        StringsReader.setcurrentlanguage(num);
     }
 
 }

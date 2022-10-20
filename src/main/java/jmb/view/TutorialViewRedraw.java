@@ -2,7 +2,6 @@ package jmb.view;
 
 import javafx.scene.layout.AnchorPane;
 
-import static jmb.ConstantsShared.*;
 public class TutorialViewRedraw extends DynamicGameBoardRedraw {
 
     protected static void resizeAll (TutorialView view) {

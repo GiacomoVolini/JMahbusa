@@ -1,7 +1,6 @@
 package jmb.view;
 
 import static java.lang.Math.*;
-import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 

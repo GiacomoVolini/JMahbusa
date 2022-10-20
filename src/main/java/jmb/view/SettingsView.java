@@ -330,6 +330,13 @@ public class SettingsView implements GenericGUI{
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setResizable(!lockResolutionCheck.isSelected());
                 applyButton.setDisable(false);
+                if(lockResolutionCheck.isSelected()){
+                        resolutionWidthField.setDisable(true);
+                        resolutionHeightField.setDisable(true);
+                }else{
+                        resolutionWidthField.setDisable(false);
+                        resolutionHeightField.setDisable(false);
+                }
         }
 
         //Audio
@@ -734,7 +741,7 @@ public class SettingsView implements GenericGUI{
 
                 //bottoni destra
                 //if (logic.getSetting("General", "language", String.class).equals("AR")) {
-                if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
+                if (logic.isLanguageRightToLeft(logic.getcurrentlanguage())) {
                         //Video
                         AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
                         AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);
@@ -956,6 +963,13 @@ public class SettingsView implements GenericGUI{
                 fullscreenCheck.setSelected(logic.getSetting("Video", "fullScreen", boolean.class));
                 lockResolutionCheck.setSelected(logic.getSetting("Video", "lockResolution", boolean.class));
 
+                if(lockResolutionCheck.isSelected()){
+                        resolutionWidthField.setDisable(true);
+                        resolutionHeightField.setDisable(true);
+                }else{
+                        resolutionWidthField.setDisable(false);
+                        resolutionHeightField.setDisable(false);
+                }
 
                 //Personalizzazione
                 group = new ToggleGroup();

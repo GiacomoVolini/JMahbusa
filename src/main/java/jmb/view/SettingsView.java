@@ -646,7 +646,7 @@ public class SettingsView implements GenericGUI{
         void resetToDefaults(ActionEvent event) {
                 logic.resetDefaultSettings();
                 boolean lockResolution = logic.getSetting("Video", "lockResolution", boolean.class);
-                boolean fullScreen = logic.getSetting("Video", "fullScreen", boolean.class));
+                boolean fullScreen = logic.getSetting("Video", "fullScreen", boolean.class);
                 fullscreenCheck.setSelected(fullScreen);
                 fullscreen(null);
                 lockResolution(null);

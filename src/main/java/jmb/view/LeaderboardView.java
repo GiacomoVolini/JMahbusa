@@ -57,8 +57,9 @@ public class LeaderboardView implements GenericGUI{
     }
 
     private List<Player> searchList() {
+        //Il metodo restituisce la sottolista dei giocatori il cui nome contiene la stringa inserita in searchTextField
         return logic.getPlayerList().stream().filter(input ->
-        {return input.getName().toLowerCase().contains(searchTextField.getText().toLowerCase());}).collect(Collectors.toList());
+                input.getName().toLowerCase().contains(searchTextField.getText().toLowerCase())).collect(Collectors.toList());
     }
 
     public void initialize() {

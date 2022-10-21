@@ -298,8 +298,6 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         else {
             diceRollAnimation.stop();
             DiceView.setDiceValues(diceArray);
-            if (diceArray[UPPER_DOUBLE_DICE].isVisible())
-                closeDoubleDice();
         }
     }
     protected void allowTextBoxMouseInput (boolean allow) {

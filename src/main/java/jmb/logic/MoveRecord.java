@@ -12,8 +12,7 @@ public class MoveRecord {
     public MoveRecord (int from, int to, boolean[] diceUsed) {
         this.pointInit = from;
         this.pointFin = to;
-        for (int i = 0; i<4; i++)
-            this.diceUsed[i] = diceUsed[i];
+        System.arraycopy(diceUsed, 0, this.diceUsed, 0, 4);
         this.opensBlackExit = false;
         this.opensWhiteExit = false;
     }

@@ -3,7 +3,6 @@ package jmb.logic;
 import jmb.view.IView;
 
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -113,10 +112,7 @@ public class Logic implements ILogic {
 
     @Override
     public boolean isLastOnPoint(int whichPoint, int whichRow) {
-        boolean last = true;
-        if (whichRow != 15 && this.getBoardPlaceState(whichPoint, whichRow + 1) != EMPTY) {
-            last = false;
-        }
+        boolean last = whichRow == 15 || this.getBoardPlaceState(whichPoint, whichRow + 1) == EMPTY;
         return last;
     }
 

@@ -1,12 +1,18 @@
 package jmb.view;
-import javafx.animation.*;
+
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -15,8 +21,6 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
-
-import java.io.IOException;
 public class SettingsView implements GenericGUI{
 
         /* DOC
@@ -235,7 +239,7 @@ public class SettingsView implements GenericGUI{
         );
 
         @FXML
-        void goToMainMenu()  throws IOException {
+        void goToMainMenu() {
                 if(!applyButton.isDisable()){
                         warningTitlePane.setVisible(true);
                         warningTitlePane.setDisable(false);

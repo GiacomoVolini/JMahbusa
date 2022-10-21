@@ -90,11 +90,6 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
     }
 
     public static void resizeDice(DynamicGameBoard board) {
-        /*if (!game.diceArray[UPPER_DICE].isVisible()) {
-            for (ImageView gameDice : game.diceArray) {
-                gameDice.setVisible(true);
-            }
-        }*/
         for (ImageView dice : board.diceArray) {
             dice.setFitHeight(board.diceTray.getWidth() * 0.425);
             dice.setFitWidth(board.diceTray.getWidth() * 0.425);

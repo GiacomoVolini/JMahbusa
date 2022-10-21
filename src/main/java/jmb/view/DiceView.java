@@ -1,14 +1,13 @@
 package jmb.view;
 
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.*;
-
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
-import static jmb.ConstantsShared.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.net.URISyntaxException;
 import java.util.Random;
+
+import static jmb.view.View.logic;
 
 public class DiceView {
 

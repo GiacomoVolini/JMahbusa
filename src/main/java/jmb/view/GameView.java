@@ -2,19 +2,17 @@ package jmb.view;
 
 
 import javafx.animation.*;
-import javafx.event.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.*;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
-
 import java.net.URISyntaxException;
 
 import static jmb.ConstantsShared.*;
@@ -199,7 +197,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     @FXML
-    void openExitoption() {
+    void openExitOption() {
         pauseMenu.setVisible(true);
         finishBTN.setDisable(true);
         if (logic.getTurnDuration()!=0)
@@ -209,7 +207,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     @FXML
-    void closeExitoption(ActionEvent event) {
+    void closeExitOption(ActionEvent event) {
         pauseMenu.setVisible(false);
         finishBTN.setDisable(false);
         if (logic.getTurnDuration()!=0)
@@ -221,7 +219,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     void goToMainMenu(){
         App.changeRoot(MAIN_MENU);
         view.stopMusic();
-        
         if (!logic.getSetting("Audio", "muteMusic", boolean.class))
             view.playMusic(Music.MENU);
     }
@@ -247,12 +244,14 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         diceRollAnimation.setCycleCount(10);
         diceRollAnimation.setOnFinished(e -> {
             DiceView.setDiceValues(diceArray);
-            finishBTN.setDisable(false);
+            if (!pauseMenu.isVisible()) {
+                finishBTN.setDisable(false);
+                if (logic.getTurnDuration() != 0)
+                    turnTimer.play();
+            }
             if (logic.isRollDouble()) {
                 openDoubleDice();
             }
-            if (logic.getTurnDuration() != 0)
-                turnTimer.play();
             GameViewRedraw.redrawPawns(this);
         });
         diceRollAnimation.play();
@@ -487,7 +486,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         super.handleKeyboard(event);
         if(keyPressed.equals(logic.getSetting("Controls", "openMenu", String.class))){
             if (!menuBTN.isDisabled())
-                openExitoption();
+                openExitOption();
         }
         else if(keyPressed.equals(logic.getSetting("Controls", "finishTurn", String.class))){
             if (!finishBTN.isDisabled())

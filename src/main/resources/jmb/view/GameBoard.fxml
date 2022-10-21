@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
@@ -29,56 +21,56 @@
          <Font size="16.0" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitoption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitOption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font size="16.0" />
       </font>
    </Button>
-     <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
-      <content>
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <children>
-               <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
-                  <font>
-                     <Font size="42.0" />
-                  </font>
-               </Button>
-               <Text fx:id="readyText" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?" textAlignment="CENTER" wrappingWidth="174.78125">
-                  <font>
-                     <Font size="32.0" />
-                  </font>
-               </Text>
-            </children>
-         </AnchorPane>
-      </content>
+   <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0"
+               layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false"
+                 onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
+            <font>
+               <Font size="42.0"/>
+            </font>
+         </Button>
+         <Text fx:id="readyText" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?"
+               textAlignment="CENTER" wrappingWidth="174.78125">
+            <font>
+               <Font size="32.0"/>
+            </font>
+         </Text>
+      </AnchorPane>
    </TitledPane>
-   <TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
-      <content>
-         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
-            <children>
-               <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Button>
-               <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave" prefWidth="186.0" text="Conferma e salva">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Button>
-               <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false" onAction="#closeExitoption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
-                  <font>
-                     <Font size="14.0" />
-                  </font>
-               </Button>
-               <Text fx:id="pauseText" layoutX="-1.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei sicuro che di voler uscire?" textAlignment="CENTER" wrappingWidth="382.99999999999994">
-                  <font>
-                     <Font size="20.0" />
-                  </font>
-               </Text>
-            </children>
-         </AnchorPane>
-      </content>
+   <TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0"
+               prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
+         <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false"
+                 onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
+            <font>
+               <Font size="14.0"/>
+            </font>
+         </Button>
+         <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave"
+                 prefWidth="186.0" text="Conferma e salva">
+            <font>
+               <Font size="14.0"/>
+            </font>
+         </Button>
+         <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false"
+                 onAction="#closeExitOption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
+            <font>
+               <Font size="14.0"/>
+            </font>
+         </Button>
+         <Text fx:id="pauseText" layoutX="-1.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0"
+               text="Sei sicuro che di voler uscire?" textAlignment="CENTER" wrappingWidth="382.99999999999994">
+            <font>
+               <Font size="20.0"/>
+            </font>
+         </Text>
+      </AnchorPane>
    </TitledPane>
    <Circle fx:id="plWHTPawn" fill="DODGERBLUE" layoutX="39.0" layoutY="39.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" AnchorPane.leftAnchor="18.0" AnchorPane.topAnchor="23.0" />
    <Circle fx:id="plBLKPawn" fill="DODGERBLUE" layoutX="49.0" layoutY="49.0" radius="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="23.0" />
@@ -88,30 +80,34 @@
    <Rectangle fx:id="plBLKOutRect" arcHeight="5.0" arcWidth="5.0" fill="RED" height="50.0" layoutX="84.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="124.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plBLKInRect" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" stroke="LIGHTGRAY" strokeType="INSIDE" width="107.0" />
    <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" />
-   <TitledPane fx:id="saveDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="382.0" layoutY="306.0" prefHeight="176.0" prefWidth="383.0" text="Salva Partita" textAlignment="CENTER" visible="false">
-      <content>
-         <AnchorPane fx:id="saveAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <children>
-               <Button fx:id="saveButton" layoutX="73.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="38.0" prefWidth="110.5" text="Conferma">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-               </Button>
-               <Button fx:id="closeSaveButton" layoutX="183.5" layoutY="91.0" mnemonicParsing="false" onAction="#closeSaveDialogue" prefHeight="38.0" prefWidth="110.5" text="Annulla">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-               </Button>
-               <Text fx:id="saveLabel" layoutX="13.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome Salvataggio:" wrappingWidth="156.78125">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-               </Text>
-               <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome salvataggio già presente" textFill="RED" visible="false" />
-               <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" />
-            </children>
-         </AnchorPane>
-      </content>
+   <TitledPane fx:id="saveDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="382.0"
+               layoutY="306.0" prefHeight="176.0" prefWidth="383.0" text="Salva Partita" textAlignment="CENTER"
+               visible="false">
+      <AnchorPane fx:id="saveAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <Button fx:id="saveButton" layoutX="73.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame"
+                 prefHeight="38.0" prefWidth="110.5" text="Conferma">
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+         <Button fx:id="closeSaveButton" layoutX="183.5" layoutY="91.0" mnemonicParsing="false"
+                 onAction="#closeSaveDialogue" prefHeight="38.0" prefWidth="110.5" text="Annulla">
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Button>
+         <Text fx:id="saveLabel" layoutX="13.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0"
+               text="Nome Salvataggio:" wrappingWidth="156.78125">
+            <font>
+               <Font size="16.0"/>
+            </font>
+         </Text>
+         <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT"
+                prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome salvataggio già presente" textFill="RED"
+                visible="false"/>
+         <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0"
+                    promptText="Inserisci nome"/>
+      </AnchorPane>
    </TitledPane>
    <Text fx:id="backText" layoutX="1348.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
       <font>

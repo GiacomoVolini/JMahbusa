@@ -1,7 +1,10 @@
 package jmb.view;
 
-import javafx.animation.*;
-import javafx.collections.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,7 +15,8 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.*;
+import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.ConstantsView.PLAY_GAME;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
@@ -82,37 +86,40 @@ public class LogIn implements GenericGUI {
         } else {
             if (!customTimerField.isDisable())
                 logic.setTurnDuration(Integer.parseInt(customTimerField.getText()));
-            switch (logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue())) {
-                case SUCCESS:
-                    logic.setUpNewBoard();
-                    if (tournamentCheckBox.isSelected())
-                        logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
-                    else
-                        logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
-                    App.changeRoot(PLAY_GAME);
-                    break;
-                case SAME_NAME_ERROR:
-                    view.playSFX(SFX.ERROR);
-                    errorLabel.setText(logic.getString("errorSameName"));
-                    errorLabel.setVisible(true);
-                    break;
-                case EMPTY_NAMES_ERROR:
-                    view.playSFX(SFX.ERROR);
-                    errorLabel.setText(logic.getString("errorEmptyName"));
-                    errorLabel.setVisible(true);
-                    break;
-                case NAME1_ALREADY_PRESENT:
-                    view.playSFX(SFX.ERROR);
-                    errorLabel.setText(logic.getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
-                    errorLabel.setVisible(true);
-                    break;
-                case NAME2_ALREADY_PRESENT:
-                    view.playSFX(SFX.ERROR);
-                    errorLabel.setText(logic.getString("error") + " " + blackPlayerNameBox.getValue().stripTrailing() + " " + logic.getString("errorAlreadyPresent"));
-                    errorLabel.setVisible(true);
-                    break;
+            int nameCheckResult = logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+            if (nameCheckResult == SUCCESS) {
+                logic.setUpNewBoard();
+                if (tournamentCheckBox.isSelected())
+                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
+                else
+                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+                App.changeRoot(PLAY_GAME);
             }
+            else errorHandler(nameCheckResult);
         }
+    }
+
+    private void errorHandler(int errorType) {
+        String errorMessage = null;
+        switch (errorType) {
+            case SAME_NAME_ERROR:
+                errorMessage = logic.getString("errorSameName");
+                break;
+            case EMPTY_NAMES_ERROR:
+                errorMessage = logic.getString("errorEmptyName");
+                break;
+            case NAME1_ALREADY_PRESENT:
+                errorMessage = logic.getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() +
+                        " " + logic.getString("errorAlreadyPresent");
+                break;
+            case NAME2_ALREADY_PRESENT:
+                errorMessage = logic.getString("error") + " " + blackPlayerNameBox.getValue().stripTrailing() +
+                        " " + logic.getString("errorAlreadyPresent");
+                break;
+        }
+        errorLabel.setText(errorMessage);
+        view.playSFX(SFX.ERROR);
+        errorLabel.setVisible(true);
     }
 
     @FXML

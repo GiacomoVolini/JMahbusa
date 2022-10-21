@@ -2,7 +2,8 @@ package jmb.logic;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.logic.ConstantsLogic.*;
+import static jmb.logic.ConstantsLogic.DESELECTED;
+import static jmb.logic.ConstantsLogic.SELECTED;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
@@ -19,15 +20,16 @@ public abstract class DynamicBoardLogic {
     //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
     protected DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
 
-    /** I metodi checkBlackExit e checkWhiteExit controllano rispettivamente per il nero e per il bianco che lo stato
-     *  del tabellone consenta l'uscita delle pedine e aggiornano le rispettive variabili.
-     *  I metodi eseguono suddetti controlli solamente se i booleani di uscita sono ancora "false",
-     *  poichè una volta diventati "true" non è possibile che tornino "false".
-     *  I controlli consistono nello scandire le prime due righe delle colonne intermedie della matrice squares.
-     *  Non appena la scansione trova una pedina del giocatore controllato essa si ferma e non cambia lo stato di is*Exit.
-     *  In caso contrario la pone a "true".
+    /**
+     * I metodi checkBlackExit e checkWhiteExit controllano rispettivamente per il nero e per il bianco che lo stato
+     * del tabellone consenta l'uscita delle pedine e aggiornano le rispettive variabili.
+     * I metodi eseguono suddetti controlli solamente se i booleani di uscita sono ancora "false",
+     * poichè una volta diventati "true" non è possibile che tornino "false".
+     * I controlli consistono nello scandire le prime due righe delle colonne intermedie della matrice squares.
+     * Non appena la scansione trova una pedina del giocatore controllato essa si ferma e non cambia lo stato di is*Exit.
+     * In caso contrario la pone a "true".
      */
-    public boolean checkBlackExit() {
+    public void checkBlackExit() {
         boolean open = false;
         if (!this.blackExit){
             boolean found = false;
@@ -45,11 +47,10 @@ public abstract class DynamicBoardLogic {
                 moveOpensBlackExit = true;
             }
         }
-        return open;
     }
 
 
-    public boolean checkWhiteExit() {
+    public void checkWhiteExit() {
         boolean open = false;
         if (!this.whiteExit){
             boolean found = false;
@@ -67,7 +68,6 @@ public abstract class DynamicBoardLogic {
                 moveOpensWhiteExit = true;
             }
         }
-        return open;
     }
 
     public void setUp() {
@@ -86,9 +86,7 @@ public abstract class DynamicBoardLogic {
             squares = new int[16][26];
         }
         for (int row =0; row<16; row++) {
-            for (int col = 0; col < 26; col++) {
-                squares[row][col] = squareMatrix[row][col];
-            }
+            System.arraycopy(squareMatrix[row], 0, squares[row], 0, 26);
         }
     }
 

@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static jmb.view.View.logic;
 import static jmb.logic.Logic.view;
-import static jmb.view.ConstantsView.*;
+import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.View.logic;
 
 /**
  * JavaFX App
@@ -28,7 +28,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         view.initializeMusic();
-        this.stage = stage;
+        App.stage = stage;
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         scene = new Scene (loadFXML(MAIN_MENU), logic.getSetting("Video","resolutionWidth",int.class), logic.getSetting("Video","resolutionHeight",int.class));

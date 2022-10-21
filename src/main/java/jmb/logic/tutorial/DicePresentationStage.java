@@ -1,10 +1,8 @@
 package jmb.logic.tutorial;
 
-import jmb.ConstantsShared;
-
+import static jmb.ConstantsShared.SFX;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
-import static jmb.ConstantsShared.*;
 
 public class DicePresentationStage extends ComparableTutorialStage{
     private String stageString = "dicePresentationString";

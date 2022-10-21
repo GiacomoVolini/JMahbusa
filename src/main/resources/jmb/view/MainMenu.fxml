@@ -11,40 +11,48 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TitledPane?>
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.MainMenu">
-   <children>
-      <ImageView fx:id="background1" fitHeight="504.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@background3.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="background2" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@background1.jpg" />
-         </image>
-      </ImageView>
-      <Rectangle fx:id="gameTitleBackground" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="98.0" layoutX="140.0" layoutY="31.0" stroke="BLACK" strokeType="INSIDE" width="360.0" />
-      <Text id="Titolo" fx:id="gameTitle" fill="#bc8c44" layoutX="105.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JMahbusa" textAlignment="CENTER" wrappingWidth="436.998046875">
-         <font>
-            <Font size="76.0" />
-         </font>
-      </Text>
-      <Button fx:id="newGameButton" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" onAction="#newGameAction" prefWidth="100.0" text="newGame" />
-      <Button fx:id="tutorialButton" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" onAction="#openTutorial" prefWidth="100.0" text="Tutorial" />
-      <Button fx:id="loadGameButton" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" onAction="#openLoadGame" prefWidth="100.0" text="Carica" />
-      <Button fx:id="leaderboardButton" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard" prefWidth="100.0" text="Classifica" />
-      <Button fx:id="settingsButton" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" prefWidth="100.0" text="Impostazioni" />
-      <Button fx:id="exitButton" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" prefWidth="100.0" text="Esci dal gioco" />
-      <TitledPane fx:id="promptPane" alignment="CENTER" animated="false" collapsible="false" layoutX="120.0" layoutY="124.0" prefHeight="136.0" prefWidth="360.0" text="New Game" textAlignment="CENTER" visible="false">
-         <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Label fx:id="promptLabel" alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="50.0" prefWidth="334.0" text="Non hai mai giocato a Jmahbusa, vuoi prima affrontare il tutorial?" wrapText="true" />
-                  <Button fx:id="promptYesButton" layoutX="69.0" layoutY="66.0" mnemonicParsing="false" onAction="#openTutorial" prefHeight="25.0" prefWidth="80.0" text="Sì" />
-                  <Button fx:id="promptNoButton" layoutX="209.0" layoutY="66.0" mnemonicParsing="false" onAction="#openLogin" prefHeight="25.0" prefWidth="80.0" text="No" />
-               </children>
-            </AnchorPane>
-         </content>
-      </TitledPane><ComboBox fx:id="languageMenu" layoutX="29.0" layoutY="31.0" onAction="#setLanguage" prefHeight="33.0" prefWidth="57.0" AnchorPane.leftAnchor="30.0" />
-   </children>
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="jmb.view.MainMenu">
+   <ImageView fx:id="background1" fitHeight="504.0" fitWidth="644.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@background3.jpg"/>
+   </ImageView>
+   <ImageView fx:id="background2" pickOnBounds="true" preserveRatio="true">
+      <Image url="@background1.jpg"/>
+   </ImageView>
+   <Rectangle fx:id="gameTitleBackground" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="98.0" layoutX="140.0"
+              layoutY="31.0" stroke="BLACK" strokeType="INSIDE" width="360.0"/>
+   <Text id="Titolo" fx:id="gameTitle" fill="#bc8c44" layoutX="105.0" layoutY="102.0" strokeType="OUTSIDE"
+         strokeWidth="0.0" text="JMahbusa" textAlignment="CENTER" wrappingWidth="436.998046875">
+      <font>
+         <Font size="76.0"/>
+      </font>
+   </Text>
+   <Button fx:id="newGameButton" layoutX="276.0" layoutY="174.0" mnemonicParsing="false" onAction="#newGameAction"
+           prefWidth="100.0" text="newGame"/>
+   <Button fx:id="tutorialButton" layoutX="289.0" layoutY="217.0" mnemonicParsing="false" onAction="#openTutorial"
+           prefWidth="100.0" text="Tutorial"/>
+   <Button fx:id="loadGameButton" layoutX="298.0" layoutY="260.0" mnemonicParsing="false" onAction="#openLoadGame"
+           prefWidth="100.0" text="Carica"/>
+   <Button fx:id="leaderboardButton" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard"
+           prefWidth="100.0" text="Classifica"/>
+   <Button fx:id="settingsButton" layoutX="281.0" layoutY="346.0" mnemonicParsing="false"
+           onAction="#openMenuImpostazioni" prefWidth="100.0" text="Impostazioni"/>
+   <Button fx:id="exitButton" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction"
+           prefWidth="100.0" text="Esci dal gioco"/>
+   <TitledPane fx:id="promptPane" alignment="CENTER" animated="false" collapsible="false" layoutX="120.0"
+               layoutY="124.0" prefHeight="136.0" prefWidth="360.0" text="New Game" textAlignment="CENTER"
+               visible="false">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <Label fx:id="promptLabel" alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="50.0"
+                prefWidth="334.0" text="Non hai mai giocato a Jmahbusa, vuoi prima affrontare il tutorial?"
+                wrapText="true"/>
+         <Button fx:id="promptYesButton" layoutX="69.0" layoutY="66.0" mnemonicParsing="false"
+                 onAction="#openTutorial" prefHeight="25.0" prefWidth="80.0" text="Sì"/>
+         <Button fx:id="promptNoButton" layoutX="209.0" layoutY="66.0" mnemonicParsing="false"
+                 onAction="#openLogin" prefHeight="25.0" prefWidth="80.0" text="No"/>
+      </AnchorPane>
+   </TitledPane>
+   <ComboBox fx:id="languageMenu" layoutX="29.0" layoutY="31.0" onAction="#setLanguage" prefHeight="33.0"
+             prefWidth="57.0" AnchorPane.leftAnchor="30.0"/>
 </AnchorPane>

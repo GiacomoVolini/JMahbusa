@@ -5,7 +5,6 @@ module jMahbusa {
     requires javafx.fxml;
     requires json.simple;
     requires ini4j;
-    requires org.json;
     requires org.reflections;
 
     opens jmb to javafx.graphics, javafx.fxml;

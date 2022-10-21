@@ -17,7 +17,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.*;
+import static jmb.view.ConstantsView.LOG_IN;
+import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
@@ -192,9 +193,9 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
         if (logic.getWhichTurn()) {
-            boolean pawnMoved = false;
-            if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && selected)
-                pawnMoved = true;
+            boolean pawnMoved = keyPressed.equals(
+                    logic.getSetting("Controls", "select", String.class))
+                    && selected;
             super.handleKeyboard(event);
             if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && pawnMoved)
                 logic.tutorialStageAction();

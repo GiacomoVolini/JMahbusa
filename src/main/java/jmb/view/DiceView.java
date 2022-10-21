@@ -36,8 +36,8 @@ public class DiceView {
         }
     }
 
-    private static ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
-    private static ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
+    private static final ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
+    private static final ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
 
     protected static void rndRolls(ImageView[] diceArr) {
         rndRoll(diceArr[0]);
@@ -67,10 +67,7 @@ public class DiceView {
                 diceArr[i].setEffect(lowContrast);
             else
                 diceArr[i].setEffect(normalContrast);
-
         }
     }
-
-
 
 }

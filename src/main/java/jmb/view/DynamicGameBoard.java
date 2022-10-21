@@ -134,12 +134,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         }
 
 
-        if (left && top) {
-            if (blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter()))) {
+        if (left) {
+            if (top && blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter()))) {
                 out = 0;
-            }
-        } else if (left && !top) {
-            if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter()))) {
+            } else if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter()))) {
                 out = 25;
             }
         }
@@ -182,6 +180,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
             timeline.play();
         }
     }
+
     public void closeDoubleDice() {
         if (diceArray[UPPER_DOUBLE_DICE].isVisible()) {
             App.getStage().setResizable(false);
@@ -239,7 +238,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         timeline.setCycleCount(1);
         timeline.play();
     }
-    protected void closeBlackExit() {
+    public void closeBlackExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
@@ -257,7 +256,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         timeline.play();
     }
 
-    protected void closeWhiteExit() {
+    public void closeWhiteExit() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (
@@ -274,7 +273,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         timeline.setCycleCount(1);
         timeline.play();
     }
-    protected void openDiceTray() {
+
+    public void openDiceTray() {
         if (blockResizeCondition())
             App.getStage().setResizable(false);
         Timeline timeline = new Timeline (

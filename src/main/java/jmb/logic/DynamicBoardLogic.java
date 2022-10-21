@@ -18,27 +18,6 @@ public abstract class DynamicBoardLogic {
     //mentre si sta per effettuare una mossa
     //nella posizione 0 si memorizza la colonna, nella posizione 1 la riga
     protected DiceLogic dice;                 //oggetto di tipo DiceLogic per la gestione del tiro dei dadi
-    public void setWhiteExit (boolean value) {
-        this.whiteExit = value;
-    }
-    public void setBlackExit (boolean value) {
-        this.blackExit = value;
-    }
-    public boolean getWhiteExit() {
-        return whiteExit;
-    }
-    public boolean getBlackExit() {
-        return blackExit;
-    }
-    public int[][] getSquares() {
-            return squares;
-    }
-    public boolean isWhiteTurn() {
-        return whiteTurn;
-    }
-    public DiceLogic getDice() {
-        return dice;
-    }
 
     /** I metodi checkBlackExit e checkWhiteExit controllano rispettivamente per il nero e per il bianco che lo stato
      *  del tabellone consenta l'uscita delle pedine e aggiornano le rispettive variabili.
@@ -359,6 +338,27 @@ public abstract class DynamicBoardLogic {
 
     public boolean getGameStart() {
         return true;
+    }
+    public void setWhiteExit (boolean value) {
+        this.whiteExit = value;
+    }
+    public void setBlackExit (boolean value) {
+        this.blackExit = value;
+    }
+    public boolean getWhiteExit() {
+        return whiteExit;
+    }
+    public boolean getBlackExit() {
+        return blackExit;
+    }
+    public int[][] getSquares() {
+        return squares;
+    }
+    public boolean isWhiteTurn() {
+        return whiteTurn;
+    }
+    public DiceLogic getDice() {
+        return dice;
     }
 
     public void runTurn() {}

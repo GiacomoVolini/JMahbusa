@@ -244,7 +244,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         diceRollAnimation.setCycleCount(10);
         diceRollAnimation.setOnFinished(e -> {
             DiceView.setDiceValues(diceArray);
-            if (!pauseMenu.isVisible()) {
+            if ( !pauseMenu.isVisible() && !logic.getGameEndState()) {
                 finishBTN.setDisable(false);
                 if (logic.getTurnDuration() != 0)
                     turnTimer.play();

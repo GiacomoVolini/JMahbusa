@@ -160,7 +160,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     }
     public void openDoubleDice() {
         if (!diceArray[UPPER_DOUBLE_DICE].isVisible()) {
-            App.getStage().setResizable(false);
+            if (blockResizeCondition())
+                App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
                     new KeyFrame(Duration.ZERO,
                             e -> {
@@ -171,7 +172,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                             new KeyValue(diceArray[LOWER_DOUBLE_DICE].layoutYProperty(), diceArray[LOWER_DICE].getLayoutY())
                     ),
                     new KeyFrame(Duration.seconds(0.5),
-                            e -> App.getStage().setResizable(true),
+                            e -> {
+                                if (blockResizeCondition())
+                                    App.getStage().setResizable(true);
+                            },
                             new KeyValue(diceArray[UPPER_DOUBLE_DICE].layoutYProperty(), diceArray[UPPER_DICE].getLayoutY() + diceArray[UPPER_DICE].getFitHeight()),
                             new KeyValue(diceArray[LOWER_DOUBLE_DICE].layoutYProperty(), diceArray[LOWER_DICE].getLayoutY() - diceArray[LOWER_DICE].getFitHeight())
                     )
@@ -183,7 +187,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
 
     public void closeDoubleDice() {
         if (diceArray[UPPER_DOUBLE_DICE].isVisible()) {
-            App.getStage().setResizable(false);
+            if (blockResizeCondition())
+                App.getStage().setResizable(false);
             Timeline timeline = new Timeline (
                     new KeyFrame(Duration.ZERO,
                             new KeyValue(diceArray[UPPER_DOUBLE_DICE].layoutYProperty(), diceArray[UPPER_DICE].getLayoutY() + diceArray[UPPER_DICE].getFitHeight()),
@@ -191,7 +196,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                     ),
                     new KeyFrame(Duration.seconds(0.5),
                             e -> {
-                                App.getStage().setResizable(true);
+                                if (blockResizeCondition())
+                                    App.getStage().setResizable(true);
                                 diceArray[UPPER_DOUBLE_DICE].setVisible(false);
                                 diceArray[LOWER_DOUBLE_DICE].setVisible(false);
                             },

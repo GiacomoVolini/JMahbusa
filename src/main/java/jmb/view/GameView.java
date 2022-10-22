@@ -20,11 +20,6 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-/*TODO
-    BUG: Quando finisce una partita, compare contemporaneamente sia il pannello di fine partita che quello di fine torneo
-        Solo uno si sposta con le dimensioni della finestra, l'altro no - SOLO AMEEN O SOLO WINDOWS
-    BUG: Quando finisce una partita il ridimensionamento del tabellone si rompe - SOLO AMEEN O SOLO WINDOWS
- */
 
 public class GameView extends DynamicGameBoard implements GenericGUI{
 
@@ -164,16 +159,23 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         logic.nextTurn();                   // La parte logica esegue il cambio di turno
         GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
                                             //   per disabilitare quelle non di turno
+        setTurnColors();
+        menuBTN.setDisable(false);
+        view.restoreBoardColors();
+        selected = false;
+        if (selectedIndex!=UNDEFINED) {
+            restoreColorToPoint(selectedIndex);
+            selectedIndex = UNDEFINED;
+        }
+    }
+
+    private void setTurnColors() {
         if (logic.getWhichTurn()){
             plWHTOutRect.setFill(Color.GREEN);
             plBLKOutRect.setFill(Color.RED);
         }else {
             plBLKOutRect.setFill(Color.GREEN);
             plWHTOutRect.setFill(Color.RED);
-        }
-        if (selectedIndex!=UNDEFINED) {
-            restoreColorToPoint(selectedIndex);
-            selectedIndex = UNDEFINED;
         }
     }
 
@@ -293,13 +295,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }
-        if (logic.getWhichTurn()){
-            plWHTOutRect.setFill(Color.GREEN);
-            plBLKOutRect.setFill(Color.RED);
-        }else {
-            plBLKOutRect.setFill(Color.GREEN);
-            plWHTOutRect.setFill(Color.RED);
-        }
+        setTurnColors();
         DiceView.setDiceContrast(diceArray);
         GameViewRedraw.redrawPawns(this);
     }
@@ -321,6 +317,8 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     private void continueTournament() {
+        closeWhiteExit();
+        closeBlackExit();
         logic.setGameEndState(false);
         removeVictoryScreen();
         startDialogue.setVisible(true);

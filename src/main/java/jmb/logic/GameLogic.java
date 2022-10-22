@@ -10,6 +10,19 @@ import static jmb.logic.Logic.view;
  *  imponendo il rispetto delle regole del gioco
  */
 
+/*TODO
+    BUG:    Esempio: ultima pedina da portare fuori, a due caselle dalla zona di uscita. Si tira un doppio uno:
+                    risultato, quattro dadi da 1 da usare. Il gioco non permette di portare fuori la pedina direttamente muovendo di due,
+                    ma permette due mosse da uno.
+                    Verificato con tastiera e con mouse
+    Possibile procedura
+        -   Mettere dei println su tutti i metodi relativi a mosse delle pedine e controllo dei dadi
+        -   Creare un salvataggio con delle pedine comode (zone di uscita aperte e pedine vicine)
+        -   Modificare temporaneamente metodi dadi per forzare quattro uno sempre
+        -   Testare il salvataggio prendendo nota di cosa stampano i println
+        -   Capire dove sta il problema
+        -   Risolvere
+ */
 
 public class GameLogic extends DynamicBoardLogic {
 
@@ -47,12 +60,15 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     public void changeTurn() {
+        if (getMoveBufferColumn()!=UNDEFINED)
+            deselectPawn(getMoveBufferColumn(), getMoveBufferRow());
         this.whiteTurn= !this.whiteTurn;
         runTurn();
         view.setPawnsForTurn();
         turnMoves.clear();
         view.backBTNSetDisable(true);
     }
+
 
     public void runTurn() {
         dice.tossDice();

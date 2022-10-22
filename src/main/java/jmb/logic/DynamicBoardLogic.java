@@ -103,6 +103,9 @@ public abstract class DynamicBoardLogic {
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
+            setMoveBuffer(UNDEFINED, UNDEFINED);
+            if (squares[puntaFinR][puntaFinC]== SELECTED_WHITE || squares[puntaFinR][puntaFinC] == SELECTED_BLACK)
+                deselectPawn(puntaFinC, puntaFinR);
             dice.setDiceToUsed();
             view.setDiceContrast();
             //  Controlla se il giocatore di turno può far uscire le proprie

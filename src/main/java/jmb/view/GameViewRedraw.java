@@ -116,7 +116,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
     //  Il metodo quindi calcola la proporzione tra la larghezza di victoryPanel e 400, e trova il nuovo valore di grandezza
     //      del Font da assegnare a victoryLabel
     private static void resizeVictoryFont(Rectangle victoryPanel, Label victoryLabel) {
-        double widthFactor = victoryPanel.getWidth() / 400;
+        double widthFactor = Math.min(victoryPanel.getWidth() / 400, 1.50);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 20 * widthFactor));
     }
 

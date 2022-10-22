@@ -20,6 +20,12 @@ import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
+/*TODO
+    BUG: Quando finisce una partita, compare contemporaneamente sia il pannello di fine partita che quello di fine torneo
+        Solo uno si sposta con le dimensioni della finestra, l'altro no - SOLO AMEEN O SOLO WINDOWS
+    BUG: Quando finisce una partita il ridimensionamento del tabellone si rompe - SOLO AMEEN O SOLO WINDOWS
+ */
+
 public class GameView extends DynamicGameBoard implements GenericGUI{
 
 

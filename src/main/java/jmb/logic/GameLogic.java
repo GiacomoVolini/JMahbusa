@@ -152,14 +152,16 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     protected void victoryCheck() {
-        if (blackDoubleWinCondition())
-            gameWon(BLACK_WINS, DOUBLE_WIN);
-        else if (whiteDoubleWinCondition())
-            gameWon(WHITE_WINS, DOUBLE_WIN);
-        else if (blackSingleWinCondition())
-            gameWon(BLACK_WINS, SINGLE_WIN);
-        else if (whiteSingleWinCondition())
-            gameWon(WHITE_WINS, SINGLE_WIN);
+        if(!gameEndState) {
+            if (blackDoubleWinCondition())
+                gameWon(BLACK_WINS, DOUBLE_WIN);
+            else if (whiteDoubleWinCondition())
+                gameWon(WHITE_WINS, DOUBLE_WIN);
+            else if (blackSingleWinCondition())
+                gameWon(BLACK_WINS, SINGLE_WIN);
+            else if (whiteSingleWinCondition())
+                gameWon(WHITE_WINS, SINGLE_WIN);
+        }
     }
 
     private boolean blackDoubleWinCondition() {

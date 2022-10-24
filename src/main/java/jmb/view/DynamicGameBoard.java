@@ -245,39 +245,43 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         timeline.play();
     }
     public void closeBlackExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
-                        new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1),  e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                    blackExitRegion.setVisible(false);
-                }, new KeyValue(blackExitRegion.widthProperty() ,  0 ),
-                        new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
+        if (blackExitRegion.getWidth()>0) {
+            if (blockResizeCondition())
+                App.getStage().setResizable(false);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(blackExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                            new KeyValue(blackExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
+                    new KeyFrame(Duration.seconds(1), e -> {
+                        if (blockResizeCondition())
+                            App.getStage().setResizable(true);
+                        blackExitRegion.setVisible(false);
+                    }, new KeyValue(blackExitRegion.widthProperty(), 0),
+                            new KeyValue(blackExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                    )
+            );
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 
     public void closeWhiteExit() {
-        if (blockResizeCondition())
-            App.getStage().setResizable(false);
-        Timeline timeline = new Timeline (
-                new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
-                new KeyFrame(Duration.seconds(1), e-> {
-                    if (blockResizeCondition())
-                        App.getStage().setResizable(true);
-                    whiteExitRegion.setVisible(false);
-                }, new KeyValue(whiteExitRegion.widthProperty() , 0 ),
-                        new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
-                )
-        );
-        timeline.setCycleCount(1);
-        timeline.play();
+        if (whiteExitRegion.getWidth() > 0) {
+            if (blockResizeCondition())
+                App.getStage().setResizable(false);
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO, new KeyValue(whiteExitRegion.widthProperty(), GameViewRedraw.getMaxExitWidth()),
+                            new KeyValue(whiteExitRegion.layoutXProperty(), (outerRect.getLayoutX() - GameViewRedraw.getMaxExitWidth()))),
+                    new KeyFrame(Duration.seconds(1), e -> {
+                        if (blockResizeCondition())
+                            App.getStage().setResizable(true);
+                        whiteExitRegion.setVisible(false);
+                    }, new KeyValue(whiteExitRegion.widthProperty(), 0),
+                            new KeyValue(whiteExitRegion.layoutXProperty(), outerRect.getLayoutX())
+                    )
+            );
+            timeline.setCycleCount(1);
+            timeline.play();
+        }
     }
 
     public void openDiceTray() {

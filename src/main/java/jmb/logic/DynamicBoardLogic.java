@@ -96,21 +96,30 @@ public abstract class DynamicBoardLogic {
 
     public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         dice.resetToBeUsed();
+        System.out.println("Sono in movePawn, da "+ puntaInizC+ " a " + puntaFinC );
         //  Si richiama il metodo possibleMove per controllare che la mossa sia effettuabile
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
+            System.out.println("La mossa è possibile");
             view.playSFX(SFX.PAWN_DROP);
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
+            setMoveBuffer(UNDEFINED, UNDEFINED);
+            if (squares[puntaFinR][puntaFinC]== SELECTED_WHITE || squares[puntaFinR][puntaFinC] == SELECTED_BLACK) {
+                deselectPawn(puntaFinC, puntaFinR);
+                System.out.println("Deseleziono la pedina");
+            }
             dice.setDiceToUsed();
             view.setDiceContrast();
             //  Controlla se il giocatore di turno può far uscire le proprie
             //  pedine e aggiorna di conseguenza la variabile relativa
             if (whiteTurn) {
                 this.checkWhiteExit();
+                System.out.println("Controllo uscita bianco");
             } else {
                 this.checkBlackExit();
+                System.out.println("Controllo uscita nero");
             }
         } else {
             dice.resetToBeUsed();
@@ -140,6 +149,7 @@ public abstract class DynamicBoardLogic {
         return out;
     }
     protected boolean checkDiceSum (int pointFrom, int delta) {
+        System.out.println("Sono in checkDiceSum");
         boolean legal = false;
         int sign;
         if (isWhiteTurn())
@@ -179,8 +189,10 @@ public abstract class DynamicBoardLogic {
     }
     public boolean possibleMove (int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
         boolean possible = false;
+        System.out.println("Sono in possibleMove");
         for (int i = 0; i<4 && !possible; i++) {
             if (!dice.getUsed(i)) {
+                System.out.println("C'è almeno un dado non usato");
                 possible = true;
             }
         }
@@ -188,26 +200,37 @@ public abstract class DynamicBoardLogic {
                 isPointUnlocked(puntaFinC) && puntaFinC <=COL_WHITE_EXIT && puntaFinC>=COL_BLACK_EXIT;
         int delta = abs(puntaFinC - puntaInizC);
         if (possible) {
+            System.out.println("La mossa è nel verso giusto e verso una punta non bloccata");
             if (COL_BLACK_EXIT < puntaFinC && puntaFinC < COL_WHITE_EXIT) {
                 if(checkDiceSimple(delta)) {
+                    System.out.println("La mossa è possibile con un singolo dado");
                     possible = true;
                 } else {
+                    System.out.println("Controllo se è possibile tramite somma di dadi");
                    possible = checkDiceSum(puntaInizC, delta);
                 }
             }
             else {
                 if (puntaFinC<= COL_BLACK_EXIT && getBlackExit() || puntaFinC >= COL_WHITE_EXIT && getWhiteExit()) {
                     possible = delta <= 6 && checkExitMove(delta, puntaInizC);
+                    System.out.println("La mossa è per l'uscita, controllo se è possibile");
                 } else possible= false;
             }
         }
         return possible;
     }
     private boolean checkExitMove(int delta, int puntaIniz) {
-        boolean possible = dice.checkExitDiceSimple(delta);
+        System.out.println("Controllo se la pedina arriva esattamente nella zona di uscita con la suddetta mossa");
+        boolean possible = checkExitDiceSimple(delta);
+        System.out.println(possible);
+        if (!possible)
+            possible = checkDiceSum(puntaIniz, delta);
         if (!possible) {
-            if (checkIfFarthestPawn(puntaIniz))
-                possible = dice.checkExitDiceGreaterThan(delta);
+            System.out.println("La mossa non è possibile con un singolo dado, controllo se possibile con uno dei dadi in più");
+            if (checkIfFarthestPawn(puntaIniz)) {
+                System.out.println("Da regolamento la mossa è possibile, o ci arriva preciso o è il più lontano");
+                possible = checkExitDiceGreaterThan(delta);
+            } else System.out.println("La pedina non è la più lontana");
         }
         return possible;
     }
@@ -229,6 +252,34 @@ public abstract class DynamicBoardLogic {
             }
         }
         return farthest;
+    }
+
+    // checkExitDiceSimple controlla che ci sia un dado che permetta di muovere la pedina esattamente nella zona di uscita
+    public boolean checkExitDiceSimple(int delta) {
+        boolean possible = false;
+        for (int i = 0; i < 4 && !possible; i++) {
+            if (dice.getDiceValue(i) == delta && !dice.getUsed(i)) {
+                possible = true;
+                dice.getToBeUsedArray()[i] = true;
+            }
+        }
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
+            possible = true;
+        return possible;
+    }
+
+
+    public boolean checkExitDiceGreaterThan(int delta) {
+        boolean possible = false;
+        for (int i = 0; i<4 && !possible; i++)  {
+            if (dice.getDiceValue(i) >= delta && !dice.getUsed(i)) {
+                possible = true;
+                dice.getToBeUsedArray()[i] = true;
+            }
+        }
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
+            possible = true;
+        return possible;
     }
 
     public int searchFirstFreeRow(int whichPoint) {

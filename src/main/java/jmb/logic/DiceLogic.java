@@ -92,34 +92,6 @@ public class DiceLogic {
         Arrays.fill(toBeUsed, false);
     }
 
-    // checkExitDiceSimple controlla che ci sia un dado che permetta di muovere la pedina esattamente nella zona di uscita
-    public boolean checkExitDiceSimple(int delta) {
-        boolean possible = false;
-        for (int i = 0; i < 4 && !possible; i++) {
-            if (values[i] == delta && !used[i]) {
-                possible = true;
-                toBeUsed[i] = true;
-            }
-        }
-        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
-            possible = true;
-        return possible;
-    }
-
-    
-    public boolean checkExitDiceGreaterThan(int delta) {
-        boolean possible = false;
-        for (int i = 0; i<4 && !possible; i++)  {
-            if (values[i] >= delta && !used[i]) {
-                possible = true;
-                toBeUsed[i] = true;
-            }
-        }
-        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
-            possible = true;
-        return possible;
-    }
-
     public void revertUsed(int i) {
         this.used[i]= false;
     }

@@ -337,13 +337,13 @@ public class SettingsView implements GenericGUI{
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setResizable(!lockResolutionCheck.isSelected());
                 applyButton.setDisable(false);
-                if(lockResolutionCheck.isSelected()){
-                        resolutionWidthField.setDisable(true);
-                        resolutionHeightField.setDisable(true);
-                }else{
-                        resolutionWidthField.setDisable(false);
-                        resolutionHeightField.setDisable(false);
-                }
+                setResolutionFieldsEditability();
+        }
+
+        private void setResolutionFieldsEditability() {
+                boolean set = lockResolutionCheck.isSelected();
+                resolutionWidthField.setDisable(set);
+                resolutionHeightField.setDisable(set);
         }
 
         //Audio
@@ -977,13 +977,7 @@ public class SettingsView implements GenericGUI{
                 fullscreenCheck.setSelected(logic.getSetting("Video", "fullScreen", boolean.class));
                 lockResolutionCheck.setSelected(logic.getSetting("Video", "lockResolution", boolean.class));
 
-                if(lockResolutionCheck.isSelected()){
-                        resolutionWidthField.setDisable(true);
-                        resolutionHeightField.setDisable(true);
-                }else{
-                        resolutionWidthField.setDisable(false);
-                        resolutionHeightField.setDisable(false);
-                }
+                setResolutionFieldsEditability();
 
                 //Personalizzazione
                 group = new ToggleGroup();

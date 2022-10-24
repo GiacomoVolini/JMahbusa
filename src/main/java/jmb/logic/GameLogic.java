@@ -10,7 +10,6 @@ import static jmb.logic.Logic.view;
  *  imponendo il rispetto delle regole del gioco
  */
 
-
 public class GameLogic extends DynamicBoardLogic {
 
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
@@ -47,12 +46,15 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     public void changeTurn() {
+        if (getMoveBufferColumn()!=UNDEFINED)
+            deselectPawn(getMoveBufferColumn(), getMoveBufferRow());
         this.whiteTurn= !this.whiteTurn;
         runTurn();
         view.setPawnsForTurn();
         turnMoves.clear();
         view.backBTNSetDisable(true);
     }
+
 
     public void runTurn() {
         dice.tossDice();

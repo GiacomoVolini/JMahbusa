@@ -277,37 +277,17 @@ public class SettingsView implements GenericGUI{
         }
 
         @FXML
-        void leftPresetAction(ActionEvent event) {
-                tableColorPicker.setDisable(true);
-                evenPointColorPicker.setDisable(true);
-                oddPointColorPicker.setDisable(true);
-                selectedPointColorPicker.setDisable(true);
-                frameColorPicker.setDisable(true);
-                if (logic.getSetting("Customization", "boardPreset", int.class)!=LEFT_PRESET)
-                        applyButton.setDisable(false);
+        void presetAction(ActionEvent event) {
+                disableColorPickers(true);
+                applyButton.setDisable(false);
         }
 
         @FXML
         void customPresetAction(ActionEvent event) {
-                tableColorPicker.setDisable(false);
-                evenPointColorPicker.setDisable(false);
-                oddPointColorPicker.setDisable(false);
-                selectedPointColorPicker.setDisable(false);
-                frameColorPicker.setDisable(false);
-                if (logic.getSetting("Customization", "boardPreset", int.class)!=CUSTOM_BOARD)
-                        applyButton.setDisable(false);
+                disableColorPickers(false);
+                applyButton.setDisable(false);
         }
 
-        @FXML
-        void rightPresetAction(ActionEvent event) {
-                tableColorPicker.setDisable(true);
-                evenPointColorPicker.setDisable(true);
-                oddPointColorPicker.setDisable(true);
-                selectedPointColorPicker.setDisable(true);
-                frameColorPicker.setDisable(true);
-                if (logic.getSetting("Customization", "boardPreset", int.class)!=RIGHT_PRESET)
-                        applyButton.setDisable(false);
-        }
 
         @FXML
         void selectedBackGroundColorChange(ActionEvent event) {
@@ -878,7 +858,5 @@ public class SettingsView implements GenericGUI{
                 if (savedValue != sliderValue)
                         applyButton.setDisable(false);
         }
-
-
 
 }

@@ -11,7 +11,6 @@ import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import jmb.logic.Logic;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
@@ -25,7 +24,9 @@ public class SettingsView implements GenericGUI{
         @FXML private AnchorPane settingsAnchorPane;
         @FXML private Button videoButton, audioButton, customizationButton, controlsButton,
                 mainMenuButton, resetButton, applyButton;
+        private Button[] settingsPaneButtons;
         private enum Tab { VIDEO_TAB, AUDIO_TAB, CUSTOMIZATION_TAB, CONTROLS_TAB}
+        private boolean wasApplyButtonDisabled = true;
 
         // Scheda impostazioni "Video"
         @FXML private TitledPane videoTitlePane;
@@ -288,7 +289,6 @@ public class SettingsView implements GenericGUI{
                 applyButton.setDisable(false);
         }
 
-
         @FXML
         void selectedBackGroundColorChange(ActionEvent event) {
                 if(Color.web(logic.getSetting("Customization","backgroundColor",String.class)) != backGroundColorPicker.getValue()) {
@@ -311,9 +311,10 @@ public class SettingsView implements GenericGUI{
                                 keyBinds[i].setDisable(true);
                         }
                 }
-                applyButton.setDisable(true);
-                resetButton.setDisable(true);
-                mainMenuButton.setDisable(true);
+                wasApplyButtonDisabled = applyButton.isDisabled();
+                System.out.println(wasApplyButtonDisabled);
+                for (Button button : settingsPaneButtons)
+                        button.setDisable(true);
         }
 
         protected TextField[] keyBinds;
@@ -331,10 +332,11 @@ public class SettingsView implements GenericGUI{
                 for(int i=0; i<8; i++){
                         keyBinds[i].setDisable(false);
                 }
-                if (!b.getText().equals(bindingBefore))
-                        applyButton.setDisable(false);
-                resetButton.setDisable(false);
-                mainMenuButton.setDisable(false);
+                for (Button button : settingsPaneButtons)
+                        button.setDisable(false);
+                if (b.getText().equals(bindingBefore))
+                        applyButton.setDisable(wasApplyButtonDisabled);
+                System.out.println(wasApplyButtonDisabled);
         }
 
         private String colorStringFactory(Color color) {
@@ -425,6 +427,8 @@ public class SettingsView implements GenericGUI{
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
                 stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
+
+
                 musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
                 view.setVolume(MUSIC_VOLUME, logic.getSetting("Audio", "musicVolume", int.class));
                 sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
@@ -433,6 +437,8 @@ public class SettingsView implements GenericGUI{
                 sFXCheck.setSelected(logic.getSetting("Audio", "muteSFX", boolean.class));
                 musicSlider.setDisable(logic.getSetting("Audio", "muteMusic", boolean.class));
                 sFXSlider.setDisable(logic.getSetting("Audio", "muteSFX", boolean.class));
+
+
                 if (logic.getSetting("Audio", "muteMusic", boolean.class))
                         view.pauseMusic();
                 else view.playMusic(Music.MENU);
@@ -680,8 +686,9 @@ public class SettingsView implements GenericGUI{
 
         }
         public void initialize() {
-                 keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
-
+                keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
+                settingsPaneButtons = new Button[] {videoButton, audioButton, customizationButton, controlsButton,
+                        mainMenuButton, resetButton, applyButton};
                  //languages
                 settingsTitlePane.setText(logic.getString("Settings"));
                 //videoAnchorPane lang...

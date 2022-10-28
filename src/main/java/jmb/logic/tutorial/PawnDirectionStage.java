@@ -17,7 +17,8 @@ public class PawnDirectionStage extends ComparableTutorialStage{
         view.setPawnsVisible(true);
         view.callRedraw();
         view.setNextTutorialString(logic.getString(stageString), true);
-        view.playSFX(SFX.PAWN_DROP);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.PAWN_DROP);
         view.waitForRecall(0.5);
         view.tutorialTextBoxAnimation(0.4,0.4);
     }

@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+import jmb.logic.Logic;
+
 import java.net.URISyntaxException;
 
 import static jmb.ConstantsShared.*;
@@ -245,7 +247,8 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
-        view.playSFX(SFX.DICE_ROLL);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.DICE_ROLL);
         finishBTN.setDisable(true);
         if (!logic.isRollDouble())
             closeDoubleDice();
@@ -462,9 +465,11 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         if (whiteWon)
             winner = whitePlayer;
         else winner = blackPlayer;
-        if (doubleWin)
-            view.playSFX(SFX.DOUBLE_WIN);
-        else view.playSFX(SFX.SINGLE_WIN);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class)) {
+            if (doubleWin)
+                view.playSFX(SFX.DOUBLE_WIN);
+            else view.playSFX(SFX.SINGLE_WIN);
+        }
         createVictoryScreen(whiteWon, doubleWin, winner, status);
         logic.setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);

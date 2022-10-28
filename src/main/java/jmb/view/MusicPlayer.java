@@ -35,48 +35,46 @@ public class MusicPlayer {
         this.errorSFX.setVolume(value);
     }
     protected void playMusic(Music music) {
-        if (!logic.getSetting("Audio","muteMusic",boolean.class)){
-            switch (music) {
-                case MENU:
-                    this.menuMusic.setCycleCount(Integer.MAX_VALUE);
-                    this.menuMusic.play();
-                    this.tutorialMusic.stop();
-                    this.gameMusic.stop();
-                    break;
-                case TUTORIAL:
-                    this.tutorialMusic.setCycleCount(Integer.MAX_VALUE);
-                    this.tutorialMusic.play();
-                    this.menuMusic.stop();
-                    this.gameMusic.stop();
-                    break;
-                case GAME:
-                    this.gameMusic.setCycleCount(Integer.MAX_VALUE);
-                    this.gameMusic.play();
-                    this.menuMusic.stop();
-                    this.tutorialMusic.stop();
-                    break;
-            }
+        System.out.println("Eseguo playMusic ");
+        switch (music) {
+            case MENU:
+                System.out.println("MENU");
+                this.menuMusic.setCycleCount(Integer.MAX_VALUE);
+                this.menuMusic.play();
+                this.tutorialMusic.stop();
+                this.gameMusic.stop();
+                break;
+            case TUTORIAL:
+                this.tutorialMusic.setCycleCount(Integer.MAX_VALUE);
+                this.tutorialMusic.play();
+                this.menuMusic.stop();
+                this.gameMusic.stop();
+                break;
+            case GAME:
+                this.gameMusic.setCycleCount(Integer.MAX_VALUE);
+                this.gameMusic.play();
+                this.menuMusic.stop();
+                this.tutorialMusic.stop();
+                break;
         }
     }
 
     protected void playSFX(SFX sound) {
-        if (!logic.getSetting("Audio","muteSFX",boolean.class)) {
-            switch (sound) {
-                case ERROR:
-                    this.errorSFX.play();
-                    break;
-                case PAWN_DROP:
-                    this.pawnSFX.play();
-                    break;
-                case DOUBLE_WIN:
-                    this.applauseSFX.play();
-                case SINGLE_WIN:
-                    this.winSFX.play();
-                    break;
-                case DICE_ROLL:
-                    this.diceRollSFX.play();
-                    break;
-            }
+        switch (sound) {
+            case ERROR:
+                this.errorSFX.play();
+                break;
+            case PAWN_DROP:
+                this.pawnSFX.play();
+                break;
+            case DOUBLE_WIN:
+                this.applauseSFX.play();
+            case SINGLE_WIN:
+                this.winSFX.play();
+                break;
+            case DICE_ROLL:
+                this.diceRollSFX.play();
+                break;
         }
     }
     protected void pauseMusic() {

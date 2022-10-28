@@ -17,7 +17,8 @@ public class DicePresentationStage extends ComparableTutorialStage{
         logic.setUpNewBoard();
         view.tutorialExitZoneAnimation(false);
         view.tutorialDiceAnimation(true, true);
-        view.playSFX(SFX.DICE_ROLL);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.DICE_ROLL);
         view.setNextTutorialString(logic.getString(stageString), true);
         view.tutorialTextBoxAnimation(0.1,0.5);
         view.restoreBoardColors();

@@ -118,7 +118,8 @@ public class MainMenu implements GenericGUI{
         animationToContinue = false;
         logic.initializeTutorialLogic();
         App.changeRoot(TUTORIAL);
-        view.playMusic(Music.TUTORIAL);
+        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
+            view.playMusic(Music.TUTORIAL);
     }
 
     private void loadStrings() {

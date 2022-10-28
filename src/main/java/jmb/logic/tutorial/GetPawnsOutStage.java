@@ -13,7 +13,8 @@ public class GetPawnsOutStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        view.playSFX(SFX.DICE_ROLL);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.DICE_ROLL);
         view.tutorialDiceAnimation(true);
         logic.forceDice(5);
         view.callRedraw();

@@ -101,7 +101,8 @@ public abstract class DynamicBoardLogic {
         boolean possible = possibleMove(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
         if(possible){
             System.out.println("La mossa è possibile");
-            view.playSFX(SFX.PAWN_DROP);
+            if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                view.playSFX(SFX.PAWN_DROP);
             //  Se la mossa è effettuabile sposta la pedina nella nuova posizione
             squares[puntaFinR][puntaFinC]= squares[puntaInizR][puntaInizC];
             squares[puntaInizR][puntaInizC]= EMPTY;
@@ -375,7 +376,8 @@ public abstract class DynamicBoardLogic {
         return squares[whichRow][whichPoint];
     }
     public void forceMovePawn(int from, int to) {
-        view.playSFX(SFX.PAWN_DROP);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.PAWN_DROP);
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];

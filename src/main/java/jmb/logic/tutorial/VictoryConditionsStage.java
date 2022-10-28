@@ -70,7 +70,8 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                     logic.setBlackExit(true);
                 }
                 view.closeDoubleDice();
-                view.playSFX(SFX.DICE_ROLL);
+                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                    view.playSFX(SFX.DICE_ROLL);
                 view.tutorialDiceAnimation(true,20);
                 break;
             case 1:
@@ -80,7 +81,8 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 view.tutorialTextBoxAnimation(0.5,0.45 );
                 break;
             case 2:
-                view.playSFX(SFX.SINGLE_WIN);
+                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                    view.playSFX(SFX.SINGLE_WIN);
                 view.setNextTutorialString(logic.getString(afterSingleWinString), true);
                 view.tutorialTextBoxAnimation(0.2,0.4 );
                 view.waitForRecall(12.0);
@@ -92,7 +94,8 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
                 view.tutorialTextBoxAnimation(0.55,0.57 );
                 break;
             case 4:
-                view.playSFX(SFX.DOUBLE_WIN);
+                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                    view.playSFX(SFX.DOUBLE_WIN);
                 logic.nextTutorialStage();
         }
         internalIndex++;

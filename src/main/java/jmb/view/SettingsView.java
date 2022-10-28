@@ -1,223 +1,64 @@
 package jmb.view;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import jmb.logic.Logic;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
+
 public class SettingsView implements GenericGUI{
+        @FXML private AnchorPane window;
 
-        /* DOC
-              In questa classe c'era un memory leak dovuto alle animazioni delle punte nel tab di personalizzazione
-              Le Timeline non venivano mai fermate, e rimanevano quindi in memoria in perpetuo
-              Risolto mettendo dei richiami al metodo stop dovunque si tornasse al menu principale
-         */
+        // Selettore schede impostazioni
+        @FXML private TitledPane settingsTitlePane;
+        @FXML private AnchorPane settingsAnchorPane;
+        @FXML private Button videoButton, audioButton, customizationButton, controlsButton,
+                mainMenuButton, resetButton, applyButton;
+        private enum Tab { VIDEO_TAB, AUDIO_TAB, CUSTOMIZATION_TAB, CONTROLS_TAB}
 
-        @FXML
-        private AnchorPane window;
+        // Scheda impostazioni "Video"
+        @FXML private TitledPane videoTitlePane;
+        @FXML private AnchorPane videoAnchorPane;
+        @FXML private CheckBox fullscreenCheck, lockResolutionCheck;
+        @FXML private Text resolutionText, resolutionWidthText, resolutionHeightText;
+        @FXML private TextField resolutionWidthField, resolutionHeightField;
 
-        @FXML
-        private AnchorPane settingsAnchorPane;
+        // Scheda impostazioni "Audio"
+        @FXML private AnchorPane audioAnchorPane;
+        @FXML private TitledPane audioTitlePane;
+        @FXML private Text musicText, sFXText;
+        @FXML private CheckBox musicCheck, sFXCheck;
+        @FXML private Slider musicSlider, sFXSlider;
 
-        @FXML
-        private TitledPane settingsTitlePane;
-        @FXML
-        private Button videoButton;
-        @FXML
-        private Button audioButton;
-        @FXML
-        private Button customizationButton;
-        @FXML
-        private Button controlsButton;
-        @FXML
-        private Button mainMenuButton;
-        @FXML
-        private AnchorPane videoAnchorPane;
-        @FXML
-        private TitledPane videoTitlePane;
-        @FXML
-        private CheckBox fullscreenCheck;
-        @FXML
-        private CheckBox lockResolutionCheck;
-        @FXML
-        private Text resolutionText;
-        @FXML
-        private Text resolutionWidthText;
-        @FXML
-        private Text resolutionHeightText;
-        @FXML
-        private TextField resolutionWidthField;
-        @FXML
-        private TextField resolutionHeightField;
-        @FXML
-        private AnchorPane audioAnchorPane;
-        @FXML
-        private TitledPane audioTitlePane;
-        @FXML
-        private Text musicText;
-        @FXML
-        private CheckBox musicCheck;
-        @FXML
-        private Slider musicSlider;
-        @FXML
-        private CheckBox sFXCheck;
-        @FXML
-        private Text sFXText;
-        @FXML
-        private Slider sFXSlider;
-        @FXML
-        private AnchorPane customizeAnchorPane;
-        @FXML
-        private TitledPane customizeTitlePane;
-        @FXML
-        private Button resetButton;
-        @FXML
-        private ColorPicker whitePawnFillColorPicker;
-        @FXML
-        private Text whitePawnText;
-        @FXML
-        private Circle whitePawn;
-        @FXML
-        private ColorPicker blackPawnFillColorPicker;
-        @FXML
-        private Text blackPawnText;
-        @FXML
-        private Circle blackPawn;
-        @FXML
-        private ColorPicker whitePawnStrokeColorPicker;
-        @FXML
-        private ColorPicker blackPawnStrokeColorPicker;
-        @FXML
-        private Text pawnFillText;
-        @FXML
-        private Text pawnStrokeText;
-        @FXML
-        private Text tableText;
-        @FXML
-        private Text pointText;
-        @FXML
-        private Text frameText;
-        @FXML
-        private ColorPicker tableColorPicker;
-        @FXML
-        private ColorPicker evenPointColorPicker;
-        @FXML
-        private ColorPicker oddPointColorPicker;
-        @FXML
-        private Polygon leftPresetPoint1;
-        @FXML
-        private Polygon leftPresetPoint2;
-        @FXML
-        private Polygon leftPresetPoint3;
-        @FXML
-        private AnchorPane customPane;
-        @FXML
-        private Polygon rightPresetPoint1;
-        @FXML
-        private Polygon rightPresetPoint2;
-        @FXML
-        private Polygon rightPresetPoint3;
-        @FXML
-        private AnchorPane leftPresetPane;
-        @FXML
-        private ColorPicker frameColorPicker;
-        @FXML
-        private RadioButton rightPresetRadio;
-        @FXML
-        private RadioButton leftPresetRadio;
-        @FXML
-        private Rectangle customFrame;
-        @FXML
-        private Rectangle customBoard;
-        @FXML
-        private Polygon customPoint1;
-        @FXML
-        private Polygon customPoint2;
-        @FXML
-        private Polygon customPoint3;
-        @FXML
-        private AnchorPane rightPresetPane;
-        @FXML
-        private RadioButton customRadio;
-        @FXML
-        protected Button applyButton;
-        @FXML
-        private AnchorPane controlsAnchorPane;
-        @FXML
-        private TitledPane controlsTitlePane;
-        @FXML
-        private Text keyboardText;
-        @FXML
-        private Text movementText;
-        @FXML
-        private Text rightText;
-        @FXML
-        private Text leftText;
-        @FXML
-        private Text upText;
-        @FXML
-        private Text downText;
-        @FXML
-        private Text selectText;
-        @FXML
-        private Text finishTurnText;
-        @FXML
-        private Text revertMoveText;
-        @FXML
-        private Text openMenuText;
-        @FXML
-        private Text backgroundText;
-        @FXML
-        private TextField rightTextField;
-        @FXML
-        private TextField leftTextField;
-        @FXML
-        private TextField upTextField;
-        @FXML
-        private TextField downTextField;
-        @FXML
-        private TextField selectTextField;
-        @FXML
-        private TextField revertMoveTextField;
-        @FXML
-        private TextField finishTurnTextField;
-        @FXML
-        private TextField openMenuTextField;
-        @FXML
-        private ColorPicker selectedPointColorPicker;
-        @FXML
-        private ColorPicker backGroundColorPicker;
-        @FXML
-        private TitledPane warningTitlePane;
-        @FXML
-        private Text warningText;
-        @FXML
-        private Button exitAndSaveButton;
-        @FXML
-        private Button exitNoSaveButton;
-        @FXML
-        private Button cancelButton;
-        double Sv, Sve;
-        ToggleGroup group = new ToggleGroup();
+        //Scheda impostazioni "Personalizzazione"
+        @FXML private AnchorPane customizeAnchorPane;
+        @FXML private TitledPane customizeTitlePane;
+        @FXML private Text whitePawnText, blackPawnText, pawnFillText, pawnStrokeText,
+                tableText, pointText, frameText;
+        @FXML private Circle whitePawn, blackPawn;
+        @FXML private ColorPicker whitePawnFillColorPicker, blackPawnFillColorPicker, whitePawnStrokeColorPicker,
+                blackPawnStrokeColorPicker, tableColorPicker, evenPointColorPicker, oddPointColorPicker,
+                frameColorPicker;
+        @FXML private AnchorPane customPane, leftPresetPane, rightPresetPane;
+        @FXML private Polygon leftPresetPoint1, leftPresetPoint2, leftPresetPoint3,
+                rightPresetPoint1, rightPresetPoint2, rightPresetPoint3,
+                customPoint1, customPoint2, customPoint3;
 
-        private String bindingBefore;
+        @FXML private RadioButton rightPresetRadio, leftPresetRadio, customRadio;
+        @FXML private Rectangle customFrame, customBoard;
         private Color selectedPointColor;
+        ToggleGroup group = new ToggleGroup();
         private Timeline selectedPointAnimation;
         private Timeline selectedPointPresetsAnimation = new Timeline(
                 new KeyFrame(Duration.ZERO, e-> {
@@ -236,10 +77,25 @@ public class SettingsView implements GenericGUI{
                         leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
                         rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
                 }), new KeyFrame(Duration.seconds(1.5))
-        );
+                );
 
-        @FXML
-        void goToMainMenu() {
+        // Scheda impostazioni "Controlli"
+        @FXML private AnchorPane controlsAnchorPane;
+        @FXML private TitledPane controlsTitlePane;
+        @FXML private Text keyboardText, movementText, rightText, leftText, upText, downText, selectText,
+                finishTurnText, revertMoveText, openMenuText, backgroundText;
+        @FXML private TextField rightTextField, leftTextField, upTextField, downTextField, selectTextField,
+                revertMoveTextField, finishTurnTextField, openMenuTextField;
+        @FXML private ColorPicker selectedPointColorPicker, backGroundColorPicker;
+        private String bindingBefore;
+
+        // Pannello avviso cambiamenti non salvati
+        @FXML private TitledPane warningTitlePane;
+        @FXML private Text warningText;
+        @FXML private Button exitAndSaveButton, exitNoSaveButton, cancelButton;
+
+
+        @FXML void goToMainMenu() {
                 if(!applyButton.isDisable()){
                         warningTitlePane.setVisible(true);
                         warningTitlePane.setDisable(false);
@@ -251,8 +107,7 @@ public class SettingsView implements GenericGUI{
                 }
         }
 
-        @FXML
-        void closeWarning(ActionEvent event) {
+        @FXML void closeWarning(ActionEvent event) {
                 warningTitlePane.setVisible(false);
                 warningTitlePane.setDisable(true);
                 settingsAnchorPane.setDisable(false);
@@ -262,8 +117,7 @@ public class SettingsView implements GenericGUI{
                 customizeAnchorPane.setDisable(false);
         }
 
-        @FXML
-        void forceMainMenu(ActionEvent event) {
+        @FXML void forceMainMenu(ActionEvent event) {
                 settingsAnchorPane.setDisable(false);
                 App.changeRoot(MAIN_MENU);
                 selectedPointAnimation.stop();
@@ -271,59 +125,36 @@ public class SettingsView implements GenericGUI{
         }
 
 
-        @FXML
-        void openEditVideo() {
-                videoTitlePane.setVisible(true);
-                videoAnchorPane.setMouseTransparent(false);
-                audioTitlePane.setVisible(false);
-                audioAnchorPane.setMouseTransparent(true);
-                customizeTitlePane.setVisible(false);
-                customizeAnchorPane.setMouseTransparent(true);
-                controlsTitlePane.setVisible(false);
-                controlsAnchorPane.setMouseTransparent(true);
-
+        @FXML void openEditVideo() {
+                selectSettingsTab(Tab.VIDEO_TAB);
         }
 
-        @FXML
-        void openEditAudio() {
-                videoTitlePane.setVisible(false);
-                videoAnchorPane.setMouseTransparent(true);
-                audioTitlePane.setVisible(true);
-                audioAnchorPane.setMouseTransparent(false);
-                customizeTitlePane.setVisible(false);
-                customizeAnchorPane.setMouseTransparent(true);
-                controlsTitlePane.setVisible(false);
-                controlsAnchorPane.setMouseTransparent(true);
+        @FXML void openEditAudio() {
+                selectSettingsTab(Tab.AUDIO_TAB);
         }
 
-        @FXML
-        void openEditCustomize() {
-                videoTitlePane.setVisible(false);
-                videoAnchorPane.setMouseTransparent(true);
-                audioTitlePane.setVisible(false);
-                audioAnchorPane.setMouseTransparent(true);
-                customizeTitlePane.setVisible(true);
-                customizeAnchorPane.setMouseTransparent(false);
-                controlsTitlePane.setVisible(false);
-                controlsAnchorPane.setMouseTransparent(true);
+        @FXML void openEditCustomize() {
+                selectSettingsTab(Tab.CUSTOMIZATION_TAB);
         }
 
-        @FXML
-        void openEditControls(ActionEvent event) {
-                videoTitlePane.setVisible(false);
-                videoAnchorPane.setMouseTransparent(true);
-                audioTitlePane.setVisible(false);
-                audioAnchorPane.setMouseTransparent(true);
-                customizeTitlePane.setVisible(false);
-                customizeAnchorPane.setMouseTransparent(true);
-                controlsTitlePane.setVisible(true);
-                controlsAnchorPane.setMouseTransparent(false);
+        @FXML void openEditControls(ActionEvent event) {
+                selectSettingsTab(Tab.CONTROLS_TAB);
+        }
+
+        private void selectSettingsTab (Tab tab) {
+                videoTitlePane.setVisible(tab.equals(Tab.VIDEO_TAB));
+                videoAnchorPane.setMouseTransparent(!tab.equals(Tab.VIDEO_TAB));
+                audioTitlePane.setVisible(tab.equals(Tab.AUDIO_TAB));
+                audioAnchorPane.setMouseTransparent(!tab.equals(Tab.AUDIO_TAB));
+                controlsTitlePane.setVisible(tab.equals(Tab.CONTROLS_TAB));
+                controlsAnchorPane.setMouseTransparent(!tab.equals(Tab.CONTROLS_TAB));
+                customizeTitlePane.setVisible(tab.equals(Tab.CUSTOMIZATION_TAB));
+                customizeAnchorPane.setMouseTransparent(!tab.equals(Tab.CUSTOMIZATION_TAB));
         }
 
         //Video
         //schermo intero
-        @FXML
-        void fullscreen(ActionEvent event) {
+        @FXML void fullscreen(ActionEvent event) {
                 Stage stage = (Stage) window.getScene().getWindow();
                 boolean fullScreen = fullscreenCheck.isSelected();
                 stage.setFullScreen(fullScreen);
@@ -332,8 +163,7 @@ public class SettingsView implements GenericGUI{
                 resolutionHeightField.setDisable(fullScreen);
         }
 
-        @FXML
-        void lockResolution(ActionEvent event) {
+        @FXML void lockResolution(ActionEvent event) {
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setResizable(!lockResolutionCheck.isSelected());
                 applyButton.setDisable(false);
@@ -348,126 +178,81 @@ public class SettingsView implements GenericGUI{
 
         //Audio
 
-        @FXML
-        void muteMusic(ActionEvent event) {
-                if (musicCheck.isSelected()){
-                        Sv = musicSlider.getValue();
-                        musicSlider.setValue(0);
-                        musicSlider.setDisable(true);
+        @FXML void muteMusic(ActionEvent event) {
+                musicSlider.setDisable(musicCheck.isSelected());
+                if (musicCheck.isSelected())
                         view.pauseMusic();
-                }else{
-                        musicSlider.setValue(Sv);
-                        musicSlider.setDisable(false);
-                        view.playMusic(Music.MENU);
-                }
+                else view.playMusic(Music.MENU);
                 applyButton.setDisable(false);
         }
 
-        @FXML
-        void muteSFX(ActionEvent event) {
-                if (sFXCheck.isSelected()) {
-                        Sve = sFXSlider.getValue();
-                        sFXSlider.setValue(0);
-                        sFXSlider.setDisable(true);
-                } else {
-                        sFXSlider.setValue(Sve);
-                        sFXSlider.setDisable(false);
-                }
+        @FXML void muteSFX(ActionEvent event) {
+                sFXSlider.setDisable(sFXCheck.isSelected());
                 applyButton.setDisable(false);
         }
 
-        @FXML
-        void playSound(MouseEvent event) {
+        @FXML void playSound(MouseEvent event) {
                 view.playSFX(SFX.PAWN_DROP);
         }
 
         //Personalizzazione
-        @FXML
-        void whitePawnFillChange(ActionEvent event) {
-                Color newValue = whitePawnFillColorPicker.getValue();
-                if (newValue!= whitePawn.getFill()) {
-                        whitePawn.setFill(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void whitePawnFillChange(ActionEvent event) {
+                changeFillColor(whitePawnFillColorPicker.getValue(), whitePawn);
         }
 
-        @FXML
-        void whitePawnStrokeChange(ActionEvent event) {
-                Color newValue = whitePawnStrokeColorPicker.getValue();
-                if (newValue!= whitePawn.getStroke()) {
-                        whitePawn.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void whitePawnStrokeChange(ActionEvent event) {
+                changeStrokeColor(whitePawnStrokeColorPicker.getValue(), whitePawn);
         }
 
-        @FXML
-        void blackPawnFillChange(ActionEvent event) {
-                Color newValue = blackPawnFillColorPicker.getValue();
-                if (newValue!= blackPawn.getFill()) {
-                        blackPawn.setFill(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void blackPawnFillChange(ActionEvent event) {
+                changeFillColor(blackPawnFillColorPicker.getValue(), blackPawn);
         }
 
-        @FXML
-        void blackPawnStrokeChange(ActionEvent event) {
-                Color newValue = blackPawnStrokeColorPicker.getValue();
-                if (newValue!= blackPawn.getStroke()) {
-                        blackPawn.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void blackPawnStrokeChange(ActionEvent event) {
+                changeStrokeColor(blackPawnStrokeColorPicker.getValue(), blackPawn);
         }
 
-        @FXML
-        void frameColorChange(ActionEvent event) {
-                Color newValue = tableColorPicker.getValue();
-                if (newValue!= customBoard.getFill()) {
-                        customBoard.setFill(newValue);
-                        customBoard.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void frameColorChange(ActionEvent event) {
+                changeBothColors(frameColorPicker.getValue(), customFrame);
         }
 
-        @FXML
-        void boardColorChange(ActionEvent event) {
-                Color newValue = frameColorPicker.getValue();
-                if (newValue!= customFrame.getFill()) {
-                        customFrame.setFill(newValue);
-                        customFrame.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void boardColorChange(ActionEvent event) {
+                changeBothColors(tableColorPicker.getValue(), customBoard);
         }
 
-        @FXML
-        void evenPointColorChange(ActionEvent event) {
-                Color newValue = evenPointColorPicker.getValue();
-                if (newValue!= customPoint1.getFill()) {
-                        customPoint1.setFill(newValue);
-                        customPoint1.setStroke(newValue);
-                        customPoint3.setFill(newValue);
-                        customPoint3.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void evenPointColorChange(ActionEvent event) {
+                changeBothColors(evenPointColorPicker.getValue(), customPoint1);
+                changeBothColors(evenPointColorPicker.getValue(), customPoint3);
         }
 
-        @FXML
-        void oddPointColorChange(ActionEvent event) {
-                Color newValue = oddPointColorPicker.getValue();
-                if (newValue!= customPoint2.getFill()) {
-                        customPoint2.setFill(newValue);
-                        customPoint2.setStroke(newValue);
-                        applyButton.setDisable(false);
-                }
+        @FXML void oddPointColorChange(ActionEvent event) {
+                changeBothColors(oddPointColorPicker.getValue(), customPoint2);
         }
 
-        @FXML
-        void selectedPointColorChange(ActionEvent event) {
+        @FXML void selectedPointColorChange(ActionEvent event) {
                 Color newValue = selectedPointColorPicker.getValue();
                 if (newValue!=selectedPointColor) {
                         selectedPointColor = newValue;
                         regeneratePointAnimation();
                         applyButton.setDisable(false);
                 }
+        }
+
+        private void changeStrokeColor(Color newColor, Shape shape){
+                if (!newColor.equals(shape.getStroke())) {
+                        shape.setStroke(newColor);
+                        applyButton.setDisable(false);
+                }
+        }
+        private void changeFillColor(Color newColor, Shape shape){
+                if (!newColor.equals(shape.getFill())) {
+                        shape.setFill(newColor);
+                        applyButton.setDisable(false);
+                }
+        }
+        private void changeBothColors(Color newColor, Shape shape) {
+                changeStrokeColor(newColor, shape);
+                changeFillColor(newColor, shape);
         }
 
         private void regeneratePointAnimation() {
@@ -987,27 +772,15 @@ public class SettingsView implements GenericGUI{
                 switch (logic.getSetting("Customization", "boardPreset", int.class)) {
                         case CUSTOM_BOARD:
                                 customRadio.setSelected(true);
-                                tableColorPicker.setDisable(false);
-                                evenPointColorPicker.setDisable(false);
-                                oddPointColorPicker.setDisable(false);
-                                selectedPointColorPicker.setDisable(false);
-                                frameColorPicker.setDisable(false);
+                                disableColorPickers(false);
                                 break;
                         case LEFT_PRESET:
                                 leftPresetRadio.setSelected(true);
-                                tableColorPicker.setDisable(true);
-                                evenPointColorPicker.setDisable(true);
-                                oddPointColorPicker.setDisable(true);
-                                selectedPointColorPicker.setDisable(true);
-                                frameColorPicker.setDisable(true);
+                                disableColorPickers(true);
                                 break;
                         case RIGHT_PRESET:
                                 rightPresetRadio.setSelected(true);
-                                tableColorPicker.setDisable(true);
-                                evenPointColorPicker.setDisable(true);
-                                oddPointColorPicker.setDisable(true);
-                                selectedPointColorPicker.setDisable(true);
-                                frameColorPicker.setDisable(true);
+                                disableColorPickers(true);
                                 break;
                 }
 
@@ -1079,6 +852,14 @@ public class SettingsView implements GenericGUI{
                 selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);
                 regeneratePointAnimation();
 
+        }
+
+        private void disableColorPickers(boolean set) {
+                tableColorPicker.setDisable(set);
+                evenPointColorPicker.setDisable(set);
+                oddPointColorPicker.setDisable(set);
+                selectedPointColorPicker.setDisable(set);
+                frameColorPicker.setDisable(set);
         }
 
         private void checkVolumeChanges(Number value, int whichSlider) {

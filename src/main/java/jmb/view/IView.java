@@ -5,25 +5,15 @@ import jmb.ConstantsShared.*;
 public interface IView {
 
     void setCurrentScene (GenericGUI scene);
-
     void initializeMusic();
-
     void openWhiteExit();
-
     void openBlackExit();
-
     void rollDice();
-
     void setDiceContrast();
-
     void setPawnsForTurn();
-
     void backBTNSetDisable (boolean disable);
-
     void closeBlackExit();
-
     void closeWhiteExit();
-
     void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status);
     void setNextTutorialString(String text, boolean changeTextBox);
     void setTutorialOver();

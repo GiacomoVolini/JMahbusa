@@ -1,24 +1,17 @@
 package jmb.view;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.LOG_IN;
-import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
@@ -205,7 +198,8 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeRoot(MAIN_MENU);
-        view.playMusic(Music.MENU);
+        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
+            view.playMusic(Music.MENU);
     }
 
     @FXML
@@ -213,8 +207,10 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         logic.initializeGameLogic();
         logic.initializeLeaderboardLogic();
         App.changeRoot(LOG_IN);
-        view.playMusic(Music.MENU);
+        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
+            view.playMusic(Music.MENU);
     }
+
     protected void highlightPointsToOpenExit(int stage) {
         if (stage%2==1) {
             //COLORA DEL COLORE DEI GIOCATORI

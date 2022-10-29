@@ -13,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import jmb.logic.Logic;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.MAIN_MENU;
@@ -80,7 +81,8 @@ public class LogIn implements GenericGUI {
     @FXML
     void savePlayer(ActionEvent event) {
         if (!customTimerField.isDisable() && !logic.isParsable(customTimerField.getText())) {
-            view.playSFX(SFX.ERROR);
+            if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                view.playSFX(SFX.ERROR);
             errorLabel.setText(logic.getString("errorWrongTimerFormat"));
             errorLabel.setVisible(true);
         } else {
@@ -118,7 +120,8 @@ public class LogIn implements GenericGUI {
                 break;
         }
         errorLabel.setText(errorMessage);
-        view.playSFX(SFX.ERROR);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.ERROR);
         errorLabel.setVisible(true);
     }
 

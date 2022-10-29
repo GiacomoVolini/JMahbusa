@@ -15,7 +15,8 @@ public class FirstOpponentTurnStage extends ComparableTutorialStage{
     public void start() {
         view.restoreBoardColors();
         logic.setWhiteTurn(false);
-        view.playSFX(SFX.DICE_ROLL);
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+            view.playSFX(SFX.DICE_ROLL);
         view.tutorialDiceAnimation(true, 100);
         logic.forceDice(6);
         view.callRedraw();

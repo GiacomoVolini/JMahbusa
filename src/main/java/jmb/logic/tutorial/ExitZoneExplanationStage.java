@@ -29,7 +29,8 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 setUpTheStage();
                 break;
             case 1:
-                view.playSFX(SFX.DICE_ROLL);
+                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                    view.playSFX(SFX.DICE_ROLL);
             case 2: case 3: case 4: case 5: case 6:
                 view.highlightPointsToOpenExit(internalIndex);
                 view.tutorialDiceAnimation(true, 8);

@@ -16,395 +16,263 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="jmb.view.SettingsView">
-    <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0"
-                prefWidth="174.0" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                AnchorPane.topAnchor="0.0">
-        <AnchorPane fx:id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0"
-                    prefWidth="174.0">
-            <ImageView fx:id="bgsinistra" layoutY="25.0" pickOnBounds="true" preserveRatio="true"/>
-            <Button fx:id="videoButton" layoutX="19.0" layoutY="50.0" mnemonicParsing="false"
-                    onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" text="Video"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="audioButton" layoutX="19.0" layoutY="100.0" mnemonicParsing="false"
-                    onAction="#openEditAudio" prefHeight="26.0" prefWidth="133.0" text="Audio"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="customizationButton" layoutX="19.0" layoutY="150.0" mnemonicParsing="false"
-                    onAction="#openEditCustomize" prefHeight="26.0" prefWidth="133.0" text="Customization"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="controlsButton" layoutX="19.0" layoutY="200.0" mnemonicParsing="false"
-                    onAction="#openEditControls" prefHeight="26.0" prefWidth="133.0" text="Commands"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="mainMenuButton" layoutX="19.0" layoutY="360.0" mnemonicParsing="false"
-                    onAction="#goToMainMenu" prefHeight="26.0" prefWidth="133.0" text="Main Menu"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="applyButton" disable="true" layoutX="19.0" layoutY="290.0" mnemonicParsing="false"
-                    onAction="#applySettings" prefHeight="25.0" prefWidth="133.0" text="Apply"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
-            <Button fx:id="resetButton" layoutX="19.0" layoutY="325.0" mnemonicParsing="false"
-                    onAction="#resetToDefaults" prefHeight="25.0" prefWidth="133.0" text="Reset"
-                    AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0"/>
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+    <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="174.0">
+            <ImageView fx:id="bgsinistra" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="videoButton" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" text="Video" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="audioButton" layoutX="19.0" layoutY="100.0" mnemonicParsing="false" onAction="#openEditAudio" prefHeight="26.0" prefWidth="133.0" text="Audio" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="customizationButton" layoutX="19.0" layoutY="150.0" mnemonicParsing="false" onAction="#openEditCustomize" prefHeight="26.0" prefWidth="133.0" text="Customization" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="controlsButton" layoutX="19.0" layoutY="200.0" mnemonicParsing="false" onAction="#openEditControls" prefHeight="26.0" prefWidth="133.0" text="Commands" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="mainMenuButton" layoutX="19.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="26.0" prefWidth="133.0" text="Main Menu" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="applyButton" disable="true" layoutX="19.0" layoutY="290.0" mnemonicParsing="false" onAction="#applySettings" prefHeight="25.0" prefWidth="133.0" text="Apply" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+            <Button fx:id="resetButton" layoutX="19.0" layoutY="325.0" mnemonicParsing="false" onAction="#resetToDefaults" prefHeight="25.0" prefWidth="133.0" text="Reset" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
         </AnchorPane>
     </TitledPane>
-    <TitledPane fx:id="videoTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="172.0"
-                prefHeight="440.0" text="Video">
-        <AnchorPane fx:id="videoAnchorPane" minHeight="0.0" minWidth="0.0" mouseTransparent="true"
-                    prefHeight="440.0" prefWidth="496.0">
-            <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true"/>
-            <Text fx:id="resolutionText" layoutX="28.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Resolution" wrappingWidth="114.0">
+    <TitledPane fx:id="videoTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="172.0" prefHeight="440.0" text="Video">
+        <AnchorPane fx:id="videoAnchorPane" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
+            <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="resolutionText" layoutX="28.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resolution" wrappingWidth="114.0">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Text>
-            <CheckBox fx:id="fullscreenCheck" layoutX="28.0" layoutY="171.0" mnemonicParsing="false"
-                      onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Fullscreen">
+            <CheckBox fx:id="fullscreenCheck" layoutX="28.0" layoutY="171.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Fullscreen">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </CheckBox>
-            <CheckBox fx:id="lockResolutionCheck" layoutX="255.0" layoutY="171.0" mnemonicParsing="false"
-                      onAction="#lockResolution" prefHeight="30.0" prefWidth="224.0" text="BlockResolution">
+            <CheckBox fx:id="lockResolutionCheck" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#lockResolution" prefHeight="30.0" prefWidth="224.0" text="BlockResolution">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </CheckBox>
-            <Text fx:id="resolutionWidthText" layoutX="42.0" layoutY="98.0" strokeType="OUTSIDE"
-                  strokeWidth="0.0" text="Length" wrappingWidth="103.0">
+            <Text fx:id="resolutionWidthText" layoutX="42.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" wrappingWidth="103.0">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Text>
-            <Text fx:id="resolutionHeightText" layoutX="42.0" layoutY="134.0" strokeType="OUTSIDE"
-                  strokeWidth="0.0" text="Height" wrappingWidth="103.0">
+            <Text fx:id="resolutionHeightText" layoutX="42.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" wrappingWidth="103.0">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Text>
-            <TextField fx:id="resolutionWidthField" layoutX="144.0" layoutY="81.0"
-                       onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="91.0"
-                       promptText="NumbersOnly"/>
-            <TextField fx:id="resolutionHeightField" layoutX="200.0" layoutY="117.0"
-                       onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0"
-                       promptText="NumbersOnly"/>
+            <TextField fx:id="resolutionWidthField" layoutX="144.0" layoutY="81.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
+            <TextField fx:id="resolutionHeightField" layoutX="200.0" layoutY="117.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
         </AnchorPane>
     </TitledPane>
-    <TitledPane fx:id="audioTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0"
-                prefHeight="440.0" text="Audio" visible="false">
+    <TitledPane fx:id="audioTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" text="Audio" visible="false">
         <AnchorPane fx:id="audioAnchorPane" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
-            <ImageView fx:id="Abg" pickOnBounds="true" preserveRatio="true"/>
-            <Text fx:id="musicText" layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Music" wrappingWidth="156.0">
+            <ImageView fx:id="Abg" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="musicText" layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music" wrappingWidth="156.0">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Text>
-            <CheckBox fx:id="musicCheck" layoutX="28.0" layoutY="148.0" mnemonicParsing="false"
-                      onAction="#muteMusic" prefHeight="14.0" prefWidth="204.0" text="MuteMusic">
+            <CheckBox fx:id="musicCheck" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="14.0" prefWidth="204.0" text="MuteMusic">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </CheckBox>
-            <Slider fx:id="musicSlider" layoutX="209.0" layoutY="66.0" showTickLabels="true"
-                    showTickMarks="true"/>
-            <CheckBox fx:id="sFXCheck" layoutX="28.0" layoutY="190.0" mnemonicParsing="false"
-                      onAction="#muteSFX" prefHeight="30.0" prefWidth="235.0" text="MuteSoundEffects">
+            <Slider fx:id="musicSlider" layoutX="209.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
+            <CheckBox fx:id="sFXCheck" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#muteSFX" prefHeight="30.0" prefWidth="235.0" text="MuteSoundEffects">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </CheckBox>
-            <Text fx:id="sFXText" layoutX="28.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="SoundEffects" wrappingWidth="156.0">
+            <Text fx:id="sFXText" layoutX="28.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SoundEffects" wrappingWidth="156.0">
                 <font>
-                    <Font size="20.0"/>
+                    <Font size="20.0" />
                 </font>
             </Text>
-            <Slider fx:id="sFXSlider" layoutX="209.0" layoutY="111.0" onMouseReleased="#playSound"
-                    showTickLabels="true" showTickMarks="true"/>
+            <Slider fx:id="sFXSlider" layoutX="209.0" layoutY="111.0" onMouseReleased="#playSound" showTickLabels="true" showTickMarks="true" />
         </AnchorPane>
     </TitledPane>
-    <TitledPane fx:id="customizeTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0"
-                prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione"
-                visible="false">
+    <TitledPane fx:id="customizeTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Personalizzazione">
         <AnchorPane fx:id="customizeAnchorPane" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
-            <ImageView fx:id="Ibg" pickOnBounds="true" preserveRatio="true"/>
-            <ColorPicker fx:id="whitePawnFillColorPicker" editable="true" layoutX="85.0" layoutY="63.0"
-                         onAction="#whitePawnFillChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css"/>
-            <Text fx:id="whitePawnText" layoutX="84.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Player1Pawns" wrappingWidth="125.0">
+            <ImageView fx:id="Ibg" pickOnBounds="true" preserveRatio="true" />
+            <ColorPicker fx:id="whitePawnFillColorPicker" editable="true" layoutX="85.0" layoutY="63.0" onAction="#whitePawnFillChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
+            <Text fx:id="whitePawnText" layoutX="84.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player1Pawns" wrappingWidth="125.0">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <Circle fx:id="whitePawn" fill="WHITE" layoutX="182.0" layoutY="95.0" radius="19.0" stroke="BLACK"
-                    strokeType="INSIDE"/>
-            <ColorPicker fx:id="blackPawnFillColorPicker" editable="true" layoutX="266.0" layoutY="63.0"
-                         onAction="#blackPawnFillChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <Circle fx:id="whitePawn" fill="WHITE" layoutX="182.0" layoutY="95.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" />
+            <ColorPicker fx:id="blackPawnFillColorPicker" editable="true" layoutX="266.0" layoutY="63.0" onAction="#blackPawnFillChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color/>
+                    <Color />
                 </value>
             </ColorPicker>
-            <Text fx:id="blackPawnText" layoutX="265.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Player2Pawns" wrappingWidth="125.0">
+            <Text fx:id="blackPawnText" layoutX="265.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player2Pawns" wrappingWidth="125.0">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <Circle fx:id="blackPawn" layoutX="375.0" layoutY="95.0" radius="19.0" stroke="WHITE"
-                    strokeType="INSIDE"/>
-            <ColorPicker fx:id="whitePawnStrokeColorPicker" editable="true" layoutX="85.0" layoutY="105.0"
-                         onAction="#whitePawnStrokeChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <Circle fx:id="blackPawn" layoutX="375.0" layoutY="95.0" radius="19.0" stroke="WHITE" strokeType="INSIDE" />
+            <ColorPicker fx:id="whitePawnStrokeColorPicker" editable="true" layoutX="85.0" layoutY="105.0" onAction="#whitePawnStrokeChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color/>
+                    <Color />
                 </value>
             </ColorPicker>
-            <ColorPicker fx:id="blackPawnStrokeColorPicker" editable="true" layoutX="266.0" layoutY="105.0"
-                         onAction="#blackPawnStrokeChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css"/>
-            <Text fx:id="pawnFillText" layoutX="12.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Internal" wrappingWidth="83.0">
+            <ColorPicker fx:id="blackPawnStrokeColorPicker" editable="true" layoutX="266.0" layoutY="105.0" onAction="#blackPawnStrokeChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css" />
+            <Text fx:id="pawnFillText" layoutX="12.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Internal" wrappingWidth="83.0">
                 <font>
-                    <Font size="14.0"/>
+                    <Font size="14.0" />
                 </font>
             </Text>
-            <Text fx:id="pawnStrokeText" layoutX="12.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Outline" wrappingWidth="90.0">
+            <Text fx:id="pawnStrokeText" layoutX="12.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Outline" wrappingWidth="90.0">
                 <font>
-                    <Font size="14.0"/>
+                    <Font size="14.0" />
                 </font>
             </Text>
-            <ColorPicker fx:id="tableColorPicker" depthTest="ENABLE" editable="true" layoutX="40.0"
-                         layoutY="210.0" onAction="#frameColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <ColorPicker fx:id="tableColorPicker" depthTest="ENABLE" editable="true" layoutX="40.0" layoutY="210.0" onAction="#boardColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color red="0.8823529481887817" green="0.7764706015586853" blue="0.6000000238418579"/>
+                    <Color red="0.8823529481887817" green="0.7764706015586853" blue="0.6000000238418579" />
                 </value>
             </ColorPicker>
-            <Text fx:id="tableText" layoutX="30.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Table" textAlignment="CENTER" wrappingWidth="73.0">
+            <Text fx:id="tableText" layoutX="30.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table" textAlignment="CENTER" wrappingWidth="73.0">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <ColorPicker fx:id="evenPointColorPicker" editable="true" layoutX="206.0" layoutY="210.0"
-                         onAction="#evenPointColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <ColorPicker fx:id="evenPointColorPicker" editable="true" layoutX="206.0" layoutY="210.0" onAction="#evenPointColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color red="0.6980392336845398" green="0.4941176474094391" blue="0.1921568661928177"/>
+                    <Color red="0.6980392336845398" green="0.4941176474094391" blue="0.1921568661928177" />
                 </value>
             </ColorPicker>
-            <Text fx:id="pointText" layoutX="198.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Points" textAlignment="CENTER" wrappingWidth="73.0">
+            <Text fx:id="pointText" layoutX="198.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points" textAlignment="CENTER" wrappingWidth="73.0">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <ColorPicker fx:id="frameColorPicker" editable="true" layoutX="380.0" layoutY="210.0"
-                         onAction="#boardColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <ColorPicker fx:id="frameColorPicker" editable="true" layoutX="380.0" layoutY="210.0" onAction="#frameColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color red="0.26274511218070984" green="0.1764705926179886" blue="0.019607843831181526"/>
+                    <Color red="0.26274511218070984" green="0.1764705926179886" blue="0.019607843831181526" />
                 </value>
             </ColorPicker>
-            <Text fx:id="frameText" layoutX="370.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Frame" textAlignment="CENTER" wrappingWidth="73.0">
+            <Text fx:id="frameText" layoutX="370.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Frame" textAlignment="CENTER" wrappingWidth="73.0">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <RadioButton fx:id="leftPresetRadio" layoutX="35.0" layoutY="339.0" mnemonicParsing="false"
-                         onAction="#leftPresetAction" text="Preset"/>
-            <RadioButton fx:id="customRadio" layoutX="203.0" layoutY="339.0" mnemonicParsing="false"
-                         onAction="#customPresetAction" text="custom"/>
-            <ColorPicker fx:id="oddPointColorPicker" editable="true" layoutX="266.0" layoutY="210.0"
-                         onAction="#oddPointColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <RadioButton fx:id="leftPresetRadio" layoutX="35.0" layoutY="339.0" mnemonicParsing="false" onAction="#presetAction" text="Preset" />
+            <RadioButton fx:id="customRadio" layoutX="203.0" layoutY="339.0" mnemonicParsing="false" onAction="#customPresetAction" text="custom" />
+            <ColorPicker fx:id="oddPointColorPicker" editable="true" layoutX="266.0" layoutY="210.0" onAction="#oddPointColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color red="0.16470588743686676" green="0.7372549176216125" blue="0.5843137502670288"/>
+                    <Color red="0.16470588743686676" green="0.7372549176216125" blue="0.5843137502670288" />
                 </value>
             </ColorPicker>
-            <RadioButton fx:id="rightPresetRadio" layoutX="376.0" layoutY="339.0" mnemonicParsing="false"
-                         onAction="#rightPresetAction" text="Preset"/>
-            <AnchorPane fx:id="leftPresetPane" layoutX="30.0" layoutY="254.0" minHeight="78.0"
-                        minWidth="89.0" prefHeight="78.0" prefWidth="91.0">
-                <Rectangle fx:id="leftPresetFrame" arcHeight="5.0" arcWidth="5.0" height="78.0"
-                           stroke="BLACK" strokeType="INSIDE" width="89.0"/>
-                <Rectangle fx:id="leftPresetBoard" arcHeight="5.0" arcWidth="5.0" fill="#ad1111"
-                           height="62.0" stroke="#ad1111" strokeType="INSIDE" width="73.0"/>
-                <Polygon fx:id="leftPresetPoint1" fill="#ffde3a" layoutX="30.0" layoutY="-54.0"
-                         points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#ffde3a" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="leftPresetPoint2" fill="SILVER" layoutX="51.0" layoutY="-54.0"
-                         points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="SILVER" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="leftPresetPoint3" fill="#ffde3a" layoutX="67.0" layoutY="-54.0"
-                         points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#ffde3a" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
+            <RadioButton fx:id="rightPresetRadio" layoutX="376.0" layoutY="339.0" mnemonicParsing="false" onAction="#presetAction" text="Preset" />
+            <AnchorPane fx:id="leftPresetPane" layoutX="30.0" layoutY="254.0" minHeight="78.0" minWidth="89.0" prefHeight="78.0" prefWidth="91.0">
+                <Rectangle fx:id="leftPresetFrame" arcHeight="5.0" arcWidth="5.0" height="78.0" stroke="BLACK" strokeType="INSIDE" width="89.0" />
+                <Rectangle fx:id="leftPresetBoard" arcHeight="5.0" arcWidth="5.0" fill="#ad1111" height="62.0" stroke="#ad1111" strokeType="INSIDE" width="73.0" />
+                <Polygon fx:id="leftPresetPoint1" fill="#ffde3a" layoutX="30.0" layoutY="-54.0" points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#ffde3a" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="leftPresetPoint2" fill="SILVER" layoutX="51.0" layoutY="-54.0" points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="SILVER" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="leftPresetPoint3" fill="#ffde3a" layoutX="67.0" layoutY="-54.0" points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#ffde3a" strokeType="INSIDE" strokeWidth="0.0" />
             </AnchorPane>
-            <AnchorPane fx:id="customPane" layoutX="187.0" layoutY="253.0" prefHeight="79.0"
-                        prefWidth="87.0">
-                <Rectangle fx:id="customFrame" arcHeight="5.0" arcWidth="5.0" fill="#432d05" height="78.0"
-                           stroke="#513706" strokeType="INSIDE" width="89.0"/>
-                <Rectangle fx:id="customBoard" arcHeight="5.0" arcWidth="5.0" fill="#e1c699" height="62.0"
-                           layoutX="1.0" stroke="#c58b68" strokeType="INSIDE" width="73.0"/>
-                <Polygon fx:id="customPoint1" fill="#b27e31" layoutX="72.0" layoutY="-54.0"
-                         points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#b27e31" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="customPoint2" fill="#2abc95" layoutX="53.0" layoutY="-54.0"
-                         points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#2abc95" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="customPoint3" fill="#b27e31" layoutX="27.0" layoutY="-54.0"
-                         points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#b27e31" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
+            <AnchorPane fx:id="customPane" layoutX="187.0" layoutY="253.0" prefHeight="79.0" prefWidth="87.0">
+                <Rectangle fx:id="customFrame" arcHeight="5.0" arcWidth="5.0" fill="#432d05" height="78.0" stroke="#513706" strokeType="INSIDE" width="89.0" />
+                <Rectangle fx:id="customBoard" arcHeight="5.0" arcWidth="5.0" fill="#e1c699" height="62.0" layoutX="1.0" stroke="#c58b68" strokeType="INSIDE" width="73.0" />
+                <Polygon fx:id="customPoint1" fill="#b27e31" layoutX="72.0" layoutY="-54.0" points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#b27e31" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="customPoint2" fill="#2abc95" layoutX="53.0" layoutY="-54.0" points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#2abc95" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="customPoint3" fill="#b27e31" layoutX="27.0" layoutY="-54.0" points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#b27e31" strokeType="INSIDE" strokeWidth="0.0" />
             </AnchorPane>
-            <AnchorPane fx:id="rightPresetPane" layoutX="359.0" layoutY="254.0" prefHeight="78.0"
-                        prefWidth="89.0">
-                <Rectangle fx:id="cornice11" arcHeight="5.0" arcWidth="5.0" fill="#090957" height="78.0"
-                           stroke="#090957" strokeType="INSIDE" width="89.0"/>
-                <Rectangle fx:id="tavolo11" arcHeight="5.0" arcWidth="5.0" fill="#53960fde" height="62.0"
-                           layoutX="1.0" stroke="#53960f" strokeType="INSIDE" width="73.0"/>
-                <Polygon fx:id="rightPresetPoint1" fill="#c21123" layoutX="72.0" layoutY="-54.0"
-                         points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#c21123" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="rightPresetPoint2" fill="#daa505" layoutX="53.0" layoutY="-54.0"
-                         points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#daa505" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
-                <Polygon fx:id="rightPresetPoint3" fill="#c21123" layoutX="27.0" layoutY="-54.0"
-                         points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#c21123" strokeType="INSIDE"
-                         strokeWidth="0.0"/>
+            <AnchorPane fx:id="rightPresetPane" layoutX="359.0" layoutY="254.0" prefHeight="78.0" prefWidth="89.0">
+                <Rectangle fx:id="cornice11" arcHeight="5.0" arcWidth="5.0" fill="#090957" height="78.0" stroke="#090957" strokeType="INSIDE" width="89.0" />
+                <Rectangle fx:id="tavolo11" arcHeight="5.0" arcWidth="5.0" fill="#53960fde" height="62.0" layoutX="1.0" stroke="#53960f" strokeType="INSIDE" width="73.0" />
+                <Polygon fx:id="rightPresetPoint1" fill="#c21123" layoutX="72.0" layoutY="-54.0" points="-17.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#c21123" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="rightPresetPoint2" fill="#daa505" layoutX="53.0" layoutY="-54.0" points="-19.0, 116.0, 2.0, 116.0, -9.0, 71.0" stroke="#daa505" strokeType="INSIDE" strokeWidth="0.0" />
+                <Polygon fx:id="rightPresetPoint3" fill="#c21123" layoutX="27.0" layoutY="-54.0" points="-14.0, 116.0, 6.0, 116.0, -5.0, 72.0" stroke="#c21123" strokeType="INSIDE" strokeWidth="0.0" />
             </AnchorPane>
-            <ColorPicker fx:id="selectedPointColorPicker" editable="true" layoutX="147.0" layoutY="210.0"
-                         onAction="#selectedPointColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <ColorPicker fx:id="selectedPointColorPicker" editable="true" layoutX="147.0" layoutY="210.0" onAction="#selectedPointColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color red="1.0" green="0.9843137264251709"/>
+                    <Color red="1.0" green="0.9843137264251709" />
                 </value>
             </ColorPicker>
-            <Text fx:id="backgroundText" layoutX="37.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="BackGround">
+            <Text fx:id="backgroundText" layoutX="37.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="BackGround">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Text>
-            <ColorPicker fx:id="backGroundColorPicker" editable="true" layoutX="125.0" layoutY="371.0"
-                         onAction="#selectedBackGroundColorChange" prefHeight="25.0" prefWidth="54.0"
-                         stylesheets="@style.css">
+            <ColorPicker fx:id="backGroundColorPicker" editable="true" layoutX="125.0" layoutY="371.0" onAction="#selectedBackGroundColorChange" prefHeight="25.0" prefWidth="54.0" stylesheets="@style.css">
                 <value>
-                    <Color green="0.501960813999176"/>
+                    <Color green="0.501960813999176" />
                 </value>
             </ColorPicker>
         </AnchorPane>
     </TitledPane>
-    <TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0"
-                prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi" visible="false">
+    <TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="173.0" prefHeight="440.0" prefWidth="496.0" stylesheets="@style.css" text="Comandi" visible="false">
         <AnchorPane fx:id="controlsAnchorPane" prefHeight="440.0" prefWidth="494.0">
-            <Text fx:id="keyboardText" layoutX="72.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="keyboard" wrappingWidth="107.0">
+            <Text fx:id="keyboardText" layoutX="72.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="107.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="rightText" layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Right" wrappingWidth="58.0">
+            <Text fx:id="rightText" layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right" wrappingWidth="58.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="leftText" layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Left" wrappingWidth="67.0">
+            <Text fx:id="leftText" layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Left" wrappingWidth="67.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="upText" layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Up" wrappingWidth="67.0">
+            <Text fx:id="upText" layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Up" wrappingWidth="67.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="downText" layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Down" wrappingWidth="67.0">
+            <Text fx:id="downText" layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Down" wrappingWidth="67.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="movementText" layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Move" wrappingWidth="75.0">
+            <Text fx:id="movementText" layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" wrappingWidth="75.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="selectText" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="Select" wrappingWidth="124.0">
+            <Text fx:id="selectText" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select" wrappingWidth="124.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="finishTurnText" layoutX="125.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="FinishTurn" wrappingWidth="138.0">
+            <Text fx:id="finishTurnText" layoutX="125.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FinishTurn" wrappingWidth="138.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="revertMoveText" layoutX="71.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="DeleteMove" wrappingWidth="142.0">
+            <Text fx:id="revertMoveText" layoutX="71.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DeleteMove" wrappingWidth="142.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="openMenuText" layoutX="118.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="TmainMenu" wrappingWidth="174.0">
+            <Text fx:id="openMenuText" layoutX="118.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TmainMenu" wrappingWidth="174.0">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </Text>
-            <TextField fx:id="rightTextField" editable="false" layoutX="252.0" layoutY="106.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="D"/>
-            <TextField fx:id="leftTextField" editable="false" layoutX="252.0" layoutY="134.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="A"/>
-            <TextField fx:id="upTextField" editable="false" layoutX="252.0" layoutY="162.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="W"/>
-            <TextField fx:id="downTextField" editable="false" layoutX="252.0" layoutY="191.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="S"/>
-            <TextField fx:id="selectTextField" editable="false" layoutX="252.0" layoutY="229.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="SPACE"/>
-            <TextField fx:id="revertMoveTextField" editable="false" layoutX="252.0" layoutY="258.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="BACK_SPACE"/>
-            <TextField fx:id="finishTurnTextField" editable="false" layoutX="251.0" layoutY="285.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="F"/>
-            <TextField fx:id="openMenuTextField" editable="false" layoutX="251.0" layoutY="312.0"
-                       onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0"
-                       prefWidth="92.0" promptText="una lettera" text="ESCAPE"/>
+            <TextField fx:id="rightTextField" editable="false" layoutX="252.0" layoutY="106.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="D" />
+            <TextField fx:id="leftTextField" editable="false" layoutX="252.0" layoutY="134.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="A" />
+            <TextField fx:id="upTextField" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="W" />
+            <TextField fx:id="downTextField" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="S" />
+            <TextField fx:id="selectTextField" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="SPACE" />
+            <TextField fx:id="revertMoveTextField" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACK_SPACE" />
+            <TextField fx:id="finishTurnTextField" editable="false" layoutX="251.0" layoutY="285.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
+            <TextField fx:id="openMenuTextField" editable="false" layoutX="251.0" layoutY="312.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
         </AnchorPane>
     </TitledPane>
-    <TitledPane fx:id="warningTitlePane" alignment="CENTER" animated="false" collapsible="false" disable="true"
-                layoutX="107.0" layoutY="128.0" prefHeight="206.0" prefWidth="412.0" text="Attention"
-                visible="false">
+    <TitledPane fx:id="warningTitlePane" alignment="CENTER" animated="false" collapsible="false" disable="true" layoutX="107.0" layoutY="128.0" prefHeight="206.0" prefWidth="412.0" text="Attention" visible="false">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <Text fx:id="warningText" layoutX="32.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="AttentionText" wrappingWidth="345.130859375">
+            <Text fx:id="warningText" layoutX="32.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AttentionText" wrappingWidth="345.130859375">
                 <font>
-                    <Font size="19.0"/>
+                    <Font size="19.0" />
                 </font>
             </Text>
-            <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false"
-                    onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" text="Salva"/>
-            <Button fx:id="exitNoSaveButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false"
-                    onAction="#forceMainMenu" prefWidth="89.0" text="Don'tSave"/>
-            <Button fx:id="cancelButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false"
-                    onAction="#closeWarning" prefWidth="89.0" text="Cancel"/>
+            <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" text="Salva" />
+            <Button fx:id="exitNoSaveButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" onAction="#forceMainMenu" prefWidth="89.0" text="Don'tSave" />
+            <Button fx:id="cancelButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeWarning" prefWidth="89.0" text="Cancel" />
         </AnchorPane>
     </TitledPane>
 </AnchorPane>

@@ -25,7 +25,7 @@ public class SettingsView implements GenericGUI{
         @FXML private Button videoButton, audioButton, customizationButton, controlsButton,
                 mainMenuButton, resetButton, applyButton;
         private Button[] settingsPaneButtons;
-        private enum Tab { VIDEO_TAB, AUDIO_TAB, CUSTOMIZATION_TAB, CONTROLS_TAB}
+        private enum Tab {VIDEO, AUDIO, CUSTOMIZATION, CONTROLS}
         private boolean wasApplyButtonDisabled = true;
 
         // Scheda impostazioni "Video"
@@ -127,30 +127,30 @@ public class SettingsView implements GenericGUI{
 
 
         @FXML void openEditVideo() {
-                selectSettingsTab(Tab.VIDEO_TAB);
+                selectSettingsTab(Tab.VIDEO);
         }
 
         @FXML void openEditAudio() {
-                selectSettingsTab(Tab.AUDIO_TAB);
+                selectSettingsTab(Tab.AUDIO);
         }
 
         @FXML void openEditCustomize() {
-                selectSettingsTab(Tab.CUSTOMIZATION_TAB);
+                selectSettingsTab(Tab.CUSTOMIZATION);
         }
 
         @FXML void openEditControls(ActionEvent event) {
-                selectSettingsTab(Tab.CONTROLS_TAB);
+                selectSettingsTab(Tab.CONTROLS);
         }
 
         private void selectSettingsTab (Tab tab) {
-                videoTitlePane.setVisible(tab.equals(Tab.VIDEO_TAB));
-                videoAnchorPane.setMouseTransparent(!tab.equals(Tab.VIDEO_TAB));
-                audioTitlePane.setVisible(tab.equals(Tab.AUDIO_TAB));
-                audioAnchorPane.setMouseTransparent(!tab.equals(Tab.AUDIO_TAB));
-                controlsTitlePane.setVisible(tab.equals(Tab.CONTROLS_TAB));
-                controlsAnchorPane.setMouseTransparent(!tab.equals(Tab.CONTROLS_TAB));
-                customizeTitlePane.setVisible(tab.equals(Tab.CUSTOMIZATION_TAB));
-                customizeAnchorPane.setMouseTransparent(!tab.equals(Tab.CUSTOMIZATION_TAB));
+                videoTitlePane.setVisible(tab.equals(Tab.VIDEO));
+                videoAnchorPane.setMouseTransparent(!tab.equals(Tab.VIDEO));
+                audioTitlePane.setVisible(tab.equals(Tab.AUDIO));
+                audioAnchorPane.setMouseTransparent(!tab.equals(Tab.AUDIO));
+                controlsTitlePane.setVisible(tab.equals(Tab.CONTROLS));
+                controlsAnchorPane.setMouseTransparent(!tab.equals(Tab.CONTROLS));
+                customizeTitlePane.setVisible(tab.equals(Tab.CUSTOMIZATION));
+                customizeAnchorPane.setMouseTransparent(!tab.equals(Tab.CUSTOMIZATION));
         }
 
         //Video

@@ -187,7 +187,4 @@ public abstract class GameBoardRedraw {
         resizeExitRegions(board);
     }
 
-
-
-
 }

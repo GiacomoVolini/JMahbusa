@@ -1,6 +1,5 @@
 package jmb.view;
 
-
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,155 +12,47 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
-import jmb.logic.Logic;
-
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
 
-
 public class GameView extends DynamicGameBoard implements GenericGUI{
-
 
     private static final double HORIZONTAL_RESIZE_FACTOR = 0.53;
     private static final double VERTICAL_RESIZE_FACTOR = 0.75;
-
     private boolean wasBackBTNDisabled;
-
-
-    @FXML
-    AnchorPane window;
-    @FXML
-    AnchorPane saveAnchorPane;
-    @FXML
-    Label errorLabel;
-
-    @FXML
-    protected Button backBTN;
-    @FXML
-    Button exitAndSave;
-
-    @FXML
-    Button finishBTN;
-
-    @FXML
-    Rectangle timerOut;
-
-    @FXML
-    Rectangle timerIn;
-
-    @FXML
-    Button menuBTN;
-    @FXML
-    TitledPane startDialogue;
-
-    @FXML
-    Button startBTN;
-
-    @FXML
-    TitledPane pauseMenu;
-
-    @FXML
-    Button exitWithoutSave;
-
-    @FXML
-    Button cancelButton;
-
-    @FXML
-    Rectangle plBLKInRect;
-
-    @FXML
-    Rectangle plBLKOutRect;
-
-    @FXML
-    Label plBLKText;
-
-    @FXML
-    Rectangle plWHTInRect;
-
-    @FXML
-    Rectangle plWHTOutRect;
-
-    @FXML
-    Label plWHTText;
-
-    @FXML
-    Circle plWHTPawn;
-
-    @FXML
-    Circle plBLKPawn;
-
-    @FXML
-    Button saveButton;
-
-    @FXML
-    Button closeSaveButton;
-
-    @FXML
-    TitledPane saveDialogue;
-
-    @FXML
-    Text saveLabel;
-
-    @FXML
-    TextField saveTextField;
-
-    @FXML
-    Text backText;
-
-    @FXML
-    Text finishTurnText;
-
-    @FXML
-    Text menuText;
-
-    @FXML
-    Text rightText;
-
-    @FXML
-    Text leftText;
-
-    @FXML
-    Text upText;
-
-    @FXML
-    Text downText;
-
-    @FXML
-    Text selectText;
-    @FXML
-    Text readyText;
-    @FXML
-    Text pauseText;
-
+    @FXML AnchorPane window, saveAnchorPane;
+    @FXML Label errorLabel, plBLKText, plWHTText;
+    @FXML protected Button backBTN;
+    @FXML Button exitAndSave, finishBTN, menuBTN, startBTN, exitWithoutSave, cancelButton,
+            saveButton, closeSaveButton;
+    @FXML Rectangle timerOut, timerIn, plBLKInRect, plBLKOutRect, plWHTInRect, plWHTOutRect;
+    @FXML TitledPane startDialogue, pauseMenu, saveDialogue;
+    @FXML Circle plWHTPawn, plBLKPawn;
+    @FXML TextField saveTextField;
+    @FXML Text saveLabel, backText, finishTurnText, menuText, rightText, leftText, upText, downText, selectText,
+            readyText, pauseText;
 
     //Nodes della schermata di vittoria
     Rectangle victoryPanel;
     Circle victoryPawn;
-    ImageView victoryCrown;
-    ImageView tournamentRibbon;
+    ImageView victoryCrown, tournamentRibbon, tournamentCup;
     Button victoryExit;
-    Label victoryLabel;
-    Label tournamentWhitePoints;
-    Label tournamentBlackPoints;
-    ImageView tournamentCup;
-    Label tournamentPointsToWin;
-
+    Label victoryLabel, tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin;
     protected Timeline turnTimer;
 
     @FXML
     protected void nextTurn (ActionEvent event) {
-        if(logic.getTurnDuration() != 0) {
+        if(logic.getTurnDuration() != 0)
             turnTimer.stop();
-        }
         logic.completeMoves();
-        logic.nextTurn();                   // La parte logica esegue il cambio di turno
-        GameViewRedraw.redrawPawns(this);      // Si chiama il ridisegno delle pedine
-                                            //   per disabilitare quelle non di turno
-        setTurnColors();
+        logic.nextTurn();
+        GameViewRedraw.redrawPawns(this);
+        setTurnColors(true);
         menuBTN.setDisable(false);
         view.restoreBoardColors();
         selected = false;
@@ -171,32 +62,36 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         }
     }
 
-    private void setTurnColors() {
-        if (logic.getWhichTurn()){
-            plWHTOutRect.setFill(Color.GREEN);
-            plBLKOutRect.setFill(Color.RED);
-        }else {
-            plBLKOutRect.setFill(Color.GREEN);
-            plWHTOutRect.setFill(Color.RED);
+    private void setTurnColors(boolean isGameOn) {
+        if (isGameOn) {
+            if (logic.getWhichTurn()) {
+                plWHTOutRect.setFill(Color.GREEN);
+                plBLKOutRect.setFill(Color.RED);
+            } else {
+                plBLKOutRect.setFill(Color.GREEN);
+                plWHTOutRect.setFill(Color.RED);
+            }
+        } else {
+            plWHTOutRect.setFill(Color.GRAY);
+            plBLKOutRect.setFill(Color.GRAY);
         }
     }
 
     @FXML
     void saveGame(ActionEvent event) {
-        if (!logic.allDiceUsed()) {
+        errorLabel.setVisible(true);
+        if (!logic.allDiceUsed())
             errorLabel.setText(logic.getString("saveErrorCompleteMoves"));
-            errorLabel.setVisible(true);
-        } else if (saveTextField.getText().equals("")) {
+        else if (saveTextField.getText().equals(""))
             errorLabel.setText(logic.getString("saveErrorNoName"));
-            errorLabel.setVisible(true);
-        } else if (!logic.isSaveNamePresent(saveTextField.getText())) {
-                logic.saveGame(saveTextField.getText());
-                view.stopMusic();
-                goToMainMenu();
-            } else {
-                errorLabel.setText(saveTextField.getText() + " " + logic.getString("errorAlreadyPresent"));
-                errorLabel.setVisible(true);
-            }
+        else if (logic.isSaveNamePresent(saveTextField.getText()))
+            errorLabel.setText(saveTextField.getText() + " " + logic.getString("errorAlreadyPresent"));
+        else {
+            logic.saveGame(saveTextField.getText());
+            errorLabel.setVisible(false);
+            view.stopMusic();
+            goToMainMenu();
+        }
     }
 
     @FXML
@@ -280,8 +175,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         }
     }
 
-
-    //Metodo per inizio partita
     @FXML
     protected void startGame(ActionEvent event) {
         startDialogue.setVisible(false);
@@ -298,7 +191,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }
-        setTurnColors();
+        setTurnColors(true);
         DiceView.setDiceContrast(diceArray);
         GameViewRedraw.redrawPawns(this);
     }
@@ -329,7 +222,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
         tournamentBlackPoints.setText(String.valueOf(logic.getBlackTournamentPoints()));
         logic.setUpNewBoard();
-
         this.changeDimensions();
     }
 
@@ -340,7 +232,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     private Rectangle createVictoryPanel() {
-
         Rectangle victoryPanel = new Rectangle();
         window.getChildren().add(victoryPanel);
         victoryPanel.setFill(Color.WHITESMOKE);
@@ -366,7 +257,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
         return pawn;
-
     }
 
     private Button createVictoryButton(TournamentStatus status) {
@@ -387,22 +277,16 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
 
     private ImageView createCrownImage( boolean doubleWin) {
-        try {
-            ImageView crown;
-            if (doubleWin) {
-                crown = new ImageView(new Image(this.getClass().getResource("victory/crownDouble.png").toURI().toString()));
-            } else {
-                crown = new ImageView(new Image(this.getClass().getResource("victory/crown.png").toURI().toString()));
-            }
-            crown.setPreserveRatio(true);
-            crown.setViewOrder(-14);
-            window.getChildren().add(crown);
-
-            return crown;
-        } catch (URISyntaxException use) {
-            use.printStackTrace();
-            return null;
+        ImageView crown;
+        if (doubleWin) {
+            crown = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("victory/crownDouble.png")).toString()));
+        } else {
+            crown = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("victory/crown.png")).toString()));
         }
+        crown.setPreserveRatio(true);
+        crown.setViewOrder(-14);
+        window.getChildren().add(crown);
+        return crown;
     }
 
     private Label createVictoryLabel(String winner, boolean doubleWin, TournamentStatus status) {
@@ -459,11 +343,9 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         gameEndDisable();
         if (logic.getTurnDuration()!=0)
             turnTimer.stop();
-        plWHTOutRect.setFill(Color.GRAY);
-        plBLKOutRect.setFill(Color.GRAY);
+        setTurnColors(false);
         String winner;
-        if (whiteWon)
-            winner = whitePlayer;
+        if (whiteWon) winner = whitePlayer;
         else winner = blackPlayer;
         if(!logic.getSetting("Audio", "muteSFX", boolean.class)) {
             if (doubleWin)
@@ -518,17 +400,9 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             }
     }
 
-
-
-    //--------------------------------------------
-    //METODO INITIALIZE
-    //--------------------------------------------
-
     public void initialize() {
             double textFieldLayoutX = saveTextField.getLayoutX() + 40;
             double labelLayoutX = saveLabel.getLayoutX() + 50;
-
-        try {
 
             backText.setText(logic.getSetting("Controls", "revertMove", String.class));
             finishTurnText.setText(logic.getSetting("Controls", "finishTurn", String.class));
@@ -556,7 +430,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             closeSaveButton.setText(logic.getString("cancel"));
             saveTextField.setPromptText(logic.getString("savePrompt"));
 
-            //if (logic.getSetting("General", "language", String.class).equals("AR")) {
             if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
                 saveLabel.setLayoutX(textFieldLayoutX);
                 saveTextField.setLayoutX(labelLayoutX);
@@ -570,6 +443,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             addChildrenToAnchor();
             window.setFocusTraversable(true);
             window.setOnKeyPressed(this::handleKeyboard);
+            window.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("style.css")).toString());
 
             GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
             GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
@@ -583,22 +457,16 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
                 view.playMusic(Music.GAME);
             }
 
-            window.getStylesheets().add(this.getClass().getResource("style.css").toURI().toString());
-
-            //informazione del giocatore
-            //nomi
+            //Nomi dei Giocatori
             plWHTText.setText(logic.getWhitePlayer().stripTrailing());
             plBLKText.setText(logic.getBlackPlayer().stripTrailing());
-            //colori
+            //Colori delle pedine
             plWHTPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
             plWHTPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
             plBLKPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
             plBLKPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
 
-            //turni
-            plBLKOutRect.setFill(Color.GRAY);
-            plWHTOutRect.setFill(Color.GRAY);
-
+            setTurnColors(false);
             if (logic.getTurnDuration() == 0) {
                 timerIn.setVisible(false);
                 timerOut.setVisible(false);
@@ -608,7 +476,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             //  del tabellone
             startDialogue.setViewOrder(-4);
             pauseMenu.setViewOrder(-4);
-
 
             if (logic.getTurnDuration() != 0) {
                 //Inizializzo il timer del turno
@@ -621,7 +488,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
                 );
             }
 
-            tournamentCup = new ImageView(new Image(this.getClass().getResource("TournamentCup.png").toURI().toString()));
+            tournamentCup = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("TournamentCup.png")).toString()));
             tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
             tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
             tournamentPointsToWin = new Label(String.valueOf(logic.getTournamentPointsToWin()));
@@ -635,29 +502,20 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             tournamentWhitePoints.setTextFill(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
             tournamentBlackPoints.setTextFill(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
 
-            if (logic.isTournamentOngoing()) {
-                tournamentWhitePoints.setVisible(true);
-                tournamentBlackPoints.setVisible(true);
-                tournamentPointsToWin.setVisible(true);
-                tournamentPointsToWin.setViewOrder(-10);
-                tournamentCup.setVisible(true);
-            } else {
-                tournamentWhitePoints.setVisible(false);
-                tournamentBlackPoints.setVisible(false);
-                tournamentPointsToWin.setVisible(false);
-                tournamentCup.setVisible(false);
-            }
+            setTournamentComponentsVisibility(logic.isTournamentOngoing());
+            tournamentPointsToWin.setViewOrder(-10);
 
             //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
             window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
             //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
             window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+    }
 
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void setTournamentComponentsVisibility (boolean set) {
+        tournamentWhitePoints.setVisible(set);
+        tournamentBlackPoints.setVisible(set);
+        tournamentPointsToWin.setVisible(set);
+        tournamentCup.setVisible(set);
     }
 }
-

@@ -80,7 +80,7 @@ public class SettingsView implements GenericGUI{
                 }), new KeyFrame(Duration.seconds(1.5))
                 );
 
-        // Scheda impostazioni "Controlli"
+        // Scheda impostazioni "Comandi"
         @FXML private AnchorPane controlsAnchorPane;
         @FXML private TitledPane controlsTitlePane;
         @FXML private Text keyboardText, movementText, rightText, leftText, upText, downText, selectText,
@@ -172,7 +172,7 @@ public class SettingsView implements GenericGUI{
         }
 
         private void setResolutionFieldsEditability() {
-                boolean set = lockResolutionCheck.isSelected();
+                boolean set = lockResolutionCheck.isSelected() || fullscreenCheck.isSelected();
                 resolutionWidthField.setDisable(set);
                 resolutionHeightField.setDisable(set);
         }
@@ -366,11 +366,9 @@ public class SettingsView implements GenericGUI{
         @FXML
         void applySettingsAndExit(ActionEvent event) {
                 applySettings(null);
-                applyButton.setDisable(true);
-                settingsAnchorPane.setDisable(false);
-                App.changeRoot(MAIN_MENU);
                 selectedPointAnimation.stop();
                 selectedPointPresetsAnimation.stop();
+                App.changeRoot(MAIN_MENU);
         }
 
         @FXML
@@ -416,85 +414,17 @@ public class SettingsView implements GenericGUI{
         @FXML
         void resetToDefaults(ActionEvent event) {
                 logic.resetDefaultSettings();
-                boolean lockResolution = logic.getSetting("Video", "lockResolution", boolean.class);
-                boolean fullScreen = logic.getSetting("Video", "fullScreen", boolean.class);
-                fullscreenCheck.setSelected(fullScreen);
+                loadSettings();
                 fullscreen(null);
                 lockResolution(null);
-                resolutionWidthField.setDisable(lockResolution || fullScreen);
-                resolutionHeightField.setDisable(lockResolution || fullScreen);
-                lockResolutionCheck.setSelected(lockResolution);
+                applyButton.setDisable(true);
+                regeneratePointAnimation();
                 Stage stage = (Stage) window.getScene().getWindow();
                 stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
                 stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
-
-
-                musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
-                view.setVolume(MUSIC_VOLUME, logic.getSetting("Audio", "musicVolume", int.class));
-                sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
-                view.setVolume(SFX_VOLUME, logic.getSetting("Audio", "soundFXVolume", int.class));
-                musicCheck.setSelected(logic.getSetting("Audio", "muteMusic", boolean.class));
-                sFXCheck.setSelected(logic.getSetting("Audio", "muteSFX", boolean.class));
-                musicSlider.setDisable(logic.getSetting("Audio", "muteMusic", boolean.class));
-                sFXSlider.setDisable(logic.getSetting("Audio", "muteSFX", boolean.class));
-
-
                 if (logic.getSetting("Audio", "muteMusic", boolean.class))
                         view.pauseMusic();
                 else view.playMusic(Music.MENU);
-                switch (logic.getSetting("Customization", "boardPreset", int.class)) {
-                        case CUSTOM_BOARD:
-                                customRadio.setSelected(true);
-                                tableColorPicker.setDisable(false);
-                                evenPointColorPicker.setDisable(false);
-                                oddPointColorPicker.setDisable(false);
-                                selectedPointColorPicker.setDisable(false);
-                                frameColorPicker.setDisable(false);
-                                break;
-                        case LEFT_PRESET:
-                                leftPresetRadio.setSelected(true);
-                                break;
-                        case RIGHT_PRESET:
-                                rightPresetRadio.setSelected(true);
-                                break;
-                }
-                whitePawnStrokeColorPicker.setValue(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-                whitePawnFillColorPicker.setValue(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-                blackPawnStrokeColorPicker.setValue(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
-                blackPawnFillColorPicker.setValue(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-                whitePawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-                whitePawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-                blackPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-                blackPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
-                frameColorPicker.setValue(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-                tableColorPicker.setValue(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
-                evenPointColorPicker.setValue(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                oddPointColorPicker.setValue(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                selectedPointColor = Color.web(logic.getSetting("Customization", "selectedPointColor", String.class));
-                selectedPointColorPicker.setValue(selectedPointColor);
-                backGroundColorPicker.setValue(Color.web(logic.getSetting("Customization", "backgroundColor", String.class)));
-                customFrame.setFill(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-                customFrame.setStroke(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-                customBoard.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
-                customBoard.setStroke(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
-                customPoint1.setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                customPoint1.setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                customPoint2.setFill(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                customPoint2.setStroke(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                customPoint3.setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                customPoint3.setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                rightTextField.setText(logic.getSetting("Controls", "moveRight", String.class));
-                leftTextField.setText(logic.getSetting("Controls", "moveLeft", String.class));
-                upTextField.setText(logic.getSetting("Controls", "moveUp", String.class));
-                downTextField.setText(logic.getSetting("Controls", "moveDown", String.class));
-                selectTextField.setText(logic.getSetting("Controls", "select", String.class));
-                revertMoveTextField.setText(logic.getSetting("Controls", "revertMove", String.class));
-                finishTurnTextField.setText(logic.getSetting("Controls", "finishTurn", String.class));
-                openMenuTextField.setText(logic.getSetting("Controls", "openMenu", String.class));
-                resolutionWidthField.setText(String.valueOf(logic.getSetting("Video", "resolutionWidth", int.class)));
-                resolutionHeightField.setText(String.valueOf(logic.getSetting("Video", "resolutionHeight", int.class)));
-                regeneratePointAnimation();
-                applyButton.setDisable(true);
         }
 
         public void changeDimensions() {
@@ -689,25 +619,52 @@ public class SettingsView implements GenericGUI{
                 keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
                 settingsPaneButtons = new Button[] {videoButton, audioButton, customizationButton, controlsButton,
                         mainMenuButton, resetButton, applyButton};
-                 //languages
+
+                group = new ToggleGroup();
+                leftPresetRadio.setToggleGroup(group);
+                customRadio.setToggleGroup(group);
+                rightPresetRadio.setToggleGroup(group);
+
+                loadStrings();
+                loadSettings();
+
+                // LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+                window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+                // LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+                window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+
+                openEditVideo();
+                setResolutionFieldsEditability();
+
+                selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);
+                regeneratePointAnimation();
+
+        }
+
+        private void loadStrings() {
+                // Selettore schede impostazioni
                 settingsTitlePane.setText(logic.getString("Settings"));
-                //videoAnchorPane lang...
                 videoButton.setText(logic.getString("Video"));
+                audioButton.setText(logic.getString("Audio"));
+                customizationButton.setText(logic.getString("Customization"));
+                controlsButton.setText(logic.getString("Commands"));
+                applyButton.setText(logic.getString("Apply"));
+                resetButton.setText(logic.getString("Reset"));
+                mainMenuButton.setText(logic.getString("MainMenu"));
+                // Scheda "Video"
                 videoTitlePane.setText(logic.getString("Video"));
                 resolutionText.setText(logic.getString("Resolution"));
                 resolutionWidthText.setText(logic.getString("Length"));
                 resolutionHeightText.setText(logic.getString("Height"));
                 fullscreenCheck.setText(logic.getString("Fullscreen"));
                 lockResolutionCheck.setText(logic.getString("BlockResolution"));
-                //Audio lang...
-                audioButton.setText(logic.getString("Audio"));
+                // Scheda "Audio"
                 audioTitlePane.setText(logic.getString("Audio"));
                 musicText.setText(logic.getString("Music"));
                 sFXText.setText(logic.getString("SoundEffects"));
                 musicCheck.setText(logic.getString("MuteMusic"));
                 sFXCheck.setText(logic.getString("MuteSoundEffects"));
-                //Personalizzazione lang...
-                customizationButton.setText(logic.getString("Customization"));
+                // Scheda "Personalizzazione"
                 customizeTitlePane.setText(logic.getString("Customization"));
                 whitePawnText.setText(logic.getString("Player1Pawns"));
                 blackPawnText.setText(logic.getString("Player2Pawns"));
@@ -720,8 +677,7 @@ public class SettingsView implements GenericGUI{
                 customRadio.setText(logic.getString("Custom"));
                 rightPresetRadio.setText(logic.getString("Preset"));
                 backgroundText.setText(logic.getString("BackGround"));
-                //Comandi lang...
-                controlsButton.setText(logic.getString("Commands"));
+                // Scheda "Comandi"
                 controlsTitlePane.setText(logic.getString("Commands"));
                 keyboardText.setText(logic.getString("Keyboard"));
                 movementText.setText(logic.getString("Move"));
@@ -733,29 +689,22 @@ public class SettingsView implements GenericGUI{
                 revertMoveText.setText(logic.getString("DeleteMove"));
                 finishTurnText.setText(logic.getString("FinishTurn"));
                 openMenuText.setText(logic.getString("TMainMenu"));
-                //Attention page lang...
+                // Pannello avviso impostazioni non salvate
                 warningTitlePane.setText(logic.getString("Attention"));
                 warningText.setText(logic.getString("AttentionText"));
                 exitAndSaveButton.setText(logic.getString("Save"));
                 exitNoSaveButton.setText(logic.getString("Don'tSave"));
                 cancelButton.setText(logic.getString("Cancel"));
-                //BTN Prencipali
-                applyButton.setText(logic.getString("Apply"));
-                resetButton.setText(logic.getString("Reset"));
-                mainMenuButton.setText(logic.getString("MainMenu"));
+        }
 
-
-                 //Video
+        private void loadSettings() {
+                // Scheda "Video"
                 fullscreenCheck.setSelected(logic.getSetting("Video", "fullScreen", boolean.class));
                 lockResolutionCheck.setSelected(logic.getSetting("Video", "lockResolution", boolean.class));
+                resolutionWidthField.setText(String.valueOf(logic.getSetting("Video", "resolutionWidth", int.class)));
+                resolutionHeightField.setText(String.valueOf(logic.getSetting("Video", "resolutionHeight", int.class)));
 
-                setResolutionFieldsEditability();
-
-                //Personalizzazione
-                group = new ToggleGroup();
-                leftPresetRadio.setToggleGroup(group);
-                customRadio.setToggleGroup(group);
-                rightPresetRadio.setToggleGroup(group);
+                // Scheda "Personalizzazione"
                 switch (logic.getSetting("Customization", "boardPreset", int.class)) {
                         case CUSTOM_BOARD:
                                 customRadio.setSelected(true);
@@ -771,9 +720,6 @@ public class SettingsView implements GenericGUI{
                                 break;
                 }
 
-
-
-                //color picker
                 whitePawnFillColorPicker.setValue(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
                 whitePawnStrokeColorPicker.setValue(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
                 blackPawnFillColorPicker.setValue(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
@@ -786,19 +732,14 @@ public class SettingsView implements GenericGUI{
                 selectedPointColorPicker.setValue(selectedPointColor);
                 backGroundColorPicker.setValue(Color.web(logic.getSetting("Customization", "backgroundColor", String.class)));
 
-                //Oggetti
                 whitePawn.setFill(whitePawnFillColorPicker.getValue());
                 whitePawn.setStroke(whitePawnStrokeColorPicker.getValue());
-
                 blackPawn.setFill(blackPawnFillColorPicker.getValue());
                 blackPawn.setStroke(blackPawnStrokeColorPicker.getValue());
-
                 customBoard.setFill(tableColorPicker.getValue());
                 customBoard.setStroke(tableColorPicker.getValue());
-
                 customFrame.setFill(frameColorPicker.getValue());
                 customFrame.setStroke(frameColorPicker.getValue());
-
                 customPoint1.setFill(evenPointColorPicker.getValue());
                 customPoint1.setStroke(evenPointColorPicker.getValue());
                 customPoint2.setFill(oddPointColorPicker.getValue());
@@ -806,38 +747,27 @@ public class SettingsView implements GenericGUI{
                 customPoint3.setFill(evenPointColorPicker.getValue());
                 customPoint3.setStroke(evenPointColorPicker.getValue());
 
-                //musica
-                        boolean muteMusic = logic.getSetting("Audio", "muteMusic", boolean.class);
-                        boolean muteSFX = logic.getSetting("Audio", "muteSFX", boolean.class);
-                        musicCheck.setSelected(muteMusic);
-                        sFXCheck.setSelected(muteSFX);
-                        musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
-                        musicSlider.setDisable(muteMusic);
-                        sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
-                        sFXSlider.setDisable(muteSFX);
-                        musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
-                        sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
+                //Scheda "Audio"
+                boolean muteMusic = logic.getSetting("Audio", "muteMusic", boolean.class);
+                boolean muteSFX = logic.getSetting("Audio", "muteSFX", boolean.class);
+                musicCheck.setSelected(muteMusic);
+                sFXCheck.setSelected(muteSFX);
+                musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
+                musicSlider.setDisable(muteMusic);
+                sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
+                sFXSlider.setDisable(muteSFX);
+                musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
+                sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
 
-                //Comandi
-                        rightTextField.setText(logic.getSetting("Controls", "moveRight", String.class));
-                        leftTextField.setText(logic.getSetting("Controls", "moveLeft", String.class));
-                        upTextField.setText(logic.getSetting("Controls", "moveUp", String.class));
-                        downTextField.setText(logic.getSetting("Controls", "moveDown", String.class));
-                        selectTextField.setText(logic.getSetting("Controls", "select", String.class));
-                        revertMoveTextField.setText(logic.getSetting("Controls", "revertMove", String.class));
-                        finishTurnTextField.setText(logic.getSetting("Controls", "finishTurn", String.class));
-                        openMenuTextField.setText(logic.getSetting("Controls", "openMenu", String.class));
-
-                //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-                window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-
-                //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-                window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-                openEditVideo();
-                selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);
-                regeneratePointAnimation();
+                //Scheda "Comandi"
+                rightTextField.setText(logic.getSetting("Controls", "moveRight", String.class));
+                leftTextField.setText(logic.getSetting("Controls", "moveLeft", String.class));
+                upTextField.setText(logic.getSetting("Controls", "moveUp", String.class));
+                downTextField.setText(logic.getSetting("Controls", "moveDown", String.class));
+                selectTextField.setText(logic.getSetting("Controls", "select", String.class));
+                revertMoveTextField.setText(logic.getSetting("Controls", "revertMove", String.class));
+                finishTurnTextField.setText(logic.getSetting("Controls", "finishTurn", String.class));
+                openMenuTextField.setText(logic.getSetting("Controls", "openMenu", String.class));
 
         }
 

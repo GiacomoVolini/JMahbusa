@@ -14,17 +14,17 @@ import static jmb.view.View.logic;
 public class CustomizationAnimationBuilder {
 
     public static Timeline buildCustomAnimation (Polygon customPoint1, Polygon customPoint2, Polygon customPoint3,
-                                                 Color selectedPointColor, ColorPicker evenPointColorPicker,
+                                                 ColorPicker selectedPointColorPicker, ColorPicker evenPointColorPicker,
                                                  ColorPicker oddPointColorPicker) {
         Timeline out = new Timeline(
                 new KeyFrame(Duration.ZERO, e -> {
-                    customPoint3.setFill(selectedPointColor);
+                    customPoint3.setFill(selectedPointColorPicker.getValue());
                     customPoint1.setFill(evenPointColorPicker.getValue());
                 }), new KeyFrame(Duration.seconds(0.5), e -> {
-                    customPoint2.setFill(selectedPointColor);
+                    customPoint2.setFill(selectedPointColorPicker.getValue());
                     customPoint3.setFill(evenPointColorPicker.getValue());
                 }), new KeyFrame(Duration.seconds(1), e -> {
-                    customPoint1.setFill(selectedPointColor);
+                    customPoint1.setFill(selectedPointColorPicker.getValue());
                     customPoint2.setFill(oddPointColorPicker.getValue());
                 }), new KeyFrame(Duration.seconds(1.5))
         );

@@ -145,7 +145,7 @@ public class CustomizationTab {
             selectedPointAnimation.stop();
         selectedPointPresetsAnimation.stop();
         selectedPointAnimation = CustomizationAnimationBuilder.buildCustomAnimation(customPoint1, customPoint2,
-                customPoint3, selectedPointColor, evenPointColorPicker, oddPointColorPicker);
+                customPoint3, selectedPointColorPicker, evenPointColorPicker, oddPointColorPicker);
         selectedPointAnimation.setCycleCount(Animation.INDEFINITE);
         selectedPointAnimation.play();
         selectedPointPresetsAnimation.play();

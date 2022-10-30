@@ -4,6 +4,7 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
@@ -12,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.*;
 import javafx.util.Duration;
+import jmb.view.utilities.AnimationBuilder;
+
 import java.net.URISyntaxException;
 import java.util.Objects;
 
@@ -89,7 +92,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         else {
             logic.saveGame(saveTextField.getText());
             errorLabel.setVisible(false);
-            view.stopMusic();
             goToMainMenu();
         }
     }
@@ -103,29 +105,26 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     void openExitOption() {
-        pauseMenu.setVisible(true);
-        finishBTN.setDisable(true);
-        if (logic.getTurnDuration()!=0)
-            turnTimer.pause();
+        turnTimer.pause();
+        handleExitOption(true, exitWithoutSave);
         GameViewRedraw.resizePauseMenu(this);
-        exitWithoutSave.requestFocus();
     }
 
     @FXML
     void closeExitOption(ActionEvent event) {
-        pauseMenu.setVisible(false);
-        finishBTN.setDisable(false);
-        if (logic.getTurnDuration()!=0)
-            turnTimer.play();
-        window.requestFocus();
+        turnTimer.play();
+        handleExitOption(false, window);
     }
+    private void handleExitOption (boolean open, Node node) {
+        pauseMenu.setVisible(open);
+        finishBTN.setDisable(open);
+        node.requestFocus();
+    }
+
 
     @FXML
     void goToMainMenu(){
         App.changeRoot(MAIN_MENU);
-        view.stopMusic();
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.MENU);
     }
 
     @FXML 
@@ -185,9 +184,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         changeDimensions();
         if (diceTray.getWidth()==0) {
             openDiceTray();
-        } else {
-            logic.firstTurn();
-        }
+        } else logic.firstTurn();
         if(logic.getTurnDuration() != 0) {
             runTimer();
         }
@@ -231,104 +228,18 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             App.changeRoot(MAIN_MENU);
     }
 
-    private Rectangle createVictoryPanel() {
-        Rectangle victoryPanel = new Rectangle();
-        window.getChildren().add(victoryPanel);
-        victoryPanel.setFill(Color.WHITESMOKE);
-        victoryPanel.setStroke(Color.LIGHTGRAY);
-        victoryPanel.setArcHeight(10);
-        victoryPanel.setArcWidth(10);
-        victoryPanel.setViewOrder(-10);
-
-        return victoryPanel;
-    }
-
-    private Circle createVictoryPawn(boolean whiteWon) {
-        Circle pawn = new Circle();
-        window.getChildren().add(pawn);
-        pawn.setViewOrder(-15);
-        if (whiteWon) {
-            pawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-            pawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        } else {
-            pawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-            pawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
-        }
-        pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
-
-        return pawn;
-    }
-
-    private Button createVictoryButton(TournamentStatus status) {
-        String label;
-        boolean tournamentContinues = status.equals(TournamentStatus.TOURNAMENT_CONTINUES);
-        if (tournamentContinues)
-            label = logic.getString("continueTournament");
-        else label = logic.getString("backToMenu");
-        Button victoryExit = new Button(label);
-        window.getChildren().add(victoryExit);
-        if (tournamentContinues)
+    private void createVictoryScreen(boolean whiteWon, boolean doubleWin, String winner, TournamentStatus status) {
+        victoryPanel = VictoryComponentFactory.createVictoryPanel(window);
+        victoryPawn = VictoryComponentFactory.createVictoryPawn(whiteWon, window);
+        victoryLabel = VictoryComponentFactory.createVictoryLabel(winner, doubleWin, status, window);
+        victoryExit = VictoryComponentFactory.createVictoryButton(status, window);
+        if (status == TournamentStatus.TOURNAMENT_CONTINUES)
             victoryExit.setOnAction(event -> continueTournament());
         else
             victoryExit.setOnAction(event -> gameOver());
-        victoryExit.setViewOrder(-16);
-        return victoryExit;
-    }
-
-
-    private ImageView createCrownImage( boolean doubleWin) {
-        ImageView crown;
-        if (doubleWin) {
-            crown = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("victory/crownDouble.png")).toString()));
-        } else {
-            crown = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("victory/crown.png")).toString()));
-        }
-        crown.setPreserveRatio(true);
-        crown.setViewOrder(-14);
-        window.getChildren().add(crown);
-        return crown;
-    }
-
-    private Label createVictoryLabel(String winner, boolean doubleWin, TournamentStatus status) {
-        Label victoryLabel = new Label();
-        window.getChildren().add(victoryLabel);
-        victoryLabel.setWrapText(true);
-        String victoryString = logic.getString("congratulations") + " ";
-        victoryString = victoryString.concat(winner.stripTrailing());
+        victoryCrown = VictoryComponentFactory.createCrownImage(doubleWin, window);
         if (status.equals(TournamentStatus.TOURNAMENT_WON))
-            victoryString = victoryString.concat(logic.getString("tournamentWon"));
-        else if (doubleWin)
-                victoryString = victoryString.concat(logic.getString("doubleVictory"));
-            else
-                victoryString = victoryString.concat(logic.getString("singleVictory"));
-        victoryLabel.setText(victoryString);
-        victoryLabel.setViewOrder(-15);
-        victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
-
-        return victoryLabel;
-    }
-
-    private ImageView createTournamentRibbon() {
-        try {
-            ImageView tournamentRibbon = new ImageView(new Image(this.getClass().getResource("victory/tournamentRibbon.png").toURI().toString()));
-            tournamentRibbon.setPreserveRatio(true);
-            tournamentRibbon.setViewOrder(-16);
-            window.getChildren().add(tournamentRibbon);
-            return tournamentRibbon;
-        } catch (URISyntaxException use) {
-            use.printStackTrace();
-            return null;
-        }
-    }
-
-    private void createVictoryScreen(boolean whiteWon, boolean doubleWin, String winner, TournamentStatus status) {
-        victoryPanel = createVictoryPanel();    //  Crea il Rettangolo del pannello vittoria
-        victoryPawn = createVictoryPawn(whiteWon);     //  Crea il Cerchio per la pedina del pannello vittoria, usando whiteWon per assegnare i colori
-        victoryLabel = createVictoryLabel(winner, doubleWin, status);    //  Crea la Label del pannello vittoria con il nome del vincitore
-        victoryExit = createVictoryButton(status);    //  Crea il pulsante per il ritorno al menu principale
-        victoryCrown = createCrownImage(doubleWin);             //  Crea l'ImageView per la corona del vincitore
-        if (status.equals(TournamentStatus.TOURNAMENT_WON))
-            tournamentRibbon = createTournamentRibbon();
+            tournamentRibbon = VictoryComponentFactory.createTournamentRibbon(window);
     }
 
     private void removeVictoryScreen() {
@@ -355,20 +266,16 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         createVictoryScreen(whiteWon, doubleWin, winner, status);
         logic.setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);
-        animateVictoryScreen();
+        animateVictoryScreen(status);
     }
 
-    private void animateVictoryScreen() {
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO, new KeyValue(victoryPanel.opacityProperty(), 0),
-                        new KeyValue(victoryPawn.opacityProperty(), 0), new KeyValue(victoryExit.opacityProperty(), 0),
-                        new KeyValue(victoryCrown.opacityProperty(), 0), new KeyValue(victoryLabel.opacityProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), new KeyValue(victoryPanel.opacityProperty(), 1),
-                        new KeyValue(victoryPawn.opacityProperty(), 1), new KeyValue(victoryExit.opacityProperty(), 1),
-                        new KeyValue(victoryCrown.opacityProperty(), 1), new KeyValue(victoryLabel.opacityProperty(), 1)
-                )
-        );
-        timeline.setCycleCount(1);
+    private void animateVictoryScreen(TournamentStatus status) {
+        Timeline timeline;
+        if (status.equals(TournamentStatus.TOURNAMENT_WON))
+            timeline = AnimationBuilder.createVictoryPanelAnimations(victoryPanel, victoryPawn,
+                    victoryExit, victoryCrown, victoryLabel);
+        else timeline = AnimationBuilder.createVictoryPanelAnimations(victoryPanel, victoryPawn,
+                victoryExit, victoryCrown, victoryLabel, tournamentRibbon);
         timeline.play();
     }
 
@@ -401,8 +308,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     }
 
     public void initialize() {
-            double textFieldLayoutX = saveTextField.getLayoutX() + 40;
-            double labelLayoutX = saveLabel.getLayoutX() + 50;
 
             backText.setText(logic.getSetting("Controls", "revertMove", String.class));
             finishTurnText.setText(logic.getSetting("Controls", "finishTurn", String.class));
@@ -431,11 +336,11 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             saveTextField.setPromptText(logic.getString("savePrompt"));
 
             if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
-                saveLabel.setLayoutX(textFieldLayoutX);
-                saveTextField.setLayoutX(labelLayoutX);
+                saveLabel.setLayoutX(saveTextField.getLayoutX() + 40);
+                saveTextField.setLayoutX(saveLabel.getLayoutX() + 50);
             }
 
-            view.stopMusic();
+            // Musica
             if (!logic.getSetting("Audio", "muteMusic", boolean.class))
                 view.playMusic(Music.GAME);
 
@@ -449,13 +354,6 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
             GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
             timerIn.setViewOrder(-2);
             timerOut.setViewOrder(-1.999);
-
-            //musica
-            if (logic.getSetting("Audio", "muteMusic", boolean.class)) {
-                view.pauseMusic();
-            } else {
-                view.playMusic(Music.GAME);
-            }
 
             //Nomi dei Giocatori
             plWHTText.setText(logic.getWhitePlayer().stripTrailing());
@@ -472,13 +370,10 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
                 timerOut.setVisible(false);
             }
 
-            //Forziamo il rendering delle finestre di pausa e di inizio partita al di sopra delle altre componenti
-            //  del tabellone
             startDialogue.setViewOrder(-4);
             pauseMenu.setViewOrder(-4);
 
             if (logic.getTurnDuration() != 0) {
-                //Inizializzo il timer del turno
                 turnTimer = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                         new KeyFrame(Duration.seconds(logic.getTurnDuration()), e -> {

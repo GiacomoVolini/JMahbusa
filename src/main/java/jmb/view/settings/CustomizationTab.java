@@ -8,8 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import jmb.view.SettingsView;
+import jmb.view.utilities.AnimationBuilder;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -144,7 +144,7 @@ public class CustomizationTab {
         if (selectedPointAnimation != null)
             selectedPointAnimation.stop();
         selectedPointPresetsAnimation.stop();
-        selectedPointAnimation = CustomizationAnimationBuilder.buildCustomAnimation(customPoint1, customPoint2,
+        selectedPointAnimation = AnimationBuilder.buildCustomAnimation(customPoint1, customPoint2,
                 customPoint3, selectedPointColorPicker, evenPointColorPicker, oddPointColorPicker);
         selectedPointAnimation.setCycleCount(Animation.INDEFINITE);
         selectedPointAnimation.play();
@@ -219,7 +219,7 @@ public class CustomizationTab {
     }
 
     public void initialize() {
-        selectedPointPresetsAnimation = CustomizationAnimationBuilder.buildPresetsAnimation
+        selectedPointPresetsAnimation = AnimationBuilder.buildPresetsAnimation
                 (leftPresetPoint1, leftPresetPoint2, leftPresetPoint3, rightPresetPoint1,
                         rightPresetPoint2, rightPresetPoint3);
         group = new ToggleGroup();

@@ -7,12 +7,15 @@ import javafx.util.Duration;
 public class ColorStringFactory {
 
     public static String buildString(Color color) {
-        int redComponent = (int) Math.round(color.getRed() * 255);
-        int greenComponent = (int) Math.round(color.getGreen() * 255);
-        int blueComponent = (int) Math.round(color.getBlue() * 255);
-        String out = "#" + Integer.toHexString(redComponent) +
-                Integer.toHexString(greenComponent) + Integer.toHexString(blueComponent);
+        String out = "#" + componentSubstringFactory(color.getRed()) +
+                componentSubstringFactory(color.getGreen()) + componentSubstringFactory(color.getBlue());
         return out;
     }
 
+    private static String componentSubstringFactory(double val) {
+        String in = Integer.toHexString((int) Math.round(val * 255));
+        //Se il valore esadecimale è a una cifra gli aggiunge uno zero in testa e restituisce le due cifre come stringa
+        //      altrimenti restituisce il valore
+        return in.length() == 1 ? "0" + in : in;
+    }
 }

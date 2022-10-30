@@ -132,18 +132,13 @@ public class SettingsView implements GenericGUI{
 
         @FXML
         void applySettings(ActionEvent event) {
-                //TODO
-                        videoTabController.applySettings();
-                        audioTabController.applySettings();
-                //        customizationTab.applySettings();
-                        controlsTabController.applySettings();
+                videoTabController.applySettings();
+                audioTabController.applySettings();
+                customizationTabController.applySettings();
+                controlsTabController.applySettings();
+
+                logic.applySettingsChanges();
                 applyButton.setDisable(true);
-
-
-
-
-                        logic.applySettingsChanges();
-                        applyButton.setDisable(true);
         }
 
         @FXML
@@ -162,11 +157,10 @@ public class SettingsView implements GenericGUI{
 
         public void changeDimensions() {
                 Stage stage = (Stage) window.getScene().getWindow();
-                videoTabController.changeDimensions();
-                audioTabController.changeDimensions();
-                controlsTabController.changeDimensions();
-                customizationTabController.changeDimensions();
-                //TODO AGGIUNGERE GLI ALTRI PANNELLI
+                videoTabController.changeDimensions(window);
+                audioTabController.changeDimensions(window);
+                controlsTabController.changeDimensions(window);
+                customizationTabController.changeDimensions(window);
                 //bottoni sinistra
                 videoButton.setLayoutX(window.getWidth()/8 - videoButton.getWidth()/2);
                 videoButton.setLayoutY(window.getHeight()*0.12);
@@ -212,7 +206,6 @@ public class SettingsView implements GenericGUI{
                 audioTabController.setSettingsView(this);
                 controlsTabController.setSettingsView(this);
                 customizationTabController.setSettingsView(this);
-                //TODO AGGIUNGERE GLI ALTRI PANNELLI
 
                 settingsPaneButtons = new Button[] {videoButton, audioButton, customizationButton, controlsButton,
                         mainMenuButton, resetButton, applyButton};
@@ -240,17 +233,17 @@ public class SettingsView implements GenericGUI{
                 applyButton.setText(logic.getString("Apply"));
                 resetButton.setText(logic.getString("Reset"));
                 mainMenuButton.setText(logic.getString("MainMenu"));
-
-                videoTabController.loadStrings();
-                audioTabController.loadStrings();
-                controlsTabController.loadStrings();
-                customizationTabController.loadStrings();
                 // Pannello avviso impostazioni non salvate
                 warningTitlePane.setText(logic.getString("Attention"));
                 warningText.setText(logic.getString("AttentionText"));
                 exitAndSaveButton.setText(logic.getString("Save"));
                 exitNoSaveButton.setText(logic.getString("Don'tSave"));
                 cancelButton.setText(logic.getString("Cancel"));
+
+                videoTabController.loadStrings();
+                audioTabController.loadStrings();
+                controlsTabController.loadStrings();
+                customizationTabController.loadStrings();
         }
 
         private void loadSettings() {

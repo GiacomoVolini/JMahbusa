@@ -100,8 +100,7 @@ public class VideoTab {
         setResolutionFieldsEditability();
     }
 
-    public void changeDimensions() {
-        AnchorPane window = settingsView.getWindowPane();
+    public void changeDimensions(AnchorPane window) {
         if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
             AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
             AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);

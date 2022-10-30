@@ -121,9 +121,7 @@ public class ControlsTab {
 
     }
 
-    public void changeDimensions() {
-        AnchorPane window = settingsView.getWindowPane();
-
+    public void changeDimensions(AnchorPane window) {
         if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
             AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.50);
             AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.45);

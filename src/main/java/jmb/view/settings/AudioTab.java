@@ -105,8 +105,7 @@ public class AudioTab {
             settingsView.getApplyButton().setDisable(false);
     }
 
-    public void changeDimensions() {
-        AnchorPane window = settingsView.getWindowPane();
+    public void changeDimensions(AnchorPane window) {
         if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
             AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.10);
             AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.4);

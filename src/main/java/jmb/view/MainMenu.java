@@ -148,7 +148,7 @@ public class MainMenu implements GenericGUI{
     }
 
     private int getSelectionIndex(String[] languages) {
-        String currentLanguage = logic.getcurrentlanguage();
+        String currentLanguage = logic.getCurrentlanguage();
         boolean found = false;
         int out = UNDEFINED;
         for (int i = 0; !found && i < languages.length; i++) {

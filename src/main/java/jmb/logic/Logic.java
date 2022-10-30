@@ -466,7 +466,7 @@ public class Logic implements ILogic {
         return settings.getSetting(leftPreset, presetEnum);
     }
     @Override
-    public String getcurrentlanguage (){
+    public String getCurrentlanguage(){
         return StringsReader.getcurrentlanguage();
     }
     @Override

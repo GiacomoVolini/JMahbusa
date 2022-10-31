@@ -106,7 +106,7 @@ public class AudioTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
+        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.10);
             AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.4);
             AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.10);

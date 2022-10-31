@@ -1,7 +1,6 @@
 package jmb.view.settings;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.KeyEvent;
@@ -122,7 +121,7 @@ public class ControlsTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
+        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.50);
             AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.45);
             AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.45);

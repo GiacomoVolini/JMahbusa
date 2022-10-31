@@ -282,7 +282,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
                     DiceView.setDiceValues(diceArray);
                 });
             }
-            if (!diceTrayOpen) {
+            if (diceTray.getWidth() == 0) {
                 Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
                         e -> openDiceTray()),
                         new KeyFrame(Duration.seconds(0.55),

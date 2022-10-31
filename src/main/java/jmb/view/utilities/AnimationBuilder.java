@@ -12,9 +12,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import jmb.view.App;
+import jmb.view.DynamicGameBoard;
+import jmb.view.DynamicGameBoardRedraw;
+import jmb.view.GameViewRedraw;
 
 import static jmb.ConstantsShared.*;
-import static jmb.ConstantsShared.ODD_POINTS;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
 public class AnimationBuilder {
@@ -97,4 +101,80 @@ public class AnimationBuilder {
         timeline.setCycleCount(1);
         return timeline;
     }
+
+    public static Timeline createDoubleDiceAnimation(ImageView[] diceArray, boolean open) {
+        double initialOffset, finalOffset;
+        double diceHeight = diceArray[UPPER_DICE].getFitHeight();
+        if (open) {
+            initialOffset = 0;
+            finalOffset = diceHeight;
+        } else {
+            initialOffset = diceHeight;
+            finalOffset = 0;
+        }
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO,
+                        e -> {
+                            if (open) {
+                                diceArray[UPPER_DOUBLE_DICE].setVisible(true);
+                                diceArray[LOWER_DOUBLE_DICE].setVisible(true);
+                            }
+                        },
+                        new KeyValue(diceArray[UPPER_DOUBLE_DICE].layoutYProperty(), diceArray[UPPER_DICE].getLayoutY() + initialOffset),
+                        new KeyValue(diceArray[LOWER_DOUBLE_DICE].layoutYProperty(), diceArray[LOWER_DICE].getLayoutY() - initialOffset)
+                ),
+                new KeyFrame(Duration.seconds(0.5),
+                        e -> {
+                            if (!open) {
+                                diceArray[UPPER_DOUBLE_DICE].setVisible(false);
+                                diceArray[LOWER_DOUBLE_DICE].setVisible(false);
+                            }
+                        },
+                        new KeyValue(diceArray[UPPER_DOUBLE_DICE].layoutYProperty(), diceArray[UPPER_DICE].getLayoutY() + finalOffset),
+                        new KeyValue(diceArray[LOWER_DOUBLE_DICE].layoutYProperty(), diceArray[LOWER_DICE].getLayoutY() - finalOffset)
+                )
+        );
+        timeline.setCycleCount(1);
+        return timeline;
+    }
+
+    public static Timeline createExitZoneAnimation(Rectangle exitRegion, Rectangle outerRect, boolean open) {
+        double initialWidthAndOffset, finalWidthAndOffset;
+        if (open) {
+            initialWidthAndOffset = 0;
+            finalWidthAndOffset = GameViewRedraw.getMaxExitWidth();
+        } else {
+            initialWidthAndOffset = GameViewRedraw.getMaxExitWidth();
+            finalWidthAndOffset = 0;
+        }
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(exitRegion.widthProperty(), initialWidthAndOffset),
+                        new KeyValue(exitRegion.layoutXProperty(), outerRect.getLayoutX() - initialWidthAndOffset)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(exitRegion.widthProperty() , finalWidthAndOffset ),
+                        new KeyValue(exitRegion.layoutXProperty(), (outerRect.getLayoutX() - finalWidthAndOffset))
+                )
+        );
+        timeline.setCycleCount(1);
+        return timeline;
+    }
+
+    public static Timeline createDiceTrayAnimation (DynamicGameBoard board, Rectangle diceTray,
+                                             ImageView[] diceArray) {
+        Timeline timeline = new Timeline (
+                new KeyFrame(Duration.ZERO, new KeyValue(diceTray.widthProperty(), 0)),
+                new KeyFrame(Duration.seconds(0.5),
+                    e-> {
+                        diceArray[UPPER_DICE].setVisible(true);
+                        diceArray[LOWER_DICE].setVisible(true);
+                        DynamicGameBoardRedraw.resizeDice(board);
+                        logic.firstTurn();
+                    },
+                    new KeyValue(diceTray.widthProperty() , GameViewRedraw.getMaxDTWidth() )
+                )
+        );
+        timeline.setCycleCount(1);
+        return timeline;
+    }
+
 }

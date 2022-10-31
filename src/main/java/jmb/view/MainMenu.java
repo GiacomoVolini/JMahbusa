@@ -148,7 +148,7 @@ public class MainMenu implements GenericGUI{
     }
 
     private int getSelectionIndex(String[] languages) {
-        String currentLanguage = logic.getCurrentlanguage();
+        String currentLanguage = logic.getCurrentLanguage();
         boolean found = false;
         int out = UNDEFINED;
         for (int i = 0; !found && i < languages.length; i++) {
@@ -162,7 +162,7 @@ public class MainMenu implements GenericGUI{
 
     @FXML
     private void setLanguage(Event event) {
-        logic.setcurrentlanguage(((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex());
+        logic.setCurrentLanguage(((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex());
         logic.setSetting("General", "language",logic.getSupportedLanguages()[((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex()]);
         logic.applySettingsChanges();
         loadStrings();

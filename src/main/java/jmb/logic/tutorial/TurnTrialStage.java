@@ -10,7 +10,6 @@ public class TurnTrialStage extends ComparableTutorialStage{
         setStageIndex(4);
     }
     public void start() {
-        System.out.println("ECCOCI");
         logic.setWhiteTurn(true);
         view.allowTextBoxMouseInput(false);
         logic.forceDice(6, 5);

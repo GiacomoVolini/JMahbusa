@@ -32,10 +32,6 @@ public class DiceLogic {
     
     public void tossDice() {
 
-        /* Assegna un valore da 1 a 6 ai dadi 0 e 1, controlla se i risultati sono uguali e assegna
-          di conseguenza lo stato di tiro doppio e i valori corretti ai dadi 2 e 3
-         */
-
         this.values[0] = rnd.nextInt(6) + 1;
         this.values[1] = rnd.nextInt(6) + 1;
         Arrays.fill(this.used, false);
@@ -117,8 +113,6 @@ public class DiceLogic {
         }
         view.setDiceContrast();
     }
-
-    //METODI GETTER E SETTER
     
     public int getDiceValue(int i) {
         return this.values[i];
@@ -126,6 +120,14 @@ public class DiceLogic {
     
     public boolean getUsed(int i) {
         return this.used[i];
+    }
+
+    public boolean areAllDiceUsed() {
+        boolean allUsed = true;
+        for (int i = 0; i < 4 && allUsed; i++)
+            if (!used[i])
+                allUsed = false;
+        return allUsed;
     }
     
     public int[] getDiceValues() {

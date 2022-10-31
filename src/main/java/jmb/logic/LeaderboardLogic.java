@@ -19,22 +19,18 @@ public class LeaderboardLogic {
     // Il costruttore crea il BufferedReader per il file csv della classifica,
     //      l'ObservableList per le singole entry e un oggetto String per la gestione di una singola riga del
     //      file csv
-    public LeaderboardLogic() throws IOException{
-        try {
-            String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
-            String ldbPath = ldbDirectory + "/Leaderboards.csv";
-            path = Path.of(ldbPath);
+    public LeaderboardLogic() {
+        String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
+        String ldbPath = ldbDirectory + "/Leaderboards.csv";
+        path = Path.of(ldbPath);
+        try (BufferedReader reader = Files.newBufferedReader(path)){
+            this.reader = reader;
             if (!Files.exists(path)) {
                 Files.createFile(path);
             }
-
-            reader = Files.newBufferedReader(path);
             this.populateList();
         } catch (IOException ioe) {
             ioe.printStackTrace();
-        } finally {
-            if (reader != null)
-                reader.close();
         }
     }
 
@@ -46,15 +42,12 @@ public class LeaderboardLogic {
                 String[] lineValues = line.trim().split(";");
                 lineValues[0] = lineValues[0].concat("\u2001");
                 arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
-                System.out.println(lineValues[0] + " " + lineValues[1] + " " + lineValues[2]);
             }
     }
 
     protected void addNewPlayer (String name) {
-        if (!name.contains("\u2001")) {
+        if (!name.contains("\u2001"))
             arrList.add(new Player(name.concat("\u2001")));
-            System.out.println("Aggiungo "+name);
-        }
     }
 
     public ArrayList<Player> getList() {

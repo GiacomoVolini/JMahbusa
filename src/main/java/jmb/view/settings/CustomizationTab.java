@@ -177,7 +177,7 @@ public class CustomizationTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
+        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(pawnFillText, window.getWidth() * 0.50);
             AnchorPane.setLeftAnchor(pawnStrokeText, window.getWidth() * 0.50);
             AnchorPane.setLeftAnchor(whitePawn, window.getWidth() * 0.10);

@@ -82,7 +82,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
     public static void resizeDiceTray(DynamicGameBoard board) {
         board.diceTray.setLayoutX(board.outerRect.getLayoutX() + board.outerRect.getWidth());
         board.diceTray.setLayoutY(board.outerRect.getLayoutY());
-        if (board.diceTrayOpen) {
+        if (board.diceTray.getWidth()!=0) {
             board.diceTray.setWidth(maxDTWidth);
         }
         board.diceTray.setHeight(board.outerRect.getHeight());
@@ -122,7 +122,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
         calcTrayWidths(board);
         if (logic.getGameStart()) {
             resizeDiceTray(board);
-            if (board.diceTrayOpen)
+            if (board.diceTray.getWidth() != 0)
                 resizeDice(board);
         }
         if (board.pawnArrayWHT[0].isVisible())

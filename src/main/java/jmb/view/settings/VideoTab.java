@@ -101,7 +101,7 @@ public class VideoTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentlanguage())) {
+        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
             AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);
             AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.20);

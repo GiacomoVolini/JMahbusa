@@ -2,11 +2,7 @@ package jmb.logic;
 
 import jmb.view.IView;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import static jmb.ConstantsShared.EMPTY;
 
@@ -20,48 +16,6 @@ public class Logic implements ILogic {
     public String appDirectory;
     public StringsReader strings;
 
-    private void createApplicationFolders() {
-        try {
-
-            Files.createDirectories(Path.of(getAppDirectory() + "/leaderboard"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/saves"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/settings"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/languages/strings"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/languages/flags"));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    private void placeLanguageFiles() {
-        System.out.println("PRIMA DEL RTY");
-        try {
-            System.out.println("SON QUI, DENTRO TRY");
-            Path supportedPath = Path.of(getAppDirectory(), "languages","languages.ini");
-            if (!Files.exists(supportedPath)) {
-                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("languages.ini")), supportedPath);
-                for (String lang : StringsReader.getSupportedLanguages()) {
-                    System.out.println(lang);
-                    Path langPath = Path.of(getAppDirectory() , "languages","strings","STRINGS_" + lang + ".ini");
-                    Path flagPath = Path.of(getAppDirectory() , "languages","flags","flag_" + lang + ".png");
-                    if (!Files.exists(langPath)) {
-                        System.out.println("DOVREI COPIARE STRING");
-                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("STRINGS_"+lang+".ini")), langPath);
-                    } else {
-                        System.out.println("IL FILE ESISTE?");
-                    }
-                    if (!Files.exists(flagPath)) {
-                        System.out.println("DOVREI COPIARE FLAG");
-                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("flags/flag_"+lang+".png")), flagPath);
-                    }
-                }
-            }
-        } catch (IOException ioe) {
-            System.out.println("OH NO");
-            ioe.printStackTrace();
-        }
-    }
-
     @Override
     public void initializeGameLogic() {
         board = new GameLogic();
@@ -69,12 +23,7 @@ public class Logic implements ILogic {
 
     @Override
     public void initializeLeaderboardLogic() {
-        try {
-            ldb = new LeaderboardLogic();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-
+        ldb = new LeaderboardLogic();
     }
 
     @Override
@@ -84,9 +33,8 @@ public class Logic implements ILogic {
     @Override
     public void initializeProgramLogic() {
         appDirectory = System.getProperty("user.dir");
-        System.out.println(appDirectory);
-        createApplicationFolders();
-        placeLanguageFiles();
+        Utilities.createApplicationFolders(appDirectory);
+        Utilities.placeLanguageFiles(appDirectory);
         settings = new SettingsLogic();
         initializeStringsReader();
     }
@@ -163,19 +111,12 @@ public class Logic implements ILogic {
 
     @Override
     public void addNewPlayersToList(String newName1, String newName2) {
-        //  Se i due nomi non contengono il carattere di escape "\u2001" in coda essi sono nuovi.
-        //  Si crea quindi un nuovo oggetto Player contenente quel nome e lo si aggiunge alla PlayerList
-        if (!newName1.contains("\u2001")) {
             ldb.addNewPlayer(newName1);
-        }
-        if (!newName2.contains("\u2001")) {
             ldb.addNewPlayer(newName2);
-        }
     }
 
     @Override
     public boolean isDiceUsed (int i) {
-
         return board.getDice().getUsed(i);
     }
 
@@ -211,11 +152,7 @@ public class Logic implements ILogic {
 
     @Override
     public void setPlayersForGame(String whitePlayer, String blackPlayer) {
-        GameLogic game = (GameLogic)board;
-        game.setWhitePlayer(whitePlayer);
-        game.setBlackPlayer(blackPlayer);
-        game.setBlacksWonPoints(0);
-        game.setWhitesWonPoints(0);
+        ((GameLogic)board).setPlayersForGame(whitePlayer, blackPlayer);
     }
 
     @Override
@@ -318,9 +255,7 @@ public class Logic implements ILogic {
 
     @Override
     public int[][] getBoardMatrix() {
-        int[][] out = null;
-        out = board.getSquares();
-        return out;
+        return board.getSquares();
     }
 
     @Override
@@ -369,11 +304,7 @@ public class Logic implements ILogic {
 
     @Override
     public boolean allDiceUsed() {
-        boolean used = true;
-        for (int i = 0; i < 4 && used; i++)
-            if (!isDiceUsed(i))
-                used = false;
-        return used;
+        return board.getDice().areAllDiceUsed();
     }
 
     @Override
@@ -382,18 +313,12 @@ public class Logic implements ILogic {
     }
     @Override
     public boolean isParsable(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (final NumberFormatException e) {
-            return false;
-        }
+        return Utilities.isParsable(input);
     }
 
     @Override
     public void resetDefaultSettings() {
-        settings.getDefaultSettings();
-        settings.restoreCurrent();
+        settings.resetDefaultSettings();
     }
 
     @Override
@@ -466,11 +391,11 @@ public class Logic implements ILogic {
         return settings.getSetting(leftPreset, presetEnum);
     }
     @Override
-    public String getCurrentlanguage(){
+    public String getCurrentLanguage(){
         return StringsReader.getcurrentlanguage();
     }
     @Override
-    public void setcurrentlanguage(int num){
+    public void setCurrentLanguage(int num){
         StringsReader.setcurrentlanguage(num);
     }
 

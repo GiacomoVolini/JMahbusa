@@ -35,10 +35,8 @@ public class MusicPlayer {
         this.errorSFX.setVolume(value);
     }
     protected void playMusic(Music music) {
-        System.out.println("Eseguo playMusic ");
         switch (music) {
             case MENU:
-                System.out.println("MENU");
                 this.menuMusic.setCycleCount(Integer.MAX_VALUE);
                 this.menuMusic.play();
                 this.tutorialMusic.stop();

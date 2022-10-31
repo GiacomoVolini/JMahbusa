@@ -244,7 +244,12 @@ public class GameLogic extends DynamicBoardLogic {
         setUpSavedBoard(save.squareMatrix);
     }
 
-
+    protected void setPlayersForGame (String whitePlayer, String blackPlayer) {
+        setWhitePlayer(whitePlayer);
+        setBlackPlayer(blackPlayer);
+        setBlacksWonPoints(0);
+        setWhitesWonPoints(0);
+    }
 
     protected void setWhitePlayer(String playerName) {
         this.whitePlayer = playerName;

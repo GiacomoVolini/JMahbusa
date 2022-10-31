@@ -50,6 +50,11 @@ public class SettingsLogic {
         }
     }
 
+    protected void resetDefaultSettings() {
+        getDefaultSettings();
+        restoreCurrent();
+    }
+
     protected void applySettingsChanges() {
         try {
             current.store();
@@ -74,7 +79,6 @@ public class SettingsLogic {
     protected static boolean shouldPlayTutorial() {
         String fileLocation = logic.getAppDirectory() + "/settings/played.tut";
         Path filePath = Path.of (fileLocation);
-        System.out.println(Files.exists(filePath));
         return !Files.exists(filePath);
     }
 

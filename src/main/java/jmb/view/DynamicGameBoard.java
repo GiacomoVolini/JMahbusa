@@ -125,7 +125,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     public void handleDoubleDice(boolean open) {
         if (open ^ diceArray[UPPER_DOUBLE_DICE].isVisible() ) {
             letWindowResize(false);
-            Timeline timeline = AnimationBuilder.createDoubleDiceAnimation(diceArray, open);
+            Timeline timeline = TimelineBuilder.createDoubleDiceAnimation(diceArray, open);
             timeline.setOnFinished(e -> letWindowResize(true));
             timeline.play();
         }
@@ -142,7 +142,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
             letWindowResize(false);
             if (open)
                 exitRegion.setVisible(true);
-            Timeline timeline = AnimationBuilder.createExitZoneAnimation(exitRegion, outerRect, open);
+            Timeline timeline = TimelineBuilder.createExitZoneAnimation(exitRegion, outerRect, open);
             timeline.setOnFinished(e -> letWindowResize(true));
             timeline.play();
     }
@@ -164,7 +164,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
 
     public void openDiceTray() {
         letWindowResize(false);
-        Timeline timeline = AnimationBuilder.createDiceTrayAnimation(this, diceTray, diceArray);
+        Timeline timeline = TimelineBuilder.createDiceTrayAnimation(this, diceTray, diceArray);
         timeline.setOnFinished(e -> letWindowResize(true));
         timeline.play();
     }
@@ -254,6 +254,11 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         }
     }
 
+    public void restoreBoardColors() {
+        for (int i = 0; i < 26; i++)
+            this.restoreColorToPoint(i);
+    }
+
     public void restoreColorToPoint(int restoreIndex) {
         Color color;
         switch (restoreIndex){
@@ -269,7 +274,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                 color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
                 break;
         }
-        colorPoint(restoreIndex, color);
+        if (restoreIndex != UNDEFINED)
+            colorPoint(restoreIndex, color);
         if (selected) {
             DynamicGameBoardRedraw.redrawPawns(this);
         }

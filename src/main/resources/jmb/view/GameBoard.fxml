@@ -9,6 +9,8 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
+   <fx:include fx:id="pausePane" source="game/PausePane.fxml" />
+   <fx:include fx:id="saveGamePane" source="game/SaveGamePane.fxml" />
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
    <Button fx:id="backBTN" disable="true" focusTraversable="false" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
@@ -39,35 +41,6 @@
                textAlignment="CENTER" wrappingWidth="174.78125">
             <font>
                <Font size="32.0"/>
-            </font>
-         </Text>
-      </AnchorPane>
-   </TitledPane>
-   <TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" layoutX="438.0" layoutY="296.0"
-               prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false">
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
-         <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false"
-                 onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
-            <font>
-               <Font size="14.0"/>
-            </font>
-         </Button>
-         <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave"
-                 prefWidth="186.0" text="Conferma e salva">
-            <font>
-               <Font size="14.0"/>
-            </font>
-         </Button>
-         <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false"
-                 onAction="#closeExitOption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
-            <font>
-               <Font size="14.0"/>
-            </font>
-         </Button>
-         <Text fx:id="pauseText" layoutX="-1.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0"
-               text="Sei sicuro che di voler uscire?" textAlignment="CENTER" wrappingWidth="382.99999999999994">
-            <font>
-               <Font size="20.0"/>
             </font>
          </Text>
       </AnchorPane>

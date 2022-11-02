@@ -69,13 +69,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.leftText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
         board.selectText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
     }
-
-    // Metodo per rimposizionamento dinamico della pagina Pausa
-    protected static void resizePauseMenu(GameView board) {
-        board.pauseMenu.setLayoutX(board.window.getWidth() / 2 - board.pauseMenu.getWidth() / 2);
-        board.pauseMenu.setLayoutY(board.window.getHeight() / 2 - board.pauseMenu.getHeight() / 2);
-    }
-
     private static void resizeVictoryRect(GameView board) {
         board.victoryPanel.setWidth(board.window.getWidth() / 2);
         board.victoryPanel.setHeight(board.window.getHeight() / 2.5);
@@ -238,11 +231,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizeSaveDialogue(GameView board) {
-        board.saveDialogue.setLayoutX(board.window.getWidth() / 2 - board.saveDialogue.getPrefWidth() / 2);
-        board.saveDialogue.setLayoutY(board.window.getHeight() / 2 - board.saveDialogue.getPrefHeight() / 2);
-    }
-
     protected static void resizeAll(GameView board) {
         DynamicGameBoardRedraw.resizeAll(board);
         resizePlsPawns(board);
@@ -251,8 +239,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         if (!logic.getGameStart())
             resizeStartDialogue(board);
         resizeButtons(board);
-        resizePauseMenu(board);
-        resizeSaveDialogue(board);
         if (logic.isTournamentOngoing())
             resizeTournamentComponents(board);
         if (logic.getGameEndState()) {

@@ -6,22 +6,24 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import jmb.view.App;
 import jmb.view.DynamicGameBoard;
 import jmb.view.DynamicGameBoardRedraw;
 import jmb.view.GameViewRedraw;
+
+import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 
-public class AnimationBuilder {
+public class TimelineBuilder {
 
     public static Timeline buildCustomAnimation (Polygon customPoint1, Polygon customPoint2, Polygon customPoint3,
                                                  ColorPicker selectedPointColorPicker, ColorPicker evenPointColorPicker,
@@ -175,6 +177,15 @@ public class AnimationBuilder {
         );
         timeline.setCycleCount(1);
         return timeline;
+    }
+
+    public static Timeline createTurnTimerTimeline (Rectangle timerIn) {
+        Timeline out = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
+                new KeyFrame(Duration.seconds(logic.getTurnDuration()), e -> {
+                    logic.completeMoves();
+                }, new KeyValue(timerIn.scaleYProperty(), 0)));
+        return out;
     }
 
 }

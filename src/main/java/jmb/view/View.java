@@ -176,8 +176,7 @@ public class View implements IView {
     @Override
     public void restoreBoardColors() {
         if (currentScene instanceof AnimatedBoard)
-            for (int i = 0; i < 26; i++)
-                ((AnimatedBoard)currentScene).restoreColorToPoint(i);
+            ((AnimatedBoard)currentScene).restoreBoardColors();
     }
 
     @Override

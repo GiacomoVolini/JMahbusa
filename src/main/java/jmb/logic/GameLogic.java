@@ -68,10 +68,10 @@ public class GameLogic extends DynamicBoardLogic {
         return out;
     }
 
-    public boolean movePawn(int puntaInizC, int puntaInizR, int puntaFinR, int puntaFinC) {
-        boolean possible = super.movePawn(puntaInizC, puntaInizR, puntaFinR, puntaFinC);
+    public boolean movePawn(int startingColumn, int startingRow, int destinationRow, int destinationColumn) {
+        boolean possible = super.movePawn(startingColumn, startingRow, destinationRow, destinationColumn);
         if (possible && canRevert) {
-            turnMoves.push(new MoveRecord(puntaInizC, puntaFinC, dice.getToBeUsedArray()));
+            turnMoves.push(new MoveRecord(startingColumn, destinationColumn, dice.getToBeUsedArray()));
             if (moveOpensWhiteExit)
                 turnMoves.peek().moveOpensWhiteExit();
             else if (moveOpensBlackExit)

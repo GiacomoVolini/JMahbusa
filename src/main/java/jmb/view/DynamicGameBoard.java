@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import jmb.view.utilities.AnimationBuilder;
+import jmb.view.utilities.*;
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
@@ -78,8 +78,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     }
 
     private void savePosition (MouseEvent event) {
-        PawnView node = (PawnView)event.getSource();
-        int col = searchPawnPlace(node);
+        int col = searchPawnPlace(event);
         logic.createMoveBuffer(col);
         logic.isPawnMovable(col, logic.searchTopOccupiedRow(col), true);
     }
@@ -90,58 +89,37 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         n.setLayoutY(n.getLayoutY() + event.getY());
     }
     protected void releasePawn(MouseEvent event) {
-        PawnView node = (PawnView)event.getSource();
-        int col = this.searchPawnPlace(node);
+        int col = this.searchPawnPlace(event);
         if (col != UNDEFINED)
             logic.placePawnOnPoint(col);
         view.restoreBoardColors();
         GameViewRedraw.redrawPawns(this);
-
     }
-    protected int searchPawnPlace(PawnView node) {
+    protected int searchPawnPlace(MouseEvent event) {
         //Il metodo cerca a quale zona del tabellone appartiene la pedina
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
         Region[] array;
-        boolean top, found, left;
-        int begin, end;
-        int out = UNDEFINED;
-        if (node.getPawnCenterY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
-            array = regArrayBot;
-            top = false;
-        } else {
-            array = regArrayTop;
-            top = true;
-        }
+        int begin, end, out = UNDEFINED;
 
-        if (node.getPawnCenterX() > separator.getLayoutX()) {
+        if (event.getX() > separator.getLayoutX()) {
             begin = 6;
             end = 11;
-            left = false;
         } else {
             begin = 0;
             end = 5;
-            left = true;
-        }
-
-        if (left) {
-            if (top && blackExitRegion.contains(blackExitRegion.sceneToLocal(node.getPawnCenter()))) {
+            if (blackExitRegion.contains(blackExitRegion.sceneToLocal(event.getX(),event.getY())))
                 out = COL_BLACK_EXIT;
-            } else if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(node.getPawnCenter()))) {
+            if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(event.getX(),event.getY())))
                 out = COL_WHITE_EXIT;
-            }
         }
 
         //  Ciclo for per controllare se la pedina si trova su una delle sei punte possibili
-        if (out == UNDEFINED) {
-            found = false;
-            for (int i = begin; i <= end && !found; i++)
-                if (array[i].contains(array[i].sceneToLocal(node.getPawnCenter()))) {
-                    found = true;
-                    if (top)
-                        out = i + 1;
-                    else out = 24 - i;
-                }
-        }
+        for (int i = begin; out == UNDEFINED && i <= end; i++)
+            if (event.getY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
+                if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(event.getX(), event.getY())))
+                    out = i + 1;
+            } else if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(event.getX(), event.getY())))
+                out = 24 - i;
         return out;
     }
     public void handleDoubleDice(boolean open) {
@@ -161,12 +139,12 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     }
 
     public void handleExitRegion(Rectangle exitRegion, boolean open) {
-        letWindowResize(false);
-        if (open)
-            exitRegion.setVisible(true);
-        Timeline timeline = AnimationBuilder.createExitZoneAnimation(exitRegion, outerRect, open);
-        timeline.setOnFinished(e -> letWindowResize(true));
-        timeline.play();
+            letWindowResize(false);
+            if (open)
+                exitRegion.setVisible(true);
+            Timeline timeline = AnimationBuilder.createExitZoneAnimation(exitRegion, outerRect, open);
+            timeline.setOnFinished(e -> letWindowResize(true));
+            timeline.play();
     }
 
     public void openBlackExit() {
@@ -215,31 +193,22 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         else selectedIndex = COL_BLACK;
         colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
     }
-    protected int moveHorizontally(int selectedIndex, String keyPressed) {
-        int out;
-        if (selectedIndex <13) { // La punta selezionata è sopra
-            if (keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class))) {
-                out = (selectedIndex + 13 + 1) % 13;
-                if (!logic.getWhiteExit() && out == COL_BLACK_EXIT)
-                    out = 1;
-            }
-            else {
-                out = (selectedIndex+13-1)%13;
-                if (!logic.getBlackExit() && out == COL_BLACK_EXIT)
-                    out = 12;
-            }
-        } else { // La punta selezionata è sotto
-            if (keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class))) {
-                out = ((selectedIndex - 1) % 13) + 13;
-                if (!logic.getWhiteExit() && out == COL_WHITE_EXIT)
-                    out = 24;
-            }
-            else {
-                out = ((selectedIndex+1)%13)+13;
-                if (!logic.getWhiteExit() && out == COL_WHITE_EXIT)
-                    out = 13;
-            }
+
+    protected int moveHorizontally(int selectedIndex, boolean top, boolean right) {
+        int out, columnShift, rowShift = 0;
+        int exitColumn = COL_BLACK_EXIT;
+        boolean exitCheck = logic.getBlackExit();
+        if (!top) {
+            rowShift = 13;
+            exitCheck = logic.getWhiteExit();
+            exitColumn = COL_WHITE_EXIT;
         }
+        if (top ^ right)
+            columnShift = -1;
+        else columnShift = 1;
+        out = (selectedIndex + 13 + columnShift) % 13 + rowShift;
+        if (!exitCheck && out == exitColumn)
+            out = moveHorizontally(out, top, right);
         return out;
     }
 
@@ -259,16 +228,16 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                     else if (selectedIndex == COL_BLACK_EXIT &&!logic.getBlackExit())
                         selectedIndex = COL_WHITE;
                 }
-                else selectedIndex = moveHorizontally(selectedIndex, keyPressed);
+                else selectedIndex = moveHorizontally(selectedIndex, selectedIndex < 13,
+                        keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class)));
                 colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
             }
         }
-        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class))&&
+        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) &&
                 selectedIndex!= UNDEFINED && !selected){
             col = findColumn();
             if(logic.searchTopOccupiedRow(col)!=UNDEFINED &&
-                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE)
-                            == logic.getWhichTurn()) {
+                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE) == logic.getWhichTurn()) {
                 logic.selectPawn(col, logic.searchTopOccupiedRow(col));
                 selected = true;
                 logic.createMoveBuffer(col);
@@ -290,8 +259,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         switch (restoreIndex){
             default:
                 if (restoreIndex % 2 == 1)
-                    color = getPointColor("evenPointsColor", EVEN_POINTS);
-                else color = getPointColor("oddPointsColor", ODD_POINTS);
+                    color = ColorHandler.getPointColor("evenPointsColor", EVEN_POINTS);
+                else color = ColorHandler.getPointColor("oddPointsColor", ODD_POINTS);
                 break;
             case COL_WHITE_EXIT:
                 color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
@@ -304,22 +273,6 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         if (selected) {
             DynamicGameBoardRedraw.redrawPawns(this);
         }
-    }
-
-    private Color getPointColor (String customColorString, int presetArrayPosition) {
-        Color out;
-        switch (logic.getSetting("Customization", "boardPreset", int.class)) {
-            case CUSTOM_BOARD: default:
-                out = Color.web(logic.getSetting("Customization", customColorString, String.class));
-                break;
-            case LEFT_PRESET:
-                out = Color.web(logic.getSetting(LEFT, presetArrayPosition));
-                break;
-            case RIGHT_PRESET:
-                out = Color.web(logic.getSetting(RIGHT, presetArrayPosition));
-                break;
-        }
-        return out;
     }
 
     private int findColumn(){

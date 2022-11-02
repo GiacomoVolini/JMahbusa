@@ -10,6 +10,7 @@ import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import jmb.view.SettingsView;
 import jmb.view.utilities.AnimationBuilder;
+import jmb.view.utilities.ColorHandler;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
@@ -164,16 +165,16 @@ public class CustomizationTab {
         else if (leftPresetRadio.isSelected())
             logic.setSetting("Customization", "boardPreset",LEFT_PRESET);
         else logic.setSetting("Customization", "boardPreset",RIGHT_PRESET);
-        logic.setSetting("Customization", "whitePawnStroke",ColorStringFactory.buildString(whitePawnStrokeColorPicker.getValue()));
-        logic.setSetting("Customization", "whitePawnFill",ColorStringFactory.buildString(whitePawnFillColorPicker.getValue()));
-        logic.setSetting("Customization", "blackPawnStroke",ColorStringFactory.buildString(blackPawnStrokeColorPicker.getValue()));
-        logic.setSetting("Customization", "blackPawnFill",ColorStringFactory.buildString(blackPawnFillColorPicker.getValue()));
-        logic.setSetting("Customization", "boardFrameColor",ColorStringFactory.buildString(frameColorPicker.getValue()));
-        logic.setSetting("Customization", "boardInnerColor",ColorStringFactory.buildString(tableColorPicker.getValue()));
-        logic.setSetting("Customization", "evenPointsColor",ColorStringFactory.buildString(evenPointColorPicker.getValue()));
-        logic.setSetting("Customization", "oddPointsColor",ColorStringFactory.buildString(oddPointColorPicker.getValue()));
-        logic.setSetting("Customization", "selectedPointColor",ColorStringFactory.buildString(selectedPointColorPicker.getValue()));
-        logic.setSetting("Customization", "backgroundColor", ColorStringFactory.buildString(backGroundColorPicker.getValue()));
+        logic.setSetting("Customization", "whitePawnStroke", ColorHandler.buildColorString(whitePawnStrokeColorPicker.getValue()));
+        logic.setSetting("Customization", "whitePawnFill", ColorHandler.buildColorString(whitePawnFillColorPicker.getValue()));
+        logic.setSetting("Customization", "blackPawnStroke", ColorHandler.buildColorString(blackPawnStrokeColorPicker.getValue()));
+        logic.setSetting("Customization", "blackPawnFill", ColorHandler.buildColorString(blackPawnFillColorPicker.getValue()));
+        logic.setSetting("Customization", "boardFrameColor", ColorHandler.buildColorString(frameColorPicker.getValue()));
+        logic.setSetting("Customization", "boardInnerColor", ColorHandler.buildColorString(tableColorPicker.getValue()));
+        logic.setSetting("Customization", "evenPointsColor", ColorHandler.buildColorString(evenPointColorPicker.getValue()));
+        logic.setSetting("Customization", "oddPointsColor", ColorHandler.buildColorString(oddPointColorPicker.getValue()));
+        logic.setSetting("Customization", "selectedPointColor", ColorHandler.buildColorString(selectedPointColorPicker.getValue()));
+        logic.setSetting("Customization", "backgroundColor", ColorHandler.buildColorString(backGroundColorPicker.getValue()));
     }
 
     public void changeDimensions(AnchorPane window) {

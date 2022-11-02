@@ -1,14 +1,15 @@
 package jmb.view;
 
-import static java.lang.Math.*;
-import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static jmb.view.ConstantsView.*;
+import static jmb.view.View.logic;
 
 public class GameViewRedraw extends DynamicGameBoardRedraw {
 

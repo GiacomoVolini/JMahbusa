@@ -3,8 +3,7 @@ package jmb.logic;
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.ConstantsLogic.*;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 public abstract class DynamicBoardLogic {
 
@@ -26,11 +25,11 @@ public abstract class DynamicBoardLogic {
             if (!found)
                 if (valueToSearch == BLACK) {
                 setBlackExit(true);
-                Logic.view.openBlackExit();
+                Logic.getView().openBlackExit();
                 moveOpensBlackExit = true;
                 } else {
                     setWhiteExit(true);
-                    view.openWhiteExit();
+                    getView().openWhiteExit();
                     moveOpensWhiteExit = true;
                 }
         }
@@ -73,7 +72,7 @@ public abstract class DynamicBoardLogic {
                 deselectPawn(destinationColumn, destinationRow);
             }
             dice.setDiceToUsed();
-            view.setDiceContrast();
+            getView().setDiceContrast();
             if (whiteTurn)
                 this.checkWhiteExit();
             else  this.checkBlackExit();
@@ -82,8 +81,8 @@ public abstract class DynamicBoardLogic {
         return possible;
     }
     public void forceMovePawn(int from, int to) {
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.PAWN_DROP);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.PAWN_DROP);
         int toRow = searchFirstFreeRow(to);
         int fromRow = searchTopOccupiedRow(from);
         squares[toRow][to] = squares[fromRow][from];
@@ -244,8 +243,8 @@ public abstract class DynamicBoardLogic {
                 movable = true;
                 if (highlight) {
                     if (whiteTurn)
-                        view.colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                    else view.colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
                 }
             }
         }
@@ -254,8 +253,8 @@ public abstract class DynamicBoardLogic {
             movable = true;
             if (highlight)
                 if (whiteTurn)
-                    view.colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                else view.colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                    getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
+                else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
         }
         for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
@@ -263,8 +262,8 @@ public abstract class DynamicBoardLogic {
                 movable = true;
                 if (highlight)
                     if (whiteTurn)
-                        view.colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                    else view.colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
             }
         }
         return movable;

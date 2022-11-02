@@ -1,21 +1,26 @@
 package jmb.view;
 
-import javafx.animation.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import jmb.view.utilities.*;
+import jmb.view.utilities.ColorHandler;
+import jmb.view.utilities.TimelineBuilder;
+
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
 public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoard{
 
@@ -37,15 +42,15 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                 new Image(Objects.requireNonNull(this.getClass().getResource("diceImg/Dado1INV.png")).toString()),
         };
         diceTray = new Rectangle();
-        switch (logic.getSetting("Customization", "boardPreset", int.class)) {
+        switch (getLogic().getSetting("Customization", "boardPreset", int.class)) {
             case CUSTOM_BOARD:
-                diceTray.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
+                diceTray.setFill(Color.web(getLogic().getSetting("Customization", "boardInnerColor", String.class)));
                 break;
             case LEFT_PRESET:
-                diceTray.setFill(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
+                diceTray.setFill(Color.web(getLogic().getSetting(LEFT, BOARD_INNER)));
                 break;
             case RIGHT_PRESET:
-                diceTray.setFill(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
+                diceTray.setFill(Color.web(getLogic().getSetting(RIGHT, BOARD_INNER)));
                 break;
         }
         diceTray.setStroke(Color.BLACK);
@@ -74,12 +79,12 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         feltImage.fitHeightProperty().bind(boardAnchor.heightProperty());
         feltImage.fitWidthProperty().bind(boardAnchor.widthProperty());
         feltImage.setViewOrder(50);
-        boardAnchor.setStyle("-fx-background-color: " + logic.getSetting("Customization", "backgroundColor", String.class));
+        boardAnchor.setStyle("-fx-background-color: " + getLogic().getSetting("Customization", "backgroundColor", String.class));
     }
 
     private void savePosition (MouseEvent event) {
         int col = searchPawnPlace(event);
-        logic.createMoveBuffer(col);
+        getLogic().createMoveBuffer(col);
         logic.isPawnMovable(col, logic.searchTopOccupiedRow(col), true);
     }
 

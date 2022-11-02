@@ -11,7 +11,7 @@ public class TurnTrialStage extends ComparableTutorialStage{
     }
     public void start() {
         logic.setWhiteTurn(true);
-        view.allowTextBoxMouseInput(false);
+        getView().allowTextBoxMouseInput(false);
         logic.forceDice(6, 5);
         view.tutorialDiceAnimation(false);
         view.callRedraw();

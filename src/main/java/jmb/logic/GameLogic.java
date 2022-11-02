@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 /** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
  *  imponendo il rispetto delle regole del gioco
@@ -50,15 +50,15 @@ public class GameLogic extends DynamicBoardLogic {
             deselectPawn(getMoveBufferColumn(), getMoveBufferRow());
         this.whiteTurn= !this.whiteTurn;
         runTurn();
-        view.setPawnsForTurn();
+        getView().setPawnsForTurn();
         turnMoves.clear();
-        view.backBTNSetDisable(true);
+        getView().backBTNSetDisable(true);
     }
 
 
     public void runTurn() {
         dice.tossDice();
-        view.rollDice();
+        getView().rollDice();
     }
 
     public boolean movePawn(int from, int to) {
@@ -77,7 +77,7 @@ public class GameLogic extends DynamicBoardLogic {
             else if (moveOpensBlackExit)
                 turnMoves.peek().moveOpensBlackExit();
             moveOpensWhiteExit=moveOpensBlackExit=false;
-            view.backBTNSetDisable(false);
+            getView().backBTNSetDisable(false);
         }
         return possible;
     }
@@ -197,11 +197,11 @@ public class GameLogic extends DynamicBoardLogic {
 
 
         if (tournamentPoints == 0)
-            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
+            getView().gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
         else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)
-            view.gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.TOURNAMENT_WON);
+            getView().gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.TOURNAMENT_WON);
         else
-            view.gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin, TournamentStatus.TOURNAMENT_CONTINUES);
+            getView().gameWon(whitePlayer,blackPlayer,whiteWon,doubleWin, TournamentStatus.TOURNAMENT_CONTINUES);
 
     }
 
@@ -216,17 +216,17 @@ public class GameLogic extends DynamicBoardLogic {
                     dice.revertUsed(i);
             }
             if (move.getOpensBlackExit()) {
-                view.closeBlackExit();
+                getView().closeBlackExit();
                 setBlackExit(false);
             } else if (move.getOpensWhiteExit()) {
-                view.closeWhiteExit();
+                getView().closeWhiteExit();
                 setWhiteExit(false);
             }
             dice.resetToBeUsed();
-            view.setDiceContrast();
+            getView().setDiceContrast();
         }
         if (turnMoves.isEmpty())
-            view.backBTNSetDisable(true);
+            getView().backBTNSetDisable(true);
     }
 
     public void setUpSavedGame(SaveGameReader save) {

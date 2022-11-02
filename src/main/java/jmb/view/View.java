@@ -3,9 +3,8 @@ package jmb.view;
 import javafx.scene.paint.Color;
 import jmb.logic.ILogic;
 
-import static jmb.view.ConstantsView.MUSIC_VOLUME;
-import static jmb.view.ConstantsView.SFX_VOLUME;
 import static jmb.ConstantsShared.*;
+import static jmb.view.ConstantsView.*;
 
 public class View implements IView {
 
@@ -16,6 +15,22 @@ public class View implements IView {
 
     public static MusicPlayer musicController;
 
+    public static ILogic getLogic() {
+        return logic;
+    }
+
+    public static void setLogic(ILogic logic) {
+        View.logic = logic;
+    }
+
+    public static IView getView() {
+        return view;
+    }
+
+    public static void setView(IView view) {
+        View.view = view;
+    }
+
     @Override
     public void setCurrentScene (GenericGUI scene) {
         currentScene = scene;
@@ -24,8 +39,8 @@ public class View implements IView {
     @Override
     public void initializeMusic() {
         musicController = new MusicPlayer();
-        musicController.setMusicVolume(logic.getSetting("Audio", "musicVolume", int.class)/100.0);
-        musicController.setSFXVolume(logic.getSetting("Audio", "soundFXVolume", int.class)/100.0);
+        musicController.setMusicVolume(getLogic().getSetting("Audio", "musicVolume", int.class)/100.0);
+        musicController.setSFXVolume(getLogic().getSetting("Audio", "soundFXVolume", int.class)/100.0);
     }
     public void setVolume (int whichVolume, double value) {
         switch(whichVolume) {

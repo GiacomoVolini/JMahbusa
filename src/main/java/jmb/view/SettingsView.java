@@ -1,25 +1,22 @@
 package jmb.view;
 
-import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import jmb.view.settings.AudioTab;
 import jmb.view.settings.ControlsTab;
 import jmb.view.settings.CustomizationTab;
 import jmb.view.settings.VideoTab;
 
-import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.*;
-import static jmb.view.View.*;
+import static jmb.ConstantsShared.Music;
+import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.View.getLogic;
+import static jmb.view.View.getView;
 
 public class SettingsView implements GenericGUI{
         @FXML private AnchorPane window;
@@ -137,22 +134,22 @@ public class SettingsView implements GenericGUI{
                 customizationTabController.applySettings();
                 controlsTabController.applySettings();
 
-                logic.applySettingsChanges();
+                getLogic().applySettingsChanges();
                 applyButton.setDisable(true);
         }
 
         @FXML
         void resetToDefaults(ActionEvent event) {
-                logic.resetDefaultSettings();
+                getLogic().resetDefaultSettings();
                 videoTabController.resetWindow();
                 loadSettings();
                 applyButton.setDisable(true);
                 Stage stage = (Stage) window.getScene().getWindow();
-                stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
-                stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
-                if (logic.getSetting("Audio", "muteMusic", boolean.class))
-                        view.pauseMusic();
-                else view.playMusic(Music.MENU);
+                stage.setWidth(getLogic().getSetting("Video", "resolutionWidth", int.class));
+                stage.setHeight(getLogic().getSetting("Video", "resolutionHeight", int.class));
+                if (getLogic().getSetting("Audio", "muteMusic", boolean.class))
+                        getView().pauseMusic();
+                else getView().playMusic(Music.MENU);
         }
 
         public void changeDimensions() {
@@ -194,8 +191,8 @@ public class SettingsView implements GenericGUI{
 
                 //Risoluzione
 
-                if (((int)stage.getHeight() != logic.getSetting("Video","resolutionHeight",int.class) ||
-                        (int)stage.getWidth() != logic.getSetting("Video","resolutionWidth",int.class)) &&
+                if (((int)stage.getHeight() != getLogic().getSetting("Video","resolutionHeight",int.class) ||
+                        (int)stage.getWidth() != getLogic().getSetting("Video","resolutionWidth",int.class)) &&
                         (int)stage.getWidth()!= 0 && (int)stage.getHeight() != 0) {
                         applyButton.setDisable(false);
                 }
@@ -225,20 +222,20 @@ public class SettingsView implements GenericGUI{
 
         private void loadStrings() {
                 // Selettore schede impostazioni
-                settingsTitlePane.setText(logic.getString("Settings"));
-                videoButton.setText(logic.getString("Video"));
-                audioButton.setText(logic.getString("Audio"));
-                customizationButton.setText(logic.getString("Customization"));
-                controlsButton.setText(logic.getString("Commands"));
-                applyButton.setText(logic.getString("Apply"));
-                resetButton.setText(logic.getString("Reset"));
-                mainMenuButton.setText(logic.getString("MainMenu"));
+                settingsTitlePane.setText(getLogic().getString("Settings"));
+                videoButton.setText(getLogic().getString("Video"));
+                audioButton.setText(getLogic().getString("Audio"));
+                customizationButton.setText(getLogic().getString("Customization"));
+                controlsButton.setText(getLogic().getString("Commands"));
+                applyButton.setText(getLogic().getString("Apply"));
+                resetButton.setText(getLogic().getString("Reset"));
+                mainMenuButton.setText(getLogic().getString("MainMenu"));
                 // Pannello avviso impostazioni non salvate
-                warningTitlePane.setText(logic.getString("Attention"));
-                warningText.setText(logic.getString("AttentionText"));
-                exitAndSaveButton.setText(logic.getString("Save"));
-                exitNoSaveButton.setText(logic.getString("Don'tSave"));
-                cancelButton.setText(logic.getString("Cancel"));
+                warningTitlePane.setText(getLogic().getString("Attention"));
+                warningText.setText(getLogic().getString("AttentionText"));
+                exitAndSaveButton.setText(getLogic().getString("Save"));
+                exitNoSaveButton.setText(getLogic().getString("Don'tSave"));
+                cancelButton.setText(getLogic().getString("Cancel"));
 
                 videoTabController.loadStrings();
                 audioTabController.loadStrings();

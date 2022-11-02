@@ -1,13 +1,12 @@
 package jmb.view;
 
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import static jmb.view.View.logic;
+import static jmb.logic.Logic.*;
 
 public class DiceView {
 
@@ -49,11 +48,11 @@ public class DiceView {
     }
 
     public static void setDiceValues (ImageView[] diceArr) {
-        int[] values = logic.getDiceValues();
+        int[] values = getLogic().getDiceValues();
         if(values[0]!=0) {
             diceArr[0].setImage(diceImgs[values[0] - 1]);
             diceArr[1].setImage(diceImgs[values[1] - 1]);
-            if (logic.isRollDouble()) {
+            if (getLogic().isRollDouble()) {
                 diceArr[2].setImage(invDiceImgs[values[2] - 1]);
                 diceArr[3].setImage(invDiceImgs[values[3] - 1]);
             }
@@ -62,7 +61,7 @@ public class DiceView {
 
     public static void setDiceContrast (ImageView[] diceArr) {
         for (int i = 0; i<4; i++) {
-            if (logic.isDiceUsed(i))
+            if (getLogic().isDiceUsed(i))
                 diceArr[i].setEffect(lowContrast);
             else
                 diceArr[i].setEffect(normalContrast);

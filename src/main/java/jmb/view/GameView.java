@@ -1,26 +1,30 @@
 package jmb.view;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
-import javafx.scene.text.*;
-import jmb.view.game.*;
-import jmb.view.utilities.TimelineBuilder;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import jmb.view.game.GameViewInitializer;
+import jmb.view.game.PausePane;
+import jmb.view.game.SaveGamePane;
+import jmb.view.utilities.TimelineBuilder;
 
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.View.*;
 
 public class GameView extends DynamicGameBoard implements GenericGUI{
 
@@ -49,9 +53,9 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     protected void nextTurn (ActionEvent event) {
-        if(logic.getTurnDuration() != 0)
+        if(getLogic().getTurnDuration() != 0)
             turnTimer.stop();
-        logic.completeMoves();
+        getLogic().completeMoves();
         logic.nextTurn();
         GameViewRedraw.redrawPawns(this);
         setTurnColors(true);
@@ -92,7 +96,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
         if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.DICE_ROLL);
+            getView().playSFX(SFX.DICE_ROLL);
         finishBTN.setDisable(true);
         if (!logic.isRollDouble())
             closeDoubleDice();

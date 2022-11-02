@@ -1,8 +1,8 @@
 package jmb.logic.tutorial;
 
+import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
-import static jmb.ConstantsShared.*;
 
 public class PointBlockingExplanationStage extends ComparableTutorialStage{
 

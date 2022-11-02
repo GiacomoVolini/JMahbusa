@@ -1,10 +1,16 @@
 package jmb.view;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.input.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -12,8 +18,7 @@ import javafx.util.Duration;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
 public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
@@ -57,7 +62,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     private Timeline getPawnOut = new Timeline(
             new KeyFrame(Duration.seconds(0.8),
                     e -> {
-                        logic.tutorialStageAction();
+                        getLogic().tutorialStageAction();
                         TutorialViewRedraw.redrawPawns(this);
                     })
     );
@@ -95,12 +100,12 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
         initialAnimation();
 
-        textBox1.setOnMouseClicked(e ->logic.nextTutorialStage());
-        textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
+        textBox1.setOnMouseClicked(e ->getLogic().nextTutorialStage());
+        textBox2.setOnMouseClicked(e ->getLogic().nextTutorialStage());
         windowPane.setFocusTraversable(true);
         windowPane.setOnKeyPressed(this::handleKeyboard);
-        windowMenuButton.setText(logic.getString("MainMenu"));
-        tutorialOverLabel.setText(logic.getString("tutorialOver"));
+        windowMenuButton.setText(getLogic().getString("MainMenu"));
+        tutorialOverLabel.setText(getLogic().getString("tutorialOver"));
         mainMenuButton.setText(logic.getString("backToMenu"));
         newGameButton.setText(logic.getString("newGame"));
         tutorialOverPane.setText(logic.getString("congratulations"));

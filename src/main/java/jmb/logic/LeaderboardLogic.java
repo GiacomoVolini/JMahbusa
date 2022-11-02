@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static java.nio.file.StandardOpenOption.*;
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
 
 public class LeaderboardLogic {
 
@@ -20,7 +22,7 @@ public class LeaderboardLogic {
     //      l'ObservableList per le singole entry e un oggetto String per la gestione di una singola riga del
     //      file csv
     public LeaderboardLogic() {
-        String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
+        String ldbDirectory = Logic.getLogic().getAppDirectory() + "/leaderboard";
         String ldbPath = ldbDirectory + "/Leaderboards.csv";
         path = Path.of(ldbPath);
         try (BufferedReader reader = Files.newBufferedReader(path)){
@@ -45,7 +47,11 @@ public class LeaderboardLogic {
             }
     }
 
-    protected void addNewPlayer (String name) {
+    protected void addNewPlayers (String name1, String name2) {
+        addNewPlayer(name1);
+        addNewPlayer(name2);
+    }
+    private void addNewPlayer (String name) {
         if (!name.contains("\u2001"))
             arrList.add(new Player(name.concat("\u2001")));
     }

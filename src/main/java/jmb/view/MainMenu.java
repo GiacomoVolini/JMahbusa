@@ -1,11 +1,17 @@
 package jmb.view;
 
-import javafx.animation.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -13,10 +19,11 @@ import javafx.util.Duration;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static jmb.ConstantsShared.*;
+import static jmb.ConstantsShared.Music;
+import static jmb.ConstantsShared.UNDEFINED;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.logic;
 import static jmb.view.View.view;
-import static jmb.view.ConstantsView.*;
 
 /*DOC
     In questa classe c'era memory leak, oggetti MainMenu rimanevano in memoria anche dopo essere passati a

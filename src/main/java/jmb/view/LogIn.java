@@ -13,13 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import jmb.logic.Logic;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.ConstantsView.PLAY_GAME;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
 public class LogIn implements GenericGUI {
 
@@ -80,21 +78,21 @@ public class LogIn implements GenericGUI {
 
     @FXML
     void savePlayer(ActionEvent event) {
-        if (!customTimerField.isDisable() && !logic.isParsable(customTimerField.getText())) {
-            if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                view.playSFX(SFX.ERROR);
-            errorLabel.setText(logic.getString("errorWrongTimerFormat"));
+        if (!customTimerField.isDisable() && !getLogic().isParsable(customTimerField.getText())) {
+            if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+                getView().playSFX(SFX.ERROR);
+            errorLabel.setText(getLogic().getString("errorWrongTimerFormat"));
             errorLabel.setVisible(true);
         } else {
             if (!customTimerField.isDisable())
-                logic.setTurnDuration(Integer.parseInt(customTimerField.getText()));
-            int nameCheckResult = logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+                getLogic().setTurnDuration(Integer.parseInt(customTimerField.getText()));
+            int nameCheckResult = getLogic().compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
             if (nameCheckResult == SUCCESS) {
-                logic.setUpNewBoard();
+                getLogic().setUpNewBoard();
                 if (tournamentCheckBox.isSelected())
-                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
+                    getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
                 else
-                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+                    getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
                 App.changeRoot(PLAY_GAME);
             }
             else errorHandler(nameCheckResult);
@@ -105,10 +103,10 @@ public class LogIn implements GenericGUI {
         String errorMessage = null;
         switch (errorType) {
             case SAME_NAME_ERROR:
-                errorMessage = logic.getString("errorSameName");
+                errorMessage = getLogic().getString("errorSameName");
                 break;
             case EMPTY_NAMES_ERROR:
-                errorMessage = logic.getString("errorEmptyName");
+                errorMessage = getLogic().getString("errorEmptyName");
                 break;
             case NAME1_ALREADY_PRESENT:
                 errorMessage = logic.getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() +
@@ -121,7 +119,7 @@ public class LogIn implements GenericGUI {
         }
         errorLabel.setText(errorMessage);
         if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.ERROR);
+            getView().playSFX(SFX.ERROR);
         errorLabel.setVisible(true);
     }
 

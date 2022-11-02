@@ -1,6 +1,5 @@
 package jmb.view;
 
-import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,8 +15,8 @@ import jmb.ConstantsShared;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
+import static jmb.ConstantsShared.TournamentStatus;
 import static jmb.view.ConstantsView.NORMAL_PAWN_STROKE_WIDTH;
-import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;
 
 public class VictoryComponentFactory {

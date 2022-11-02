@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
 
 public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
     protected static double maxDTWidth;
@@ -18,7 +18,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     public static void redrawPawns(DynamicGameBoard board) {
-        redrawPawns(board, logic.getBoardMatrix());
+        redrawPawns(board, getLogic().getBoardMatrix());
     }
 
     protected static void redrawPawns (DynamicGameBoard board, int[][] matrix) {
@@ -47,13 +47,13 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
                         blacksPlaced++;
                         break;
                     case SELECTED_WHITE:
-                        logic.isPawnMovable(col, row, true);
+                        getLogic().isPawnMovable(col, row, true);
                         board.pawnArrayWHT[whitesPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayWHT[whitesPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         whitesPlaced++;
                         break;
                     case SELECTED_BLACK:
-                        logic.isPawnMovable(col, row, true);
+                        getLogic().isPawnMovable(col, row, true);
                         board.pawnArrayBLK[blacksPlaced].setPawnScale(SELECTED_PAWN_SCALE);
                         board.pawnArrayBLK[blacksPlaced].setStrokeWidth(SELECTED_PAWN_STROKE_WIDTH);
                         blacksPlaced++;
@@ -69,7 +69,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && logic.isLastOnPoint(col, row) && logic.isPawnMovable(col, row, false)) {
+        if (col <= COL_BLACK && col >= COL_WHITE && getLogic().isLastOnPoint(col, row) && logic.isPawnMovable(col, row, false)) {
             pawnArray[pawnIndex].setViewOrder(-2.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);

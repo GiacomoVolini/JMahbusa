@@ -16,6 +16,22 @@ public class Logic implements ILogic {
     public String appDirectory;
     public StringsReader strings;
 
+    public static IView getView() {
+        return view;
+    }
+
+    public static void setView(IView view) {
+        Logic.view = view;
+    }
+
+    public static ILogic getLogic() {
+        return logic;
+    }
+
+    public static void setLogic(ILogic logic) {
+        Logic.logic = logic;
+    }
+
     @Override
     public void initializeGameLogic() {
         board = new GameLogic();
@@ -111,8 +127,7 @@ public class Logic implements ILogic {
 
     @Override
     public void addNewPlayersToList(String newName1, String newName2) {
-            ldb.addNewPlayer(newName1);
-            ldb.addNewPlayer(newName2);
+            ldb.addNewPlayers(newName1, newName2);
     }
 
     @Override

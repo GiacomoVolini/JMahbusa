@@ -3,9 +3,6 @@ package jmb.logic;
 import java.util.Arrays;
 import java.util.Random;
 
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
-
 /**
  * La classe DiceLogic modella e gestisce la logica dei dadi
  */
@@ -100,7 +97,7 @@ public class DiceLogic {
         this.doubleNum=false;
         for (boolean tbu : this.toBeUsed)
             tbu=false;
-        view.setDiceContrast();
+        getView().setDiceContrast();
     }
 
     
@@ -111,7 +108,7 @@ public class DiceLogic {
             this.used[i] = false;
             this.toBeUsed[i] = false;
         }
-        view.setDiceContrast();
+        getView().setDiceContrast();
     }
     
     public int getDiceValue(int i) {

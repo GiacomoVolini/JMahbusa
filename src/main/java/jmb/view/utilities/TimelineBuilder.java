@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -16,8 +15,6 @@ import javafx.util.Duration;
 import jmb.view.DynamicGameBoard;
 import jmb.view.DynamicGameBoardRedraw;
 import jmb.view.GameViewRedraw;
-
-import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;

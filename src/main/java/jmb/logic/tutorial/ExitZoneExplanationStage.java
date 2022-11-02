@@ -1,8 +1,7 @@
 package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 public class ExitZoneExplanationStage extends ComparableTutorialStage {
 
@@ -17,10 +16,10 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        view.setNextTutorialString(logic.getString(stageStringInitial), true);
-        view.tutorialTextBoxAnimation(0.2,0.2 );
-        view.allowTextBoxMouseInput(false);
-        view.waitForRecall(2.0);
+        getView().setNextTutorialString(logic.getString(stageStringInitial), true);
+        getView().tutorialTextBoxAnimation(0.2,0.2 );
+        getView().allowTextBoxMouseInput(false);
+        getView().waitForRecall(2.0);
     }
 
     public void action() {
@@ -30,9 +29,9 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 break;
             case 1:
                 if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                    view.playSFX(SFX.DICE_ROLL);
+                    getView().playSFX(SFX.DICE_ROLL);
             case 2: case 3: case 4: case 5: case 6:
-                view.highlightPointsToOpenExit(internalIndex);
+                getView().highlightPointsToOpenExit(internalIndex);
                 view.tutorialDiceAnimation(true, 8);
                 break;
             case 7:

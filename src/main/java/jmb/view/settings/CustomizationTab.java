@@ -1,16 +1,23 @@
 package jmb.view.settings;
 
-import javafx.animation.*;
+import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 import jmb.view.SettingsView;
-import jmb.view.utilities.TimelineBuilder;
 import jmb.view.utilities.ColorHandler;
+import jmb.view.utilities.TimelineBuilder;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.View.logic;

@@ -1,10 +1,13 @@
 package jmb.view;
-import javafx.scene.layout.*;
+
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.*;
+import static jmb.view.ConstantsView.LOW_CONTRAST;
 import static jmb.view.View.logic;
 
 public abstract class GameBoard {

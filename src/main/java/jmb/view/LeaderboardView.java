@@ -11,8 +11,8 @@ import jmb.logic.Player;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.View.logic;
-import static jmb.view.ConstantsView.*;
 
 public class LeaderboardView implements GenericGUI{
 

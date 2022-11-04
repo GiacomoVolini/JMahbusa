@@ -7,11 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import jmb.view.App;
 import jmb.view.DynamicGameBoard;
 import jmb.view.DynamicGameBoardRedraw;
 import jmb.view.GameViewRedraw;
@@ -183,6 +185,25 @@ public class TimelineBuilder {
                     logic.completeMoves();
                 }, new KeyValue(timerIn.scaleYProperty(), 0)));
         return out;
+    }
+
+    public static Timeline createTutorialBoxTimeline (AnchorPane textBoxToOpen, AnchorPane textBoxToClose) {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        e -> textBoxToClose.setMouseTransparent(true),
+                        new KeyValue(textBoxToOpen.scaleXProperty(), 0),
+                        new KeyValue(textBoxToOpen.scaleYProperty(), 0),
+                        new KeyValue(textBoxToClose.scaleXProperty(), 1),
+                        new KeyValue(textBoxToClose.scaleYProperty(), 1)),
+                new KeyFrame(Duration.seconds(0.5),
+                        e -> textBoxToOpen.setMouseTransparent(false),
+                        new KeyValue(textBoxToOpen.scaleXProperty(), 1),
+                        new KeyValue(textBoxToOpen.scaleYProperty(), 1),
+                        new KeyValue(textBoxToClose.scaleXProperty(), 0),
+                        new KeyValue(textBoxToClose.scaleYProperty(), 0))
+        );
+        timeline.setCycleCount(1);
+        return timeline;
     }
 
 }

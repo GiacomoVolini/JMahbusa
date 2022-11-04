@@ -6,10 +6,6 @@ import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
 import static jmb.logic.Logic.*;
 
-/** La classe BoardLogic gestisce il modello logico del tabellone, memorizzando il tipo e la posizione delle pedine e
- *  imponendo il rispetto delle regole del gioco
- */
-
 public class GameLogic extends DynamicBoardLogic {
 
     private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
@@ -24,19 +20,10 @@ public class GameLogic extends DynamicBoardLogic {
     private boolean gameStart = false;
     private boolean gameEndState = false;
 
-    //  ----------------------------
-
-    //  COSTRUTTORE
-
     public GameLogic(){
         //  Creiamo un oggetto di tipo DiceLogic, che gestirà il tiro dei dadi durante la partita
         dice = new DiceLogic();
     }
-
-    //  -------------------------------
-
-
-    //  METODI
 
     public void setUp() {
         setGameStart(false);
@@ -195,7 +182,6 @@ public class GameLogic extends DynamicBoardLogic {
             else blacksWonPoints +=1;
         }
 
-
         if (tournamentPoints == 0)
             getView().gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
         else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)
@@ -254,43 +240,33 @@ public class GameLogic extends DynamicBoardLogic {
     protected void setWhitePlayer(String playerName) {
         this.whitePlayer = playerName;
     }
-
     protected void setBlackPlayer(String playerName) {
         this.blackPlayer = playerName;
     }
-
     protected String getWhitePlayer() {
         return this.whitePlayer;
     }
-
     protected String getBlackPlayer() {
         return this.blackPlayer;
     }
-
     protected void setTournamentPoints(int value) {
         tournamentPoints = value;
     }
-
     protected int getTournamentPoints() {
         return tournamentPoints;
     }
-
     protected void setBlacksWonPoints(int value) {
         blacksWonPoints = value;
     }
-
     protected int getBlacksWonPoints() {
         return blacksWonPoints;
     }
-
     protected void setWhitesWonPoints(int value) {
         whitesWonPoints = value;
     }
-
     protected int getWhitesWonPoints() {
         return whitesWonPoints;
     }
-
     protected void setTurnDuration(double value) {
         this.turnDuration = value;
     }
@@ -300,7 +276,6 @@ public class GameLogic extends DynamicBoardLogic {
     protected boolean getCanRevert() {
         return this.canRevert;
     }
-
     protected double getTurnDuration() {
         return this.turnDuration;
     }

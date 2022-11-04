@@ -1,21 +1,14 @@
 package jmb.view;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.effect.BlendMode;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.image.*;
+import javafx.scene.input.*;
+import javafx.scene.paint.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import jmb.view.utilities.ColorHandler;
-import jmb.view.utilities.TimelineBuilder;
-
+import jmb.view.utilities.*;
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
@@ -103,27 +96,26 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     protected int searchPawnPlace(MouseEvent event) {
         //Il metodo cerca a quale zona del tabellone appartiene la pedina
         //Per ridurre il numero di iterazioni del ciclo for si determina in quale quarto del tabellone sia la pedina
-        Region[] array;
         int begin, end, out = UNDEFINED;
 
-        if (event.getX() > separator.getLayoutX()) {
+        if (event.getSceneX() > separator.getLayoutX()) {
             begin = 6;
             end = 11;
         } else {
             begin = 0;
             end = 5;
-            if (blackExitRegion.contains(blackExitRegion.sceneToLocal(event.getX(),event.getY())))
+            if (blackExitRegion.contains(blackExitRegion.sceneToLocal(event.getSceneX(), event.getSceneY())))
                 out = COL_BLACK_EXIT;
-            if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(event.getX(),event.getY())))
+            if (whiteExitRegion.contains(whiteExitRegion.sceneToLocal(event.getSceneX(), event.getSceneY())))
                 out = COL_WHITE_EXIT;
         }
 
         //  Ciclo for per controllare se la pedina si trova su una delle sei punte possibili
         for (int i = begin; out == UNDEFINED && i <= end; i++)
-            if (event.getY() > (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
-                if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(event.getX(), event.getY())))
+            if (event.getSceneY() < (boardRect.getLayoutY() + boardRect.getHeight()/2)) {
+                if (regArrayTop[i].contains(regArrayTop[i].sceneToLocal(event.getSceneX(), event.getSceneY())))
                     out = i + 1;
-            } else if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(event.getX(), event.getY())))
+            } else if (regArrayBot[i].contains(regArrayBot[i].sceneToLocal(event.getSceneX(), event.getSceneY())))
                 out = 24 - i;
         return out;
     }

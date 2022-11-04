@@ -1,29 +1,22 @@
 package jmb.view;
 
-import javafx.animation.Animation;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-import jmb.view.game.GameViewInitializer;
-import jmb.view.game.PausePane;
-import jmb.view.game.SaveGamePane;
+import jmb.view.game.*;
 import jmb.view.utilities.TimelineBuilder;
 
 import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.ConstantsView.*;
 import static jmb.view.View.*;
 
 public class GameView extends DynamicGameBoard implements GenericGUI{
@@ -197,19 +190,18 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
                 victoryPanel, victoryPawn, tournamentRibbon);
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status) {
+        String winner;
         gameEndDisable();
         if (logic.getTurnDuration()!=0)
             turnTimer.stop();
         setTurnColors(false);
-        String winner;
         if (whiteWon)
             winner = whitePlayer;
         else winner = blackPlayer;
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class)) {
+        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
             if (doubleWin)
                 view.playSFX(SFX.DOUBLE_WIN);
             else view.playSFX(SFX.SINGLE_WIN);
-        }
         createVictoryScreen(whiteWon, doubleWin, winner, status);
         logic.setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);
@@ -229,18 +221,15 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     void handleKeyboard(KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.handleKeyboard(event);
-        if(keyPressed.equals(logic.getSetting("Controls", "openMenu", String.class))){
+        if(keyPressed.equals(logic.getSetting("Controls", "openMenu", String.class)))
             if (!menuBTN.isDisabled())
                 openExitOption();
-        }
-        else if(keyPressed.equals(logic.getSetting("Controls", "finishTurn", String.class))){
+        else if(keyPressed.equals(logic.getSetting("Controls", "finishTurn", String.class)))
             if (!finishBTN.isDisabled())
                 nextTurn(null);
-        }
-        else if (keyPressed.equals(logic.getSetting("Controls", "revertMove", String.class))) {
+        else if (keyPressed.equals(logic.getSetting("Controls", "revertMove", String.class)))
             if(!backBTN.isDisabled())
                 revertMove();
-        }
         else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)))
             if (selected) {
                 wasBackBTNDisabled = backBTN.isDisabled();

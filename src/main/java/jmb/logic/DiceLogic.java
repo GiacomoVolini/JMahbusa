@@ -3,9 +3,8 @@ package jmb.logic;
 import java.util.Arrays;
 import java.util.Random;
 
-/**
- * La classe DiceLogic modella e gestisce la logica dei dadi
- */
+import static jmb.logic.Logic.logic;
+
 
 public class DiceLogic {
 
@@ -97,7 +96,7 @@ public class DiceLogic {
         this.doubleNum=false;
         for (boolean tbu : this.toBeUsed)
             tbu=false;
-        getView().setDiceContrast();
+        Logic.getView().setDiceContrast();
     }
 
     
@@ -108,7 +107,7 @@ public class DiceLogic {
             this.used[i] = false;
             this.toBeUsed[i] = false;
         }
-        getView().setDiceContrast();
+        Logic.getView().setDiceContrast();
     }
     
     public int getDiceValue(int i) {
@@ -147,9 +146,64 @@ public class DiceLogic {
         this.toBeUsed[i] = true;
     }
 
-    //--------------------------------
+    protected boolean checkDiceSimple (int delta) {
+        boolean out = false;
+        if (logic.getSetting("DEBUG","bypassDice",boolean.class))
+            out = true;
+        for (int i = 0; i<4 && !out; i++)
+            if (!getUsedArray()[i] && getDiceValues()[i] == delta) {
+                out = true;
+                setToBeUsed(i);
+            }
+        return out;
+    }
 
 
+    protected boolean checkDiceSum (int pointFrom, int delta, DynamicBoardLogic dynamicBoardLogic) {
+        boolean legal = false;
+        int sign;
+        if (dynamicBoardLogic.isWhiteTurn())
+            sign = 1;
+        else sign = -1;
+        if (getDoubleNum()) {
+            int neededDice = 0;
+            legal = delta % getDiceValue(0) == 0;
+            if (legal) {
+                legal = false;
+                for (int i = 0; i < 4 && !legal; i++) {
+                    if (!getUsed(i))
+                        neededDice++;
+                    if (getDiceValue(0) * neededDice == delta)
+                        legal = true;
+                }
+                if (legal)
+                    for (int i = 1; i <= neededDice; i++)
+                        if (!dynamicBoardLogic.isPointUnlocked(pointFrom + (getDiceValue(0)*i*sign)))
+                            legal = false;
+                if (legal)
+                    setDoublesToBeUsed(neededDice);
+            }
+        } else
+            if (!getUsed(0) && !getUsed(1) && delta == getDiceValue(0) + getDiceValue(1)) {
+                legal = dynamicBoardLogic.isPointUnlocked(pointFrom + getDiceValue(0)*sign) ||
+                        dynamicBoardLogic.isPointUnlocked(pointFrom + getDiceValue(1)*sign);
+                if (legal) {
+                    setToBeUsed(0);
+                    setToBeUsed(1);
+                }
+            }
+        return legal;
+    }
 
-
+    public boolean checkExitDiceGreaterThan(int delta) {
+        boolean possible = false;
+        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
+            possible = true;
+        for (int i = 0; i<4 && !possible; i++)
+            if (getDiceValue(i) >= delta && !getUsed(i)) {
+                possible = true;
+                getToBeUsedArray()[i] = true;
+            }
+        return possible;
+    }
 }

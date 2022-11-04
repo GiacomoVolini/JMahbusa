@@ -1,5 +1,7 @@
 package jmb.logic.tutorial;
 
+import jmb.logic.Logic;
+
 import static jmb.logic.Logic.logic;
 import static jmb.logic.Logic.view;
 
@@ -11,7 +13,7 @@ public class TurnTrialStage extends ComparableTutorialStage{
     }
     public void start() {
         logic.setWhiteTurn(true);
-        getView().allowTextBoxMouseInput(false);
+        Logic.getView().allowTextBoxMouseInput(false);
         logic.forceDice(6, 5);
         view.tutorialDiceAnimation(false);
         view.callRedraw();

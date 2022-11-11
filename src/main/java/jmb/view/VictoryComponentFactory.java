@@ -17,7 +17,7 @@ import java.util.Objects;
 
 import static jmb.ConstantsShared.TournamentStatus;
 import static jmb.view.ConstantsView.NORMAL_PAWN_STROKE_WIDTH;
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class VictoryComponentFactory {
 
@@ -38,11 +38,11 @@ public class VictoryComponentFactory {
         window.getChildren().add(pawn);
         pawn.setViewOrder(-15);
         if (whiteWon) {
-            pawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-            pawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+            pawn.setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+            pawn.setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
         } else {
-            pawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-            pawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+            pawn.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
+            pawn.setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
         }
         pawn.setStrokeWidth(NORMAL_PAWN_STROKE_WIDTH);
 
@@ -53,8 +53,8 @@ public class VictoryComponentFactory {
         String label;
         boolean tournamentContinues = status.equals(TournamentStatus.TOURNAMENT_CONTINUES);
         if (tournamentContinues)
-            label = logic.getString("continueTournament");
-        else label = logic.getString("backToMenu");
+            label = getLogic().getString("continueTournament");
+        else label = getLogic().getString("backToMenu");
         Button victoryExit = new Button(label);
         window.getChildren().add(victoryExit);
         victoryExit.setViewOrder(-16);
@@ -81,14 +81,14 @@ public class VictoryComponentFactory {
         Label victoryLabel = new Label();
         window.getChildren().add(victoryLabel);
         victoryLabel.setWrapText(true);
-        String victoryString = logic.getString("congratulations") + " ";
+        String victoryString = getLogic().getString("congratulations") + " ";
         victoryString = victoryString.concat(winner.stripTrailing());
         if (status.equals(ConstantsShared.TournamentStatus.TOURNAMENT_WON))
-            victoryString = victoryString.concat(logic.getString("tournamentWon"));
+            victoryString = victoryString.concat(getLogic().getString("tournamentWon"));
         else if (doubleWin)
-            victoryString = victoryString.concat(logic.getString("doubleVictory"));
+            victoryString = victoryString.concat(getLogic().getString("doubleVictory"));
         else
-            victoryString = victoryString.concat(logic.getString("singleVictory"));
+            victoryString = victoryString.concat(getLogic().getString("singleVictory"));
         victoryLabel.setText(victoryString);
         victoryLabel.setViewOrder(-15);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));

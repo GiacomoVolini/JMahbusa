@@ -26,12 +26,12 @@ public class FirstOpponentTurnStage extends ComparableTutorialStage{
     public void action() {
         if (internalIndex == 0) {
             getView().setNextTutorialString(getLogic().getString(stageStringAfterAction),true);
-            view.tutorialTextBoxAnimation(0.15,0.2 );
+            getView().tutorialTextBoxAnimation(0.15,0.2 );
         }
         if (internalIndex < 5)
-            view.waitForRecall(2.0);
+            getView().waitForRecall(2.0);
         else {
-            view.allowTextBoxMouseInput(true);
+            getView().allowTextBoxMouseInput(true);
             getLogic().nextTutorialStage();
         }
         firstOpponentMoves();
@@ -45,15 +45,15 @@ public class FirstOpponentTurnStage extends ComparableTutorialStage{
                 getLogic().movePawn(COL_BLACK, 18);
                 break;
             case 2:
-                logic.movePawn(18, 12);
+                getLogic().movePawn(18, 12);
                 break;
             case 4:
-                if (logic.getBoardMatrix()[0][12]==WHITE)
-                    logic.movePawn(18, 12);
-                else logic.movePawn(12, 6);
+                if (getLogic().getBoardMatrix()[0][12]==WHITE)
+                    getLogic().movePawn(18, 12);
+                else getLogic().movePawn(12, 6);
                 break;
         }
-        view.callRedraw();
+        getView().callRedraw();
         internalIndex++;
     }
 }

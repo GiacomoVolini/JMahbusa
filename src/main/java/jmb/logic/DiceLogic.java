@@ -3,7 +3,7 @@ package jmb.logic;
 import java.util.Arrays;
 import java.util.Random;
 
-import static jmb.logic.Logic.logic;
+import static jmb.logic.Logic.*;
 
 
 public class DiceLogic {
@@ -96,7 +96,7 @@ public class DiceLogic {
         this.doubleNum=false;
         for (boolean tbu : this.toBeUsed)
             tbu=false;
-        Logic.getView().setDiceContrast();
+        getView().setDiceContrast();
     }
 
     
@@ -107,7 +107,7 @@ public class DiceLogic {
             this.used[i] = false;
             this.toBeUsed[i] = false;
         }
-        Logic.getView().setDiceContrast();
+        getView().setDiceContrast();
     }
     
     public int getDiceValue(int i) {
@@ -148,7 +148,7 @@ public class DiceLogic {
 
     protected boolean checkDiceSimple (int delta) {
         boolean out = false;
-        if (logic.getSetting("DEBUG","bypassDice",boolean.class))
+        if (getLogic().getSetting("DEBUG","bypassDice",boolean.class))
             out = true;
         for (int i = 0; i<4 && !out; i++)
             if (!getUsedArray()[i] && getDiceValues()[i] == delta) {
@@ -197,7 +197,7 @@ public class DiceLogic {
 
     public boolean checkExitDiceGreaterThan(int delta) {
         boolean possible = false;
-        if (logic.getSetting("DEBUG", "bypassDice", boolean.class))
+        if (getLogic().getSetting("DEBUG", "bypassDice", boolean.class))
             possible = true;
         for (int i = 0; i<4 && !possible; i++)
             if (getDiceValue(i) >= delta && !getUsed(i)) {

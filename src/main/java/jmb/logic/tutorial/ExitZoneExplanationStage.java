@@ -16,7 +16,7 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        getView().setNextTutorialString(logic.getString(stageStringInitial), true);
+        getView().setNextTutorialString(getLogic().getString(stageStringInitial), true);
         getView().tutorialTextBoxAnimation(0.2,0.2 );
         getView().allowTextBoxMouseInput(false);
         getView().waitForRecall(2.0);
@@ -28,11 +28,11 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 setUpTheStage();
                 break;
             case 1:
-                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+                if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
                     getView().playSFX(SFX.DICE_ROLL);
             case 2: case 3: case 4: case 5: case 6:
                 getView().highlightPointsToOpenExit(internalIndex);
-                view.tutorialDiceAnimation(true, 8);
+                getView().tutorialDiceAnimation(true, 8);
                 break;
             case 7:
                 setUpForPlayerMove();
@@ -41,8 +41,8 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
                 checkMoveAndRespond();
                 break;
             case 9:
-                view.restoreBoardColors();
-                logic.nextTutorialStage();
+                getView().restoreBoardColors();
+                getLogic().nextTutorialStage();
                 break;
         }
         internalIndex++;
@@ -50,38 +50,38 @@ public class ExitZoneExplanationStage extends ComparableTutorialStage {
 
     private void setUpTheStage() {
         setBoardUp();
-        logic.setWhiteTurn(false);
-        view.closeDoubleDice();
-        view.setNextTutorialString(logic.getString(stageStringInter), true);
-        view.tutorialTextBoxAnimation(0.55,0.4 );
-        view.waitForRecall(1.5);
+        getLogic().setWhiteTurn(false);
+        getView().closeDoubleDice();
+        getView().setNextTutorialString(getLogic().getString(stageStringInter), true);
+        getView().tutorialTextBoxAnimation(0.55,0.4 );
+        getView().waitForRecall(1.5);
     }
 
     private void setUpForPlayerMove() {
         setBoardUp();
-        view.restoreBoardColors();
-        view.callRedraw();
-        view.setNextTutorialString(logic.getString(stageStringFinal), true);
-        view.tutorialTextBoxAnimation(0.52,0.2 );
+        getView().restoreBoardColors();
+        getView().callRedraw();
+        getView().setNextTutorialString(getLogic().getString(stageStringFinal), true);
+        getView().tutorialTextBoxAnimation(0.52,0.2 );
     }
 
     private void setBoardUp() {
-        logic.setUpSavedBoard(startingMatrix);
-        logic.setWhiteTurn(true);
-        logic.forceDice(3, 4);
-        logic.movePawn(COL_BLACK -4, COL_BLACK);
-        view.callRedraw();
+        getLogic().setUpSavedBoard(startingMatrix);
+        getLogic().setWhiteTurn(true);
+        getLogic().forceDice(3, 4);
+        getLogic().movePawn(COL_BLACK -4, COL_BLACK);
+        getView().callRedraw();
     }
 
     private void checkMoveAndRespond() {
-        if (logic.getBoardMatrix()[2][20]==EMPTY) {
+        if (getLogic().getBoardMatrix()[2][20]==EMPTY) {
             internalIndex-=2;
-            view.setNextTutorialString(logic.getString(wrongMoveString), true);
+            getView().setNextTutorialString(getLogic().getString(wrongMoveString), true);
         } else {
-            view.setNextTutorialString(logic.getString(rightMoveString), true);
+            getView().setNextTutorialString(getLogic().getString(rightMoveString), true);
         }
-        view.tutorialTextBoxAnimation(0.2,0.2 );
-        view.waitForRecall(3);
+        getView().tutorialTextBoxAnimation(0.2,0.2 );
+        getView().waitForRecall(3);
     }
 
 

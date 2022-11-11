@@ -69,7 +69,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
 
 
     private static void highlightMovablePawn (PawnView[] pawnArray, int pawnIndex, int col, int row) {
-        if (col <= COL_BLACK && col >= COL_WHITE && getLogic().isLastOnPoint(col, row) && logic.isPawnMovable(col, row, false)) {
+        if (col <= COL_BLACK && col >= COL_WHITE && getLogic().isLastOnPoint(col, row) && getLogic().isPawnMovable(col, row, false)) {
             pawnArray[pawnIndex].setViewOrder(-2.0);
             pawnArray[pawnIndex].setDisable(false);
             pawnArray[pawnIndex].setStrokeWidth(MOVABLE_PAWN_STROKE_WIDTH);
@@ -105,11 +105,11 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
 
     }
     public static void resizeExitRegions(DynamicGameBoard board) {
-        if (logic.getBlackExit()) {
+        if (getLogic().getBlackExit()) {
             board.blackExitRegion.setWidth(maxExitWidth);
             board.blackExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
-        if (logic.getWhiteExit()) {
+        if (getLogic().getWhiteExit()) {
             board.whiteExitRegion.setWidth(maxExitWidth);
             board.whiteExitRegion.setLayoutX(board.outerRect.getLayoutX() - maxExitWidth);
         }
@@ -120,7 +120,7 @@ public abstract class DynamicGameBoardRedraw extends GameBoardRedraw{
         GameBoardRedraw.resizeInnerBoard(board);
         resizeExitRegions(board);
         calcTrayWidths(board);
-        if (logic.getGameStart()) {
+        if (getLogic().getGameStart()) {
             resizeDiceTray(board);
             if (board.diceTray.getWidth() != 0)
                 resizeDice(board);

@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jmb.view.SettingsView;
 
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class VideoTab {
 
@@ -29,9 +29,9 @@ public class VideoTab {
 
     @FXML
     void changeResolution(KeyEvent event) {
-        if(logic.isParsable(resolutionWidthField.getText()) && logic.isParsable(resolutionHeightField.getText())) {
-            logic.setSetting("Video", "resolutionWidth", Integer.parseInt(resolutionWidthField.getText()));
-            logic.setSetting("Video", "resolutionHeight", Integer.parseInt(resolutionHeightField.getText()));
+        if(getLogic().isParsable(resolutionWidthField.getText()) && getLogic().isParsable(resolutionHeightField.getText())) {
+            getLogic().setSetting("Video", "resolutionWidth", Integer.parseInt(resolutionWidthField.getText()));
+            getLogic().setSetting("Video", "resolutionHeight", Integer.parseInt(resolutionHeightField.getText()));
             settingsView.getApplyButton().setDisable(false);
         }
     }
@@ -58,11 +58,11 @@ public class VideoTab {
     }
 
     public void loadStrings() {
-        resolutionText.setText(logic.getString("Resolution"));
-        resolutionWidthText.setText(logic.getString("Length"));
-        resolutionHeightText.setText(logic.getString("Height"));
-        fullscreenCheck.setText(logic.getString("Fullscreen"));
-        lockResolutionCheck.setText(logic.getString("BlockResolution"));
+        resolutionText.setText(getLogic().getString("Resolution"));
+        resolutionWidthText.setText(getLogic().getString("Length"));
+        resolutionHeightText.setText(getLogic().getString("Height"));
+        fullscreenCheck.setText(getLogic().getString("Fullscreen"));
+        lockResolutionCheck.setText(getLogic().getString("BlockResolution"));
     }
 
     public void setVisible(boolean set) {
@@ -76,12 +76,12 @@ public class VideoTab {
 
     public void applySettings() {
         Stage stage = settingsView.getStage();
-        logic.setSetting("Video", "fullScreen",fullscreenCheck.isSelected());
-        logic.setSetting("Video", "lockResolution",lockResolutionCheck.isSelected());
-        logic.setSetting("Video", "resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
-        stage.setWidth(logic.getSetting("Video", "resolutionWidth", int.class));
-        logic.setSetting("Video", "resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
-        stage.setHeight(logic.getSetting("Video", "resolutionHeight", int.class));
+        getLogic().setSetting("Video", "fullScreen",fullscreenCheck.isSelected());
+        getLogic().setSetting("Video", "lockResolution",lockResolutionCheck.isSelected());
+        getLogic().setSetting("Video", "resolutionWidth",Integer.parseInt(resolutionWidthField.getText()));
+        stage.setWidth(getLogic().getSetting("Video", "resolutionWidth", int.class));
+        getLogic().setSetting("Video", "resolutionHeight",Integer.parseInt(resolutionHeightField.getText()));
+        stage.setHeight(getLogic().getSetting("Video", "resolutionHeight", int.class));
     }
 
     public void resetWindow() {
@@ -90,10 +90,10 @@ public class VideoTab {
     }
 
     public void loadSettings() {
-        fullscreenCheck.setSelected(logic.getSetting("Video", "fullScreen", boolean.class));
-        lockResolutionCheck.setSelected(logic.getSetting("Video", "lockResolution", boolean.class));
-        resolutionWidthField.setText(String.valueOf(logic.getSetting("Video", "resolutionWidth", int.class)));
-        resolutionHeightField.setText(String.valueOf(logic.getSetting("Video", "resolutionHeight", int.class)));
+        fullscreenCheck.setSelected(getLogic().getSetting("Video", "fullScreen", boolean.class));
+        lockResolutionCheck.setSelected(getLogic().getSetting("Video", "lockResolution", boolean.class));
+        resolutionWidthField.setText(String.valueOf(getLogic().getSetting("Video", "resolutionWidth", int.class)));
+        resolutionHeightField.setText(String.valueOf(getLogic().getSetting("Video", "resolutionHeight", int.class)));
     }
 
     public void initialize() {
@@ -101,7 +101,7 @@ public class VideoTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
+        if (getLogic().isLanguageRightToLeft(getLogic().getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.40);
             AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.20);
             AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.20);

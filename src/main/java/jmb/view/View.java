@@ -8,8 +8,8 @@ import static jmb.view.ConstantsView.*;
 
 public class View implements IView {
 
-    public static ILogic logic;
-    public static IView view;
+    private static ILogic logic;
+    private static View view;
 
     public static GenericGUI currentScene;
 
@@ -23,12 +23,12 @@ public class View implements IView {
         View.logic = logic;
     }
 
-    public static IView getView() {
+    public static View getView() {
         return view;
     }
 
-    public static void setView(IView view) {
-        View.view = view;
+    public static void createView() {
+        View.view = new View();
     }
 
     @Override

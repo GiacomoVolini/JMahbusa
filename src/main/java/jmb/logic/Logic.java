@@ -8,8 +8,8 @@ import static jmb.ConstantsShared.EMPTY;
 
 public class Logic implements ILogic {
 
-    public static IView view;
-    public static ILogic logic;
+    private static IView view;
+    private static Logic logic;
     public DynamicBoardLogic board;
     public LeaderboardLogic ldb;
     public SettingsLogic settings;
@@ -24,12 +24,13 @@ public class Logic implements ILogic {
         Logic.view = view;
     }
 
-    public static ILogic getLogic() {
+    public static Logic getLogic() {
         return logic;
     }
 
-    public static void setLogic(ILogic logic) {
-        Logic.logic = logic;
+    public static void createLogic() {
+        Logic.logic = new Logic();
+        logic.initializeProgramLogic();
     }
 
     @Override

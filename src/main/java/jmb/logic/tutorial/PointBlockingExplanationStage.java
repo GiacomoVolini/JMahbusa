@@ -1,8 +1,7 @@
 package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 public class PointBlockingExplanationStage extends ComparableTutorialStage{
 
@@ -15,25 +14,25 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
         setStageIndex(6);
     }
     public void start() {
-        logic.setWhiteTurn(false);
+        getLogic().setWhiteTurn(false);
         String stageStringMiddlePart;
-        if (logic.getBoardMatrix()[0][12]==WHITE)
+        if (getLogic().getBoardMatrix()[0][12]==WHITE)
             stageStringMiddlePart = " 12";
         else stageStringMiddlePart = " 6";
-        stringToPass = logic.getString(stageStringFirstPart)+stageStringMiddlePart+logic.getString(stageStringLastPart);
-        view.setNextTutorialString(stringToPass, true);
-        view.tutorialTextBoxAnimation(0.6,0.5);
-        view.allowTextBoxMouseInput(false);
-        view.waitForRecall(1.5);
+        stringToPass = getLogic().getString(stageStringFirstPart)+stageStringMiddlePart+getLogic().getString(stageStringLastPart);
+        getView().setNextTutorialString(stringToPass, true);
+        getView().tutorialTextBoxAnimation(0.6,0.5);
+        getView().allowTextBoxMouseInput(false);
+        getView().waitForRecall(1.5);
     }
 
     public void action() {
         if (internalIndex < 11) {
             boardMoves();
-            view.callRedraw();
+            getView().callRedraw();
         } else {
-            view.allowTextBoxMouseInput(false);
-            logic.nextTutorialStage();
+            getView().allowTextBoxMouseInput(false);
+            getLogic().nextTutorialStage();
         }
     }
 
@@ -52,43 +51,43 @@ public class PointBlockingExplanationStage extends ComparableTutorialStage{
                 changeWrongPawnColor();
                 break;
             case 10:
-                logic.forceMovePawn(to, COL_WHITE);
-                view.waitForRecall(1);
+                getLogic().forceMovePawn(to, COL_WHITE);
+                getView().waitForRecall(1);
                 break;
         }
         internalIndex++;
     }
 
     private void placePawnToBlock() {
-        if (logic.getBoardMatrix()[0][12]==WHITE)
+        if (getLogic().getBoardMatrix()[0][12]==WHITE)
             to = 12;
         else to = 6;
-        logic.forceMovePawn(COL_BLACK, to);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.PAWN_DROP);
-        view.waitForRecall(1.5);
+        getLogic().forceMovePawn(COL_BLACK, to);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.PAWN_DROP);
+        getView().waitForRecall(1.5);
     }
 
     private void removeExcessBlockingPawns() {
         for (int i = 0; i<4; i++)
-            logic.forceMovePawn(to, COL_BLACK);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.PAWN_DROP);
-        view.waitForRecall(1.5);
+            getLogic().forceMovePawn(to, COL_BLACK);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.PAWN_DROP);
+        getView().waitForRecall(1.5);
     }
 
     private void makeWrongMove() {
-        logic.forceMovePawn(COL_WHITE, to);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.ERROR);
-        view.waitForRecall(0.5);
+        getLogic().forceMovePawn(COL_WHITE, to);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.ERROR);
+        getView().waitForRecall(0.5);
     }
 
     private void changeWrongPawnColor() {
         if (internalIndex%2 == 0)
-            logic.getBoardMatrix()[logic.searchTopOccupiedRow(to)][to]= WRONG_WHITE;
-        else logic.getBoardMatrix()[logic.searchTopOccupiedRow(to)][to] = WHITE;
-        view.waitForRecall(0.5);
+            getLogic().getBoardMatrix()[getLogic().searchTopOccupiedRow(to)][to]= WRONG_WHITE;
+        else getLogic().getBoardMatrix()[getLogic().searchTopOccupiedRow(to)][to] = WHITE;
+        getView().waitForRecall(0.5);
     }
 
 }

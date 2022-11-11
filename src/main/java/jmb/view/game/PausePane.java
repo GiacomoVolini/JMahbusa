@@ -10,7 +10,7 @@ import jmb.view.App;
 import jmb.view.GameView;
 
 import static jmb.view.ConstantsView.MAIN_MENU;
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
 
 public class PausePane {
 
@@ -62,11 +62,11 @@ public class PausePane {
     public void initialize(GameView parent, SaveGamePane saveGamePane) {
         gameView = parent;
         this.saveGamePane = saveGamePane;
-        pauseMenu.setText(logic.getString("pause"));
-        pauseText.setText(logic.getString("pausePrompt"));
-        exitWithoutSave.setText(logic.getString("exitNoSave"));
-        exitAndSave.setText(logic.getString("exitAndSave"));
-        cancelButton.setText(logic.getString("cancel"));
+        pauseMenu.setText(getLogic().getString("pause"));
+        pauseText.setText(getLogic().getString("pausePrompt"));
+        exitWithoutSave.setText(getLogic().getString("exitNoSave"));
+        exitAndSave.setText(getLogic().getString("exitAndSave"));
+        cancelButton.setText(getLogic().getString("cancel"));
         pauseMenu.setViewOrder(-4);
     }
     

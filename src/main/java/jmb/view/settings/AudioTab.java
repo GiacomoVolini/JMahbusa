@@ -13,11 +13,9 @@ import jmb.view.SettingsView;
 
 import static jmb.view.ConstantsView.MUSIC_VOLUME;
 import static jmb.view.ConstantsView.SFX_VOLUME;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
 public class AudioTab {
-    //TODO FINIRE
 
     @FXML private TitledPane audioTitlePane;
     @FXML private AnchorPane audioAnchorPane;
@@ -34,8 +32,8 @@ public class AudioTab {
     void muteMusic(ActionEvent event) {
         musicSlider.setDisable(musicCheck.isSelected());
         if (musicCheck.isSelected())
-            view.pauseMusic();
-        else view.playMusic(ConstantsShared.Music.MENU);
+            getView().pauseMusic();
+        else getView().playMusic(ConstantsShared.Music.MENU);
         settingsView.getApplyButton().setDisable(false);
     }
 
@@ -47,15 +45,15 @@ public class AudioTab {
 
     @FXML
     void playSound(MouseEvent event) {
-        view.playSFX(ConstantsShared.SFX.PAWN_DROP);
+        getView().playSFX(ConstantsShared.SFX.PAWN_DROP);
     }
 
     public void loadStrings() {
-        audioTitlePane.setText(logic.getString("Audio"));
-        musicText.setText(logic.getString("Music"));
-        sFXText.setText(logic.getString("SoundEffects"));
-        musicCheck.setText(logic.getString("MuteMusic"));
-        sFXCheck.setText(logic.getString("MuteSoundEffects"));
+        audioTitlePane.setText(getLogic().getString("Audio"));
+        musicText.setText(getLogic().getString("Music"));
+        sFXText.setText(getLogic().getString("SoundEffects"));
+        musicCheck.setText(getLogic().getString("MuteMusic"));
+        sFXCheck.setText(getLogic().getString("MuteSoundEffects"));
     }
 
     public void setVisible(boolean set) {
@@ -68,20 +66,20 @@ public class AudioTab {
     }
 
     public void applySettings() {
-        logic.setSetting("Audio", "musicVolume",(int) musicSlider.getValue());
-        logic.setSetting("Audio", "soundFXVolume",(int) sFXSlider.getValue());
-        logic.setSetting("Audio", "muteMusic",musicCheck.isSelected());
-        logic.setSetting("Audio", "muteSFX",sFXCheck.isSelected());
+        getLogic().setSetting("Audio", "musicVolume",(int) musicSlider.getValue());
+        getLogic().setSetting("Audio", "soundFXVolume",(int) sFXSlider.getValue());
+        getLogic().setSetting("Audio", "muteMusic",musicCheck.isSelected());
+        getLogic().setSetting("Audio", "muteSFX",sFXCheck.isSelected());
     }
 
     public void loadSettings() {
-        boolean muteMusic = logic.getSetting("Audio", "muteMusic", boolean.class);
-        boolean muteSFX = logic.getSetting("Audio", "muteSFX", boolean.class);
+        boolean muteMusic = getLogic().getSetting("Audio", "muteMusic", boolean.class);
+        boolean muteSFX = getLogic().getSetting("Audio", "muteSFX", boolean.class);
         musicCheck.setSelected(muteMusic);
         sFXCheck.setSelected(muteSFX);
-        musicSlider.setValue(logic.getSetting("Audio", "musicVolume", int.class));
+        musicSlider.setValue(getLogic().getSetting("Audio", "musicVolume", int.class));
         musicSlider.setDisable(muteMusic);
-        sFXSlider.setValue(logic.getSetting("Audio", "soundFXVolume", int.class));
+        sFXSlider.setValue(getLogic().getSetting("Audio", "soundFXVolume", int.class));
         sFXSlider.setDisable(muteSFX);
         musicSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, MUSIC_VOLUME));
         sFXSlider.valueProperty().addListener((obs, oldVal, newVal) -> checkVolumeChanges(newVal, SFX_VOLUME));
@@ -93,12 +91,12 @@ public class AudioTab {
         int sliderValue = (int)(value.doubleValue());
         switch (whichSlider) {
             case MUSIC_VOLUME:
-                savedValue = logic.getSetting("Audio", "musicVolume", int.class);
-                view.setVolume(MUSIC_VOLUME, value.doubleValue()/100);
+                savedValue = getLogic().getSetting("Audio", "musicVolume", int.class);
+                getView().setVolume(MUSIC_VOLUME, value.doubleValue()/100);
                 break;
             case SFX_VOLUME:
-                savedValue = logic.getSetting("Audio", "soundFXVolume", int.class);
-                view.setVolume(SFX_VOLUME,value.doubleValue()/100);
+                savedValue = getLogic().getSetting("Audio", "soundFXVolume", int.class);
+                getView().setVolume(SFX_VOLUME,value.doubleValue()/100);
                 break;
         }
         if (savedValue != sliderValue)
@@ -106,7 +104,7 @@ public class AudioTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
+        if (getLogic().isLanguageRightToLeft(getLogic().getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(musicSlider, window.getWidth() * 0.10);
             AnchorPane.setLeftAnchor(musicText, window.getWidth() * 0.4);
             AnchorPane.setLeftAnchor(sFXSlider, window.getWidth() * 0.10);

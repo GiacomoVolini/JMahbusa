@@ -120,9 +120,9 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         else {
             LoadGameViewRedraw.setPawnsVisibility(this, true);
             saveName = savesListView.getSelectionModel().getSelectedItem().toString();
-            saveMatrix = logic.getSaveMatrix(saveName);
+            saveMatrix = getLogic().getSaveMatrix(saveName);
             saveDetailTitledPane.setText(saveName);
-            String[] saveData = logic.getLoadViewData(saveName);
+            String[] saveData = getLogic().getLoadViewData(saveName);
             if (saveData[TIME].equals("0 secondi"))
                 saveData[TIME]= "Nessun Timer";
             if (saveData[TOURNAMENT_POINTS].equals("0")) {
@@ -225,9 +225,9 @@ public class LoadGameView extends GameBoard implements GenericGUI{
 
     @FXML
     void loadGame(ActionEvent event) {
-        logic.initializeLeaderboardLogic();
-        logic.initializeGameLogic();
-        logic.setUpSavedGame(saveName);
+        getLogic().initializeLeaderboardLogic();
+        getLogic().initializeGameLogic();
+        getLogic().setUpSavedGame(saveName);
         App.changeRoot(PLAY_GAME);
     }
 
@@ -235,7 +235,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
     void deleteSave(ActionEvent event) {
         String saveName = saveDetailTitledPane.getText();
         renderNoSelection();
-        logic.deleteSaveFile(saveName);
+        getLogic().deleteSaveFile(saveName);
         refreshSaveList();
     }
 

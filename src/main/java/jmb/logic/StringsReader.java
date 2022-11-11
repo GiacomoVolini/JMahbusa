@@ -67,7 +67,7 @@ public class StringsReader {
     public StringsReader() {
         try {
             String name = "STRINGS_"+StringsReader.getcurrentlanguage()+".ini";
-            strings = new Ini(Path.of(logic.getAppDirectory(), "languages", "strings", name).toFile());
+            strings = new Ini(Path.of(getLogic().getAppDirectory(), "languages", "strings", name).toFile());
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

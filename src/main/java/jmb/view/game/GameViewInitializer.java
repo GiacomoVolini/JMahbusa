@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class GameViewInitializer {
 
@@ -20,32 +20,32 @@ public class GameViewInitializer {
             (Text backText, Text finishTurnText, Text menuText, Text upText, Text downText, Text rightText,
              Text leftText, Text selectText, Button backBTN, Button menuBTN, Button finishBTN, Text readyText,
              TitledPane startDialogue, Button startBTN, Label plWHTText, Label plBLKText) {
-        backText.setText(logic.getSetting("Controls", "revertMove", String.class));
-        finishTurnText.setText(logic.getSetting("Controls", "finishTurn", String.class));
-        menuText.setText(logic.getSetting("Controls", "openMenu", String.class));
-        upText.setText(logic.getString("Up")+"\n" + logic.getSetting("Controls", "moveUp", String.class));
-        downText.setText(logic.getString("Down")+"\n" + logic.getSetting("Controls", "moveDown", String.class));
-        rightText.setText(logic.getString("Right")+"\n" + logic.getSetting("Controls", "moveRight", String.class));
-        leftText.setText(logic.getString("Left")+"\n" +logic.getSetting("Controls", "moveLeft", String.class));
-        selectText.setText(logic.getString("Select")+"\n" + logic.getSetting("Controls", "select", String.class));
-        backBTN.setText(logic.getString("revertMove").toUpperCase());
-        menuBTN.setText(logic.getString("menu").toUpperCase());
-        finishBTN.setText(logic.getString("finishTurn").toUpperCase());
-        startDialogue.setText(logic.getString("startTitle"));
-        readyText.setText(logic.getString("ready"));
-        startBTN.setText(logic.getString("yes").toUpperCase());
-        plWHTText.setText(logic.getWhitePlayer().stripTrailing());
-        plBLKText.setText(logic.getBlackPlayer().stripTrailing());
+        backText.setText(getLogic().getSetting("Controls", "revertMove", String.class));
+        finishTurnText.setText(getLogic().getSetting("Controls", "finishTurn", String.class));
+        menuText.setText(getLogic().getSetting("Controls", "openMenu", String.class));
+        upText.setText(getLogic().getString("Up")+"\n" + getLogic().getSetting("Controls", "moveUp", String.class));
+        downText.setText(getLogic().getString("Down")+"\n" + getLogic().getSetting("Controls", "moveDown", String.class));
+        rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
+        leftText.setText(getLogic().getString("Left")+"\n" +getLogic().getSetting("Controls", "moveLeft", String.class));
+        selectText.setText(getLogic().getString("Select")+"\n" + getLogic().getSetting("Controls", "select", String.class));
+        backBTN.setText(getLogic().getString("revertMove").toUpperCase());
+        menuBTN.setText(getLogic().getString("menu").toUpperCase());
+        finishBTN.setText(getLogic().getString("finishTurn").toUpperCase());
+        startDialogue.setText(getLogic().getString("startTitle"));
+        readyText.setText(getLogic().getString("ready"));
+        startBTN.setText(getLogic().getString("yes").toUpperCase());
+        plWHTText.setText(getLogic().getWhitePlayer().stripTrailing());
+        plBLKText.setText(getLogic().getBlackPlayer().stripTrailing());
     }
 
     public static void setColors (Circle plWHTPawn, Circle plBLKPawn, Label tournamentWhitePoints,
                                   Label tournamentBlackPoints) {
-        plWHTPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-        plWHTPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        plBLKPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-        plBLKPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
-        tournamentWhitePoints.setTextFill(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        tournamentBlackPoints.setTextFill(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+        plWHTPawn.setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+        plWHTPawn.setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
+        plBLKPawn.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
+        plBLKPawn.setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
+        tournamentWhitePoints.setTextFill(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
+        tournamentBlackPoints.setTextFill(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
     }
 
     public static void setTournamentComponents (Label tournamentWhitePoints, Label tournamentBlackPoints,

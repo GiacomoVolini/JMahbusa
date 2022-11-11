@@ -9,7 +9,7 @@ import javafx.scene.text.FontWeight;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class GameViewRedraw extends DynamicGameBoardRedraw {
 
@@ -35,7 +35,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     public static void resizeButtons(GameView board) {
 
-        //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
         board.backBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
         board.finishBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
@@ -237,12 +236,12 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
-        if (!logic.getGameStart())
+        if (!getLogic().getGameStart())
             resizeStartDialogue(board);
         resizeButtons(board);
-        if (logic.isTournamentOngoing())
+        if (getLogic().isTournamentOngoing())
             resizeTournamentComponents(board);
-        if (logic.getGameEndState()) {
+        if (getLogic().getGameEndState()) {
             resizeVictoryPanel(board);
         }
     }

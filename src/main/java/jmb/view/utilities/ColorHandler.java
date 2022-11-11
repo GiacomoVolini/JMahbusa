@@ -3,7 +3,7 @@ package jmb.view.utilities;
 import javafx.scene.paint.Color;
 
 import static jmb.ConstantsShared.*;
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
 
 public class ColorHandler {
 
@@ -22,15 +22,15 @@ public class ColorHandler {
 
     public static Color getPointColor (String customColorString, int presetArrayPosition) {
         Color out;
-        switch (logic.getSetting("Customization", "boardPreset", int.class)) {
+        switch (getLogic().getSetting("Customization", "boardPreset", int.class)) {
             case CUSTOM_BOARD: default:
-                out = Color.web(logic.getSetting("Customization", customColorString, String.class));
+                out = Color.web(getLogic().getSetting("Customization", customColorString, String.class));
                 break;
             case LEFT_PRESET:
-                out = Color.web(logic.getSetting(LEFT, presetArrayPosition));
+                out = Color.web(getLogic().getSetting(LEFT, presetArrayPosition));
                 break;
             case RIGHT_PRESET:
-                out = Color.web(logic.getSetting(RIGHT, presetArrayPosition));
+                out = Color.web(getLogic().getSetting(RIGHT, presetArrayPosition));
                 break;
         }
         return out;

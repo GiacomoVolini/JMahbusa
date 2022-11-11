@@ -15,17 +15,17 @@ public class GetPawnsOutStage extends ComparableTutorialStage {
         if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
             getView().playSFX(SFX.DICE_ROLL);
         getView().tutorialDiceAnimation(true);
-        logic.forceDice(5);
+        getLogic().forceDice(5);
         getView().callRedraw();
-        getView().setNextTutorialString(logic.getString(stageStringInitial), true);
+        getView().setNextTutorialString(getLogic().getString(stageStringInitial), true);
         getView().tutorialTextBoxAnimation(0.6,0.35 );
     }
     public void action() {
         boolean allUsed = true;
-        for (boolean used: logic.getUsedArray())
+        for (boolean used: getLogic().getUsedArray())
             if (!used)
                 allUsed = false;
         if (allUsed)
-            logic.nextTutorialStage();
+            getLogic().nextTutorialStage();
     }
 }

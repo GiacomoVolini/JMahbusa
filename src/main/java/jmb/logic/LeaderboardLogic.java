@@ -43,7 +43,7 @@ public class LeaderboardLogic {
             if (!line.isEmpty() && line.contains(";")) {
                 String[] lineValues = line.trim().split(";");
                 lineValues[0] = lineValues[0].concat("\u2001");
-                arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
+                arrList.add(new PlayerLogic(lineValues[0], lineValues[1], lineValues[2]));
             }
     }
 
@@ -53,7 +53,7 @@ public class LeaderboardLogic {
     }
     private void addNewPlayer (String name) {
         if (!name.contains("\u2001"))
-            arrList.add(new Player(name.concat("\u2001")));
+            arrList.add(new PlayerLogic(name.concat("\u2001")));
     }
 
     public ArrayList<Player> getList() {

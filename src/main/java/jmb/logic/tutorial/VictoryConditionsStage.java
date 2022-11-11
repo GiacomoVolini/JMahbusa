@@ -1,8 +1,7 @@
 package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.SFX;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 public class VictoryConditionsStage extends ComparableTutorialStage {
 
@@ -54,57 +53,57 @@ public class VictoryConditionsStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        view.setNextTutorialString(logic.getString(initialString), true);
-        view.tutorialTextBoxAnimation(0.5, 0.4);
-        view.waitForRecall(3.0);
+        getView().setNextTutorialString(getLogic().getString(initialString), true);
+        getView().tutorialTextBoxAnimation(0.5, 0.4);
+        getView().waitForRecall(3.0);
     }
     public void action() {
         switch (internalIndex) {
             case 0:
-                if (!logic.getWhiteExit()) {
-                    view.openWhiteExit();
-                    logic.setWhiteExit(true);
+                if (!getLogic().getWhiteExit()) {
+                    getView().openWhiteExit();
+                    getLogic().setWhiteExit(true);
                 }
-                if (!logic.getBlackExit()) {
-                    view.openBlackExit();
-                    logic.setBlackExit(true);
+                if (!getLogic().getBlackExit()) {
+                    getView().openBlackExit();
+                    getLogic().setBlackExit(true);
                 }
-                view.closeDoubleDice();
-                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                    view.playSFX(SFX.DICE_ROLL);
-                view.tutorialDiceAnimation(true,20);
+                getView().closeDoubleDice();
+                if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+                    getView().playSFX(SFX.DICE_ROLL);
+                getView().tutorialDiceAnimation(true,20);
                 break;
             case 1:
                 setBoardUp(startingMatrix, 19, 24);
-                view.restoreBoardColors();
-                view.setNextTutorialString(logic.getString(singleWinString), true);
-                view.tutorialTextBoxAnimation(0.5,0.45 );
+                getView().restoreBoardColors();
+                getView().setNextTutorialString(getLogic().getString(singleWinString), true);
+                getView().tutorialTextBoxAnimation(0.5,0.45 );
                 break;
             case 2:
-                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                    view.playSFX(SFX.SINGLE_WIN);
-                view.setNextTutorialString(logic.getString(afterSingleWinString), true);
-                view.tutorialTextBoxAnimation(0.2,0.4 );
-                view.waitForRecall(12.0);
+                if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+                    getView().playSFX(SFX.SINGLE_WIN);
+                getView().setNextTutorialString(getLogic().getString(afterSingleWinString), true);
+                getView().tutorialTextBoxAnimation(0.2,0.4 );
+                getView().waitForRecall(12.0);
                 break;
             case 3:
                 setBoardUp(doubleWinMatrix, 4, 10);
-                view.restoreBoardColors();
-                view.setNextTutorialString(logic.getString(doubleWinString), true);
-                view.tutorialTextBoxAnimation(0.55,0.57 );
+                getView().restoreBoardColors();
+                getView().setNextTutorialString(getLogic().getString(doubleWinString), true);
+                getView().tutorialTextBoxAnimation(0.55,0.57 );
                 break;
             case 4:
-                if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                    view.playSFX(SFX.DOUBLE_WIN);
-                logic.nextTutorialStage();
+                if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+                    getView().playSFX(SFX.DOUBLE_WIN);
+                getLogic().nextTutorialStage();
         }
         internalIndex++;
     }
     private void setBoardUp(int[][] matrix, int from, int to) {
-        logic.forceDice(5, 6);
-        logic.setWhiteTurn(true);
-        logic.setUpSavedBoard(matrix);
-        logic.movePawn(from, to);
-        view.callRedraw();
+        getLogic().forceDice(5, 6);
+        getLogic().setWhiteTurn(true);
+        getLogic().setUpSavedBoard(matrix);
+        getLogic().movePawn(from, to);
+        getView().callRedraw();
     }
 }

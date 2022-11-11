@@ -12,7 +12,7 @@ import jmb.view.App;
 import jmb.view.GameView;
 
 import static jmb.view.ConstantsView.MAIN_MENU;
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
 
 public class SaveGamePane {
 
@@ -46,14 +46,14 @@ public class SaveGamePane {
     @FXML
     void saveGame(ActionEvent event) {
         errorLabel.setVisible(true);
-        if (!logic.allDiceUsed())
-            errorLabel.setText(logic.getString("saveErrorCompleteMoves"));
+        if (!getLogic().allDiceUsed())
+            errorLabel.setText(getLogic().getString("saveErrorCompleteMoves"));
         else if (saveTextField.getText().equals(""))
-            errorLabel.setText(logic.getString("saveErrorNoName"));
-        else if (logic.isSaveNamePresent(saveTextField.getText()))
-            errorLabel.setText(saveTextField.getText() + " " + logic.getString("errorAlreadyPresent"));
+            errorLabel.setText(getLogic().getString("saveErrorNoName"));
+        else if (getLogic().isSaveNamePresent(saveTextField.getText()))
+            errorLabel.setText(saveTextField.getText() + " " + getLogic().getString("errorAlreadyPresent"));
         else {
-            logic.saveGame(saveTextField.getText());
+            getLogic().saveGame(saveTextField.getText());
             errorLabel.setVisible(false);
             App.changeRoot(MAIN_MENU);
         }
@@ -66,13 +66,13 @@ public class SaveGamePane {
 
     public void initialize(GameView parent) {
         gameView = parent;
-        saveDialogue.setText(logic.getString("saveDialogueTitle"));
-        saveLabel.setText(logic.getString("saveName"));
-        errorLabel.setText(logic.getString("saveError"));
-        saveButton.setText(logic.getString("confirm"));
-        closeSaveButton.setText(logic.getString("cancel"));
-        saveTextField.setPromptText(logic.getString("savePrompt"));
-        if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
+        saveDialogue.setText(getLogic().getString("saveDialogueTitle"));
+        saveLabel.setText(getLogic().getString("saveName"));
+        errorLabel.setText(getLogic().getString("saveError"));
+        saveButton.setText(getLogic().getString("confirm"));
+        closeSaveButton.setText(getLogic().getString("cancel"));
+        saveTextField.setPromptText(getLogic().getString("savePrompt"));
+        if (getLogic().isLanguageRightToLeft(getLogic().getSetting("General", "language", String.class))) {
             saveLabel.setLayoutX(saveTextField.getLayoutX() + 40);
             saveTextField.setLayoutX(saveLabel.getLayoutX() + 50);
         }

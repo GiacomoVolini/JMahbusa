@@ -20,7 +20,7 @@ import jmb.view.GameViewRedraw;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class TimelineBuilder {
 
@@ -47,20 +47,20 @@ public class TimelineBuilder {
                                                   Polygon rightPresetPoint2, Polygon rightPresetPoint3) {
         Timeline out = new Timeline(
                 new KeyFrame(Duration.ZERO, e-> {
-                    leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
-                    rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
-                    leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
-                    rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                    leftPresetPoint1.setFill(Color.web(getLogic().getSetting(LEFT, SELECTED_POINT)));
+                    rightPresetPoint3.setFill(Color.web(getLogic().getSetting(RIGHT, SELECTED_POINT)));
+                    leftPresetPoint3.setFill(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
+                    rightPresetPoint1.setFill(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
                 }), new KeyFrame(Duration.seconds(0.5), e-> {
-                    leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
-                    rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
-                    leftPresetPoint1.setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
-                    rightPresetPoint3.setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                    leftPresetPoint2.setFill(Color.web(getLogic().getSetting(LEFT, SELECTED_POINT)));
+                    rightPresetPoint2.setFill(Color.web(getLogic().getSetting(RIGHT, SELECTED_POINT)));
+                    leftPresetPoint1.setFill(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
+                    rightPresetPoint3.setFill(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
                 }), new KeyFrame(Duration.seconds(1), e-> {
-                    leftPresetPoint3.setFill(Color.web(logic.getSetting(LEFT, SELECTED_POINT)));
-                    rightPresetPoint1.setFill(Color.web(logic.getSetting(RIGHT, SELECTED_POINT)));
-                    leftPresetPoint2.setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
-                    rightPresetPoint2.setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
+                    leftPresetPoint3.setFill(Color.web(getLogic().getSetting(LEFT, SELECTED_POINT)));
+                    rightPresetPoint1.setFill(Color.web(getLogic().getSetting(RIGHT, SELECTED_POINT)));
+                    leftPresetPoint2.setFill(Color.web(getLogic().getSetting(LEFT, ODD_POINTS)));
+                    rightPresetPoint2.setFill(Color.web(getLogic().getSetting(RIGHT, ODD_POINTS)));
                 }), new KeyFrame(Duration.seconds(1.5))
         );
         return out;
@@ -169,7 +169,7 @@ public class TimelineBuilder {
                         diceArray[UPPER_DICE].setVisible(true);
                         diceArray[LOWER_DICE].setVisible(true);
                         DynamicGameBoardRedraw.resizeDice(board);
-                        logic.firstTurn();
+                        getLogic().firstTurn();
                     },
                     new KeyValue(diceTray.widthProperty() , GameViewRedraw.getMaxDTWidth() )
                 )
@@ -181,8 +181,8 @@ public class TimelineBuilder {
     public static Timeline createTurnTimerTimeline (Rectangle timerIn) {
         Timeline out = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
-                new KeyFrame(Duration.seconds(logic.getTurnDuration()), e -> {
-                    logic.completeMoves();
+                new KeyFrame(Duration.seconds(getLogic().getTurnDuration()), e -> {
+                    getLogic().completeMoves();
                 }, new KeyValue(timerIn.scaleYProperty(), 0)));
         return out;
     }

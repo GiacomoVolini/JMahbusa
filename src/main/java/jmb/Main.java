@@ -10,10 +10,9 @@ public class Main {
         jmb.view.App.main(args);
     }
     private static void interfaceInstantiation() {
-        Logic.setLogic(new Logic());
-        Logic.getLogic().initializeProgramLogic();
+        Logic.createLogic();
         View.setLogic(Logic.getLogic());
-        View.setView(new View());
+        View.createView();
         Logic.setView(View.getView());
     }
 }

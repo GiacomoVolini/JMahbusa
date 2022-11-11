@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.LOW_CONTRAST;
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
 
 public abstract class GameBoard {
 
@@ -42,15 +42,15 @@ public abstract class GameBoard {
         for (int i = 0; i<15; i++) {
             pawnArrayWHT[i] = new PawnView();
             pawnArrayBLK[i] = new PawnView();
-            this.pawnArrayWHT[i].setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-            this.pawnArrayWHT[i].setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+            this.pawnArrayWHT[i].setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+            this.pawnArrayWHT[i].setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
             this.pawnArrayWHT[i].setDisable(true);
-            this.pawnArrayBLK[i].setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-            this.pawnArrayBLK[i].setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+            this.pawnArrayBLK[i].setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
+            this.pawnArrayBLK[i].setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
             this.pawnArrayBLK[i].setDisable(true);
         }
-        whiteExitRegion.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-        blackExitRegion.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
+        whiteExitRegion.setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+        blackExitRegion.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
         whiteExitRegion.setStroke(Color.BLACK);
         whiteExitRegion.setEffect(LOW_CONTRAST);
         blackExitRegion.setStroke(Color.BLACK);
@@ -60,7 +60,7 @@ public abstract class GameBoard {
     }
 
     private void colorAccordingToSettings() {
-        switch (logic.getSetting("Customization", "boardPreset", int.class)) {
+        switch (getLogic().getSetting("Customization", "boardPreset", int.class)) {
             case CUSTOM_BOARD:
                 colorBoardCustom();
                 break;
@@ -75,64 +75,64 @@ public abstract class GameBoard {
     }
 
     private void colorBoardCustom() {
-        outerRect.setFill(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-        boardRect.setFill(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
-        boardRect.setStroke(Color.web(logic.getSetting("Customization", "boardInnerColor", String.class)));
-        separator.setFill(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
-        separator.setStroke(Color.web(logic.getSetting("Customization", "boardFrameColor", String.class)));
+        outerRect.setFill(Color.web(getLogic().getSetting("Customization", "boardFrameColor", String.class)));
+        boardRect.setFill(Color.web(getLogic().getSetting("Customization", "boardInnerColor", String.class)));
+        boardRect.setStroke(Color.web(getLogic().getSetting("Customization", "boardInnerColor", String.class)));
+        separator.setFill(Color.web(getLogic().getSetting("Customization", "boardFrameColor", String.class)));
+        separator.setStroke(Color.web(getLogic().getSetting("Customization", "boardFrameColor", String.class)));
         for (int i = 0; i < 12; i++) {
             if ((i % 2) == 0) {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting("Customization", "evenPointsColor", String.class)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting("Customization", "evenPointsColor", String.class)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting("Customization", "oddPointsColor", String.class)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting("Customization", "oddPointsColor", String.class)));
             } else {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting("Customization", "oddPointsColor", String.class)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting("Customization", "evenPointsColor", String.class)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting("Customization", "oddPointsColor", String.class)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting("Customization", "oddPointsColor", String.class)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting("Customization", "evenPointsColor", String.class)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting("Customization", "evenPointsColor", String.class)));
             }
         }
     }
 
     private void colorBoardLeftPreset() {
-        outerRect.setFill(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
-        boardRect.setFill(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
-        boardRect.setStroke(Color.web(logic.getSetting(LEFT, BOARD_INNER)));
-        separator.setFill(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
-        separator.setStroke(Color.web(logic.getSetting(LEFT, BOARD_FRAME)));
+        outerRect.setFill(Color.web(getLogic().getSetting(LEFT, BOARD_FRAME)));
+        boardRect.setFill(Color.web(getLogic().getSetting(LEFT, BOARD_INNER)));
+        boardRect.setStroke(Color.web(getLogic().getSetting(LEFT, BOARD_INNER)));
+        separator.setFill(Color.web(getLogic().getSetting(LEFT, BOARD_FRAME)));
+        separator.setStroke(Color.web(getLogic().getSetting(LEFT, BOARD_FRAME)));
         for (int i = 0; i < 12; i++) {
             if ((i % 2) == 0) {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting(LEFT, ODD_POINTS)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting(LEFT, ODD_POINTS)));
             } else {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting(LEFT, ODD_POINTS)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting(LEFT, EVEN_POINTS)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting(LEFT, ODD_POINTS)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting(LEFT, ODD_POINTS)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting(LEFT, EVEN_POINTS)));
             }
         }
     }
 
     private void colorBoardRightPreset() {
-        outerRect.setFill(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
-        boardRect.setFill(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
-        boardRect.setStroke(Color.web(logic.getSetting(RIGHT, BOARD_INNER)));
-        separator.setFill(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
-        separator.setStroke(Color.web(logic.getSetting(RIGHT, BOARD_FRAME)));
+        outerRect.setFill(Color.web(getLogic().getSetting(RIGHT, BOARD_FRAME)));
+        boardRect.setFill(Color.web(getLogic().getSetting(RIGHT, BOARD_INNER)));
+        boardRect.setStroke(Color.web(getLogic().getSetting(RIGHT, BOARD_INNER)));
+        separator.setFill(Color.web(getLogic().getSetting(RIGHT, BOARD_FRAME)));
+        separator.setStroke(Color.web(getLogic().getSetting(RIGHT, BOARD_FRAME)));
         for (int i = 0; i < 12; i++) {
             if ((i % 2) == 0) {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting(RIGHT, ODD_POINTS)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting(RIGHT, ODD_POINTS)));
             } else {
-                this.polArrayTop[i].setFill(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
-                this.polArrayTop[i].setStroke(Color.web(logic.getSetting(RIGHT, ODD_POINTS)));
-                this.polArrayBot[i].setFill(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
-                this.polArrayBot[i].setStroke(Color.web(logic.getSetting(RIGHT, EVEN_POINTS)));
+                this.polArrayTop[i].setFill(Color.web(getLogic().getSetting(RIGHT, ODD_POINTS)));
+                this.polArrayTop[i].setStroke(Color.web(getLogic().getSetting(RIGHT, ODD_POINTS)));
+                this.polArrayBot[i].setFill(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
+                this.polArrayBot[i].setStroke(Color.web(getLogic().getSetting(RIGHT, EVEN_POINTS)));
             }
         }
     }
@@ -147,13 +147,14 @@ public abstract class GameBoard {
     }
 
     protected boolean blockResizeCondition() {
-        return (!logic.getSetting("Video", "fullScreen", boolean.class) && !logic.getSetting("Video", "lockResolution", boolean.class));
+        return (!getLogic().getSetting("Video", "fullScreen", boolean.class) &&
+                !getLogic().getSetting("Video", "lockResolution", boolean.class));
     }
 
+    //La variabile index dei due colorPoint deve essere compresa tra 1 e 24
     public void colorPoint (int index, Color color) {
         colorPoint(index, color, color);
     }
-    //La variabile index dei due colorPoint deve essere compresa tra 1 e 24
     public void colorPoint(int index, Color colorFill, Color colorStroke) {
         switch (index) {
             default:

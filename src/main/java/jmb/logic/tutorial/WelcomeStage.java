@@ -1,7 +1,6 @@
 package jmb.logic.tutorial;
 
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.*;
 
 public class WelcomeStage extends ComparableTutorialStage{
 
@@ -12,10 +11,9 @@ public class WelcomeStage extends ComparableTutorialStage{
     private String stageString = "tutorialWelcome";
 
     public void start() {
-        logic.setWhiteTurn(false);
-        view.setNextTutorialString(logic.getString(stageString), true);
-        view.tutorialTextBoxAnimation(0.1,0.2);
-
+        getLogic().setWhiteTurn(false);
+        getView().setNextTutorialString(getLogic().getString(stageString), true);
+        getView().tutorialTextBoxAnimation(0.1,0.2);
     }
     public void action() {}
 

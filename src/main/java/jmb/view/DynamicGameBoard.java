@@ -78,7 +78,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     private void savePosition (MouseEvent event) {
         int col = searchPawnPlace(event);
         getLogic().createMoveBuffer(col);
-        logic.isPawnMovable(col, logic.searchTopOccupiedRow(col), true);
+        getLogic().isPawnMovable(col, getLogic().searchTopOccupiedRow(col), true);
     }
 
     private void dragPawn(MouseEvent event) {
@@ -89,8 +89,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     protected void releasePawn(MouseEvent event) {
         int col = this.searchPawnPlace(event);
         if (col != UNDEFINED)
-            logic.placePawnOnPoint(col);
-        view.restoreBoardColors();
+            getLogic().placePawnOnPoint(col);
+        getView().restoreBoardColors();
         GameViewRedraw.redrawPawns(this);
     }
     protected int searchPawnPlace(MouseEvent event) {
@@ -148,6 +148,7 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         handleExitRegion(blackExitRegion, true);
     }
     public void openWhiteExit() {
+        System.out.println("OPEN WHITE EXIT");
         handleExitRegion(whiteExitRegion, true);
     }
     public void closeBlackExit() {
@@ -178,26 +179,26 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         }
     }
     protected boolean isMovementKey (String keyPressed) {
-        return keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class)) ||
-                keyPressed.equals(logic.getSetting("Controls", "moveLeft", String.class)) ||
-                keyPressed.equals(logic.getSetting("Controls", "moveUp", String.class))   ||
-                keyPressed.equals(logic.getSetting("Controls", "moveDown", String.class));
+        return keyPressed.equals(getLogic().getSetting("Controls", "moveRight", String.class)) ||
+                keyPressed.equals(getLogic().getSetting("Controls", "moveLeft", String.class)) ||
+                keyPressed.equals(getLogic().getSetting("Controls", "moveUp", String.class))   ||
+                keyPressed.equals(getLogic().getSetting("Controls", "moveDown", String.class));
     }
 
     protected void selectInitialPoint() {
-        if (logic.getWhichTurn())
+        if (getLogic().getWhichTurn())
             selectedIndex = COL_WHITE;
         else selectedIndex = COL_BLACK;
-        colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
+        colorPoint(selectedIndex, Color.web(getLogic().getSetting("Customization", "selectedPointColor", String.class)));
     }
 
     protected int moveHorizontally(int selectedIndex, boolean top, boolean right) {
         int out, columnShift, rowShift = 0;
         int exitColumn = COL_BLACK_EXIT;
-        boolean exitCheck = logic.getBlackExit();
+        boolean exitCheck = getLogic().getBlackExit();
         if (!top) {
             rowShift = 13;
-            exitCheck = logic.getWhiteExit();
+            exitCheck = getLogic().getWhiteExit();
             exitColumn = COL_WHITE_EXIT;
         }
         if (top ^ right)
@@ -217,35 +218,35 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                 selectInitialPoint();
             else {
                 restoreColorToPoint(selectedIndex);
-                if (keyPressed.equals(logic.getSetting("Controls", "moveUp", String.class)) ||
-                        keyPressed.equals(logic.getSetting("Controls", "moveDown", String.class))) {
+                if (keyPressed.equals(getLogic().getSetting("Controls", "moveUp", String.class)) ||
+                        keyPressed.equals(getLogic().getSetting("Controls", "moveDown", String.class))) {
                     selectedIndex = 25 - selectedIndex;
-                    if (selectedIndex == COL_WHITE_EXIT && !logic.getWhiteExit())
+                    if (selectedIndex == COL_WHITE_EXIT && !getLogic().getWhiteExit())
                         selectedIndex = COL_BLACK;
-                    else if (selectedIndex == COL_BLACK_EXIT &&!logic.getBlackExit())
+                    else if (selectedIndex == COL_BLACK_EXIT &&!getLogic().getBlackExit())
                         selectedIndex = COL_WHITE;
                 }
                 else selectedIndex = moveHorizontally(selectedIndex, selectedIndex < 13,
-                        keyPressed.equals(logic.getSetting("Controls", "moveRight", String.class)));
-                colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
+                        keyPressed.equals(getLogic().getSetting("Controls", "moveRight", String.class)));
+                colorPoint(selectedIndex, Color.web(getLogic().getSetting("Customization", "selectedPointColor", String.class)));
             }
         }
-        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) &&
+        else if (keyPressed.equals(getLogic().getSetting("Controls", "select", String.class)) &&
                 selectedIndex!= UNDEFINED && !selected){
             col = findColumn();
-            if(logic.searchTopOccupiedRow(col)!=UNDEFINED &&
-                    (logic.getBoardPlaceState(col, logic.searchTopOccupiedRow(col))==WHITE) == logic.getWhichTurn()) {
-                logic.selectPawn(col, logic.searchTopOccupiedRow(col));
+            if(getLogic().searchTopOccupiedRow(col)!=UNDEFINED &&
+                    (getLogic().getBoardPlaceState(col, getLogic().searchTopOccupiedRow(col))==WHITE) == getLogic().getWhichTurn()) {
+                getLogic().selectPawn(col, getLogic().searchTopOccupiedRow(col));
                 selected = true;
-                logic.createMoveBuffer(col);
+                getLogic().createMoveBuffer(col);
                 DynamicGameBoardRedraw.redrawPawns(this);
             }
-        } else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && selected){
+        } else if (keyPressed.equals(getLogic().getSetting("Controls", "select", String.class)) && selected){
             int col2 = findColumn();
-            logic.deselectPawn(col, logic.searchTopOccupiedRow(col));
-            logic.placePawnOnPoint(col2);
-            view.restoreBoardColors();
-            colorPoint(selectedIndex, Color.web(logic.getSetting("Customization", "selectedPointColor", String.class)));
+            getLogic().deselectPawn(col, getLogic().searchTopOccupiedRow(col));
+            getLogic().placePawnOnPoint(col2);
+            getView().restoreBoardColors();
+            colorPoint(selectedIndex, Color.web(getLogic().getSetting("Customization", "selectedPointColor", String.class)));
             DynamicGameBoardRedraw.redrawPawns(this);
             selected = false;
         }
@@ -265,10 +266,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
                 else color = ColorHandler.getPointColor("oddPointsColor", ODD_POINTS);
                 break;
             case COL_WHITE_EXIT:
-                color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
+                color = Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class));
                 break;
             case COL_BLACK_EXIT:
-                color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
+                color = Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class));
                 break;
         }
         if (restoreIndex != UNDEFINED)
@@ -281,15 +282,15 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     private int findColumn(){
         int col = UNDEFINED;
 
-        if (whiteExitRegion.getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
+        if (whiteExitRegion.getFill().equals(Paint.valueOf(getLogic().getSetting("Customization", "selectedPointColor", String.class))))
             col = COL_WHITE_EXIT;
-        else if (blackExitRegion.getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
+        else if (blackExitRegion.getFill().equals(Paint.valueOf(getLogic().getSetting("Customization", "selectedPointColor", String.class))))
             col = COL_BLACK_EXIT;
 
         for (int i = 0; col == UNDEFINED && i < 12; i++) {
-            if (polArrayTop[i].getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
+            if (polArrayTop[i].getFill().equals(Paint.valueOf(getLogic().getSetting("Customization", "selectedPointColor", String.class))))
                 col = i + 1;
-            else if (polArrayBot[i].getFill().equals(Paint.valueOf(logic.getSetting("Customization", "selectedPointColor", String.class))))
+            else if (polArrayBot[i].getFill().equals(Paint.valueOf(getLogic().getSetting("Customization", "selectedPointColor", String.class))))
                 col = (24-i);
         }
         return col;

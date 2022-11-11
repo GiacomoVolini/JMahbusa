@@ -14,17 +14,18 @@ public abstract class DynamicBoardLogic {
     protected boolean moveOpensBlackExit = false;
     protected int[] moveBuffer = {UNDEFINED, UNDEFINED};
     protected DiceLogic dice;
-    public void checkPlayerExit (boolean exitCondition, int valueToSearch) {
+
+    public void checkPlayerExit (boolean exitCondition, int valueToSearch, int startingPoint, int finalPoint) {
         if (!exitCondition) {
             boolean found = false;
-            for (int col = 7; col<=24 && !found; col++)
+            for (int col = startingPoint; col<=finalPoint && !found; col++)
                 for (int row = 0; row<=1 && !found; row++)
                     if (squares[row][col] == valueToSearch)
                         found = true;
             if (!found)
                 if (valueToSearch == BLACK) {
                     setBlackExit(true);
-                    Logic.getView().openBlackExit();
+                    getView().openBlackExit();
                     moveOpensBlackExit = true;
                 } else {
                     setWhiteExit(true);
@@ -34,11 +35,11 @@ public abstract class DynamicBoardLogic {
         }
     }
     public void checkBlackExit() {
-        checkPlayerExit(this.blackExit, BLACK);
+        checkPlayerExit(this.blackExit, BLACK, 7, 24);
     }
 
     public void checkWhiteExit() {
-        checkPlayerExit(this.whiteExit, WHITE);
+        checkPlayerExit(this.whiteExit, WHITE, 1, 18);
     }
 
     public void setUp() {
@@ -173,8 +174,8 @@ public abstract class DynamicBoardLogic {
                 movable = true;
                 if (highlight) {
                     if (whiteTurn)
-                        getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                    else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
                 }
             }
         }
@@ -183,8 +184,8 @@ public abstract class DynamicBoardLogic {
             movable = true;
             if (highlight)
                 if (whiteTurn)
-                    getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                    getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
         }
         for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
@@ -192,8 +193,8 @@ public abstract class DynamicBoardLogic {
                 movable = true;
                 if (highlight)
                     if (whiteTurn)
-                        getView().colorPoint(endCol, logic.getSetting("Customization","whitePawnFill",String.class), logic.getSetting("Customization","whitePawnStroke",String.class));
-                    else getView().colorPoint(endCol, logic.getSetting("Customization","blackPawnFill",String.class), logic.getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
             }
         }
         return movable;

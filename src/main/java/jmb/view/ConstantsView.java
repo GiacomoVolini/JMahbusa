@@ -12,9 +12,9 @@ public class ConstantsView {
     public static final String PLAY_GAME = "GameBoard";
     public static final String TUTORIAL = "TutorialView";
 
-    public static final double MAX_BTN_WIDTH = 111;                     //  La larghezza massima del buttone "finish turn"
-    public static final double MAX_BTN_HEIGHT = 80;                     //  L'altezza massima dei buttoni piccoli
-    public static final double BUTTON_ANCHOR = 8;                      //  Il valore dell'anchor per i tre pulsanti
+    public static final double MAX_BTN_WIDTH = 111;
+    public static final double MAX_BTN_HEIGHT = 80;
+    public static final double BUTTON_ANCHOR = 8;
 
     public static final int UPPER_DICE = 0;
     public static final int LOWER_DICE = 1;

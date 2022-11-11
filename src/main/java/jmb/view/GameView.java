@@ -49,7 +49,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         if(getLogic().getTurnDuration() != 0)
             turnTimer.stop();
         getLogic().completeMoves();
-        logic.nextTurn();
+        getLogic().nextTurn();
         GameViewRedraw.redrawPawns(this);
         setTurnColors(true);
         menuBTN.setDisable(false);
@@ -61,7 +61,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     private void setTurnColors(boolean isGameOn) {
         if (isGameOn) {
-            if (logic.getWhichTurn()) {
+            if (getLogic().getWhichTurn()) {
                 plWHTOutRect.setFill(Color.GREEN);
                 plBLKOutRect.setFill(Color.RED);
             } else {
@@ -82,26 +82,26 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     protected void revertMove() {
-        logic.revertMove();
+        getLogic().revertMove();
         GameViewRedraw.redrawPawns(this);
     }
 
     protected void rollDice() {
         DiceView.setDiceContrast(diceArray);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
             getView().playSFX(SFX.DICE_ROLL);
         finishBTN.setDisable(true);
-        if (!logic.isRollDouble())
+        if (!getLogic().isRollDouble())
             closeDoubleDice();
         diceRollAnimation.setCycleCount(10);
         diceRollAnimation.setOnFinished(e -> {
             DiceView.setDiceValues(diceArray);
-            if ( !pausePaneController.isVisible() && !logic.getGameEndState()) {
+            if ( !pausePaneController.isVisible() && !getLogic().getGameEndState()) {
                 finishBTN.setDisable(false);
-                if (logic.getTurnDuration() != 0)
+                if (getLogic().getTurnDuration() != 0)
                     turnTimer.play();
             }
-            if (logic.isRollDouble()) {
+            if (getLogic().isRollDouble()) {
                 openDoubleDice();
             }
             GameViewRedraw.redrawPawns(this);
@@ -125,12 +125,12 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     protected void startGame(ActionEvent event) {
         startDialogue.setVisible(false);
         disableMenuAndFinishButtons(false);
-        logic.setGameStart(true);
+        getLogic().setGameStart(true);
         changeDimensions();
         if (diceTray.getWidth()==0)
             openDiceTray();
-        else logic.firstTurn();
-        if(logic.getTurnDuration() != 0)
+        else getLogic().firstTurn();
+        if(getLogic().getTurnDuration() != 0)
             runTimer();
         setTurnColors(true);
         DiceView.setDiceContrast(diceArray);
@@ -155,19 +155,19 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     private void continueTournament() {
         closeWhiteExit();
         closeBlackExit();
-        logic.setGameEndState(false);
+        getLogic().setGameEndState(false);
         removeVictoryScreen();
         startDialogue.setVisible(true);
         menuBTN.setDisable(false);
-        tournamentWhitePoints.setText(String.valueOf(logic.getWhiteTournamentPoints()));
-        tournamentBlackPoints.setText(String.valueOf(logic.getBlackTournamentPoints()));
-        logic.setUpNewBoard();
+        tournamentWhitePoints.setText(String.valueOf(getLogic().getWhiteTournamentPoints()));
+        tournamentBlackPoints.setText(String.valueOf(getLogic().getBlackTournamentPoints()));
+        getLogic().setUpNewBoard();
         this.changeDimensions();
     }
 
     private void gameOver() {
-            logic.addNewPlayersToList(logic.getWhitePlayer(), logic.getBlackPlayer());
-            logic.addStatsToLeaderboard();
+            getLogic().addNewPlayersToList(getLogic().getWhitePlayer(), getLogic().getBlackPlayer());
+            getLogic().addStatsToLeaderboard();
             App.changeRoot(MAIN_MENU);
     }
 
@@ -192,18 +192,18 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status) {
         String winner;
         gameEndDisable();
-        if (logic.getTurnDuration()!=0)
+        if (getLogic().getTurnDuration()!=0)
             turnTimer.stop();
         setTurnColors(false);
         if (whiteWon)
             winner = whitePlayer;
         else winner = blackPlayer;
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
             if (doubleWin)
-                view.playSFX(SFX.DOUBLE_WIN);
-            else view.playSFX(SFX.SINGLE_WIN);
+                getView().playSFX(SFX.DOUBLE_WIN);
+            else getView().playSFX(SFX.SINGLE_WIN);
         createVictoryScreen(whiteWon, doubleWin, winner, status);
-        logic.setGameEndState(true);
+        getLogic().setGameEndState(true);
         GameViewRedraw.resizeVictoryPanel(this);
         animateVictoryScreen(status);
     }
@@ -221,24 +221,26 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     void handleKeyboard(KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.handleKeyboard(event);
-        if(keyPressed.equals(logic.getSetting("Controls", "openMenu", String.class)))
+        if(keyPressed.equals(getLogic().getSetting("Controls", "openMenu", String.class))) {
             if (!menuBTN.isDisabled())
                 openExitOption();
-        else if(keyPressed.equals(logic.getSetting("Controls", "finishTurn", String.class)))
+        } else if(keyPressed.equals(getLogic().getSetting("Controls", "finishTurn", String.class))) {
             if (!finishBTN.isDisabled())
                 nextTurn(null);
-        else if (keyPressed.equals(logic.getSetting("Controls", "revertMove", String.class)))
-            if(!backBTN.isDisabled())
+        } else if (keyPressed.equals(getLogic().getSetting("Controls", "revertMove", String.class))) {
+            if (!backBTN.isDisabled())
                 revertMove();
-        else if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)))
+        }else if (keyPressed.equals(getLogic().getSetting("Controls", "select", String.class))) {
             if (selected) {
                 wasBackBTNDisabled = backBTN.isDisabled();
                 backBTN.setDisable(true);
                 disableMenuAndFinishButtons(true);
             } else {
-                backBTN.setDisable(wasBackBTNDisabled);
+                if (backBTN.isDisabled())
+                    backBTN.setDisable(wasBackBTNDisabled);
                 disableMenuAndFinishButtons(false);
             }
+        }
     }
 
     public void disableMenuAndFinishButtons(boolean set) {
@@ -252,14 +254,14 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         GameViewInitializer.setStrings(backText, finishTurnText, menuText, upText, downText, rightText, leftText,
                 selectText, backBTN, menuBTN, finishBTN, readyText, startDialogue, startBTN, plWHTText, plBLKText);
         tournamentCup = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("TournamentCup.png")).toString()));
-        tournamentWhitePoints = new Label(String.valueOf(logic.getWhiteTournamentPoints()));
-        tournamentBlackPoints = new Label(String.valueOf(logic.getBlackTournamentPoints()));
-        tournamentPointsToWin = new Label(String.valueOf(logic.getTournamentPointsToWin()));
+        tournamentWhitePoints = new Label(String.valueOf(getLogic().getWhiteTournamentPoints()));
+        tournamentBlackPoints = new Label(String.valueOf(getLogic().getBlackTournamentPoints()));
+        tournamentPointsToWin = new Label(String.valueOf(getLogic().getTournamentPointsToWin()));
         window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setColors(plWHTPawn, plBLKPawn, tournamentWhitePoints, tournamentBlackPoints);
 
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.GAME);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.GAME);
 
         this.boardAnchor = window;
         addChildrenToAnchor();
@@ -271,23 +273,23 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
         GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
 
         setTurnColors(false);
-        if (logic.getTurnDuration() == 0) {
+        if (getLogic().getTurnDuration() == 0) {
             timerIn.setVisible(false);
             timerOut.setVisible(false);
         }
 
-        if (logic.getTurnDuration() != 0) {
+        if (getLogic().getTurnDuration() != 0) {
             turnTimer = TimelineBuilder.createTurnTimerTimeline(timerIn);
             turnTimer.setOnFinished(e -> nextTurn(null));
         }
-        GameViewInitializer.setTournamentComponentsVisibility(logic.isTournamentOngoing(), tournamentWhitePoints,
+        GameViewInitializer.setTournamentComponentsVisibility(getLogic().isTournamentOngoing(), tournamentWhitePoints,
                 tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setViewOrders(timerIn, timerOut, startDialogue, tournamentPointsToWin);
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
-        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+        //  LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
     }
 

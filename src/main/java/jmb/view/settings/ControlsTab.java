@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import jmb.view.SettingsView;
 
-import static jmb.view.View.logic;
+import static jmb.view.View.getLogic;
 
 public class ControlsTab {
 
@@ -37,9 +37,9 @@ public class ControlsTab {
     void selectKeyBind(MouseEvent event) {
         TextField b = (TextField) event.getSource();
         bindingBefore = b.getText();
-        b.setText(logic.getString("Waiting"));
+        b.setText(getLogic().getString("Waiting"));
         for(int i=0; i<8; i++){
-            if(keyBinds[i].getText().equals(logic.getString("Waiting"))){
+            if(keyBinds[i].getText().equals(getLogic().getString("Waiting"))){
                 keyBinds[i].setDisable(false);
                 waitingBinding = i;
             }else{
@@ -70,39 +70,39 @@ public class ControlsTab {
     }
 
     public void loadStrings() {
-        controlsTitlePane.setText(logic.getString("Commands"));
-        keyboardText.setText(logic.getString("Keyboard"));
-        movementText.setText(logic.getString("Move"));
-        rightText.setText(logic.getString("Right"));
-        leftText.setText(logic.getString("Left"));
-        upText.setText(logic.getString("Up"));
-        downText.setText(logic.getString("Down"));
-        selectText.setText(logic.getString("Select"));
-        revertMoveText.setText(logic.getString("DeleteMove"));
-        finishTurnText.setText(logic.getString("FinishTurn"));
-        openMenuText.setText(logic.getString("TMainMenu"));
+        controlsTitlePane.setText(getLogic().getString("Commands"));
+        keyboardText.setText(getLogic().getString("Keyboard"));
+        movementText.setText(getLogic().getString("Move"));
+        rightText.setText(getLogic().getString("Right"));
+        leftText.setText(getLogic().getString("Left"));
+        upText.setText(getLogic().getString("Up"));
+        downText.setText(getLogic().getString("Down"));
+        selectText.setText(getLogic().getString("Select"));
+        revertMoveText.setText(getLogic().getString("DeleteMove"));
+        finishTurnText.setText(getLogic().getString("FinishTurn"));
+        openMenuText.setText(getLogic().getString("TMainMenu"));
     }
 
     public void loadSettings() {
-        rightTextField.setText(logic.getSetting("Controls", "moveRight", String.class));
-        leftTextField.setText(logic.getSetting("Controls", "moveLeft", String.class));
-        upTextField.setText(logic.getSetting("Controls", "moveUp", String.class));
-        downTextField.setText(logic.getSetting("Controls", "moveDown", String.class));
-        selectTextField.setText(logic.getSetting("Controls", "select", String.class));
-        revertMoveTextField.setText(logic.getSetting("Controls", "revertMove", String.class));
-        finishTurnTextField.setText(logic.getSetting("Controls", "finishTurn", String.class));
-        openMenuTextField.setText(logic.getSetting("Controls", "openMenu", String.class));
+        rightTextField.setText(getLogic().getSetting("Controls", "moveRight", String.class));
+        leftTextField.setText(getLogic().getSetting("Controls", "moveLeft", String.class));
+        upTextField.setText(getLogic().getSetting("Controls", "moveUp", String.class));
+        downTextField.setText(getLogic().getSetting("Controls", "moveDown", String.class));
+        selectTextField.setText(getLogic().getSetting("Controls", "select", String.class));
+        revertMoveTextField.setText(getLogic().getSetting("Controls", "revertMove", String.class));
+        finishTurnTextField.setText(getLogic().getSetting("Controls", "finishTurn", String.class));
+        openMenuTextField.setText(getLogic().getSetting("Controls", "openMenu", String.class));
     }
 
     public void applySettings() {
-        logic.setSetting("Controls", "moveRight",rightTextField.getText());
-        logic.setSetting("Controls", "moveLeft",leftTextField.getText());
-        logic.setSetting("Controls", "moveUp",upTextField.getText());
-        logic.setSetting("Controls", "moveDown",downTextField.getText());
-        logic.setSetting("Controls", "select",selectTextField.getText());
-        logic.setSetting("Controls", "revertMove",revertMoveTextField.getText());
-        logic.setSetting("Controls", "finishTurn",finishTurnTextField.getText());
-        logic.setSetting("Controls", "openMenu",openMenuTextField.getText());
+        getLogic().setSetting("Controls", "moveRight",rightTextField.getText());
+        getLogic().setSetting("Controls", "moveLeft",leftTextField.getText());
+        getLogic().setSetting("Controls", "moveUp",upTextField.getText());
+        getLogic().setSetting("Controls", "moveDown",downTextField.getText());
+        getLogic().setSetting("Controls", "select",selectTextField.getText());
+        getLogic().setSetting("Controls", "revertMove",revertMoveTextField.getText());
+        getLogic().setSetting("Controls", "finishTurn",finishTurnTextField.getText());
+        getLogic().setSetting("Controls", "openMenu",openMenuTextField.getText());
 
     }
 
@@ -121,7 +121,7 @@ public class ControlsTab {
     }
 
     public void changeDimensions(AnchorPane window) {
-        if (logic.isLanguageRightToLeft(logic.getCurrentLanguage())) {
+        if (getLogic().isLanguageRightToLeft(getLogic().getCurrentLanguage())) {
             AnchorPane.setLeftAnchor(keyboardText, window.getWidth() * 0.50);
             AnchorPane.setLeftAnchor(movementText, window.getWidth() * 0.45);
             AnchorPane.setLeftAnchor(rightText, window.getWidth() * 0.45);

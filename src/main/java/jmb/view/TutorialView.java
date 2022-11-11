@@ -89,9 +89,9 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         windowPane.setOnKeyPressed(this::handleKeyboard);
         windowMenuButton.setText(getLogic().getString("MainMenu"));
         tutorialOverLabel.setText(getLogic().getString("tutorialOver"));
-        mainMenuButton.setText(logic.getString("backToMenu"));
-        newGameButton.setText(logic.getString("newGame"));
-        tutorialOverPane.setText(logic.getString("congratulations"));
+        mainMenuButton.setText(getLogic().getString("backToMenu"));
+        newGameButton.setText(getLogic().getString("newGame"));
+        tutorialOverPane.setText(getLogic().getString("congratulations"));
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         windowPane.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
@@ -113,8 +113,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     }
 
     protected void textBoxClick() {
-        //textBoxAnimation();
-        logic.nextTutorialStage();
+        getLogic().nextTutorialStage();
     }
     protected void textBoxAnimation(double textBoxXFactor, double textBoxYFactor) {
         AnchorPane textBoxToOpen;
@@ -157,38 +156,38 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     }
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
-        if (logic.getWhichTurn()) {
+        if (getLogic().getWhichTurn()) {
             boolean pawnMoved = keyPressed.equals(
-                    logic.getSetting("Controls", "select", String.class))
+                    getLogic().getSetting("Controls", "select", String.class))
                     && selected;
             super.handleKeyboard(event);
-            if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && pawnMoved)
-                logic.tutorialStageAction();
+            if (keyPressed.equals(getLogic().getSetting("Controls", "select", String.class)) && pawnMoved)
+                getLogic().tutorialStageAction();
         }
     }
 
     @FXML
     void goToMainMenu(ActionEvent event) {
         App.changeRoot(MAIN_MENU);
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.MENU);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.MENU);
     }
 
     @FXML
     void startNewGame(ActionEvent event) {
-        logic.initializeGameLogic();
-        logic.initializeLeaderboardLogic();
+        getLogic().initializeGameLogic();
+        getLogic().initializeLeaderboardLogic();
         App.changeRoot(LOG_IN);
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.MENU);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.MENU);
     }
 
     protected void highlightPointsToOpenExit(int stage) {
         if (stage%2==1) {
             for (int i = COL_WHITE; i<=6; i++)
-                colorPoint(i, Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)), Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+                colorPoint(i, Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)), Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
             for (int i = COL_BLACK; i > 18; i--)
-                colorPoint(i, Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)), Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
+                colorPoint(i, Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)), Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
         } else {
             for (int i = COL_WHITE; i<=6; i++)
                 restoreColorToPoint(i);
@@ -212,9 +211,9 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
         int restoreIndex = pointAnimationIndex - pointAnimationIndexIncrement;
         Color color = Color.RED;
         if (pointAnimationIndexIncrement == 1)
-            color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
+            color = Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class));
         else if (pointAnimationIndexIncrement == -1)
-            color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
+            color = Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class));
         colorPoint(pointAnimationIndex, color);
         restoreColorToPoint(restoreIndex);
         if (pointAnimationIndex == COL_WHITE)
@@ -244,8 +243,8 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
             else {
                 diceRollAnimation.setCycleCount(cycles);
                 diceRollAnimation.setOnFinished(e -> {
-                    logic.tutorialStageAction();
-                    if (logic.isRollDouble()) {
+                    getLogic().tutorialStageAction();
+                    if (getLogic().isRollDouble()) {
                         openDoubleDice();
                     }
                     DiceView.setDiceValues(diceArray);
@@ -277,12 +276,12 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     }
     protected void releasePawn(MouseEvent event) {
         super.releasePawn(event);
-        logic.tutorialStageAction();
+        getLogic().tutorialStageAction();
     }
 
     protected void waitForRecall(double seconds) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds),
-                                            e -> logic.tutorialStageAction()));
+                                            e -> getLogic().tutorialStageAction()));
         timeline.setCycleCount(1);
         timeline.play();
     }

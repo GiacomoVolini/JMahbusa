@@ -68,8 +68,6 @@ public class SettingsView implements GenericGUI{
                 audioTabController.setDisable(false);
                 controlsTabController.setDisable(false);
                 customizationTabController.setDisable(false);
-
-                //TODO ROBA DA RIVEDERE
                 warningTitlePane.setVisible(false);
                 warningTitlePane.setDisable(true);
                 settingsAnchorPane.setDisable(false);

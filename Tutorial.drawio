@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-11-12T17:21:44.776Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 OPR/92.0.0.0" etag="x8oXizvNHajxdG-EZsOX" version="20.5.3" type="github">
+<mxfile host="app.diagrams.net" modified="2022-11-12T17:26:14.921Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36 OPR/92.0.0.0" etag="tsFlEuy9U6Pe8s5CkK4f" version="20.5.3" type="github">
   <diagram id="sqjAfhwES0Bqq7wNGngI" name="Pagina-1">
     <mxGraphModel dx="1382" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -154,6 +154,9 @@
             <mxPoint x="600" y="100" as="sourcePoint" />
             <mxPoint x="650" y="50" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="g-ClLpLpLdnSDnxStXne-39" value="La dipendenza da Logic e IView è riportata su ComparableTutorialStage e non su tutte le classi figlie per semplicità." style="shape=note;size=14;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="80" width="260" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

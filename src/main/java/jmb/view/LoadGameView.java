@@ -220,7 +220,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     @FXML
@@ -228,7 +228,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         getLogic().initializeLeaderboardLogic();
         getLogic().initializeGameLogic();
         getLogic().setUpSavedGame(saveName);
-        App.changeRoot(PLAY_GAME);
+        getView().changeRoot(PLAY_GAME);
     }
 
     @FXML

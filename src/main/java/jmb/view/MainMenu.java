@@ -92,33 +92,32 @@ public class MainMenu implements GenericGUI{
         getLogic().initializeGameLogic();
         getLogic().flagTutorialPlayed();
         animationToContinue = false;
-        App.changeRoot(LOG_IN);
+        getView().changeRoot(LOG_IN);
     }
 
     @FXML
     void openLeaderBoard() {
         animationToContinue = false;
         getLogic().initializeLeaderboardLogic();
-        App.changeRoot(LEADERBOARDS);
+        getView().changeRoot(LEADERBOARDS);
     }
 
     @FXML
     void openMenuImpostazioni(){
         animationToContinue = false;
-        App.changeRoot(SETTINGS);
+        getView().changeRoot(SETTINGS);
     }
 
     @FXML
     void openLoadGame(){
-        animationToContinue = false;
-        App.changeRoot(LOAD_GAME);
+        getView().changeRoot(LOAD_GAME);
     }
 
     @FXML
     void openTutorial(){
         animationToContinue = false;
         getLogic().initializeTutorialLogic();
-        App.changeRoot(TUTORIAL);
+        getView().changeRoot(TUTORIAL);
         if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
             getView().playMusic(Music.TUTORIAL);
     }

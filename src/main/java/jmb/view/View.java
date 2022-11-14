@@ -205,4 +205,8 @@ public class View implements IView {
             ((AnimatedBoard)currentScene).colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
     }
 
+    public void changeRoot(String newRoot) {
+        App.changeRoot(newRoot);
+    }
+
 }

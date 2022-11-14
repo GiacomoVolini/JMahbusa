@@ -51,7 +51,7 @@ public class SettingsView implements GenericGUI{
                         settingsAnchorPane.setDisable(true);
                 }else {
                         customizationTabController.stopAnimations();
-                        App.changeRoot(MAIN_MENU);
+                        getView().changeRoot(MAIN_MENU);
                 }
         }
 
@@ -75,7 +75,7 @@ public class SettingsView implements GenericGUI{
 
         @FXML void forceMainMenu(ActionEvent event) {
                 settingsAnchorPane.setDisable(false);
-                App.changeRoot(MAIN_MENU);
+                getView().changeRoot(MAIN_MENU);
                 customizationTabController.stopAnimations();
         }
 
@@ -122,7 +122,7 @@ public class SettingsView implements GenericGUI{
         void applySettingsAndExit(ActionEvent event) {
                 applySettings(null);
                 customizationTabController.stopAnimations();
-                App.changeRoot(MAIN_MENU);
+                getView().changeRoot(MAIN_MENU);
         }
 
         @FXML

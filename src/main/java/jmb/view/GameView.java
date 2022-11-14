@@ -168,7 +168,7 @@ public class GameView extends DynamicGameBoard implements GenericGUI{
     private void gameOver() {
             getLogic().addNewPlayersToList(getLogic().getWhitePlayer(), getLogic().getBlackPlayer());
             getLogic().addStatsToLeaderboard();
-            App.changeRoot(MAIN_MENU);
+            getView().changeRoot(MAIN_MENU);
     }
 
     private void createVictoryScreen(boolean whiteWon, boolean doubleWin, String winner, TournamentStatus status) {

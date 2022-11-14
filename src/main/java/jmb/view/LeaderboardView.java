@@ -48,7 +48,7 @@ public class LeaderboardView implements GenericGUI{
 
     @FXML
     void goToMainMenu(){
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     @FXML

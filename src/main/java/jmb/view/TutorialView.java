@@ -168,7 +168,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
         if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
             getView().playMusic(Music.MENU);
     }
@@ -177,7 +177,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     void startNewGame(ActionEvent event) {
         getLogic().initializeGameLogic();
         getLogic().initializeLeaderboardLogic();
-        App.changeRoot(LOG_IN);
+        getView().changeRoot(LOG_IN);
         if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
             getView().playMusic(Music.MENU);
     }

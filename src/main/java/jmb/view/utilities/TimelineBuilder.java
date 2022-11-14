@@ -13,7 +13,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import jmb.view.App;
 import jmb.view.DynamicGameBoard;
 import jmb.view.DynamicGameBoardRedraw;
 import jmb.view.GameViewRedraw;

@@ -19,7 +19,7 @@ import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.ConstantsView.PLAY_GAME;
 import static jmb.view.View.*;
 
-public class LogIn implements GenericGUI {
+public class GameSetup implements GenericGUI {
 
     @FXML
     private AnchorPane window;
@@ -93,7 +93,7 @@ public class LogIn implements GenericGUI {
                     getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
                 else
                     getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
-                App.changeRoot(PLAY_GAME);
+                getView().changeRoot(PLAY_GAME);
             }
             else errorHandler(nameCheckResult);
         }
@@ -130,7 +130,7 @@ public class LogIn implements GenericGUI {
 
     @FXML
     void goToMainMenu() {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     @FXML

@@ -23,6 +23,7 @@ public class ConstantsView {
 
 
     public static final ColorAdjust LOW_CONTRAST = new ColorAdjust(0,0,0,-0.5);
+    public static final ColorAdjust NORMAL_CONTRAST = new ColorAdjust(0,0,0,0);
     public static final double SELECTED_PAWN_SCALE = 1.2;
     public static final double NORMAL_PAWN_SCALE = 1;
     public static final double NORMAL_PAWN_STROKE_WIDTH= 2;

@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
-import jmb.view.App;
 import jmb.view.GameView;
 
 import static jmb.view.ConstantsView.MAIN_MENU;
@@ -38,7 +37,7 @@ public class PausePane {
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     public void openExitOption() {

@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import jmb.view.App;
 import jmb.view.GameView;
 
 import static jmb.view.ConstantsView.MAIN_MENU;
@@ -55,7 +54,7 @@ public class SaveGamePane {
         else {
             getLogic().saveGame(saveTextField.getText());
             errorLabel.setVisible(false);
-            App.changeRoot(MAIN_MENU);
+            getView().changeRoot(MAIN_MENU);
         }
     }
 

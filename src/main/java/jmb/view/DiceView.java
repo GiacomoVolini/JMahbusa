@@ -1,12 +1,12 @@
 package jmb.view;
 
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.*;
 
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import static jmb.logic.Logic.*;
+import static jmb.view.View.*;
+import static jmb.view.ConstantsView.*;
 
 public class DiceView {
 
@@ -34,9 +34,6 @@ public class DiceView {
         }
     }
 
-    private static final ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
-    private static final ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
-
     protected static void rndRolls(ImageView[] diceArr) {
         rndRoll(diceArr[0]);
         rndRoll(diceArr[1]);
@@ -62,9 +59,9 @@ public class DiceView {
     public static void setDiceContrast (ImageView[] diceArr) {
         for (int i = 0; i<4; i++) {
             if (getLogic().isDiceUsed(i))
-                diceArr[i].setEffect(lowContrast);
+                diceArr[i].setEffect(LOW_CONTRAST);
             else
-                diceArr[i].setEffect(normalContrast);
+                diceArr[i].setEffect(NORMAL_CONTRAST);
         }
     }
 

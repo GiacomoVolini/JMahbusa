@@ -38,7 +38,7 @@ public class Utilities {
         }
     }
 
-    public static boolean isParsable(String input) {
+    public static boolean isParsableAsInteger(String input) {
         try {
             Integer.parseInt(input);
             return true;

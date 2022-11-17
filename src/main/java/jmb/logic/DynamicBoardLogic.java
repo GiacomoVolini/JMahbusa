@@ -64,7 +64,7 @@ public abstract class DynamicBoardLogic {
 
     public boolean movePawn(int startingColumn, int startingRow, int destinationRow, int destinationColumn) {
         dice.resetToBeUsed();
-        boolean possible = possibleMove(startingColumn, startingRow, destinationRow, destinationColumn);
+        boolean possible = possibleMove(startingColumn, startingRow, destinationColumn);
         if(possible){
             forceMovePawn(startingColumn, destinationColumn);
             setMoveBuffer(UNDEFINED, UNDEFINED);
@@ -95,7 +95,7 @@ public abstract class DynamicBoardLogic {
         return out;
     }
 
-    public boolean possibleMove (int startingPoint, int startingRow, int finalPointRow, int finalPoint) {
+    public boolean possibleMove (int startingPoint, int startingRow, int finalPoint) {
         boolean possible = false;
         for (int i = 0; i<4 && !possible; i++)
             if (!dice.getUsed(i))
@@ -106,13 +106,10 @@ public abstract class DynamicBoardLogic {
         int delta = abs(finalPoint - startingPoint);
         if (possible)
             if (COL_BLACK_EXIT < finalPoint && finalPoint < COL_WHITE_EXIT)
-                if(dice.checkDiceSimple(delta))
-                    possible = true;
-                else possible = dice.checkDiceSum(startingPoint, delta, this);
-            else
-                if (finalPoint <= COL_BLACK_EXIT && getBlackExit() || finalPoint >= COL_WHITE_EXIT && getWhiteExit())
-                    possible = delta <= 6 && checkExitMove(delta, startingPoint);
-                else possible= false;
+                possible = dice.checkDiceSimple(delta) || dice.checkDiceSum(startingPoint, delta, this);
+            else if (finalPoint <= COL_BLACK_EXIT && getBlackExit() || finalPoint >= COL_WHITE_EXIT && getWhiteExit())
+                possible = delta <= 6 && checkExitMove(delta, startingPoint);
+        else possible= false;
         return possible;
     }
     private boolean rightPlayer(int startingRow, int startingPoint) {
@@ -170,31 +167,37 @@ public abstract class DynamicBoardLogic {
         else sign = -1;
         for (int i = 0; i<4 && (!movable|| highlight); i++) {
             endCol = max (0, min(col + dice.getDiceValue(i) * sign, 25));
-            if (possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
+            if (possibleMove(col, row, endCol)) {
                 movable = true;
                 if (highlight) {
                     if (whiteTurn)
-                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
-                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class),
+                                getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class),
+                            getLogic().getSetting("Customization","blackPawnStroke",String.class));
                 }
             }
         }
         endCol = max(0, min(25, col + (dice.getDiceValue(0) + dice.getDiceValue(1))*sign));
-        if ((!movable||highlight) && possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
+        if ((!movable||highlight) && possibleMove(col, row, endCol)) {
             movable = true;
             if (highlight)
                 if (whiteTurn)
-                    getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
-                else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
+                    getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class),
+                            getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class),
+                        getLogic().getSetting("Customization","blackPawnStroke",String.class));
         }
         for (int i =3; i<=4 && (!movable||highlight); i++) {
             endCol = max (0, min (25, col + (i *dice.getDiceValue(0)*sign)));
-            if ((!movable||highlight) && dice.getDoubleNum() && possibleMove(col, row, searchFirstFreeRow(endCol), endCol)) {
+            if ((!movable||highlight) && dice.getDoubleNum() && possibleMove(col, row, endCol)) {
                 movable = true;
                 if (highlight)
                     if (whiteTurn)
-                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class), getLogic().getSetting("Customization","whitePawnStroke",String.class));
-                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class), getLogic().getSetting("Customization","blackPawnStroke",String.class));
+                        getView().colorPoint(endCol, getLogic().getSetting("Customization","whitePawnFill",String.class),
+                                getLogic().getSetting("Customization","whitePawnStroke",String.class));
+                    else getView().colorPoint(endCol, getLogic().getSetting("Customization","blackPawnFill",String.class),
+                            getLogic().getSetting("Customization","blackPawnStroke",String.class));
             }
         }
         return movable;

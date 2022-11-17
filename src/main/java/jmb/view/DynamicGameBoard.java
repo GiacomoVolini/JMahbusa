@@ -15,7 +15,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.*;
 
-public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoard{
+public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoard, GenericGUI {
 
     protected Rectangle diceTray;
     protected ImageView[] diceArray = new ImageView[4];
@@ -28,6 +28,10 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     protected int selectedIndex = UNDEFINED;
 
     public DynamicGameBoard() {
+        this.initialize();
+    }
+
+    public void initialize() {
         feltImage.setImage(new Image(Objects.requireNonNull(this.getClass().getResource("WhiteFelt.png")).toString()));
         feltImage.setBlendMode(BlendMode.MULTIPLY);
         Image[] imgArray = new Image[]{

@@ -15,7 +15,7 @@ import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
 import static jmb.view.View.*;
 
-public class TutorialView extends DynamicGameBoard implements GenericGUI{
+public class TutorialView extends DynamicGameBoard {
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
     private final static double VERTICAL_RESIZE_FACTOR = 0.8;

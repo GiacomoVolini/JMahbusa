@@ -8,11 +8,12 @@ import static jmb.logic.Logic.*;
 
 public class GameLogic extends DynamicBoardLogic {
 
-    private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);   //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
-                                                                                  //  in un turno
+    //Deque utilizzata come Stack per la memorizzazione delle mosse effettuate
+    //  in un turno
+    private ArrayDeque<MoveRecord> turnMoves = new ArrayDeque<>(4);
     private String whitePlayer;
     private String blackPlayer;
-    private int tournamentPoints = 0;
+    private int tournamentPoints = 1;
     private int blacksWonPoints;
     private int whitesWonPoints;
     private double turnDuration = 120;
@@ -182,7 +183,7 @@ public class GameLogic extends DynamicBoardLogic {
             else blacksWonPoints +=1;
         }
 
-        if (tournamentPoints == 0)
+        if (tournamentPoints == 1)
             getView().gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.NO_TOURNAMENT);
         else if (tournamentPoints<=whitesWonPoints || tournamentPoints<=blacksWonPoints)
             getView().gameWon(whitePlayer, blackPlayer, whiteWon, doubleWin, TournamentStatus.TOURNAMENT_WON);

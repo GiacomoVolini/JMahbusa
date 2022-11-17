@@ -15,8 +15,7 @@ public class ColorHandler {
 
     private static String componentSubstringFactory(double val) {
         String in = Integer.toHexString((int) Math.round(val * 255));
-        //Se il valore esadecimale è a una cifra gli aggiunge uno zero in testa e restituisce le due cifre come stringa
-        //      altrimenti restituisce il valore
+        // Restituisce il valore come stringa aggiungendogli uno zero in testa nel caso sia ad una cifra
         return in.length() == 1 ? "0" + in : in;
     }
 

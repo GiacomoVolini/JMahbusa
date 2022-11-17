@@ -329,7 +329,7 @@ public class Logic implements ILogic {
     }
     @Override
     public boolean isParsable(String input) {
-        return Utilities.isParsable(input);
+        return Utilities.isParsableAsInteger(input);
     }
 
     @Override

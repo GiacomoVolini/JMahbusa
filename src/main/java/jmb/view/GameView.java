@@ -249,6 +249,7 @@ public class GameView extends DynamicGameBoard {
     }
 
     public void initialize() {
+        super.initialize();
         saveGamePaneController.initialize(this);
         pausePaneController.initialize(this, saveGamePaneController);
         GameViewInitializer.setStrings(backText, finishTurnText, menuText, upText, downText, rightText, leftText,
@@ -257,6 +258,7 @@ public class GameView extends DynamicGameBoard {
         tournamentWhitePoints = new Label(String.valueOf(getLogic().getWhiteTournamentPoints()));
         tournamentBlackPoints = new Label(String.valueOf(getLogic().getBlackTournamentPoints()));
         tournamentPointsToWin = new Label(String.valueOf(getLogic().getTournamentPointsToWin()));
+        GameViewInitializer.setTournamentComponents(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin);
         window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setColors(plWHTPawn, plBLKPawn, tournamentWhitePoints, tournamentBlackPoints);
 

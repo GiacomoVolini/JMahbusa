@@ -27,10 +27,6 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     private int col;
     protected int selectedIndex = UNDEFINED;
 
-    public DynamicGameBoard() {
-        this.initialize();
-    }
-
     public void initialize() {
         feltImage.setImage(new Image(Objects.requireNonNull(this.getClass().getResource("WhiteFelt.png")).toString()));
         feltImage.setBlendMode(BlendMode.MULTIPLY);
@@ -152,7 +148,6 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
         handleExitRegion(blackExitRegion, true);
     }
     public void openWhiteExit() {
-        System.out.println("OPEN WHITE EXIT");
         handleExitRegion(whiteExitRegion, true);
     }
     public void closeBlackExit() {

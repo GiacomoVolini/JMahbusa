@@ -25,12 +25,19 @@ public class LeaderboardLogic {
         String ldbDirectory = Logic.getLogic().getAppDirectory() + "/leaderboard";
         String ldbPath = ldbDirectory + "/Leaderboards.csv";
         path = Path.of(ldbPath);
+        createFile(path);
         try (BufferedReader reader = Files.newBufferedReader(path)){
             this.reader = reader;
-            if (!Files.exists(path)) {
-                Files.createFile(path);
-            }
             this.populateList();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private void createFile (Path path) {
+        try {
+            if (!Files.exists(path))
+                Files.createFile(path);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

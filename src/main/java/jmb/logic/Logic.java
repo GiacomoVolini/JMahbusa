@@ -196,7 +196,7 @@ public class Logic implements ILogic {
 
     @Override
     public boolean isTournamentOngoing() {
-        return (((GameLogic)board).getTournamentPoints() != 0);
+        return (((GameLogic)board).getTournamentPoints() != 1);
     }
 
     @Override

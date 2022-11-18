@@ -30,7 +30,7 @@ public class TutorialView extends DynamicGameBoard {
     @FXML
     TitledPane tutorialOverPane;
     @FXML
-    AnchorPane textBox1, textBox2, windowPane;
+    AnchorPane textBox1, textBox2, window;
     @FXML
     Label textBoxLabel1, textBoxLabel2;
     @FXML
@@ -63,8 +63,8 @@ public class TutorialView extends DynamicGameBoard {
     );
 
     public void initialize() {
-        this.boardAnchor = windowPane;
-
+        super.initialize();
+        this.boardAnchor = window;
         addChildrenToAnchor();
         TutorialViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
         TutorialViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
@@ -85,8 +85,8 @@ public class TutorialView extends DynamicGameBoard {
 
         textBox1.setOnMouseClicked(e ->getLogic().nextTutorialStage());
         textBox2.setOnMouseClicked(e ->getLogic().nextTutorialStage());
-        windowPane.setFocusTraversable(true);
-        windowPane.setOnKeyPressed(this::handleKeyboard);
+        window.setFocusTraversable(true);
+        window.setOnKeyPressed(this::handleKeyboard);
         windowMenuButton.setText(getLogic().getString("MainMenu"));
         tutorialOverLabel.setText(getLogic().getString("tutorialOver"));
         mainMenuButton.setText(getLogic().getString("backToMenu"));
@@ -94,10 +94,10 @@ public class TutorialView extends DynamicGameBoard {
         tutorialOverPane.setText(getLogic().getString("congratulations"));
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        windowPane.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        windowPane.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
     }
@@ -127,8 +127,8 @@ public class TutorialView extends DynamicGameBoard {
             textBoxToClose = textBox1;
         }
         textBox1ToOpen = !textBox1ToOpen;
-        textBoxToOpen.setLayoutX(windowPane.getWidth()*textBoxXFactor);
-        textBoxToOpen.setLayoutY(windowPane.getHeight()*textBoxYFactor);
+        textBoxToOpen.setLayoutX(window.getWidth()*textBoxXFactor);
+        textBoxToOpen.setLayoutY(window.getHeight()*textBoxYFactor);
         this.textBoxXFactor = textBoxXFactor;
         this.textBoxYFactor = textBoxYFactor;
         Timeline timeline = TimelineBuilder.createTutorialBoxTimeline(textBoxToOpen, textBoxToClose);
@@ -152,7 +152,7 @@ public class TutorialView extends DynamicGameBoard {
 
     public void changeDimensions() {
         TutorialViewRedraw.resizeAll(this);
-        windowPane.requestFocus();
+        window.requestFocus();
     }
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();

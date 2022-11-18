@@ -1,16 +1,21 @@
 package jmb.view;
 
-import javafx.collections.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
+import static jmb.view.ConstantsView.MAIN_MENU;
+import static jmb.view.ConstantsView.PLAY_GAME;
+import static jmb.view.View.*;
 
 public class LoadGameView extends GameBoard implements GenericGUI{
 
@@ -71,10 +76,10 @@ public class LoadGameView extends GameBoard implements GenericGUI{
     protected int[][] saveMatrix;
 
     private void loadStrings() {
-        savesTitlePane.setText(logic.getString("Savedgames"));
-        mainMenuButton.setText(logic.getString("MainMenu"));
-        deleteSaveButton.setText(logic.getString("Delete"));
-        loadSaveButton.setText(logic.getString("Load"));
+        savesTitlePane.setText(getLogic().getString("Savedgames"));
+        mainMenuButton.setText(getLogic().getString("MainMenu"));
+        deleteSaveButton.setText(getLogic().getString("Delete"));
+        loadSaveButton.setText(getLogic().getString("Load"));
     }
 
     public void initialize() {
@@ -85,10 +90,10 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         refreshSaveList();
         renderNoSelection();
         savesListView.getSelectionModel().selectedItemProperty().addListener(listener -> renderSelection());
-        whitePlayerPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-        whitePlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        blackPlayerPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-        blackPlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+        whitePlayerPawn.setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+        whitePlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
+        blackPlayerPawn.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
+        blackPlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
 
         //languages
         loadStrings();
@@ -103,7 +108,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
     }
 
     protected void refreshSaveList() {
-        ObservableList saveList = FXCollections.observableList(logic.getSaveList());
+        ObservableList saveList = FXCollections.observableList(getLogic().getSaveList());
         savesListView.setItems(saveList);
     }
 
@@ -115,9 +120,9 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         else {
             LoadGameViewRedraw.setPawnsVisibility(this, true);
             saveName = savesListView.getSelectionModel().getSelectedItem().toString();
-            saveMatrix = logic.getSaveMatrix(saveName);
+            saveMatrix = getLogic().getSaveMatrix(saveName);
             saveDetailTitledPane.setText(saveName);
-            String[] saveData = logic.getLoadViewData(saveName);
+            String[] saveData = getLogic().getLoadViewData(saveName);
             if (saveData[TIME].equals("0 secondi"))
                 saveData[TIME]= "Nessun Timer";
             if (saveData[TOURNAMENT_POINTS].equals("0")) {
@@ -215,22 +220,22 @@ public class LoadGameView extends GameBoard implements GenericGUI{
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     @FXML
     void loadGame(ActionEvent event) {
-        logic.initializeLeaderboardLogic();
-        logic.initializeGameLogic();
-        logic.setUpSavedGame(saveName);
-        App.changeRoot(PLAY_GAME);
+        getLogic().initializeLeaderboardLogic();
+        getLogic().initializeGameLogic();
+        getLogic().setUpSavedGame(saveName);
+        getView().changeRoot(PLAY_GAME);
     }
 
     @FXML
     void deleteSave(ActionEvent event) {
         String saveName = saveDetailTitledPane.getText();
         renderNoSelection();
-        logic.deleteSaveFile(saveName);
+        getLogic().deleteSaveFile(saveName);
         refreshSaveList();
     }
 

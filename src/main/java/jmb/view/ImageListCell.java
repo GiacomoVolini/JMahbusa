@@ -6,11 +6,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ImageListCell extends ListCell<Image> {
-    private final ImageView view;
+    private final ImageView imageView;
 
     ImageListCell() {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
-        view = new ImageView();
+        imageView = new ImageView();
     }
 
     @Override protected void updateItem(Image item, boolean empty) {
@@ -19,10 +19,10 @@ public class ImageListCell extends ListCell<Image> {
         if (item == null || empty) {
             setGraphic(null);
         } else {
-            view.setImage(item);
-            view.setFitWidth(25);
-            view.setFitHeight(25);
-            setGraphic(view);
+            imageView.setImage(item);
+            imageView.setFitWidth(25);
+            imageView.setFitHeight(25);
+            setGraphic(imageView);
         }
     }
 

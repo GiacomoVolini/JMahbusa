@@ -4,9 +4,12 @@ import jmb.logic.tutorial.ComparableTutorialStage;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Set;
 
-import static org.reflections.scanners.Scanners.*;
+import static org.reflections.scanners.Scanners.SubTypes;
 
 public class TutorialLogic extends DynamicBoardLogic {
     private Iterator<ComparableTutorialStage> stageArrayIterator;

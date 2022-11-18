@@ -4,10 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import static java.nio.file.StandardOpenOption.*;
 import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
 
 public class LeaderboardLogic {
 
@@ -19,22 +21,25 @@ public class LeaderboardLogic {
     // Il costruttore crea il BufferedReader per il file csv della classifica,
     //      l'ObservableList per le singole entry e un oggetto String per la gestione di una singola riga del
     //      file csv
-    public LeaderboardLogic() throws IOException{
-        try {
-            String ldbDirectory = logic.getAppDirectory() + "/leaderboard";
-            String ldbPath = ldbDirectory + "/Leaderboards.csv";
-            path = Path.of(ldbPath);
-            if (!Files.exists(path)) {
-                Files.createFile(path);
-            }
-
-            reader = Files.newBufferedReader(path);
+    public LeaderboardLogic() {
+        String ldbDirectory = Logic.getLogic().getAppDirectory() + "/leaderboard";
+        String ldbPath = ldbDirectory + "/Leaderboards.csv";
+        path = Path.of(ldbPath);
+        createFile(path);
+        try (BufferedReader reader = Files.newBufferedReader(path)){
+            this.reader = reader;
             this.populateList();
         } catch (IOException ioe) {
             ioe.printStackTrace();
-        } finally {
-            if (reader != null)
-                reader.close();
+        }
+    }
+
+    private void createFile (Path path) {
+        try {
+            if (!Files.exists(path))
+                Files.createFile(path);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 
@@ -45,16 +50,17 @@ public class LeaderboardLogic {
             if (!line.isEmpty() && line.contains(";")) {
                 String[] lineValues = line.trim().split(";");
                 lineValues[0] = lineValues[0].concat("\u2001");
-                arrList.add(new Player(lineValues[0], lineValues[1], lineValues[2]));
-                System.out.println(lineValues[0] + " " + lineValues[1] + " " + lineValues[2]);
+                arrList.add(new PlayerLogic(lineValues[0], lineValues[1], lineValues[2]));
             }
     }
 
-    protected void addNewPlayer (String name) {
-        if (!name.contains("\u2001")) {
-            arrList.add(new Player(name.concat("\u2001")));
-            System.out.println("Aggiungo "+name);
-        }
+    protected void addNewPlayers (String name1, String name2) {
+        addNewPlayer(name1);
+        addNewPlayer(name2);
+    }
+    private void addNewPlayer (String name) {
+        if (!name.contains("\u2001"))
+            arrList.add(new PlayerLogic(name.concat("\u2001")));
     }
 
     public ArrayList<Player> getList() {

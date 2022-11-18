@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="496.0" stylesheets="@../style.css" text="Comandi" visible="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.ControlsTab">
+   <content>
+      <AnchorPane fx:id="controlsAnchorPane" prefHeight="440.0" prefWidth="494.0">
+         <children>
+            <Text fx:id="keyboardText" layoutX="72.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="107.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="rightText" layoutX="157.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Right" wrappingWidth="58.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="leftText" layoutX="151.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Left" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="upText" layoutX="162.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Up" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="downText" layoutX="165.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Down" wrappingWidth="67.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="movementText" layoutX="138.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Move" wrappingWidth="75.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="selectText" layoutX="88.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select" wrappingWidth="124.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="finishTurnText" layoutX="125.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FinishTurn" wrappingWidth="138.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="revertMoveText" layoutX="71.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DeleteMove" wrappingWidth="142.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text fx:id="openMenuText" layoutX="118.0" layoutY="329.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TmainMenu" wrappingWidth="174.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="rightTextField" editable="false" layoutX="252.0" layoutY="106.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="D" />
+            <TextField fx:id="leftTextField" editable="false" layoutX="252.0" layoutY="134.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="A" />
+            <TextField fx:id="upTextField" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="W" />
+            <TextField fx:id="downTextField" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="S" />
+            <TextField fx:id="selectTextField" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="SPACE" />
+            <TextField fx:id="revertMoveTextField" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="BACK_SPACE" />
+            <TextField fx:id="finishTurnTextField" editable="false" layoutX="251.0" layoutY="285.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="F" />
+            <TextField fx:id="openMenuTextField" editable="false" layoutX="251.0" layoutY="312.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" text="ESCAPE" />
+         </children>
+      </AnchorPane>
+   </content>
+</TitledPane>

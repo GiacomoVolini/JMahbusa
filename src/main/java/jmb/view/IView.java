@@ -1,6 +1,8 @@
 package jmb.view;
 
-import jmb.ConstantsShared.*;
+import jmb.ConstantsShared.Music;
+import jmb.ConstantsShared.SFX;
+import jmb.ConstantsShared.TournamentStatus;
 
 public interface IView {
 

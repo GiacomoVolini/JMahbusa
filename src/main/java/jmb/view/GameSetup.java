@@ -13,15 +13,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import jmb.logic.Logic;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.ConstantsView.PLAY_GAME;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
-public class LogIn implements GenericGUI {
+public class GameSetup implements GenericGUI {
 
     @FXML
     private AnchorPane window;
@@ -80,22 +78,22 @@ public class LogIn implements GenericGUI {
 
     @FXML
     void savePlayer(ActionEvent event) {
-        if (!customTimerField.isDisable() && !logic.isParsable(customTimerField.getText())) {
-            if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-                view.playSFX(SFX.ERROR);
-            errorLabel.setText(logic.getString("errorWrongTimerFormat"));
+        if (!customTimerField.isDisable() && !getLogic().isParsable(customTimerField.getText())) {
+            if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+                getView().playSFX(SFX.ERROR);
+            errorLabel.setText(getLogic().getString("errorWrongTimerFormat"));
             errorLabel.setVisible(true);
         } else {
             if (!customTimerField.isDisable())
-                logic.setTurnDuration(Integer.parseInt(customTimerField.getText()));
-            int nameCheckResult = logic.compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+                getLogic().setTurnDuration(Integer.parseInt(customTimerField.getText()));
+            int nameCheckResult = getLogic().compareNameLists(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
             if (nameCheckResult == SUCCESS) {
-                logic.setUpNewBoard();
+                getLogic().setUpNewBoard();
                 if (tournamentCheckBox.isSelected())
-                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
+                    getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue(), tournamentSpinner.getValue().intValue());
                 else
-                    logic.setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
-                App.changeRoot(PLAY_GAME);
+                    getLogic().setPlayersForGame(whitePlayerNameBox.getValue(), blackPlayerNameBox.getValue());
+                getView().changeRoot(PLAY_GAME);
             }
             else errorHandler(nameCheckResult);
         }
@@ -105,52 +103,52 @@ public class LogIn implements GenericGUI {
         String errorMessage = null;
         switch (errorType) {
             case SAME_NAME_ERROR:
-                errorMessage = logic.getString("errorSameName");
+                errorMessage = getLogic().getString("errorSameName");
                 break;
             case EMPTY_NAMES_ERROR:
-                errorMessage = logic.getString("errorEmptyName");
+                errorMessage = getLogic().getString("errorEmptyName");
                 break;
             case NAME1_ALREADY_PRESENT:
-                errorMessage = logic.getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() +
-                        " " + logic.getString("errorAlreadyPresent");
+                errorMessage = getLogic().getString("error") + " " + whitePlayerNameBox.getValue().stripTrailing() +
+                        " " + getLogic().getString("errorAlreadyPresent");
                 break;
             case NAME2_ALREADY_PRESENT:
-                errorMessage = logic.getString("error") + " " + blackPlayerNameBox.getValue().stripTrailing() +
-                        " " + logic.getString("errorAlreadyPresent");
+                errorMessage = getLogic().getString("error") + " " + blackPlayerNameBox.getValue().stripTrailing() +
+                        " " + getLogic().getString("errorAlreadyPresent");
                 break;
         }
         errorLabel.setText(errorMessage);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.ERROR);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.ERROR);
         errorLabel.setVisible(true);
     }
 
     @FXML
     void setCanRevert() {
-        logic.setCanRevert(revertCheckBox.isSelected());
+        getLogic().setCanRevert(revertCheckBox.isSelected());
     }
 
     @FXML
     void goToMainMenu() {
-        App.changeRoot(MAIN_MENU);
+        getView().changeRoot(MAIN_MENU);
     }
 
     @FXML
     void easyTimer(ActionEvent event) {
         customTimerField.setDisable(true);
-        logic.setTurnDuration(0);
+        getLogic().setTurnDuration(0);
     }
 
     @FXML
     void mediumTimer(ActionEvent event) {
         customTimerField.setDisable(true);
-        logic.setTurnDuration(120);
+        getLogic().setTurnDuration(120);
     }
 
     @FXML
     void hardTimer(ActionEvent event) {
         customTimerField.setDisable(true);
-        logic.setTurnDuration(30);
+        getLogic().setTurnDuration(30);
     }
 
     @FXML
@@ -177,42 +175,41 @@ public class LogIn implements GenericGUI {
         mediumTimerRadio.setToggleGroup(group);
         customTimerRadio.setToggleGroup(group);
 
-        whitePlayerPawn.setFill(Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)));
-        whitePlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        blackPlayerPawn.setFill(Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)));
-        blackPlayerPawn.setStroke(Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+        whitePlayerPawn.setFill(Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)));
+        whitePlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
+        blackPlayerPawn.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
+        blackPlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
 
-        ObservableList<String> nameList = FXCollections.observableList(logic.getPlayerNameList());
+        ObservableList<String> nameList = FXCollections.observableList(getLogic().getPlayerNameList());
         whitePlayerNameBox.setItems(nameList);
         blackPlayerNameBox.setItems(nameList);
 
         tournamentSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 10));
 
-        confirmButton.setText(logic.getString("confirm"));
-        exitButton.setText(logic.getString("cancel"));
-        whitePlayerNameBox.setPromptText(logic.getString("player") + " 1");
-        blackPlayerNameBox.setPromptText(logic.getString("player") + " 2");
-        playerNamesTitlePane.setText(logic.getString("playerNames"));
-        gameSettingsTitlePane.setText(logic.getString("gameSettings"));
-        noTimerRadio.setText(logic.getString("none"));
-        mediumTimerRadio.setText("2 " + logic.getString("minutes"));
-        hardTimerRadio.setText("30 " + logic.getString("seconds"));
-        customTimerField.setPromptText(logic.getString("seconds"));
-        easyText.setText(logic.getString("easy"));
-        mediumText.setText(logic.getString("medium"));
-        hardText.setText(logic.getString("hard"));
-        customText.setText(logic.getString("Custom"));
-        tournamentPanel.setText(logic.getString("tournament"));
-        tournamentCheckBox.setText(logic.getString("activate"));
-        tournamentLabel.setText(logic.getString("target"));
-        revertCheckBox.setText(logic.getString("revertMove"));
+        confirmButton.setText(getLogic().getString("confirm"));
+        exitButton.setText(getLogic().getString("cancel"));
+        whitePlayerNameBox.setPromptText(getLogic().getString("player") + " 1");
+        blackPlayerNameBox.setPromptText(getLogic().getString("player") + " 2");
+        playerNamesTitlePane.setText(getLogic().getString("playerNames"));
+        gameSettingsTitlePane.setText(getLogic().getString("gameSettings"));
+        noTimerRadio.setText(getLogic().getString("none"));
+        mediumTimerRadio.setText("2 " + getLogic().getString("minutes"));
+        hardTimerRadio.setText("30 " + getLogic().getString("seconds"));
+        customTimerField.setPromptText(getLogic().getString("seconds"));
+        easyText.setText(getLogic().getString("easy"));
+        mediumText.setText(getLogic().getString("medium"));
+        hardText.setText(getLogic().getString("hard"));
+        customText.setText(getLogic().getString("Custom"));
+        tournamentPanel.setText(getLogic().getString("tournament"));
+        tournamentCheckBox.setText(getLogic().getString("activate"));
+        tournamentLabel.setText(getLogic().getString("target"));
+        revertCheckBox.setText(getLogic().getString("revertMove"));
 
         gameSettingsTitlePane.expandedProperty().addListener((obs, oldVal, newVal) -> {
             titledPaneAnimation(newVal);
         });
 
-        //if (logic.getSetting("General", "language", String.class).equals("AR")) {
-        if (logic.isLanguageRightToLeft(logic.getSetting("General", "language", String.class))) {
+        if (getLogic().isLanguageRightToLeft(getLogic().getSetting("General", "language", String.class))) {
             tournamentLabel.setLayoutX(xdispinner);
             tournamentSpinner.setLayoutX(xditlb);
         }

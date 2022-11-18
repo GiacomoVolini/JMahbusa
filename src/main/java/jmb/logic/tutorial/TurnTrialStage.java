@@ -1,7 +1,8 @@
 package jmb.logic.tutorial;
 
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import jmb.logic.Logic;
+
+import static jmb.logic.Logic.*;
 
 public class TurnTrialStage extends ComparableTutorialStage{
     private String stageString = "turnTrialStage";
@@ -10,23 +11,22 @@ public class TurnTrialStage extends ComparableTutorialStage{
         setStageIndex(4);
     }
     public void start() {
-        System.out.println("ECCOCI");
-        logic.setWhiteTurn(true);
-        view.allowTextBoxMouseInput(false);
-        logic.forceDice(6, 5);
-        view.tutorialDiceAnimation(false);
-        view.callRedraw();
-        view.setNextTutorialString(logic.getString(stageString), true);
-        view.tutorialTextBoxAnimation(0.4,0.55);
+        getLogic().setWhiteTurn(true);
+        Logic.getView().allowTextBoxMouseInput(false);
+        getLogic().forceDice(6, 5);
+        getView().tutorialDiceAnimation(false);
+        getView().callRedraw();
+        getView().setNextTutorialString(getLogic().getString(stageString), true);
+        getView().tutorialTextBoxAnimation(0.4,0.55);
     }
     public void action() {
         boolean allUsed = true;
-        for (boolean used: logic.getUsedArray())
+        for (boolean used: getLogic().getUsedArray())
             if (!used)
                 allUsed = false;
         if (allUsed) {
-            logic.nextTutorialStage();
-            view.restoreBoardColors();
+            getLogic().nextTutorialStage();
+            getView().restoreBoardColors();
         }
     }
 }

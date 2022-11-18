@@ -1,8 +1,8 @@
 package jmb.logic.tutorial;
 
 import static jmb.ConstantsShared.SFX;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.logic.Logic.getLogic;
+import static jmb.logic.Logic.getView;
 
 public class DicePresentationStage extends ComparableTutorialStage{
     private String stageString = "dicePresentationString";
@@ -13,15 +13,15 @@ public class DicePresentationStage extends ComparableTutorialStage{
     }
 
     public void start() {
-        logic.setWhiteTurn(false);
-        logic.setUpNewBoard();
-        view.tutorialExitZoneAnimation(false);
-        view.tutorialDiceAnimation(true, true);
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.DICE_ROLL);
-        view.setNextTutorialString(logic.getString(stageString), true);
-        view.tutorialTextBoxAnimation(0.1,0.5);
-        view.restoreBoardColors();
+        getLogic().setWhiteTurn(false);
+        getLogic().setUpNewBoard();
+        getView().tutorialExitZoneAnimation(false);
+        getView().tutorialDiceAnimation(true, true);
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.DICE_ROLL);
+        getView().setNextTutorialString(getLogic().getString(stageString), true);
+        getView().tutorialTextBoxAnimation(0.1,0.5);
+        getView().restoreBoardColors();
     }
     public void action() {
 

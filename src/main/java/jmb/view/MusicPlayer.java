@@ -1,8 +1,11 @@
 package jmb.view;
 
-import javafx.scene.media.*;
-import static jmb.ConstantsShared.*;
-import static jmb.view.View.logic;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import static jmb.ConstantsShared.Music;
+import static jmb.ConstantsShared.SFX;
 
 public class MusicPlayer {
     String gameMusicLocation = getClass().getResource("/jmb/view/music/game.mp3").toString();
@@ -35,10 +38,8 @@ public class MusicPlayer {
         this.errorSFX.setVolume(value);
     }
     protected void playMusic(Music music) {
-        System.out.println("Eseguo playMusic ");
         switch (music) {
             case MENU:
-                System.out.println("MENU");
                 this.menuMusic.setCycleCount(Integer.MAX_VALUE);
                 this.menuMusic.play();
                 this.tutorialMusic.stop();

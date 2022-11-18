@@ -3,9 +3,12 @@ package jmb.logic;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.File;
 import java.io.FileReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 public class SaveGameReader {
     boolean isWhiteTurn;
     String blackPlayer;

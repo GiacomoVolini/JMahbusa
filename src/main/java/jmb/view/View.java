@@ -3,18 +3,33 @@ package jmb.view;
 import javafx.scene.paint.Color;
 import jmb.logic.ILogic;
 
-import static jmb.view.ConstantsView.MUSIC_VOLUME;
-import static jmb.view.ConstantsView.SFX_VOLUME;
 import static jmb.ConstantsShared.*;
+import static jmb.view.ConstantsView.*;
 
 public class View implements IView {
 
-    public static ILogic logic;
-    public static IView view;
+    private static ILogic logic;
+    private static View view;
 
     public static GenericGUI currentScene;
 
     public static MusicPlayer musicController;
+
+    public static ILogic getLogic() {
+        return logic;
+    }
+
+    public static void setLogic(ILogic logic) {
+        View.logic = logic;
+    }
+
+    public static View getView() {
+        return view;
+    }
+
+    public static void createView() {
+        View.view = new View();
+    }
 
     @Override
     public void setCurrentScene (GenericGUI scene) {
@@ -24,8 +39,8 @@ public class View implements IView {
     @Override
     public void initializeMusic() {
         musicController = new MusicPlayer();
-        musicController.setMusicVolume(logic.getSetting("Audio", "musicVolume", int.class)/100.0);
-        musicController.setSFXVolume(logic.getSetting("Audio", "soundFXVolume", int.class)/100.0);
+        musicController.setMusicVolume(getLogic().getSetting("Audio", "musicVolume", int.class)/100.0);
+        musicController.setSFXVolume(getLogic().getSetting("Audio", "soundFXVolume", int.class)/100.0);
     }
     public void setVolume (int whichVolume, double value) {
         switch(whichVolume) {
@@ -176,8 +191,7 @@ public class View implements IView {
     @Override
     public void restoreBoardColors() {
         if (currentScene instanceof AnimatedBoard)
-            for (int i = 0; i < 26; i++)
-                ((AnimatedBoard)currentScene).restoreColorToPoint(i);
+            ((AnimatedBoard)currentScene).restoreBoardColors();
     }
 
     @Override
@@ -189,6 +203,10 @@ public class View implements IView {
     public void colorPoint (int index, String colorFill, String colorStroke) {
         if (currentScene instanceof AnimatedBoard)
             ((AnimatedBoard)currentScene).colorPoint(index, Color.web(colorFill), Color.web(colorStroke));
+    }
+
+    public void changeRoot(String newRoot) {
+        App.changeRoot(newRoot);
     }
 
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<TitledPane fx:id="videoTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Video" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.VideoTab">
+   <content>
+      <AnchorPane fx:id="videoAnchorPane" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
+         <children>
+            <ImageView fx:id="Vbg" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="resolutionText" layoutX="28.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resolution" wrappingWidth="114.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <CheckBox fx:id="fullscreenCheck" layoutX="28.0" layoutY="171.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Fullscreen">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="lockResolutionCheck" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#lockResolution" prefHeight="30.0" prefWidth="224.0" text="BlockResolution">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+            <Text fx:id="resolutionWidthText" layoutX="42.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" wrappingWidth="103.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="resolutionHeightText" layoutX="42.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" wrappingWidth="103.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <TextField fx:id="resolutionWidthField" layoutX="144.0" layoutY="81.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
+            <TextField fx:id="resolutionHeightField" layoutX="200.0" layoutY="117.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
+         </children>
+      </AnchorPane>
+   </content>
+</TitledPane>

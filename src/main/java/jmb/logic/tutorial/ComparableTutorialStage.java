@@ -1,6 +1,6 @@
 package jmb.logic.tutorial;
 
-public abstract class ComparableTutorialStage implements TutorialStage, Comparable<ComparableTutorialStage>{
+public abstract class ComparableTutorialStage implements Comparable<ComparableTutorialStage>{
 
     protected int stageIndex;
     protected int internalIndex = 0;
@@ -11,4 +11,7 @@ public abstract class ComparableTutorialStage implements TutorialStage, Comparab
     protected void setStageIndex(int value) {
         this.stageIndex = value;
     }
+
+    public abstract void start();
+    public abstract void action();
 }

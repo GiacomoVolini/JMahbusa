@@ -1,13 +1,12 @@
 package jmb.view;
 
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.image.*;
 
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import static jmb.view.View.logic;
+import static jmb.view.View.*;
+import static jmb.view.ConstantsView.*;
 
 public class DiceView {
 
@@ -35,9 +34,6 @@ public class DiceView {
         }
     }
 
-    private static final ColorAdjust normalContrast = new ColorAdjust(0, 0, 0, 0);
-    private static final ColorAdjust lowContrast = new ColorAdjust(0,0,0,-0.5);
-
     protected static void rndRolls(ImageView[] diceArr) {
         rndRoll(diceArr[0]);
         rndRoll(diceArr[1]);
@@ -49,11 +45,11 @@ public class DiceView {
     }
 
     public static void setDiceValues (ImageView[] diceArr) {
-        int[] values = logic.getDiceValues();
+        int[] values = getLogic().getDiceValues();
         if(values[0]!=0) {
             diceArr[0].setImage(diceImgs[values[0] - 1]);
             diceArr[1].setImage(diceImgs[values[1] - 1]);
-            if (logic.isRollDouble()) {
+            if (getLogic().isRollDouble()) {
                 diceArr[2].setImage(invDiceImgs[values[2] - 1]);
                 diceArr[3].setImage(invDiceImgs[values[3] - 1]);
             }
@@ -62,10 +58,10 @@ public class DiceView {
 
     public static void setDiceContrast (ImageView[] diceArr) {
         for (int i = 0; i<4; i++) {
-            if (logic.isDiceUsed(i))
-                diceArr[i].setEffect(lowContrast);
+            if (getLogic().isDiceUsed(i))
+                diceArr[i].setEffect(LOW_CONTRAST);
             else
-                diceArr[i].setEffect(normalContrast);
+                diceArr[i].setEffect(NORMAL_CONTRAST);
         }
     }
 

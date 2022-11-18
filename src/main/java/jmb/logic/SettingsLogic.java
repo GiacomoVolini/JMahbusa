@@ -3,10 +3,8 @@ package jmb.logic;
 import org.ini4j.Ini;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import static jmb.logic.Logic.logic;
+import java.nio.file.*;
+import static jmb.logic.Logic.*;
 
 
 public class SettingsLogic {
@@ -21,7 +19,7 @@ public class SettingsLogic {
 
     public SettingsLogic() {
         try {
-            String settingsDir = logic.getAppDirectory() + "/settings";
+            String settingsDir = getLogic().getAppDirectory() + "/settings";
             currentPath = Path.of (settingsDir.concat("/Current.ini"));
             if (!Files.exists(currentPath)) {
                 Files.createFile(currentPath);
@@ -50,10 +48,15 @@ public class SettingsLogic {
         }
     }
 
+    protected void resetDefaultSettings() {
+        getDefaultSettings();
+        restoreCurrent();
+    }
+
     protected void applySettingsChanges() {
         try {
             current.store();
-            logic.initializeStringsReader();
+            getLogic().initializeStringsReader();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -62,7 +65,7 @@ public class SettingsLogic {
 
     protected static void flagTutorialPlayed() {
         try {
-            String fileLocation = logic.getAppDirectory() + "/settings/played.tut";
+            String fileLocation = getLogic().getAppDirectory() + "/settings/played.tut";
             Path filePath = Path.of(fileLocation);
             if (!Files.exists(filePath))
                 Files.createFile(filePath);
@@ -72,9 +75,8 @@ public class SettingsLogic {
     }
 
     protected static boolean shouldPlayTutorial() {
-        String fileLocation = logic.getAppDirectory() + "/settings/played.tut";
+        String fileLocation = getLogic().getAppDirectory() + "/settings/played.tut";
         Path filePath = Path.of (fileLocation);
-        System.out.println(Files.exists(filePath));
         return !Files.exists(filePath);
     }
 

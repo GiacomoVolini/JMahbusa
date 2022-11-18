@@ -9,13 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import jmb.view.utilities.TimelineBuilder;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.view.View.*;
 
-public class TutorialView extends DynamicGameBoard implements GenericGUI{
+public class TutorialView extends DynamicGameBoard {
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
     private final static double VERTICAL_RESIZE_FACTOR = 0.8;
@@ -30,25 +30,13 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     @FXML
     TitledPane tutorialOverPane;
     @FXML
-    AnchorPane textBox1;
+    AnchorPane textBox1, textBox2, window;
     @FXML
-    AnchorPane textBox2;
+    Label textBoxLabel1, textBoxLabel2;
     @FXML
-    Label textBoxLabel1;
+    Rectangle textBoxRectangle1, textBoxRectangle2;
     @FXML
-    Label textBoxLabel2;
-    @FXML
-    Rectangle textBoxRectangle1;
-    @FXML
-    Rectangle textBoxRectangle2;
-    @FXML
-    AnchorPane windowPane;
-    @FXML
-    Button mainMenuButton;
-    @FXML
-    Button newGameButton;
-    @FXML
-    Button windowMenuButton;
+    Button mainMenuButton, newGameButton, windowMenuButton;
 
     private int pointAnimationIndex = 2;
     private int pointAnimationIndexIncrement = 1;
@@ -57,7 +45,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     private Timeline getPawnOut = new Timeline(
             new KeyFrame(Duration.seconds(0.8),
                     e -> {
-                        logic.tutorialStageAction();
+                        getLogic().tutorialStageAction();
                         TutorialViewRedraw.redrawPawns(this);
                     })
     );
@@ -75,8 +63,8 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     );
 
     public void initialize() {
-        this.boardAnchor = windowPane;
-
+        super.initialize();
+        this.boardAnchor = window;
         addChildrenToAnchor();
         TutorialViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
         TutorialViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
@@ -95,23 +83,21 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
         initialAnimation();
 
-        textBox1.setOnMouseClicked(e ->logic.nextTutorialStage());
-        textBox2.setOnMouseClicked(e ->logic.nextTutorialStage());
-        windowPane.setFocusTraversable(true);
-        windowPane.setOnKeyPressed(this::handleKeyboard);
-        windowMenuButton.setText(logic.getString("MainMenu"));
-        tutorialOverLabel.setText(logic.getString("tutorialOver"));
-        mainMenuButton.setText(logic.getString("backToMenu"));
-        newGameButton.setText(logic.getString("newGame"));
-        tutorialOverPane.setText(logic.getString("congratulations"));
-
+        textBox1.setOnMouseClicked(e ->getLogic().nextTutorialStage());
+        textBox2.setOnMouseClicked(e ->getLogic().nextTutorialStage());
+        window.setFocusTraversable(true);
+        window.setOnKeyPressed(this::handleKeyboard);
+        windowMenuButton.setText(getLogic().getString("MainMenu"));
+        tutorialOverLabel.setText(getLogic().getString("tutorialOver"));
+        mainMenuButton.setText(getLogic().getString("backToMenu"));
+        newGameButton.setText(getLogic().getString("newGame"));
+        tutorialOverPane.setText(getLogic().getString("congratulations"));
 
         //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
-        windowPane.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
+        window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
         //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
-        windowPane.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
+        window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
     }
@@ -127,8 +113,7 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     }
 
     protected void textBoxClick() {
-        //textBoxAnimation();
-        logic.nextTutorialStage();
+        getLogic().nextTutorialStage();
     }
     protected void textBoxAnimation(double textBoxXFactor, double textBoxYFactor) {
         AnchorPane textBoxToOpen;
@@ -142,30 +127,16 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
             textBoxToClose = textBox1;
         }
         textBox1ToOpen = !textBox1ToOpen;
-        textBoxToOpen.setLayoutX(windowPane.getWidth()*textBoxXFactor);
-        textBoxToOpen.setLayoutY(windowPane.getHeight()*textBoxYFactor);
-        setTextBoxXFactor(textBoxXFactor);
-        setTextBoxYFactor(textBoxYFactor);
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        e -> textBoxToClose.setMouseTransparent(true),
-                        new KeyValue(textBoxToOpen.scaleXProperty(), 0),
-                        new KeyValue(textBoxToOpen.scaleYProperty(), 0),
-                        new KeyValue(textBoxToClose.scaleXProperty(), 1),
-                        new KeyValue(textBoxToClose.scaleYProperty(), 1)),
-                new KeyFrame(Duration.seconds(0.5),
-                        e -> textBoxToOpen.setMouseTransparent(false),
-                        new KeyValue(textBoxToOpen.scaleXProperty(), 1),
-                        new KeyValue(textBoxToOpen.scaleYProperty(), 1),
-                        new KeyValue(textBoxToClose.scaleXProperty(), 0),
-                        new KeyValue(textBoxToClose.scaleYProperty(), 0))
-                );
-        timeline.setCycleCount(1);
-        timeline.play();
+        textBoxToOpen.setLayoutX(window.getWidth()*textBoxXFactor);
+        textBoxToOpen.setLayoutY(window.getHeight()*textBoxYFactor);
+        this.textBoxXFactor = textBoxXFactor;
+        this.textBoxYFactor = textBoxYFactor;
+        Timeline timeline = TimelineBuilder.createTutorialBoxTimeline(textBoxToOpen, textBoxToClose);
         timeline.setOnFinished( e -> {
             if (tutorialOver)
                 tutorialOverPane.setVisible(true);
         });
+        timeline.play();
     }
     protected void setNextTutorialString(String text, boolean changeTextBox) {
         if ((textBox1ToOpen && changeTextBox) || (!textBox1ToOpen && !changeTextBox))
@@ -181,45 +152,43 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
 
     public void changeDimensions() {
         TutorialViewRedraw.resizeAll(this);
-        windowPane.requestFocus();
+        window.requestFocus();
     }
     void handleKeyboard(KeyEvent event) {
         String keyPressed = event.getCode().toString();
-        if (logic.getWhichTurn()) {
+        if (getLogic().getWhichTurn()) {
             boolean pawnMoved = keyPressed.equals(
-                    logic.getSetting("Controls", "select", String.class))
+                    getLogic().getSetting("Controls", "select", String.class))
                     && selected;
             super.handleKeyboard(event);
-            if (keyPressed.equals(logic.getSetting("Controls", "select", String.class)) && pawnMoved)
-                logic.tutorialStageAction();
+            if (keyPressed.equals(getLogic().getSetting("Controls", "select", String.class)) && pawnMoved)
+                getLogic().tutorialStageAction();
         }
     }
 
     @FXML
     void goToMainMenu(ActionEvent event) {
-        App.changeRoot(MAIN_MENU);
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.MENU);
+        getView().changeRoot(MAIN_MENU);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.MENU);
     }
 
     @FXML
     void startNewGame(ActionEvent event) {
-        logic.initializeGameLogic();
-        logic.initializeLeaderboardLogic();
-        App.changeRoot(LOG_IN);
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.MENU);
+        getLogic().initializeGameLogic();
+        getLogic().initializeLeaderboardLogic();
+        getView().changeRoot(LOG_IN);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.MENU);
     }
 
     protected void highlightPointsToOpenExit(int stage) {
         if (stage%2==1) {
-            //COLORA DEL COLORE DEI GIOCATORI
             for (int i = COL_WHITE; i<=6; i++)
-                colorPoint(i, Color.web(logic.getSetting("Customization", "blackPawnFill", String.class)), Color.web(logic.getSetting("Customization", "blackPawnStroke", String.class)));
+                colorPoint(i, Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)), Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
             for (int i = COL_BLACK; i > 18; i--)
-                colorPoint(i, Color.web(logic.getSetting("Customization", "whitePawnFill", String.class)), Color.web(logic.getSetting("Customization", "whitePawnStroke", String.class)));
-        } else
-        {
+                colorPoint(i, Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class)), Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
+        } else {
             for (int i = COL_WHITE; i<=6; i++)
                 restoreColorToPoint(i);
             for (int i = COL_BLACK; i > 18; i--)
@@ -241,11 +210,10 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     private void pointAnimationCycle() {
         int restoreIndex = pointAnimationIndex - pointAnimationIndexIncrement;
         Color color = Color.RED;
-        if (pointAnimationIndexIncrement == 1) {
-            color = Color.web(logic.getSetting("Customization", "whitePawnFill", String.class));
-        } else if (pointAnimationIndexIncrement == -1) {
-            color = Color.web(logic.getSetting("Customization", "blackPawnFill", String.class));
-        }
+        if (pointAnimationIndexIncrement == 1)
+            color = Color.web(getLogic().getSetting("Customization", "whitePawnFill", String.class));
+        else if (pointAnimationIndexIncrement == -1)
+            color = Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class));
         colorPoint(pointAnimationIndex, color);
         restoreColorToPoint(restoreIndex);
         if (pointAnimationIndex == COL_WHITE)
@@ -275,14 +243,14 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
             else {
                 diceRollAnimation.setCycleCount(cycles);
                 diceRollAnimation.setOnFinished(e -> {
-                    logic.tutorialStageAction();
-                    if (logic.isRollDouble()) {
+                    getLogic().tutorialStageAction();
+                    if (getLogic().isRollDouble()) {
                         openDoubleDice();
                     }
                     DiceView.setDiceValues(diceArray);
                 });
             }
-            if (!diceTrayOpen) {
+            if (diceTray.getWidth() == 0) {
                 Timeline timeline = new Timeline(new KeyFrame(Duration.ZERO,
                         e -> openDiceTray()),
                         new KeyFrame(Duration.seconds(0.55),
@@ -308,26 +276,20 @@ public class TutorialView extends DynamicGameBoard implements GenericGUI{
     }
     protected void releasePawn(MouseEvent event) {
         super.releasePawn(event);
-        logic.tutorialStageAction();
+        getLogic().tutorialStageAction();
     }
 
     protected void waitForRecall(double seconds) {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(seconds),
-                                            e -> logic.tutorialStageAction()));
+                                            e -> getLogic().tutorialStageAction()));
         timeline.setCycleCount(1);
         timeline.play();
     }
     public double getTextBoxYFactor() {
         return textBoxYFactor;
     }
-    public void setTextBoxYFactor(double textBoxYFactor) {
-        this.textBoxYFactor = textBoxYFactor;
-    }
     public double getTextBoxXFactor() {
         return textBoxXFactor;
-    }
-    public void setTextBoxXFactor(double textBoxXFactor) {
-        this.textBoxXFactor = textBoxXFactor;
     }
 
 }

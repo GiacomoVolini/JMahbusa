@@ -1,14 +1,15 @@
 package jmb.view;
 
-import static java.lang.Math.*;
-import static jmb.view.ConstantsView.*;
-import static jmb.view.View.logic;
-
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static jmb.view.ConstantsView.*;
+import static jmb.view.View.getLogic;
 
 public class GameViewRedraw extends DynamicGameBoardRedraw {
 
@@ -34,7 +35,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     public static void resizeButtons(GameView board) {
 
-        //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
         board.backBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
         board.finishBTN.setMaxWidth(getMaxBtnWidth(board.window, board.outerRect));
@@ -69,13 +69,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.leftText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
         board.selectText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
     }
-
-    // Metodo per rimposizionamento dinamico della pagina Pausa
-    protected static void resizePauseMenu(GameView board) {
-        board.pauseMenu.setLayoutX(board.window.getWidth() / 2 - board.pauseMenu.getWidth() / 2);
-        board.pauseMenu.setLayoutY(board.window.getHeight() / 2 - board.pauseMenu.getHeight() / 2);
-    }
-
     private static void resizeVictoryRect(GameView board) {
         board.victoryPanel.setWidth(board.window.getWidth() / 2);
         board.victoryPanel.setHeight(board.window.getHeight() / 2.5);
@@ -238,24 +231,17 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    private static void resizeSaveDialogue(GameView board) {
-        board.saveDialogue.setLayoutX(board.window.getWidth() / 2 - board.saveDialogue.getPrefWidth() / 2);
-        board.saveDialogue.setLayoutY(board.window.getHeight() / 2 - board.saveDialogue.getPrefHeight() / 2);
-    }
-
     protected static void resizeAll(GameView board) {
         DynamicGameBoardRedraw.resizeAll(board);
         resizePlsPawns(board);
         resizePlsRects(board);
         resizeTimer(board);
-        if (!logic.getGameStart())
+        if (!getLogic().getGameStart())
             resizeStartDialogue(board);
         resizeButtons(board);
-        resizePauseMenu(board);
-        resizeSaveDialogue(board);
-        if (logic.isTournamentOngoing())
+        if (getLogic().isTournamentOngoing())
             resizeTournamentComponents(board);
-        if (logic.getGameEndState()) {
+        if (getLogic().getGameEndState()) {
             resizeVictoryPanel(board);
         }
     }

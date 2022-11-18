@@ -20,7 +20,6 @@ public abstract class GameBoardRedraw {
     protected static void setYLayoutFactor (double value) {yLayoutFactor = value;}
 
 
-    // Metodo getter per maxExitWidth
     public static double getMaxExitWidth() { return maxExitWidth; }
 
     protected static void calcTrayWidths (GameBoard board) {
@@ -186,8 +185,5 @@ public abstract class GameBoardRedraw {
         calcTrayWidths(board);
         resizeExitRegions(board);
     }
-
-
-
 
 }

@@ -2,62 +2,35 @@ package jmb.logic;
 
 import jmb.view.IView;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.Objects;
 
 import static jmb.ConstantsShared.EMPTY;
 
 public class Logic implements ILogic {
 
-    public static IView view;
-    public static ILogic logic;
+    private static IView view;
+    private static Logic logic;
     public DynamicBoardLogic board;
     public LeaderboardLogic ldb;
     public SettingsLogic settings;
     public String appDirectory;
     public StringsReader strings;
 
-    private void createApplicationFolders() {
-        try {
-            Files.createDirectories(Path.of(getAppDirectory() + "/leaderboard"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/saves"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/settings"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/languages/strings"));
-            Files.createDirectories(Path.of(getAppDirectory() + "/languages/flags"));
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+    public static IView getView() {
+        return view;
     }
-    private void placeLanguageFiles() {
-        System.out.println("PRIMA DEL RTY");
-        try {
-            System.out.println("SON QUI, DENTRO TRY");
-            Path supportedPath = Path.of(getAppDirectory(), "languages","languages.ini");
-            if (!Files.exists(supportedPath)) {
-                Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("languages.ini")), supportedPath);
-                for (String lang : StringsReader.getSupportedLanguages()) {
-                    System.out.println(lang);
-                    Path langPath = Path.of(getAppDirectory() , "languages","strings","STRINGS_" + lang + ".ini");
-                    Path flagPath = Path.of(getAppDirectory() , "languages","flags","flag_" + lang + ".png");
-                    if (!Files.exists(langPath)) {
-                        System.out.println("DOVREI COPIARE STRING");
-                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("STRINGS_"+lang+".ini")), langPath);
-                    } else {
-                        System.out.println("IL FILE ESISTE?");
-                    }
-                    if (!Files.exists(flagPath)) {
-                        System.out.println("DOVREI COPIARE FLAG");
-                        Files.copy(Objects.requireNonNull(this.getClass().getResourceAsStream("flags/flag_"+lang+".png")), flagPath);
-                    }
-                }
-            }
-        } catch (IOException ioe) {
-            System.out.println("OH NO");
-            ioe.printStackTrace();
-        }
+
+    public static void setView(IView view) {
+        Logic.view = view;
+    }
+
+    public static Logic getLogic() {
+        return logic;
+    }
+
+    public static void createLogic() {
+        Logic.logic = new Logic();
+        logic.initializeProgramLogic();
     }
     @Override
     public void initializeGameLogic() {
@@ -65,11 +38,7 @@ public class Logic implements ILogic {
     }
     @Override
     public void initializeLeaderboardLogic() {
-        try {
-            ldb = new LeaderboardLogic();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        ldb = new LeaderboardLogic();
     }
     @Override
     public void initializeTutorialLogic() {
@@ -78,9 +47,8 @@ public class Logic implements ILogic {
     @Override
     public void initializeProgramLogic() {
         appDirectory = System.getProperty("user.dir");
-        System.out.println(appDirectory);
-        createApplicationFolders();
-        placeLanguageFiles();
+        Utilities.createApplicationFolders(appDirectory);
+        Utilities.placeLanguageFiles(appDirectory);
         settings = new SettingsLogic();
         initializeStringsReader();
     }
@@ -143,12 +111,7 @@ public class Logic implements ILogic {
     }
     @Override
     public void addNewPlayersToList(String newName1, String newName2) {
-        if (!newName1.contains("\u2001")) {
-            ldb.addNewPlayer(newName1);
-        }
-        if (!newName2.contains("\u2001")) {
-            ldb.addNewPlayer(newName2);
-        }
+            ldb.addNewPlayers(newName1, newName2);
     }
     @Override
     public boolean isDiceUsed (int i) {
@@ -180,11 +143,7 @@ public class Logic implements ILogic {
     }
     @Override
     public void setPlayersForGame(String whitePlayer, String blackPlayer) {
-        GameLogic game = (GameLogic)board;
-        game.setWhitePlayer(whitePlayer);
-        game.setBlackPlayer(blackPlayer);
-        game.setBlacksWonPoints(0);
-        game.setWhitesWonPoints(0);
+        ((GameLogic)board).setPlayersForGame(whitePlayer, blackPlayer);
     }
     @Override
     public void setPlayersForGame(String whitePlayer, String blackPlayer, int tournamentPoints) {
@@ -207,7 +166,7 @@ public class Logic implements ILogic {
     }
     @Override
     public boolean isTournamentOngoing() {
-        return (((GameLogic)board).getTournamentPoints() != 0);
+        return (((GameLogic)board).getTournamentPoints() != 1);
     }
     @Override
     public int getWhiteTournamentPoints() {
@@ -267,9 +226,7 @@ public class Logic implements ILogic {
     }
     @Override
     public int[][] getBoardMatrix() {
-        int[][] out = null;
-        out = board.getSquares();
-        return out;
+        return board.getSquares();
     }
     @Override
     public void setCanRevert (boolean value) {
@@ -308,11 +265,7 @@ public class Logic implements ILogic {
     }
     @Override
     public boolean allDiceUsed() {
-        boolean used = true;
-        for (int i = 0; i < 4 && used; i++)
-            if (!isDiceUsed(i))
-                used = false;
-        return used;
+        return board.getDice().areAllDiceUsed();
     }
     @Override
     public void completeMoves() {
@@ -320,17 +273,11 @@ public class Logic implements ILogic {
     }
     @Override
     public boolean isParsable(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (final NumberFormatException e) {
-            return false;
-        }
+        return Utilities.isParsableAsInteger(input);
     }
     @Override
     public void resetDefaultSettings() {
-        settings.getDefaultSettings();
-        settings.restoreCurrent();
+        settings.resetDefaultSettings();
     }
     @Override
     public void applySettingsChanges() {
@@ -401,11 +348,11 @@ public class Logic implements ILogic {
         return settings.getSetting(leftPreset, presetEnum);
     }
     @Override
-    public String getcurrentlanguage (){
+    public String getCurrentLanguage(){
         return StringsReader.getcurrentlanguage();
     }
     @Override
-    public void setcurrentlanguage(int num){
+    public void setCurrentLanguage(int num){
         StringsReader.setcurrentlanguage(num);
     }
 }

@@ -1,8 +1,7 @@
 package jmb.logic.tutorial;
 
-import static jmb.ConstantsShared.*;
-import static jmb.logic.Logic.logic;
-import static jmb.logic.Logic.view;
+import static jmb.ConstantsShared.SFX;
+import static jmb.logic.Logic.*;
 
 public class GetPawnsOutStage extends ComparableTutorialStage {
 
@@ -13,20 +12,20 @@ public class GetPawnsOutStage extends ComparableTutorialStage {
     }
 
     public void start() {
-        if(!logic.getSetting("Audio", "muteSFX", boolean.class))
-            view.playSFX(SFX.DICE_ROLL);
-        view.tutorialDiceAnimation(true);
-        logic.forceDice(5);
-        view.callRedraw();
-        view.setNextTutorialString(logic.getString(stageStringInitial), true);
-        view.tutorialTextBoxAnimation(0.6,0.35 );
+        if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
+            getView().playSFX(SFX.DICE_ROLL);
+        getView().tutorialDiceAnimation(true);
+        getLogic().forceDice(5);
+        getView().callRedraw();
+        getView().setNextTutorialString(getLogic().getString(stageStringInitial), true);
+        getView().tutorialTextBoxAnimation(0.6,0.35 );
     }
     public void action() {
         boolean allUsed = true;
-        for (boolean used: logic.getUsedArray())
+        for (boolean used: getLogic().getUsedArray())
             if (!used)
                 allUsed = false;
         if (allUsed)
-            logic.nextTutorialStage();
+            getLogic().nextTutorialStage();
     }
 }

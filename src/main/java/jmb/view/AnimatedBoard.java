@@ -13,6 +13,7 @@ public interface AnimatedBoard {
     void closeWhiteExit();
     void openDiceTray();
     void setPawnsVisible(boolean set);
+    void restoreBoardColors();
     void restoreColorToPoint(int i);
     void openDoubleDice();
     void closeDoubleDice();

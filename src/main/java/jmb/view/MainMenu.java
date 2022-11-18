@@ -1,11 +1,17 @@
 package jmb.view;
 
-import javafx.animation.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -13,16 +19,11 @@ import javafx.util.Duration;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static jmb.ConstantsShared.*;
-import static jmb.view.View.logic;
-import static jmb.view.View.view;
+import static jmb.ConstantsShared.Music;
+import static jmb.ConstantsShared.UNDEFINED;
 import static jmb.view.ConstantsView.*;
+import static jmb.view.View.*;
 
-/*DOC
-    In questa classe c'era memory leak, oggetti MainMenu rimanevano in memoria anche dopo essere passati a
-    un'altra finestra. Risolto smettendo di usare MenuItem e passando a ComboBox
-    Alternativamente risolto cambiando il sistema per l'animazione dello sfondo
- */
 
 public class MainMenu implements GenericGUI{
 
@@ -76,7 +77,7 @@ public class MainMenu implements GenericGUI{
 
     @FXML
     void newGameAction() {
-        if(logic.shouldPlayTutorial()) {
+        if(getLogic().shouldPlayTutorial()) {
             promptPane.setVisible(true);
             loadStrings();
         }else {
@@ -87,60 +88,59 @@ public class MainMenu implements GenericGUI{
 
     @FXML
     void openLogin() {
-        logic.initializeLeaderboardLogic();
-        logic.initializeGameLogic();
-        logic.flagTutorialPlayed();
+        getLogic().initializeLeaderboardLogic();
+        getLogic().initializeGameLogic();
+        getLogic().flagTutorialPlayed();
         animationToContinue = false;
-        App.changeRoot(LOG_IN);
+        getView().changeRoot(LOG_IN);
     }
 
     @FXML
     void openLeaderBoard() {
         animationToContinue = false;
-        logic.initializeLeaderboardLogic();
-        App.changeRoot(LEADERBOARDS);
+        getLogic().initializeLeaderboardLogic();
+        getView().changeRoot(LEADERBOARDS);
     }
 
     @FXML
     void openMenuImpostazioni(){
         animationToContinue = false;
-        App.changeRoot(SETTINGS);
+        getView().changeRoot(SETTINGS);
     }
 
     @FXML
     void openLoadGame(){
-        animationToContinue = false;
-        App.changeRoot(LOAD_GAME);
+        getView().changeRoot(LOAD_GAME);
     }
 
     @FXML
     void openTutorial(){
         animationToContinue = false;
-        logic.initializeTutorialLogic();
-        App.changeRoot(TUTORIAL);
-        if (!logic.getSetting("Audio", "muteMusic", boolean.class))
-            view.playMusic(Music.TUTORIAL);
+        getLogic().initializeTutorialLogic();
+        getView().changeRoot(TUTORIAL);
+        if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
+            getView().playMusic(Music.TUTORIAL);
     }
 
     private void loadStrings() {
-        newGameButton.setText(logic.getString("newGame"));
-        loadGameButton.setText(logic.getString("loadGame"));
-        settingsButton.setText(logic.getString("settings"));
-        leaderboardButton.setText(logic.getString("leaderboards"));
-        exitButton.setText(logic.getString("exitGame"));
-        promptLabel.setText(logic.getString("tutorialNeverPlayed"));
-        promptYesButton.setText(logic.getString("yes"));
-        promptNoButton.setText(logic.getString("no"));
-        promptPane.setText(logic.getString("newGame"));
-        tutorialButton.setText(logic.getString("Tutorial"));
+        newGameButton.setText(getLogic().getString("newGame"));
+        loadGameButton.setText(getLogic().getString("loadGame"));
+        settingsButton.setText(getLogic().getString("settings"));
+        leaderboardButton.setText(getLogic().getString("leaderboards"));
+        exitButton.setText(getLogic().getString("exitGame"));
+        promptLabel.setText(getLogic().getString("tutorialNeverPlayed"));
+        promptYesButton.setText(getLogic().getString("yes"));
+        promptNoButton.setText(getLogic().getString("no"));
+        promptPane.setText(getLogic().getString("newGame"));
+        tutorialButton.setText(getLogic().getString("Tutorial"));
     }
 
 
     private void loadLanguages() {
-        String[] supportedLanguages = logic.getSupportedLanguages();
+        String[] supportedLanguages = getLogic().getSupportedLanguages();
         for (String language: supportedLanguages) {
             languageMenu.getItems().add(
-                    new Image(Path.of(logic.getAppDirectory(), "languages", "flags", "flag_"+language+".png").toUri().toString()));
+                    new Image(Path.of(getLogic().getAppDirectory(), "languages", "flags", "flag_"+language+".png").toUri().toString()));
         }
         languageMenu.setButtonCell(new ImageListCell());
         languageMenu.setCellFactory(listView -> new ImageListCell());
@@ -148,7 +148,7 @@ public class MainMenu implements GenericGUI{
     }
 
     private int getSelectionIndex(String[] languages) {
-        String currentLanguage = logic.getcurrentlanguage();
+        String currentLanguage = getLogic().getCurrentLanguage();
         boolean found = false;
         int out = UNDEFINED;
         for (int i = 0; !found && i < languages.length; i++) {
@@ -162,9 +162,9 @@ public class MainMenu implements GenericGUI{
 
     @FXML
     private void setLanguage(Event event) {
-        logic.setcurrentlanguage(((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex());
-        logic.setSetting("General", "language",logic.getSupportedLanguages()[((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex()]);
-        logic.applySettingsChanges();
+        getLogic().setCurrentLanguage(((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex());
+        getLogic().setSetting("General", "language",getLogic().getSupportedLanguages()[((ComboBox)event.getSource()).getSelectionModel().getSelectedIndex()]);
+        getLogic().applySettingsChanges();
         loadStrings();
     }
 
@@ -187,8 +187,8 @@ public class MainMenu implements GenericGUI{
             background2.setImage(backgroundImages[1]);
 
             // musica
-            if (!logic.getSetting("Audio", "muteMusic", boolean.class)) {
-                view.playMusic(Music.MENU);
+            if (!getLogic().getSetting("Audio", "muteMusic", boolean.class)) {
+                getView().playMusic(Music.MENU);
             }
 
             backgroundAnimationTimer(backgroundImages);

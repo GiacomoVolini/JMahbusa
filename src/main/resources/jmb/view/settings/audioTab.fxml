@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<TitledPane fx:id="audioTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Audio" visible="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.AudioTab">
+   <content>
+      <AnchorPane fx:id="audioAnchorPane" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
+         <children>
+            <Text fx:id="musicText" layoutX="28.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Music" wrappingWidth="156.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <CheckBox fx:id="musicCheck" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="14.0" prefWidth="204.0" text="MuteMusic">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+            <Slider fx:id="musicSlider" layoutX="209.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
+            <CheckBox fx:id="sFXCheck" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#muteSFX" prefHeight="30.0" prefWidth="235.0" text="MuteSoundEffects">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </CheckBox>
+            <Text fx:id="sFXText" layoutX="28.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SoundEffects" wrappingWidth="156.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Slider fx:id="sFXSlider" layoutX="209.0" layoutY="111.0" onMouseReleased="#playSound" showTickLabels="true" showTickMarks="true" />
+         </children>
+      </AnchorPane>
+   </content>
+</TitledPane>

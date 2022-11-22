@@ -11,9 +11,9 @@ public class View implements IView {
     private static ILogic logic;
     private static View view;
 
-    public static GenericGUI currentScene;
+    public GenericGUI currentScene;
 
-    public static MusicPlayer musicController;
+    public MusicPlayer musicController;
 
     public static ILogic getLogic() {
         return logic;

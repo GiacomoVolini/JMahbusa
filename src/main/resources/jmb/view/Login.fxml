@@ -1,73 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.*?>
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameSetup">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameSetup">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
-   <TitledPane fx:id="playerNamesTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0"
-               layoutY="39.0" prefHeight="191.0" prefWidth="383.0" text="log in / sign up">
-      <AnchorPane fx:id="registrati2" minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="381.0">
-         <Button fx:id="confirmButton" layoutX="94.0" layoutY="88.0" mnemonicParsing="false" onAction="#savePlayer"
-                 prefHeight="27.0" prefWidth="186.0" text="Salva">
+   <ImageView fx:id="feltImage" blendMode="MULTIPLY" fitHeight="459.0" fitWidth="644.0" layoutY="1.0" pickOnBounds="true" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+      <image>
+         <Image url="@WhiteFelt.png" />
+      </image>
+      <effect>
+         <Blend mode="MULTIPLY" />
+      </effect>
+   </ImageView>
+   <TitledPane fx:id="playerNamesTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0" layoutY="39.0" prefHeight="191.0" prefWidth="383.0" text="log in / sign up">
+      <AnchorPane fx:id="registrati2" minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="381.0" style="-fx-background-color: #e1a751;">
+         <Button fx:id="confirmButton" layoutX="98.0" layoutY="83.0" mnemonicParsing="false" onAction="#savePlayer" prefHeight="34.0" prefWidth="185.0" stylesheets="@button%20style.css" text="Salva">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
          </Button>
-         <Button fx:id="exitButton" layoutX="94.0" layoutY="124.0" mnemonicParsing="false" onAction="#goToMainMenu"
-                 prefHeight="25.0" prefWidth="186.0" text="Esci">
+         <Button fx:id="exitButton" layoutX="98.0" layoutY="123.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="30.0" prefWidth="185.0" stylesheets="@button%20style.css" text="Esci">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
          </Button>
-         <ComboBox fx:id="whitePlayerNameBox" editable="true" layoutX="130.0" layoutY="17.0" prefWidth="150.0"
-                   promptText="Giocatore 1"/>
-         <ComboBox fx:id="blackPlayerNameBox" editable="true" layoutX="130.0" layoutY="52.0" prefWidth="150.0"
-                   promptText="Giocatore 2"/>
-         <Circle fx:id="whitePlayerPawn" fill="WHITE" layoutX="105.0" layoutY="30.0" radius="11.0" stroke="BLACK"
-                 strokeType="INSIDE"/>
-         <Circle fx:id="blackPlayerPawn" layoutX="105.0" layoutY="65.0" radius="11.0" stroke="WHITE"
-                 strokeType="INSIDE"/>
-         <Label fx:id="errorLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0"
-                prefWidth="381.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false"/>
+         <ComboBox fx:id="whitePlayerNameBox" editable="true" layoutX="127.0" layoutY="17.0" prefWidth="150.0" promptText="Giocatore 1" style="-fx-background-color: #e1a751;" stylesheets="@ComboBox.css" />
+         <ComboBox fx:id="blackPlayerNameBox" editable="true" layoutX="127.0" layoutY="52.0" prefWidth="150.0" promptText="Giocatore 2" style="-fx-background-color: #e1a751;" stylesheets="@ComboBox.css" />
+         <Circle fx:id="whitePlayerPawn" fill="WHITE" layoutX="102.0" layoutY="30.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+         <Circle fx:id="blackPlayerPawn" layoutX="102.0" layoutY="65.0" radius="11.0" stroke="WHITE" strokeType="INSIDE" />
+         <Label fx:id="errorLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false" />
       </AnchorPane>
    </TitledPane>
-   <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0"
-               prefHeight="132.0" prefWidth="383.0" text="Game Settings" textAlignment="CENTER">
-      <AnchorPane fx:id="GT2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-         <RadioButton fx:id="noTimerRadio" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer"
-                      text="No Taimer"/>
-         <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false"
-                      onAction="#mediumTimer" text="2 minute"/>
-         <RadioButton fx:id="hardTimerRadio" layoutX="192.0" layoutY="39.0" mnemonicParsing="false"
-                      onAction="#hardTimer" text="30 seconds"/>
-         <RadioButton fx:id="customTimerRadio" layoutX="286.0" layoutY="39.0" mnemonicParsing="false"
-                      onAction="#customTimer"/>
-         <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0"
-                    prefWidth="65.0" promptText="secondi"/>
-         <Text fx:id="easyText" layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:"/>
-         <Text fx:id="mediumText" layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0"
-               text="Medio:"/>
-         <Text fx:id="hardText" layoutX="195.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:"/>
-         <Text fx:id="customText" layoutX="309.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0"
-               text="Optional:"/>
-         <CheckBox fx:id="revertCheckBox" layoutX="143.0" layoutY="73.0" mnemonicParsing="false"
-                   onAction="#setCanRevert" selected="true" text="Revert moves"/>
+   <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" text="Game Settings" textAlignment="CENTER">
+      <AnchorPane fx:id="GT2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
+         <RadioButton fx:id="noTimerRadio" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer" stylesheets="@radio%20Style.css" text="No Taimer" />
+         <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" stylesheets="@radio%20Style.css" text="2 minute" />
+         <RadioButton fx:id="hardTimerRadio" layoutX="192.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardTimer" stylesheets="@radio%20Style.css" text="30 seconds" />
+         <RadioButton fx:id="customTimerRadio" layoutX="286.0" layoutY="39.0" mnemonicParsing="false" onAction="#customTimer" stylesheets="@radio%20Style.css" />
+         <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" />
+         <Text fx:id="easyText" layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
+         <Text fx:id="mediumText" layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
+         <Text fx:id="hardText" layoutX="195.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />
+         <Text fx:id="customText" layoutX="290.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Optional:" />
+         <CheckBox fx:id="revertCheckBox" layoutX="143.0" layoutY="73.0" mnemonicParsing="false" onAction="#setCanRevert" selected="true" stylesheets="@CheckBox.css" text="Revert moves" />
       </AnchorPane>
    </TitledPane>
-   <TitledPane fx:id="tournamentPanel" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="256.0"
-               lineSpacing="3.0" prefHeight="80.0" prefWidth="383.0" text="Tournament" textAlignment="CENTER">
-      <AnchorPane fx:id="GTT" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-         <CheckBox fx:id="tournamentCheckBox" layoutX="65.0" layoutY="19.0" mnemonicParsing="false"
-                   onAction="#toggleSpinner" text="Activate"/>
-         <Label fx:id="tournamentLabel" contentDisplay="RIGHT" disable="true" layoutX="165.0" layoutY="19.0"
-                text="Points to Win:" textAlignment="RIGHT"/>
-         <Spinner fx:id="tournamentSpinner" disable="true" layoutX="251.0" layoutY="15.0" prefHeight="25.0"
-                  prefWidth="66.0"/>
+   <TitledPane fx:id="tournamentPanel" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="256.0" lineSpacing="3.0" prefHeight="80.0" prefWidth="383.0" text="Tournament" textAlignment="CENTER">
+      <AnchorPane fx:id="GTT" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
+         <CheckBox fx:id="tournamentCheckBox" layoutX="65.0" layoutY="19.0" mnemonicParsing="false" onAction="#toggleSpinner" stylesheets="@CheckBox.css" text="Activate" />
+         <Label fx:id="tournamentLabel" contentDisplay="RIGHT" disable="true" layoutX="165.0" layoutY="19.0" text="Points to Win:" textAlignment="RIGHT" />
+         <Spinner fx:id="tournamentSpinner" disable="true" layoutX="251.0" layoutY="15.0" prefHeight="25.0" prefWidth="66.0" stylesheets="@Spinner%20Custom.css" />
       </AnchorPane>
    </TitledPane>
 </AnchorPane>

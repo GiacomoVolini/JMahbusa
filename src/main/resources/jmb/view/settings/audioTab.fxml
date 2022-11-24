@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<TitledPane fx:id="audioTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Audio" visible="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.AudioTab">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TitledPane fx:id="audioTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Audio" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.AudioTab">
    <content>
       <AnchorPane fx:id="audioAnchorPane" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
          <children>
@@ -12,13 +16,13 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <CheckBox fx:id="musicCheck" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="14.0" prefWidth="204.0" text="MuteMusic">
+            <CheckBox fx:id="musicCheck" layoutX="28.0" layoutY="148.0" mnemonicParsing="false" onAction="#muteMusic" prefHeight="14.0" prefWidth="204.0" stylesheets="@../CheckBox.css" text="MuteMusic">
                <font>
                   <Font size="20.0" />
                </font>
             </CheckBox>
-            <Slider fx:id="musicSlider" layoutX="209.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" />
-            <CheckBox fx:id="sFXCheck" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#muteSFX" prefHeight="30.0" prefWidth="235.0" text="MuteSoundEffects">
+            <Slider fx:id="musicSlider" layoutX="209.0" layoutY="66.0" showTickLabels="true" showTickMarks="true" stylesheets="@../slider%20style.css" />
+            <CheckBox fx:id="sFXCheck" layoutX="28.0" layoutY="190.0" mnemonicParsing="false" onAction="#muteSFX" prefHeight="30.0" prefWidth="235.0" stylesheets="@../CheckBox.css" text="MuteSoundEffects">
                <font>
                   <Font size="20.0" />
                </font>

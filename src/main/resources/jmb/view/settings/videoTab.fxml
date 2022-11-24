@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<TitledPane fx:id="videoTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Video" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.VideoTab">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TitledPane fx:id="videoTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" text="Video" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.VideoTab">
    <content>
       <AnchorPane fx:id="videoAnchorPane" minHeight="0.0" minWidth="0.0" mouseTransparent="true" prefHeight="440.0" prefWidth="496.0">
          <children>
@@ -14,12 +18,12 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <CheckBox fx:id="fullscreenCheck" layoutX="28.0" layoutY="171.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" text="Fullscreen">
+            <CheckBox fx:id="fullscreenCheck" layoutX="28.0" layoutY="171.0" mnemonicParsing="false" onAction="#fullscreen" prefHeight="14.0" prefWidth="204.0" stylesheets="@../CheckBox.css" text="Fullscreen">
                <font>
                   <Font size="20.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="lockResolutionCheck" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#lockResolution" prefHeight="30.0" prefWidth="224.0" text="BlockResolution">
+            <CheckBox fx:id="lockResolutionCheck" layoutX="255.0" layoutY="171.0" mnemonicParsing="false" onAction="#lockResolution" prefHeight="30.0" prefWidth="224.0" stylesheets="@../CheckBox.css" text="BlockResolution">
                <font>
                   <Font size="20.0" />
                </font>
@@ -34,8 +38,8 @@
                   <Font size="20.0" />
                </font>
             </Text>
-            <TextField fx:id="resolutionWidthField" layoutX="144.0" layoutY="81.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
-            <TextField fx:id="resolutionHeightField" layoutX="200.0" layoutY="117.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" />
+            <TextField fx:id="resolutionWidthField" layoutX="144.0" layoutY="81.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" stylesheets="@../TextField.css" />
+            <TextField fx:id="resolutionHeightField" layoutX="200.0" layoutY="117.0" onKeyReleased="#changeResolution" prefHeight="25.0" prefWidth="93.0" promptText="NumbersOnly" stylesheets="@../TextField.css" />
          </children>
       </AnchorPane>
    </content>

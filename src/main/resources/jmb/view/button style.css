@@ -1,0 +1,15 @@
+.button {
+    -fx-background-color: 
+        #bc8c44,
+        rgba(0,0,0,0.05),
+        linear-gradient(#43300a, #43300a),
+        linear-gradient(#43300a 0%, #43300a 20%, #43300a 80%, #43300a 100%),
+        linear-gradient(#43300a, #43300a);
+    -fx-background-insets: 0,3 3 3 3,3,3,3;
+    -fx-padding: 7 7 7 7;
+    -fx-font-family: "Helvetica";
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #bc8c44;
+    
+}}

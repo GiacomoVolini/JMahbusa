@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+    <fx:include fx:id="videoTab" source="settings/videoTab.fxml" />
+    <fx:include fx:id="audioTab" source="settings/audioTab.fxml" />
+    <fx:include fx:id="controlsTab" source="settings/controlsTab.fxml" />
+    <fx:include fx:id="customizationTab" source="settings/customizationTab.fxml" />
     <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
          <AnchorPane fx:id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="174.0">
             <children>
                <ImageView fx:id="bgsinistra" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
-               <Button fx:id="videoButton" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" text="Video" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="audioButton" layoutX="19.0" layoutY="100.0" mnemonicParsing="false" onAction="#openEditAudio" prefHeight="26.0" prefWidth="133.0" text="Audio" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="customizationButton" layoutX="19.0" layoutY="150.0" mnemonicParsing="false" onAction="#openEditCustomize" prefHeight="26.0" prefWidth="133.0" text="Customization" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="controlsButton" layoutX="19.0" layoutY="200.0" mnemonicParsing="false" onAction="#openEditControls" prefHeight="26.0" prefWidth="133.0" text="Commands" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="mainMenuButton" layoutX="19.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="26.0" prefWidth="133.0" text="Main Menu" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="applyButton" disable="true" layoutX="19.0" layoutY="290.0" mnemonicParsing="false" onAction="#applySettings" prefHeight="25.0" prefWidth="133.0" text="Apply" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
-               <Button fx:id="resetButton" layoutX="19.0" layoutY="325.0" mnemonicParsing="false" onAction="#resetToDefaults" prefHeight="25.0" prefWidth="133.0" text="Reset" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="videoButton" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Video" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="audioButton" layoutX="19.0" layoutY="100.0" mnemonicParsing="false" onAction="#openEditAudio" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Audio" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="customizationButton" layoutX="19.0" layoutY="150.0" mnemonicParsing="false" onAction="#openEditCustomize" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Customization" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="controlsButton" layoutX="19.0" layoutY="200.0" mnemonicParsing="false" onAction="#openEditControls" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Commands" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="mainMenuButton" layoutX="19.0" layoutY="360.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Main Menu" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="applyButton" disable="true" layoutX="19.0" layoutY="290.0" mnemonicParsing="false" onAction="#applySettings" prefHeight="25.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Apply" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
+               <Button fx:id="resetButton" layoutX="19.0" layoutY="325.0" mnemonicParsing="false" onAction="#resetToDefaults" prefHeight="25.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Reset" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
             </children>
          </AnchorPane>
       </content>
     </TitledPane>
-    <fx:include fx:id="videoTab" source="settings/videoTab.fxml" />
-    <fx:include fx:id="audioTab" source="settings/audioTab.fxml" />
-    <fx:include fx:id="controlsTab" source="settings/controlsTab.fxml" />
-    <fx:include fx:id="customizationTab" source="settings/customizationTab.fxml"/>
     <TitledPane fx:id="warningTitlePane" alignment="CENTER" animated="false" collapsible="false" disable="true" layoutX="107.0" layoutY="128.0" prefHeight="206.0" prefWidth="412.0" text="Attention" visible="false">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
             <Text fx:id="warningText" layoutX="32.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AttentionText" wrappingWidth="345.130859375">
@@ -33,9 +35,9 @@
                     <Font size="19.0" />
                 </font>
             </Text>
-            <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" text="Salva" />
-            <Button fx:id="exitNoSaveButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" onAction="#forceMainMenu" prefWidth="89.0" text="Don'tSave" />
-            <Button fx:id="cancelButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeWarning" prefWidth="89.0" text="Cancel" />
+            <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" stylesheets="@button%20style.css" text="Salva" />
+            <Button fx:id="exitNoSaveButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" onAction="#forceMainMenu" prefWidth="89.0" stylesheets="@button%20style.css" text="Don'tSave" />
+            <Button fx:id="cancelButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeWarning" prefWidth="89.0" stylesheets="@button%20style.css" text="Cancel" />
         </AnchorPane>
     </TitledPane>
 </AnchorPane>

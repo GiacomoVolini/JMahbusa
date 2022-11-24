@@ -69,8 +69,6 @@ public class DiceLogic {
     }
     
     public void setDiceToUsed() {
-        // Il metodo, richiamato in seguito ad una mossa correttamente effettuata, imposta come usati i dadi
-        //      indicati nell'array toBeUsed
         // Il metodo agisce "alla cieca" poichè si assume che i controlli necessari siano già stati
         //      effettuati in precedenza
         for (int i = 0; i < used.length; i++) {

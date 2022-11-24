@@ -124,7 +124,6 @@ public class GameLogic extends DynamicBoardLogic {
     }
 
     public int searchFirstFreeRow(int whichPoint) {
-        // Data una colonna della matrice cerca la prima riga libera e la restituisce
         int whichRow = UNDEFINED;
         if (squares[15][whichPoint]==EMPTY) {
             boolean found = false;

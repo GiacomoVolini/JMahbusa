@@ -52,11 +52,11 @@ public class StringsReader {
         return out;
     }
 
-    protected static void setcurrentlanguage(int num){
+    protected static void setCurrentlanguage(int num){
         try {
             Ini ini = new Ini(Path.of(getLogic().getAppDirectory()+"/languages/languages.ini").toFile());
-            Profile.Section rightToLeftLanguages = ini.get("Languages");
-            String[] rTLArray = rightToLeftLanguages.getAll("supportedLanguage", String[].class);
+            Profile.Section supportedLanguages = ini.get("Languages");
+            String[] rTLArray = supportedLanguages.getAll("supportedLanguage", String[].class);
             ini.put("currentlanguage", "language", rTLArray[num]);
             ini.store();
             }catch (IOException ioe) {

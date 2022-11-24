@@ -182,6 +182,7 @@ public class TimelineBuilder {
                 new KeyFrame(Duration.ZERO, new KeyValue(timerIn.scaleYProperty(), 1)),
                 new KeyFrame(Duration.seconds(getLogic().getTurnDuration()), e -> {
                     getLogic().completeMoves();
+                    getLogic().nextTurn();
                 }, new KeyValue(timerIn.scaleYProperty(), 0)));
         return out;
     }

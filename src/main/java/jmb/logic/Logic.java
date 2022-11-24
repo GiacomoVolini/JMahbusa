@@ -412,7 +412,7 @@ public class Logic implements ILogic {
     }
     @Override
     public void setCurrentLanguage(int num){
-        StringsReader.setcurrentlanguage(num);
+        StringsReader.setCurrentlanguage(num);
     }
 
 }

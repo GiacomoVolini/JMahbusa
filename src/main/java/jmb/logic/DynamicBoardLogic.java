@@ -2,7 +2,6 @@ package jmb.logic;
 
 import static java.lang.Math.*;
 import static jmb.ConstantsShared.*;
-import static jmb.logic.ConstantsLogic.*;
 import static jmb.logic.Logic.*;
 
 public abstract class DynamicBoardLogic {
@@ -13,6 +12,8 @@ public abstract class DynamicBoardLogic {
     protected boolean moveOpensWhiteExit = false;
     protected boolean moveOpensBlackExit = false;
     protected int[] moveBuffer = {UNDEFINED, UNDEFINED};
+    private static final int SELECTED = 2;
+    private static final int DESELECTED = -2;
     protected DiceLogic dice;
 
     public void checkPlayerExit (boolean exitCondition, int valueToSearch, int startingPoint, int finalPoint) {

@@ -8,11 +8,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+
+import java.util.Objects;
 
 import static jmb.ConstantsShared.*;
 import static jmb.view.ConstantsView.MAIN_MENU;
@@ -71,6 +75,8 @@ public class GameSetup implements GenericGUI {
     private Text customText;
     @FXML
     private CheckBox revertCheckBox;
+    @FXML
+    private ImageView feltImage;
 
     private boolean settingsPanelOpened = false;
 
@@ -168,6 +174,7 @@ public class GameSetup implements GenericGUI {
         double xdispinner = tournamentSpinner.getLayoutX();
         double xditlb = tournamentLabel.getLayoutX();
 
+
         group = new ToggleGroup();
         noTimerRadio.setToggleGroup(group);
         hardTimerRadio.setToggleGroup(group);
@@ -204,6 +211,10 @@ public class GameSetup implements GenericGUI {
         tournamentCheckBox.setText(getLogic().getString("activate"));
         tournamentLabel.setText(getLogic().getString("target"));
         revertCheckBox.setText(getLogic().getString("revertMove"));
+
+        feltImage.fitHeightProperty().bind(window.heightProperty());
+        feltImage.fitWidthProperty().bind(window.widthProperty());
+        feltImage.setViewOrder(50);
 
         gameSettingsTitlePane.expandedProperty().addListener((obs, oldVal, newVal) -> {
             titledPaneAnimation(newVal);

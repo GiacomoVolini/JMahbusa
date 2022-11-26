@@ -140,6 +140,7 @@ public class SettingsView implements GenericGUI{
         void resetToDefaults(ActionEvent event) {
                 getLogic().resetDefaultSettings();
                 videoTabController.resetWindow();
+                setBackgroundColors(getLogic().getSetting("Customization","backgroundColor",String.class));
                 loadSettings();
                 applyButton.setDisable(true);
                 Stage stage = (Stage) window.getScene().getWindow();
@@ -148,6 +149,13 @@ public class SettingsView implements GenericGUI{
                 if (getLogic().getSetting("Audio", "muteMusic", boolean.class))
                         getView().pauseMusic();
                 else getView().playMusic(Music.MENU);
+        }
+
+        public void setBackgroundColors(String colorString) {
+                videoTabController.setBackgroundColor(colorString);
+                audioTabController.setBackgroundColor(colorString);
+                controlsTabController.setBackgroundColor(colorString);
+                customizationTabController.setBackgroundColor(colorString);
         }
 
         public void changeDimensions() {

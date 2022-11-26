@@ -12,6 +12,8 @@ import java.util.Set;
 import static org.reflections.scanners.Scanners.SubTypes;
 
 public class TutorialLogic extends DynamicBoardLogic {
+
+    //TODO BUG: NEL TUTORIAL NON FUNZIONA PIU LA FASE DELLA PROVA USCITA PEDINE
     private Iterator<ComparableTutorialStage> stageArrayIterator;
     private ComparableTutorialStage currentStage;
     public TutorialLogic() {

@@ -3,6 +3,7 @@ package jmb.view.settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,7 @@ public class ControlsTab {
 
     @FXML private TextField downTextField, finishTurnTextField, leftTextField, openMenuTextField,
             revertMoveTextField, rightTextField, selectTextField, upTextField;
+    @FXML private ImageView feltImage;
 
     private SettingsView settingsView;
     private TextField[] keyBinds;
@@ -117,7 +119,13 @@ public class ControlsTab {
 
     public void initialize() {
         keyBinds = new TextField[] {this.rightTextField, this.leftTextField, this.upTextField, this.downTextField, this.selectTextField, this.revertMoveTextField, this.finishTurnTextField, this.openMenuTextField};
+        feltImage.fitHeightProperty().bind(controlsAnchorPane.heightProperty());
+        feltImage.fitWidthProperty().bind(controlsAnchorPane.widthProperty());
+        setBackgroundColor(getLogic().getSetting("Customization", "backgroundColor", String.class));
+    }
 
+    public void setBackgroundColor(String colorString) {
+        controlsAnchorPane.setStyle("-fx-background-color: " + colorString);
     }
 
     public void changeDimensions(AnchorPane window) {

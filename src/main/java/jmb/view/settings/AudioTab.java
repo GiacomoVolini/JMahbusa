@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -22,6 +23,7 @@ public class AudioTab {
     @FXML private CheckBox musicCheck, sFXCheck;
     @FXML private Slider sFXSlider, musicSlider;
     @FXML private Text sFXText, musicText;
+    @FXML private ImageView feltImage;
     private SettingsView settingsView;
 
     public void setSettingsView(SettingsView sv) {
@@ -125,6 +127,16 @@ public class AudioTab {
         audioTitlePane.setPrefWidth(window.getWidth()/4 + window.getWidth()/4 + window.getWidth()/4);
         audioAnchorPane.setPrefHeight(window.getHeight());
         audioTitlePane.setPrefHeight(window.getHeight());
+    }
+
+    public void initialize() {
+        feltImage.fitHeightProperty().bind(audioAnchorPane.heightProperty());
+        feltImage.fitWidthProperty().bind(audioAnchorPane.widthProperty());
+        setBackgroundColor(getLogic().getSetting("Customization", "backgroundColor", String.class));
+    }
+
+    public void setBackgroundColor(String colorString) {
+        audioAnchorPane.setStyle("-fx-background-color: " + colorString);
     }
 
 }

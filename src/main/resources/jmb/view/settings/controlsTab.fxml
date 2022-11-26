@@ -2,14 +2,25 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="496.0" stylesheets="@../style.css" text="Comandi" visible="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.ControlsTab">
+<TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="496.0" stylesheets="@../style.css" text="Comandi" visible="false" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.ControlsTab">
    <content>
-      <AnchorPane fx:id="controlsAnchorPane" prefHeight="440.0" prefWidth="494.0">
+      <AnchorPane fx:id="controlsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="494.0">
          <children>
+            <ImageView fx:id="feltImage" blendMode="MULTIPLY" fitHeight="459.0" fitWidth="644.0" opacity="0.5" pickOnBounds="true">
+               <image>
+                  <Image url="@../WhiteFelt.png" />
+               </image>
+               <effect>
+                  <Blend mode="MULTIPLY" />
+               </effect>
+            </ImageView>
             <Text fx:id="keyboardText" layoutX="72.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="keyboard" wrappingWidth="107.0">
                <font>
                   <Font size="18.0" />

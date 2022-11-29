@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="847.0" prefWidth="1449.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameView">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -18,24 +18,24 @@
    <fx:include fx:id="saveGamePane" source="game/SaveGamePane.fxml" />
    <Rectangle fx:id="timerOut" fill="WHITE" height="600.0" layoutX="570.0" layoutY="148.0" stroke="BLACK" strokeType="INSIDE" width="33.0" />
    <Rectangle fx:id="timerIn" height="591.0" layoutX="575.0" layoutY="152.0" stroke="BLACK" strokeType="INSIDE" width="25.0" />
-   <Button fx:id="backBTN" disable="true" focusTraversable="false" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="backBTN" disable="true" focusTraversable="false" layoutX="1164.0" layoutY="302.0" mnemonicParsing="false" onAction="#revertMove" prefHeight="38.0" prefWidth="71.0" stylesheets="@button%20style.css" text="BACK" textAlignment="CENTER" textOverrun="CLIP" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font size="16.0" />
       </font>
    </Button>
-   <Button fx:id="finishBTN" alignment="CENTER" disable="true" focusTraversable="false" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="finishBTN" alignment="CENTER" disable="true" focusTraversable="false" layoutX="1144.0" layoutY="409.0" lineSpacing="5.0" mnemonicParsing="false" onAction="#nextTurn" prefHeight="123.0" prefWidth="71.0" stylesheets="@button%20style.css" text="FINISH TURN" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font size="16.0" />
       </font>
    </Button>
-   <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitOption" prefHeight="38.0" prefWidth="71.0" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
+   <Button fx:id="menuBTN" accessibleRole="MENU" disable="true" focusTraversable="false" layoutX="1161.0" layoutY="552.0" mnemonicParsing="false" onAction="#openExitOption" prefHeight="38.0" prefWidth="71.0" stylesheets="@button%20style.css" text="MENU" textAlignment="CENTER" wrapText="true" AnchorPane.rightAnchor="10.0">
       <font>
          <Font size="16.0" />
       </font>
    </Button>
    <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Iniziamo" textAlignment="CENTER">
       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
-         <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" text="CERTO">
+         <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" style="-fx-font-size: 42px;" stylesheets="@button%20style.css" text="CERTO">
             <font>
                <Font size="42.0" />
             </font>
@@ -55,17 +55,17 @@
    <Rectangle fx:id="plBLKOutRect" fill="RED" height="50.0" layoutX="84.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="124.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plBLKInRect" fill="#43300a" height="25.0" stroke="#43300a" strokeType="INSIDE" width="107.0" />
    <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" textFill="#bc8c44" />
-   <Text fx:id="backText" layoutX="1348.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="backText" layoutX="1348.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
       <font>
-         <Font size="12.0" />
+         <Font size="15.0" />
       </font></Text>
-   <Text fx:id="finishTurnText" layoutX="1348.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="finishTurnText" layoutX="1348.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
       <font>
-         <Font size="12.0" />
+         <Font size="15.0" />
       </font></Text>
-   <Text fx:id="menuText" layoutX="1348.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="80.0" AnchorPane.rightAnchor="20.0">
+   <Text fx:id="menuText" layoutX="1348.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
       <font>
-         <Font size="12.0" />
+         <Font size="15.0" />
       </font></Text>
    <Text fx:id="rightText" layoutX="555.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="62.13671874999994">
       <font>

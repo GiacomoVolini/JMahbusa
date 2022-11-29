@@ -1,12 +1,6 @@
 .slider .track {
-      	-fx-background-color: #43300a;
+	-fx-background-color: linear-gradient(to right, #bc8c44, #43300a);
 }
 .slider .thumb {
-	-fx-background-color: #43300a;
-}
-.slider .colored-track {
-	-fx-background-color: #bc8c44;
-}
-.slider .animated-thumb {
-	-fx-background-color: #bc8c44
+	-fx-background-color: #bc8c44, #43300a 30%;
 }

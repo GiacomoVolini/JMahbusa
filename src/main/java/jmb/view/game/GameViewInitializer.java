@@ -20,9 +20,9 @@ public class GameViewInitializer {
             (Text backText, Text finishTurnText, Text menuText, Text upText, Text downText, Text rightText,
              Text leftText, Text selectText, Button backBTN, Button menuBTN, Button finishBTN, Text readyText,
              TitledPane startDialogue, Button startBTN, Label plWHTText, Label plBLKText) {
-        backText.setText(getLogic().getSetting("Controls", "revertMove", String.class));
-        finishTurnText.setText(getLogic().getSetting("Controls", "finishTurn", String.class));
-        menuText.setText(getLogic().getSetting("Controls", "openMenu", String.class));
+        backText.setText(getLogic().getString("revertMove")+":"+ "\n" + getLogic().getSetting("Controls", "revertMove", String.class));
+        finishTurnText.setText(getLogic().getString("finishTurn")+":" +"\n" + getLogic().getSetting("Controls", "finishTurn", String.class));
+        menuText.setText(getLogic().getString("menu")+":" +"\n" + getLogic().getSetting("Controls", "openMenu", String.class));
         upText.setText(getLogic().getString("Up")+"\n" + getLogic().getSetting("Controls", "moveUp", String.class));
         downText.setText(getLogic().getString("Down")+"\n" + getLogic().getSetting("Controls", "moveDown", String.class));
         rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));

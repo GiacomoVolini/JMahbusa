@@ -42,9 +42,9 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setPrefWidth(board.window.getWidth() * 0.15);
         board.finishBTN.setPrefWidth(board.backBTN.getPrefWidth());
         board.menuBTN.setPrefWidth(board.backBTN.getPrefWidth());
-        board.backText.setLayoutX(board.backBTN.getLayoutX() +1);
-        board.finishTurnText.setLayoutX(board.finishBTN.getLayoutX() +1);
-        board.menuText.setLayoutX(board.menuBTN.getLayoutX() +1);
+        board.backText.setLayoutX(board.outerRect.getLayoutX() + 350);
+        board.finishTurnText.setLayoutX(board.outerRect.getLayoutX() + 464);
+        board.menuText.setLayoutX(board.outerRect.getLayoutX() + 564);
         board.upText.setLayoutX(board.outerRect.getLayoutX());
         board.downText.setLayoutX(board.outerRect.getLayoutX() +64);
         board.rightText.setLayoutX(board.outerRect.getLayoutX()+128);
@@ -60,9 +60,9 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2);
         board.finishBTN.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2);
         board.menuBTN.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2);
-        board.backText.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2 +11);
-        board.finishTurnText.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2 +11);
-        board.menuText.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2 +11);
+        board.backText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.finishTurnText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
+        board.menuText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
         board.upText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
         board.downText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
         board.rightText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());

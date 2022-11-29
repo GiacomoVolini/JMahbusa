@@ -8,18 +8,18 @@
 
 <AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.TutorialView">
     <AnchorPane fx:id="textBox1" layoutX="44.0" layoutY="56.0" scaleX="0.0" scaleY="0.0">
-        <Rectangle fx:id="textBoxRectangle1" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Label fx:id="textBoxLabel1" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox1" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+        <Rectangle fx:id="textBoxRectangle1" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="200.0" stroke="#bc8c44" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="textBoxLabel1" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox1" textFill="#bc8c44" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
     </AnchorPane>
     <AnchorPane fx:id="textBox2" layoutX="369.0" layoutY="65.0">
-        <Rectangle fx:id="textBoxRectangle2" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-        <Label fx:id="textBoxLabel2" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox2" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+        <Rectangle fx:id="textBoxRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="200.0" stroke="#bc8c44" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="textBoxLabel2" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox2" textFill="#bc8c44" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
     </AnchorPane>
     <TitledPane fx:id="tutorialOverPane" alignment="CENTER" animated="false" collapsible="false" layoutX="158.0" layoutY="114.0" prefHeight="172.0" prefWidth="285.0" text="Complimenti" textAlignment="CENTER" visible="false">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <Label fx:id="tutorialOverLabel" layoutX="24.0" layoutY="10.0" text="tutorialOver" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-            <Button fx:id="mainMenuButton" layoutX="79.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="125.0" text="Main Menu" />
-            <Button fx:id="newGameButton" layoutX="79.0" layoutY="73.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" text="New Game" />
+            <Label fx:id="tutorialOverLabel" layoutX="24.0" layoutY="10.0" text="tutorialOver" textFill="#bc8c44" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="mainMenuButton" layoutX="79.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="Main Menu" />
+            <Button fx:id="newGameButton" layoutX="79.0" layoutY="73.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="New Game" />
         </AnchorPane>
     </TitledPane>
     <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" stylesheets="@button%20style.css" text="menuPrincipaleee" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />

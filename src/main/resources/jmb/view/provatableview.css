@@ -1,0 +1,8 @@
+.table-column .label {
+	-fx-text-fill: #bc8c44;
+}
+.table-column {
+	-fx-background-color: #43300a;
+	-fx-border-color: #bc8c44;
+	-fx-text-fill: #bc8c44;
+}

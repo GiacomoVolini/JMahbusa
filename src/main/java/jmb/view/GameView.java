@@ -62,15 +62,15 @@ public class GameView extends DynamicGameBoard {
     private void setTurnColors(boolean isGameOn) {
         if (isGameOn) {
             if (getLogic().getWhichTurn()) {
-                plWHTOutRect.setFill(Color.GREEN);
-                plBLKOutRect.setFill(Color.RED);
+                plWHTOutRect.setFill(Color.web("#e1a751"));
+                plBLKOutRect.setFill(Color.web("#43300a"));
             } else {
-                plBLKOutRect.setFill(Color.GREEN);
-                plWHTOutRect.setFill(Color.RED);
+                plWHTOutRect.setFill(Color.web("#43300a"));
+                plBLKOutRect.setFill(Color.web("#e1a751"));
             }
         } else {
-            plWHTOutRect.setFill(Color.GRAY);
-            plBLKOutRect.setFill(Color.GRAY);
+            plWHTOutRect.setFill(Color.web("#43300a"));
+            plBLKOutRect.setFill(Color.web("#43300a"));
         }
     }
 

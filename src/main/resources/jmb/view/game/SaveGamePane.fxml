@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<TitledPane fx:id="saveDialogue" alignment="CENTER" animated="false" collapsible="false" prefHeight="176.0" prefWidth="383.0" text="Salva Partita" textAlignment="CENTER" visible="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.game.SaveGamePane">
+
+<TitledPane fx:id="saveDialogue" alignment="CENTER" animated="false" collapsible="false" prefHeight="176.0" prefWidth="383.0" text="Salva Partita" textAlignment="CENTER" visible="false" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.game.SaveGamePane">
    <content>
       <AnchorPane fx:id="saveAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <Button fx:id="saveButton" layoutX="73.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="38.0" prefWidth="110.5" text="Conferma">
+            <Button fx:id="saveButton" layoutX="73.0" layoutY="91.0" mnemonicParsing="false" onAction="#saveGame" prefHeight="38.0" prefWidth="110.5" stylesheets="@../button%20style.css" text="Conferma">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="closeSaveButton" layoutX="183.5" layoutY="91.0" mnemonicParsing="false" onAction="#closeSaveDialogue" prefHeight="38.0" prefWidth="110.5" text="Annulla">
+            <Button fx:id="closeSaveButton" layoutX="183.5" layoutY="91.0" mnemonicParsing="false" onAction="#closeSaveDialogue" prefHeight="38.0" prefWidth="110.5" stylesheets="@../button%20style.css" text="Annulla">
                <font>
                   <Font size="16.0" />
                </font>
@@ -24,7 +28,7 @@
                </font>
             </Text>
             <Label fx:id="errorLabel" alignment="CENTER" layoutY="61.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERRORE: Nome salvataggio già presente" textFill="RED" visible="false" />
-            <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" />
+            <TextField fx:id="saveTextField" alignment="CENTER_RIGHT" layoutX="183.0" layoutY="27.0" promptText="Inserisci nome" stylesheets="@../TextField.css" />
          </children>
       </AnchorPane>
    </content>

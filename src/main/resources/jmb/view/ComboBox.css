@@ -1,6 +1,6 @@
 .combo-box-base {
 	-fx-background-color: #43300a;
-	-fx-background-radius: 0;
+	-fx-background-radius: 3;
 }
 .combo-box-base:hover {
 	-fx-background-color: #bc8c44;

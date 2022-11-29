@@ -54,7 +54,7 @@
          <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" stylesheets="@radio%20Style.css" text="2 minute" />
          <RadioButton fx:id="hardTimerRadio" layoutX="192.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardTimer" stylesheets="@radio%20Style.css" text="30 seconds" />
          <RadioButton fx:id="customTimerRadio" layoutX="286.0" layoutY="39.0" mnemonicParsing="false" onAction="#customTimer" stylesheets="@radio%20Style.css" />
-         <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" />
+         <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" stylesheets="@TextField.css" />
          <Text fx:id="easyText" layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
          <Text fx:id="mediumText" layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
          <Text fx:id="hardText" layoutX="195.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />

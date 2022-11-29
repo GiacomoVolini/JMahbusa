@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
-    <Label fx:id="titleLabel" alignment="CENTER" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Leaderboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane fx:id="window" prefHeight="461.0" prefWidth="601.0" style="-fx-background-color: #43300a;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+    <Label fx:id="titleLabel" alignment="CENTER" layoutX="212.0" mouseTransparent="true" prefHeight="33.0" prefWidth="601.0" style="-fx-background-color: #43300a; -fx-text-fill: #bc8c44;" text="Leaderboard" textAlignment="CENTER" textFill="#bc8c44" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <font>
-          <Font size="14.0" />
+          <Font name="System Bold" size="14.0" />
         </font>
     </Label>
-    <TableView fx:id="table" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="601.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+    <TableView fx:id="table" layoutY="33.0" prefHeight="432.0" prefWidth="601.0" style="-fx-border-color: #bc8c44;" stylesheets="@provatableview.css" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
       <columns>
           <TableColumn fx:id="name" prefWidth="133.0" text="Name" />
           <TableColumn fx:id="victories" minWidth="0.0" prefWidth="154.0" sortType="DESCENDING" text="Victories" />
@@ -26,7 +26,7 @@
     </TableView>
     <AnchorPane fx:id="smallAnchor" layoutX="476.0" layoutY="119.0" prefHeight="26.0" prefWidth="145.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
-          <TextField fx:id="searchTextField" prefHeight="26.0" prefWidth="83.0" promptText="Search" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
+          <TextField fx:id="searchTextField" layoutX="1.0" prefHeight="33.0" prefWidth="94.0" promptText="Search" style="-fx-text-fill: #bc8c44;" stylesheets="@TextField.css" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="0.0" />
           <Button fx:id="searchBTN" layoutX="73.0" maxHeight="26.0" maxWidth="50.0" mnemonicParsing="false" onAction="#searchNames" prefHeight="26.0" prefWidth="50.0" stylesheets="@button%20style.css" AnchorPane.rightAnchor="0.0">
               <graphic>
                   <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">

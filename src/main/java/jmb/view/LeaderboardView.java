@@ -70,7 +70,7 @@ public class LeaderboardView implements GenericGUI{
         rate.setCellValueFactory(new PropertyValueFactory<Player, Double>("winRate"));
 
         //Languages
-        titleLabel.setText(getLogic().getString("leaderboard"));
+        titleLabel.setText(getLogic().getString("leaderboards"));
         name.setText(getLogic().getString("Name"));
         victories.setText(getLogic().getString("Victories"));
         defeats.setText(getLogic().getString("Defeats"));

@@ -28,53 +28,25 @@ public class GameSetup implements GenericGUI {
     @FXML
     private AnchorPane window;
     @FXML
-    private TitledPane playerNamesTitlePane;
+    private TitledPane playerNamesTitlePane, gameSettingsTitlePane, tournamentPanel;
     @FXML
-    private TitledPane gameSettingsTitlePane;
+    private Button confirmButton, exitButton;
     @FXML
-    private Button confirmButton;
+    private Circle whitePlayerPawn, blackPlayerPawn;
     @FXML
-    private Button exitButton;
+    private Label errorLabel, tournamentLabel;
     @FXML
-    private Circle whitePlayerPawn;
+    private ComboBox<String> whitePlayerNameBox, blackPlayerNameBox;
     @FXML
-    private Circle blackPlayerPawn;
-    @FXML
-    private Label errorLabel;
-    @FXML
-    private ComboBox<String> whitePlayerNameBox;
-    @FXML
-    private ComboBox<String> blackPlayerNameBox;
-    @FXML
-    private RadioButton noTimerRadio;
-    @FXML
-    private RadioButton mediumTimerRadio;
-    @FXML
-    private RadioButton hardTimerRadio;
-    @FXML
-    private RadioButton customTimerRadio;
+    private RadioButton noTimerRadio, mediumTimerRadio, hardTimerRadio, customTimerRadio;
     @FXML
     private TextField customTimerField;
     @FXML
-    private CheckBox tournamentCheckBox;
-    @FXML
-    private Label tournamentLabel;
-    @FXML
-    private TitledPane tournamentPanel;
-    @FXML
-    private AnchorPane GTT;
+    private CheckBox tournamentCheckBox, revertCheckBox;
     @FXML
     private Spinner<Integer> tournamentSpinner;
     @FXML
-    private Text easyText;
-    @FXML
-    private Text mediumText;
-    @FXML
-    private Text hardText;
-    @FXML
-    private Text customText;
-    @FXML
-    private CheckBox revertCheckBox;
+    private Text easyText, mediumText, hardText, customText;
     @FXML
     private ImageView feltImage;
 
@@ -173,8 +145,7 @@ public class GameSetup implements GenericGUI {
     public void initialize() {
         double xdispinner = tournamentSpinner.getLayoutX();
         double xditlb = tournamentLabel.getLayoutX();
-
-
+        window.setStyle("-fx-background-color: " + getLogic().getSetting("Customization", "backgroundColor", String.class));
         group = new ToggleGroup();
         noTimerRadio.setToggleGroup(group);
         hardTimerRadio.setToggleGroup(group);

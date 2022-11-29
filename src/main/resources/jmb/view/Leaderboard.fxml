@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
+<AnchorPane fx:id="window" prefHeight="440.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
     <Label fx:id="titleLabel" alignment="CENTER" layoutX="95.0" layoutY="5.0" mouseTransparent="true" prefHeight="26.0" prefWidth="601.0" text="Leaderboard" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <font>
           <Font size="14.0" />
@@ -31,7 +31,7 @@
               <graphic>
                   <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@search_iconp.jpg" />
+                          <Image url="@search_icon.png" />
                       </image>
                   </ImageView>
               </graphic>

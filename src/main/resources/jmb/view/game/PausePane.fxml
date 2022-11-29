@@ -3,27 +3,29 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" prefHeight="227.0" prefWidth="383.0" text="Pause" visible="false" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.game.PausePane">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TitledPane fx:id="pauseMenu" alignment="CENTER" animated="false" collapsible="false" prefHeight="227.0" prefWidth="383.0" stylesheets="@../TitledPane.css" text="Pause" visible="false" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.game.PausePane">
    <content>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="431.0" style="-fx-background-color: #e1a751;">
          <children>
-            <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" text="Conferma senza salvare">
+            <Button fx:id="exitWithoutSave" layoutX="94.0" layoutY="76.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="27.0" prefWidth="186.0" stylesheets="@../button%20style.css" text="Conferma senza salvare">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave" prefWidth="186.0" text="Conferma e salva">
+            <Button fx:id="exitAndSave" layoutX="94.0" layoutY="113.0" mnemonicParsing="false" onAction="#exitAndSave" prefWidth="186.0" stylesheets="@../button%20style.css" text="Conferma e salva">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false" onAction="#closeExitOption" prefHeight="25.0" prefWidth="186.0" text="Annulla">
+            <Button fx:id="cancelButton" layoutX="94.0" layoutY="151.0" mnemonicParsing="false" onAction="#closeExitOption" prefHeight="25.0" prefWidth="186.0" stylesheets="@../button%20style.css" text="Annulla">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Text fx:id="pauseText" layoutX="-1.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei sicuro che di voler uscire?" textAlignment="CENTER" wrappingWidth="382.99999999999994">
+            <Text fx:id="pauseText" fill="#43000a" layoutX="-1.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei sicuro che di voler uscire?" textAlignment="CENTER" wrappingWidth="382.99999999999994">
                <font>
                   <Font size="20.0" />
                </font>

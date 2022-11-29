@@ -108,7 +108,7 @@ public abstract class DynamicBoardLogic {
         if (possible)
             if (COL_BLACK_EXIT < finalPoint && finalPoint < COL_WHITE_EXIT)
                 possible = dice.checkDiceSimple(delta) || dice.checkDiceSum(startingPoint, delta, this);
-            else if (finalPoint <= COL_BLACK_EXIT && getBlackExit() || finalPoint >= COL_WHITE_EXIT && getWhiteExit())
+            else if (finalPoint == COL_BLACK_EXIT && getBlackExit() || finalPoint == COL_WHITE_EXIT && getWhiteExit())
                 possible = delta <= 6 && checkExitMove(delta, startingPoint);
         else possible= false;
         return possible;
@@ -118,6 +118,7 @@ public abstract class DynamicBoardLogic {
         return isWhiteTurn() && (square == WHITE || square == SELECTED_WHITE) ||
                 !isWhiteTurn() && (square == BLACK || square == SELECTED_BLACK);
     }
+
     private boolean checkExitMove(int delta, int startingPoint) {
         boolean possible = dice.checkDiceSimple(delta) || dice.checkDiceSum(startingPoint, delta, this)
                 || (checkIfFarthestPawn(startingPoint) && dice.checkExitDiceGreaterThan(delta));
@@ -125,11 +126,11 @@ public abstract class DynamicBoardLogic {
     }
     private boolean checkIfFarthestPawn( int startingPoint) {
         boolean farthest = true;
-        if (isWhiteTurn())
+        if (isWhiteTurn()) {
             for (int i = startingPoint - 1; i > 18 && farthest; i--)
                 if (squares[0][i] == WHITE || squares[1][i] == WHITE)
                     farthest = false;
-        else for (i = startingPoint + 1; i <=6 && farthest; i++)
+        } else for (int i = startingPoint + 1; i <=6 && farthest; i++)
                 if (squares[0][i]==BLACK || squares[1][i]==BLACK)
                     farthest = false;
         return farthest;

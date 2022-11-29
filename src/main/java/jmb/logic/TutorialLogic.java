@@ -12,6 +12,7 @@ import java.util.Set;
 import static org.reflections.scanners.Scanners.SubTypes;
 
 public class TutorialLogic extends DynamicBoardLogic {
+
     private Iterator<ComparableTutorialStage> stageArrayIterator;
     private ComparableTutorialStage currentStage;
     public TutorialLogic() {

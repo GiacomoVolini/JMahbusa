@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane fx:id="window" prefHeight="461.0" prefWidth="601.0" style="-fx-background-color: #43300a;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.LeaderboardView">
     <Label fx:id="titleLabel" alignment="CENTER" layoutX="212.0" mouseTransparent="true" prefHeight="33.0" prefWidth="601.0" style="-fx-background-color: #43300a; -fx-text-fill: #bc8c44;" text="Leaderboard" textAlignment="CENTER" textFill="#bc8c44" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <font>
@@ -31,7 +30,7 @@
               <graphic>
                   <ImageView fx:id="search_icon" fitHeight="14.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                       <image>
-                          <Image url="@search_iconp.jpg" />
+                          <Image url="@search_icon.png" />
                       </image>
                   </ImageView>
               </graphic>

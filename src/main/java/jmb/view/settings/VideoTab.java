@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import jmb.view.SettingsView;
@@ -21,6 +23,7 @@ public class VideoTab {
     @FXML private TextField resolutionWidthField;
     @FXML private Text resolutionHeightText, resolutionText, resolutionWidthText;
     @FXML private AnchorPane videoAnchorPane;
+    @FXML private ImageView feltImage;
     private SettingsView settingsView;
 
     public void setSettingsView(SettingsView sv) {
@@ -98,6 +101,13 @@ public class VideoTab {
 
     public void initialize() {
         setResolutionFieldsEditability();
+        feltImage.fitHeightProperty().bind(videoAnchorPane.heightProperty());
+        feltImage.fitWidthProperty().bind(videoAnchorPane.widthProperty());
+        setBackgroundColor(getLogic().getSetting("Customization", "backgroundColor", String.class));
+    }
+
+    public void setBackgroundColor(String colorString) {
+        videoAnchorPane.setStyle("-fx-background-color: " + colorString);
     }
 
     public void changeDimensions(AnchorPane window) {

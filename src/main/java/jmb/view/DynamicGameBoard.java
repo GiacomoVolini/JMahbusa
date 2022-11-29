@@ -72,11 +72,9 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
             boardAnchor.getChildren().add(dice);
             dice.setVisible(false);
         }
-        //TODO CODICE PER AGGANCIARE DIMENSIONE IMMAGINE ALLE DIMENSIONI DEL PANNELLO
         feltImage.fitHeightProperty().bind(boardAnchor.heightProperty());
         feltImage.fitWidthProperty().bind(boardAnchor.widthProperty());
         feltImage.setViewOrder(50);
-        //TODO ^^^^
         boardAnchor.setStyle("-fx-background-color: " + getLogic().getSetting("Customization", "backgroundColor", String.class));
     }
 

@@ -7,14 +7,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.SettingsView">
     <fx:include fx:id="videoTab" source="settings/videoTab.fxml" />
     <fx:include fx:id="audioTab" source="settings/audioTab.fxml" />
     <fx:include fx:id="controlsTab" source="settings/controlsTab.fxml" />
     <fx:include fx:id="customizationTab" source="settings/customizationTab.fxml" />
-    <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <TitledPane fx:id="settingsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="174.0" stylesheets="@TitledPane.css" text="Settings" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
-         <AnchorPane fx:id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="174.0">
+         <AnchorPane fx:id="settingsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="174.0" style="-fx-background-color: #bc8c44;">
             <children>
                <ImageView fx:id="bgsinistra" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
                <Button fx:id="videoButton" layoutX="19.0" layoutY="50.0" mnemonicParsing="false" onAction="#openEditVideo" prefHeight="26.0" prefWidth="133.0" stylesheets="@button%20style.css" text="Video" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="9.0" />
@@ -28,11 +28,11 @@
          </AnchorPane>
       </content>
     </TitledPane>
-    <TitledPane fx:id="warningTitlePane" alignment="CENTER" animated="false" collapsible="false" disable="true" layoutX="107.0" layoutY="128.0" prefHeight="206.0" prefWidth="412.0" text="Attention" visible="false">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <Text fx:id="warningText" layoutX="32.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AttentionText" wrappingWidth="345.130859375">
+    <TitledPane fx:id="warningTitlePane" alignment="CENTER" animated="false" collapsible="false" disable="true" layoutX="107.0" layoutY="128.0" prefHeight="206.0" prefWidth="412.0" stylesheets="@TitledPane.css" text="Attention" visible="false">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #bc8c44;">
+            <Text fx:id="warningText" fill="#43300a" layoutX="32.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AttentionText" wrappingWidth="345.130859375">
                 <font>
-                    <Font size="19.0" />
+                    <Font name="System Bold" size="19.0" />
                 </font>
             </Text>
             <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" stylesheets="@button%20style.css" text="Salva" />

@@ -31,46 +31,27 @@ public class LoadGameView extends GameBoard implements GenericGUI{
     private static final int BLACK_WON_POINTS = 5;
 
 
-    @FXML
-    private Label blackPlayerName;
-    @FXML
-    private Circle blackPlayerPawn;
-    @FXML
-    private ImageView hourglass;
-    @FXML
-    private Label timerLabel;
-    @FXML
-    private Label whitePlayerName;
-    @FXML
-    private Circle whitePlayerPawn;
-    @FXML
-    private Button loadSaveButton;
-    @FXML
-    private Button mainMenuButton;
-    @FXML
-    private TitledPane saveDetailTitledPane;
-    @FXML
-    private AnchorPane saveDetailView;
-    @FXML
-    private ListView<?> savesListView;
-    @FXML
-    private TitledPane savesTitlePane;
-    @FXML
-    protected AnchorPane window;
-    @FXML
-    private AnchorPane saveDetailAnchor;
-    @FXML
-    private AnchorPane saveListAnchor;
-    @FXML
-    private Button deleteSaveButton;
-    @FXML
-    private Label blackPoints;
-    @FXML
-    private Label whitePoints;
-    @FXML
-    private Label tournamentLabel;
-    @FXML
-    private ImageView tournamentCup;
+    @FXML private Label blackPlayerName;
+    @FXML private Circle blackPlayerPawn;
+    @FXML private ImageView hourglass;
+    @FXML private Label timerLabel;
+    @FXML private Label whitePlayerName;
+    @FXML private Circle whitePlayerPawn;
+    @FXML private Button loadSaveButton;
+    @FXML private Button mainMenuButton;
+    @FXML private TitledPane saveDetailTitledPane;
+    @FXML private AnchorPane saveDetailView;
+    @FXML private ListView<?> savesListView;
+    @FXML private TitledPane savesTitlePane;
+    @FXML protected AnchorPane window;
+    @FXML private AnchorPane saveDetailAnchor;
+    @FXML private AnchorPane saveListAnchor;
+    @FXML private Button deleteSaveButton;
+    @FXML private Label blackPoints;
+    @FXML private Label whitePoints;
+    @FXML private Label tournamentLabel;
+    @FXML private ImageView tournamentCup;
+    @FXML private ImageView feltImage;
     private String saveName;
     protected final double SEPARATOR_RATIO = 0.2625;
     protected int[][] saveMatrix;
@@ -94,6 +75,10 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         whitePlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "whitePawnStroke", String.class)));
         blackPlayerPawn.setFill(Color.web(getLogic().getSetting("Customization", "blackPawnFill", String.class)));
         blackPlayerPawn.setStroke(Color.web(getLogic().getSetting("Customization", "blackPawnStroke", String.class)));
+        feltImage.fitHeightProperty().bind(saveDetailView.heightProperty());
+        feltImage.fitWidthProperty().bind(saveDetailView.widthProperty());
+        saveDetailView.setStyle("-fx-background-color: " + getLogic().getSetting("Customization", "backgroundColor", String.class));
+
 
         //languages
         loadStrings();

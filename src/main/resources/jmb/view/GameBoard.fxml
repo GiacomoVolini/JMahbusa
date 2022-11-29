@@ -33,14 +33,14 @@
          <Font size="16.0" />
       </font>
    </Button>
-   <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" text="Iniziamo" textAlignment="CENTER">
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+   <TitledPane fx:id="startDialogue" alignment="CENTER" animated="false" collapsible="false" layoutX="372.0" layoutY="296.0" prefHeight="227.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Iniziamo" textAlignment="CENTER">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
          <Button fx:id="startBTN" defaultButton="true" layoutX="95.0" layoutY="96.0" mnemonicParsing="false" onAction="#startGame" prefHeight="90.0" prefWidth="192.0" style="-fx-font-size: 42px;" stylesheets="@button%20style.css" text="CERTO">
             <font>
                <Font size="42.0" />
             </font>
          </Button>
-         <Text fx:id="readyText" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?" textAlignment="CENTER" wrappingWidth="174.78125">
+         <Text fx:id="readyText" fill="#43300a" layoutX="105.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRONTI?" textAlignment="CENTER" wrappingWidth="174.78125">
             <font>
                <Font size="32.0" />
             </font>

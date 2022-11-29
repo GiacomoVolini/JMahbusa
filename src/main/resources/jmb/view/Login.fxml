@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameSetup">
+<AnchorPane fx:id="window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="644.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.GameSetup">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -29,8 +29,8 @@
          <Blend mode="MULTIPLY" />
       </effect>
    </ImageView>
-   <TitledPane fx:id="playerNamesTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0" layoutY="39.0" prefHeight="191.0" prefWidth="383.0" text="log in / sign up">
-      <AnchorPane fx:id="registrati2" minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="381.0" style="-fx-background-color: #e1a751;">
+   <TitledPane fx:id="playerNamesTitlePane" alignment="CENTER" animated="false" collapsible="false" layoutX="131.0" layoutY="39.0" prefHeight="191.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="log in / sign up">
+      <AnchorPane fx:id="registrati2" minHeight="0.0" minWidth="0.0" prefHeight="201.0" prefWidth="381.0" style="-fx-background-color: #e1a751; -fx-background-insets: 0;">
          <Button fx:id="confirmButton" layoutX="98.0" layoutY="83.0" mnemonicParsing="false" onAction="#savePlayer" prefHeight="34.0" prefWidth="185.0" stylesheets="@button%20style.css" text="Salva">
             <font>
                <Font size="14.0" />
@@ -48,7 +48,7 @@
          <Label fx:id="errorLabel" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="381.0" text="ERROR: I nomi sono uguali" textFill="RED" visible="false" />
       </AnchorPane>
    </TitledPane>
-   <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" text="Game Settings" textAlignment="CENTER">
+   <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Game Settings" textAlignment="CENTER">
       <AnchorPane fx:id="GT2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
          <RadioButton fx:id="noTimerRadio" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer" stylesheets="@radio%20Style.css" text="No Taimer" />
          <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" stylesheets="@radio%20Style.css" text="2 minute" />
@@ -62,7 +62,7 @@
          <CheckBox fx:id="revertCheckBox" layoutX="143.0" layoutY="73.0" mnemonicParsing="false" onAction="#setCanRevert" selected="true" stylesheets="@CheckBox.css" text="Revert moves" />
       </AnchorPane>
    </TitledPane>
-   <TitledPane fx:id="tournamentPanel" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="256.0" lineSpacing="3.0" prefHeight="80.0" prefWidth="383.0" text="Tournament" textAlignment="CENTER">
+   <TitledPane fx:id="tournamentPanel" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="256.0" lineSpacing="3.0" prefHeight="80.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Tournament" textAlignment="CENTER">
       <AnchorPane fx:id="GTT" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
          <CheckBox fx:id="tournamentCheckBox" layoutX="65.0" layoutY="19.0" mnemonicParsing="false" onAction="#toggleSpinner" stylesheets="@CheckBox.css" text="Activate" />
          <Label fx:id="tournamentLabel" contentDisplay="RIGHT" disable="true" layoutX="165.0" layoutY="19.0" text="Points to Win:" textAlignment="RIGHT" />

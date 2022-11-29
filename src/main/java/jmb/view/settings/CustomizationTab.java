@@ -8,6 +8,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -38,6 +39,7 @@ public class CustomizationTab {
             leftPresetPoint2, leftPresetPoint3, rightPresetPoint1,
             rightPresetPoint2, rightPresetPoint3;
     @FXML private RadioButton customRadio, leftPresetRadio, rightPresetRadio;
+    @FXML private ImageView feltImage;
     private Color selectedPointColor;
     private ToggleGroup group = new ToggleGroup();
     private Timeline selectedPointAnimation;
@@ -94,6 +96,8 @@ public class CustomizationTab {
     void selectedBackGroundColorChange(ActionEvent event) {
         if(Color.web(getLogic().getSetting("Customization","backgroundColor",String.class)) != backGroundColorPicker.getValue()) {
             settingsView.getApplyButton().setDisable(false);
+            Color color = backGroundColorPicker.getValue();
+            settingsView.setBackgroundColors(ColorHandler.buildColorString(color));
         }
     }
 
@@ -236,6 +240,13 @@ public class CustomizationTab {
         rightPresetRadio.setToggleGroup(group);
         selectedPointPresetsAnimation.setCycleCount(Animation.INDEFINITE);
         regeneratePointAnimation();
+        feltImage.fitHeightProperty().bind(customizeAnchorPane.heightProperty());
+        feltImage.fitWidthProperty().bind(customizeAnchorPane.widthProperty());
+        setBackgroundColor(getLogic().getSetting("Customization", "backgroundColor", String.class));
+    }
+
+    public void setBackgroundColor(String colorString) {
+        customizeAnchorPane.setStyle("-fx-background-color: " + colorString);
     }
 
     public void loadStrings() {

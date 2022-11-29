@@ -156,7 +156,6 @@ public class DiceLogic {
         return out;
     }
 
-
     protected boolean checkDiceSum (int pointFrom, int delta, DynamicBoardLogic dynamicBoardLogic) {
         boolean legal = false;
         int sign;

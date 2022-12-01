@@ -1,0 +1,44 @@
+.color-picker {
+    -fx-background-color: #43300a;
+    -fx-background-radius: 0;
+    -fx-border-color: #bc8c44;
+}
+
+.color-picker:editable .color-picker-label .text {
+    visibility: false;
+}
+
+.color-picker:editable > .arrow-button {
+    -fx-background-color : #43300a;
+    -fx-background-radius : 0;
+}
+
+.color-picker:editable > .arrow-button .arrow {
+    -fx-background-color: #bc8c44;
+}
+
+.color-palette {
+    -fx-background-color: #43300a;
+    -fx-background-radius: 0;
+    -fx-border-color: #bc8c44;
+
+}
+
+.color-palette-region {
+    -fx-background-color:  #e1a751;
+    -fx-border-color: #43300a;
+}
+
+.color-palette-region > .color-square.hover-square {
+    -fx-background-color: #bc8c44;
+    -fx-background-radius: 0;
+}
+
+.color-palette-region > .color-square {
+    -fx-background-color:  #e1a751;
+    -fx-border-color: #43300a;
+}
+
+.color-palette .hyperlink, .color-palette .separator {
+  visibility: hidden ;
+}

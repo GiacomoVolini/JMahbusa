@@ -178,13 +178,13 @@ public class SettingsView implements GenericGUI{
                 controlsButton.setLayoutY(window.getHeight()*0.36);
                 controlsButton.setMaxWidth(133);
                 mainMenuButton.setLayoutX(window.getWidth()/8 - mainMenuButton.getWidth()/2);
-                mainMenuButton.setLayoutY(window.getHeight()*0.86);
+                mainMenuButton.setLayoutY(window.getHeight()*0.84);
                 mainMenuButton.setMaxWidth(133);
                 resetButton.setLayoutX(window.getWidth()/8 - mainMenuButton.getWidth()/2);
-                resetButton.setLayoutY(window.getHeight()*0.78);
+                resetButton.setLayoutY(window.getHeight()*0.76);
                 resetButton.setMaxWidth(133);
                 applyButton.setLayoutX(window.getWidth()/8 - applyButton.getWidth()/2);
-                applyButton.setLayoutY(window.getHeight()*0.70);
+                applyButton.setLayoutY(window.getHeight()*0.68);
                 applyButton.setMaxWidth(133);
 
                 //schermi

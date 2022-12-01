@@ -18,7 +18,7 @@ import static jmb.view.View.*;
 public class TutorialView extends DynamicGameBoard {
 
     private final static double HORIZONTAL_RESIZE_FACTOR = 0.6;
-    private final static double VERTICAL_RESIZE_FACTOR = 0.8;
+    private final static double VERTICAL_RESIZE_FACTOR = 0.79;
     private final static double X_LAYOUT_FACTOR = 0.5;
     private final static double Y_LAYOUT_FACTOR = 0.5;
     protected boolean textBox1ToOpen = true;

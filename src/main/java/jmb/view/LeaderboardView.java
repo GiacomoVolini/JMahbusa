@@ -87,14 +87,14 @@ public class LeaderboardView implements GenericGUI{
     }
 
     public void changeDimensions() {
-        double quarterWidth = window.getWidth()/4;
+        double columnWidth = Math.floor(window.getWidth()/4 - 1);
 
-        name.setPrefWidth(quarterWidth);
-        victories.setPrefWidth(quarterWidth);
-        defeats.setPrefWidth(quarterWidth);
-        rate.setPrefWidth(quarterWidth);
+        name.setPrefWidth(columnWidth);
+        victories.setPrefWidth(columnWidth);
+        defeats.setPrefWidth(columnWidth);
+        rate.setPrefWidth(columnWidth);
 
-        smallAnchor.setPrefWidth(quarterWidth);
+        smallAnchor.setPrefWidth(columnWidth);
         exitButton.setPrefWidth(window.getWidth()/6);
 
     }

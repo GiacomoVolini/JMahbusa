@@ -118,11 +118,11 @@ public class VideoTab {
             AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.40);
             AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.40);
         } else {
-            AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.10);
-            AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.13);
-            AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.13);
-            AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.28);
-            AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.28);
+            AnchorPane.setLeftAnchor(resolutionText, window.getWidth() * 0.0925);
+            AnchorPane.setLeftAnchor(resolutionHeightText, window.getWidth() * 0.1225);
+            AnchorPane.setLeftAnchor(resolutionWidthText, window.getWidth() * 0.1225);
+            AnchorPane.setLeftAnchor(resolutionHeightField, window.getWidth() * 0.3);
+            AnchorPane.setLeftAnchor(resolutionWidthField, window.getWidth() * 0.3);
         }
 
         AnchorPane.setLeftAnchor(fullscreenCheck, window.getWidth() * 0.10);

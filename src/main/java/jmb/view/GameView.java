@@ -273,6 +273,7 @@ public class GameView extends DynamicGameBoard {
 
         GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
         GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
+        GameViewRedraw.setXLayoutFactor(0.65);
 
         setTurnColors(false);
         if (getLogic().getTurnDuration() == 0) {

@@ -36,7 +36,7 @@
                <Font size="14.0" />
             </font>
          </Button>
-         <Button fx:id="exitButton" layoutX="98.0" layoutY="123.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="30.0" prefWidth="185.0" stylesheets="@button%20style.css" text="Esci">
+         <Button fx:id="exitButton" layoutX="98.0" layoutY="121.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="30.0" prefWidth="185.0" stylesheets="@button%20style.css" text="Esci">
             <font>
                <Font size="14.0" />
             </font>
@@ -50,23 +50,23 @@
    </TitledPane>
    <TitledPane fx:id="gameSettingsTitlePane" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="230.0" prefHeight="132.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Game Settings" textAlignment="CENTER">
       <AnchorPane fx:id="GT2" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
-         <RadioButton fx:id="noTimerRadio" layoutX="14.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer" stylesheets="@radio%20Style.css" text="No Taimer" />
-         <RadioButton fx:id="mediumTimerRadio" layoutX="100.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" stylesheets="@radio%20Style.css" text="2 minute" />
-         <RadioButton fx:id="hardTimerRadio" layoutX="192.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardTimer" stylesheets="@radio%20Style.css" text="30 seconds" />
-         <RadioButton fx:id="customTimerRadio" layoutX="286.0" layoutY="39.0" mnemonicParsing="false" onAction="#customTimer" stylesheets="@radio%20Style.css" />
-         <TextField fx:id="customTimerField" disable="true" layoutX="308.0" layoutY="35.0" prefHeight="25.0" prefWidth="65.0" promptText="secondi" stylesheets="@TextField.css" />
-         <Text fx:id="easyText" layoutX="19.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
-         <Text fx:id="mediumText" layoutX="102.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
-         <Text fx:id="hardText" layoutX="195.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />
-         <Text fx:id="customText" layoutX="290.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Optional:" />
-         <CheckBox fx:id="revertCheckBox" layoutX="143.0" layoutY="73.0" mnemonicParsing="false" onAction="#setCanRevert" selected="true" stylesheets="@CheckBox.css" text="Revert moves" />
+         <RadioButton fx:id="noTimerRadio" graphicTextGap="2.0" layoutX="8.0" layoutY="39.0" mnemonicParsing="false" onAction="#easyTimer" stylesheets="@radio%20Style.css" text="No Taimer" />
+         <RadioButton fx:id="mediumTimerRadio" graphicTextGap="2.0" layoutX="94.0" layoutY="39.0" mnemonicParsing="false" onAction="#mediumTimer" stylesheets="@radio%20Style.css" text="2 minute" />
+         <RadioButton fx:id="hardTimerRadio" graphicTextGap="2.0" layoutX="186.0" layoutY="39.0" mnemonicParsing="false" onAction="#hardTimer" stylesheets="@radio%20Style.css" text="30 seconds" />
+         <RadioButton fx:id="customTimerRadio" graphicTextGap="2.0" layoutX="289.0" layoutY="39.0" mnemonicParsing="false" onAction="#customTimer" stylesheets="@radio%20Style.css" />
+         <TextField fx:id="customTimerField" disable="true" layoutX="306.0" layoutY="35.0" prefHeight="25.0" prefWidth="70.0" promptText="secondi" stylesheets="@TextField.css" />
+         <Text fx:id="easyText" layoutX="13.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy:" />
+         <Text fx:id="mediumText" layoutX="96.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medio:" />
+         <Text fx:id="hardText" layoutX="189.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hard:" />
+         <Text fx:id="customText" layoutX="286.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Optional:" />
+         <CheckBox fx:id="revertCheckBox" layoutX="143.0" layoutY="69.0" mnemonicParsing="false" onAction="#setCanRevert" selected="true" stylesheets="@CheckBox.css" text="Revert moves" />
       </AnchorPane>
    </TitledPane>
    <TitledPane fx:id="tournamentPanel" alignment="CENTER" expanded="false" layoutX="131.0" layoutY="256.0" lineSpacing="3.0" prefHeight="80.0" prefWidth="383.0" stylesheets="@TitledPane.css" text="Tournament" textAlignment="CENTER">
       <AnchorPane fx:id="GTT" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
-         <CheckBox fx:id="tournamentCheckBox" layoutX="65.0" layoutY="19.0" mnemonicParsing="false" onAction="#toggleSpinner" stylesheets="@CheckBox.css" text="Activate" />
-         <Label fx:id="tournamentLabel" contentDisplay="RIGHT" disable="true" layoutX="165.0" layoutY="19.0" text="Points to Win:" textAlignment="RIGHT" />
-         <Spinner fx:id="tournamentSpinner" disable="true" layoutX="251.0" layoutY="15.0" prefHeight="25.0" prefWidth="66.0" stylesheets="@Spinner%20Custom.css" />
+         <CheckBox fx:id="tournamentCheckBox" layoutX="65.0" layoutY="14.0" mnemonicParsing="false" onAction="#toggleSpinner" stylesheets="@CheckBox.css" text="Activate" />
+         <Label fx:id="tournamentLabel" contentDisplay="RIGHT" disable="true" layoutX="165.0" layoutY="14.0" text="Points to Win:" textAlignment="RIGHT" />
+         <Spinner fx:id="tournamentSpinner" disable="true" layoutX="251.0" layoutY="10.0" prefHeight="25.0" prefWidth="66.0" stylesheets="@Spinner%20Custom.css" />
       </AnchorPane>
    </TitledPane>
 </AnchorPane>

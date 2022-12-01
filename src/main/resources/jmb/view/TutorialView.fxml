@@ -22,5 +22,5 @@
             <Button fx:id="newGameButton" layoutX="79.0" layoutY="73.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="New Game" />
         </AnchorPane>
     </TitledPane>
-    <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" stylesheets="@button%20style.css" text="menuPrincipaleee" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0" />
+    <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" stylesheets="@button%20style.css" text="menuPrincipaleee" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="20.0" />
 </AnchorPane>

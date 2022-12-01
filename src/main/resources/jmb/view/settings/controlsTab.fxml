@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="496.0" stylesheets="@../TitledPane.css" text="Comandi" visible="false" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.ControlsTab">
+<TitledPane fx:id="controlsTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="440.0" prefWidth="496.0" stylesheets="@../TitledPane.css" text="Comandi" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jmb.view.settings.ControlsTab">
    <content>
       <AnchorPane fx:id="controlsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="494.0">
          <children>
@@ -71,14 +71,14 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <TextField fx:id="rightTextField" editable="false" layoutX="252.0" layoutY="106.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="D" />
-            <TextField fx:id="leftTextField" editable="false" layoutX="252.0" layoutY="134.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="A" />
-            <TextField fx:id="upTextField" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="W" />
-            <TextField fx:id="downTextField" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="S" />
-            <TextField fx:id="selectTextField" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="SPACE" />
-            <TextField fx:id="revertMoveTextField" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="BACK_SPACE" />
-            <TextField fx:id="finishTurnTextField" editable="false" layoutX="251.0" layoutY="285.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="F" />
-            <TextField fx:id="openMenuTextField" editable="false" layoutX="251.0" layoutY="312.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="92.0" promptText="una lettera" stylesheets="@../TextField.css" text="ESCAPE" />
+            <TextField fx:id="rightTextField" editable="false" layoutX="252.0" layoutY="106.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="D" />
+            <TextField fx:id="leftTextField" editable="false" layoutX="252.0" layoutY="134.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="A" />
+            <TextField fx:id="upTextField" editable="false" layoutX="252.0" layoutY="162.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="W" />
+            <TextField fx:id="downTextField" editable="false" layoutX="252.0" layoutY="191.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="S" />
+            <TextField fx:id="selectTextField" editable="false" layoutX="252.0" layoutY="229.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="SPACE" />
+            <TextField fx:id="revertMoveTextField" editable="false" layoutX="252.0" layoutY="258.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="BACK_SPACE" />
+            <TextField fx:id="finishTurnTextField" editable="false" layoutX="251.0" layoutY="285.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="F" />
+            <TextField fx:id="openMenuTextField" editable="false" layoutX="251.0" layoutY="312.0" onKeyPressed="#changeKeyBind" onMousePressed="#selectKeyBind" prefHeight="25.0" prefWidth="110.0" promptText="una lettera" stylesheets="@../TextField.css" text="ESCAPE" />
          </children>
       </AnchorPane>
    </content>

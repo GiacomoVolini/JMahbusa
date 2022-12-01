@@ -4,7 +4,7 @@
 	-fx-background-color: #bc8c44, #43300a;
 	-fx-background-insets: 0, 3 3 3 3;
 	-fx-background-radius: 3;
-	-fx-text-fill:#bc8c44 
+	-fx-prompt-text-fill: #e1a751;
 }
 .text-field:focused {
 	-fx-background-color: #bc8c44, #43300a;

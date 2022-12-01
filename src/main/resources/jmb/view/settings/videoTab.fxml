@@ -37,12 +37,12 @@
                   <Font size="20.0" />
                </font>
             </CheckBox>
-            <Text fx:id="resolutionWidthText" layoutX="42.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" wrappingWidth="103.0">
+            <Text fx:id="resolutionWidthText" layoutX="39.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Length" wrappingWidth="103.0">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text fx:id="resolutionHeightText" layoutX="42.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" wrappingWidth="103.0">
+            <Text fx:id="resolutionHeightText" layoutX="39.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Height" wrappingWidth="103.0">
                <font>
                   <Font size="20.0" />
                </font>

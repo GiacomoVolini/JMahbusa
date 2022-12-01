@@ -256,24 +256,27 @@ public class MainMenu implements GenericGUI{
         //  Ridimensiona i Buttoni rispetto alla finestra principale
         //  Larghezza
 
-        newGameButton.setLayoutX(window.getWidth()/2 - 50);
-        tutorialButton.setLayoutX(window.getWidth()/2 - 50);
-        loadGameButton.setLayoutX(window.getWidth()/2 - 50);
-        leaderboardButton.setLayoutX(window.getWidth()/2 - 50);
-        settingsButton.setLayoutX(window.getWidth()/2 - 50);
-        exitButton.setLayoutX(window.getWidth()/2 - 50);
+        double halfButtonWidth = 60;
+        newGameButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
+        tutorialButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
+        loadGameButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
+        leaderboardButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
+        settingsButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
+        exitButton.setLayoutX(window.getWidth()/2 - halfButtonWidth);
 
         // Altezza
         gameTitle.setLayoutY(window.getHeight()/3);
         gameTitleBackground.setLayoutY(window.getHeight()/3 - 71);
         languageMenu.setLayoutY(window.getHeight()/3 - 71);
 
+        double buttonVerticalSpacing = window.getHeight()/16 + 6;
+
         newGameButton.setLayoutY(window.getHeight()/2.5);
-        tutorialButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16);
-        loadGameButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16);
-        leaderboardButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
-        settingsButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
-        exitButton.setLayoutY(window.getHeight()/2.5 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16 + window.getHeight()/16);
+        tutorialButton.setLayoutY(window.getHeight()/2.5 + buttonVerticalSpacing);
+        loadGameButton.setLayoutY(window.getHeight()/2.5 + buttonVerticalSpacing*2);
+        leaderboardButton.setLayoutY(window.getHeight()/2.5 + buttonVerticalSpacing*3);
+        settingsButton.setLayoutY(window.getHeight()/2.5 + buttonVerticalSpacing*4);
+        exitButton.setLayoutY(window.getHeight()/2.5 + buttonVerticalSpacing*5);
 
     }
 

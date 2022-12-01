@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -25,6 +26,7 @@ public class GameView extends DynamicGameBoard {
     private static final double VERTICAL_RESIZE_FACTOR = 0.75;
     private boolean wasBackBTNDisabled;
     @FXML AnchorPane window;
+    @FXML AnchorPane keyboardInfo;
     @FXML Label plBLKText, plWHTText;
     @FXML protected Button backBTN;
     @FXML Button finishBTN, menuBTN, startBTN;
@@ -109,6 +111,22 @@ public class GameView extends DynamicGameBoard {
         diceRollAnimation.play();
     }
 
+    public void closeKeyboardInfo (MouseEvent event){
+        if(keyboardInfo.getWidth()> 107){
+            GameViewRedraw.informationVisibility(this, false);
+            keyboardInfo.setPrefWidth(107);
+            keyboardInfo.setPrefHeight(38);
+            AnchorPane.setLeftAnchor(rightText, 5.0);
+            rightText.setText(getLogic().getString("keyboardInfo"));
+        }else{
+            keyboardInfo.setPrefWidth(684);
+            keyboardInfo.setPrefHeight(58);
+            GameViewRedraw.informationVisibility(this, true);
+            AnchorPane.setLeftAnchor(rightText, 28.0);
+            rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
+        }
+        GameViewRedraw.resizeButtons(this);
+    }
 
     public void changeDimensions() {
         GameViewRedraw.resizeAll(this);

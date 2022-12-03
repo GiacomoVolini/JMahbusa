@@ -36,7 +36,7 @@
                 </font>
             </Text>
             <Button fx:id="exitAndSaveButton" layoutX="32.0" layoutY="127.0" mnemonicParsing="false" onAction="#applySettingsAndExit" prefHeight="25.0" prefWidth="89.0" stylesheets="@button%20style.css" text="Salva" />
-            <Button fx:id="exitNoSaveButton" layoutX="161.0" layoutY="127.0" mnemonicParsing="false" onAction="#forceMainMenu" prefWidth="89.0" stylesheets="@button%20style.css" text="Don'tSave" />
+            <Button fx:id="exitNoSaveButton" layoutX="151.0" layoutY="127.0" mnemonicParsing="false" onAction="#forceMainMenu" prefWidth="109.0" stylesheets="@button%20style.css" text="Don'tSave" />
             <Button fx:id="cancelButton" layoutX="288.0" layoutY="127.0" mnemonicParsing="false" onAction="#closeWarning" prefWidth="89.0" stylesheets="@button%20style.css" text="Cancel" />
         </AnchorPane>
     </TitledPane>

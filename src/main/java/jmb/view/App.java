@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static jmb.view.ConstantsView.MAIN_MENU;
 import static jmb.view.View.*;
@@ -24,8 +26,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        Image icon = new Image(Objects.requireNonNull(getClass().getResource("diceImg/Dado5.png")).toString());
         getView().initializeMusic();
         App.stage = stage;
+        stage.getIcons().add(icon);
         stage.setMinHeight(480);
         stage.setMinWidth(640);
         scene = new Scene (loadFXML(MAIN_MENU), getLogic().getSetting("Video","resolutionWidth",int.class), getLogic().getSetting("Video","resolutionHeight",int.class));

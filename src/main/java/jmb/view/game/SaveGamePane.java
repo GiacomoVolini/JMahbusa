@@ -72,8 +72,8 @@ public class SaveGamePane {
         closeSaveButton.setText(getLogic().getString("cancel"));
         saveTextField.setPromptText(getLogic().getString("savePrompt"));
         if (getLogic().isLanguageRightToLeft(getLogic().getSetting("General", "language", String.class))) {
-            saveLabel.setLayoutX(saveTextField.getLayoutX() + 40);
-            saveTextField.setLayoutX(saveLabel.getLayoutX() + 50);
+            saveTextField.setLayoutX(saveLabel.getLayoutX());
+            saveLabel.setLayoutX(saveTextField.getLayoutX() + 280);
         }
     }
 

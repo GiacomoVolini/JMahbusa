@@ -42,15 +42,6 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setPrefWidth(board.window.getWidth() * 0.15);
         board.finishBTN.setPrefWidth(board.backBTN.getPrefWidth());
         board.menuBTN.setPrefWidth(board.backBTN.getPrefWidth());
-        board.keyboardInfo.setLayoutX((board.window.getWidth() * .5) - (board.keyboardInfo.getWidth()/2) );
-        /*board.backText.setLayoutX(board.outerRect.getLayoutX() + 350);
-        board.finishTurnText.setLayoutX(board.outerRect.getLayoutX() + 464);
-        board.menuText.setLayoutX(board.outerRect.getLayoutX() + 564);
-        board.upText.setLayoutX(board.outerRect.getLayoutX());
-        board.downText.setLayoutX(board.outerRect.getLayoutX() +64);
-        board.rightText.setLayoutX(board.outerRect.getLayoutX()+128);
-        board.leftText.setLayoutX(board.outerRect.getLayoutX() +192);
-        board.selectText.setLayoutX(board.outerRect.getLayoutX() +256);*/
         // Altezza
         board.backBTN.setMaxHeight(MAX_BTN_HEIGHT);
         board.finishBTN.setMaxHeight(MAX_BTN_HEIGHT);
@@ -61,16 +52,8 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         board.backBTN.setLayoutY(board.window.getHeight() * .25 - board.backBTN.getPrefHeight() / 2);
         board.finishBTN.setLayoutY((board.window.getHeight() - board.finishBTN.getPrefHeight()) / 2);
         board.menuBTN.setLayoutY(board.window.getHeight() * .75 - board.menuBTN.getPrefHeight() / 2);
-        board.keyboardInfo.setLayoutY(board.window.getHeight() * .90 );
-       /* board.backText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.finishTurnText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.menuText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.upText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.downText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.rightText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.leftText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());
-        board.selectText.setLayoutY(board.boardRect.getLayoutY() + board.outerRect.getHeight());*/
     }
+
     private static void resizeVictoryRect(GameView board) {
         board.victoryPanel.setWidth(board.window.getWidth() / 2);
         board.victoryPanel.setHeight(board.window.getHeight() / 2.5);
@@ -233,14 +216,32 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
 
     }
 
-    protected static void informationVisibility(GameView board, boolean v){
-        board.leftText.setVisible(v);
-        board.upText.setVisible(v);
-        board.downText.setVisible(v);
-        board.backText.setVisible(v);
-        board.finishTurnText.setVisible(v);
-        board.menuText.setVisible(v);
-        board.selectText.setVisible(v);
+    protected static void changeKeyboardInfoPanel(GameView board, boolean panelToClose){
+        if (panelToClose) {
+            AnchorPane.setLeftAnchor(board.rightText, 10.0);
+            AnchorPane.setTopAnchor(board.rightText, 13.0);
+            board.keyboardInfo.setPrefWidth(107);
+            board.rightText.setText(getLogic().getString("keyboardInfo").concat(" ▶"));
+        } else {
+            AnchorPane.clearConstraints(board.rightText);
+            AnchorPane.setLeftAnchor(board.rightText, 28.0);
+            board.rightText.setLayoutY(16.1865234375);
+            board.keyboardInfo.setPrefWidth(640);
+            board.rightText.setText(getLogic().getString("Right")+"\n" +
+                    getLogic().getSetting("Controls", "moveRight", String.class));
+        }
+        board.leftText.setVisible(!panelToClose);
+        board.upText.setVisible(!panelToClose);
+        board.downText.setVisible(!panelToClose);
+        board.backText.setVisible(!panelToClose);
+        board.finishTurnText.setVisible(!panelToClose);
+        board.menuText.setVisible(!panelToClose);
+        board.selectText.setVisible(!panelToClose);
+    }
+
+    protected static void resizeKeyboardInfoPanel(GameView board) {
+        AnchorPane.setLeftAnchor(board.keyboardInfo, (board.window.getWidth()/2) - 320);
+        board.keyboardInfo.setLayoutY(board.window.getHeight() - 50);
     }
 
     protected static void resizeAll(GameView board) {
@@ -256,6 +257,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
         if (getLogic().getGameEndState()) {
             resizeVictoryPanel(board);
         }
+        resizeKeyboardInfoPanel(board);
     }
 
 }

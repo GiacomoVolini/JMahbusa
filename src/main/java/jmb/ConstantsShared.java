@@ -40,8 +40,8 @@ public class ConstantsShared {
     }
 
 
-    //Costanti per il valore di boardPreset delle impostazioni
-    //Si utilizzano queste tre costanti e non un Enum per l'associazione tra questi valori e la chiave boardPreset
+    // Costanti per il valore di boardPreset delle impostazioni
+    // Si utilizzano queste tre costanti e non un Enum per l'associazione tra questi valori e la chiave boardPreset
     //  del file di impostazioni
     public static final int CUSTOM_BOARD = 0;
     public static final int LEFT_PRESET = 1;
@@ -50,7 +50,7 @@ public class ConstantsShared {
     public static final boolean LEFT = true;
     public static final boolean RIGHT = false;
 
-    //Costanti per le posizioni degli array preset
+    // Costanti per le posizioni degli array preset
         public static final int BOARD_FRAME = 0;
         public static final int BOARD_INNER = 1;
         public static final int EVEN_POINTS = 2;

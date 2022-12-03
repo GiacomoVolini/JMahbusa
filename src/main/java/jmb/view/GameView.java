@@ -5,8 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
@@ -112,19 +111,8 @@ public class GameView extends DynamicGameBoard {
     }
 
     public void closeKeyboardInfo (MouseEvent event){
-        if(keyboardInfo.getWidth()> 107){
-            GameViewRedraw.informationVisibility(this, false);
-            keyboardInfo.setPrefWidth(107);
-            keyboardInfo.setPrefHeight(25);
-            AnchorPane.setLeftAnchor(rightText, 10.0);
-            rightText.setText(getLogic().getString("keyboardInfo"));
-        }else{
-            keyboardInfo.setPrefWidth(684);
-            keyboardInfo.setPrefHeight(58);
-            GameViewRedraw.informationVisibility(this, true);
-            AnchorPane.setLeftAnchor(rightText, 28.0);
-            rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
-        }
+        boolean panelToClose = keyboardInfo.getWidth() > 107;
+        GameViewRedraw.changeKeyboardInfoPanel(this, panelToClose);
     }
 
     public void changeDimensions() {
@@ -273,6 +261,7 @@ public class GameView extends DynamicGameBoard {
         tournamentWhitePoints = new Label(String.valueOf(getLogic().getWhiteTournamentPoints()));
         tournamentBlackPoints = new Label(String.valueOf(getLogic().getBlackTournamentPoints()));
         tournamentPointsToWin = new Label(String.valueOf(getLogic().getTournamentPointsToWin()));
+        AnchorPane.setLeftAnchor(keyboardInfo, (window.getWidth()/2) - 320);
         GameViewInitializer.setTournamentComponents(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin);
         window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setColors(plWHTPawn, plBLKPawn, tournamentWhitePoints, tournamentBlackPoints);

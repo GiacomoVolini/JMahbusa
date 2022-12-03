@@ -14,8 +14,6 @@ public class DiceLogic {
     private boolean doubleNum;                  //Variabile booleana per indicare lo stato di "tiro doppio"
     Random rnd = new Random();
 
-
-
     public DiceLogic() {
         //  COSTRUTTORE -- inizializza i valori di array e variabili di istanza
         for (int i =0; i<4; i++) {

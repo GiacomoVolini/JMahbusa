@@ -16,7 +16,10 @@
         </font>
     </Label>
     <TableView fx:id="table" layoutY="33.0" prefHeight="432.0" prefWidth="601.0" style="-fx-border-color: #bc8c44;" stylesheets="@tableview.css" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
-      <columns>
+        <placeholder>
+            <Label text=""/>
+        </placeholder>
+        <columns>
           <TableColumn fx:id="name" prefWidth="133.0" text="Name" />
           <TableColumn fx:id="victories" minWidth="0.0" prefWidth="154.0" sortType="DESCENDING" text="Victories" />
           <TableColumn fx:id="defeats" minWidth="0.0" prefWidth="136.0" sortType="DESCENDING" text="Defeats" />

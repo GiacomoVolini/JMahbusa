@@ -14,7 +14,7 @@
     <AnchorPane fx:id="saveListAnchor" prefHeight="200.0" prefWidth="200.0" style="-fx-padding: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <TitledPane fx:id="savesTitlePane" alignment="CENTER" animated="false" collapsible="false" prefHeight="403.0" prefWidth="154.0" stylesheets="@TitledPane.css" text="Savedgames" textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <AnchorPane fx:id="savesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="360.0" style="-fx-background-color: #43300a;">
-                <ListView fx:id="savesListView" layoutX="20.4" layoutY="20.4" prefHeight="306.0" prefWidth="131.0" stylesheets="@ListView.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                <ListView fx:id="savesListView" layoutX="20.4" layoutY="20.4" prefHeight="306.0" prefWidth="131.0" style="-fx-background-color: #e1c699;" stylesheets="@ListView.css" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
                 <Button fx:id="mainMenuButton" layoutX="20.4" layoutY="337.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="24.0" prefWidth="73.0" stylesheets="@button%20style.css" text="MainMenu" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
             </AnchorPane>
         </TitledPane>

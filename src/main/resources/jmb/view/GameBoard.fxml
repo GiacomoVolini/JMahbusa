@@ -55,41 +55,48 @@
    <Rectangle fx:id="plBLKOutRect" fill="RED" height="50.0" layoutX="84.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="124.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plBLKInRect" fill="#43300a" height="25.0" stroke="#43300a" strokeType="INSIDE" width="107.0" />
    <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" textFill="#bc8c44" />
-   <Text fx:id="backText" layoutX="1348.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
-      <font>
-         <Font size="15.0" />
-      </font></Text>
-   <Text fx:id="finishTurnText" layoutX="1348.0" layoutY="513.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
-      <font>
-         <Font size="15.0" />
-      </font></Text>
-   <Text fx:id="menuText" layoutX="1348.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="T" wrappingWidth="107.0">
-      <font>
-         <Font size="15.0" />
-      </font></Text>
-   <Text fx:id="rightText" layoutX="555.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="62.13671874999994">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Text>
-   <Text fx:id="leftText" layoutX="656.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" wrappingWidth="62.13671875">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Text>
-   <Text fx:id="upText" layoutX="356.0" layoutY="793.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" wrappingWidth="62.13671874999994">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Text>
-   <Text fx:id="downText" layoutX="459.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" wrappingWidth="49.99999999999994">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Text>
-   <Text fx:id="selectText" layoutX="768.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare:" wrappingWidth="124.0">
-      <font>
-         <Font size="15.0" />
-      </font>
-   </Text>
+   <AnchorPane fx:id="keyboardInfo" layoutX="245.0" layoutY="761.0" minHeight="0.0" minWidth="0.0" onMouseClicked="#closeKeyboardInfo" prefHeight="38.0" prefWidth="107.0" style="-fx-background-color: #43300a; -fx-border-color: #bc8c44; -fx-background-insets: 0.3.3.3.3;">
+      <children>
+         <Text fx:id="backText" fill="#bc8c44" layoutX="370.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="T" visible="false" wrappingWidth="107.0">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="finishTurnText" fill="#bc8c44" layoutX="486.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="T" visible="false" wrappingWidth="107.0">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="menuText" fill="#bc8c44" layoutX="598.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="T" visible="false" wrappingWidth="107.0">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="rightText" fill="#bc8c44" layoutX="5.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="96.13671874999994" AnchorPane.leftAnchor="5.0">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="leftText" fill="#bc8c44" layoutX="88.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Sinistra:" visible="false" wrappingWidth="62.13671875">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="upText" fill="#bc8c44" layoutX="156.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Sopra:" visible="false" wrappingWidth="62.13671874999994">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="downText" fill="#bc8c44" layoutX="216.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Sotto:" visible="false" wrappingWidth="49.99999999999994">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+         <Text fx:id="selectText" fill="#bc8c44" layoutX="277.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Selezionare:" visible="false" wrappingWidth="124.0">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Text>
+      </children>
+   </AnchorPane>
 </AnchorPane>

@@ -15,11 +15,11 @@
         <Rectangle fx:id="textBoxRectangle2" arcHeight="5.0" arcWidth="5.0" fill="#43300a" height="200.0" stroke="#bc8c44" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Label fx:id="textBoxLabel2" prefHeight="190.0" prefWidth="190.0" text="Testo di prova per textbox2" textFill="#bc8c44" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
     </AnchorPane>
-    <TitledPane fx:id="tutorialOverPane" alignment="CENTER" animated="false" collapsible="false" layoutX="158.0" layoutY="114.0" prefHeight="172.0" prefWidth="285.0" text="Complimenti" textAlignment="CENTER" visible="false">
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <Label fx:id="tutorialOverLabel" layoutX="24.0" layoutY="10.0" text="tutorialOver" textFill="#bc8c44" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-            <Button fx:id="mainMenuButton" layoutX="79.0" layoutY="107.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="Main Menu" />
-            <Button fx:id="newGameButton" layoutX="79.0" layoutY="73.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="New Game" />
+    <TitledPane fx:id="tutorialOverPane" alignment="CENTER" animated="false" collapsible="false" layoutX="158.0" layoutY="114.0" prefHeight="172.0" prefWidth="285.0" stylesheets="@TitledPane.css" text="Complimenti" textAlignment="CENTER">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
+            <Label fx:id="tutorialOverLabel" layoutX="24.0" layoutY="10.0" text="tutorialOver" textFill="#43300a" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+            <Button fx:id="mainMenuButton" layoutX="79.0" layoutY="101.0" mnemonicParsing="false" onAction="#goToMainMenu" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="Main Menu" />
+            <Button fx:id="newGameButton" layoutX="79.0" layoutY="66.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="25.0" prefWidth="125.0" stylesheets="@button%20style.css" text="New Game" />
         </AnchorPane>
     </TitledPane>
     <Button fx:id="windowMenuButton" layoutX="452.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToMainMenu" stylesheets="@button%20style.css" text="menuPrincipaleee" AnchorPane.bottomAnchor="12.0" AnchorPane.rightAnchor="20.0" />

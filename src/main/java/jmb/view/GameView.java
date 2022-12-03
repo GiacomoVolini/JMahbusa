@@ -134,9 +134,7 @@ public class GameView extends DynamicGameBoard {
         saveGamePaneController.changeDimensions();
         if (startDialogue.isVisible()) {
             startBTN.requestFocus();
-        } else {
-            window.requestFocus();
-        }
+        } else window.requestFocus();
     }
 
     @FXML
@@ -208,14 +206,13 @@ public class GameView extends DynamicGameBoard {
                 victoryPanel, victoryPawn, tournamentRibbon);
     }
     protected void gameWon(String whitePlayer, String blackPlayer, boolean whiteWon, boolean doubleWin, TournamentStatus status) {
-        String winner;
+        String winner = blackPlayer;
+        if (whiteWon)
+            winner = whitePlayer;
         gameEndDisable();
         if (getLogic().getTurnDuration()!=0)
             turnTimer.stop();
         setTurnColors(false);
-        if (whiteWon)
-            winner = whitePlayer;
-        else winner = blackPlayer;
         if(!getLogic().getSetting("Audio", "muteSFX", boolean.class))
             if (doubleWin)
                 getView().playSFX(SFX.DOUBLE_WIN);
@@ -236,6 +233,7 @@ public class GameView extends DynamicGameBoard {
         timeline.play();
     }
 
+    @FXML
     void handleKeyboard(KeyEvent event){
         String keyPressed = event.getCode().toString();
         super.handleKeyboard(event);
@@ -279,27 +277,18 @@ public class GameView extends DynamicGameBoard {
         GameViewInitializer.setTournamentComponents(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin);
         window.getChildren().addAll(tournamentWhitePoints, tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setColors(plWHTPawn, plBLKPawn, tournamentWhitePoints, tournamentBlackPoints);
-
         if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
             getView().playMusic(Music.GAME);
-
         this.boardAnchor = window;
         addChildrenToAnchor();
-        window.setFocusTraversable(true);
-        window.setOnKeyPressed(this::handleKeyboard);
-        window.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("style.css")).toString());
-
         GameViewRedraw.setHResizeFactor(HORIZONTAL_RESIZE_FACTOR);
         GameViewRedraw.setVResizeFactor(VERTICAL_RESIZE_FACTOR);
         GameViewRedraw.setXLayoutFactor(0.65);
-
         setTurnColors(false);
         if (getLogic().getTurnDuration() == 0) {
             timerIn.setVisible(false);
             timerOut.setVisible(false);
-        }
-
-        if (getLogic().getTurnDuration() != 0) {
+        }else {
             turnTimer = TimelineBuilder.createTurnTimerTimeline(timerIn);
             turnTimer.setOnFinished(e -> nextTurn(null));
         }
@@ -307,10 +296,8 @@ public class GameView extends DynamicGameBoard {
                 tournamentBlackPoints, tournamentPointsToWin, tournamentCup);
         GameViewInitializer.setViewOrders(timerIn, timerOut, startDialogue, tournamentPointsToWin);
 
-        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+        //  LISTENER PER RIDIMENSIONAMENTO DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
-
-        //  LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
     }
 

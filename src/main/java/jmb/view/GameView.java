@@ -115,8 +115,8 @@ public class GameView extends DynamicGameBoard {
         if(keyboardInfo.getWidth()> 107){
             GameViewRedraw.informationVisibility(this, false);
             keyboardInfo.setPrefWidth(107);
-            keyboardInfo.setPrefHeight(38);
-            AnchorPane.setLeftAnchor(rightText, 5.0);
+            keyboardInfo.setPrefHeight(25);
+            AnchorPane.setLeftAnchor(rightText, 10.0);
             rightText.setText(getLogic().getString("keyboardInfo"));
         }else{
             keyboardInfo.setPrefWidth(684);
@@ -125,7 +125,6 @@ public class GameView extends DynamicGameBoard {
             AnchorPane.setLeftAnchor(rightText, 28.0);
             rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
         }
-        GameViewRedraw.resizeButtons(this);
     }
 
     public void changeDimensions() {

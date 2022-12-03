@@ -83,11 +83,11 @@ public class LoadGameView extends GameBoard implements GenericGUI{
         //languages
         loadStrings();
 
-        //  LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
+        // LISTENER PER RIDIMENSIONAMENTO ORIZZONTALE DELLA FINESTRA
         window.widthProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
 
-        //LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
+        // LISTENER PER RIDIMENSIONAMENTO VERTICALE DELLA FINESTRA
         window.heightProperty().addListener((obs, oldVal, newVal) -> changeDimensions());
 
     }

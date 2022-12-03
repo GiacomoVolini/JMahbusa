@@ -19,7 +19,6 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
 
     protected Rectangle diceTray;
     protected ImageView[] diceArray = new ImageView[4];
-    //TODO VARIABILE PER SFONDO "VELLUTO"
     protected ImageView feltImage = new ImageView();
     protected Timeline diceRollAnimation = new Timeline(
             new KeyFrame(Duration.seconds(0.1), e -> DiceView.rndRolls(diceArray))
@@ -29,10 +28,8 @@ public abstract class DynamicGameBoard extends GameBoard implements AnimatedBoar
     protected int selectedIndex = UNDEFINED;
 
     public void initialize() {
-        //TODO CODICE PER IMPOSTARE L'IMMAGINE E L'EFFETTO DI SEMITRASPARENZA
         feltImage.setImage(new Image(Objects.requireNonNull(this.getClass().getResource("WhiteFelt.png")).toString()));
         feltImage.setBlendMode(BlendMode.MULTIPLY);
-        //TODO ^^^^ FORSE NON SERVE USANDO SCENEBUILDER
         Image[] imgArray = new Image[]{
                 new Image(Objects.requireNonNull(this.getClass().getResource("diceImg/Dado1.png")).toString()),
                 new Image(Objects.requireNonNull(this.getClass().getResource("diceImg/Dado1INV.png")).toString()),

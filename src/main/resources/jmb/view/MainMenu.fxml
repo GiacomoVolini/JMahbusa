@@ -30,11 +30,11 @@
    <Button fx:id="leaderboardButton" layoutX="291.0" layoutY="303.0" mnemonicParsing="false" onAction="#openLeaderBoard" prefWidth="120.0" stylesheets="@button%20style.css" text="Classifica" />
    <Button fx:id="settingsButton" layoutX="281.0" layoutY="346.0" mnemonicParsing="false" onAction="#openMenuImpostazioni" prefWidth="120.0" stylesheets="@button%20style.css" text="Impostazioni" />
    <Button fx:id="exitButton" layoutX="279.0" layoutY="389.0" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="34.0" prefWidth="120.0" stylesheets="@button%20style.css" text="Esci dal gioco" />
-   <TitledPane fx:id="promptPane" alignment="CENTER" animated="false" collapsible="false" layoutX="120.0" layoutY="124.0" prefHeight="136.0" prefWidth="360.0" text="New Game" textAlignment="CENTER" visible="false">
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-         <Label fx:id="promptLabel" alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="50.0" prefWidth="334.0" text="Non hai mai giocato a Jmahbusa, vuoi prima affrontare il tutorial?" wrapText="true" />
-         <Button fx:id="promptYesButton" layoutX="69.0" layoutY="66.0" mnemonicParsing="false" onAction="#openTutorial" prefHeight="25.0" prefWidth="80.0" text="Sì" />
-         <Button fx:id="promptNoButton" layoutX="209.0" layoutY="66.0" mnemonicParsing="false" onAction="#openLogin" prefHeight="25.0" prefWidth="80.0" text="No" />
+   <TitledPane fx:id="promptPane" alignment="CENTER" animated="false" collapsible="false" layoutX="120.0" layoutY="124.0" prefHeight="136.0" prefWidth="360.0" stylesheets="@TitledPane.css" text="New Game" textAlignment="CENTER" visible="false">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #e1a751;">
+         <Label fx:id="promptLabel" alignment="CENTER" layoutX="14.0" layoutY="8.0" prefHeight="50.0" prefWidth="334.0" text="Non hai mai giocato a Jmahbusa, vuoi prima affrontare il tutorial?" textFill="#43300a" wrapText="true" />
+         <Button fx:id="promptYesButton" layoutX="69.0" layoutY="66.0" mnemonicParsing="false" onAction="#openTutorial" prefHeight="25.0" prefWidth="80.0" stylesheets="@button%20style.css" text="Sì" />
+         <Button fx:id="promptNoButton" layoutX="209.0" layoutY="66.0" mnemonicParsing="false" onAction="#openLogin" prefHeight="25.0" prefWidth="80.0" stylesheets="@button%20style.css" text="No" />
       </AnchorPane>
    </TitledPane>
    <ComboBox fx:id="languageMenu" layoutX="29.0" layoutY="31.0" onAction="#setLanguage" prefHeight="33.0" prefWidth="66.0" stylesheets="@ComboBox.css" AnchorPane.leftAnchor="30.0" />

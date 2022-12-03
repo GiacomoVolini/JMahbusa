@@ -55,7 +55,7 @@
    <Rectangle fx:id="plBLKOutRect" fill="RED" height="50.0" layoutX="84.0" layoutY="33.0" stroke="BLACK" strokeType="INSIDE" width="124.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="23.0" />
    <Rectangle fx:id="plBLKInRect" fill="#43300a" height="25.0" stroke="#43300a" strokeType="INSIDE" width="107.0" />
    <Label fx:id="plBLKText" alignment="CENTER" contentDisplay="CENTER" prefWidth="106.4794921875" text="Giocatore 2" textAlignment="CENTER" textFill="#bc8c44" />
-   <AnchorPane fx:id="keyboardInfo" layoutX="245.0" layoutY="761.0" minHeight="0.0" minWidth="0.0" onMouseClicked="#closeKeyboardInfo" prefHeight="38.0" prefWidth="107.0" style="-fx-background-color: #43300a; -fx-border-color: #bc8c44; -fx-background-insets: 0.3.3.3.3;">
+   <AnchorPane fx:id="keyboardInfo" layoutX="245.0" layoutY="761.0" minHeight="0.0" minWidth="0.0" onMouseClicked="#closeKeyboardInfo" prefHeight="25.0" prefWidth="107.0" style="-fx-background-color: #43300a; -fx-border-color: #bc8c44; -fx-background-insets: 0.3.3.3.3;" AnchorPane.leftAnchor="330.0">
       <children>
          <Text fx:id="backText" fill="#bc8c44" layoutX="370.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="T" visible="false" wrappingWidth="107.0">
             <font>
@@ -72,7 +72,7 @@
                <Font size="15.0" />
             </font>
          </Text>
-         <Text fx:id="rightText" fill="#bc8c44" layoutX="5.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="96.13671874999994" AnchorPane.leftAnchor="5.0">
+         <Text fx:id="rightText" fill="#bc8c44" layoutX="5.0" layoutY="16.1865234375" strokeType="OUTSIDE" strokeWidth="0.0" text="Destra:" wrappingWidth="96.13671874999994" AnchorPane.leftAnchor="10.0">
             <font>
                <Font size="15.0" />
             </font>

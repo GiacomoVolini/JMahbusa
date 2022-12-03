@@ -25,7 +25,8 @@ public class GameViewInitializer {
         menuText.setText(getLogic().getString("menu")+":" +"\n" + getLogic().getSetting("Controls", "openMenu", String.class));
         upText.setText(getLogic().getString("Up")+"\n" + getLogic().getSetting("Controls", "moveUp", String.class));
         downText.setText(getLogic().getString("Down")+"\n" + getLogic().getSetting("Controls", "moveDown", String.class));
-        rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
+        //rightText.setText(getLogic().getString("Right")+"\n" + getLogic().getSetting("Controls", "moveRight", String.class));
+        rightText.setText(getLogic().getString("keyboardInfo"));
         leftText.setText(getLogic().getString("Left")+"\n" +getLogic().getSetting("Controls", "moveLeft", String.class));
         selectText.setText(getLogic().getString("Select")+"\n" + getLogic().getSetting("Controls", "select", String.class));
         backBTN.setText(getLogic().getString("revertMove").toUpperCase());

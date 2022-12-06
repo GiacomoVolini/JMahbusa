@@ -226,7 +226,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
             AnchorPane.clearConstraints(board.rightText);
             AnchorPane.setLeftAnchor(board.rightText, 28.0);
             board.rightText.setLayoutY(16.1865234375);
-            board.keyboardInfo.setPrefWidth(640);
+            board.keyboardInfo.setPrefWidth(624);
             board.rightText.setText(getLogic().getString("Right")+"\n" +
                     getLogic().getSetting("Controls", "moveRight", String.class));
         }
@@ -240,7 +240,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
     }
 
     protected static void resizeKeyboardInfoPanel(GameView board) {
-        AnchorPane.setLeftAnchor(board.keyboardInfo, (board.window.getWidth()/2) - 320);
+        AnchorPane.setLeftAnchor(board.keyboardInfo, (board.window.getWidth()/2) - 312);
         board.keyboardInfo.setLayoutY(board.window.getHeight() - 50);
     }
 

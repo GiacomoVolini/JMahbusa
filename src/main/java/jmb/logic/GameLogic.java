@@ -224,6 +224,7 @@ public class GameLogic extends DynamicBoardLogic {
         this.whiteExit = save.whiteExit;
         this.whiteTurn = save.isWhiteTurn;
         this.turnDuration = save.turnDuration;
+        this.canRevert = save.canRevert;
         this.tournamentPoints = toIntExact(save.tournamentPoints);
         this.blacksWonPoints = toIntExact(save.blacksWonPoints);
         this.whitesWonPoints = toIntExact(save.whitesWonPoints);

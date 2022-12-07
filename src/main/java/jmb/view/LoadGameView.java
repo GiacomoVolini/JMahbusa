@@ -110,7 +110,7 @@ public class LoadGameView extends GameBoard implements GenericGUI{
             String[] saveData = getLogic().getLoadViewData(saveName);
             if (saveData[TIME].equals("0 secondi"))
                 saveData[TIME]= "Nessun Timer";
-            if (saveData[TOURNAMENT_POINTS].equals("0")) {
+            if (saveData[TOURNAMENT_POINTS].equals("1")) {
                 tournamentCup.setVisible(false);
                 tournamentLabel.setVisible(false);
                 blackPoints.setVisible(false);

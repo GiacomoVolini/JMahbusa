@@ -146,7 +146,8 @@ public class GameView extends DynamicGameBoard {
     }
 
     private void gameEndDisable() {
-        turnTimer.stop();
+        if (getLogic().getTurnDuration() != 0)
+            turnTimer.stop();
         backBTN.setDisable(true);
         disableMenuAndFinishButtons(true);
         for (PawnView pawn : pawnArrayBLK)

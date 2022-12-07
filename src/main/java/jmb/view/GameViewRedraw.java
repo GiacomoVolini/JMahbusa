@@ -68,7 +68,7 @@ public class GameViewRedraw extends DynamicGameBoardRedraw {
     }
 
     private static void resizeVictoryExit(GameView board) {
-        board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.4);
+        board.victoryExit.setPrefWidth(board.victoryPanel.getWidth() * 0.5);
         board.victoryExit.setPrefHeight(board.victoryPanel.getHeight() * 0.15);
         board.victoryExit.setLayoutY(board.victoryPanel.getLayoutY() + (0.66 * board.victoryPanel.getHeight()));
         board.victoryExit.setLayoutX(board.victoryPanel.getLayoutX() + (board.victoryPanel.getWidth() - (board.victoryPanel.getWidth() * 0.3)) / 2);

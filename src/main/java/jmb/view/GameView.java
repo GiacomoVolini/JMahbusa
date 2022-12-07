@@ -214,9 +214,9 @@ public class GameView extends DynamicGameBoard {
         Timeline timeline;
         if (status.equals(TournamentStatus.TOURNAMENT_WON))
             timeline = TimelineBuilder.createVictoryPanelAnimations(victoryPanel, victoryPawn,
-                    victoryExit, victoryCrown, victoryLabel);
+                            victoryExit, victoryCrown, victoryLabel, tournamentRibbon);
         else timeline = TimelineBuilder.createVictoryPanelAnimations(victoryPanel, victoryPawn,
-                victoryExit, victoryCrown, victoryLabel, tournamentRibbon);
+                victoryExit, victoryCrown, victoryLabel);
         timeline.play();
     }
 

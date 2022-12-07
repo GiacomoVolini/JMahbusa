@@ -24,10 +24,11 @@ public class VictoryComponentFactory {
     public static Rectangle createVictoryPanel(AnchorPane window) {
         Rectangle victoryPanel = new Rectangle();
         window.getChildren().add(victoryPanel);
-        victoryPanel.setFill(Color.WHITESMOKE);
-        victoryPanel.setStroke(Color.LIGHTGRAY);
-        victoryPanel.setArcHeight(10);
-        victoryPanel.setArcWidth(10);
+        victoryPanel.setFill(Color.web("#e1a751"));
+        victoryPanel.setStroke(Color.web("#43300a"));
+        victoryPanel.setStrokeWidth(3);
+        victoryPanel.setArcHeight(0);
+        victoryPanel.setArcWidth(0);
         victoryPanel.setViewOrder(-10);
 
         return victoryPanel;
@@ -56,6 +57,9 @@ public class VictoryComponentFactory {
             label = getLogic().getString("continueTournament");
         else label = getLogic().getString("backToMenu");
         Button victoryExit = new Button(label);
+        String style = Objects.requireNonNull(
+                VictoryComponentFactory.class.getResource("button style.css")).toExternalForm();
+        victoryExit.getStylesheets().add(style);
         window.getChildren().add(victoryExit);
         victoryExit.setViewOrder(-16);
         return victoryExit;
@@ -92,22 +96,18 @@ public class VictoryComponentFactory {
         victoryLabel.setText(victoryString);
         victoryLabel.setViewOrder(-15);
         victoryLabel.setFont(Font.font("calibri", FontWeight.BOLD, 16));
+        victoryLabel.setTextFill(Color.web("#43300a"));
 
         return victoryLabel;
     }
 
     public static ImageView createTournamentRibbon(AnchorPane window) {
-        try {
-            ImageView tournamentRibbon = new ImageView(new Image(VictoryComponentFactory.class.getResource("victory/tournamentRibbon.png").toURI().toString()));
-            tournamentRibbon.setPreserveRatio(true);
-            tournamentRibbon.setViewOrder(-16);
-            window.getChildren().add(tournamentRibbon);
-            return tournamentRibbon;
-        } catch (URISyntaxException use) {
-            use.printStackTrace();
-            return null;
-        }
+        ImageView tournamentRibbon = new ImageView(
+                new Image(Objects.requireNonNull(VictoryComponentFactory.class.getResource("victory/tournamentRibbon.png")).toString()));
+        tournamentRibbon.setPreserveRatio(true);
+        tournamentRibbon.setViewOrder(-16);
+        window.getChildren().add(tournamentRibbon);
+        return tournamentRibbon;
     }
-
 
 }

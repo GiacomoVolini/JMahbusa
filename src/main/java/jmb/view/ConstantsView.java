@@ -5,11 +5,11 @@ import javafx.scene.effect.ColorAdjust;
 public class ConstantsView {
 
     public static final String MAIN_MENU = "MainMenu";
-    public static final String LOG_IN = "Login";
+    public static final String GAME_SETUP = "GameSetup";
     public static final String SETTINGS = "SettingsView";
     public static final String LOAD_GAME = "LoadGameView";
     public static final String LEADERBOARDS = "Leaderboard";
-    public static final String PLAY_GAME = "GameBoard";
+    public static final String PLAY_GAME = "GameView";
     public static final String TUTORIAL = "TutorialView";
 
     public static final double MAX_BTN_WIDTH = 111;

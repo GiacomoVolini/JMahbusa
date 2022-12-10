@@ -177,7 +177,7 @@ public class TutorialView extends DynamicGameBoard {
     void startNewGame(ActionEvent event) {
         getLogic().initializeGameLogic();
         getLogic().initializeLeaderboardLogic();
-        getView().changeRoot(LOG_IN);
+        getView().changeRoot(GAME_SETUP);
         if (!getLogic().getSetting("Audio", "muteMusic", boolean.class))
             getView().playMusic(Music.MENU);
     }

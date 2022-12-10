@@ -92,7 +92,7 @@ public class MainMenu implements GenericGUI{
         getLogic().initializeGameLogic();
         getLogic().flagTutorialPlayed();
         animationToContinue = false;
-        getView().changeRoot(LOG_IN);
+        getView().changeRoot(GAME_SETUP);
     }
 
     @FXML
